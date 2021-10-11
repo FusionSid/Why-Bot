@@ -1,4 +1,4 @@
-import discord, asyncio, time, datetime, random, json, os, math
+import discord, os, math
 from discord.ext import commands
 from time import ctime
 from os import listdir
@@ -10,8 +10,7 @@ client = commands.Bot(prefix, intents=intents, help_command=None)
 
 # On Ready
 async def update_activity():
-  await client.change_presence(activity=discord.Activity(
-    name=f"?help | {len(client.guilds)} guilds!"))
+  await client.change_presence(activity=discord.Game(f"?help | {len(client.guilds)} guilds!"))
   print("Updated presence")
 
 
