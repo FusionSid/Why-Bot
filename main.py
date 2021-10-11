@@ -3,6 +3,7 @@ from discord.ext import commands
 from time import ctime
 from os import listdir
 from os.path import isfile, join
+import json
 
 prefix = "?"
 intents = discord.Intents.all()
@@ -36,9 +37,17 @@ async def on_guild_join(guild):
 
 
 @client.event
-async def on_guild_remove():
+async def on_guild_remove(guild):
   await update_activity()
 
+
+def notblacklisted(ctx):
+  with open("blacklisted.json") as f:
+    blacklisted = json.load(f)
+  for user in blacklisted:
+    if ctx.author.id == user:
+      return False
+  return True
 
 # On Message
 @client.event
@@ -48,7 +57,11 @@ async def on_message(message):
   channel = message.channel
   msg = message.content
 
-  await client.process_commands(message)
+  bl = notblacklisted(message)
+  if bl == True:
+    await client.process_commands(message)
+  if bl == False:
+    await channel.send("You have been blacklisted from using this bot")
 
 # Errors
 @client.event
