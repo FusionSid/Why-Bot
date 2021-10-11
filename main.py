@@ -53,6 +53,8 @@ async def on_message(message):
 # Errors
 @client.event
 async def on_command_error(ctx, error):
+  cha = client.get_channel(896932591620464690)
+  await cha.send(error)
   if isinstance(error, commands.CommandOnCooldown):
     em = discord.Embed(
       title="Wow buddy, Slow it down\nThis command is on cooldown",

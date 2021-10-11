@@ -1,4 +1,5 @@
 import discord
+import random
 import os
 import json
 import requests
@@ -37,7 +38,7 @@ class Minecraft(commands.Cog):
     self.client = client
 
   @commands.command()
-  async def getuuid(self, ctx, player):
+  async def getuuid(self, ctx, player=None):
     if player == None:
       uuid = await get_user_uuid(ctx)
     else:
@@ -178,5 +179,42 @@ class Minecraft(commands.Cog):
         em.add_field(name=key, value=value_)
     await ctx.send(embed=em)
 
+  
+  @commands.command()
+  async def bwchallenge(self,ctx):
+    challenges = [
+      "Ironman [All Modes]\nWin a game using only items that you can buy with iron.",
+      "Midas [All Modes]\nWin a game using only items that you can buy with gold.",
+      "Diamondy [All Modes]\nWin a game buying only wool and team-upgrades.",
+      "Greedy Villager [All Modes]\nWin a game using only items you can buy with emeralds and wool.",
+      "Upgradeless [SOLO only]\nWin a game with no team-upgrades.",
+      "Emerald Forger [SOLO only]\nWin a game using only emeralds from your forge (you cant get emeralds from middle)",
+      "Sudden Master [All Modes]\nKill a Sudden Death dragon.",
+      "Bed Destroyer [4v4v4v4 only]\nBreak all the 3 beds of a 4v4v4v4 game.",
+      "Pacifist [SOLO or DOUBLES]\nWin a game without breaking any beds.",
+      "Middle Control [All Modes]\nBe in the middle collecting emeralds for 2 minutes in a row.",
+      "Forever Alone [3v3v3v3 or 4v4v4v4]\nWin a team-game alone.",
+      "Shouter [All Modes]\nShout 10 times in a single game.",
+      "Storer [All Modes]\nFill your entire enderchest.",
+      "Knockpower [SOLO only]\nWin a game using only the Knockback Stick as weapon.",
+      "Trap Activator [All Modes]\nActivate 3 Its a Trap!s in a single game.",
+      "Rusher [All Modes]\nBreak a bed in less than 100 seconds after the game started.",
+      "Builder [All Modes]\nPlace 1000+ blocks of any type on a single game.",
+      "Sleepless [SOLO only]\nWin a SOLO game without a bed.",
+      "Ultimate Teamwork [4v4v4v4 only]\nWin a 4v4v4v4 game with none of your teammates dead.",
+      "Prestige Diamond [SOLO and DOUBLES only]\nGet all Team-Upgrades to the max level.",
+      "Money Waster\nBuy at least one of every single item on the shop.",
+      "Feeding the Voidn\nThrow 10 players in the Void on a single Bedwars game.",
+      "Player Finisher\nWin a game with only Final Kills.",
+      "Oops, I reached a limit!\nFall in the Void after reaching the border of the map.",
+      "Trust Your Pets\nWin a game getting kills only with your pets. (Silverfish and IG)"
+    ]
+    challenge = random.choice(challenges)
+    await ctx.send(embed=discord.Embed(title="Bedwars challenge", description=challenge))
+
+
+
 def setup(client):
     client.add_cog(Minecraft(client))
+
+
