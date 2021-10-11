@@ -7,6 +7,7 @@ authors = ["FusionSid <<>>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 discord = "^1.7.3"
+Flask = "^2.0.2"
 
 [tool.poetry.dev-dependencies]
 

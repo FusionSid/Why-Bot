@@ -1,6 +1,7 @@
 import discord, os, math
 from discord.ext import commands
 from time import ctime
+from keep_alive import keep_alive
 from os import listdir
 from os.path import isfile, join
 import json
@@ -94,6 +95,7 @@ async def on_command_error(ctx, error):
 
 # Start the bot
 def start_bot(client):
+  keep_alive()
   client.remove_command("help")
   lst = [f for f in listdir("cogs/") if isfile(join("cogs/", f))]
   no_py = [s.replace('.py', '') for s in lst]
