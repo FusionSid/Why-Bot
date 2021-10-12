@@ -1,6 +1,5 @@
 import discord, os, math
 from discord.ext import commands
-from time import ctime
 from keep_alive import keep_alive
 from os import listdir
 from os.path import isfile, join
@@ -16,7 +15,7 @@ def get_prefix(client, message):
   return prefix
 
 intents = discord.Intents.all()
-client = commands.Bot(prefix = get_prefix(), intents=intents, help_command=None)
+client = commands.Bot(command_prefix = get_prefix, intents=intents, help_command=None)
 
 # On Ready
 async def update_activity():
@@ -120,16 +119,36 @@ async def setup(ctx):
       welcome = int(welcome)
     except:
       await ctx.send("Invalid Input")
+  
+  await ctx.send("Please enter the prefix you want to use - default is: `?`\nType default if you want to use the default\nYou can also change prefix later using ?setprefix")
+  prefix_ = welcome = await client.wait_for("message", check=wfcheck)
+  prefix_ = prefix_.content
+  prefix = str(prefix_)
 
   data[0]["mod_channel"] = mod
   data[1]["counting_channel"] = counting
   data[2]["welcome_channel"] = welcome
+  data[3]["prefix"] = prefix_
+
   os.chdir("{}/Setup".format(cd))
   with open(f'{ctx.guild.id}.json', 'w') as f:
       json.dump(data, f)
 
   os.chdir(cd)
-  
+
+
+@client.command()
+@commands.has_permissions(administrator=True)
+async def setprefix(ctx, pref:str):
+  cd = os.getcwd()
+  os.chdir("{}/Setup".format(cd))
+  with open(f'{ctx.guild.id}.json') as f:
+      data = json.load(f)
+  data[3]["prefix"] = pref
+  with open(f'{ctx.guild.id}.json', 'w') as f:
+    json.dump(data, f)
+  await ctx.send(f"Prefix is now `{pref}`")
+  os.chdir(cd)
   
 # On Message
 @client.event
