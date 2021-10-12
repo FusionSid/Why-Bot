@@ -77,14 +77,14 @@ def notblacklisted(ctx):
 async def setup(ctx):
   def wfcheck(m):
     return m.channel == ctx.channel and m.author == ctx.author
-  await ctx.send("To setup bot you will need to copy the id's of channels.\nPlease turn on developer mode to be able to copy channel id's")
+  await ctx.send("```To setup bot you will need to copy the id's of channels.\nPlease turn on developer mode to be able to copy channel id's```")
   cd = os.getcwd()
   os.chdir("{}/Setup".format(cd))
   with open(f'{ctx.guild.id}.json') as f:
       data = json.load(f)
   os.chdir(cd)
 
-  await ctx.send("Please enter the id for the moderator/staff channel.\nThis channel will be used for logging mod commands done by the bot.\nAlso members can report messages and they will be sent to this channel for review\nType None if you dont/want one")
+  await ctx.send("```Please enter the id for the moderator/staff channel.\nThis channel will be used for logging mod commands done by the bot.\nAlso members can report messages and they will be sent to this channel for review\nType None if you dont/want one```")
   mod = await client.wait_for("message", check=wfcheck)
   mod = mod.content
   mod = str(mod)
@@ -96,7 +96,7 @@ async def setup(ctx):
     except:
       await ctx.send("Invalid Input")
 
-  await ctx.send("Please enter the id for the counting channel\nThis is for the counting game.\nType None if you dont/want one")
+  await ctx.send("```Please enter the id for the counting channel\nThis is for the counting game.\nType None if you dont/want one```")
   counting = await client.wait_for("message", check=wfcheck)
   counting = counting.content
   counting = str(counting)
@@ -108,7 +108,7 @@ async def setup(ctx):
     except:
       await ctx.send("Invalid Input")
 
-  await ctx.send("Please enter the id for the welcome channel\nThis is where the bot will welcome new users\nType None if you dont/want one")
+  await ctx.send("```Please enter the id for the welcome channel\nThis is where the bot will welcome new users\nType None if you dont/want one```")
   welcome = await client.wait_for("message", check=wfcheck)
   welcome = welcome.content
   welcome = str(welcome)
@@ -120,7 +120,7 @@ async def setup(ctx):
     except:
       await ctx.send("Invalid Input")
   
-  await ctx.send("Please enter the prefix you want to use - default is: `?`\nType default if you want to use the default\nYou can also change prefix later using ?setprefix")
+  await ctx.send("```Please enter the prefix you want to use - default is: ***?***\nType default if you want to use the default\nYou can also change prefix later using ?setprefix```")
   prefix_ = welcome = await client.wait_for("message", check=wfcheck)
   prefix_ = prefix_.content
   prefix = str(prefix_)

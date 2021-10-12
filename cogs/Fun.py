@@ -67,6 +67,33 @@ class Fun(commands.Cog):
             title=message, description="Imagine being roasted by a bot")
         await member.send(embed=embeddm)
 
+    @commands.command(aliases=['8ball'])
+    async def _8ball(ctx, *, question):
+        _8ballans = [
+            "As I see it, yes",
+            "It is certain",
+            "It is decidedly so",
+            "Most likely",
+            "Outlook good",
+            "Signs point to yes",
+            "Without a doubt",
+            "Yes",
+            "Yes - definitely",
+            "You may rely on it",
+            "Reply hazy, try again",
+            "Ask again later",
+            "Better not tell you now",
+            "Cannot predict now",
+            "Concentrate and ask again",
+            "Don't count on it",
+            "My reply is no",
+            "My sources say no",
+            "Outlook not so good",
+            "Very doubtful"
+        ]
+        em = discord.Embed(title="__8 Ball__",
+                        description=f"{question}\nAnswer: {random.choice(_8ballans)}")
+        await ctx.send(embed=em)
 
 def setup(client):
     client.add_cog(Fun(client))
