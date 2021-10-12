@@ -22,17 +22,30 @@ async def on_ready():
   await update_activity()
 
 
+async def startguildsetup(id):
+  cd = os.getcwd()
+  os.chdir("{}/Setup".format(cd))
+  file = [
+    {"mod_channel": None},
+    {"counting_channel": None},
+    {"welcome_channel": None},
+    {"prefix": None},
+  ]
+  with open(f'{id}', 'w') as f:
+    json.dump(file, f)
+
 # On Guild Join/Remove
 @client.event
 async def on_guild_join(guild):
   await update_activity()
+  await startguildsetup(guild.id)
   embed = discord.Embed(color=discord.Color(value=0x36393e))
   embed.set_author(name="Here's some stuff to get you started:")
-  embed.add_field(name="Prefix", value="Default prefix:`?`, Can be changed later")
+  embed.add_field(name="Default Prefix:", value="```?```, Can be changed later")
   embed.set_footer(text=f"Why bot is now on {len(client.guilds)} servers!")
   try:
     await guild.system_channel.send(content="**Hello! Thanks for inviting me! :wave: **", embed=embed)
-    await guild.system_channel.send("Please run `?setup` to setup the bot")
+    await guild.system_channel.send("PLEASE run ```?setup``` to setup the bot")
   except:
     pass
 
@@ -57,6 +70,7 @@ async def on_message(message):
         return
   channel = message.channel
   msg = message.content
+  guild = message.guild
 
   bl = notblacklisted(message)
   if bl == True:
