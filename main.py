@@ -36,7 +36,7 @@ async def startguildsetup(id):
     {"mod_channel": None},
     {"counting_channel": None},
     {"welcome_channel": None},
-    {"prefix": "?"}
+    {"prefix": None}
   ]
   with open(f'{id}.json', 'w') as f:
     json.dump(file, f)
@@ -119,16 +119,10 @@ async def setup(ctx):
       welcome = int(welcome)
     except:
       await ctx.send("Invalid Input")
-  
-  await ctx.send("```Please enter the prefix you want to use - default is: ***?***\nType default if you want to use the default\nYou can also change prefix later using ?setprefix```")
-  prefix_ = welcome = await client.wait_for("message", check=wfcheck)
-  prefix_ = prefix_.content
-  prefix = str(prefix_)
 
   data[0]["mod_channel"] = mod
   data[1]["counting_channel"] = counting
   data[2]["welcome_channel"] = welcome
-  data[3]["prefix"] = prefix_
 
   os.chdir("{}/Setup".format(cd))
   with open(f'{ctx.guild.id}.json', 'w') as f:
@@ -162,8 +156,6 @@ async def on_message(message):
   bl = notblacklisted(message)
   if bl == True:
     await client.process_commands(message)
-  if bl == False:
-    await channel.send("You have been blacklisted from using this bot")
 
 # Errors
 @client.event

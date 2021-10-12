@@ -68,7 +68,7 @@ class Fun(commands.Cog):
         await member.send(embed=embeddm)
 
     @commands.command(aliases=['8ball'])
-    async def _8ball(ctx, *, question):
+    async def _8ball(self, ctx, *, question):
         _8ballans = [
             "As I see it, yes",
             "It is certain",
