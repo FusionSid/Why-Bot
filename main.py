@@ -75,9 +75,12 @@ async def setup(ctx):
   os.chdir("{}/Setup".format(cd))
   with open(f'{ctx.guild.id}.json') as f:
       data = json.load(f)
+  os.chdir(cd)
 
   await ctx.send("Please enter the id for the moderator/staff channel.\nThis channel will be used for logging mod commands done by the bot.\nAlso members can report messages and they will be sent to this channel for review\nType None if you dont/want one")
   mod = await client.wait_for("message", check=wfcheck)
+  mod = mod.content
+  mod = str(mod)
   if mod.lower == "none":
     pass
   else:
@@ -88,6 +91,8 @@ async def setup(ctx):
 
   await ctx.send("Please enter the id for the counting channel\nThis is for the counting game.\nType None if you dont/want one")
   counting = await client.wait_for("message", check=wfcheck)
+  counting = counting.content
+  counting = str(counting)
   if counting.lower == "none":
     pass
   else:
@@ -98,6 +103,8 @@ async def setup(ctx):
 
   await ctx.send("Please enter the id for the welcome channel\nThis is where the bot will welcome new users\nType None if you dont/want one")
   welcome = await client.wait_for("message", check=wfcheck)
+  welcome = welcome.content
+  welcome = str(welcome)
   if welcome.lower == "none":
     pass
   else:
@@ -109,8 +116,8 @@ async def setup(ctx):
   data[0]["mod_channel"] = mod
   data[1]["counting_channel"] = counting
   data[2]["welcome_channel"] = welcome
-
-  with open('123.json', 'w') as f:
+  os.chdir("{}/Setup".format(cd))
+  with open(f'{ctx.guild.id}.json', 'w') as f:
       json.dump(data, f)
 
   os.chdir(cd)
