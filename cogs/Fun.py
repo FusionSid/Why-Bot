@@ -104,19 +104,19 @@ class Fun(commands.Cog):
         if fields == "t":
             await ctx.send("Enter Title:", delete_after=5)
             title = await self.client.wait_for("message", check=wfcheck)
-            em.title = title
+            em.title = title.content
         if fields == "d":
             await ctx.send("Enter Description:", delete_after=5)
             desc = await self.client.wait_for("message", check=wfcheck)
-            em.description = desc
+            em.description = desc.content
         if fields == "td":
             await ctx.send("Enter Title:", delete_after=5)
             title = await self.client.wait_for("message", check=wfcheck)
-            em.title = title
+            em.title = title.content
 
             await ctx.send("Enter Description:", delete_after=5)
             desc = await self.client.wait_for("message", check=wfcheck)
-            em.description = desc
+            em.description = desc.content
 
         if extra == 0:
             pass
@@ -129,7 +129,7 @@ class Fun(commands.Cog):
                 await ctx.send("Enter Value:", delete_after=5)
                 value = await self.client.wait_for("message", check=wfcheck)
                 
-                em.add_field(name=name, value=value)
+                em.add_field(name=name.content, value=value.content)
         
         if img == None:
             pass
