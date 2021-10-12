@@ -29,10 +29,11 @@ async def startguildsetup(id):
     {"mod_channel": None},
     {"counting_channel": None},
     {"welcome_channel": None},
-    {"prefix": None},
+    {"prefix": None}
   ]
-  with open(f'{id}', 'w') as f:
+  with open(f'{id}.json', 'w') as f:
     json.dump(file, f)
+  os.chdir(cd)
 
 # On Guild Join/Remove
 @client.event
@@ -63,6 +64,58 @@ def notblacklisted(ctx):
       return False
   return True
 
+
+@client.command()
+@commands.has_permissions(administrator=True)
+async def setup(ctx):
+  def wfcheck(m):
+    return m.channel == ctx.channel and m.author == ctx.author
+  await ctx.send("To setup bot you will need to copy the id's of channels.\nPlease turn on developer mode to be able to copy channel id's")
+  cd = os.getcwd()
+  os.chdir("{}/Setup".format(cd))
+  with open(f'{ctx.guild.id}.json') as f:
+      data = json.load(f)
+
+  await ctx.send("Please enter the id for the moderator/staff channel.\nThis channel will be used for logging mod commands done by the bot.\nAlso members can report messages and they will be sent to this channel for review\nType None if you dont/want one")
+  mod = await client.wait_for("message", check=wfcheck)
+  if mod.lower == "none":
+    pass
+  else:
+    try:
+      mod = int(mod)
+    except:
+      await ctx.send("Invalid Input")
+
+  await ctx.send("Please enter the id for the counting channel\nThis is for the counting game.\nType None if you dont/want one")
+  counting = await client.wait_for("message", check=wfcheck)
+  if counting.lower == "none":
+    pass
+  else:
+    try:
+      counting = int(counting)
+    except:
+      await ctx.send("Invalid Input")
+
+  await ctx.send("Please enter the id for the welcome channel\nThis is where the bot will welcome new users\nType None if you dont/want one")
+  welcome = await client.wait_for("message", check=wfcheck)
+  if welcome.lower == "none":
+    pass
+  else:
+    try:
+      welcome = int(welcome)
+    except:
+      await ctx.send("Invalid Input")
+
+  data[0]["mod_channel"] = mod
+  data[1]["counting_channel"] = counting
+  data[2]["welcome_channel"] = welcome
+
+  with open('123.json', 'w') as f:
+      json.dump(data, f)
+
+  os.chdir(cd)
+  
+  
 # On Message
 @client.event
 async def on_message(message):
