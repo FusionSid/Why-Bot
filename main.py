@@ -6,9 +6,17 @@ from os import listdir
 from os.path import isfile, join
 import json
 
-prefix = "?"
+def get_prefix(client, message):
+  cd = os.getcwd()
+  os.chdir(f"{cd}/Setup")
+  with open(f"{message.guild.id}.json") as f:
+    data = json.load(f)
+  prefix = data[3]["prefix"]
+  os.chdir(cd)
+  return prefix
+
 intents = discord.Intents.all()
-client = commands.Bot(prefix, intents=intents, help_command=None)
+client = commands.Bot(prefix = get_prefix(), intents=intents, help_command=None)
 
 # On Ready
 async def update_activity():
@@ -29,7 +37,7 @@ async def startguildsetup(id):
     {"mod_channel": None},
     {"counting_channel": None},
     {"welcome_channel": None},
-    {"prefix": None}
+    {"prefix": "?"}
   ]
   with open(f'{id}.json', 'w') as f:
     json.dump(file, f)
