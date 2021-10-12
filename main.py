@@ -1,9 +1,12 @@
-import discord, os, math
+import discord
+import os
+import math
 from discord.ext import commands
 from keep_alive import keep_alive
 from os import listdir
 from os.path import isfile, join
 import json
+
 
 def get_prefix(client, message):
   cd = os.getcwd()
@@ -17,11 +20,11 @@ def get_prefix(client, message):
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix = get_prefix, intents=intents, help_command=None)
 
+
 # On Ready
 async def update_activity():
   await client.change_presence(activity=discord.Game(f"?help | {len(client.guilds)} guilds!"))
   print("Updated presence")
-
 
 @client.event
 async def on_ready():
@@ -29,6 +32,7 @@ async def on_ready():
   await update_activity()
 
 
+# Guild
 async def startguildsetup(id):
   cd = os.getcwd()
   os.chdir("{}/Setup".format(cd))
@@ -57,21 +61,12 @@ async def on_guild_join(guild):
   except:
     pass
 
-
 @client.event
 async def on_guild_remove(guild):
   await update_activity()
 
 
-def notblacklisted(ctx):
-  with open("blacklisted.json") as f:
-    blacklisted = json.load(f)
-  for user in blacklisted:
-    if ctx.author.id == user:
-      return False
-  return True
-
-
+# Setup commands
 @client.command()
 @commands.has_permissions(administrator=True)
 async def setup(ctx):
@@ -131,6 +126,7 @@ async def setup(ctx):
   os.chdir(cd)
 
 
+# Set Prefix
 @client.command()
 @commands.has_permissions(administrator=True)
 async def setprefix(ctx, pref:str):
@@ -143,7 +139,58 @@ async def setprefix(ctx, pref:str):
     json.dump(data, f)
   await ctx.send(f"Prefix is now `{pref}`")
   os.chdir(cd)
-  
+
+
+# Blacklist system
+def notblacklisted(ctx):
+  with open("blacklisted.json") as f:
+    blacklisted = json.load(f)
+  for user in blacklisted:
+    if ctx.author.id == user:
+      return False
+  return True
+
+
+# Counting
+async def get_counting_channel(guild):
+  cd = os.getcwd()
+
+  os.chdir(f"{cd}/Setup")
+
+  with open(f"{guild}.json") as f:
+    data = json.load(f)
+
+  os.chdir(cd)
+
+  cc = data[1]["counting_channel"]
+  if cc == None:
+    return False
+  else:
+    return cc
+
+
+async def counting(msg, guild, channel):
+  cc = get_counting_channel(guild)
+  if cc == False:
+    return
+  else:
+    if channel == cc:
+      with open("counting.json") as f:
+        data = json.load(f)
+      try:
+        msg = int(msg)
+      except:
+        return
+      if data[guild] == msg:
+        data[guild] += 1
+      else:
+        data[guild] = 0
+        await channel.send("You ruined it, count reset to zero")
+        with open("counting.json", 'w') as f:
+          json.dump(data, f)
+
+
+
 # On Message
 @client.event
 async def on_message(message):
@@ -153,9 +200,12 @@ async def on_message(message):
   msg = message.content
   guild = message.guild
 
+  await counting(msg, guild, channel)
+
   bl = notblacklisted(message)
   if bl == True:
     await client.process_commands(message)
+
 
 # Errors
 @client.event
