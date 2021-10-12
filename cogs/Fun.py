@@ -95,6 +95,49 @@ class Fun(commands.Cog):
                         description=f"{question}\nAnswer: {random.choice(_8ballans)}")
         await ctx.send(embed=em)
 
+
+    @commands.command()
+    async def embed(self, ctx, fields:str, extra:int, img:str=None):
+        def wfcheck(m):
+            return m.channel == ctx.channel and m.author == ctx.author
+        em = discord.Embed()
+        if fields == "t":
+            await ctx.send("Enter Title:", delete_after=5)
+            title = await self.client.wait_for("message", check=wfcheck)
+            em.title = title
+        if fields == "d":
+            await ctx.send("Enter Description:", delete_after=5)
+            desc = await self.client.wait_for("message", check=wfcheck)
+            em.description = desc
+        if fields == "td":
+            await ctx.send("Enter Title:", delete_after=5)
+            title = await self.client.wait_for("message", check=wfcheck)
+            em.title = title
+
+            await ctx.send("Enter Description:", delete_after=5)
+            desc = await self.client.wait_for("message", check=wfcheck)
+            em.description = desc
+
+        if extra == 0:
+            pass
+
+        else:
+            for i in range(extra):
+                await ctx.send("Enter Name:", delete_after=5)
+                name = await self.client.wait_for("message", check=wfcheck)
+
+                await ctx.send("Enter Value:", delete_after=5)
+                value = await self.client.wait_for("message", check=wfcheck)
+                
+                em.add_field(name=name, value=value)
+        
+        if img == None:
+            pass
+        else:
+            em.set_image(url=img)
+
+        await ctx.send(embed=em)
+
 def setup(client):
     client.add_cog(Fun(client))
 
