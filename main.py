@@ -40,11 +40,16 @@ async def startguildsetup(id):
     {"mod_channel": None},
     {"counting_channel": None},
     {"welcome_channel": None},
-    {"prefix": None}
+    {"prefix": "?"}
   ]
   with open(f'{id}.json', 'w') as f:
     json.dump(file, f)
   os.chdir(cd)
+  with open("counting.json") as f:
+    data = json.load(f)
+  data[id] = 0
+  with open("counting.json", 'w') as f:
+    json.dump(data, f)
 
 # On Guild Join/Remove
 @client.event
@@ -157,7 +162,7 @@ async def get_counting_channel(guild):
 
   os.chdir(f"{cd}/Setup")
 
-  with open(f"{guild}.json") as f:
+  with open(f"{guild.id}.json") as f:
     data = json.load(f)
 
   os.chdir(cd)
@@ -170,24 +175,24 @@ async def get_counting_channel(guild):
 
 
 async def counting(msg, guild, channel):
-  cc = get_counting_channel(guild)
+  try:
+      msg = int(msg)
+  except:
+    return
+  cc = await get_counting_channel(guild)
   if cc == False:
     return
-  else:
-    if channel == cc:
-      with open("counting.json") as f:
-        data = json.load(f)
-      try:
-        msg = int(msg)
-      except:
-        return
-      if data[guild] == msg:
-        data[guild] += 1
-      else:
-        data[guild] = 0
-        await channel.send("You ruined it, count reset to zero")
-        with open("counting.json", 'w') as f:
-          json.dump(data, f)
+  if channel.id == cc:
+    with open("counting.json") as f:
+      data = json.load(f)
+    dataid = f'{guild.id}'
+    if (data[dataid] + 1) == msg:
+      data[dataid] += 1
+    else:
+      data[dataid] = 0
+      await channel.send("You ruined it, count reset to zero")
+    with open("counting.json", 'w') as f:
+      json.dump(data, f)
 
 
 
