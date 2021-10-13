@@ -29,7 +29,60 @@ async def update_activity():
 @client.event
 async def on_ready():
   print("=======================\nConnected\n=========")
+  async with aiofiles.open("ticket_configs.txt", mode="a") as temp:
+        pass
+
+  async with aiofiles.open("ticket_configs.txt", mode="r") as file:
+      lines = await file.readlines()
+      for line in lines:
+          data = line.split(" ")
+          client.ticket_configs[int(data[0])] = [int(data[1]), int(data[2]), int(data[3])]
+          
   await update_activity()
+
+
+@client.event
+async def on_raw_reaction_add(payload):
+  if payload.member.bot:
+    pass
+    if str(payload.emoji) == u"\U0001F3AB":
+        msg_id, channel_id, category_id = client.ticket_configs[payload.guild_id]
+
+        if payload.message_id == msg_id:
+            guild = client.get_guild(payload.guild_id)
+
+            for category in guild.categories:
+                if category.id == category_id:
+                    break
+
+            channel = guild.get_channel(channel_id)
+
+            ticket_channel = await category.create_text_channel(f"ticket-{payload.member.display_name}", topic=f"A ticket for {payload.member.display_name}.", permission_synced=True)
+            
+            await ticket_channel.set_permissions(payload.member, read_messages=True, send_messages=True)
+
+            message = await channel.fetch_message(msg_id)
+            await message.remove_reaction(payload.emoji, payload.member)
+
+            await ticket_channel.send(f"{payload.member.mention} Thank you for creating a ticket! Use **'-close'** to close your ticket.")
+
+            try:
+                await client.wait_for("message", check=lambda m: m.channel == ticket_channel and m.author == payload.member and m.content == "-close", timeout=3600)
+
+            except asyncio.TimeoutError:
+                await ticket_channel.delete()
+
+            else:
+                await ticket_channel.delete()
+  else:
+    with open("reactrole.json") as f:
+      data = json.load(f)
+      for x in data:
+        if x['emoji'] == payload.emoji.name and x["message_id"] == payload.message_id:
+          role = discord.utils.get(client.get_guild(payload.guild_id).roles, id=x['role_id'])
+          await payload.member.add_roles(role)
+
+  
 
 
 # Guild
@@ -222,6 +275,7 @@ async def on_command_error(ctx, error):
       title="Wow buddy, Slow it down\nThis command is on cooldown",
       description=f"Try again in {math.ceil(error.retry_after)}seconds.",
     )
+
   elif isinstance(error, commands.CommandNotFound):
     em = discord.Embed(
       title="Command not found",
@@ -232,6 +286,12 @@ async def on_command_error(ctx, error):
     em = discord.Embed(
       title="Missing a requred value/arg",
       description="You haven't passed in all value/arg",
+    )
+  
+  elif isinstance(error, commands.MissingPermissions):
+    em = discord.Embed(
+      title="Missing permissions",
+      description="You don't have permissions to use this commands",
     )
 
   else:

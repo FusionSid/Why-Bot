@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import os
 import json
+from discord.utils import get
 
 class Moderation(commands.Cog):
   def __init__(self, client):
@@ -80,39 +81,107 @@ class Moderation(commands.Cog):
       cha = await self.client.fetch_channel(896932591620464690)
       await cha.send(embed=em)
       
+
   @commands.command()
+  @commands.has_permissions(administrator=True)
   async def giverole(self,ctx,role:discord.Role, user:discord.Member):
-    pass
+    await user.add_roles(role)
+    await ctx.send(f"{user} has been given the {role} role")
   
+
   @commands.command()
+  @commands.has_permissions(administrator=True)
   async def takerole(self,ctx,role:discord.Role, user:discord.Member):
-    pass
+    await user.remove_roles(role)
+    await ctx.send(f"{role} has been removed from {user}")
   
-  @commands.command()
-  async def ban(self,ctx,user:discord.Member):
-    pass
 
   @commands.command()
-  async def kick(self,ctx,user:discord.Member):
-    pass
+  @commands.has_permissions(administrator=True)
+  async def ban(self,ctx,user:discord.Member, *, reason=None):
+    await user.ban(reason=reason)
+    await ctx.send(f"User {user} has been banned")
+
 
   @commands.command()
+  @commands.has_permissions(administrator=True)
+  async def kick(self,ctx,user:discord.Member, *, reason=None):
+    await user.kick(reason=reason)
+    await ctx.send(f"User {user} has been kicked")
+
+
+  @commands.command()
+  @commands.has_permissions(manage_channels=True)
   async def lockdown(self,ctx, channel:discord.TextChannel=None):
     if channel == None:
       channel = ctx.channel
     await channel.send("Channel is now in lockdown")
     await channel.set_permissions(ctx.guild.default_role, send_messages=False)
   
+
   @commands.command()
+  @commands.has_permissions(manage_channels=True)
   async def unlock(self,ctx, channel:discord.TextChannel=None):
     if channel == None:
       channel = ctx.channel
     await channel.send("Channel is no longer in lockdown")
     await channel.set_permissions(ctx.guild.default_role, send_messages=True)
   
+
   @commands.command()
   async def clear(self,ctx,amount:int):
     await ctx.channel.purge(limit=amount+1)
+
+  
+  @commands.command()
+  @commands.has_permissions(administrator=True)
+  async def reactrole(self, ctx, emoji, role: discord.Role, *, message):
+      embedVar = discord.Embed(description=message)
+      msg = await ctx.channel.send(embed=embedVar)
+      await msg.add_reaction(emoji)
+      cd = os.getcwd()
+      os.chdir("/home/runner/Why-Bot/")
+      with open("reactrole.json") as json_file:
+          data = json.load(json_file)
+
+          new_react_role = {
+              "role_name": role.name,
+              "role_id": role.id,
+              "emoji": emoji,
+              "message_id": msg.id,
+          }
+
+          data.append(new_react_role)
+
+      with open("reactrole.json", "w") as f:
+          json.dump(data, f, indent=4)
+
+      os.chdir(cd)
+
+  @commmands.command()
+  @commands.has_permissions(administrator=True)
+  async def configure_ticket(ctx, msg: discord.Message=None, category: discord.CategoryChannel=None):
+    if msg is None or category is None:
+        await ctx.channel.send("Failed to configure the ticket as an argument was not given or was invalid.")
+        return
+
+    self.client.ticket_configs[ctx.guild.id] = [msg.id, msg.channel.id, category.id] # this resets the configuration
+
+    cd = os.getcwd()
+    os.chdir("/home/runner/Why-Bot/")
+    async with aiofiles.open("ticket_configs.txt", mode="r") as file:
+        data = await file.readlines()
+
+    async with aiofiles.open("ticket_configs.txt", mode="w") as file:
+        await file.write(f"{ctx.guild.id} {msg.id} {msg.channel.id} {category.id}\n")
+
+        for line in data:
+            if int(line.split(" ")[0]) != ctx.guild.id:
+                await file.write(line)
+
+    os.chdir(cd)            
+    await msg.add_reaction(u"\U0001F3AB")
+    await ctx.channel.send("Succesfully configured the ticket system.")
 
 def setup(client):
     client.add_cog(Moderation(client))
