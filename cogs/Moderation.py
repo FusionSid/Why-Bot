@@ -80,7 +80,38 @@ class Moderation(commands.Cog):
       cha = await self.client.fetch_channel(896932591620464690)
       await cha.send(embed=em)
       
-
+  @commands.command()
+  async def giverole(self,ctx,role:discord.Role, user:discord.Member):
+    pass
   
+  @commands.command()
+  async def takerole(self,ctx,role:discord.Role, user:discord.Member):
+    pass
+  
+  @commands.command()
+  async def ban(self,ctx,user:discord.Member):
+    pass
+
+  @commands.command()
+  async def kick(self,ctx,user:discord.Member):
+    pass
+
+  @commands.command()
+  async def lockdown(self,ctx, channel:discord.TextChannel=None):
+    channel = channel or ctx.channel
+
+    if ctx.guild.default_role not in channel.overwrites:
+      overwrites = {
+        ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)
+      }
+      await ctx.send(embed=discord.Embed(title="Channel is now in lockdown"))
+      await channel.edit(overwites=overwrites)
+  
+  @commands.command()
+  async def clear(self,ctx,amount:int):
+    await ctx.channel.purge(limit=amount+1)
+
 def setup(client):
     client.add_cog(Moderation(client))
+
+
