@@ -98,14 +98,17 @@ class Moderation(commands.Cog):
 
   @commands.command()
   async def lockdown(self,ctx, channel:discord.TextChannel=None):
-    channel = channel or ctx.channel
-
-    if ctx.guild.default_role not in channel.overwrites:
-      overwrites = {
-        ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)
-      }
-      await ctx.send(embed=discord.Embed(title="Channel is now in lockdown"))
-      await channel.edit(overwites=overwrites)
+    if channel == None:
+      channel = ctx.channel
+    await channel.send("Channel is now in lockdown")
+    await channel.set_permissions(ctx.guild.default_role, send_messages=False)
+  
+  @commands.command()
+  async def unlock(self,ctx, channel:discord.TextChannel=None):
+    if channel == None:
+      channel = ctx.channel
+    await channel.send("Channel is no longer in lockdown")
+    await channel.set_permissions(ctx.guild.default_role, send_messages=True)
   
   @commands.command()
   async def clear(self,ctx,amount:int):
