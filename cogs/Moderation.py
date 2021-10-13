@@ -5,6 +5,68 @@ class Moderation(commands.Cog):
   def __init__(self, client):
     self.client = client
 
+  @commands.command()
+  async def report(self,ctx,type_:str):
+    def wfcheck(m):
+      return m.channel == ctx.channel and m.author == ctx.author
+    cd = os.getcwd()
+    os.chdir("/home/runner/Why-Bot/Setup")
+    with open(f"{ctx.guild.id}.json") as f:
+      content = json.load(f)
+    if content[0]["mod_channel"] == None:
+      return
+    else:
+      channel = int(content[0]["mod_channel"])
+    os.chdir(cd)
+    em = discord.Embed(title="REPORT")
+
+    if type_.lower() == "member":
+
+      await ctx.send("Enter the @ of the member")
+      member = await self.client.wait_for("message", check=wfcheck)
+      await ctx.send("Please give a short description about why you are reporting this person")
+      reason = await self.client.wait_for("message", check=wfcheck)
+      em.description = "Member Report"
+      em.add_field(name="Member:", value=member)
+      em.add_field(name="Reason:", value=reason)
+      cha = self.client.fetch_channel(channel)
+      cha.send(embed=em)
+
+    elif type_.lower() == "message":
+
+      await ctx.send("Enter the id of the message")
+      messageid = await self.client.wait_for("message", check=wfcheck)
+
+      try:
+        int(messageid)
+      except:
+        return
+
+      await ctx.send("Please give a short description about why you are reporting this message")
+      reason = await self.client.wait_for("message", check=wfcheck)
+
+      message = await self.client.fetch_message(messageid)
+      messagecontent = message.content
+      messageauthor = message.author
+
+      em.description = "Message Report"
+      em.add_field(name="Message Id:", value=messageid)
+      em.add_field(name="Reason:", value=reason)
+      em.add_field(name="Message Content:", value=messagecontent)
+      em.add_field(name="Message Author:", value=messageauthor)
+      cha = self.client.fetch_channel(channel)
+      cha.send(embed=em)
+
+    elif type_.lower() == "bug":
+      await ctx.send("Please give a short description about the issure/bug")
+      reason = await self.client.wait_for("message", check=wfcheck)
+      em.description = "Bug Report"
+      em.add_field(name="Reason", value=reason)
+
+      cha = self.client.get_channel(896932591620464690)
+      cha.send(embed=em)
+      
+
   
 def setup(client):
     client.add_cog(Moderation(client))
