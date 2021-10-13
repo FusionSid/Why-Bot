@@ -1,5 +1,7 @@
 import discord
 from discord.ext import commands
+import os
+import json
 
 class Moderation(commands.Cog):
   def __init__(self, client):
@@ -24,18 +26,23 @@ class Moderation(commands.Cog):
 
       await ctx.send("Enter the @ of the member")
       member = await self.client.wait_for("message", check=wfcheck)
+      member = member.content
       await ctx.send("Please give a short description about why you are reporting this person")
       reason = await self.client.wait_for("message", check=wfcheck)
+      reporter = reason.author
+      reason = reason.content
       em.description = "Member Report"
       em.add_field(name="Member:", value=member)
       em.add_field(name="Reason:", value=reason)
-      cha = self.client.fetch_channel(channel)
-      cha.send(embed=em)
+      em.add_field(name="Report By:", value=reporter)
+      cha = await self.client.fetch_channel(channel)
+      await cha.send(embed=em)
 
     elif type_.lower() == "message":
 
       await ctx.send("Enter the id of the message")
       messageid = await self.client.wait_for("message", check=wfcheck)
+      messageid = messageid.content
 
       try:
         int(messageid)
@@ -44,8 +51,10 @@ class Moderation(commands.Cog):
 
       await ctx.send("Please give a short description about why you are reporting this message")
       reason = await self.client.wait_for("message", check=wfcheck)
+      reporter = reason.author
+      reason = reason.content
 
-      message = await self.client.fetch_message(messageid)
+      message = await ctx.channel.fetch_message(messageid)
       messagecontent = message.content
       messageauthor = message.author
 
@@ -54,17 +63,22 @@ class Moderation(commands.Cog):
       em.add_field(name="Reason:", value=reason)
       em.add_field(name="Message Content:", value=messagecontent)
       em.add_field(name="Message Author:", value=messageauthor)
-      cha = self.client.fetch_channel(channel)
-      cha.send(embed=em)
+      em.add_field(name="Report By:", value=reporter)
+      cha = await self.client.fetch_channel(channel)
+      await cha.send(embed=em)
 
     elif type_.lower() == "bug":
+
       await ctx.send("Please give a short description about the issure/bug")
       reason = await self.client.wait_for("message", check=wfcheck)
+      reporter = reason.author
+      reason = reason.content
       em.description = "Bug Report"
       em.add_field(name="Reason", value=reason)
+      em.add_field(name="Report By:", value=reporter)
 
-      cha = self.client.get_channel(896932591620464690)
-      cha.send(embed=em)
+      cha = await self.client.fetch_channel(896932591620464690)
+      await cha.send(embed=em)
       
 
   
