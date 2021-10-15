@@ -129,6 +129,7 @@ class Moderation(commands.Cog):
   
 
   @commands.command()
+  @commands.has_permissions(manage_channels=True)
   async def clear(self,ctx,amount:int):
     await ctx.channel.purge(limit=amount+1)
 
