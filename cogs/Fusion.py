@@ -52,5 +52,43 @@ class Fusion(commands.Cog):
     
     await ctx.send(blacklisted)
 
+  @commands.command()
+  @commands.check(is_it_me)
+  async def addshopitem(self, ctx)
+    with open("shop.json") as f:
+      data = json.load(f)
+    
+    def wfcheck(m):
+      return m.channel == ctx.channel and m.author == ctx.author
+
+    await ctx.send("Enter Name")
+    name = await client.wait_for("message", check=wfcheck)
+    await ctx.send("Enter Price")
+    price = await client.wait_for("message", check=wfcheck)
+    await ctx.send("Enter Description")
+    desc = await client.wait_for("message", check=wfcheck)
+    await ctx.send("Purchaseable? true/false")
+    buy = await client.wait_for("message", check=wfcheck)
+
+    if buy.lower() == "true"
+      content = {
+        "name": name, 
+        "price": int(price), 
+        "description":desc, 
+        "buy": True
+        }
+    else:
+      content = {
+        "name": name, 
+        "price": int(price), 
+        "description":desc, 
+        "buy": False
+        }
+    
+    data["mainshop"].append(content)
+
+    with open('shop.json', 'w') as f:
+      json.dump(data, f)
+
 def setup(client):
   client.add_cog(Fusion(client))
