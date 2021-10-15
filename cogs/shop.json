@@ -1,7 +1,0 @@
-"mainshop" = [
-    {"name": "Laptop", "price": 1000, "description": "For them memes and for watching videos on duckhub", "buy": true},
-    {"name": "PC", "price": 5000, "description": "a really powerful gaming pc powered by the blood of you enemies", "buy": true},
-    {"name": "Car", "price": 99999, "description": "Car go brrr", "buy": true},
-]
-
-// {"name": "", "price": , "description":"", "buy": }

@@ -46,10 +46,10 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-  em = discord.Embed(title="Welcome", description=f"Hello :wave: {member.name} welcome to {member.guild.name}", color=discord.Color(value=0x36393e)
+  em = discord.Embed(title="Welcome", description=f"Hello :wave: {member.name} welcome to {member.guild.name}", color=discord.Color(value=0x36393e))
   cd = os.getcwd()
   os.chdir(f"{cd}/Setup")
-  with open(f"{member.guild.id}.json") as f:
+  with open(f"Setup/{member.guild.id}.json") as f:
     data = json.load(f)
   cha = data[2]["welcome_channel"]
   if cha == None:
@@ -250,8 +250,11 @@ async def on_message(message):
 
   await counting(msg, guild, channel)
 
-  bl = notblacklisted(message)
-  if bl == True:
+  try:
+    bl = notblacklisted(message)
+    if bl == True:
+      await client.process_commands(message)
+  except:
     await client.process_commands(message)
 
 

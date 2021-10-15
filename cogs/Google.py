@@ -3,12 +3,14 @@ from discord.ext import commands
 import random
 from googleapiclient.discovery import build
 
+isapi_key = "AIzaSyCj52wnSciil-4JPd6faOXXHfEb1pzrCuY"
+
 class Google(commands.Cog):
   def __init__(self, client):
     self.client = client
 
-  @client.command()
-  async def imagesearch(ctx, *, search):
+  @commands.command()
+  async def imagesearch(self, ctx, *, search):
       ran = random.randint(0, 9)
       resource = build("customsearch", "v1", developerKey=isapi_key).cse()
       result = resource.list(

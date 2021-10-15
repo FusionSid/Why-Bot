@@ -9,6 +9,8 @@ python = "^3.8"
 discord = "^1.7.3"
 Flask = "^2.0.2"
 aiofiles = "^0.7.0"
+google-api-python-client = "^2.26.1"
+cryptography = "^35.0.0"
 
 [tool.poetry.dev-dependencies]
 
