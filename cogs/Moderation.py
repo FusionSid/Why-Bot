@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import os
 import json
-from discord.utils import get
+import aiofiles
 
 class Moderation(commands.Cog):
   def __init__(self, client):
@@ -157,31 +157,6 @@ class Moderation(commands.Cog):
           json.dump(data, f, indent=4)
 
       os.chdir(cd)
-
-  @commmands.command()
-  @commands.has_permissions(administrator=True)
-  async def configure_ticket(ctx, msg: discord.Message=None, category: discord.CategoryChannel=None):
-    if msg is None or category is None:
-        await ctx.channel.send("Failed to configure the ticket as an argument was not given or was invalid.")
-        return
-
-    self.client.ticket_configs[ctx.guild.id] = [msg.id, msg.channel.id, category.id] # this resets the configuration
-
-    cd = os.getcwd()
-    os.chdir("/home/runner/Why-Bot/")
-    async with aiofiles.open("ticket_configs.txt", mode="r") as file:
-        data = await file.readlines()
-
-    async with aiofiles.open("ticket_configs.txt", mode="w") as file:
-        await file.write(f"{ctx.guild.id} {msg.id} {msg.channel.id} {category.id}\n")
-
-        for line in data:
-            if int(line.split(" ")[0]) != ctx.guild.id:
-                await file.write(line)
-
-    os.chdir(cd)            
-    await msg.add_reaction(u"\U0001F3AB")
-    await ctx.channel.send("Succesfully configured the ticket system.")
 
 def setup(client):
     client.add_cog(Moderation(client))

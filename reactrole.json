@@ -1,1 +1,32 @@
-[]
+[
+    {
+        "role_name": "E",
+        "role_id": 892569835693830174,
+        "emoji": "\u2705",
+        "message_id": 897675981907701790
+    },
+    {
+        "role_name": "test",
+        "role_id": 893740052146966551,
+        "emoji": "\u2705",
+        "message_id": 897676119971622992
+    },
+    {
+        "role_name": "test",
+        "role_id": 893740052146966551,
+        "emoji": "\u2705",
+        "message_id": 897678116753915954
+    },
+    {
+        "role_name": "new role",
+        "role_id": 897678274912739408,
+        "emoji": "\u2705",
+        "message_id": 897678340654239834
+    },
+    {
+        "role_name": "Noice",
+        "role_id": 898352800612905041,
+        "emoji": "\u2705",
+        "message_id": 898353067676823562
+    }
+]

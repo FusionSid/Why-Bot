@@ -6,6 +6,8 @@ from keep_alive import keep_alive
 from os import listdir
 from os.path import isfile, join
 import json
+import aiofiles
+import asyncio
 
 
 def get_prefix(client, message):
@@ -19,6 +21,7 @@ def get_prefix(client, message):
 
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix = get_prefix, intents=intents, help_command=None)
+client.ticket_configs = {}
 
 
 # On Ready
@@ -45,35 +48,6 @@ async def on_ready():
 async def on_raw_reaction_add(payload):
   if payload.member.bot:
     pass
-    if str(payload.emoji) == u"\U0001F3AB":
-        msg_id, channel_id, category_id = client.ticket_configs[payload.guild_id]
-
-        if payload.message_id == msg_id:
-            guild = client.get_guild(payload.guild_id)
-
-            for category in guild.categories:
-                if category.id == category_id:
-                    break
-
-            channel = guild.get_channel(channel_id)
-
-            ticket_channel = await category.create_text_channel(f"ticket-{payload.member.display_name}", topic=f"A ticket for {payload.member.display_name}.", permission_synced=True)
-            
-            await ticket_channel.set_permissions(payload.member, read_messages=True, send_messages=True)
-
-            message = await channel.fetch_message(msg_id)
-            await message.remove_reaction(payload.emoji, payload.member)
-
-            await ticket_channel.send(f"{payload.member.mention} Thank you for creating a ticket! Use **'-close'** to close your ticket.")
-
-            try:
-                await client.wait_for("message", check=lambda m: m.channel == ticket_channel and m.author == payload.member and m.content == "-close", timeout=3600)
-
-            except asyncio.TimeoutError:
-                await ticket_channel.delete()
-
-            else:
-                await ticket_channel.delete()
   else:
     with open("reactrole.json") as f:
       data = json.load(f)
@@ -81,8 +55,6 @@ async def on_raw_reaction_add(payload):
         if x['emoji'] == payload.emoji.name and x["message_id"] == payload.message_id:
           role = discord.utils.get(client.get_guild(payload.guild_id).roles, id=x['role_id'])
           await payload.member.add_roles(role)
-
-  
 
 
 # Guild
@@ -104,6 +76,7 @@ async def startguildsetup(id):
   with open("counting.json", 'w') as f:
     json.dump(data, f)
 
+
 # On Guild Join/Remove
 @client.event
 async def on_guild_join(guild):
@@ -118,6 +91,7 @@ async def on_guild_join(guild):
     await guild.system_channel.send("PLEASE run ```?setup``` to setup the bot")
   except:
     pass
+
 
 @client.event
 async def on_guild_remove(guild):
@@ -270,6 +244,7 @@ async def on_message(message):
 async def on_command_error(ctx, error):
   cha = client.get_channel(896932591620464690)
   await cha.send(error)
+  
   if isinstance(error, commands.CommandOnCooldown):
     em = discord.Embed(
       title="Wow buddy, Slow it down\nThis command is on cooldown",
@@ -296,7 +271,8 @@ async def on_command_error(ctx, error):
 
   else:
     print("An error has occured:\n{}".format(error))
-    em = discord.Embed(title="Unkown Error", description="Possible bug?\nUser ?report bug <bug> to report bug")
+    em = discord.Embed(title="Error", description="Possible bug?\nUser ?report bug <bug> to report bug")
+    em.add_field(name="Error", value=error)
       
   await ctx.send(embed=em, delete_after=5)
 
