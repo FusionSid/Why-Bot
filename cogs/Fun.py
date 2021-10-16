@@ -174,7 +174,7 @@ class Fun(commands.Cog):
 
 
     @commands.command()
-    async def embed(self, ctx, fields:str, extra:int, img:str=None):
+    async def embed(self, ctx, fields:str, extra:int, img:str=None, channel:int=None):
         def wfcheck(m):
             return m.channel == ctx.channel and m.author == ctx.author
         em = discord.Embed()
@@ -210,11 +210,26 @@ class Fun(commands.Cog):
         
         if img == None:
             pass
+        if img == '0':
+            pass
         else:
             em.set_image(url=img)
-
-        await ctx.send(embed=em)
-
+    
+        if channel == None:
+          pass
+          await ctx.send(embed=em)
+        if channel == 0:
+          pass
+          await ctx.send(embed=em)
+        else:
+          cha = await self.client.fetch_channel(channel)
+          await cha.send(embed=em)
+        return
+        
+    @commands.command()
+    async def noembed(self, ctx, *, text):
+      await ctx.send(text)
+    
 def setup(client):
     client.add_cog(Fun(client))
 
