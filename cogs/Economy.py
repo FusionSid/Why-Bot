@@ -9,15 +9,14 @@ mainshop = [
   {"name": "PC", "price": 5000, "description": "a really powerful gaming pc powered by the blood of you enemies", "buy": True},
   {"name": "Car", "price": 15000, "description": "Car go brrr", "buy": True},
   # Collectables
-  {"name": "Quest", "price": 1_000, "description": "Frog foot to show off at your next  meeting\nCollectable - Not Available to buy", "buy": False},
-  {"name": "Statue", "price": 100000, "description": "A massive statue\nCollectable - Not Available to buy", "buy": False},
+  {"name": "Goose Statue", "price": 420069021, "description": "A massive statue of the almighty Goose god.\nCollectable - Not Available to buy", "buy": False},
 ]
 # {"name": "", "price": , "description":"", "buy": }
 
 
 async def get_bank_data():
   cd = os.getcwd()
-  os.chdir('/home/runner/Why-Bot')
+  os.chdir('/home/runner/Why-Bot/')
   with open('mainbank.json', 'r') as f:
     users = json.load(f)
   os.chdir(cd)
@@ -36,7 +35,7 @@ async def open_account(user):
     users[str(user.id)]["wallet"] = 0
     users[str(user.id)]["bank"] = 0
   cd = os.getcwd()
-  os.chdir('/home/runner/Why-Bot')
+  os.chdir('/home/runner/Why-Bot/')
   with open('mainbank.json', 'w') as f:
     json.dump(users, f)
   os.chdir(cd)
@@ -73,7 +72,7 @@ async def update_bank(user, change=0, mode='wallet'):
   users[str(user.id)][mode] += change
 
   cd = os.getcwd()
-  os.chdir('/home/runner/Why-Bot')
+  os.chdir('/home/runner/Why-Bot/')
   with open('mainbank.json', 'w') as f:
       json.dump(users, f)
   os.chdir(cd)
@@ -120,7 +119,7 @@ async def sell_this(user, item_name, amount, price=None):
       except:
           return [False, 3]
       cd = os.getcwd()
-      os.chdir('/home/runner/Why-Bot')
+      os.chdir('/home/runner/Why-Bot/')
       with open("mainbank.json", "w") as f:
           json.dump(users, f)
       os.chdir(cd)
@@ -170,7 +169,7 @@ async def buy_this(user, amount, item_name):
           obj = {"item": item_name, "amount": amount}
           users[str(user.id)]["bag"] = [obj]
       cd = os.getcwd()
-      os.chdir('/home/runner/Why-Bot')
+      os.chdir('/home/runner/Why-Bot/')
       with open("mainbank.json", "w") as f:
           json.dump(users, f)
       os.chdir(cd)
@@ -186,7 +185,7 @@ class Economy(commands.Cog):
   
 
   @commands.command(aliases=['bal'])
-  async def balance(ctx, person: discord.Member = None):
+  async def balance(self, ctx, person: discord.Member = None):
       print(person)
       if person == None:
           print(ctx.author)
@@ -231,7 +230,7 @@ class Economy(commands.Cog):
 
   @commands.command()
   @commands.cooldown(1, 60, commands.BucketType.user)
-  async def beg(ctx):
+  async def beg(self, ctx):
       await open_account(ctx.author)
       user = ctx.author
 
@@ -243,7 +242,7 @@ class Economy(commands.Cog):
 
       users[str(user.id)]["wallet"] += earnings
       cd = os.getcwd()
-      os.chdir('/home/runner/Why-Bot')
+      os.chdir('/home/runner/Why-Bot/')
       with open("mainbank.json", 'w') as f:
           json.dump(users, f)
       os.chdir(cd)
@@ -251,7 +250,7 @@ class Economy(commands.Cog):
 
   @commands.command()
   @commands.cooldown(1, 60*1440, commands.BucketType.user)
-  async def daily(ctx):
+  async def daily(self, ctx):
       await open_account(ctx.author)
       user = ctx.author
 
@@ -263,14 +262,14 @@ class Economy(commands.Cog):
 
       users[str(user.id)]["wallet"] += earnings
       cd = os.getcwd()
-      os.chdir('/home/runner/Why-Bot')
+      os.chdir('/home/runner/Why-Bot/')
       with open("mainbank.json", 'w') as f:
           json.dump(users, f)
       os.chdir(cd)
 
 
   @commands.command(aliases=['with'])
-  async def withdraw(ctx, amount=None):
+  async def withdraw(self, ctx, amount=None):
       await open_account(ctx.author)
       if amount == None:
           await ctx.send("Please enter the amount")
@@ -313,7 +312,7 @@ class Economy(commands.Cog):
 
 
   @commands.command(aliases=['dep'])
-  async def deposit(ctx, amount=None):
+  async def deposit(self, ctx, amount=None):
       await open_account(ctx.author)
       if amount == None:
           await ctx.send("Please enter the amount")
@@ -356,7 +355,7 @@ class Economy(commands.Cog):
 
 
   @commands.command(aliases=['sm'])
-  async def send(ctx, member: discord.Member, amount=None):
+  async def send(self, ctx, member: discord.Member, amount=None):
       await open_account(ctx.author)
       await open_account(member)
       if amount == None:
@@ -382,7 +381,7 @@ class Economy(commands.Cog):
 
 
   @commands.command(aliases=['rb'])
-  async def rob(ctx, member: discord.Member):
+  async def rob(self, ctx, member: discord.Member):
       await open_account(ctx.author)
       await open_account(member)
       bal = await update_bank(member)
@@ -399,7 +398,7 @@ class Economy(commands.Cog):
 
 
   @commands.command()
-  async def gamble(ctx, amount=None):
+  async def gamble(self, ctx, amount=None):
       await open_account(ctx.author)
       if amount == None:
           await ctx.send("Please enter the amount")
@@ -449,7 +448,7 @@ class Economy(commands.Cog):
 
 
   @commands.command()
-  async def shop(ctx, *, item_=None):
+  async def shop(self, ctx, *, item_=None):
       if item_ == None:
           em = discord.Embed(title="Shop")
 
@@ -477,7 +476,7 @@ class Economy(commands.Cog):
 
 
   @commands.command()
-  async def buy(ctx, amount=1, *, item):
+  async def buy(self, ctx, amount=1, *, item):
       await open_account(ctx.author)
 
       res = await buy_this(ctx.author, amount, item)
@@ -494,7 +493,7 @@ class Economy(commands.Cog):
 
 
   @commands.command()
-  async def bag(ctx):
+  async def bag(self, ctx):
       await open_account(ctx.author)
       user = ctx.author
       users = await get_bank_data()
@@ -515,7 +514,7 @@ class Economy(commands.Cog):
 
 
   @commands.command()
-  async def sell(ctx, amount=1, *, item):
+  async def sell(self, ctx, amount=1, *, item):
       await open_account(ctx.author)
 
       res = await sell_this(ctx.author, item, amount)
