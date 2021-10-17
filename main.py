@@ -6,8 +6,6 @@ from keep_alive import keep_alive
 from os import listdir
 from os.path import isfile, join
 import json
-import aiofiles
-import asyncio
 
 
 def get_prefix(client, message):
@@ -36,7 +34,7 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-  em = discord.Embed(title="Welcome", description=f"Hello :wave: {member.name} welcome to {member.guild.name}", color=discord.Color(value=0x36393e))
+  em = discord.Embed(title="Welcome", description=f"Hello there :wave: {member.name} welcome to {member.guild.name}\nHope you have fun on this server :)", color=discord.Color(value=0x36393e))
   await member.send(embed=em)
   cd = os.getcwd()
   os.chdir(f"{cd}/Setup")

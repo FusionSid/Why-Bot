@@ -1,4 +1,6 @@
 import discord
+import json
+import os
 import random
 from discord.ext import commands
 
@@ -227,6 +229,20 @@ class Fun(commands.Cog):
     @commands.command()
     async def noembed(self, ctx, *, text):
       await ctx.send(text)
+
+
+    @commands.command()
+    async def numrn(self, ctx):
+        guild = ctx.guild
+        cd = os.getcwd()
+        os.chdir("/home/runner/Why-Bot/")
+        with open ('counting.json') as f:
+            data = json.load(f)
+        guildid = f'{guild.id}'
+        numrn = data[guildid]
+        await ctx.send(f"Current number is {numrn}")
+    
+    
     
 def setup(client):
     client.add_cog(Fun(client))
