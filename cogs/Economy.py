@@ -222,6 +222,9 @@ class Economy(commands.Cog):
           wallet_amt = round(wallet_amt, 2)
           bank_amt = round(bank_amt, 2)
 
+          wallet_amt = "{:,}".format(wallet_amt)
+          bank_amt = "{:,}".format(bank_amt)
+
           em = discord.Embed(title=f'{person.name} Balance', color=discord.Color.red())
           em.add_field(name="Wallet Balance", value=wallet_amt)
           em.add_field(name='Bank Balance', value=bank_amt)
