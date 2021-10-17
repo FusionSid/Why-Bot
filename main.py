@@ -11,7 +11,7 @@ import asyncio
 
 
 def get_prefix(client, message):
-  cd = os.getcwd()
+  cd = "/home/runner/Why-Bot"
   os.chdir(f"{cd}/Setup")
   with open(f"{message.guild.id}.json") as f:
     data = json.load(f)
@@ -21,7 +21,6 @@ def get_prefix(client, message):
 
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix = get_prefix, intents=intents, help_command=None)
-client.ticket_configs = {}
 
 
 # On Ready
@@ -32,32 +31,24 @@ async def update_activity():
 @client.event
 async def on_ready():
   print("=======================\nConnected\n=========")
-  async with aiofiles.open("ticket_configs.txt", mode="a") as temp:
-        pass
-
-  async with aiofiles.open("ticket_configs.txt", mode="r") as file:
-      lines = await file.readlines()
-      for line in lines:
-          data = line.split(" ")
-          client.ticket_configs[int(data[0])] = [int(data[1]), int(data[2]), int(data[3])]
-          
   await update_activity()
 
 
 @client.event
 async def on_member_join(member):
   em = discord.Embed(title="Welcome", description=f"Hello :wave: {member.name} welcome to {member.guild.name}", color=discord.Color(value=0x36393e))
+  await member.send(embed=em)
   cd = os.getcwd()
   os.chdir(f"{cd}/Setup")
-  with open(f"Setup/{member.guild.id}.json") as f:
+  with open(f"{member.guild.id}.json") as f:
     data = json.load(f)
   cha = data[2]["welcome_channel"]
   if cha == None:
     member.guild.system_channel.send(embed=em)
   else:
-    channel = cha = client.get_channel(int(cha))
+    channel = await client.fetch_channel(int(cha))
     await channel.send(embed=em)
-  await member.send(embed=em)
+  
 
 
 @client.event

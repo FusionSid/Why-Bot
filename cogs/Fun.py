@@ -209,23 +209,21 @@ class Fun(commands.Cog):
                 em.add_field(name=name.content, value=value.content)
         
         if img == None:
-            pass
-        if img == '0':
-            pass
+            await ctx.send(embed=em)
+            return
+        if img.lower() == 'none':
+            pass  
         else:
-            em.set_image(url=img)
-    
+          em.set_image(url=img)
+          await ctx.send(embed=em)
+          return
         if channel == None:
-          pass
-          await ctx.send(embed=em)
-        if channel == 0:
-          pass
-          await ctx.send(embed=em)
+          return
         else:
           cha = await self.client.fetch_channel(channel)
           await cha.send(embed=em)
-        return
-        
+
+
     @commands.command()
     async def noembed(self, ctx, *, text):
       await ctx.send(text)
