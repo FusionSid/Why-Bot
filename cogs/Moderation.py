@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 import os
 import json
-import aiofiles
 
 class Moderation(commands.Cog):
   def __init__(self, client):

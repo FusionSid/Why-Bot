@@ -10,6 +10,7 @@ def gen_key():
 
 
 def encrypt(key, message):
+    message = message.encode()
     f = Fernet(key)
     encrypted = f.encrypt(message)
     return encrypted
@@ -63,7 +64,6 @@ class Database(commands.Cog):
       pass
 
     value = str(value)
-    value = value.encode()
     evalue = encrypt(key_, value)
     c.execute(f"CREATE TABLE IF NOT EXISTS {ctx.author.name} (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, password TEXT)")
     with conn:
@@ -124,8 +124,11 @@ class Database(commands.Cog):
     except:
       pass
     value = find("id", id_)
+    print(value)
     decrypt = value[0][2]
+    print(decrypt)
     decrypted = decrypt(key_, decrypt)
+    print(decrypted)
     value[0][2] = decrypted
     await ctx.send("Decrypted sent to dms")
     await ctx.author.send(value)

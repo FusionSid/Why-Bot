@@ -111,6 +111,8 @@ async def sell_this(user, item_name, amount, price=None):
                   if new_amt < 0:
                       return [False, 2]
                   users[str(user.id)]["bag"][index]["amount"] = new_amt
+                  if new_amt == 0:
+                      users[str(user.id)]["bag"].remove(index)
                   t = 1
                   break
               index += 1
@@ -232,7 +234,7 @@ class Economy(commands.Cog):
 
 
   @commands.command()
-  @commands.cooldown(1, 60, commands.BucketType.user)
+  @commands.cooldown(1, 30, commands.BucketType.user)
   async def beg(self, ctx):
       await open_account(ctx.author)
       user = ctx.author
@@ -371,26 +373,27 @@ class Economy(commands.Cog):
 
       amount = int(amount)
 
-      if amount > bal[0]:
-          await ctx.send('Get some more coins you poor \nYou do not have sufficient balance')
+      if amount > bal[1]:
+          await ctx.send('Get some more coins\nYou do not have sufficient balance in your banl')
           return
       if amount < 0:
           await ctx.send('Amount must be positive!')
           return
 
       await update_bank(ctx.author, -1*amount, 'bank')
-      await update_bank(member, amount, 'bank')
+      await update_bank(member, amount, 'wallet')
       await ctx.send(f'{ctx.author.mention} You gave {member} {amount} coins')
 
 
   @commands.command(aliases=['rb'])
+  @commands.cooldown(1, 30, commands.BucketType.user)
   async def rob(self, ctx, member: discord.Member):
       await open_account(ctx.author)
       await open_account(member)
       bal = await update_bank(member)
 
       if bal[0] < 100:
-          await ctx.send('It is useless to rob him/her :(')
+          await ctx.send('It is useless to rob them :(\nThey dont even have 100 coins')
           return
 
       earning = random.randrange(0, bal[0])
@@ -401,56 +404,55 @@ class Economy(commands.Cog):
 
 
   @commands.command()
+  @commands.cooldown(1, 10, commands.BucketType.user)
   async def gamble(self, ctx, amount=None):
-      await open_account(ctx.author)
-      if amount == None:
-          await ctx.send("Please enter the amount")
-          return
-      bal = await update_bank(ctx.author)
+    await open_account(ctx.author)
+    if amount == None:
+        await ctx.send("Please enter the amount")
+        return
+    bal = await update_bank(ctx.author)
 
-      user = ctx.author
+    user = ctx.author
 
-      users = await get_bank_data()
+    users = await get_bank_data()
 
-      wallet = users[str(user.id)]["wallet"]
-      bank = users[str(user.id)]["bank"]
+    wallet = users[str(user.id)]["wallet"]
+    bank = users[str(user.id)]["bank"]
 
-      try:
-          amount = int(amount)
+    try:
+        amount = int(amount)
 
-      except:
-          if amount.lower() == "max":
-              amount = bank
+    except:
+        if amount.lower() == "max":
+            amount = bank
 
-          elif amount.lower() == "all":
-              amount = bank
+        elif amount.lower() == "all":
+            amount = bank
 
-          else:
-              amount = conv2num(amount)
+        else:
+            amount = conv2num(amount)
 
-      if amount > bal[0]:
-          await ctx.send('You do not have sufficient balance')
-          return
-      if amount < 0:
-          await ctx.send('Amount must be positive!')
-          return
-      final = []
-      for i in range(3):
-          a = random.choice(['X', 'O', 'Q'])
+    if amount > bal[1]:
+        await ctx.send('You do not have sufficient balance')
+        return
+    if amount < 0:
+        await ctx.send('Amount must be positive!')
+        return
 
-          final.append(a)
-
-      await ctx.send(str(final))
-
-      if final[0] == final[1] or final[1] == final[2] or final[0] == final[2]:
-          await update_bank(ctx.author, 2*amount)
-          await ctx.send(f'You won :) {ctx.author.mention}')
-      else:
-          await update_bank(ctx.author, -1*amount)
-          await ctx.send(f'You lose :( {ctx.author.mention}')
+    win = False
+    num = random.randint(1, 5)
+    if num == 3:
+        win = True
+    
+    if win == True:
+        await update_bank(ctx.author, 2*amount)
+        await ctx.send(f'{ctx.author.mention} You won :) {2*amount}')
+    else:
+        await update_bank(ctx.author, -1*amount)
+        await ctx.send(f'{ctx.author.mention} You lose :( {-1*amount}')
 
 
-  @commands.command()
+  @commands.command(aliases=['store'])
   async def shop(self, ctx, *, item_=None):
       if item_ == None:
           em = discord.Embed(title="Shop")
@@ -478,24 +480,33 @@ class Economy(commands.Cog):
       await ctx.send(embed=em)
 
 
-  @commands.command()
-  async def buy(self, ctx, amount=1, *, item):
-      await open_account(ctx.author)
+  @commands.command(aliases=['purchase'])
+  async def buy(self, ctx, amount=None, *, item=None):
+    try:
+        int(amount)
+    except:
+        amount = 1
+        if item == None:
+            item = amount
+        else:
+            item = f"{amount} {item}"
 
-      res = await buy_this(ctx.author, amount, item)
+    await open_account(ctx.author)
 
-      if not res[0]:
-          if res[1] == 1:
-              await ctx.send("That Object isn't there!")
-              return
-          if res[1] == 2:
-              await ctx.send(f"You don't have enough coins in your wallet to buy {amount} {item}")
-              return
+    res = await buy_this(ctx.author, amount, item)
 
-      await ctx.send(f"You just bought {amount} {item}")
+    if not res[0]:
+        if res[1] == 1:
+            await ctx.send("That Object isn't there!")
+            return
+        if res[1] == 2:
+            await ctx.send(f"You don't have enough coins in your wallet to buy {amount} {item}")
+            return
+
+    await ctx.send(f"You just bought {amount} {item}")
 
 
-  @commands.command()
+  @commands.command(aliases=['inv', 'inventory'])
   async def bag(self, ctx):
       await open_account(ctx.author)
       user = ctx.author
@@ -517,23 +528,32 @@ class Economy(commands.Cog):
 
 
   @commands.command()
-  async def sell(self, ctx, amount=1, *, item):
-      await open_account(ctx.author)
+  async def sell(self, ctx, amount=None, *, item):
+    try:
+        int(amount)
+    except:
+        amount = 1
+        if item == None:
+            item = amount
+        else:
+            item = f"{amount} {item}"
 
-      res = await sell_this(ctx.author, item, amount)
+    await open_account(ctx.author)
 
-      if not res[0]:
-          if res[1] == 1:
-              await ctx.send("You dont have that item!")
-              return
-          if res[1] == 2:
-              await ctx.send(f"You don't have {amount} {item} in your bag.")
-              return
-          if res[1] == 3:
-              await ctx.send(f"You don't have {item} in your bag.")
-              return
+    res = await sell_this(ctx.author, item, amount)
 
-      await ctx.send(f"You just sold {amount} {item}.")
+    if not res[0]:
+        if res[1] == 1:
+            await ctx.send("You dont have that item!")
+            return
+        if res[1] == 2:
+            await ctx.send(f"You don't have {amount} {item} in your bag.")
+            return
+        if res[1] == 3:
+            await ctx.send(f"You don't have {item} in your bag.")
+            return
+
+    await ctx.send(f"You just sold {amount} {item}.")
 
 
 def setup(client):
