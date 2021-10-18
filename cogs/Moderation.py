@@ -4,9 +4,6 @@ from discord.ext import commands
 import os
 import json
 
-async def create_text(guild, name):
-  await guild.create_text_channel(name)
-
 async def create_voice(guild, name, cat, limit=None):
   category = await guild.get_category_by_name(guild, cat)
   await guild.create_voice_channel(name, category=category, user_limit = limit)
@@ -166,6 +163,21 @@ class Moderation(commands.Cog):
           json.dump(data, f, indent=4)
 
       os.chdir(cd)
+  
+
+  @commands.command()
+  async def make_channel(ctx,*, name):
+    guild = ctx.guild
+    channel = await guild.create_text_channel(name)
+
+
+  @commands.command()
+  async def make_vc(ctx, limit=None, *, name):
+    guild = ctx.guild
+    if limit == "None":
+      channel = await guild.create_voice_channel(name)
+    else:
+      channel = await guild.create_voice_channel(name, user_limit=limit)
 
 
   @commands.Cog.listener()
@@ -178,7 +190,8 @@ class Moderation(commands.Cog):
       pass
     if after.channel is not None:
       if after.channel.name == "Custom":
-        channel = await create_voice(after.channel.guild, f'Custom VC', cat="VOICE CHANNELS")
+        name = "f{member.name}'s VC"
+        channel = await self.guild.create_voice_channel(name)
         if channel is not None:
           await member.move_to(channel)
 
