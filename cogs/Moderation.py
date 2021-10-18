@@ -1,7 +1,16 @@
 import discord
+from discord.channel import CategoryChannel
 from discord.ext import commands
 import os
 import json
+
+async def create_text(guild, name):
+  await guild.create_text_channel(name)
+
+async def create_voice(guild, name, cat, limit=None):
+  category = await guild.get_category_by_name(guild, cat)
+  await guild.create_voice_channel(name, category=category, user_limit = limit)
+
 
 class Moderation(commands.Cog):
   def __init__(self, client):
@@ -157,6 +166,22 @@ class Moderation(commands.Cog):
           json.dump(data, f, indent=4)
 
       os.chdir(cd)
+
+
+  @commands.Cog.listener()
+  async def on_voice_state_update(self, member, before, after):
+    if member.bot:
+      return
+    if not before.channel and not after.channel:
+      pass
+    if before.channel and after.channel:
+      pass
+    if after.channel is not None:
+      if after.channel.name == "Custom":
+        channel = await create_voice(after.channel.guild, f'Custom VC', cat="VOICE CHANNELS")
+        if channel is not None:
+          await member.move_to(channel)
+
 
 def setup(client):
     client.add_cog(Moderation(client))
