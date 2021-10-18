@@ -4,13 +4,11 @@ import os
 from discord.ext import commands
 import json
 
-mainshop = [  
-  {"name": "Laptop", "price": 1000,"description": "For them memes and for watching videos", "buy": True},
-  {"name": "PC", "price": 5000, "description": "a really powerful gaming pc powered by the blood of you enemies", "buy": True},
-  {"name": "Car", "price": 15000, "description": "Car go brrr", "buy": True},
-  # Collectables
-  {"name": "Goose Statue", "price": 420069021, "description": "A massive statue of the almighty Goose god.\nCollectable - Not Available to buy", "buy": False},
-]
+cd = os.getcwd()
+os.chdir('/home/runner/Why-Bot/')
+with open('shop.json') as f:
+    mainshop = json.load(f)
+os.chdir(cd)
 # {"name": "", "price": , "description":"", "buy": }
 
 

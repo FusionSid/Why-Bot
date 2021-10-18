@@ -1,1 +1,6 @@
-[]
+[  
+  {"name": "Laptop", "price": 1000,"description": "For them memes and for watching videos", "buy": true, "icon_path":""},
+  {"name": "PC", "price": 5000, "description": "a really powerful gaming pc powered by the blood of you enemies", "buy": true, "icon_path":""},
+  {"name": "Car", "price": 15000, "description": "Car go brrr", "buy": true, "icon_path":""},
+  {"name": "Goose Statue", "price": 420069021, "description": "A massive statue of the almighty Goose god.\nCollectable - Not Available to buy", "buy": false, "icon_path":""}
+]
