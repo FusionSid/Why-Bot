@@ -9,8 +9,6 @@ os.chdir('/home/runner/Why-Bot/')
 with open('shop.json') as f:
     mainshop = json.load(f)
 os.chdir(cd)
-# {"name": "", "price": , "description":"", "buy": }
-
 
 async def get_bank_data():
   cd = os.getcwd()
@@ -469,14 +467,21 @@ class Economy(commands.Cog):
           inshop = False
           for item in mainshop:
               if item["name"].lower() == item_.lower():
-                  name = item["name"]
-                  price = item["price"]
-                  price = "{:,}".format(price)
-                  desc = item["description"]
-                  buy = item['buy']
-                  em.add_field(name=f"***Item Name/Id: {name}***", value=f"$`{price}` | {desc}")
-                  inshop = True
-                  break
+                name = item["name"]
+                price = item["price"]
+                price = "{:,}".format(price)
+                desc = item["description"]
+                buy = item['buy']
+                em.add_field(name=f"***Item Name/Id: {name}***", value=f"$`{price}` | {desc}")
+                if item["icon_path"] == None:
+                    pass
+                else:
+                    cd = os.getcwd()
+                    os.chdir('/home/runner/Why-Bot/shopimages/')
+                    em.set_image("goose_image.png")
+                os.chdir(cd)
+                inshop = True
+                break
           if inshop == False:
             em.add_field(name=item_, value="Item not in shop")
       await ctx.send(embed=em)
