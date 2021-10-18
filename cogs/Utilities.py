@@ -16,7 +16,7 @@ class Utilities(commands.Cog):
     self.client = client
 
   @commands.command()
-  async def calc(self, ctx, n1: int, op, n2: int):
+  async def calc(self, ctx, n1: float, op, n2: float):
       ans = calculator(n1, op, n2)
       await ctx.send(embed=discord.Embed(title='Calculator Result:', description=ans))
   

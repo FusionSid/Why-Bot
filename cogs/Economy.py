@@ -451,6 +451,7 @@ class Economy(commands.Cog):
 
   @commands.command()
   async def shop(self, ctx, *, item_=None):
+      img = None
       if item_ == None:
           em = discord.Embed(title="Shop")
 
@@ -461,7 +462,7 @@ class Economy(commands.Cog):
               desc = item["description"]
               buy = item['buy']
               if buy == True:
-                  em.add_field(name=f"***{name}***", value=f"$`{price}` | {desc}")
+                  em.add_field(name=f"**{name}**", value=f"$`{price}`")
       else:
           em = discord.Embed(title="Shop")
           inshop = False
@@ -470,21 +471,28 @@ class Economy(commands.Cog):
                 name = item["name"]
                 price = item["price"]
                 price = "{:,}".format(price)
+                sell = float(item["price"])*0.7
+                sell = "{:,}".format(sell)
                 desc = item["description"]
                 buy = item['buy']
-                em.add_field(name=f"***Item Name/Id: {name}***", value=f"$`{price}` | {desc}")
+                em.add_field(name=f"**Item Name/Id: {name}**", value=f"Buy: $`{price}`\nSell: $`{sell}`\n{desc}")
                 if item["icon_path"] == None:
-                    pass
+                    img = None
                 else:
-                    cd = os.getcwd()
+                    img = True
+                    imgpath = item["icon_path"]
                     os.chdir('/home/runner/Why-Bot/shopimages/')
-                    em.set_image("goose_image.png")
+                    file = discord.File(f"{imgpath}", filename=f"{imgpath}")
+                    em.set_thumbnail(url=f"attachment://{imgpath}")
                 os.chdir(cd)
                 inshop = True
                 break
           if inshop == False:
             em.add_field(name=item_, value="Item not in shop")
-      await ctx.send(embed=em)
+      if img == None:
+        await ctx.send(embed=em)
+      if img == True:
+        await ctx.send(file=file, embed=em)
 
 
   @commands.command(aliases=['purchase'])
