@@ -111,8 +111,6 @@ async def sell_this(user, item_name, amount, price=None):
                   if new_amt < 0:
                       return [False, 2]
                   users[str(user.id)]["bag"][index]["amount"] = new_amt
-                  if new_amt == 0:
-                      users[str(user.id)]["bag"].remove(index)
                   t = 1
                   break
               index += 1
@@ -120,6 +118,9 @@ async def sell_this(user, item_name, amount, price=None):
               return [False, 3]
       except:
           return [False, 3]
+      for item in users[str(user.id)]["bag"]:
+        if item["amount"] == 0:
+          users[str(user.id)]["bag"].remove(item)
       cd = os.getcwd()
       os.chdir('/home/runner/Why-Bot/')
       with open("mainbank.json", "w") as f:
@@ -243,7 +244,7 @@ class Economy(commands.Cog):
 
       earnings = random.randrange(101)
 
-      await ctx.send(embed=discord.Embed(title = f'{ctx.author.mention} Here you filty peasant', description = f'Got {earnings} coins!!'))
+      await ctx.send(embed=discord.Embed(title = f'{ctx.author.mention} Here you filty peasant', description = f'Got `{earnings}` coins!!'))
 
       users[str(user.id)]["wallet"] += earnings
       cd = os.getcwd()
@@ -263,7 +264,7 @@ class Economy(commands.Cog):
 
       earnings = 10000
 
-      await ctx.send(embed=discord.Embed(title = f'{ctx.author.mention}', description = 'Got {:,} coins!!'.format(earnings)))
+      await ctx.send(embed=discord.Embed(title = f'{ctx.author.mention}', description = 'Got `{:,}` coins!!'.format(earnings)))
 
       users[str(user.id)]["wallet"] += earnings
       cd = os.getcwd()
@@ -382,7 +383,7 @@ class Economy(commands.Cog):
 
       await update_bank(ctx.author, -1*amount, 'bank')
       await update_bank(member, amount, 'wallet')
-      await ctx.send(f'{ctx.author.mention} You gave {member} {amount} coins')
+      await ctx.send(f'{ctx.author.mention} You gave {member} `{amount}` coins')
 
 
   @commands.command(aliases=['rb'])
@@ -400,7 +401,7 @@ class Economy(commands.Cog):
 
       await update_bank(ctx.author, earning)
       await update_bank(member, -1*earning)
-      await ctx.send(f'{ctx.author.mention} You robbed {member} and got {earning} coins')
+      await ctx.send(f'{ctx.author.mention} You robbed {member} and got `{earning}` coins')
 
 
   @commands.command()
@@ -424,15 +425,15 @@ class Economy(commands.Cog):
 
     except:
         if amount.lower() == "max":
-            amount = bank
+            amount = wallet
 
         elif amount.lower() == "all":
-            amount = bank
+            amount = wallet
 
         else:
             amount = conv2num(amount)
 
-    if amount > bal[1]:
+    if amount > bal[0]:
         await ctx.send('You do not have sufficient balance')
         return
     if amount < 0:
@@ -440,19 +441,19 @@ class Economy(commands.Cog):
         return
 
     win = False
-    num = random.randint(1, 5)
-    if num == 3:
+    num = random.randint(1, 3)
+    if num == 2:
         win = True
     
     if win == True:
         await update_bank(ctx.author, 2*amount)
-        await ctx.send(f'{ctx.author.mention} You won :) {2*amount}')
+        await ctx.send(f'{ctx.author.mention} You won :) `{2*amount}`')
     else:
         await update_bank(ctx.author, -1*amount)
-        await ctx.send(f'{ctx.author.mention} You lose :( {-1*amount}')
+        await ctx.send(f'{ctx.author.mention} You lose :( `{amount}`')
 
 
-  @commands.command(aliases=['store'])
+  @commands.command()
   async def shop(self, ctx, *, item_=None):
       if item_ == None:
           em = discord.Embed(title="Shop")
@@ -460,23 +461,26 @@ class Economy(commands.Cog):
           for item in mainshop:
               name = item["name"]
               price = item["price"]
+              price = "{:,}".format(price)
               desc = item["description"]
               buy = item['buy']
               if buy == True:
-                  em.add_field(name=name, value=f"${price} | {desc}")
+                  em.add_field(name=f"***Item Name/Id: {name}***", value=f"$`{price}` | {desc}")
       else:
           em = discord.Embed(title="Shop")
+          inshop = False
           for item in mainshop:
               if item["name"].lower() == item_.lower():
                   name = item["name"]
                   price = item["price"]
+                  price = "{:,}".format(price)
                   desc = item["description"]
                   buy = item['buy']
-                  em.add_field(name=name, value=f"${price} | {desc} | Buyable : {buy}")
+                  em.add_field(name=f"***Item Name/Id: {name}***", value=f"$`{price}` | {desc}")
+                  inshop = True
                   break
-              else:
-                em.add_field(name=item_, value="Item not in shop")
-                break
+          if inshop == False:
+            em.add_field(name=item_, value="Item not in shop")
       await ctx.send(embed=em)
 
 
@@ -528,16 +532,7 @@ class Economy(commands.Cog):
 
 
   @commands.command()
-  async def sell(self, ctx, amount=None, *, item):
-    try:
-        int(amount)
-    except:
-        amount = 1
-        if item == None:
-            item = amount
-        else:
-            item = f"{amount} {item}"
-
+  async def sell(self, ctx, amount=1, *, item):
     await open_account(ctx.author)
 
     res = await sell_this(ctx.author, item, amount)
