@@ -465,7 +465,7 @@ class Economy(commands.Cog):
               desc = item["description"]
               buy = item['buy']
               if buy == True:
-                  em.add_field(name=f"***Item Name/Id: {name}***", value=f"$`{price}` | {desc}")
+                  em.add_field(name=f"***{name}***", value=f"$`{price}` | {desc}")
       else:
           em = discord.Embed(title="Shop")
           inshop = False
@@ -485,15 +485,7 @@ class Economy(commands.Cog):
 
 
   @commands.command(aliases=['purchase'])
-  async def buy(self, ctx, amount=None, *, item=None):
-    try:
-        int(amount)
-    except:
-        amount = 1
-        if item == None:
-            item = amount
-        else:
-            item = f"{amount} {item}"
+  async def buy(self, ctx, amount=1, *, item=None):
 
     await open_account(ctx.author)
 

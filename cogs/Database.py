@@ -107,8 +107,13 @@ class Database(commands.Cog):
     search = await self.client.wait_for("message", check=wfcheck)
     search = search.content
     result = find(stype, search)
-
-    await ctx.send(f"Result:\n{result}")
+    resultem = discord.Embed(title=f"{ctx.author.name}'s Database", description="Showing Encrypted Version")
+    for item in result:
+      pid = item[0]
+      pname = item[1]
+      ppass = item[2]
+      resultem.add_field(name=pname, value=f"Id: {pid}\Encrypted password: {ppass}")
+    await ctx.send(embed=resultem)
     await ctx.send("```If you would like it decrypted enter the id of the one you want to decrypt if not type: no```")
     id_ = await self.client.wait_for("message", check=wfcheck)
     id_ = id_.content
@@ -123,18 +128,17 @@ class Database(commands.Cog):
       await ctx.channel.purge(limit=1)
     except:
       pass
+    print(key_)
     value = find("id", id_)
-    print(value)
-    decrypt = value[0][2]
-    print(decrypt)
-    decrypted = decrypt(key_, decrypt)
-    print(decrypted)
-    value[0][2] = decrypted
+    tdecrypt = value[0][2]
+    decrypted = decrypt(key_, tdecrypt)
+    id_ = value[0][0]
+    name = value[0][1]
     await ctx.send("Decrypted sent to dms")
-    await ctx.author.send(value)
+    await ctx.author.send(f"Id: {id_}\nName: {name}\nDecrypted: {decrypted}")
     os.chdir(cd)
 
-
+    
   @commands.command()
   async def gen_key(self, ctx):
     key_ = gen_key()
