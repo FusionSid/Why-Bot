@@ -7,11 +7,11 @@ from os import listdir
 from os.path import isfile, join
 import json
 
-
+# Get prefix
 def get_prefix(client, message):
   cd = "/home/runner/Why-Bot"
   os.chdir(f"{cd}/Setup")
-  with open(f"{message.guild.id}.json") as f:
+  with open(f"{message.guild.id}.json") as f: # open prefix file
     data = json.load(f)
   prefix = data[3]["prefix"]
   os.chdir(cd)
@@ -21,47 +21,52 @@ intents = discord.Intents.all()
 client = commands.Bot(command_prefix = get_prefix, intents=intents, help_command=None)
 
 
-# On Ready
+# Update bot activity to show guilds and help command
 async def update_activity():
-  await client.change_presence(activity=discord.Game(f"?help | {len(client.guilds)} guilds!"))
+  await client.change_presence(activity=discord.Game(f"On {len(client.guilds)} guilds! | ?help"))
   print("Updated presence")
 
+
+# On ready
 @client.event
 async def on_ready():
   print("=======================\nConnected\n=========")
   await update_activity()
 
 
+# On member join
 @client.event
 async def on_member_join(member):
   em = discord.Embed(title="Welcome", description=f"Hello there :wave: {member.name} welcome to {member.guild.name}\nHope you have fun on this server :)", color=discord.Color(value=0x36393e))
-  await member.send(embed=em)
+  await member.send(embed=em) # Welcome message
   cd = os.getcwd()
   os.chdir(f"{cd}/Setup")
   with open(f"{member.guild.id}.json") as f:
-    data = json.load(f)
+    data = json.load(f) # Open setup file and check if there is a welcome channel
   cha = data[2]["welcome_channel"]
   if cha == None:
     member.guild.system_channel.send(embed=em)
   else:
     channel = await client.fetch_channel(int(cha))
-    await channel.send(embed=em)
+    await channel.send(embed=em) # Send welcome message in server welcome channel
   
 
-
+# On reaction
 @client.event
 async def on_raw_reaction_add(payload):
   if payload.member.bot:
-    pass
-  else:
-    with open("reactrole.json") as f:
-      data = json.load(f)
-      for x in data:
-        if x['emoji'] == payload.emoji.name and x["message_id"] == payload.message_id:
-          role = discord.utils.get(client.get_guild(payload.guild_id).roles, id=x['role_id'])
-          await payload.member.add_roles(role)
+    return
+  with open("reactrole.json") as f:
+    data = json.load(f)
+    for x in data:
+      if x['emoji'] == payload.emoji.name and x["message_id"] == payload.message_id:
+        role = discord.utils.get(client.get_guild(payload.guild_id).roles, id=x['role_id'])
+        await payload.member.add_roles(role)
+      else:
+        pass
 
 
+# On voice channel join
 @client.event
 async def on_voice_state_update(member, before, after):
   if member.bot:
@@ -71,7 +76,7 @@ async def on_voice_state_update(member, before, after):
   if before.channel and after.channel:
     pass
   if after.channel is not None:
-    
+    # Custom vc templates
     if after.channel.name == "Custom VC":
       name = f"{member.name}'s VC"
       guild = after.channel.guild
@@ -82,36 +87,12 @@ async def on_voice_state_update(member, before, after):
       with open('customchannel.json', 'w') as f:
         json.dump(data, f)
       if channel is not None:
-        await member.move_to(channel)
-
-    if after.channel.name == "2 People Template":
-      name = f"{member.name}'s VC"
-      guild = after.channel.guild
-      channel = await guild.create_voice_channel(name, user_limit=2)
-      with open('customchannel.json') as f:
-        data = json.load(f)
-      data.append(channel.id)
-      with open('customchannel.json', 'w') as f:
-        json.dump(data, f)
-      if channel is not None:
-        await member.move_to(channel)
-
-    if after.channel.name == "4 People Template":
-      name = f"{member.name}'s VC"
-      guild = after.channel.guild
-      channel = await guild.create_voice_channel(name, user_limit=4)
-      with open('customchannel.json') as f:
-        data = json.load(f)
-      data.append(channel.id)
-      with open('customchannel.json', 'w') as f:
-        json.dump(data, f)
-      if channel is not None:
-        await member.move_to(channel)
+        await member.move_to(channel) # move person to channel
 
   if before.channel is not None:
     with open('customchannel.json') as f:
       channels = json.load(f)
-    if before.channel.id in channels:
+    if before.channel.id in channels: # If the member just created a custom channel and left it - DELETE THAT SHIT
       for i in channels:
         if i == before.channel.id:
           cha = i
@@ -124,7 +105,7 @@ async def on_voice_state_update(member, before, after):
     
 
 
-# Guild
+# Setup for guild
 async def startguildsetup(id):
   cd = os.getcwd()
   os.chdir("{}/Setup".format(cd))
@@ -136,15 +117,15 @@ async def startguildsetup(id):
   ]
   with open(f'{id}.json', 'w') as f:
     json.dump(file, f)
-  os.chdir(cd)
+  os.chdir(cd) # Create blank setup file
   with open("counting.json") as f:
     data = json.load(f)
-  data[id] = 0
+  data[id] = 0 # Set counting to 0
   with open("counting.json", 'w') as f:
     json.dump(data, f)
 
 
-# On Guild Join/Remove
+# On Guild Join
 @client.event
 async def on_guild_join(guild):
   await update_activity()
@@ -160,17 +141,20 @@ async def on_guild_join(guild):
     pass
 
 
+# On remove - Update to show -1 guilds
 @client.event
 async def on_guild_remove(guild):
   await update_activity()
 
 
-# Setup commands
+# Setup command
 @client.command()
 @commands.has_permissions(administrator=True)
 async def setup(ctx):
   def wfcheck(m):
     return m.channel == ctx.channel and m.author == ctx.author
+  
+  # Tell em what the need
   await ctx.send("```To setup bot you will need to copy the id's of channels.\nPlease turn on developer mode to be able to copy channel id's```")
   cd = os.getcwd()
   os.chdir("{}/Setup".format(cd))
@@ -178,6 +162,7 @@ async def setup(ctx):
       data = json.load(f)
   os.chdir(cd)
 
+  # ask for mod channel
   await ctx.send("```Please enter the id for the moderator/staff channel.\nThis channel will be used for logging mod commands done by the bot.\nAlso members can report messages and they will be sent to this channel for review\nType None if you dont/want one```")
   mod = await client.wait_for("message", check=wfcheck)
   mod = mod.content
@@ -190,6 +175,7 @@ async def setup(ctx):
     except:
       await ctx.send("Invalid Input")
 
+  # ask for count channel
   await ctx.send("```Please enter the id for the counting channel\nThis is for the counting game.\nType None if you dont/want one```")
   counting = await client.wait_for("message", check=wfcheck)
   counting = counting.content
@@ -202,6 +188,7 @@ async def setup(ctx):
     except:
       await ctx.send("Invalid Input")
 
+  # Ask for welcome channel
   await ctx.send("```Please enter the id for the welcome channel\nThis is where the bot will welcome new users\nType None if you dont/want one```")
   welcome = await client.wait_for("message", check=wfcheck)
   welcome = welcome.content
@@ -220,7 +207,7 @@ async def setup(ctx):
 
   os.chdir("{}/Setup".format(cd))
   with open(f'{ctx.guild.id}.json', 'w') as f:
-      json.dump(data, f)
+      json.dump(data, f) # Update setup file
 
   os.chdir(cd)
 
@@ -240,24 +227,14 @@ async def setprefix(ctx, pref:str):
   os.chdir(cd)
 
 
-# Blacklist system
-def notblacklisted(ctx):
-  with open("blacklisted.json") as f:
-    blacklisted = json.load(f)
-  for user in blacklisted:
-    if ctx.author.id == user:
-      return False
-  return True
-
-
-# Counting
+# Get the counting channel
 async def get_counting_channel(guild):
   cd = os.getcwd()
 
   os.chdir(f"{cd}/Setup")
 
   with open(f"{guild.id}.json") as f:
-    data = json.load(f)
+    data = json.load(f) # open setup file and find channel
 
   os.chdir(cd)
 
@@ -268,6 +245,7 @@ async def get_counting_channel(guild):
     return cc
 
 
+# Counting
 async def counting(msg, guild, channel):
   try:
       msg = int(msg)
@@ -289,18 +267,31 @@ async def counting(msg, guild, channel):
       json.dump(data, f)
 
 
+# Blacklist system
+def notblacklisted(ctx):
+  with open("blacklisted.json") as f:
+    blacklisted = json.load(f) # Check if blacklisted
+  for user in blacklisted:
+    if ctx.author.id == user:
+      return False
+  return True # If notblacklisted return true else return false
+
 
 # On Message
 @client.event
 async def on_message(message):
   if message.author == client.user:
-        return
+    return # if bot - no
+
+  # Fome variables that come in useful later
   channel = message.channel
   msg = message.content
   guild = message.guild
 
+  # Check if counting channel
   await counting(msg, guild, channel)
 
+  # if blacklisted dont let them use bot
   try:
     bl = notblacklisted(message)
     if bl == True:
@@ -341,22 +332,22 @@ async def on_command_error(ctx, error):
 
   else:
     print("An error has occured:\n{}".format(error))
-    em = discord.Embed(title="Error", description="Possible bug?\nUser ?report bug <bug> to report bug")
+    em = discord.Embed(title="Error", description="Possible bug?\n?report bug <bug>")
     em.add_field(name="Error", value=error)
       
-  await ctx.send(embed=em, delete_after=5)
+  await ctx.send(embed=em, delete_after=6)
 
 
 # Start the bot
 def start_bot(client):
-  keep_alive()
+  keep_alive() # start website and if im using replit which i might it will let the bot stay alive
   client.remove_command("help")
   lst = [f for f in listdir("cogs/") if isfile(join("cogs/", f))]
   no_py = [s.replace('.py', '') for s in lst]
   startup_extensions = ["cogs." + no_py for no_py in no_py]
   try:
     for cogs in startup_extensions:
-      client.load_extension(cogs)
+      client.load_extension(cogs) # Startup all cogs
       print(f"Loaded {cogs}")
 
     print("\nAll Cogs Loaded\n===============\nLogging into Discord...")
