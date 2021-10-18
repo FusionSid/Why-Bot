@@ -51,6 +51,43 @@ class Fusion(commands.Cog):
       blacklisted = json.load(f)
     
     await ctx.send(blacklisted)
-    
+  
+  @commands.command(hidden=True)
+  @commands.check(is_it_me)
+  async def load(self, *, module : str):
+      """Loads a module."""
+      try:
+          self.client.load_extension(module)
+      except Exception as e:
+          await self.client.say('\N{PISTOL}')
+          await self.client.say('{}: {}'.format(type(e).__name__, e))
+      else:
+          await self.client.say('\N{OK HAND SIGN}')
+
+  @commands.command(hidden=True)
+  @commands.check(is_it_me)
+  async def unload(self, *, module : str):
+      """Unloads a module."""
+      try:
+          self.client.unload_extension(module)
+      except Exception as e:
+          await self.client.say('\N{PISTOL}')
+          await self.client.say('{}: {}'.format(type(e).__name__, e))
+      else:
+          await self.client.say('\N{OK HAND SIGN}')
+
+  @commands.command(name='reload', hidden=True)
+  @commands.check(is_it_me)
+  async def _reload(self, *, module : str):
+      """Reloads a module."""
+      try:
+          self.client.unload_extension(module)
+          self.client.load_extension(module)
+      except Exception as e:
+          await self.client.say('\N{PISTOL}')
+          await self.client.say('{}: {}'.format(type(e).__name__, e))
+      else:
+          await self.client.say('\N{OK HAND SIGN}')
+
 def setup(client):
   client.add_cog(Fusion(client))
