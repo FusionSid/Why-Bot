@@ -52,42 +52,14 @@ class Fusion(commands.Cog):
     
     await ctx.send(blacklisted)
   
-  @commands.command(hidden=True)
-  @commands.check(is_it_me)
-  async def load(self, *, module : str):
-      """Loads a module."""
-      try:
-          self.client.load_extension(module)
-      except Exception as e:
-          await self.client.say('\N{PISTOL}')
-          await self.client.say('{}: {}'.format(type(e).__name__, e))
-      else:
-          await self.client.say('\N{OK HAND SIGN}')
 
-  @commands.command(hidden=True)
+  @commands.command()
   @commands.check(is_it_me)
-  async def unload(self, *, module : str):
-      """Unloads a module."""
-      try:
-          self.client.unload_extension(module)
-      except Exception as e:
-          await self.client.say('\N{PISTOL}')
-          await self.client.say('{}: {}'.format(type(e).__name__, e))
-      else:
-          await self.client.say('\N{OK HAND SIGN}')
+  async def reload(self, ctx, extension):
+    self.client.reload_extension(f"cogs.{extension}")
+    embed = discord.Embed(title='Reload', description=f'{extension} successfully reloaded', color=0xff00c8)
+    await ctx.send(embed=embed)
 
-  @commands.command(name='reload', hidden=True)
-  @commands.check(is_it_me)
-  async def _reload(self, *, module : str):
-      """Reloads a module."""
-      try:
-          self.client.unload_extension(module)
-          self.client.load_extension(module)
-      except Exception as e:
-          await self.client.say('\N{PISTOL}')
-          await self.client.say('{}: {}'.format(type(e).__name__, e))
-      else:
-          await self.client.say('\N{OK HAND SIGN}')
 
 def setup(client):
   client.add_cog(Fusion(client))
