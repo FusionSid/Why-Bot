@@ -166,35 +166,18 @@ class Moderation(commands.Cog):
   
 
   @commands.command()
-  async def make_channel(ctx,*, name):
+  async def make_channel(self, ctx,*, name):
     guild = ctx.guild
     channel = await guild.create_text_channel(name)
 
 
   @commands.command()
-  async def make_vc(ctx, limit=None, *, name):
+  async def make_vc(self, ctx, limit=None, *, name):
     guild = ctx.guild
     if limit == "None":
       channel = await guild.create_voice_channel(name)
     else:
       channel = await guild.create_voice_channel(name, user_limit=limit)
-
-
-  @commands.Cog.listener()
-  async def on_voice_state_update(self, member, before, after):
-    if member.bot:
-      return
-    if not before.channel and not after.channel:
-      pass
-    if before.channel and after.channel:
-      pass
-    if after.channel is not None:
-      if after.channel.name == "Custom":
-        name = "f{member.name}'s VC"
-        channel = await self.guild.create_voice_channel(name)
-        if channel is not None:
-          await member.move_to(channel)
-
 
 def setup(client):
     client.add_cog(Moderation(client))

@@ -62,6 +62,68 @@ async def on_raw_reaction_add(payload):
           await payload.member.add_roles(role)
 
 
+@client.event
+async def on_voice_state_update(member, before, after):
+  if member.bot:
+    return
+  if not before.channel and not after.channel:
+    pass
+  if before.channel and after.channel:
+    pass
+  if after.channel is not None:
+    
+    if after.channel.name == "Custom VC":
+      name = f"{member.name}'s VC"
+      guild = after.channel.guild
+      channel = await guild.create_voice_channel(name)
+      with open('customchannel.json') as f:
+        data = json.load(f)
+      data.append(channel.id)
+      with open('customchannel.json', 'w') as f:
+        json.dump(data, f)
+      if channel is not None:
+        await member.move_to(channel)
+
+    if after.channel.name == "2 People Template":
+      name = f"{member.name}'s VC"
+      guild = after.channel.guild
+      channel = await guild.create_voice_channel(name, user_limit=2)
+      with open('customchannel.json') as f:
+        data = json.load(f)
+      data.append(channel.id)
+      with open('customchannel.json', 'w') as f:
+        json.dump(data, f)
+      if channel is not None:
+        await member.move_to(channel)
+
+    if after.channel.name == "4 People Template":
+      name = f"{member.name}'s VC"
+      guild = after.channel.guild
+      channel = await guild.create_voice_channel(name, user_limit=4)
+      with open('customchannel.json') as f:
+        data = json.load(f)
+      data.append(channel.id)
+      with open('customchannel.json', 'w') as f:
+        json.dump(data, f)
+      if channel is not None:
+        await member.move_to(channel)
+
+  if before.channel is not None:
+    with open('customchannel.json') as f:
+      channels = json.load(f)
+    if before.channel.id in channels:
+      for i in channels:
+        if i == before.channel.id:
+          cha = i
+          if len(before.channel.members) == 0:
+            await before.channel.delete()
+          channels.remove(i)
+          break
+      with open('customchannel.json', 'w') as f:
+        json.dump(channels, f)
+    
+
+
 # Guild
 async def startguildsetup(id):
   cd = os.getcwd()
