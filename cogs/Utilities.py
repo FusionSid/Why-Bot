@@ -4,6 +4,7 @@ import json
 import requests
 from discord.ext import commands
 import os
+import datetime
 
 def calculator(num1, operator, num2):
     if operator == "+":
@@ -17,10 +18,11 @@ def calculator(num1, operator, num2):
 
 
 def get_weather_data(city):
-    apikey = os.environ['Weather']
+    apikey = "6f9aa23390668e72710bd5a33e3d575c"
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={apikey}"
     weather_response = requests.get(url).json()
     return weather_response
+
 
 class Utilities(commands.Cog):
     def __init__(self, client):
@@ -33,42 +35,43 @@ class Utilities(commands.Cog):
         await ctx.send(embed=discord.Embed(title='Calculator Result:', description=ans))
     
 
-    @commmands.command()
+    @commands.command()
     async def weather(self, ctx, *, city):
         em = discord.Embed(title="Weather", description = f"For {city}:")
         weather_response = get_weather_data(city)
+        print(weather_response)
 
-        stime = weather_response['sys']['sunrise']
-        sunrise = datetime.datetime.fromtimestamp(stime).strftime("%I:%M %p")
-        em.add_field(name="Sunset:", value=f"Sunset is at {sunset}")
+        try:
+          min = weather_response['main']['temp_min']
+          min = math.floor(min-273.15)
+          max = weather_response['main']['temp_max']
+          max = math.floor(max-273.15)
+          em.add_field(name="Min/Max:", value=f"Minimum Temperature today is {min} And the max will be {max}")
+        except Exception as e:
+          print(e)
 
-        stime = weather_response['sys']['sunset']
-        sunset = datetime.datetime.fromtimestamp(stime).strftime("%I:%M %p")
-        em.add_field(name="Sunrise:", value=f"Sunrise is at {sunrise}")
+        try:
+          feelslike = weather_response['main']['feels_like']
+          feelslike = math.floor(feelslike-273.15)
+          em.add_field(name="Feels Like:", value=f"It feels like {feelslike} degrees celsius")
+        except Exception as e:
+          print(e)
 
-        min = weather_response['main']['temp_min']
-        min = math.floor(min-273.15)
-        max = weather_response['main']['temp_max']
-        max = math.floor(max-273.15)
-        em.add_field(name="Min/Max:", value=f"Minimum Temperature today is {min} And the max will be {max}")
+        try:
+          temp = weather_response['main']['temp']
+          temp = math.floor(temp-273.15)
+          em.add_field(name="Temerature:",value=f"The temperature is {temp} degrees celsius")
+        except Exception as e:
+          print(e)
 
-        feelslike = weather_response['main']['feels_like']
-        feelslike = math.floor(feelslike-273.15)
-        em.add_field(name="Feels Like:", value=f"It feels like {feelslike} degrees celsius")
-
-        temp = weather_response['main']['temp']
-        temp = math.floor(temp-273.15)
-        em.add_field(name="Temerature:",value=f"The temperature is {temp} degrees celsius")
-
-        desc = weather_response['main'][0]["description"]
-        main = weather_response['main'][0]['main']
-        em.add_field(name="Description:", value=f"Weather description {main}, {desc}")
-
+        try:
+          desc = weather_response['main'][0]["description"]
+          main = weather_response['main'][0]['main']
+          em.add_field(name="Description:", value=f"Weather description {main}, {desc}")
+        except Exception as e:
+          print(e)
+          
         await ctx.send(embed=em)
-
-
 
 def setup(client):
     client.add_cog(Utilities(client))
-
-apikey = "6f9aa23390668e72710bd5a33e3d575c"
