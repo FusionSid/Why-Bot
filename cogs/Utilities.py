@@ -78,15 +78,15 @@ class Utilities(commands.Cog):
     @commands.command()
     async def qrcode(self, ctx, *, url):
         qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_H,
-        box_size=10,
-        border=4,
-    )
-    qr.add_data(str(url))
-    qr.make(fit=True)
-    img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
-    await ctx.send(file=discord.File(img))
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_H,
+            box_size=10,
+            border=4,
+        )
+        qr.add_data(str(url))
+        qr.make(fit=True)
+        img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
+        await ctx.send(file=discord.File(img))
 
 def setup(client):
     client.add_cog(Utilities(client))
