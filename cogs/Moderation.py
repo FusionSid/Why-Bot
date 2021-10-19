@@ -1,8 +1,12 @@
 import discord
-from discord.channel import CategoryChannel
+import datetime
+import sqlite3
 from discord.ext import commands
 import os
 import json
+
+cd = "/home/runner/Why-Bot/cogs/"
+dbpath = "/home/runner/Why-Bot/MainDB"
 
 async def create_voice(guild, name, cat, limit=None):
   category = await guild.get_category_by_name(guild, cat)
@@ -166,18 +170,60 @@ class Moderation(commands.Cog):
   
 
   @commands.command()
+  @commands.has_permissions(administrator=True)
   async def make_channel(self, ctx,*, name):
     guild = ctx.guild
     channel = await guild.create_text_channel(name)
 
 
   @commands.command()
+  @commands.has_permissions(administrator=True)
   async def make_vc(self, ctx, limit=None, *, name):
     guild = ctx.guild
     if limit == "None":
       channel = await guild.create_voice_channel(name)
     else:
       channel = await guild.create_voice_channel(name, user_limit=limit)
+
+
+  @commands.command()
+  @commands.has_permissions(administrator=True)
+  async def warn(self, ctx, member : discord.Member, *, reason=None):
+    if member.id in [ctx.author.id, self.bot.user.id]:
+      return await ctx.send("You cant warn yourself LMAO")
+
+    now = datetime.now()
+
+    time = now.strftime("%Y-%m-%d-%H:%M:%S")
+    id_ = member.id
+    if reason == None:
+      reason = "None"
+
+    os.chdir(dbpath)
+    conn = sqlite3.connect(f"warn{ctx.guild.id}.db")
+    c = conn.cursor()
+    with conn:
+      c.execute("CREATE TABLE IF NOT EXISTS Warnings (id INTEGER, reason TEXT, time TEXT)")
+      c.execute("INSERT INTO Warnings (id, reason, time) VALUES (:id, :reason, :time)", {'id':id_, 'reason':reason, 'time':time})
+    os.chdir(cd)
+  
+
+  @commands.command()
+  @commands.has_permissions(administrator=True)
+  async def warnings(self, ctx, member:discord.Member):
+    os.chdir(dbpath)
+    conn = sqlite3.connect(f"warn{ctx.guild.id}.db")
+    c = conn.cursor()
+    c.execute("SELECT * FROM Warnings WHERE id = :id", {'id':member.id})
+    warnings = c.fetchall()
+    os.chdir(cd)
+
+    em = discord.Embed(title="WARNINGS:")
+    for i in warnings:
+      em.add_field(i)
+      
+    await ctx.send(embed=em)
+
 
 def setup(client):
     client.add_cog(Moderation(client))

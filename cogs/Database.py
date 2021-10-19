@@ -22,7 +22,7 @@ def decrypt(key, encrypted):
     return decrypted
 
 
-db_path = "/home/runner/Why-Bot/Databases/"
+db_path = "/home/runner/Why-Bot/EncryptDB/"
 cd = "/home/runner/Why-Bot/cogs/"
 
 class Database(commands.Cog):
