@@ -1,5 +1,5 @@
 import discord
-import datetime
+from datetime import datetime
 import sqlite3
 from discord.ext import commands
 import os
@@ -189,12 +189,12 @@ class Moderation(commands.Cog):
   @commands.command()
   @commands.has_permissions(administrator=True)
   async def warn(self, ctx, member : discord.Member, *, reason=None):
-    if member.id in [ctx.author.id, self.bot.user.id]:
-      return await ctx.send("You cant warn yourself LMAO")
+    if member.id in [ctx.author.id, self.client.user.id]:
+      return await ctx.send("You cant warn yourself/me LMAO")
 
     now = datetime.now()
 
-    time = now.strftime("%Y-%m-%d-%H:%M:%S")
+    time = now.strftime("%Y-%m-%d %H:%M:%S")
     id_ = member.id
     if reason == None:
       reason = "None"
@@ -221,7 +221,9 @@ class Moderation(commands.Cog):
 
     em = discord.Embed(title="WARNINGS:")
     for i in warnings:
-      em.add_field(i)
+      t = i[2]
+      r = i[1]
+      em.add_field(name = t, value=f"Reason: {r}")
       
     await ctx.send(embed=em)
 
