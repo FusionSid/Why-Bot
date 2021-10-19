@@ -1,4 +1,5 @@
 import discord
+import sqlite3
 import os
 import math
 from discord.ext import commands
@@ -123,6 +124,16 @@ async def startguildsetup(id):
   data[id] = 0 # Set counting to 0
   with open("counting.json", 'w') as f:
     json.dump(data, f)
+  os.chdir(f"{cd}/MainDB")
+  conn = sqlite3.connect(f"warn{id}.db")
+  c = conn.cursor()
+  c.execute("CREATE TABLE IF NOT EXISTS Warnings (id INTEGER, reason TEXT, time TEXT)")
+  # c.execute() create level table
+  os.chdir(cd)
+  os.chdir(f"{cd}/EncryptDB")
+  conn = sqlite3.connect(f"{id}.db")
+  c = conn.cursor()
+  os.chdir(cd)
 
 
 # On Guild Join

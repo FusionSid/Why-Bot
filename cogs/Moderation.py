@@ -214,6 +214,7 @@ class Moderation(commands.Cog):
     os.chdir(dbpath)
     conn = sqlite3.connect(f"warn{ctx.guild.id}.db")
     c = conn.cursor()
+    c.execute("CREATE TABLE IF NOT EXISTS Warnings (id INTEGER, reason TEXT, time TEXT)")
     c.execute("SELECT * FROM Warnings WHERE id = :id", {'id':member.id})
     warnings = c.fetchall()
     os.chdir(cd)
