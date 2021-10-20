@@ -6,7 +6,6 @@ authors = ["FusionSid <<>>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-discord = "^1.7.3"
 Flask = "^2.0.2"
 aiofiles = "^0.7.0"
 google-api-python-client = "^2.26.1"
@@ -17,6 +16,7 @@ config = "^0.5.1"
 youtube_dl = "^2021.6.6"
 youtube-search-python = "^1.4.9"
 PyNaCl = "^1.4.0"
+py-cord = "^1.7.3"
 
 [tool.poetry.dev-dependencies]
 

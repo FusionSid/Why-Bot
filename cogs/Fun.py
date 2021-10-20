@@ -229,7 +229,7 @@ class Fun(commands.Cog):
     @commands.command()
     async def say(self, ctx, *, text):
       await ctx.send(text)
-
+  
 
     @commands.command()
     async def numrn(self, ctx):
@@ -241,7 +241,7 @@ class Fun(commands.Cog):
         guildid = f'{guild.id}'
         numrn = data[guildid]
         await ctx.send(f"Current number is {numrn}")
-    
+
     
     
 def setup(client):
