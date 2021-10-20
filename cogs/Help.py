@@ -1,5 +1,10 @@
 import discord
 from discord.ext import commands
+import os
+import json
+
+cd = "home/runner/Why-Bot/cogs/"
+path = "home/runner/Why-Bot/"
 
 class Help(commands.Cog):
   def __init__(self, client):
@@ -17,7 +22,9 @@ class Help(commands.Cog):
       embed.add_field(name="Use `?help [category]`", value= "for all commands related to said category")
       embed.add_field(name="If you havent already please run ?setup", value="To setup stuff")
       embed.add_field(name="Use `?help [category] [command`]", value = "for specific help about a command")
-      embed.set_footer(text="Default prefix is `?` thats why all the help commands say `?` It might be differnt on your server")
+      embed.set_footer(text="Default prefix is `?` thats why all the help commands say `?` It might be different on your server")
+      embed.set_footer(
+          text="Default prefix is ? might be different for your server")
       return await ctx.send(embed=embed)
 
     else:
@@ -29,6 +36,8 @@ class Help(commands.Cog):
         embed.add_field(name="`?genkey`",value="Generates a key for encrypting and decrypting")
         embed.add_field(name="`?store`",value="Encrypts text and stores it in a database. Can only be encrypted/decrypted with a key")
         embed.add_field(name="`?get`",value="Gets items from the database")
+        embed.set_footer(
+            text="Default prefix is ? might be different for your server")
 
         return await ctx.send(embed=embed)
 
@@ -47,6 +56,8 @@ class Help(commands.Cog):
         embed.add_field(name="`?shop`",value="A place to purchase items")
         embed.add_field(name="`?buy`",value="Buy things from the shop")
         embed.add_field(name="`?sell`",value="Sell things you own for some money back")
+        embed.set_footer(
+            text="Default prefix is ? might be different for your server")
         return await ctx.send(embed=embed)
         
 
@@ -64,6 +75,7 @@ class Help(commands.Cog):
         embed.add_field(name="`?dm`",value="The bot dms someone")
         embed.add_field(name="`Counting`",value="This one doesnt have a command you just count in the counting chat")
         embed.add_field(name="`?numrn`",value="Displays current number for counting game")
+        embed.set_footer(text="Default prefix is ? might be different for your server")
 
         return await ctx.send(embed=embed)
 
@@ -75,6 +87,8 @@ class Help(commands.Cog):
         embed.add_field(name="`?google`",value="Searches google for website links")
         embed.add_field(name="`?imagesearch`",value="Search for an image")
         embed.add_field(name="`?youtube`",value="Searches youtube for video links")
+        embed.set_footer(
+            text="Default prefix is ? might be different for your server")
 
         return await ctx.send(embed=embed)
 
@@ -88,6 +102,8 @@ class Help(commands.Cog):
         embed.add_field(name="`?getuuid`",value="Gets your uuid")
         embed.add_field(name="`?bwstats`",value="Gets your bedwars stats")
         embed.add_field(name="`?bwchallenge`",value="Bedwars challenge")
+        embed.set_footer(
+            text="Default prefix is ? might be different for your server")
 
         return await ctx.send(embed=embed)
 
@@ -112,6 +128,8 @@ class Help(commands.Cog):
         embed.add_field(name="`?warnings`",value="Displays the amount of warnings a person has")
         embed.add_field(name="`?clear`",value="Clears messages from the chat")
         embed.add_field(name="`Custom Vc`",value="This isnt a command but if you rename a VC to Custom VC, Joining it will create a new vc and then delete it upon leaving the vc")
+        embed.set_footer(
+            text="Default prefix is ? might be different for your server")
 
         return await ctx.send(embed=embed)
 
@@ -129,6 +147,8 @@ class Help(commands.Cog):
         embed.add_field(name="`?resume`", value="Resume music.", inline=False)
         embed.add_field(name="`?queue`", value="Shows current queue.", inline=False)
         embed.add_field(name="`?loop`", value="Loops current track.", inline=False)
+        embed.set_footer(
+            text="Default prefix is ? might be different for your server")
 
         return await ctx.send(embed=embed)
 
@@ -145,6 +165,7 @@ class Help(commands.Cog):
         embed.add_field(name="`?emojify`",value="Emojify text")
         embed.add_field(name="`?binarytotext`",value="Convery binary to text")
         embed.add_field(name="`?texttobinary`",value="Convert text to binary")
+        embed.set_footer(text="Default prefix is ? might be different for your server")
 
         return await ctx.send(embed=embed)
 
@@ -156,6 +177,8 @@ class Help(commands.Cog):
         embed.add_field(name="`?qrcode`",value="Make a qr code for a website")
         embed.add_field(name="`?calc`",value="Calculate things")
         embed.add_field(name="`?weather`",value="Get a weather report for your city")
+        embed.set_footer(
+            text="Default prefix is ? might be different for your server")
 
         return await ctx.send(embed=embed)
 
@@ -166,7 +189,42 @@ class Help(commands.Cog):
         pass
 
       if cat.lower() == "ticket":
-        pass
+        os.chdir(path)
+        with open("data.json") as f:
+          data = json.load(f)
+        os.chdir(cd)
+        valid_user = False
+
+        for role_id in data["verified-roles"]:
+            try:
+                if ctx.guild.get_role(role_id) in ctx.author.roles:
+                    valid_user = True
+            except:
+                pass
+        
+        if ctx.author.guild_permissions.administrator or valid_user:
+
+            em = discord.Embed(title="Tickets Help", description="", color=0x00a8ff)
+            em.add_field(name="`?new <message>`", value="This creates a new ticket. Add any words after the command if you'd like to send a message when we initially create your ticket.")
+            em.add_field(name="`?close`", value="Use this to close a ticket. This command only works in ticket channels.")
+            em.add_field(name="`?addaccess <role_id>`", value="This can be used to give a specific role access to all tickets. This command can only be run if you have an admin-level role for this bot.")
+            em.add_field(name="`?delaccess <role_id>`", value="This can be used to remove a specific role's access to all tickets. This command can only be run if you have an admin-level role for this bot.")
+            em.add_field(name="`?addpingedrole <role_id>`", value="This command adds a role to the list of roles that are pinged when a new ticket is created. This command can only be run if you have an admin-level role for this bot.")
+            em.add_field(name="`?delpingedrole <role_id>`", value="This command removes a role from the list of roles that are pinged when a new ticket is created. This command can only be run if you have an admin-level role for this bot.")
+            em.add_field(name="`?addadminrole <role_id>`", value="This command gives all users with a specific role access to the admin-level commands for the bot, such as `?addpingedrole` and `?addaccess`. This command can only be run by users who have administrator permissions for the entire server.")
+            em.add_field(name="`?deladminrole <role_id>`", value="This command removes access for all users with the specified role to the admin-level commands for the bot, such as `.addpingedrole` and `.addaccess`. This command can only be run by users who have administrator permissions for the entire server.")
+            em.set_footer(text="Default prefix is ? might be different for your server")
+
+            await ctx.send(embed=em)
+        
+        else:
+
+            em = discord.Embed(title = "Tickets Help", description ="", color = 0x00a8ff)
+            em.add_field(name="`?new <message>`", value="This creates a new ticket. Add any words after the command if you'd like to send a message when we initially create your ticket.")
+            em.add_field(name="`?close`", value="Use this to close a ticket. This command only works in ticket channels.")
+            em.set_footer(text="Default prefix is ? might be different for your server")
+
+            await ctx.send(embed=em)
       else:
         await ctx.send("```Invalid Category\nCategories List:\ndatabase, economy fun, google, minecraft, moderation, music, reddit, text, utilities and other```")
   

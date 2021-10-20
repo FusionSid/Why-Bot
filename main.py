@@ -129,6 +129,9 @@ async def startguildsetup(id):
   c = conn.cursor()
   c.execute("CREATE TABLE IF NOT EXISTS Warnings (id INTEGER, reason TEXT, time TEXT)")
   # c.execute() create level table
+  newtickettemplate = {"ticket-counter": 0, "valid-roles": [], "pinged-roles": [], "ticket-channel-ids": [], "verified-roles": []}
+  with open(f"ticket{id}.json", 'w') as f:
+    json.dump(newtickettemplate, f)
   os.chdir(cd)
   os.chdir(f"{cd}/EncryptDB")
   conn = sqlite3.connect(f"{id}.db")
