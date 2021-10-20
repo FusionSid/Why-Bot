@@ -227,7 +227,7 @@ class Fun(commands.Cog):
 
 
     @commands.command()
-    async def noembed(self, ctx, *, text):
+    async def say(self, ctx, *, text):
       await ctx.send(text)
 
 
