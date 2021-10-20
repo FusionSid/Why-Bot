@@ -17,7 +17,8 @@ class Help(commands.Cog):
       embed.add_field(name="Use `?help [category]`", value= "for all commands related to said category")
       embed.add_field(name="If you havent already please run ?setup", value="To setup stuff")
       embed.add_field(name="Use `?help [category] [command`]", value = "for specific help about a command")
-      embed.add_footer(name="Default prefix is `?` thats why all the help commands say `?` It might be differnt on your server")
+      embed.set_footer(text="Default prefix is `?` thats why all the help commands say `?` It might be differnt on your server")
+      return await ctx.send(embed=embed)
 
     else:
       if cat.lower() == 'database':
@@ -46,6 +47,7 @@ class Help(commands.Cog):
         embed.add_field(name="`?shop`",value="A place to purchase items")
         embed.add_field(name="`?buy`",value="Buy things from the shop")
         embed.add_field(name="`?sell`",value="Sell things you own for some money back")
+        return await ctx.send(embed=embed)
         
 
       if cat.lower() == 'fun':
@@ -163,6 +165,8 @@ class Help(commands.Cog):
       if cat.lower() == 'reddit':
         pass
 
+      if cat.lower() == "ticket":
+        pass
       else:
         await ctx.send("```Invalid Category\nCategories List:\ndatabase, economy fun, google, minecraft, moderation, music, reddit, text, utilities and other```")
   

@@ -6,7 +6,6 @@ from multiprocessing import Pool
 import os, platform
 import discord.voice_client
 import nacl
-import PyNaCl
 
 ffmpeg = "/home/runner/Why-Bot/Why-Bot/ffmpeg.exe"
 cookies = "/home/runner/Why-Bot/cookies.txt"
@@ -59,8 +58,7 @@ def check_new_songs(guild_id, vc):
 			try:
 				vc.play(discord.FFmpegPCMAudio(
 					src_video_url,
-					executable=ffmpeg,
-					before_options=ffmpeg_options["before_options"],
+          before_options=ffmpeg_options["before_options"],
 					options=ffmpeg_options["options"]
 				), after=lambda a: check_new_songs(guild_id, vc))
 			except discord.errors.ClientException:
@@ -92,7 +90,6 @@ def check_new_songs(guild_id, vc):
 		try:
 			vc.play(discord.FFmpegPCMAudio(
 				src_video_url,
-				executable=ffmpeg,
 				before_options=ffmpeg_options["before_options"],
 				options=ffmpeg_options["options"]
 			), after=lambda a: check_new_songs(guild_id, vc))
@@ -288,7 +285,6 @@ class Music(commands.Cog):
     try:
       vc.play(discord.FFmpegPCMAudio(
         src_video_url,
-        executable=ffmpeg,
         before_options=ffmpeg_options["before_options"],
         options=ffmpeg_options["options"]
         # calling the check_new_songs function after playing the current music
