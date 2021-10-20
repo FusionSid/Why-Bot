@@ -17,6 +17,7 @@ youtube_dl = "^2021.6.6"
 youtube-search-python = "^1.4.9"
 PyNaCl = "^1.4.0"
 py-cord = "^1.7.3"
+discord = "^1.7.3"
 
 [tool.poetry.dev-dependencies]
 

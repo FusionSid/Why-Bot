@@ -70,6 +70,7 @@ async def on_raw_reaction_add(payload):
 # On voice channel join
 @client.event
 async def on_voice_state_update(member, before, after):
+  os.chdir("/home/runner/Why-Bot")
   if member.bot:
     return
   if not before.channel and not after.channel:

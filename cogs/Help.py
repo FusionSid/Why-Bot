@@ -3,8 +3,8 @@ from discord.ext import commands
 import os
 import json
 
-cd = "home/runner/Why-Bot/cogs/"
-path = "home/runner/Why-Bot/"
+cd = "/home/runner/Why-Bot/cogs/"
+path = "/home/runner/Why-Bot/MainDB/"
 
 class Help(commands.Cog):
   def __init__(self, client):
@@ -190,7 +190,7 @@ class Help(commands.Cog):
 
       if cat.lower() == "ticket":
         os.chdir(path)
-        with open("data.json") as f:
+        with open(f"ticket{ctx.guild.id}.json") as f:
           data = json.load(f)
         os.chdir(cd)
         valid_user = False
@@ -209,8 +209,6 @@ class Help(commands.Cog):
             em.add_field(name="`?close`", value="Use this to close a ticket. This command only works in ticket channels.")
             em.add_field(name="`?addaccess <role_id>`", value="This can be used to give a specific role access to all tickets. This command can only be run if you have an admin-level role for this bot.")
             em.add_field(name="`?delaccess <role_id>`", value="This can be used to remove a specific role's access to all tickets. This command can only be run if you have an admin-level role for this bot.")
-            em.add_field(name="`?addpingedrole <role_id>`", value="This command adds a role to the list of roles that are pinged when a new ticket is created. This command can only be run if you have an admin-level role for this bot.")
-            em.add_field(name="`?delpingedrole <role_id>`", value="This command removes a role from the list of roles that are pinged when a new ticket is created. This command can only be run if you have an admin-level role for this bot.")
             em.add_field(name="`?addadminrole <role_id>`", value="This command gives all users with a specific role access to the admin-level commands for the bot, such as `?addpingedrole` and `?addaccess`. This command can only be run by users who have administrator permissions for the entire server.")
             em.add_field(name="`?deladminrole <role_id>`", value="This command removes access for all users with the specified role to the admin-level commands for the bot, such as `.addpingedrole` and `.addaccess`. This command can only be run by users who have administrator permissions for the entire server.")
             em.set_footer(text="Default prefix is ? might be different for your server")
