@@ -7,6 +7,15 @@ import os
 
 cd = "home/runner/Why-Bot/cogs/"
 homepath = "home/runner/Why-Bot/MainDB/"
+newtickettemplate = {"ticket-counter": 0, "valid-roles": [], "pinged-roles": [], "ticket-channel-ids": [], "verified-roles": []}
+
+def createticketfile(ctx):
+    try:
+        with open(f"ticket{ctx.guild.id}.json") as f:
+            print("Success")
+    except FileNotFoundError:
+        with open(f"ticket{ctx.guild.id}.json", 'w') as f:
+            json.dump(newtickettemplate,f)
 
 class Ticket(commands.Cog):
     def __init__(self, client):
@@ -25,7 +34,7 @@ class Ticket(commands.Cog):
             message_content = "".join(args)
 
         os.chdir(homepath)
-        with open(f"ticket{ctx.guild.id}") as f:
+        with open(f"ticket{ctx.guild.id}.json") as f:
             data = json.load(f)
         os.chdir(cd)
 
@@ -72,7 +81,7 @@ class Ticket(commands.Cog):
 
         data["ticket-counter"] = int(ticket_number)
         os.chdir(homepath)
-        with open(f"ticket{ctx.guild.id}", 'w') as f:
+        with open(f"ticket{ctx.guild.id}.json", 'w') as f:
             json.dump(data, f)
         os.chdir(cd)
         
@@ -83,7 +92,7 @@ class Ticket(commands.Cog):
     @commands.command()
     async def close(self, ctx):
         os.chdir(homepath)
-        with open(f'ticket{ctx.guild.id}') as f:
+        with open(f'ticket{ctx.guild.id}.json') as f:
             data = json.load(f)
         os.chdir(cd)
 
@@ -106,7 +115,7 @@ class Ticket(commands.Cog):
                 del data["ticket-channel-ids"][index]
 
                 os.chdir(homepath)
-                with open(f'ticket{ctx.guild.id}', 'w') as f:
+                with open(f'ticket{ctx.guild.id}.json', 'w') as f:
                     json.dump(data, f)
                 os.chdir(cd)
             
@@ -119,7 +128,7 @@ class Ticket(commands.Cog):
     @commands.command()
     async def addaccess(self, ctx, role_id=None):
         os.chdir(homepath)
-        with open(f'ticket{ctx.guild.id}') as f:
+        with open(f'ticket{ctx.guild.id}.json') as f:
             data = json.load(f)
         os.chdir(cd)
         
@@ -141,13 +150,13 @@ class Ticket(commands.Cog):
                     role = ctx.guild.get_role(role_id)
 
                     os.chdir(homepath)
-                    with open(f"ticket{ctx.guild.id}") as f:
+                    with open(f"ticket{ctx.guild.id}.json") as f:
                         data = json.load(f)
                     os.chdir(cd)
                     data["valid-roles"].append(role_id)
 
                     os.chdir(homepath)
-                    with open(f'ticket{ctx.guild.id}', 'w') as f:
+                    with open(f'ticket{ctx.guild.id}.json', 'w') as f:
                         json.dump(data, f)
                     os.chdir(cd)
                     
@@ -170,7 +179,7 @@ class Ticket(commands.Cog):
     @commands.command()
     async def delaccess(self, ctx, role_id=None):
         os.chdir(homepath)
-        with open(f'ticket{ctx.guild.id}') as f:
+        with open(f'ticket{ctx.guild.id}.json') as f:
             data = json.load(f)
         os.chdir(cd)
         
@@ -189,7 +198,7 @@ class Ticket(commands.Cog):
                 role_id = int(role_id)
                 role = ctx.guild.get_role(role_id)
                 os.chdir(homepath)
-                with open(f"ticket{ctx.guild.id}") as f:
+                with open(f"ticket{ctx.guild.id}.json") as f:
                     data = json.load(f)
                 os.chdir(cd)
 
@@ -202,7 +211,7 @@ class Ticket(commands.Cog):
 
                     data["valid-roles"] = valid_roles
                     os.chdir(homepath)
-                    with open(f'ticket{ctx.guild.id}', 'w') as f:
+                    with open(f'ticket{ctx.guild.id}.json', 'w') as f:
                         json.dump(data, f)
                     os.chdir(cd)
 
@@ -226,7 +235,7 @@ class Ticket(commands.Cog):
     @commands.command()
     async def addpingedrole(self, ctx, role_id=None):
         os.chdir(homepath)
-        with open(f'ticket{ctx.guild.id}') as f:
+        with open(f'ticket{ctx.guild.id}.json') as f:
             data = json.load(f)
         os.chdir(cd)
         
@@ -248,13 +257,13 @@ class Ticket(commands.Cog):
                 try:
                     role = ctx.guild.get_role(role_id)
                     os.chdir(homepath)
-                    with open(f"ticket{ctx.guild.id}") as f:
+                    with open(f"ticket{ctx.guild.id}.json") as f:
                         data = json.load(f)
                     os.chdir(cd)
 
                     data["pinged-roles"].append(role_id)
                     os.chdir(homepath)
-                    with open(f'ticket{ctx.guild.id}', 'w') as f:
+                    with open(f'ticket{ctx.guild.id}.json', 'w') as f:
                         json.dump(data, f)
                     os.chdir(cd)
 
@@ -277,7 +286,7 @@ class Ticket(commands.Cog):
     @commands.command()
     async def delpingedrole(self, ctx, role_id=None):
         os.chdir(homepath)
-        with open(f'ticket{ctx.guild.id}') as f:
+        with open(f'ticket{ctx.guild.id}.json') as f:
             data = json.load(f)
         os.chdir(cd)
         
@@ -296,7 +305,7 @@ class Ticket(commands.Cog):
                 role_id = int(role_id)
                 role = ctx.guild.get_role(role_id)
                 os.chdir(homepath)
-                with open(f"ticket{ctx.guild.id}") as f:
+                with open(f"ticket{ctx.guild.id}.json") as f:
                     data = json.load(f)
                 os.chdir(cd)
 
@@ -309,7 +318,7 @@ class Ticket(commands.Cog):
 
                     data["pinged-roles"] = pinged_roles
                     os.chdir(homepath)
-                    with open(f'ticket{ctx.guild.id}', 'w') as f:
+                    with open(f'ticket{ctx.guild.id}.json', 'w') as f:
                         json.dump(data, f)
                     os.chdir(cd)
 
@@ -337,13 +346,13 @@ class Ticket(commands.Cog):
             role_id = int(role_id)
             role = ctx.guild.get_role(role_id)
             os.chdir(homepath)
-            with open(f"ticket{ctx.guild.id}") as f:
+            with open(f"ticket{ctx.guild.id}.json") as f:
                 data = json.load(f)
             os.chdir(cd)
 
             data["verified-roles"].append(role_id)
             os.chdir(homepath)
-            with open(f'ticket{ctx.guild.id}', 'w') as f:
+            with open(f'ticket{ctx.guild.id}.json', 'w') as f:
                 json.dump(data, f)
             os.chdir(cd)
             
@@ -361,7 +370,7 @@ class Ticket(commands.Cog):
             role_id = int(role_id)
             role = ctx.guild.get_role(role_id)
             os.chdir(homepath)
-            with open(f"ticket{ctx.guild.id}") as f:
+            with open(f"ticket{ctx.guild.id}.json") as f:
                 data = json.load(f)
             os.chdir(cd)
 
@@ -374,7 +383,7 @@ class Ticket(commands.Cog):
 
                 data["verified-roles"] = admin_roles
                 os.chdir(homepath)
-                with open(f'ticket{ctx.guild.id}', 'w') as f:
+                with open(f'ticket{ctx.guild.id}.json', 'w') as f:
                     json.dump(data, f)
                 os.chdir(cd)
                 
