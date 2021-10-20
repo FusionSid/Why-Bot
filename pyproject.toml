@@ -13,6 +13,10 @@ google-api-python-client = "^2.26.1"
 cryptography = "^35.0.0"
 qrcode = "^7.3.1"
 google = "^3.0.0"
+config = "^0.5.1"
+youtube_dl = "^2021.6.6"
+youtube-search-python = "^1.4.9"
+PyNaCl = "^1.4.0"
 
 [tool.poetry.dev-dependencies]
 

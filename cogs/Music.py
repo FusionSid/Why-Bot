@@ -2,12 +2,19 @@ import discord
 from discord.ext import commands
 import youtube_dl
 from youtubesearchpython import VideosSearch
-from discord.ext import commands
 from multiprocessing import Pool
-from config import *
+import os, platform
+import discord.voice_client
+import nacl
+import PyNaCl
 
 ffmpeg = "/home/runner/Why-Bot/Why-Bot/ffmpeg.exe"
 cookies = "/home/runner/Why-Bot/cookies.txt"
+ffmpeg_options = {  # ffmpeg options
+	"before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
+	"options": "-vn"
+}
+
 
 loops = {}  # for +loop command
 queues = {}  # for queues
@@ -107,7 +114,7 @@ class Music(commands.Cog):
 
   # join command
   @commands.command(aliases=["j"])
-  async def join(ctx):
+  async def join(self, ctx):
     if ctx.author.voice is None:
       return await ctx.send(f"{ctx.author.mention}, You have to be connected to a voice channel.")
 
@@ -126,7 +133,7 @@ class Music(commands.Cog):
   # play command
   # noinspection PyTypeChecker
   @commands.command(aliases=["p"])
-  async def play(ctx, *, video=None):
+  async def play(self, ctx, *, video=None):
     global queues
     global now_playing_pos
     global all_queues_info
@@ -205,7 +212,6 @@ class Music(commands.Cog):
     try:
       vc.play(discord.FFmpegPCMAudio(
         src_video_url,
-        executable=ffmpeg,
         before_options=ffmpeg_options["before_options"],
         options=ffmpeg_options["options"]
         # calling the check_new_songs function after playing the current music
@@ -234,7 +240,7 @@ class Music(commands.Cog):
   # lofi/music command
   # noinspection PyTypeChecker
   @commands.command(aliases=["lofi", "lo-fi", "chill"])
-  async def music(ctx):
+  async def music(self, ctx):
     global queues
     global now_playing_pos
     global all_queues_info
@@ -310,7 +316,7 @@ class Music(commands.Cog):
 
   # skip command
   @commands.command(aliases=["s"])
-  async def skip(ctx):
+  async def skip(self, ctx):
     if ctx.voice_client is None:
       return await ctx.send("I am not playing any songs for you.")
 
@@ -327,7 +333,7 @@ class Music(commands.Cog):
 
   # leave command
   @commands.command(aliases=["l", "disconnect", "d"])
-  async def leave(ctx):
+  async def leave(self, ctx):
     if ctx.voice_client is None:
       return await ctx.send("I am not playing any songs for you.")
 
@@ -354,7 +360,7 @@ class Music(commands.Cog):
 
   # stop command
   @commands.command(aliases=["stop"])
-  async def pause(ctx):
+  async def pause(self, ctx):
     if ctx.voice_client is None:
       return await ctx.send("I am not playing any songs for you.")
 
@@ -371,7 +377,7 @@ class Music(commands.Cog):
 
   # continue command
   @commands.command(aliases=["continue", "unpause"])
-  async def resume(ctx):
+  async def resume(self, ctx):
     if ctx.voice_client is None:
       return await ctx.send("I am not playing any songs for you.")
 
@@ -388,7 +394,7 @@ class Music(commands.Cog):
 
   # queue command
   @commands.command(aliases=["q"])
-  async def queue(ctx):
+  async def queue(self, ctx):
     global all_queues_info
 
     # if queue is empty, sending empty embed
@@ -447,7 +453,7 @@ class Music(commands.Cog):
 
   # loop command
   @commands.command()
-  async def loop(ctx):
+  async def loop(self, ctx):
     global loops
 
     if ctx.voice_client is None:
