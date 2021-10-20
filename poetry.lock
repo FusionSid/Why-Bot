@@ -196,7 +196,7 @@ grpcio-gcp = ["grpcio-gcp (>=0.2.2)"]
 
 [[package]]
 name = "google-api-python-client"
-version = "2.26.1"
+version = "2.27.0"
 description = "Google API Client Library for Python"
 category = "main"
 optional = false
@@ -267,7 +267,7 @@ pyparsing = ">=2.4.2,<3"
 
 [[package]]
 name = "idna"
-version = "3.2"
+version = "3.3"
 description = "Internationalized Domain Names in Applications (IDNA)"
 category = "main"
 optional = false
@@ -353,6 +353,24 @@ description = "Python parsing module"
 category = "main"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
+
+[[package]]
+name = "qrcode"
+version = "7.3.1"
+description = "QR Code image generator"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+colorama = {version = "*", markers = "platform_system == \"Windows\""}
+
+[package.extras]
+all = ["zest.releaser", "tox", "pytest", "pytest", "pytest-cov", "pillow"]
+dev = ["tox", "pytest"]
+maintainer = ["zest.releaser"]
+pil = ["pillow"]
+test = ["pytest", "pytest-cov"]
 
 [[package]]
 name = "requests"
@@ -446,7 +464,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "323a7634be16cfd89c85308afc979f55b9b5e09f1926df2f4bdf597aa158f1a7"
+content-hash = "303134041b80bd18c42d0805a92b5f343e6bf1fa9971a986334d8f7014ea0866"
 
 [metadata.files]
 aiofiles = [
@@ -615,8 +633,8 @@ google-api-core = [
     {file = "google_api_core-2.1.1-py2.py3-none-any.whl", hash = "sha256:39ae7ca2208090c2942ebe1b38ca2928441a14b795c725717d38d7e30adb5fbf"},
 ]
 google-api-python-client = [
-    {file = "google-api-python-client-2.26.1.tar.gz", hash = "sha256:66389e23fdd23dc7fabf3235afc4bd9bf4d1332e960aa7c058f17ea8848dae35"},
-    {file = "google_api_python_client-2.26.1-py2.py3-none-any.whl", hash = "sha256:faac5b276f90de1258d553b4dcf1cad92827b047ea31819927514b60e62616da"},
+    {file = "google-api-python-client-2.27.0.tar.gz", hash = "sha256:659e9955f0f1e02fcce5dec85622eb5af1807572ef0f09c49d68d8426da670e7"},
+    {file = "google_api_python_client-2.27.0-py2.py3-none-any.whl", hash = "sha256:0b1bd4fe6cbe3c22e4ed264cadf257bc981ebc745e959bdf8fd9ae7c3fffb984"},
 ]
 google-auth = [
     {file = "google-auth-2.3.0.tar.gz", hash = "sha256:2800f6dfad29c6ced5faf9ca0c38ea8ba1ebe2559b10c029bd021e3de3301627"},
@@ -635,8 +653,8 @@ httplib2 = [
     {file = "httplib2-0.20.1.tar.gz", hash = "sha256:0efbcb8bfbfbc11578130d87d8afcc65c2274c6eb446e59fc674e4d7c972d327"},
 ]
 idna = [
-    {file = "idna-3.2-py3-none-any.whl", hash = "sha256:14475042e284991034cb48e06f6851428fb14c4dc953acd9be9a5e95c7b6dd7a"},
-    {file = "idna-3.2.tar.gz", hash = "sha256:467fbad99067910785144ce333826c71fb0e63a425657295239737f7ecd125f3"},
+    {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
+    {file = "idna-3.3.tar.gz", hash = "sha256:9d643ff0a55b762d5cdb124b8eaa99c66322e2157b69160bc32796e824360e6d"},
 ]
 itsdangerous = [
     {file = "itsdangerous-2.0.1-py3-none-any.whl", hash = "sha256:5174094b9637652bdb841a3029700391451bd092ba3db90600dea710ba28e97c"},
@@ -836,6 +854,9 @@ pycparser = [
 pyparsing = [
     {file = "pyparsing-2.4.7-py2.py3-none-any.whl", hash = "sha256:ef9d7589ef3c200abe66653d3f1ab1033c3c419ae9b9bdb1240a85b024efc88b"},
     {file = "pyparsing-2.4.7.tar.gz", hash = "sha256:c203ec8783bf771a155b207279b9bccb8dea02d8f0c9e5f8ead507bc3246ecc1"},
+]
+qrcode = [
+    {file = "qrcode-7.3.1.tar.gz", hash = "sha256:375a6ff240ca9bd41adc070428b5dfc1dcfbb0f2507f1ac848f6cded38956578"},
 ]
 requests = [
     {file = "requests-2.26.0-py2.py3-none-any.whl", hash = "sha256:6c1246513ecd5ecd4528a0906f910e8f0f9c6b8ec72030dc9fd154dc1a6efd24"},

@@ -86,7 +86,9 @@ class Utilities(commands.Cog):
         qr.add_data(str(url))
         qr.make(fit=True)
         img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
-        await ctx.send(file=discord.File(img))
+        img.save('qrcode.png')
+        await ctx.send(file=discord.File('qrcode.png'))
+
 
 def setup(client):
     client.add_cog(Utilities(client))
