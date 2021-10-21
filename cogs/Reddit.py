@@ -1,5 +1,4 @@
 import discord
-from discord.embeds import Embed
 from discord.ext import commands
 import requests
 
