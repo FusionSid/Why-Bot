@@ -358,28 +358,32 @@ class Economy(commands.Cog):
 
   @commands.command(aliases=['sm'])
   async def send(self, ctx, member: discord.Member, amount=None):
-      await open_account(ctx.author)
-      await open_account(member)
-      if amount == None:
-          await ctx.send("Please enter the amount i havent got all day")
-          return
+        await open_account(ctx.author)
+        await open_account(member)
+        if amount == None:
+            await ctx.send("Please enter the amount i havent got all day")
+            return
+        try:
+            amount = int(amount)
+        except:
+            amount = conv2num(amount)
 
-      bal = await update_bank(ctx.author)
-      if amount == 'all':
-          amount = bal[0]
+        bal = await update_bank(ctx.author)
+        if amount == 'all':
+            amount = bal[0]
 
-      amount = int(amount)
+        amount = int(amount)
 
-      if amount > bal[1]:
-          await ctx.send('Get some more coins\nYou do not have sufficient balance in your banl')
-          return
-      if amount < 0:
-          await ctx.send('Amount must be positive!')
-          return
+        if amount > bal[1]:
+            await ctx.send('Get some more coins\nYou do not have sufficient balance in your banl')
+            return
+        if amount < 0:
+            await ctx.send('Amount must be positive!')
+            return
 
-      await update_bank(ctx.author, -1*amount, 'bank')
-      await update_bank(member, amount, 'wallet')
-      await ctx.send(f'{ctx.author.mention} You gave {member} `{amount}` coins')
+        await update_bank(ctx.author, -1*amount, 'bank')
+        await update_bank(member, amount, 'wallet')
+        await ctx.send(f'{ctx.author.mention} You gave {member} `{amount}` coins')
 
 
   @commands.command(aliases=['rb'])
