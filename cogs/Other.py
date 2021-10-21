@@ -29,6 +29,7 @@ class Other(commands.Cog):
       em.add_field(name="Created Account:", value=member.created_at.strftime("%a, %#d, %B, %Y, #I:%M %p UTC"))
       em.add_field(name="Joined Server:", value=member.joined_at.strftime("%a, %#d, %B, %Y, #I:%M %p UTC"))
       em.add_field(name=f"Roles ({len(roles)}):", value=" ".join(role.mention for role in roles))
+      await ctx.send(embed=em)
 
       
     if cat.lower() == 'server':
@@ -38,12 +39,17 @@ class Other(commands.Cog):
       em.add_field(name="Member Count:", value=ctx.guild.member_count)
       em.add_field(name="Number of roles:", value=str(role_count))
       em.add_field(name="Bots", value=", ".join(list_of_bots))
+      await ctx.send(embed=em)
   
   @commands.command()
   async def suggest(self, ctx, *, suggestion):
     sid = self.client.fetch_user()
     await sid.send(f"Suggestion:\n{suggestion}\n\nBy: {ctx.author.name}\nID: {ctx.author.id}")
     await ctx.send("Thank you for you suggestion!")
+  
+  @commands.command()
+  async def ping(self, ctx):
+    await ctx.send(f"Pong! jk\n{round(self.client.latency)}")
 
 def setup(client):
     client.add_cog(Other(client))
