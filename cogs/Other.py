@@ -43,7 +43,7 @@ class Other(commands.Cog):
   
   @commands.command()
   async def suggest(self, ctx, *, suggestion):
-    sid = self.client.fetch_user()
+    sid = await self.client.fetch_user(624076054969188363)
     await sid.send(f"Suggestion:\n{suggestion}\n\nBy: {ctx.author.name}\nID: {ctx.author.id}")
     await ctx.send("Thank you for you suggestion!")
   
