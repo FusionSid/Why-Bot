@@ -1,6 +1,7 @@
 import discord
 from discord import role
 from discord.ext import commands
+from discord.ext.commands.core import command
 
 class Other(commands.Cog):
   def __init__(self, client):
@@ -37,6 +38,12 @@ class Other(commands.Cog):
       em.add_field(name="Member Count:", value=ctx.guild.member_count)
       em.add_field(name="Number of roles:", value=str(role_count))
       em.add_field(name="Bots", value=", ".join(list_of_bots))
- 
+  
+  @commands.command()
+  async def suggest(self, ctx, *, suggestion):
+    sid = self.client.fetch_user()
+    await sid.send(f"Suggestion:\n{suggestion}\n\nBy: {ctx.author.name}\nID: {ctx.author.id}")
+    await ctx.send("Thank you for you suggestion!")
+
 def setup(client):
     client.add_cog(Other(client))
