@@ -151,7 +151,7 @@ class Moderation(commands.Cog):
       await msg.add_reaction(emoji)
       cd = os.getcwd()
       os.chdir("/home/runner/Why-Bot/")
-      with open("reactrole.json") as json_file:
+      with open("react.json") as json_file:
           data = json.load(json_file)
 
           new_react_role = {
@@ -163,7 +163,7 @@ class Moderation(commands.Cog):
 
           data.append(new_react_role)
 
-      with open("reactrole.json", "w") as f:
+      with open("react.json", "w") as f:
           json.dump(data, f, indent=4)
 
       os.chdir(cd)

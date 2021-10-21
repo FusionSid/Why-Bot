@@ -57,7 +57,7 @@ async def on_member_join(member):
 async def on_raw_reaction_add(payload):
   if payload.member.bot:
     return
-  with open("reactrole.json") as f:
+  with open("react.json") as f:
     data = json.load(f)
     for x in data:
       if x['emoji'] == payload.emoji.name and x["message_id"] == payload.message_id:

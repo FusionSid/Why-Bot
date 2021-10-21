@@ -242,7 +242,11 @@ class Fun(commands.Cog):
         numrn = data[guildid]
         await ctx.send(f"Current number is {numrn}")
 
-    
+    @commands.command()
+    async def yesorno(self, ctx, *, message):
+      msg = await ctx.send(embed=discord.Embed(title="Yah or Nah?", description=message))
+      await msg.add_reaction('👍')
+      await msg.add_reaction('👎')
     
 def setup(client):
     client.add_cog(Fun(client))
