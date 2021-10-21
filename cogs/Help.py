@@ -205,8 +205,8 @@ class Help(commands.Cog):
         if ctx.author.guild_permissions.administrator or valid_user:
 
             em = discord.Embed(title="Tickets Help", description="", color=0x00a8ff)
-            em.add_field(name="`?new <message>`", value="This creates a new ticket. Add any words after the command if you'd like to send a message when we initially create your ticket.")
-            em.add_field(name="`?close`", value="Use this to close a ticket. This command only works in ticket channels.")
+            em.add_field(name="`?newticket <message>`", value="This creates a new ticket. Add any words after the command if you'd like to send a message when we initially create your ticket.")
+            em.add_field(name="`?closeticket`", value="Use this to close a ticket. This command only works in ticket channels.")
             em.add_field(name="`?addaccess <role_id>`", value="This can be used to give a specific role access to all tickets. This command can only be run if you have an admin-level role for this bot.")
             em.add_field(name="`?delaccess <role_id>`", value="This can be used to remove a specific role's access to all tickets. This command can only be run if you have an admin-level role for this bot.")
             em.add_field(name="`?addadminrole <role_id>`", value="This command gives all users with a specific role access to the admin-level commands for the bot, such as `?addpingedrole` and `?addaccess`. This command can only be run by users who have administrator permissions for the entire server.")

@@ -30,10 +30,10 @@ class Ticket(commands.Cog):
         await self.client.wait_until_ready()
 
         if args == None:
-            message_content = "Please wait, we will be with you shortly!\nUse ?close to close the ticket"
+            message_content = "Please wait, we will be with you shortly!\nUse ?closeticket to close the ticket"
         
         else:
-            message_content = "Please wait, we will be with you shortly!\nYour Message: {}\nUse ?close to close the ticket".format(args)
+            message_content = "Please wait, we will be with you shortly!\nYour Message: {}\nUse ?closeticket to close the ticket".format(args)
 
         os.chdir(homepath)
         with open(f"ticket{ctx.guild.id}.json") as f:
