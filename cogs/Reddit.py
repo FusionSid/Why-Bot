@@ -73,17 +73,17 @@ class Reddit(commands.Cog):
     author = ran_sub.author
     em = discord.Embed(title=name)
     em.set_image(url=url)
-    em.set_footer(text=f"{author} | 👍 :{ups} | 👎 : {downs}")
+    em.set_footer(text=f"{author} | 👍 : {ups}")
     await ctx.send(embed=em)
 
 
-    @commands.command()
-    async def reddit(self, ctx, subreddit:str):
-      rclient = reddit_client()
-      urls = await get_img_url(client=rclient, sub_name=subreddit, limit=50)
-      url = random.choice(urls)
-      em = discord.Embed(title="Reddit Search:", description=url)
-      await ctx.send(embed=em)
+  @commands.command()
+  async def reddit(self, ctx, subreddit:str):
+    rclient = reddit_client()
+    urls = await get_url(client=rclient, sub_name=subreddit, limit=50)
+    url = random.choice(urls)
+    em = discord.Embed(title="Reddit Search:", description=url)
+    await ctx.send(embed=em)
       
 
 def setup(client):
