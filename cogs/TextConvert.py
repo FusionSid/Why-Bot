@@ -19,7 +19,7 @@ class TextConvert(commands.Cog):
             except Exception:
                 await ctx.send(f"**{ctx.author.mention} There was a problem, and I could not send the output. It may be too large or malformed**")
 
-    @commands.command()
+    @commands.command(aliases=['exp'])
     async def expand(self, ctx,  num: int, *, s: clean_content):
         spacing = ""
         if num > 0 and num <= 5:
@@ -37,7 +37,7 @@ class TextConvert(commands.Cog):
         else:
             await ctx.send("```fix\nError: The number can only be from 1 to 5```")
 
-    @commands.command()
+    @commands.command(aliases=['rev'])
     async def reverse(self, ctx, *, s: clean_content):
         result = await commands.clean_content().convert(ctx, s[::-1])
         if len(result) <= 350:
@@ -49,7 +49,7 @@ class TextConvert(commands.Cog):
             except Exception:
                 await ctx.send(f"**{ctx.author.mention} There was a problem, and I could not send the output. It may be too large or malformed**")
 
-    @commands.command()
+    @commands.command(aliases=['tth'])
     async def texttohex(self, ctx, *, s):
         try:
             hexoutput = await commands.clean_content().convert(ctx, (" ".join("{:02x}".format(ord(c)) for c in s)))
@@ -64,7 +64,7 @@ class TextConvert(commands.Cog):
             except Exception:
                 await ctx.send(f"**{ctx.author.mention} There was a problem, and I could not send the output. It may be too large or malformed**")
 
-    @commands.command()
+    @commands.command(aliases=['htt'])
     async def hextotext(self, ctx, *, s):
         try:
             cleanS = await commands.clean_content().convert(ctx, bytearray.fromhex(s).decode())
@@ -79,7 +79,7 @@ class TextConvert(commands.Cog):
             except Exception:
                 await ctx.send(f"**{ctx.author.mention} There was a problem, and I could not send the output. It may be too large or malformed**")
 
-    @commands.command()
+    @commands.command(aliases=['ttb'])
     async def texttobinary(self, ctx, *, s):
         try:
             cleanS = await commands.clean_content().convert(ctx, ' '.join(format(ord(x), 'b') for x in s))
@@ -94,7 +94,7 @@ class TextConvert(commands.Cog):
             except Exception:
                 await ctx.send(f"**{ctx.author.mention} There was a problem, and I could not send the output. It may be too large or malformed**")
 
-    @commands.command()
+    @commands.command(aliases=['btt'])
     async def binarytotext(self, ctx, *, s):
         try:
             cleanS = await commands.clean_content().convert(ctx, ''.join([chr(int(s, 2)) for s in s.split()]))
@@ -109,7 +109,7 @@ class TextConvert(commands.Cog):
             except Exception:
                 await ctx.send(f"**{ctx.author.mention} There was a problem, and I could not send the output. It may be too large or malformed**")
 
-    @commands.command()
+    @commands.command(aliases=['emoji'])
     async def emojify(self, ctx, *, text):
       emojis = []
       for s in text.lower():

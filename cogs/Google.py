@@ -12,7 +12,7 @@ class Google(commands.Cog):
   def __init__(self, client):
     self.client = client
 
-  @commands.command()
+  @commands.command(aliases=['is'])
   async def imagesearch(self, ctx, *, search):
       ran = random.randint(0, 9)
       resource = build("customsearch", "v1", developerKey=isapi_key).cse()
@@ -24,8 +24,7 @@ class Google(commands.Cog):
       embed1.set_image(url=url)
       await ctx.send(embed=embed1)
   
-
-  @commands.command()
+  @commands.command(aliases=['yt'])
   async def youtube(self, ctx, *, search_):
     search_ = search_.replace(" ", "+")
     html = urllib.request.urlopen(f'http://www.youtube.com/results?search_query={search_}')
@@ -37,8 +36,7 @@ class Google(commands.Cog):
       em.add_field(name=f"{base_url}{video}", value="** **")
     await ctx.send(embed=em)
 
-
-  @commands.command()
+  @commands.command(aliases=['search'])
   async def google(self, ctx, *, search_):
     em = discord.Embed(title="Google Search", description = "Showing first 10 urls")
     for i in search(search_, tld="com", num=10, stop=10):

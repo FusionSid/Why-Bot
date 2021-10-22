@@ -356,7 +356,7 @@ class Economy(commands.Cog):
       await ctx.send('{} You deposited {:,} coins'.format(ctx.author.mention, amount))
 
 
-  @commands.command(aliases=['sm'])
+  @commands.command(aliases=['sm', 'donate', 'give'])
   async def send(self, ctx, member: discord.Member, amount=None):
         await open_account(ctx.author)
         await open_account(member)
@@ -386,7 +386,7 @@ class Economy(commands.Cog):
         await ctx.send(f'{ctx.author.mention} You gave {member} `{amount}` coins')
 
 
-  @commands.command(aliases=['rb'])
+  @commands.command(aliases=['rb', 'steal'])
   @commands.cooldown(1, 30, commands.BucketType.user)
   async def rob(self, ctx, member: discord.Member):
       await open_account(ctx.author)

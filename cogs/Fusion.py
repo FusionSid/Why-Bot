@@ -14,7 +14,7 @@ class Fusion(commands.Cog):
   def __init__(self, client):
     self.client = client
   
-  @commands.command()
+  @commands.command(aliases=['bl'])
   @commands.check(is_it_me)
   async def blacklist(self, ctx, userid:int):
     with open('blacklisted.json') as f:
@@ -29,7 +29,7 @@ class Fusion(commands.Cog):
     with open('blacklisted.json', 'w') as f:
       json.dump(blacklisted, f)
 
-  @commands.command()
+  @commands.command(aliases=['wl'])
   @commands.check(is_it_me)
   async def whitelist(self, ctx, userid:int):
     with open('blacklisted.json') as f:
@@ -44,9 +44,9 @@ class Fusion(commands.Cog):
     with open('blacklisted.json', 'w') as f:
       json.dump(blacklisted, f)
   
-  @commands.command()
+  @commands.command(aliases=['blacklisted', 'lb'])
   @commands.check(is_it_me)
-  async def listblack(self, ctx, userid:int):
+  async def listblack(self, ctx):
     with open('blacklisted.json') as f:
       blacklisted = json.load(f)
     

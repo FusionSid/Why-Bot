@@ -23,7 +23,7 @@ class Ticket(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(aliases=['new'])
     async def newticket(self, ctx, *, args = None):
         createticketfile(ctx)
 
@@ -91,7 +91,7 @@ class Ticket(commands.Cog):
         
         await ctx.send(embed=created_em)
 
-    @commands.command()
+    @commands.command(aliases=['close'])
     async def closeticket(self, ctx):
         createticketfile(ctx)
         os.chdir(homepath)

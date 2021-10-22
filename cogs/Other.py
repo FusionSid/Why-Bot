@@ -12,7 +12,7 @@ class Other(commands.Cog):
     link = await ctx.channel.create_invite(max_age=10)
     await ctx.send(link)
   
-  @commands.command()
+  @commands.command(aliases=['bot'])
   async def botinvite(self, ctx):
     await ctx.send(embed=discord.Embed(title="Invite **Why?** to your server:", description = "https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands"))
   
@@ -41,7 +41,7 @@ class Other(commands.Cog):
       em.add_field(name="Bots", value=", ".join(list_of_bots))
       await ctx.send(embed=em)
   
-  @commands.command()
+  @commands.command(aliases=['sug'])
   async def suggest(self, ctx, *, suggestion):
     sid = await self.client.fetch_user(624076054969188363)
     await sid.send(f"Suggestion:\n{suggestion}\n\nBy: {ctx.author.name}\nID: {ctx.author.id}")

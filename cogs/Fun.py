@@ -88,7 +88,7 @@ class Fun(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(aliases=['rockpaperscissors'])
     async def rps(self, ctx, rps:str):
         choices = ["rock", "paper", "scissors"]
         cpu_choice = random.choice(choices)
@@ -126,21 +126,21 @@ class Fun(commands.Cog):
         await ctx.send(embed=em)
 
 
-    @commands.command()
+    @commands.command(aliases=['roastme'])
     async def roast(self, ctx):
         roast = random.choice(roastlistpy)
         em = discord.Embed(title=roast)
         await ctx.send(embed=em)
 
 
-    @commands.command()
+    @commands.command(aliases=['sendmsg'])
     async def dm(self, ctx, member: discord.Member, *, message):
         await ctx.channel.purge(limit=1)
         embeddm = discord.Embed(title=message)
         await member.send(embed=embeddm)
 
 
-    @commands.command()
+    @commands.command(aliases=['sr'])
     async def sendroast(self, ctx, member: discord.Member):
         await ctx.channel.purge(limit=1)
         message = random.choice(roastlistpy)
@@ -177,7 +177,7 @@ class Fun(commands.Cog):
         await ctx.send(embed=em)
 
 
-    @commands.command()
+    @commands.command(aliases=['em'])
     async def embed(self, ctx, fields:str, extra:int, img:str=None, channel:int=None):
         def wfcheck(m):
             return m.channel == ctx.channel and m.author == ctx.author
@@ -227,13 +227,11 @@ class Fun(commands.Cog):
           cha = await self.client.fetch_channel(channel)
           await cha.send(embed=em)
 
-
-    @commands.command()
+    @commands.command(aliases=['noembed'])
     async def say(self, ctx, *, text):
       await ctx.send(text)
   
-
-    @commands.command()
+    @commands.command(aliases=['num'])
     async def numrn(self, ctx):
         guild = ctx.guild
         cd = os.getcwd()
@@ -244,14 +242,14 @@ class Fun(commands.Cog):
         numrn = data[guildid]
         await ctx.send(f"Current number is {numrn}")
 
-    @commands.command()
+    @commands.command(aliases=['yahornah', 'yn'])
     async def yesorno(self, ctx, *, message):
       msg = await ctx.send(embed=discord.Embed(title="Yah or Nah?", description=message))
       await msg.add_reaction('👍')
       await msg.add_reaction('👎')
 
 
-    @commands.command(pass_context=True)
+    @commands.command(pass_context=True, aliases=['makepoll', 'question'])
     async def poll(self, ctx, time:int, question, *options: str):
         if len(options) <= 1:
             await ctx.send('You need more than one option to make a poll!')

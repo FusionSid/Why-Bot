@@ -46,9 +46,8 @@ class Reddit(commands.Cog):
   def __init__(self, client):
     self.client = client
 
-
-  @commands.command()
-  async def redditimg(self, ctx, subreddit:str):
+  @commands.command(aliases=['rimg'])
+  async def redditimg(self, ctx, subreddit: str):
     rclient = reddit_client()
     urls = await get_img_url(client=rclient, sub_name=subreddit, limit=50)
     url = random.choice(urls)
@@ -57,7 +56,7 @@ class Reddit(commands.Cog):
     await ctx.send(embed=em)
   
 
-  @commands.command()
+  @commands.command(aliases=['getmeme'])
   async def meme(self, ctx):
     reddit = reddit_client()
     subreddit = reddit.subreddit("memes")
@@ -77,8 +76,8 @@ class Reddit(commands.Cog):
     await ctx.send(embed=em)
 
 
-  @commands.command()
-  async def reddit(self, ctx, subreddit:str):
+  @commands.command(aliases=['redditsearch'])
+  async def reddit(self, ctx, subreddit: str):
     rclient = reddit_client()
     urls = await get_url(client=rclient, sub_name=subreddit, limit=50)
     url = random.choice(urls)

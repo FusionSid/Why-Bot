@@ -37,7 +37,7 @@ class Minecraft(commands.Cog):
   def __init__(self, client):
     self.client = client
 
-  @commands.command()
+  @commands.command(aliases=['uuid'])
   async def getuuid(self, ctx, player=None):
     if player == None:
       uuid = await get_user_uuid(ctx)
@@ -47,7 +47,7 @@ class Minecraft(commands.Cog):
 
 
   # Register IGN
-  @commands.command()
+  @commands.command(aliases=['ign'])
   async def setign(self, ctx):
     client = self.client
     confirm = False
@@ -85,7 +85,8 @@ class Minecraft(commands.Cog):
 
 
   # Hypixel image
-  @commands.command()
+
+  @commands.command(aliases=['hypixel'])
   async def hystats(self, ctx, player = None):
     if player == None:
       uuid = await get_user_uuid(ctx)
@@ -125,8 +126,7 @@ class Minecraft(commands.Cog):
     em.add_field(name="Online:", value=online)
     await ctx.send(embed=em)
     
-
-  @commands.command()
+  @commands.command(aliases=['bw', 'bedwars'])
   async def bwstats(self, ctx):
     uuid = await get_user_uuid(ctx)
     response = await get_hydata(uuid)

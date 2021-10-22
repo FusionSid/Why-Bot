@@ -17,7 +17,7 @@ class Moderation(commands.Cog):
   def __init__(self, client):
     self.client = client
 
-  @commands.command()
+  @commands.command(aliases=['rp'])
   async def report(self,ctx,type_:str):
     def wfcheck(m):
       return m.channel == ctx.channel and m.author == ctx.author
@@ -91,14 +91,14 @@ class Moderation(commands.Cog):
       await cha.send(embed=em)
       
 
-  @commands.command()
+  @commands.command(aliases=['grole'])
   @commands.has_permissions(administrator=True)
   async def giverole(self,ctx,role:discord.Role, user:discord.Member):
     await user.add_roles(role)
     await ctx.send(f"{user} has been given the {role} role")
   
 
-  @commands.command()
+  @commands.command(aliases=['trole'])
   @commands.has_permissions(administrator=True)
   async def takerole(self,ctx,role:discord.Role, user:discord.Member):
     await user.remove_roles(role)
@@ -119,7 +119,7 @@ class Moderation(commands.Cog):
     await ctx.send(f"User {user} has been kicked")
 
 
-  @commands.command()
+  @commands.command(aliases=['lock'])
   @commands.has_permissions(manage_channels=True)
   async def lockdown(self,ctx, channel:discord.TextChannel=None):
     if channel == None:

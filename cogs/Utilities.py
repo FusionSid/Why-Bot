@@ -29,8 +29,7 @@ class Utilities(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-
-    @commands.command()
+    @commands.command(aliases=['calculator'])
     async def calc(self, ctx, n1: float, op, n2: float):
         ans = calculator(n1, op, n2)
         await ctx.send(embed=discord.Embed(title='Calculator Result:', description=ans))
@@ -74,8 +73,7 @@ class Utilities(commands.Cog):
           
         await ctx.send(embed=em)
 
-
-    @commands.command()
+    @commands.command(aliases=['qr'])
     async def qrcode(self, ctx, *, url):
         qr = qrcode.QRCode(
             version=1,

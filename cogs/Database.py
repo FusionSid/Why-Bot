@@ -29,7 +29,7 @@ class Database(commands.Cog):
   def __init__(self, client):
     self.client = client
 
-  @commands.command()
+  @commands.command(aliases=['storage', 'db'])
   async def store(self, ctx):
     os.chdir(db_path)
     conn = sqlite3.connect(f"{ctx.guild.id}.db")
@@ -72,7 +72,7 @@ class Database(commands.Cog):
     os.chdir(cd)
 
 
-  @commands.command()
+  @commands.command(aliases=['getdb', 'find'])
   async def get(self, ctx):
     def wfcheck(m):
       return m.channel == ctx.channel and m.author == ctx.author
@@ -139,7 +139,7 @@ class Database(commands.Cog):
     os.chdir(cd)
 
     
-  @commands.command()
+  @commands.command(aliases=['key'])
   async def gen_key(self, ctx):
     key_ = gen_key()
     key_ = key_.decode()
