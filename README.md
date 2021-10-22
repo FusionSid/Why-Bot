@@ -1,5 +1,12 @@
 # Why-Bot
-### Moderation | Music | Text | Database | Leveling | Reddit | Utilities | Google | Minecraft | Economy | Fun
+### Moderation | Music | Text | Database | Reddit | Utilities | Google | Minecraft | Economy | Fun | Tickets
 
 
-This is the best discord bot i have made. its about 10% done. Ill make a full readme with a command list and help stuff once i finish the bot.
+This is gotta be the best discord bot I have ever made.
+Im not gonna bother making a tutorial when I have a webpage for the bot.
+
+Bot Website:https://fusionsid.xyz/whybot
+
+Its a subsite of my website.
+
+Use ?help for help
