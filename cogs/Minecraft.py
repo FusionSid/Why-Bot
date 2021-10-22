@@ -127,8 +127,11 @@ class Minecraft(commands.Cog):
     await ctx.send(embed=em)
     
   @commands.command(aliases=['bw', 'bedwars'])
-  async def bwstats(self, ctx):
-    uuid = await get_user_uuid(ctx)
+  async def bwstats(self, ctx, player=None):
+    if player == None:
+      uuid = await get_user_uuid(ctx)
+    else:
+      uuid = await get_uuid(str(player))
     response = await get_hydata(uuid)
 
     player = response["player"]
