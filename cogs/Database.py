@@ -139,7 +139,7 @@ class Database(commands.Cog):
     os.chdir(cd)
 
     
-  @commands.command(aliases=['key'])
+  @commands.command(aliases=['key', 'genkey'])
   async def gen_key(self, ctx):
     key_ = gen_key()
     key_ = key_.decode()

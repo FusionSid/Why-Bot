@@ -21,7 +21,7 @@ class Help(commands.Cog):
       embed.add_field(name="This is the help command. This bot is divided into 12 main categories", value="Categories List:\nDatabase, Economy, Fun, Google, Minecraft, Moderation, Music, Reddit, Text, Utilities, Tickets and Other")
       embed.add_field(name="Use `?help [category]`", value= "for all commands related to said category")
       embed.add_field(name="If you havent already please run ?setup", value="To setup stuff")
-      embed.add_field(name="Why Help:", value="Page Under Construction")
+      embed.add_field(name="Why Help:", value="https://fusionsid.xyz/whybot")
       embed.add_field(name="`?botinvite`", value="To invite the bot to you discord server")
       embed.set_footer(text="Default prefix is `?` thats why all the help commands say `?` It might be different on your server")
       embed.set_footer(

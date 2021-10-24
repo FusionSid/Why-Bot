@@ -39,14 +39,17 @@ async def on_ready():
 @client.event
 async def on_member_join(member):
   em = discord.Embed(title="Welcome", description=f"Hello there :wave: {member.name} welcome to {member.guild.name}\nHope you have fun on this server :)", color=discord.Color(value=0x36393e))
-  await member.send(embed=em) # Welcome message
+  try:
+    await member.send(embed=em) # Welcome message
+  except:
+    print('f')
   cd = os.getcwd()
   os.chdir(f"{cd}/Setup")
   with open(f"{member.guild.id}.json") as f:
     data = json.load(f) # Open setup file and check if there is a welcome channel
   cha = data[2]["welcome_channel"]
   if cha == None:
-    member.guild.system_channel.send(embed=em)
+    await member.guild.system_channel.send(embed=em)
   else:
     channel = await client.fetch_channel(int(cha))
     await channel.send(embed=em) # Send welcome message in server welcome channel
@@ -143,6 +146,8 @@ async def startguildsetup(id):
 # On Guild Join
 @client.event
 async def on_guild_join(guild):
+  cha = client.get_channel(896932591620464690)
+  await cha.send(f"Joined: {guild.name}")
   await update_activity()
   await startguildsetup(guild.id)
   embed = discord.Embed(color=discord.Color(value=0x36393e))

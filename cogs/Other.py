@@ -49,7 +49,7 @@ class Other(commands.Cog):
   
   @commands.command()
   async def ping(self, ctx):
-    await ctx.send(f"Pong! jk\n{round(self.client.latency)}")
+    await ctx.send(f"Pong! jk\n{round(self.client.latency * 1000)}ms")
 
 def setup(client):
     client.add_cog(Other(client))
