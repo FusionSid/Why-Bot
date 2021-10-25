@@ -21,15 +21,12 @@ class Moderation(commands.Cog):
   async def report(self,ctx,type_:str):
     def wfcheck(m):
       return m.channel == ctx.channel and m.author == ctx.author
-    cd = os.getcwd()
-    os.chdir("/home/runner/Why-Bot/Setup")
     with open(f"{ctx.guild.id}.json") as f:
       content = json.load(f)
     if content[0]["mod_channel"] == None:
       return
     else:
       channel = int(content[0]["mod_channel"])
-    os.chdir(cd)
     em = discord.Embed(title="REPORT")
 
     if type_.lower() == "member":

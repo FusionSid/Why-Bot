@@ -216,10 +216,8 @@ class Help(commands.Cog):
         return await ctx.send(embed=embed)
 
       if cat.lower() == "ticket":
-        os.chdir(path)
         with open(f"ticket{ctx.guild.id}.json") as f:
           data = json.load(f)
-        os.chdir(cd)
         valid_user = False
 
         for role_id in data["verified-roles"]:
