@@ -8,8 +8,11 @@ with open('shop.json') as f:
     mainshop = json.load(f)
 
 async def get_bank_data():
+  cd = os.getcwd()
+  os.chdir('/home/runner/Why-Bot/')
   with open('mainbank.json', 'r') as f:
     users = json.load(f)
+  os.chdir(cd)
 
   return users
 
@@ -24,8 +27,11 @@ async def open_account(user):
     users[str(user.id)] = {}
     users[str(user.id)]["wallet"] = 0
     users[str(user.id)]["bank"] = 0
+  cd = os.getcwd()
+  os.chdir('/home/runner/Why-Bot/')
   with open('mainbank.json', 'w') as f:
     json.dump(users, f)
+  os.chdir(cd)
   return True
 
 
@@ -58,8 +64,11 @@ async def update_bank(user, change=0, mode='wallet'):
 
   users[str(user.id)][mode] += change
 
+  cd = os.getcwd()
+  os.chdir('/home/runner/Why-Bot/')
   with open('mainbank.json', 'w') as f:
       json.dump(users, f)
+  os.chdir(cd)
   bal = users[str(user.id)]['wallet'], users[str(user.id)]['bank']
   return bal
 
@@ -105,8 +114,11 @@ async def sell_this(user, item_name, amount, price=None):
       for item in users[str(user.id)]["bag"]:
         if item["amount"] == 0:
           users[str(user.id)]["bag"].remove(item)
+      cd = os.getcwd()
+      os.chdir('/home/runner/Why-Bot/')
       with open("mainbank.json", "w") as f:
           json.dump(users, f)
+      os.chdir(cd)
       await update_bank(user, cost, "wallet")
 
       return [True, "Worked"]
@@ -152,8 +164,11 @@ async def buy_this(user, amount, item_name):
       except:
           obj = {"item": item_name, "amount": amount}
           users[str(user.id)]["bag"] = [obj]
+      cd = os.getcwd()
+      os.chdir('/home/runner/Why-Bot/')
       with open("mainbank.json", "w") as f:
           json.dump(users, f)
+      os.chdir(cd)
 
       await update_bank(user, cost*-1, "wallet")
 
@@ -242,8 +257,11 @@ class Economy(commands.Cog):
       await ctx.send(embed=discord.Embed(title = f'{ctx.author.mention}', description = 'Got `{:,}` coins!!'.format(earnings)))
 
       users[str(user.id)]["wallet"] += earnings
+      cd = os.getcwd()
+      os.chdir('/home/runner/Why-Bot/')
       with open("mainbank.json", 'w') as f:
           json.dump(users, f)
+      os.chdir(cd)
 
 
   @commands.command(aliases=['with'])
@@ -461,8 +479,10 @@ class Economy(commands.Cog):
                 else:
                     img = True
                     imgpath = item["icon_path"]
+                    os.chdir('/home/runner/Why-Bot/shopimages/')
                     file = discord.File(f"{imgpath}", filename=f"{imgpath}")
                     em.set_thumbnail(url=f"attachment://{imgpath}")
+                os.chdir(cd)
                 inshop = True
                 break
           if inshop == False:
