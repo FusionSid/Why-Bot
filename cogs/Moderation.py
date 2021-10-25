@@ -149,8 +149,6 @@ class Moderation(commands.Cog):
       embedVar = discord.Embed(description=message)
       msg = await ctx.channel.send(embed=embedVar)
       await msg.add_reaction(emoji)
-      cd = os.getcwd()
-      os.chdir("/home/runner/Why-Bot/")
       with open("react.json") as json_file:
           data = json.load(json_file)
 
@@ -166,7 +164,6 @@ class Moderation(commands.Cog):
       with open("react.json", "w") as f:
           json.dump(data, f, indent=4)
 
-      os.chdir(cd)
   
 
   @commands.command()

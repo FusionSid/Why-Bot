@@ -4,11 +4,8 @@ import os
 from discord.ext import commands
 import json
 
-cd = os.getcwd()
-os.chdir('/home/runner/Why-Bot/')
 with open('shop.json') as f:
     mainshop = json.load(f)
-os.chdir(cd)
 
 async def get_bank_data():
   cd = os.getcwd()
@@ -243,11 +240,8 @@ class Economy(commands.Cog):
       await ctx.send(embed=discord.Embed(title = f'{ctx.author.mention} Here you filty peasant', description = f'Got `{earnings}` coins!!'))
 
       users[str(user.id)]["wallet"] += earnings
-      cd = os.getcwd()
-      os.chdir('/home/runner/Why-Bot/')
       with open("mainbank.json", 'w') as f:
           json.dump(users, f)
-      os.chdir(cd)
 
 
   @commands.command()
