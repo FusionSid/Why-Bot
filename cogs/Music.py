@@ -575,5 +575,41 @@ class Music(commands.Cog):
     else:
       await ctx.send("List is empty use ?add [song]")
 
+
+  @commands.command()
+  async def pdel(self, ctx, pname:str):
+    with open('customplaylist.json') as f:
+      data = json.load(f)
+    if f"{ctx.author.id}" in data:
+      pass
+    else:
+      return await ctx.send(embed=discord.Embed(title="You dont have any playlists!", description='Use ?createplaylist [name] to create one'))
+    if pname in data[f"{ctx.author.id}"]:
+      pass
+    else:
+      return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description='Use ?createplaylist [name] to create one'))
+    if len(data[f"{ctx.author.id}"][pname]):
+      n = 1
+      for song in data[f"{ctx.author.id}"][pname]:
+        await ctx.send(f"{n}: {song}")
+        n += 1
+    else:
+      await ctx.send("List is empty use ?add [song]")
+    def wfcheck(m):
+      return m.channel == ctx.channel and m.author == ctx.author
+    await ctx.send("Enter the number of the song you want to delete")
+    index = await self.client.wait_for("message", check=wfcheck)
+    try:
+      index = int(index)
+    except:
+      await ctx.send("Index must be a number")
+    try:
+      data[f"{ctx.author.id}"][pname].remove(index)
+    except:
+      await ctx.send("Invalid input!")
+    with open('customplaylist.json', 'w') as f:
+      json.dump(data, f)
+
+    
 def setup(client):
     client.add_cog(Music(client))
