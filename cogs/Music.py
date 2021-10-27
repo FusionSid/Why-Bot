@@ -6,6 +6,7 @@ from multiprocessing import Pool
 import os, platform
 import discord.voice_client
 import nacl
+import json
 
 ffmpeg = "/home/runner/Why-Bot/Why-Bot/ffmpeg.exe"
 cookies = "/home/runner/Why-Bot/cookies.txt"
@@ -500,14 +501,52 @@ class Music(commands.Cog):
       await ctx.send("❎ Loop disabled!")
       loops[ctx.guild.id] = "none"
 
-  
+
+  @commands.command()
+  async def create_playlist(self, ctx, pname:str=None):
+    if pname == None:
+      return await ctx.send("You need to name the playlist")
+    
+    name = ctx.author.name
+    pname = pname
+
+    with open('customplaylist.json') as f:
+        data = json.load(f)
+    if name in data:
+        data[name][pname] = []
+    else:
+        plist = {pname:[]}
+        data[name] = plist
+    with open('customplaylist.json', 'w') as f:
+        json.dump(data, f)
+    return await ctx.send(embed=discord.Embed(title="Playlist created!", description="To add to the playlist use ?add [playlistname] [song/songurl]"))
+
+
   @commands.command()
   async def playlist(self, ctx, name:str):
     with open('customplaylist.json') as f:
-      pass
+      with open('customplaylist.json', 'r') as f:
+        data = json.load(f)
+
+    name = ctx.author.id
+    try:
+      playlists = data[name]
+    except:
+      return await ctx.send("You don't have any playlists, Use ?createplaylist [name] to create one")
+
+    if name in playlists:
+        pass
+    else:
+        return await ctx.send("This playlist doesn't exist")
+
+    for playlist in playlists:
+        if playlist == name:
+            songs = playlists[playlist]
+            await ctx.send(songs)
+            break
+        else:
+            pass
+
 
 def setup(client):
     client.add_cog(Music(client))
-
-
-
