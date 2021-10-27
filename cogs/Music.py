@@ -105,6 +105,109 @@ def extract_info(url):
 		return youtube_dl.YoutubeDL({"format": "95", "cookiefile": cookies}).extract_info(url, download=False)
 
 
+async def playy(ctx, video=None):
+    global queues
+    global now_playing_pos
+    global all_queues_info
+
+    if ctx.author.voice is None:
+      return await ctx.send(f"{ctx.author.mention}, You have to be connected to a voice channel.")
+
+    channel = ctx.author.voice.channel
+    if ctx.voice_client is None:  # if bot is not connected to a voice channel, connecting to a voice channel
+      await channel.connect()
+    else:  # else, just moving to ctx author voice channel
+      await ctx.voice_client.move_to(channel)
+
+    await ctx.guild.change_voice_state(channel=channel, self_mute=False, self_deaf=True)  # self deaf
+
+    if video is None:
+      return
+
+    # searching for a video
+    video_search = video
+    if "https://www.youtube.com/" in video or "https://youtu.be/" in video:
+      video_url = ""
+      for el in video.split():
+        if "https://www.youtube.com/" in el or "https://youtu.be/" in el:
+          if "list=" in el:
+            await ctx.send("Loading playlist...")
+          video_url = el
+    else:
+      video = VideosSearch(video, limit=1)
+      video_url = video.result()["result"][0]["link"]
+
+    # finding source video url
+    pool = Pool()  # creating new pool which will extract all video info
+    information = pool.apply_async(
+      func=extract_info, args=(video_url,)).get()
+    pool.close()  # closing pool
+    pool.join()
+
+    # if it's not a playlist, playing the song as usual
+    if "_type" not in information:
+      src_video_url = information["formats"][0]["url"]  # source url
+      video_title = information["title"]
+
+      # filling queues
+      if ctx.guild.id in queues:
+        queues[ctx.guild.id].append({"url": video_url, "src_url": src_video_url})
+        all_queues_info[ctx.guild.id].append({"name": video_title, "url": video_url, "src_url": src_video_url})
+      else:
+        queues[ctx.guild.id] = [{"url": video_url, "src_url": src_video_url}]
+        now_playing_pos[ctx.guild.id] = 0
+        all_queues_info[ctx.guild.id] = [{"name": video_title, "url": video_url, "src_url": src_video_url}]
+
+    else:  # else queueing playlist
+      src_video_url = information["entries"][0]["url"]
+      video_title = information["title"]
+
+      # queuing first song
+      if ctx.guild.id in queues:
+        queues[ctx.guild.id].append({"url": video_url, "src_url": src_video_url})
+        all_queues_info[ctx.guild.id].append(
+          {"name": information["entries"][0]["title"], "url": video_url, "src_url": src_video_url})
+      else:
+        queues[ctx.guild.id] = [{"url": video_url, "src_url": src_video_url}]
+        now_playing_pos[ctx.guild.id] = 0
+        all_queues_info[ctx.guild.id] = [
+          {"name": information["entries"][0]["title"], "url": video_url, "src_url": src_video_url}]
+
+      # queuing another songs
+      for v in information["entries"]:
+        if information["entries"].index(v) != 0:
+          queues[ctx.guild.id].append({"url": video_url, "src_url": v["url"]})
+          all_queues_info[ctx.guild.id].append({"name": v["title"], "url": video_url, "src_url": src_video_url})
+
+    vc = ctx.voice_client
+
+    try:
+      vc.play(discord.FFmpegPCMAudio(
+        src_video_url,
+        before_options=ffmpeg_options["before_options"],
+        options=ffmpeg_options["options"]
+        # calling the check_new_songs function after playing the current music
+      ), after=lambda a: check_new_songs(ctx.guild.id, vc))
+    except discord.errors.ClientException:
+      pass
+
+    # Adding embed, depending on the queue
+    if len(queues[ctx.guild.id]) != 1:
+      embed = discord.Embed(
+        title="Queue",
+        description=f"🔎 Searching for `{video_search}`\n\n" +
+        f"""✅ [{video_title}]({video_url}) - successfully added to queue.""",
+        color=0x515596)
+    else:
+      embed = discord.Embed(
+        title="Now playing",
+        description=f"✅ Successfully joined to `{channel}`\n\n" +
+        f"🔎 Searching for `{video_search}`\n\n" +
+        f"""▶️ Now playing - [{video_title}]({video_url})""",
+        color=0x515596)
+
+    await ctx.send(embed=embed)
+
 class Music(commands.Cog):
   def __init__(self, client):
     self.client = client
@@ -357,6 +460,7 @@ class Music(commands.Cog):
         loops_info = "🔁 Queue loop: disabled | 🔁 Current track loop: enabled"
 
       # sending the entire queue of 10 songs for each message
+      print(content)
       for songs in content:
         if content.index(songs) == 0:
           await ctx.send(embed=discord.Embed(
@@ -395,6 +499,12 @@ class Music(commands.Cog):
     else:
       await ctx.send("❎ Loop disabled!")
       loops[ctx.guild.id] = "none"
+
+  
+  @commands.command()
+  async def playlist(self, ctx, name:str):
+    with open('customplaylist.json') as f:
+      pass
 
 def setup(client):
     client.add_cog(Music(client))
