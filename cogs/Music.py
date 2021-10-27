@@ -507,7 +507,7 @@ class Music(commands.Cog):
     if pname == None:
       return await ctx.send("You need to name the playlist")
     
-    name = ctx.author.name
+    name = ctx.author.id
     pname = pname
 
     with open('customplaylist.json') as f:
