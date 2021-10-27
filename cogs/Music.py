@@ -599,6 +599,7 @@ class Music(commands.Cog):
       return m.channel == ctx.channel and m.author == ctx.author
     await ctx.send("Enter the number of the song you want to delete")
     index = await self.client.wait_for("message", check=wfcheck)
+    index = index.content
     try:
       index = int(index)
     except:
