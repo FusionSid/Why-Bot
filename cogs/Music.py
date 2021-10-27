@@ -507,7 +507,7 @@ class Music(commands.Cog):
     if pname == None:
       return await ctx.send("You need to name the playlist")
     
-    name = ctx.author.id
+    name = f"{ctx.author.id}"
     pname = pname
 
     with open('customplaylist.json') as f:
@@ -526,15 +526,15 @@ class Music(commands.Cog):
   async def playlist(self, ctx, pname=str):
     with open('customplaylist.json') as f:
       data = json.load(f)
-    if ctx.author.id in data:
+    if f"{ctx.author.id}" in data:
       pass
     else:
       return await ctx.send(embed=discord.Embed(title="You dont have any playlists!", description='Use ?createplaylist [name] to create one'))
-    if pname in data[ctx.author.id]:
+    if pname in data[f"{ctx.author.id}"]:
       pass
     else:
       return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description='Use ?createplaylist [name] to create one'))
-    await ctx.send(data[ctx.author.id][pname])
+    await ctx.send(data[f"{ctx.author.id}"][pname])
 
 def setup(client):
     client.add_cog(Music(client))
