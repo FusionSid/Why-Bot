@@ -533,7 +533,7 @@ class Music(commands.Cog):
     if pname in data[f"{ctx.author.id}"]:
       pass
     else:
-      return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description='Use ?createplaylist [name] to create one'))
+      await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description='Use ?createplaylist [name] to create one'))
     await ctx.send(data[f"{ctx.author.id}"][pname])
 
 def setup(client):
