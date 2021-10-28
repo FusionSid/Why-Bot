@@ -602,15 +602,16 @@ class Music(commands.Cog):
     index = index.content
     try:
       index = int(index)
+      index = index-1
     except:
       await ctx.send("Index must be a number")
     try:
-      data[f"{ctx.author.id}"][pname].remove(index)
+      data = data[f"{ctx.author.id}"][pname].remove(index)
     except:
       await ctx.send("Invalid input!")
     with open('customplaylist.json', 'w') as f:
       json.dump(data, f)
 
-    
+      
 def setup(client):
     client.add_cog(Music(client))

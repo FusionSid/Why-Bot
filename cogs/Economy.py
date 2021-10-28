@@ -4,15 +4,14 @@ import os
 from discord.ext import commands
 import json
 
+cd = os.getcwd()
+
 with open('shop.json') as f:
     mainshop = json.load(f)
 
 async def get_bank_data():
-  cd = os.getcwd()
-  os.chdir('/home/runner/Why-Bot/')
   with open('mainbank.json', 'r') as f:
     users = json.load(f)
-  os.chdir(cd)
 
   return users
 
