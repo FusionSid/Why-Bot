@@ -1,4 +1,5 @@
 import discord
+import pyttsx3
 import sqlite3
 import os
 import math
@@ -318,6 +319,29 @@ async def on_message(message):
       await client.process_commands(message)
   except:
     await client.process_commands(message)
+
+
+@client.command()
+async def speak(ctx, *, text):
+  s = pyttsx3.init()
+  text = str(text)
+  vidn = ctx.author.id
+  s.save_to_file(text, f'{vidn}.mp3')
+  s.runAndWait()
+  if ctx.author.voice is None:
+    return await ctx.send(f"{ctx.author.mention}, You have to be connected to a voice channel.")
+
+  channel = ctx.author.voice.channel
+
+  if ctx.voice_client is None:  # if bot is not connected to a voice channel, connecting to a voice channel
+    await channel.connect()
+  else:  # else, just moving to ctx author voice channel
+    await ctx.voice_client.move_to(channel)
+
+  await ctx.guild.change_voice_state(channel=channel, self_mute=False, self_deaf=True)  # self deaf
+
+  channel.play(discord.FFmpegPCMAudio(f"{vidn}.mp3"))
+  os.remove('test.mp3')
 
 
 # Errors
