@@ -207,7 +207,6 @@ async def playy(ctx, video=None):
         f"""▶️ Now playing - [{video_title}]({video_url})""",
         color=0x515596)
 
-    await ctx.send(embed=embed)
 
 class Music(commands.Cog):
   def __init__(self, client):
