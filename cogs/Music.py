@@ -106,6 +106,7 @@ def extract_info(url):
 		return youtube_dl.YoutubeDL({"format": "95", "cookiefile": cookies}).extract_info(url, download=False)
 
 
+# Play
 async def playy(ctx, video=None):
     global queues
     global now_playing_pos
@@ -192,22 +193,7 @@ async def playy(ctx, video=None):
     except discord.errors.ClientException:
       pass
 
-    # Adding embed, depending on the queue
-    if len(queues[ctx.guild.id]) != 1:
-      embed = discord.Embed(
-        title="Queue",
-        description=f"🔎 Searching for `{video_search}`\n\n" +
-        f"""✅ [{video_title}]({video_url}) - successfully added to queue.""",
-        color=0x515596)
-    else:
-      embed = discord.Embed(
-        title="Now playing",
-        description=f"✅ Successfully joined to `{channel}`\n\n" +
-        f"🔎 Searching for `{video_search}`\n\n" +
-        f"""▶️ Now playing - [{video_title}]({video_url})""",
-        color=0x515596)
 
-    await ctx.send(embed=embed)
 
 class Music(commands.Cog):
   def __init__(self, client):
@@ -435,6 +421,7 @@ class Music(commands.Cog):
           color=0x515596)
         )
       content = []
+      print(queue_info)
       for _ in queue_info:
         content.append("")
       page = 0
