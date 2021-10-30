@@ -1,4 +1,3 @@
-from typing_extensions import Required
 import discord
 import sqlite3
 import os
@@ -319,14 +318,6 @@ async def on_message(message):
       await client.process_commands(message)
   except:
     await client.process_commands(message)
-
-
-#Slash Commands
-@client.slash_command(guild_ids=[893653614990606346])
-async def sus(ctx, user : Option(discord.Member, 'The sus dude', required=False, default=None)):
-  if user == None:
-    user = ctx.author
-  await ctx.send(f'Damm {user} thats kinda sus')
 
 
 # Errors
