@@ -71,7 +71,7 @@ class Minecraft(commands.Cog):
             return
     if confirm == True:
       with open('igns.json', 'w') as f:
-        json.dump(lmao, f)
+        json.dump(lmao, f, indent=4)
     await ctx.send("Enter your Minecraft ign:")
     ign = await client.wait_for("message", check=wfcheck)
     ign = str(ign.content)

@@ -29,7 +29,7 @@ async def open_account(user):
   cd = os.getcwd()
   os.chdir('/home/runner/Why-Bot/')
   with open('mainbank.json', 'w') as f:
-    json.dump(users, f)
+    json.dump(users, f, indent=4)
   os.chdir(cd)
   return True
 
@@ -66,7 +66,7 @@ async def update_bank(user, change=0, mode='wallet'):
   cd = os.getcwd()
   os.chdir('/home/runner/Why-Bot/')
   with open('mainbank.json', 'w') as f:
-      json.dump(users, f)
+      json.dump(users, f, indent=4)
   os.chdir(cd)
   bal = users[str(user.id)]['wallet'], users[str(user.id)]['bank']
   return bal
@@ -116,7 +116,7 @@ async def sell_this(user, item_name, amount, price=None):
       cd = os.getcwd()
       os.chdir('/home/runner/Why-Bot/')
       with open("mainbank.json", "w") as f:
-          json.dump(users, f)
+          json.dump(users, f, indent=4)
       os.chdir(cd)
       await update_bank(user, cost, "wallet")
 
@@ -166,7 +166,7 @@ async def buy_this(user, amount, item_name):
       cd = os.getcwd()
       os.chdir('/home/runner/Why-Bot/')
       with open("mainbank.json", "w") as f:
-          json.dump(users, f)
+          json.dump(users, f, indent=4)
       os.chdir(cd)
 
       await update_bank(user, cost*-1, "wallet")
@@ -240,7 +240,7 @@ class Economy(commands.Cog):
 
       users[str(user.id)]["wallet"] += earnings
       with open("mainbank.json", 'w') as f:
-          json.dump(users, f)
+          json.dump(users, f, indent=4)
 
 
   @commands.command()
@@ -259,7 +259,7 @@ class Economy(commands.Cog):
       cd = os.getcwd()
       os.chdir('/home/runner/Why-Bot/')
       with open("mainbank.json", 'w') as f:
-          json.dump(users, f)
+          json.dump(users, f, indent=4)
       os.chdir(cd)
 
 

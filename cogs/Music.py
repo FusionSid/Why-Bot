@@ -517,7 +517,7 @@ class Music(commands.Cog):
         plist = {pname:[]}
         data[name] = plist
     with open('customplaylist.json', 'w') as f:
-        json.dump(data, f)
+        json.dump(data, f, indent=4)
     return await ctx.send(embed=discord.Embed(title="Playlist created!", description="To add to the playlist use ?add [playlistname] [song/songurl]"))
   
 
@@ -554,7 +554,7 @@ class Music(commands.Cog):
     data[f"{ctx.author.id}"][pname].append(song)
     await ctx.send(f"{song} Added to {pname}")
     with open('customplaylist.json', 'w') as f:
-      json.dump(data, f)
+      json.dump(data, f, indent=4)
 
   @commands.command()
   async def playlist(self, ctx, pname:str):
@@ -609,7 +609,7 @@ class Music(commands.Cog):
     except:
       await ctx.send("Invalid input!")
     with open('customplaylist.json', 'w') as f:
-      json.dump(data, f)
+      json.dump(data, f, indent=4)
 
       
 def setup(client):

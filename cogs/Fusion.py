@@ -27,7 +27,7 @@ class Fusion(commands.Cog):
       await ctx.send("User has been blacklisted")
 
     with open('blacklisted.json', 'w') as f:
-      json.dump(blacklisted, f)
+      json.dump(blacklisted, f, indent=4)
 
   @commands.command(aliases=['wl'])
   @commands.check(is_it_me)
@@ -42,7 +42,7 @@ class Fusion(commands.Cog):
       await ctx.send("User isnt blacklisted")
 
     with open('blacklisted.json', 'w') as f:
-      json.dump(blacklisted, f)
+      json.dump(blacklisted, f, indent=4)
   
   @commands.command(aliases=['blacklisted', 'lb'])
   @commands.check(is_it_me)
