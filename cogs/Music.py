@@ -610,7 +610,9 @@ class Music(commands.Cog):
     except:
       await ctx.send("Index must be a number")
     try:
-      data = data[f"{ctx.author.id}"][pname].remove(index)
+      rm = data[f"{ctx.author.id}"][pname][index]
+      print(rm)
+      data[f"{ctx.author.id}"][pname].remove(rm)
     except Exception as e:
       await ctx.send(e)
     with open('customplaylist.json', 'w') as f:
