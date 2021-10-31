@@ -435,6 +435,7 @@ class Music(commands.Cog):
           description="Your current queue is empty!",
           color=0x515596)
         )
+      print(all_queues_info)
       content = []
       for _ in queue_info:
         content.append("")
@@ -505,7 +506,7 @@ class Music(commands.Cog):
 
   # Playlists
 
-  @commands.command()
+  @commands.command(aliases=['cp'])
   async def createplaylist(self, ctx, pname:str=None):
     if pname == None:
       return await ctx.send("You need to name the playlist")
@@ -620,7 +621,7 @@ class Music(commands.Cog):
 
   
   # Text to speech
-  @commands.command()
+  @commands.command(aliases=['speak'])
   async def tts(self, ctx, *, text):
     text = str(text)
 
