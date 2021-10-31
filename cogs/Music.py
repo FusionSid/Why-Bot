@@ -645,8 +645,12 @@ class Music(commands.Cog):
 
     await ctx.send(f"✅ Successfully joined to `{channel}`")
 
-    channel.play(discord.FFmpegPCMAudio(f"{name}.mp3"), after=lambda e: print('done', e))
-
+    guild = ctx.guild
+    voice_client: discord.VoiceClient = discord.utils.get(self.client.voice_clients, guild=guild)
+    audio_source = discord.FFmpegPCMAudio(f'{name}.mp3')
+    if not voice_client.is_playing():
+        voice_client.play(audio_source, after=None)
+    
     os.chdir(cd)
 
       
