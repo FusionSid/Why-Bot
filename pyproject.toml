@@ -19,7 +19,6 @@ PyNaCl = "^1.4.0"
 py-cord = "^1.7.3"
 discord = "^1.7.3"
 praw = "^7.4.0"
-pyttsx3 = "^2.90"
 
 [tool.poetry.dev-dependencies]
 

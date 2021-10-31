@@ -1,5 +1,4 @@
 import discord
-import pyttsx3
 import sqlite3
 import os
 import math
