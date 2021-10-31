@@ -7,6 +7,8 @@ import os, platform
 import discord.voice_client
 import nacl
 import json
+from gtts import gTTS
+
 
 ffmpeg = "/home/runner/Why-Bot/Why-Bot/ffmpeg.exe"
 cookies = "/home/runner/Why-Bot/cookies.txt"
@@ -501,6 +503,8 @@ class Music(commands.Cog):
       loops[ctx.guild.id] = "none"
 
 
+  # Playlists
+
   @commands.command()
   async def createplaylist(self, ctx, pname:str=None):
     if pname == None:
@@ -556,6 +560,7 @@ class Music(commands.Cog):
     with open('customplaylist.json', 'w') as f:
       json.dump(data, f, indent=4)
 
+
   @commands.command()
   async def playlist(self, ctx, pname:str):
     with open('customplaylist.json') as f:
@@ -610,6 +615,39 @@ class Music(commands.Cog):
       await ctx.send("Invalid input!")
     with open('customplaylist.json', 'w') as f:
       json.dump(data, f, indent=4)
+
+  
+  # Text to speech
+  @commands.command()
+  async def tts(self, ctx, *, text):
+    text = str(text)
+
+    language = 'en'
+
+    output = gTTS(text=text, lang=language, slow=False)
+    
+    cd = os.getcwd()
+    os.chdir("/home/runner/Why-Bot")
+    name = ctx.author.id
+    output.save(f"{name}.mp3")
+
+    if ctx.author.voice is None:
+      return await ctx.send(f"{ctx.author.mention}, You have to be connected to a voice channel.")
+
+    channel = ctx.author.voice.channel
+
+    if ctx.voice_client is None:  # if bot is not connected to a voice channel, connecting to a voice channel
+      await channel.connect()
+    else:  # else, just moving to ctx author voice channel
+      await ctx.voice_client.move_to(channel)
+
+    await ctx.guild.change_voice_state(channel=channel, self_mute=False, self_deaf=True)  # self deaf
+
+    await ctx.send(f"✅ Successfully joined to `{channel}`")
+
+    channel.play(discord.FFmpegPCMAudio(f"{name}.mp3"), after=lambda e: print('done', e))
+
+    os.chdir(cd)
 
       
 def setup(client):

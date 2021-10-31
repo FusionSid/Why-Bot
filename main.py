@@ -177,7 +177,7 @@ async def setup(ctx):
     return m.channel == ctx.channel and m.author == ctx.author
   
   # Tell em what the need
-  await ctx.send("```To setup bot you will need to copy the id's of channels.\nPlease turn on developer mode to be able to copy channel id's```")
+  await ctx.send(embed=discord.Embed(title="To setup the bot you will need to copy the id's of some channels.", description="Please turn on developer mode to be able to copy channel id's"))
   cd = os.getcwd()
   os.chdir("{}/Setup".format(cd))
   with open(f'{ctx.guild.id}.json') as f:
@@ -185,7 +185,7 @@ async def setup(ctx):
   os.chdir(cd)
 
   # ask for mod channel
-  await ctx.send("```Please enter the id for the moderator/staff channel.\nThis channel will be used for logging mod commands done by the bot.\nAlso members can report messages and they will be sent to this channel for review\nType None if you dont/want one```")
+  await ctx.send(embed=discord.Embed(title="Please enter the id for the mod/staff channel.", description="All mod commands done by the bot will be logged here. Also reports will be sent to this channel.\nAlso members can report messages and they will be sent to this channel for review\nType None if you dont/want one"))
   mod = await client.wait_for("message", check=wfcheck)
   mod = mod.content
   mod = str(mod)
@@ -198,7 +198,7 @@ async def setup(ctx):
       await ctx.send("Invalid Input")
 
   # ask for count channel
-  await ctx.send("```Please enter the id for the counting channel\nThis is for the counting game.\nType None if you dont/want one```")
+  await ctx.send(embed=discord.Embed(title="Please enter the id for the counting channel", description="This is for the counting game.\nType None if you dont/want one"))
   counting = await client.wait_for("message", check=wfcheck)
   counting = counting.content
   counting = str(counting)
@@ -211,7 +211,7 @@ async def setup(ctx):
       await ctx.send("Invalid Input")
 
   # Ask for welcome channel
-  await ctx.send("```Please enter the id for the welcome channel\nThis is where the bot will welcome new users\nType None if you dont/want one```")
+  await ctx.send(embed=discord.Embed(title="Please enter the id for the welcome channel", description="This is where the bot will welcome new users\nType None if you dont/want one"))
   welcome = await client.wait_for("message", check=wfcheck)
   welcome = welcome.content
   welcome = str(welcome)
