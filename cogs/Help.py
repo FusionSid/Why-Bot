@@ -146,6 +146,7 @@ class Help(commands.Cog):
           color=0x515596
         )
 
+        embed.add_field(name="`?tts <text>`", value="Text to speech, The bot speaks out the text in the vc", inline=False)
         embed.add_field(name="`?join`", value="Why joins to your voice channel.", inline=False)
         embed.add_field(name="`?play <song/ytlink>`",value="Bot joins to your voice channel and plays music from a video link.",inline=False)
         embed.add_field(name="`?leave`", value="Leave the voice channel.", inline=False)
@@ -154,6 +155,11 @@ class Help(commands.Cog):
         embed.add_field(name="`?resume`", value="Resume music.", inline=False)
         embed.add_field(name="`?queue`", value="Shows current queue.", inline=False)
         embed.add_field(name="`?loop`", value="Loops current track.", inline=False)
+        embed.add_field(name="`?createplaylist <name>`", value="Creates a playlist", inline=False)
+        embed.add_field(name="`?list <name>`", value="Lists songs in a playlist", inline=False)
+        embed.add_field(name="`?add <playlist> <song-name/url>`", value="Adds songs to a playlist", inline=False)
+        embed.add_field(name="`?pdel <playlist>`", value="Deletes song from a playlist", inline=False)
+        embed.add_field(name="`?playlist <playlist name>`", value="Plays all songs in a playlist", inline=False)
         embed.set_footer(
             text="Default prefix is ? might be different for your server")
 
