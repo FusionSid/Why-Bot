@@ -611,8 +611,8 @@ class Music(commands.Cog):
       await ctx.send("Index must be a number")
     try:
       data = data[f"{ctx.author.id}"][pname].remove(index)
-    except:
-      await ctx.send("Invalid input!")
+    except Exception as e:
+      await ctx.send(e)
     with open('customplaylist.json', 'w') as f:
       json.dump(data, f, indent=4)
 
@@ -642,8 +642,6 @@ class Music(commands.Cog):
       await ctx.voice_client.move_to(channel)
 
     await ctx.guild.change_voice_state(channel=channel, self_mute=False, self_deaf=True)  # self deaf
-
-    await ctx.send(f"✅ Successfully joined to `{channel}`")
 
     guild = ctx.guild
     voice_client: discord.VoiceClient = discord.utils.get(self.client.voice_clients, guild=guild)
