@@ -335,13 +335,25 @@ async def on_message(message):
         await client.process_commands(message)
 
 
+# Slash Commands
+
+def get_guild_ids():
+    servers = list(client.guilds)
+    guild_ids = []
+    for server in servers:
+        guild_ids.append(guild_ids)
+    return guild_ids
+
 guild_ids = [893653614990606346, ]
 
-@slash.slash(name="sus", guild_ids=guild_ids)
+
+@slash.slash(name="sus", guild_ids=get_guild_ids)
 async def _sus(ctx):
-  await ctx.send("Thats really sus")
+    await ctx.send("Thats really sus")
 
 # Errors
+
+
 @client.event
 async def on_command_error(ctx, error):
     cha = client.get_channel(896932591620464690)
