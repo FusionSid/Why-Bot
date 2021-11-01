@@ -7,7 +7,9 @@ import os
 
 cd = "/home/runner/Why-Bot/cogs/"
 homepath = "/home/runner/Why-Bot/MainDB/"
-newtickettemplate = {"ticket-counter": 0, "valid-roles": [], "pinged-roles": [], "ticket-channel-ids": [], "verified-roles": []}
+newtickettemplate = {"ticket-counter": 0, "valid-roles": [],
+                     "pinged-roles": [], "ticket-channel-ids": [], "verified-roles": []}
+
 
 def createticketfile(ctx):
     os.chdir(homepath)
@@ -16,24 +18,26 @@ def createticketfile(ctx):
             print("Success")
     except FileNotFoundError:
         with open(f"ticket{ctx.guild.id}.json", 'w') as f:
-            json.dump(newtickettemplate,f, indent=4)
+            json.dump(newtickettemplate, f, indent=4)
     os.chdir(cd)
+
 
 class Ticket(commands.Cog):
     def __init__(self, client):
         self.client = client
 
     @commands.command(aliases=['new'])
-    async def newticket(self, ctx, *, args = None):
+    async def newticket(self, ctx, *, args=None):
         createticketfile(ctx)
 
         await self.client.wait_until_ready()
 
         if args == None:
             message_content = "Please wait, we will be with you shortly!\nUse ?closeticket to close the ticket"
-        
+
         else:
-            message_content = "Please wait, we will be with you shortly!\nYour Message: {}\nUse ?closeticket to close the ticket".format(args)
+            message_content = "Please wait, we will be with you shortly!\nYour Message: {}\nUse ?closeticket to close the ticket".format(
+                args)
 
         os.chdir(homepath)
         with open(f"ticket{ctx.guild.id}.json") as f:
@@ -50,10 +54,11 @@ class Ticket(commands.Cog):
             role = ctx.guild.get_role(role_id)
 
             await ticket_channel.set_permissions(role, send_messages=True, read_messages=True, add_reactions=True, embed_links=True, attach_files=True, read_message_history=True, external_emojis=True)
-        
+
         await ticket_channel.set_permissions(ctx.author, send_messages=True, read_messages=True, add_reactions=True, embed_links=True, attach_files=True, read_message_history=True, external_emojis=True)
 
-        em = discord.Embed(title="New ticket from {}#{}".format(ctx.author.name, ctx.author.discriminator), description= "{}".format(message_content), color=0x00a8ff)
+        em = discord.Embed(title="New ticket from {}#{}".format(
+            ctx.author.name, ctx.author.discriminator), description="{}".format(message_content), color=0x00a8ff)
 
         await ticket_channel.send(embed=em)
 
@@ -73,12 +78,12 @@ class Ticket(commands.Cog):
                 else:
                     await role.edit(mentionable=True)
                     non_mentionable_roles.append(role)
-            
+
             await ticket_channel.send(pinged_msg_content)
 
             for role in non_mentionable_roles:
                 await role.edit(mentionable=False)
-        
+
         data["ticket-channel-ids"].append(ticket_channel.id)
 
         data["ticket-counter"] = int(ticket_number)
@@ -86,9 +91,10 @@ class Ticket(commands.Cog):
         with open(f"ticket{ctx.guild.id}.json", 'w') as f:
             json.dump(data, f, indent=4)
         os.chdir(cd)
-        
-        created_em = discord.Embed(title="Why Tickets", description="Your ticket has been created at {}".format(ticket_channel.mention), color=0x00a8ff)
-        
+
+        created_em = discord.Embed(title="Why Tickets", description="Your ticket has been created at {}".format(
+            ticket_channel.mention), color=0x00a8ff)
+
         await ctx.send(embed=created_em)
 
     @commands.command(aliases=['close'])
@@ -108,8 +114,9 @@ class Ticket(commands.Cog):
 
             try:
 
-                em = discord.Embed(title="Why Tickets", description="Are you sure you want to close this ticket? Reply with `close` if you are sure.", color=0x00a8ff)
-            
+                em = discord.Embed(
+                    title="Why Tickets", description="Are you sure you want to close this ticket? Reply with `close` if you are sure.", color=0x00a8ff)
+
                 await ctx.send(embed=em)
                 await self.client.wait_for('message', check=check, timeout=60)
                 await ctx.channel.delete()
@@ -121,12 +128,11 @@ class Ticket(commands.Cog):
                 with open(f'ticket{ctx.guild.id}.json', 'w') as f:
                     json.dump(data, f, indent=4)
                 os.chdir(cd)
-            
-            except asyncio.TimeoutError:
-                em = discord.Embed(title="Why Tickets", description="You have run out of time to close this ticket. Please run the command again.", color=0x00a8ff)
-                await ctx.send(embed=em)
 
-            
+            except asyncio.TimeoutError:
+                em = discord.Embed(
+                    title="Why Tickets", description="You have run out of time to close this ticket. Please run the command again.", color=0x00a8ff)
+                await ctx.send(embed=em)
 
     @commands.command()
     async def addaccess(self, ctx, role_id=None):
@@ -135,7 +141,7 @@ class Ticket(commands.Cog):
         with open(f'ticket{ctx.guild.id}.json') as f:
             data = json.load(f)
         os.chdir(cd)
-        
+
         valid_user = False
 
         for role_id in data["verified-roles"]:
@@ -144,7 +150,7 @@ class Ticket(commands.Cog):
                     valid_user = True
             except:
                 pass
-        
+
         if valid_user or ctx.author.guild_permissions.administrator:
             role_id = int(role_id)
 
@@ -163,21 +169,25 @@ class Ticket(commands.Cog):
                     with open(f'ticket{ctx.guild.id}.json', 'w') as f:
                         json.dump(data, f, indent=4)
                     os.chdir(cd)
-                    
-                    em = discord.Embed(title="Why Tickets", description="You have successfully added `{}` to the list of roles with access to tickets.".format(role.name), color=0x00a8ff)
+
+                    em = discord.Embed(title="Why Tickets", description="You have successfully added `{}` to the list of roles with access to tickets.".format(
+                        role.name), color=0x00a8ff)
 
                     await ctx.send(embed=em)
 
                 except:
-                    em = discord.Embed(title="Why Tickets", description="That isn't a valid role ID. Please try again with a valid role ID.")
+                    em = discord.Embed(
+                        title="Why Tickets", description="That isn't a valid role ID. Please try again with a valid role ID.")
                     await ctx.send(embed=em)
-            
+
             else:
-                em = discord.Embed(title="Why Tickets", description="That role already has access to tickets!", color=0x00a8ff)
+                em = discord.Embed(
+                    title="Why Tickets", description="That role already has access to tickets!", color=0x00a8ff)
                 await ctx.send(embed=em)
-        
+
         else:
-            em = discord.Embed(title="Why Tickets", description="Sorry, you don't have permission to run that command.", color=0x00a8ff)
+            em = discord.Embed(
+                title="Why Tickets", description="Sorry, you don't have permission to run that command.", color=0x00a8ff)
             await ctx.send(embed=em)
 
     @commands.command()
@@ -187,7 +197,7 @@ class Ticket(commands.Cog):
         with open(f'ticket{ctx.guild.id}.json') as f:
             data = json.load(f)
         os.chdir(cd)
-        
+
         valid_user = False
 
         for role_id in data["verified-roles"]:
@@ -220,24 +230,27 @@ class Ticket(commands.Cog):
                         json.dump(data, f, indent=4)
                     os.chdir(cd)
 
-                    em = discord.Embed(title="Why Tickets", description="You have successfully removed `{}` from the list of roles with access to tickets.".format(role.name), color=0x00a8ff)
+                    em = discord.Embed(title="Why Tickets", description="You have successfully removed `{}` from the list of roles with access to tickets.".format(
+                        role.name), color=0x00a8ff)
 
                     await ctx.send(embed=em)
-                
+
                 else:
-                    
-                    em = discord.Embed(title="Why Tickets", description="That role already doesn't have access to tickets!", color=0x00a8ff)
+
+                    em = discord.Embed(
+                        title="Why Tickets", description="That role already doesn't have access to tickets!", color=0x00a8ff)
                     await ctx.send(embed=em)
 
             except:
-                em = discord.Embed(title="Why Tickets", description="That isn't a valid role ID. Please try again with a valid role ID.")
+                em = discord.Embed(
+                    title="Why Tickets", description="That isn't a valid role ID. Please try again with a valid role ID.")
                 await ctx.send(embed=em)
-        
+
         else:
-            em = discord.Embed(title="Why Tickets", description="Sorry, you don't have permission to run that command.", color=0x00a8ff)
+            em = discord.Embed(
+                title="Why Tickets", description="Sorry, you don't have permission to run that command.", color=0x00a8ff)
             await ctx.send(embed=em)
 
-    
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def addadminrole(self, ctx, role_id=None):
@@ -256,12 +269,14 @@ class Ticket(commands.Cog):
             with open(f'ticket{ctx.guild.id}.json', 'w') as f:
                 json.dump(data, f, indent=4)
             os.chdir(cd)
-            
-            em = discord.Embed(title="Why Tickets", description="You have successfully added `{}` to the list of roles that can run admin-level commands!".format(role.name), color=0x00a8ff)
+
+            em = discord.Embed(
+                title="Why Tickets", description="You have successfully added `{}` to the list of roles that can run admin-level commands!".format(role.name), color=0x00a8ff)
             await ctx.send(embed=em)
 
         except:
-            em = discord.Embed(title="Why Tickets", description="That isn't a valid role ID. Please try again with a valid role ID.")
+            em = discord.Embed(
+                title="Why Tickets", description="That isn't a valid role ID. Please try again with a valid role ID.")
             await ctx.send(embed=em)
 
     @commands.command()
@@ -288,17 +303,20 @@ class Ticket(commands.Cog):
                 with open(f'ticket{ctx.guild.id}.json', 'w') as f:
                     json.dump(data, f, indent=4)
                 os.chdir(cd)
-                
-                em = discord.Embed(title="Why Tickets", description="You have successfully removed `{}` from the list of roles that get pinged when new tickets are created.".format(role.name), color=0x00a8ff)
+
+                em = discord.Embed(title="Why Tickets", description="You have successfully removed `{}` from the list of roles that get pinged when new tickets are created.".format(
+                    role.name), color=0x00a8ff)
 
                 await ctx.send(embed=em)
-            
+
             else:
-                em = discord.Embed(title="Why Tickets", description="That role isn't getting pinged when new tickets are created!", color=0x00a8ff)
+                em = discord.Embed(
+                    title="Why Tickets", description="That role isn't getting pinged when new tickets are created!", color=0x00a8ff)
                 await ctx.send(embed=em)
 
         except:
-            em = discord.Embed(title="Why Tickets", description="That isn't a valid role ID. Please try again with a valid role ID.")
+            em = discord.Embed(
+                title="Why Tickets", description="That isn't a valid role ID. Please try again with a valid role ID.")
             await ctx.send(embed=em)
 
 

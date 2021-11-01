@@ -89,7 +89,7 @@ class Fun(commands.Cog):
         self.client = client
 
     @commands.command(aliases=['rockpaperscissors'])
-    async def rps(self, ctx, rps:str):
+    async def rps(self, ctx, rps: str):
         choices = ["rock", "paper", "scissors"]
         cpu_choice = random.choice(choices)
         em = discord.Embed(title="Rock Paper Scissors")
@@ -125,20 +125,17 @@ class Fun(commands.Cog):
         em.add_field(name="Bot Choice", value=cpu_choice)
         await ctx.send(embed=em)
 
-
     @commands.command(aliases=['roastme'])
     async def roast(self, ctx):
         roast = random.choice(roastlistpy)
         em = discord.Embed(title=roast)
         await ctx.send(embed=em)
 
-
     @commands.command(aliases=['sendmsg'])
     async def dm(self, ctx, member: discord.Member, *, message):
         await ctx.channel.purge(limit=1)
         embeddm = discord.Embed(title=message)
         await member.send(embed=embeddm)
-
 
     @commands.command(aliases=['sr'])
     async def sendroast(self, ctx, member: discord.Member):
@@ -173,12 +170,11 @@ class Fun(commands.Cog):
             "Very doubtful"
         ]
         em = discord.Embed(title="__8 Ball__",
-                        description=f"{question}\nAnswer: {random.choice(_8ballans)}")
+                           description=f"{question}\nAnswer: {random.choice(_8ballans)}")
         await ctx.send(embed=em)
 
-
     @commands.command(aliases=['em'])
-    async def embed(self, ctx, fields:str, extra:int, img:str=None, channel:int=None):
+    async def embed(self, ctx, fields: str, extra: int, img: str = None, channel: int = None):
         def wfcheck(m):
             return m.channel == ctx.channel and m.author == ctx.author
         em = discord.Embed()
@@ -209,34 +205,34 @@ class Fun(commands.Cog):
 
                 await ctx.send("Enter Value:", delete_after=5)
                 value = await self.client.wait_for("message", check=wfcheck)
-                
+
                 em.add_field(name=name.content, value=value.content)
-        
+
         if img == None:
             await ctx.send(embed=em)
             return
         if img.lower() == 'none':
-            pass  
+            pass
         else:
-          em.set_image(url=img)
-          await ctx.send(embed=em)
-          return
+            em.set_image(url=img)
+            await ctx.send(embed=em)
+            return
         if channel == None:
-          return
+            return
         else:
-          cha = await self.client.fetch_channel(channel)
-          await cha.send(embed=em)
+            cha = await self.client.fetch_channel(channel)
+            await cha.send(embed=em)
 
     @commands.command(aliases=['noembed'])
     async def say(self, ctx, *, text):
-      await ctx.send(text)
-  
+        await ctx.send(text)
+
     @commands.command(aliases=['num'])
     async def numrn(self, ctx):
         guild = ctx.guild
         cd = os.getcwd()
         os.chdir("/home/runner/Why-Bot/")
-        with open ('counting.json') as f:
+        with open('counting.json') as f:
             data = json.load(f)
         guildid = f'{guild.id}'
         numrn = data[guildid]
@@ -244,13 +240,12 @@ class Fun(commands.Cog):
 
     @commands.command(aliases=['yahornah', 'yn'])
     async def yesorno(self, ctx, *, message):
-      msg = await ctx.send(embed=discord.Embed(title="Yah or Nah?", description=message))
-      await msg.add_reaction('👍')
-      await msg.add_reaction('👎')
-
+        msg = await ctx.send(embed=discord.Embed(title="Yah or Nah?", description=message))
+        await msg.add_reaction('👍')
+        await msg.add_reaction('👎')
 
     @commands.command(pass_context=True, aliases=['makepoll', 'question'])
-    async def poll(self, ctx, time:int, question, *options: str):
+    async def poll(self, ctx, time: int, question, *options: str):
         if len(options) <= 1:
             await ctx.send('You need more than one option to make a poll!')
             return
@@ -261,7 +256,8 @@ class Fun(commands.Cog):
         if len(options) == 2 and options[0] == 'yes' and options[1] == 'no':
             reactions = ['✅', '❌']
         else:
-            reactions = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟']
+            reactions = ['1⃣', '2⃣', '3⃣', '4⃣',
+                         '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟']
 
         description = []
         reacting = []
@@ -276,17 +272,15 @@ class Fun(commands.Cog):
         message = await ctx.channel.fetch_message(react_message.id)
         results = {}
         for i in reacting:
-          reaction = get(message.reactions, emoji=i)
-          count = reaction.count-1
-          results[i] = count
+            reaction = get(message.reactions, emoji=i)
+            count = reaction.count-1
+            results[i] = count
         results = f'{results}'
         results = results.replace("{", "")
         results = results.replace("}", "")
         results = results.replace("'", "")
         await ctx.send(f"Results: \n{results}")
 
-    
+
 def setup(client):
     client.add_cog(Fun(client))
-
-
