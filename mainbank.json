@@ -1,11 +1,11 @@
 {
     "624076054969188363": {
-        "wallet": 0,
-        "bank": 2420710,
+        "wallet": 50.0,
+        "bank": 2432808,
         "bag": [
             {
                 "item": "pc",
-                "amount": 8
+                "amount": 5
             },
             {
                 "item": "laptop",
