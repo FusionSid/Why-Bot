@@ -7,8 +7,7 @@ from keep_alive import keep_alive
 from os import listdir
 from os.path import isfile, join
 import json
-from discord_slash import SlashCommand, SlashContext
-
+from discord_slash import SlashCommand
 
 # Get prefix
 def get_prefix(client, message):
@@ -23,7 +22,7 @@ def get_prefix(client, message):
 
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix=get_prefix, intents=intents, help_command=None)
-slash = Slash(client)
+slash = SlashCommand(client, sync_commands=True)
 
 
 # Update bot activity to show guilds and help command
@@ -335,6 +334,12 @@ async def on_message(message):
     except:
         await client.process_commands(message)
 
+
+guild_ids = [893653614990606346, ]
+
+@slash.slash(name="sus", guild_ids=guild_ids)
+async def _sus(ctx):
+  await ctx.send("Thats really sus")
 
 # Errors
 @client.event
