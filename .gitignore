@@ -1,1 +1,6 @@
 .env
+.lock
+.toml
+.DS_Store
+.breakpoints
+__pycache__
