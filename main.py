@@ -161,6 +161,22 @@ async def on_guild_join(guild):
     await guild.system_channel.send("PLEASE run ```?setup``` to setup the bot")
   except:
     pass
+  main = sqlite3.connect('Leveling/main.db')
+  cursor = main.cursor()
+  cursor.execute(f"SELECT enabled FROM glevel WHERE guild_id = '{guild.id}'")
+  result = cursor.fetchone()
+  if result is None:
+      sql = ("INSERT INTO glevel(guild_id, enabled) VALUES(?,?)")
+      val = (str(guild.id), 'enabled')
+      cursor.execute(sql, val)
+      main.commit()
+  elif str(result[0]) == 'disabled':
+      sql = ("UPDATE glevel SET enabled = ? WHERE guild_id = ?")
+      val = ('enabled', str(guild.id))
+      cursor.execute(sql, val)
+      main.commit()
+  cursor.close()
+  main.close()
 
 
 # On remove - Update to show -1 guilds
