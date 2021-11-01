@@ -40,6 +40,8 @@ async def on_ready():
     await channel.send("Online")
 
 
+
+
 async def memberjoin(member):
     em = discord.Embed(
         title="Welcome", description=f"Hello there :wave: {member.name} welcome to {member.guild.name}\nHope you have fun on this server :)", color=discord.Color(value=0x36393e))
@@ -337,17 +339,10 @@ async def on_message(message):
 
 # Slash Commands
 
-def get_guild_ids():
-    servers = list(client.guilds)
-    guild_ids = []
-    for server in servers:
-        guild_ids.append(guild_ids)
-    return guild_ids
-
-guild_ids = [893653614990606346, ]
+guild_ids = [893653614990606346]
 
 
-@slash.slash(name="sus", guild_ids=get_guild_ids)
+@slash.slash(name="sus", guild_ids=guild_ids)
 async def _sus(ctx):
     await ctx.send("Thats really sus")
 
