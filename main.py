@@ -1,4 +1,5 @@
 import discord
+from discord_slash.utils.manage_commands import create_option
 import sqlite3
 import os
 import math
@@ -10,6 +11,8 @@ import json
 from discord_slash import SlashCommand
 
 # Get prefix
+
+
 def get_prefix(client, message):
     cd = "/home/runner/Why-Bot"
     os.chdir(f"{cd}/Setup")
@@ -21,7 +24,8 @@ def get_prefix(client, message):
 
 
 intents = discord.Intents.all()
-client = commands.Bot(command_prefix=get_prefix, intents=intents, help_command=None)
+client = commands.Bot(command_prefix=get_prefix,
+                      intents=intents, help_command=None)
 slash = SlashCommand(client, sync_commands=True)
 
 
@@ -38,8 +42,6 @@ async def on_ready():
     await update_activity()
     channel = client.get_channel(896932591620464690)
     await channel.send("Online")
-
-
 
 
 async def memberjoin(member):
@@ -342,9 +344,13 @@ async def on_message(message):
 guild_ids = [893653614990606346]
 
 
-@slash.slash(name="sus", guild_ids=guild_ids)
-async def _sus(ctx):
-    await ctx.send("Thats really sus")
+@slash.slash(name="sus", description="Thats kinda sus ngl", options=[create_option(name="Person", description="The sus", option_type=6, required=False)], guild_ids=guild_ids)
+async def _sus(ctx, Person:discord.Member=None):
+    if Person == None:
+        await ctx.send("Thats really sus")
+    else:
+        await ctx.send(f"Hey {Person}, Thats kinda sus!")
+
 
 # Errors
 
