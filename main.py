@@ -161,6 +161,10 @@ async def on_guild_join(guild):
     await guild.system_channel.send("PLEASE run ```?setup``` to setup the bot")
   except:
     pass
+  await level(guild)
+
+
+async def level(guild):
   main = sqlite3.connect('Leveling/main.db')
   cursor = main.cursor()
   cursor.execute(f"SELECT enabled FROM glevel WHERE guild_id = '{guild.id}'")
@@ -178,7 +182,10 @@ async def on_guild_join(guild):
   cursor.close()
   main.close()
 
-
+@client.command()
+async def slfts(ctx):
+  await level(ctx.guild.id)
+  
 # On remove - Update to show -1 guilds
 @client.event
 async def on_guild_remove(guild):
