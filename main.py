@@ -26,7 +26,7 @@ def get_prefix(client, message):
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix=get_prefix,
                       intents=intents, help_command=None)
-slash = SlashCommand(client, sync_commands=True)
+slash = SlashCommand(client)
 
 
 # Update bot activity to show guilds and help command
@@ -344,12 +344,9 @@ async def on_message(message):
 guild_ids = [893653614990606346]
 
 
-@slash.slash(name="sus", description="Thats kinda sus ngl", options=[create_option(name="Person", description="The sus", option_type=6, required=False)], guild_ids=guild_ids)
-async def _sus(ctx, Person:discord.Member=None):
-    if Person == None:
-        await ctx.send("Thats really sus")
-    else:
-        await ctx.send(f"Hey {Person}, Thats kinda sus!")
+@slash.slash(name="sus", description="Thats kinda sus ngl", guild_ids=guild_ids)
+async def _sus(ctx):
+  await ctx.send("Thats really sus")
 
 
 # Errors
