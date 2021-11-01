@@ -121,6 +121,7 @@ class Minecraft(commands.Cog):
     with open('hypixel_pic.png', 'wb') as f:
       f.write(response.content)
     await ctx.send(file=discord.File('hypixel_pic.png'))
+    os.remove('hypixel_pic.png')
     em = discord.Embed(title="Extra:")
     em.add_field(name="IGN:", value=full_ign)
     em.add_field(name="Online:", value=online)

@@ -23,6 +23,7 @@ gTTS = "^2.2.3"
 pyttsx3 = "^2.90"
 dblpy = "^0.4.0"
 utils = "^1.0.1"
+mutagen = "^1.45.1"
 
 [tool.poetry.dev-dependencies]
 

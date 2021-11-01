@@ -446,6 +446,14 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "mutagen"
+version = "1.45.1"
+description = "read and write audio tags for many formats"
+category = "main"
+optional = false
+python-versions = ">=3.5, <4"
+
+[[package]]
 name = "praw"
 version = "7.4.0"
 description = "PRAW, an acronym for `Python Reddit API Wrapper`, is a python package that allows for simple access to reddit's API."
@@ -2563,7 +2571,7 @@ httpx = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "1b270a37321b31770a7f379a29ef5f63099fafb0ae66dc406d6cea46f6e4459b"
+content-hash = "e3a8f133171529d9a1c5207dcb9c47bbd694fbe5d6bad92fa2cd65f993fc98cf"
 
 [metadata.files]
 aiofiles = [
@@ -2946,6 +2954,10 @@ multidict = [
     {file = "multidict-5.2.0-cp39-cp39-win32.whl", hash = "sha256:1c7976cd1c157fa7ba5456ae5d31ccdf1479680dc9b8d8aa28afabc370df42b8"},
     {file = "multidict-5.2.0-cp39-cp39-win_amd64.whl", hash = "sha256:c9631c642e08b9fff1c6255487e62971d8b8e821808ddd013d8ac058087591ac"},
     {file = "multidict-5.2.0.tar.gz", hash = "sha256:0dd1c93edb444b33ba2274b66f63def8a327d607c6c790772f448a53b6ea59ce"},
+]
+mutagen = [
+    {file = "mutagen-1.45.1-py3-none-any.whl", hash = "sha256:9c9f243fcec7f410f138cb12c21c84c64fde4195481a30c9bfb05b5f003adfed"},
+    {file = "mutagen-1.45.1.tar.gz", hash = "sha256:6397602efb3c2d7baebd2166ed85731ae1c1d475abca22090b7141ff5034b3e1"},
 ]
 praw = [
     {file = "praw-7.4.0-py3-none-any.whl", hash = "sha256:4d6f09b45ce3a7bcf137bffea39371a3e6c1184b5254e81803a8ff07f6df76e7"},

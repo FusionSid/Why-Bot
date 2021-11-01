@@ -1,4 +1,5 @@
 import discord
+import asyncio
 from discord.ext import commands
 import youtube_dl
 from youtubesearchpython import VideosSearch
@@ -8,6 +9,7 @@ import discord.voice_client
 import nacl
 import json
 from gtts import gTTS
+from mutagen.mp3 import MP3
 
 
 ffmpeg = "/home/runner/Why-Bot/Why-Bot/ffmpeg.exe"
@@ -651,7 +653,12 @@ class Music(commands.Cog):
     audio_source = discord.FFmpegPCMAudio(f'{name}.mp3')
     if not voice_client.is_playing():
         voice_client.play(audio_source, after=None)
-    
+    else:
+      await ctx.send("Something is playling right now, Try using this command after its finished")
+    audio = MP3(f"{name}.mp3")
+    wait = int(audio.info.length)
+    await asyncio.sleep(wait)
+    os.remove(f'{name}.mp3')
     os.chdir(cd)
 
       
