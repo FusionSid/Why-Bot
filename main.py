@@ -7,10 +7,10 @@ from keep_alive import keep_alive
 from os import listdir
 from os.path import isfile, join
 import json
+from discord_slash import SlashCommand, SlashContext
+
 
 # Get prefix
-
-
 def get_prefix(client, message):
     cd = "/home/runner/Why-Bot"
     os.chdir(f"{cd}/Setup")
@@ -23,6 +23,7 @@ def get_prefix(client, message):
 
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix=get_prefix, intents=intents, help_command=None)
+slash = Slash(client)
 
 
 # Update bot activity to show guilds and help command
@@ -40,9 +41,7 @@ async def on_ready():
     await channel.send("Online")
 
 
-# On member join
-@client.event
-async def on_member_join(member):
+async def memberjoin(member):
     em = discord.Embed(
         title="Welcome", description=f"Hello there :wave: {member.name} welcome to {member.guild.name}\nHope you have fun on this server :)", color=discord.Color(value=0x36393e))
     try:
@@ -61,6 +60,12 @@ async def on_member_join(member):
         channel = await client.fetch_channel(int(cha))
         # Send welcome message in server welcome channel
         await channel.send(embed=em)
+
+
+# On member join
+@client.event
+async def on_member_join(member):
+    await memberjoin(member)
 
 
 # On reaction
@@ -170,35 +175,9 @@ async def on_guild_join(guild):
         await guild.system_channel.send("PLEASE run ```?setup``` to setup the bot")
     except:
         pass
-	await level(guild)
 
-
-async def level(guild):
-    main = sqlite3.connect('Leveling/main.db')
-    cursor = main.cursor()
-    cursor.execute(f"SELECT enabled FROM glevel WHERE guild_id = '{guild.id}'")
-    result = cursor.fetchone()
-    if result is None:
-        sql = ("INSERT INTO glevel(guild_id, enabled) VALUES(?,?)")
-        val = (str(guild.id), 'enabled')
-        cursor.execute(sql, val)
-        main.commit()
-    elif str(result[0]) == 'disabled':
-        sql = ("UPDATE glevel SET enabled = ? WHERE guild_id = ?")
-        val = ('enabled', str(guild.id))
-        cursor.execute(sql, val)
-        main.commit()
-    cursor.close()
-    main.close()
-
-
-@client.command()
-async def slfts(ctx):
-    await level(ctx.guild.id)
 
 # On remove - Update to show -1 guilds
-
-
 @client.event
 async def on_guild_remove(guild):
     await update_activity()
