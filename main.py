@@ -344,7 +344,7 @@ async def on_message(message):
 guild_ids = [893653614990606346]
 
 
-@slash.slash(name="sus", description="Thats kinda sus ngl", guild_ids=guild_ids)
+@slash.slash(name="sus", description="Thats kinda sus ngl")
 async def _sus(ctx):
   await ctx.send("Thats really sus")
 
