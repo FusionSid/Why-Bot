@@ -16,6 +16,10 @@ cryptography = "^35.0.0"
 Flask = "^2.0.2"
 qrcode = "^7.3.1"
 discord-py-slash-command = "^3.0.1"
+google-search = "^1.1.1"
+googlesearch-python = "^1.0.1"
+youtube-search-python = "^1.4.9"
+PyNaCl = "^1.4.0"
 
 [tool.poetry.dev-dependencies]
 
