@@ -335,6 +335,7 @@ async def rank(ctx):
 @client.command()
 async def leaderboard(ctx):
     data = await lvl.each_member_data(ctx.guild, sort_by='rank')
+    await ctx.send(data)
 
 
 # On Message
