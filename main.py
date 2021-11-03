@@ -9,9 +9,11 @@ from os import listdir
 from os.path import isfile, join
 import json
 from discord_slash import SlashCommand
+from discord.ext import commands
+from discordLevelingSystem import DiscordLevelingSystem, RoleAward, LevelUpAnnouncement
+
 
 # Get prefix
-
 
 def get_prefix(client, message):
     cd = "/home/runner/Why-Bot"
@@ -316,12 +318,32 @@ def notblacklisted(ctx):
     return True  # If notblacklisted return true else return false
 
 
+# Leveling
+announcement = LevelUpAnnouncement(f'{LevelUpAnnouncement.Member.mention} just leveled up to level {LevelUpAnnouncement.LEVEL} 😎')
+
+# DiscordLevelingSystem.create_database_file(r'C:\Users\Defxult\Documents') database file already created
+lvl = DiscordLevelingSystem(rate=1, per=60.0, level_up_announcement=announcement)
+DiscordLevelingSystem.create_database_file('/home/runner/Why-Bot/')
+lvl.connect_to_database_file('/home/runner/Why-Bot/DiscordLevelingSystem.db')
+
+
+@client.command()
+async def rank(ctx):
+    data = await lvl.get_data_for(ctx.author)
+    await ctx.send(f'You are level {data.level} and your rank is {data.rank}')
+
+
+@client.command()
+async def leaderboard(ctx):
+    data = await lvl.each_member_data(ctx.guild, sort_by='rank')
+
+
 # On Message
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return  # if bot - no
-
+    await lvl.award_xp(amount=[15,30], message=message)
     # Fome variables that come in useful later
     channel = message.channel
     msg = message.content
