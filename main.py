@@ -16,13 +16,16 @@ from discordLevelingSystem import DiscordLevelingSystem, RoleAward, LevelUpAnnou
 # Get prefix
 
 def get_prefix(client, message):
-    cd = "/home/runner/Why-Bot"
-    os.chdir(f"{cd}/Setup")
-    with open(f"{message.guild.id}.json") as f:  # open prefix file
-        data = json.load(f)
-    prefix = data[3]["prefix"]
-    os.chdir(cd)
-    return prefix
+    try:
+      cd = "/home/runner/Why-Bot"
+      os.chdir(f"{cd}/Setup")
+      with open(f"{message.guild.id}.json") as f:  # open prefix file
+          data = json.load(f)
+      prefix = data[3]["prefix"]
+      os.chdir(cd)
+      return prefix
+    except:
+      pass
 
 
 intents = discord.Intents.all()
@@ -270,6 +273,7 @@ async def setprefix(ctx, pref: str):
 
 # Get the counting channel
 async def get_counting_channel(guild):
+  try:
     cd = os.getcwd()
 
     os.chdir(f"{cd}/Setup")
@@ -284,6 +288,8 @@ async def get_counting_channel(guild):
         return False
     else:
         return cc
+  except:
+    pass
 
 
 # Counting
@@ -319,24 +325,47 @@ def notblacklisted(ctx):
 
 
 # Leveling
-announcement = LevelUpAnnouncement(f'{LevelUpAnnouncement.Member.mention} just leveled up to level {LevelUpAnnouncement.LEVEL} 😎')
 
-# DiscordLevelingSystem.create_database_file(r'C:\Users\Defxult\Documents') database file already created
+lvlembed = discord.Embed()
+lvlembed.set_author(name=LevelUpAnnouncement.Member.name, icon_url=LevelUpAnnouncement.Member.avatar_url)
+lvlembed.description = f'Congrats {LevelUpAnnouncement.Member.mention}! You are now level {LevelUpAnnouncement.LEVEL} 😎'
+
+announcement = LevelUpAnnouncement(lvlembed)
+
 lvl = DiscordLevelingSystem(rate=1, per=10.0, level_up_announcement=announcement)
 lvl.connect_to_database_file('/home/runner/Why-Bot/DiscordLevelingSystem.db')
 
 
-@client.command()
-async def rank(ctx):
-    data = await lvl.get_data_for(ctx.author)
-    await ctx.send(f'You are level {data.level} and your rank is {data.rank}')
+@client.command(aliases=['lvl'])
+async def rank(ctx, member:discord.Member=None):
+    em = discord.Embed(title="Rank:")
+    if member == None:
+      em.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+      data = await lvl.get_data_for(ctx.author)
+    else:
+      em.set_author(name=member.name, icon_url=member.avatar_url)
+      data = await lvl.get_data_for(member)
+    em.add_field(name=f"Level: {data.level}", value="** **")
+    em.add_field(name=f"Rank: {data.rank}", value="** **")
+    em.add_field(name=f"Total XP: {data.total_xp}, Level XP: {data.xp}", value="** **")
+    await ctx.send(embed=em)
 
 
 @client.command()
 async def leaderboard(ctx):
     data = await lvl.each_member_data(ctx.guild, sort_by='rank')
-    await ctx.send(data)
+    em = discord.Embed(title="Leaderboard")
+    n = 0
+    for i in data:
+      em.add_field(name=f'{i.rank}: {i.name}', value=f'Level: {i.level}, Total XP: {i.total_xp}', inline=False)
+      n += 1
+      if n == 10:
+        break 
+    await ctx.send(embed=em)
 
+
+def is_it_me(ctx):
+    return ctx.author.id == 624076054969188363
 
 # On Message
 @client.event

@@ -75,6 +75,5 @@ class Fusion(commands.Cog):
         for guild in self.client.guilds:
             await guild.text_channels[0].send(message)
 
-
 def setup(client):
     client.add_cog(Fusion(client))
