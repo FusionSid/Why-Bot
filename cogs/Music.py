@@ -685,6 +685,26 @@ class Music(commands.Cog):
         os.remove(f'{name}.mp3')
         os.chdir(cd)
 
+  
+    @commands.Cog.listener()
+    async def on_voice_state_update(self, member, before, after):
+        
+        if not member.id == self.client.user.id:
+            return
+
+        elif before.channel is None:
+            voice = after.channel.guild.voice_client
+            time = 0
+            while True:
+                await asyncio.sleep(1)
+                time = time + 1
+                if voice.is_playing() and not voice.is_paused():
+                    time = 0
+                if time == 600:
+                    await voice.disconnect()
+                if not voice.is_connected():
+                    break
+
 
 def setup(client):
     client.add_cog(Music(client))
