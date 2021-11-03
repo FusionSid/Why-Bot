@@ -322,8 +322,7 @@ def notblacklisted(ctx):
 announcement = LevelUpAnnouncement(f'{LevelUpAnnouncement.Member.mention} just leveled up to level {LevelUpAnnouncement.LEVEL} 😎')
 
 # DiscordLevelingSystem.create_database_file(r'C:\Users\Defxult\Documents') database file already created
-lvl = DiscordLevelingSystem(rate=1, per=60.0, level_up_announcement=announcement)
-DiscordLevelingSystem.create_database_file('/home/runner/Why-Bot/')
+lvl = DiscordLevelingSystem(rate=1, per=10.0, level_up_announcement=announcement)
 lvl.connect_to_database_file('/home/runner/Why-Bot/DiscordLevelingSystem.db')
 
 
@@ -343,7 +342,7 @@ async def leaderboard(ctx):
 async def on_message(message):
     if message.author == client.user:
         return  # if bot - no
-    await lvl.award_xp(amount=[15,30], message=message)
+    await lvl.award_xp(amount=[15,25], message=message)
     # Fome variables that come in useful later
     channel = message.channel
     msg = message.content
