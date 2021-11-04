@@ -14,6 +14,21 @@ async def create_voice(guild, name, cat, limit=None):
     await guild.create_voice_channel(name, category=category, user_limit=limit)
 
 
+async def get_log_channel(self, ctx):
+    try:
+        os.chdir("/home/runner/Why-Bot/Setup")
+        with open(f"{ctx.guild.id}.json") as f:
+            content = json.load(f)
+        if content[0]["mod_channel"] == None:
+            return
+        else:
+            channel = int(content[0]["mod_channel"])
+        os.chdir(cd)
+        return await self.client.fetch_channel(channel)
+    except:
+        return False
+
+
 class Moderation(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -22,7 +37,6 @@ class Moderation(commands.Cog):
     async def report(self, ctx, type_: str):
         def wfcheck(m):
             return m.channel == ctx.channel and m.author == ctx.author
-        cd = os.getcwd()
         os.chdir("/home/runner/Why-Bot/Setup")
         with open(f"{ctx.guild.id}.json") as f:
             content = json.load(f)
@@ -70,11 +84,10 @@ class Moderation(commands.Cog):
             messageauthor = message.author
 
             em.description = "Message Report"
-            em.add_field(name="Message Id:", value=messageid)
-            em.add_field(name="Reason:", value=reason)
-            em.add_field(name="Message Content:", value=messagecontent)
-            em.add_field(name="Message Author:", value=messageauthor)
-            em.add_field(name="Report By:", value=reporter)
+            em.add_field(name="Reason:", value=reason, inline=False)
+            em.add_field(name="Message Content:", value=messagecontent, inline=False)
+            em.add_field(name="Message Author:", value=messageauthor, inline=False)
+            em.add_field(name="Report By:", value=reporter, inline=False)
             cha = await self.client.fetch_channel(channel)
             await cha.send(embed=em)
 
@@ -91,29 +104,54 @@ class Moderation(commands.Cog):
             cha = await self.client.fetch_channel(896932591620464690)
             await cha.send(embed=em)
 
+
     @commands.command(aliases=['grole'])
     @commands.has_permissions(administrator=True)
     async def giverole(self, ctx, role: discord.Role, user: discord.Member):
         await user.add_roles(role)
+        channel = await get_log_channel(self, ctx)
+        if channel == False:
+            return channel.send(embed=discord.Embed(title="Give Role", description=f"***{user.mention}*** has been given the ***{role.mention}*** role"))
+        else:
+            pass
         await ctx.send(f"{user} has been given the {role} role")
+
 
     @commands.command(aliases=['trole'])
     @commands.has_permissions(administrator=True)
     async def takerole(self, ctx, role: discord.Role, user: discord.Member):
         await user.remove_roles(role)
+        channel = await get_log_channel(self, ctx)
+        if channel == False:
+            return channel.send(embed=discord.embed(title="Remove Role", description=f"***{role.mention}*** has been removed from ***{user.mention}***"))
+        else:
+            pass
         await ctx.send(f"{role} has been removed from {user}")
+
 
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def ban(self, ctx, user: discord.Member, *, reason=None):
         await user.ban(reason=reason)
+        channel = await get_log_channel(self, ctx)
+        if channel == False:
+            return channel.send(embed=discord.embed(title="Ban", description=f"***{user.mention}*** has been banned"))
+        else:
+            pass
         await ctx.send(f"User {user} has been banned")
+
 
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def kick(self, ctx, user: discord.Member, *, reason=None):
         await user.kick(reason=reason)
+        channel = await get_log_channel(self, ctx)
+        if channel == False:
+            return channel.send(embed=discord.embed(title="Kick", description=f"***{user.mention}*** has been kicked"))
+        else:
+            pass
         await ctx.send(f"User {user} has been kicked")
+
 
     @commands.command(aliases=['lock'])
     @commands.has_permissions(manage_channels=True)
@@ -122,6 +160,12 @@ class Moderation(commands.Cog):
             channel = ctx.channel
         await channel.send("Channel is now in lockdown")
         await channel.set_permissions(ctx.guild.default_role, send_messages=False)
+        cha = await get_log_channel(self, ctx)
+        if cha == False:
+            return cha.send(embed=discord.embed(title="Lockdown", description=f"***{channel.mention}*** is now in lockdown"))
+        else:
+            pass
+
 
     @commands.command()
     @commands.has_permissions(manage_channels=True)
@@ -130,11 +174,23 @@ class Moderation(commands.Cog):
             channel = ctx.channel
         await channel.send("Channel is no longer in lockdown")
         await channel.set_permissions(ctx.guild.default_role, send_messages=True)
+        cha = await get_log_channel(self, ctx)
+        if cha == False:
+            return cha.send(embed=discord.embed(title="Unlock", description=f"***{channel.mention}*** is no longer in lockdown"))
+        else:
+            pass
+
 
     @commands.command()
     @commands.has_permissions(manage_channels=True)
     async def clear(self, ctx, amount: int):
         await ctx.channel.purge(limit=amount+1)
+        channel = await get_log_channel(self, ctx)
+        if channel == False:
+            return channel.send(embed=discord.embed(title="Message Clear", description=f"***{amount}*** messages have been cleared from ***{ctx.channel.name}***"))
+        else:
+            pass
+
 
     @commands.command()
     @commands.has_permissions(administrator=True)
@@ -157,11 +213,18 @@ class Moderation(commands.Cog):
         with open("react.json", "w") as f:
             json.dump(data, f, indent=4)
 
+
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def make_channel(self, ctx, *, name):
         guild = ctx.guild
         channel = await guild.create_text_channel(name)
+        channel = await get_log_channel(self, ctx)
+        if channel == False:
+            return channel.send(embed=discord.embed(title="Create Channel", description=f"***{name}*** text channel has been created"))
+        else:
+            pass
+
 
     @commands.command()
     @commands.has_permissions(administrator=True)
@@ -171,6 +234,12 @@ class Moderation(commands.Cog):
             channel = await guild.create_voice_channel(name)
         else:
             channel = await guild.create_voice_channel(name, user_limit=limit)
+            channel = await get_log_channel(self, ctx)
+        if channel == False:
+            return channel.send(embed=discord.embed(title="Create Voice Channel", description=f"***{name}*** voice channel has been created"))
+        else:
+            pass
+
 
     @commands.command()
     @commands.has_permissions(administrator=True)
@@ -194,6 +263,12 @@ class Moderation(commands.Cog):
             c.execute("INSERT INTO Warnings (id, reason, time) VALUES (:id, :reason, :time)", {
                       'id': id_, 'reason': reason, 'time': time})
         os.chdir(cd)
+        channel = await get_log_channel(self, ctx)
+        if channel == False:
+            return channel.send(embed=discord.embed(title="Warn", description=f"***{member.mention}*** has been warned"))
+        else:
+            pass
+
 
     @commands.command()
     @commands.has_permissions(administrator=True)
@@ -214,6 +289,11 @@ class Moderation(commands.Cog):
             em.add_field(name=t, value=f"Reason: {r}")
 
         await ctx.send(embed=em)
+        channel = await get_log_channel(self, ctx)
+        if channel == False:
+            return channel.send(embed=discord.embed(title="", description=""))
+        else:
+            pass
 
 
 def setup(client):

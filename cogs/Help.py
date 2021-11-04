@@ -29,6 +29,8 @@ class Help(commands.Cog):
                             value="https://fusionsid.xyz/whybot")
             embed.add_field(name="`?botinvite`",
                             value="To invite the bot to you discord server")
+            embed.add_field(name="Slash Commands`",
+                            value="Type / in chat to see all why slash commands")
             embed.set_footer(
                 text="Default prefix is `?` thats why all the help commands say `?` It might be different on your server")
             embed.set_footer(
