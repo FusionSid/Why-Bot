@@ -11,7 +11,14 @@ import json
 from discord_slash import SlashCommand
 from discord.ext import commands
 from discordLevelingSystem import DiscordLevelingSystem, RoleAward, LevelUpAnnouncement
+from routes.utils import app
+from quart import Quart, redirect, url_for, render_template, request
 
+app = Quart(__name__)
+
+@app.route("/")
+async def home():
+  return "I'm alive"
 
 # Get prefix
 
@@ -433,7 +440,7 @@ async def on_command_error(ctx, error):
 
 # Start the bot
 def start_bot(client):
-    keep_alive()  # start website and if im using replit which i might it will let the bot stay alive
+    #keep_alive()  # start website and if im using replit which i might it will let the bot stay alive
     client.remove_command("help")
     lst = [f for f in listdir("cogs/") if isfile(join("cogs/", f))]
     no_py = [s.replace('.py', '') for s in lst]
@@ -453,3 +460,4 @@ def start_bot(client):
 
 if __name__ == '__main__':
     start_bot(client)
+    client.loop.create_task(app.run_task('0.0.0.0'))

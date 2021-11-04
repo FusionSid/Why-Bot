@@ -685,10 +685,9 @@ class Music(commands.Cog):
         os.remove(f'{name}.mp3')
         os.chdir(cd)
 
-  
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
-        
+
         if not member.id == self.client.user.id:
             return
 
