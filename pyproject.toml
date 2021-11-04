@@ -21,6 +21,8 @@ youtube_dl = "^2021.6.6"
 PyNaCl = "^1.4.0"
 gTTS = "^2.2.3"
 mutagen = "^1.45.1"
+Quart = "^0.15.1"
+Quart-Discord = "^2.1.4"
 
 [tool.poetry.dev-dependencies]
 

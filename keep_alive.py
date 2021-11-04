@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from threading import Thread
 
 app = Flask('')
@@ -6,7 +6,7 @@ app = Flask('')
 
 @app.route('/')
 def home():
-    return "Bot is online"
+    return render_template('index.html')
 
 
 def run():
