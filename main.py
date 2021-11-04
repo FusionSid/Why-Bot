@@ -31,7 +31,7 @@ def get_prefix(client, message):
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix=get_prefix,
                       intents=intents, help_command=None)
-slash = SlashCommand(client)
+slash = SlashCommand(client, sync_commands=True)
 
 
 # Update bot activity to show guilds and help command
