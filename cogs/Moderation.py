@@ -110,7 +110,7 @@ class Moderation(commands.Cog):
     async def giverole(self, ctx, role: discord.Role, user: discord.Member):
         await user.add_roles(role)
         channel = await get_log_channel(self, ctx)
-        if channel == False:
+        if channel != False:
             return channel.send(embed=discord.Embed(title="Give Role", description=f"***{user.mention}*** has been given the ***{role.mention}*** role"))
         else:
             pass
@@ -122,7 +122,7 @@ class Moderation(commands.Cog):
     async def takerole(self, ctx, role: discord.Role, user: discord.Member):
         await user.remove_roles(role)
         channel = await get_log_channel(self, ctx)
-        if channel == False:
+        if channel != False:
             return channel.send(embed=discord.embed(title="Remove Role", description=f"***{role.mention}*** has been removed from ***{user.mention}***"))
         else:
             pass
@@ -134,7 +134,7 @@ class Moderation(commands.Cog):
     async def ban(self, ctx, user: discord.Member, *, reason=None):
         await user.ban(reason=reason)
         channel = await get_log_channel(self, ctx)
-        if channel == False:
+        if channel != False:
             return channel.send(embed=discord.embed(title="Ban", description=f"***{user.mention}*** has been banned"))
         else:
             pass
@@ -146,7 +146,7 @@ class Moderation(commands.Cog):
     async def kick(self, ctx, user: discord.Member, *, reason=None):
         await user.kick(reason=reason)
         channel = await get_log_channel(self, ctx)
-        if channel == False:
+        if channel != False:
             return channel.send(embed=discord.embed(title="Kick", description=f"***{user.mention}*** has been kicked"))
         else:
             pass
@@ -186,7 +186,7 @@ class Moderation(commands.Cog):
     async def clear(self, ctx, amount: int):
         await ctx.channel.purge(limit=amount+1)
         channel = await get_log_channel(self, ctx)
-        if channel == False:
+        if channel != False:
             return channel.send(embed=discord.embed(title="Message Clear", description=f"***{amount}*** messages have been cleared from ***{ctx.channel.name}***"))
         else:
             pass
@@ -220,7 +220,7 @@ class Moderation(commands.Cog):
         guild = ctx.guild
         channel = await guild.create_text_channel(name)
         channel = await get_log_channel(self, ctx)
-        if channel == False:
+        if channel != False:
             return channel.send(embed=discord.embed(title="Create Channel", description=f"***{name}*** text channel has been created"))
         else:
             pass
@@ -235,7 +235,7 @@ class Moderation(commands.Cog):
         else:
             channel = await guild.create_voice_channel(name, user_limit=limit)
             channel = await get_log_channel(self, ctx)
-        if channel == False:
+        if channel != False:
             return channel.send(embed=discord.embed(title="Create Voice Channel", description=f"***{name}*** voice channel has been created"))
         else:
             pass
@@ -264,7 +264,7 @@ class Moderation(commands.Cog):
                       'id': id_, 'reason': reason, 'time': time})
         os.chdir(cd)
         channel = await get_log_channel(self, ctx)
-        if channel == False:
+        if channel != False:
             return channel.send(embed=discord.embed(title="Warn", description=f"***{member.mention}*** has been warned"))
         else:
             pass
@@ -290,7 +290,7 @@ class Moderation(commands.Cog):
 
         await ctx.send(embed=em)
         channel = await get_log_channel(self, ctx)
-        if channel == False:
+        if channel != False:
             return channel.send(embed=discord.embed(title="", description=""))
         else:
             pass
