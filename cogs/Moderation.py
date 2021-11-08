@@ -289,11 +289,6 @@ class Moderation(commands.Cog):
             em.add_field(name=t, value=f"Reason: {r}")
 
         await ctx.send(embed=em)
-        channel = await get_log_channel(self, ctx)
-        if channel != False:
-            return await channel.send(embed=discord.Embed(title="", description=""))
-        else:
-            pass
 
 
 def setup(client):
