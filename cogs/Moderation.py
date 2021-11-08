@@ -123,7 +123,7 @@ class Moderation(commands.Cog):
         await user.remove_roles(role)
         channel = await get_log_channel(self, ctx)
         if channel != False:
-            return channel.send(embed=discord.embed(title="Remove Role", description=f"***{role.mention}*** has been removed from ***{user.mention}***"))
+            return channel.send(embed=discord.Embed(title="Remove Role", description=f"***{role.mention}*** has been removed from ***{user.mention}***"))
         else:
             pass
         await ctx.send(f"{role} has been removed from {user}")
@@ -135,7 +135,7 @@ class Moderation(commands.Cog):
         await user.ban(reason=reason)
         channel = await get_log_channel(self, ctx)
         if channel != False:
-            return channel.send(embed=discord.embed(title="Ban", description=f"***{user.mention}*** has been banned"))
+            return channel.send(embed=discord.Embed(title="Ban", description=f"***{user.mention}*** has been banned"))
         else:
             pass
         await ctx.send(f"User {user} has been banned")
@@ -147,7 +147,7 @@ class Moderation(commands.Cog):
         await user.kick(reason=reason)
         channel = await get_log_channel(self, ctx)
         if channel != False:
-            return channel.send(embed=discord.embed(title="Kick", description=f"***{user.mention}*** has been kicked"))
+            return channel.send(embed=discord.Embed(title="Kick", description=f"***{user.mention}*** has been kicked"))
         else:
             pass
         await ctx.send(f"User {user} has been kicked")
@@ -162,7 +162,7 @@ class Moderation(commands.Cog):
         await channel.set_permissions(ctx.guild.default_role, send_messages=False)
         cha = await get_log_channel(self, ctx)
         if cha == False:
-            return cha.send(embed=discord.embed(title="Lockdown", description=f"***{channel.mention}*** is now in lockdown"))
+            return cha.send(embed=discord.Embed(title="Lockdown", description=f"***{channel.mention}*** is now in lockdown"))
         else:
             pass
 
@@ -176,7 +176,7 @@ class Moderation(commands.Cog):
         await channel.set_permissions(ctx.guild.default_role, send_messages=True)
         cha = await get_log_channel(self, ctx)
         if cha == False:
-            return cha.send(embed=discord.embed(title="Unlock", description=f"***{channel.mention}*** is no longer in lockdown"))
+            return cha.send(embed=discord.Embed(title="Unlock", description=f"***{channel.mention}*** is no longer in lockdown"))
         else:
             pass
 
@@ -187,7 +187,7 @@ class Moderation(commands.Cog):
         await ctx.channel.purge(limit=amount+1)
         channel = await get_log_channel(self, ctx)
         if channel != False:
-            return channel.send(embed=discord.embed(title="Message Clear", description=f"***{amount}*** messages have been cleared from ***{ctx.channel.name}***"))
+            return channel.send(embed=discord.Embed(title="Message Clear", description=f"***{amount}*** messages have been cleared from ***{ctx.channel.name}***"))
         else:
             pass
 
@@ -221,7 +221,7 @@ class Moderation(commands.Cog):
         channel = await guild.create_text_channel(name)
         channel = await get_log_channel(self, ctx)
         if channel != False:
-            return channel.send(embed=discord.embed(title="Create Channel", description=f"***{name}*** text channel has been created"))
+            return channel.send(embed=discord.Embed(title="Create Channel", description=f"***{name}*** text channel has been created"))
         else:
             pass
 
@@ -236,7 +236,7 @@ class Moderation(commands.Cog):
             channel = await guild.create_voice_channel(name, user_limit=limit)
             channel = await get_log_channel(self, ctx)
         if channel != False:
-            return channel.send(embed=discord.embed(title="Create Voice Channel", description=f"***{name}*** voice channel has been created"))
+            return channel.send(embed=discord.Embed(title="Create Voice Channel", description=f"***{name}*** voice channel has been created"))
         else:
             pass
 
@@ -265,7 +265,7 @@ class Moderation(commands.Cog):
         os.chdir(cd)
         channel = await get_log_channel(self, ctx)
         if channel != False:
-            return channel.send(embed=discord.embed(title="Warn", description=f"***{member.mention}*** has been warned"))
+            return channel.send(embed=discord.Embed(title="Warn", description=f"***{member.mention}*** has been warned"))
         else:
             pass
 
@@ -291,7 +291,7 @@ class Moderation(commands.Cog):
         await ctx.send(embed=em)
         channel = await get_log_channel(self, ctx)
         if channel != False:
-            return channel.send(embed=discord.embed(title="", description=""))
+            return channel.send(embed=discord.Embed(title="", description=""))
         else:
             pass
 
