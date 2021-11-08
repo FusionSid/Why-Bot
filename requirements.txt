@@ -1,12 +1,12 @@
-beautifulsoup4 @ file:///home/runner/.cache/pypoetry/artifacts/e0/38/d7/f9b232f345b5354d13487afd553ef917480088fda47bb62e056a3a7924/beautifulsoup4-4.9.3-py3-none-any.whl
-cryptography @ file:///home/runner/.cache/pypoetry/artifacts/b9/67/f9/69349e521fbfd7f4bfffe71f68a24a661cea54565a1174fb86c0565720/cryptography-35.0.0-cp36-abi3-manylinux_2_24_x86_64.whl
-discord @ file:///home/runner/.cache/pypoetry/artifacts/2a/dc/46/ea51f1b99fab3043473352404824cf8774020f4ef65ef7e8985e928ce3/discord-1.7.3-py3-none-any.whl
-discord-py-interactions @ file:///home/runner/.cache/pypoetry/artifacts/2c/8b/76/b47b87e99483f61091cab33a48fadab1fea067d2f27b51487c7ad6077e/discord_py_interactions-3.0.2-py3-none-any.whl
-discord.py @ file:///home/runner/.cache/pypoetry/artifacts/93/3d/7e/a71579025e378cc8608f84db0999aa01171575fc9bd9078988d8520a75/discord.py-1.7.3-py3-none-any.whl
-discordLevelingSystem @ file:///home/runner/.cache/pypoetry/artifacts/16/f0/41/6cc35d4895e25b5411ed1e858aeed255cb29ef97a9e77b8cb26c105358/discordLevelingSystem-1.0.2.tar.gz
-Flask @ file:///home/runner/.cache/pypoetry/artifacts/19/0a/5c/01c8f2563043757030137df198eec84b501545c42c399d58cb1fc733b3/Flask-2.0.2-py3-none-any.whl
-google-api-python-client @ file:///home/runner/.cache/pypoetry/artifacts/82/2e/f2/d127f49ecce84de23f7335162f982d46387db5f2c504d53673e2d9ac63/google_api_python_client-2.29.0-py2.py3-none-any.whl
-googlesearch-python @ file:///home/runner/.cache/pypoetry/artifacts/64/ce/31/ce43ac38c1535d94027a0439f38e361c970720ee8c5ff19dd77e22d0eb/googlesearch_python-1.0.1-py3-none-any.whl
+beautifulsoup4
+cryptography
+discord
+discord-py-interactions
+discord.py
+discordLevelingSystem
+Flask
+google-api-python-client
+googlesearch-python
 Pillow==8.3.2
 praw
 PyNaCl
