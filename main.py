@@ -381,8 +381,8 @@ async def rxp(ctx, member:discord.Member, amount:int):
 
 @client.command()
 @commands.check(is_it_me)
-async def slvl(ctx, member:discord.Member, amount:int):
-    await lvl.set_level(member=member, amount=amount)
+async def slvl(ctx, member:discord.Member, level:int):
+    await lvl.set_level(member=member, level=level)
 
 
 # On Message
