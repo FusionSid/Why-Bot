@@ -699,11 +699,10 @@ class Music(commands.Cog):
                 time = time + 1
                 if voice.is_playing() and not voice.is_paused():
                     time = 0
-                if time == 600:
+                if time == 10:
                     await voice.disconnect()
                 if not voice.is_connected():
                     break
-
 
 def setup(client):
     client.add_cog(Music(client))
