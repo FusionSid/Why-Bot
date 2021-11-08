@@ -366,6 +366,25 @@ async def leaderboard(ctx):
 def is_it_me(ctx):
     return ctx.author.id == 624076054969188363
 
+
+@client.command()
+@commands.check(is_it_me)
+async def axp(ctx, member:discord.Member, amount:int):
+    await lvl.add_xp(member=member, amount=amount)
+
+
+@client.command()
+@commands.check(is_it_me)
+async def rxp(ctx, member:discord.Member, amount:int):
+    await lvl.remove_xp(member=member, amount=amount)
+
+
+@client.command()
+@commands.check(is_it_me)
+async def slvl(ctx, member:discord.Member, amount:int):
+    await lvl.set_level(member=member, amount=amount)
+
+
 # On Message
 @client.event
 async def on_message(message):
