@@ -34,5 +34,11 @@
         "role_id": 892569835693830174,
         "emoji": "\ud83d\udd38",
         "message_id": 902336787773538335
+    },
+    {
+        "role_name": "STEVE",
+        "role_id": 906828799512043560,
+        "emoji": "\ud83d\udc4d",
+        "message_id": 906829279923408957
     }
 ]
