@@ -11,6 +11,7 @@ import json
 from discord_slash import SlashCommand
 from discord.ext import commands
 from discordLevelingSystem import DiscordLevelingSystem, RoleAward, LevelUpAnnouncement
+from easy_pil import Editor, Canvas, Font, load_image
 
 # Get prefix
 
@@ -24,7 +25,7 @@ def get_prefix(client, message):
       os.chdir(cd)
       return prefix
     except:
-      pass
+      return "?"
 
 
 intents = discord.Intents.all()
@@ -49,10 +50,46 @@ async def on_ready():
 
 
 async def memberjoin(member):
-    em = discord.Embed(
-        title="Welcome", description=f"Hello there :wave: {member.name} welcome to {member.guild.name}\nHope you have fun on this server :)", color=discord.Color(value=0x36393e))
+    # Custom Image
+    background = Editor(Canvas((900, 270), "#23272a"))
+
+    # For profile to use users profile picture load it from url using the load_image/load_image_async function
+    profile_image = load_image(str(member.avatar_url))
+    profile = Editor(profile_image).resize((150, 150)).circle_image()
+
+    # Fonts to use with different size
+    poppins_big = Font.poppins(variant="bold", size=50)
+    poppins_mediam = Font.poppins(variant="bold", size=40)
+    poppins_regular = Font.poppins(variant="regular", size=30)
+    poppins_thin = Font.poppins(variant="light", size=18)
+
+    card_left_shape = [(0, 0), (0, 270), (330, 270), (260, 0)]
+
+    background.polygon(card_left_shape, "#2C2F33")
+    background.paste(profile, (40, 35))
+    background.ellipse((40, 35), 200, 200, outline="white", stroke_width=3)
+    background.text((600, 20), "WELCOME", font=poppins_big, color="white", align="center")
+    background.text(
+        (600, 70), f"{member.name}", font=poppins_regular, color="white", align="center"
+    )
+    background.text(
+        (600, 120), "YOU ARE MEMBER", font=poppins_mediam, color="white", align="center"
+    )
+    background.text(
+        (600, 160), f"{member.guild.id}", font=poppins_regular, color="white", align="center"
+    )
+    background.text(
+        (620, 245),
+        "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+        font=poppins_thin,
+        color="white",
+        align="center",
+    )
+
+    background.save(f"welcome{member.name}.png")
+
     try:
-        await member.send(embed=em)  # Welcome message
+        await member.send(file=discord.File(f"welcome{member.name}.png"))  # Welcome message
     except:
         print('f')
     cd = os.getcwd()
@@ -62,13 +99,13 @@ async def memberjoin(member):
         data = json.load(f)
     cha = data[2]["welcome_channel"]
     if cha == None:
-        await member.guild.system_channel.send(embed=em)
+        await member.guild.system_channel.send(file=discord.File(f"welcome{member.name}.png"))
     else:
         channel = await client.fetch_channel(int(cha))
         # Send welcome message in server welcome channel
-        await channel.send(embed=em)
+        await channel.send(file=discord.File(f"welcome{member.name}.png"))
 
-
+        
 # On member join
 @client.event
 async def on_member_join(member):
@@ -169,17 +206,17 @@ async def startguildsetup(id):
 @client.event
 async def on_guild_join(guild):
     cha = client.get_channel(896932591620464690)
-    await cha.send(f"Joined: {guild.name}")
+    await cha.send(embed=discord.Embed(title="Join", description=f"Joined: {guild.name}"))
     await update_activity()
     await startguildsetup(guild.id)
     embed = discord.Embed(color=discord.Color(value=0x36393e))
     embed.set_author(name="Here's some stuff to get you started:")
     embed.add_field(name="Default Prefix:",
-                    value="```?```, Can be changed later")
-    embed.set_footer(text=f"Why bot is now on {len(client.guilds)} servers!")
+                    value="`?` This caan be changed later using `?setprefix`")
+    embed.set_footer(text=f"Thank You - Why bot is now on {len(client.guilds)} servers!")
+    embed.add_field(name="Please run `?setup`", description="To setup the bot")
     try:
         await guild.system_channel.send(content="**Hello! Thanks for inviting me! :wave: **", embed=embed)
-        await guild.system_channel.send("PLEASE run ```?setup``` to setup the bot")
     except:
         pass
 
@@ -325,13 +362,22 @@ def notblacklisted(ctx):
 
 # Leveling
 
+yes_guild = 893653614990606346
+the_darth_gane = 1
+
+my_awards = {
+    yes_guild : [
+        RoleAward(role_id=893681219269705728, level_requirement=1, role_name='Ur Cool')
+    ]
+}
+
 lvlembed = discord.Embed()
 lvlembed.set_author(name=LevelUpAnnouncement.Member.name, icon_url=LevelUpAnnouncement.Member.avatar_url)
 lvlembed.description = f'Congrats {LevelUpAnnouncement.Member.mention}! You are now level {LevelUpAnnouncement.LEVEL} 😎'
 
 announcement = LevelUpAnnouncement(lvlembed)
 
-lvl = DiscordLevelingSystem(rate=1, per=10.0, level_up_announcement=announcement)
+lvl = DiscordLevelingSystem(rate=1, per=10.0, level_up_announcement=announcement, awards=my_awards)
 lvl.connect_to_database_file('/home/runner/Why-Bot/DiscordLevelingSystem.db')
 
 
@@ -384,7 +430,6 @@ async def rxp(ctx, member:discord.Member, amount:int):
 async def slvl(ctx, member:discord.Member, level:int):
     await lvl.set_level(member=member, level=level)
 
-
 # On Message
 @client.event
 async def on_message(message):
@@ -414,7 +459,7 @@ async def on_message(message):
 @client.event
 async def on_command_error(ctx, error):
     cha = client.get_channel(896932591620464690)
-    await cha.send(error)
+    await cha.send(embed=discord.Embed(title="ERROR", description=error))
 
     if isinstance(error, commands.CommandOnCooldown):
         em = discord.Embed(
@@ -471,4 +516,3 @@ def start_bot(client):
 
 if __name__ == '__main__':
     start_bot(client)
-    
