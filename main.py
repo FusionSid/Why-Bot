@@ -67,16 +67,15 @@ async def memberjoin(member):
 
     background.polygon(card_left_shape, "#2C2F33")
     background.paste(profile, (40, 35))
-    background.ellipse((40, 35), 200, 200, outline="white", stroke_width=3)
     background.text((600, 20), "WELCOME", font=poppins_big, color="white", align="center")
     background.text(
         (600, 70), f"{member.name}", font=poppins_regular, color="white", align="center"
     )
     background.text(
-        (600, 120), "YOU ARE MEMBER", font=poppins_mediam, color="white", align="center"
+        (600, 120), "THANKS FOR JOINING", font=poppins_mediam, color="white", align="center"
     )
     background.text(
-        (600, 160), f"{member.guild.id}", font=poppins_regular, color="white", align="center"
+        (600, 160), f"{member.guild.name}", font=poppins_regular, color="white", align="center"
     )
     background.text(
         (620, 245),
@@ -86,25 +85,26 @@ async def memberjoin(member):
         align="center",
     )
 
-    background.save(f"welcome{member.name}.png")
+    background.save(f"welcome{member.id}.png")
 
     try:
-        await member.send(file=discord.File(f"welcome{member.name}.png"))  # Welcome message
+        await member.send(file=discord.File(f"welcome{member.id}.png"))  # Welcome message
     except:
         print('f')
-    cd = os.getcwd()
-    os.chdir(f"{cd}/Setup")
+    cd = "/home/runner/Why-Bot"
+    os.chdir(f"{cd}/Setup/")
     with open(f"{member.guild.id}.json") as f:
         # Open setup file and check if there is a welcome channel
         data = json.load(f)
+    os.chdir(cd)
     cha = data[2]["welcome_channel"]
     if cha == None:
-        await member.guild.system_channel.send(file=discord.File(f"welcome{member.name}.png"))
+        await member.guild.system_channel.send(file=discord.File(f"welcome{member.id}.png"))
     else:
         channel = await client.fetch_channel(int(cha))
         # Send welcome message in server welcome channel
-        await channel.send(file=discord.File(f"welcome{member.name}.png"))
-    os.remove(f"welcome{member.name}.png")
+        await channel.send(file=discord.File(f"welcome{member.id}.png"))
+    os.remove(f"welcome{member.id}.png")
 
         
 # On member join
@@ -384,17 +384,10 @@ lvl.connect_to_database_file('/home/runner/Why-Bot/DiscordLevelingSystem.db')
 
 @client.command(aliases=['lvl'])
 async def rank(ctx, member:discord.Member=None):
-    em = discord.Embed(title="Rank:")
     if member == None:
-      em.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
       data = await lvl.get_data_for(ctx.author)
     else:
-      em.set_author(name=member.name, icon_url=member.avatar_url)
       data = await lvl.get_data_for(member)
-    em.add_field(name=f"Level: {data.level}", value="** **")
-    em.add_field(name=f"Rank: {data.rank}", value="** **")
-    em.add_field(name=f"Total XP: {data.total_xp}, Level XP: {data.xp}", value="** **")
-    await ctx.send(embed=em)
 
     LEVELS_AND_XP = {
         '0': 0,
@@ -499,7 +492,10 @@ async def rank(ctx, member:discord.Member=None):
         '99': 1845195,
         '100': 1899250
     }
-
+    if member == None:
+      member = ctx.author
+    else:
+      pass
     arank = data.xp
     brank = LEVELS_AND_XP[f"{data.level}"]
     frac = arank/brank
@@ -508,9 +504,9 @@ async def rank(ctx, member:discord.Member=None):
 
     user_data = {  # Most likely coming from database or calculation
     "name": f"{member.name}",  # The user's name
-    "xp": data.total_xp,
+    "xp": data.xp,
     "level": data.level,
-    "next_level_xp": LEVELS_AND_XP[f"{data.level}"],
+    "next_level_xp": brank - arank,
     "percentage": percentage,
     "rank": data.rank
     }
@@ -524,7 +520,6 @@ async def rank(ctx, member:discord.Member=None):
 
     background.rectangle((20, 20), 894, 242, "#2a2e35")
     background.paste(profile, (50, 50))
-    background.ellipse((42, 42), width=206, height=206, outline="#43b581", stroke_width=10)
     background.rectangle((260, 180), width=630, height=40, fill="#484b4e", radius=20)
     background.bar(
         (260, 180),
@@ -553,9 +548,9 @@ async def rank(ctx, member:discord.Member=None):
     background.multicolor_text((850, 30), texts=rank_level_texts, align="right")
 
     # send
-    background.save(f"rank{member.name}.png")
-    await ctx.send(file=discord.File(f"rank{member.name}.png"))
-    os.remove(f"rank{member.name}.png")
+    background.save(f"rank{member.id}.png")
+    await ctx.send(file=discord.File(f"rank{member.id}.png"))
+    os.remove(f"rank{member.id}.png")
 
 
 @client.command()
