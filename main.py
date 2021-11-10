@@ -171,7 +171,7 @@ async def on_voice_state_update(member, before, after):
 # Setup for guild
 async def startguildsetup(id):
     cd = "/home/runner/why-bot"
-    os.chdir("{}/Setup".format(cd))
+    os.chdir("/home/runner/why-bot/Setup")
     file = [
         {"mod_channel": None},
         {"counting_channel": None},
@@ -186,7 +186,7 @@ async def startguildsetup(id):
     data[id] = 0  # Set counting to 0
     with open("counting.json", 'w') as f:
         json.dump(data, f)
-    os.chdir(f"{cd}/MainDB")
+    os.chdir("/home/runner/why-bot/MainDB")
     conn = sqlite3.connect(f"warn{id}.db")
     c = conn.cursor()
     c.execute(
@@ -197,7 +197,7 @@ async def startguildsetup(id):
     with open(f"ticket{id}.json", 'w') as f:
         json.dump(newtickettemplate, f)
     os.chdir(cd)
-    os.chdir(f"{cd}/EncryptDB")
+    os.chdir("/home/runner/why-bot/EncryptDB")
     conn = sqlite3.connect(f"{id}.db")
     c = conn.cursor()
     os.chdir(cd)
