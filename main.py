@@ -170,7 +170,7 @@ async def on_voice_state_update(member, before, after):
 
 # Setup for guild
 async def startguildsetup(id):
-    cd = os.getcwd()
+    cd = "/home/runner/why-bot"
     os.chdir("{}/Setup".format(cd))
     file = [
         {"mod_channel": None},
@@ -237,7 +237,7 @@ async def setup(ctx):
 
     # Tell em what the need
     await ctx.send(embed=discord.Embed(title="To setup the bot you will need to copy the id's of some channels.", description="Please turn on developer mode to be able to copy channel id's"))
-    cd = os.getcwd()
+    cd = "/home/runner/why-bot"
     os.chdir("{}/Setup".format(cd))
     with open(f'{ctx.guild.id}.json') as f:
         data = json.load(f)
@@ -297,7 +297,7 @@ async def setup(ctx):
 @client.command()
 @commands.has_permissions(administrator=True)
 async def setprefix(ctx, pref: str):
-    cd = os.getcwd()
+    cd = "/home/runner/why-bot"
     os.chdir("{}/Setup".format(cd))
     with open(f'{ctx.guild.id}.json') as f:
         data = json.load(f)
@@ -311,7 +311,7 @@ async def setprefix(ctx, pref: str):
 # Get the counting channel
 async def get_counting_channel(guild):
   try:
-    cd = os.getcwd()
+    cd = "/home/runner/why-bot"
 
     os.chdir(f"{cd}/Setup")
 

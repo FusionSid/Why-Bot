@@ -230,7 +230,6 @@ class Fun(commands.Cog):
     @commands.command(aliases=['num'])
     async def numrn(self, ctx):
         guild = ctx.guild
-        cd = os.getcwd()
         os.chdir("/home/runner/Why-Bot/")
         with open('counting.json') as f:
             data = json.load(f)

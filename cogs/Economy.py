@@ -4,7 +4,7 @@ import os
 from discord.ext import commands
 import json
 
-cd = os.getcwd()
+cd = "home/runner/Why-Bot/"
 
 with open('shop.json') as f:
     mainshop = json.load(f)
@@ -27,7 +27,6 @@ async def open_account(user):
         users[str(user.id)] = {}
         users[str(user.id)]["wallet"] = 0
         users[str(user.id)]["bank"] = 0
-    cd = os.getcwd()
     os.chdir('/home/runner/Why-Bot/')
     with open('mainbank.json', 'w') as f:
         json.dump(users, f, indent=4)
@@ -64,7 +63,6 @@ async def update_bank(user, change=0, mode='wallet'):
 
     users[str(user.id)][mode] += change
 
-    cd = os.getcwd()
     os.chdir('/home/runner/Why-Bot/')
     with open('mainbank.json', 'w') as f:
         json.dump(users, f, indent=4)
@@ -114,7 +112,6 @@ async def sell_this(user, item_name, amount, price=None):
     for item in users[str(user.id)]["bag"]:
         if item["amount"] == 0:
             users[str(user.id)]["bag"].remove(item)
-    cd = os.getcwd()
     os.chdir('/home/runner/Why-Bot/')
     with open("mainbank.json", "w") as f:
         json.dump(users, f, indent=4)
@@ -164,7 +161,6 @@ async def buy_this(user, amount, item_name):
     except:
         obj = {"item": item_name, "amount": amount}
         users[str(user.id)]["bag"] = [obj]
-    cd = os.getcwd()
     os.chdir('/home/runner/Why-Bot/')
     with open("mainbank.json", "w") as f:
         json.dump(users, f, indent=4)
@@ -255,7 +251,6 @@ class Economy(commands.Cog):
         await ctx.send(embed=discord.Embed(title=f'{ctx.author.mention}', description='Got `{:,}` coins!!'.format(earnings)))
 
         users[str(user.id)]["wallet"] += earnings
-        cd = os.getcwd()
         os.chdir('/home/runner/Why-Bot/')
         with open("mainbank.json", 'w') as f:
             json.dump(users, f, indent=4)

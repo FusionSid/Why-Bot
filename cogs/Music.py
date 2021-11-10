@@ -653,7 +653,6 @@ class Music(commands.Cog):
 
         output = gTTS(text=text, lang=language, slow=False)
 
-        cd = os.getcwd()
         os.chdir("/home/runner/Why-Bot")
         name = ctx.author.id
         output.save(f"{name}.mp3")
@@ -683,7 +682,7 @@ class Music(commands.Cog):
         wait = int(audio.info.length)
         await asyncio.sleep(wait)
         os.remove(f'{name}.mp3')
-        os.chdir(cd)
+        os.chdir("home/runner/Why-Bot/cogs/")
     
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
@@ -701,5 +700,6 @@ class Music(commands.Cog):
                     break #if it's playing it breaks
                 else:
                     await voice.disconnect() #if not it disconnects
+                    
 def setup(client):
     client.add_cog(Music(client))
