@@ -6,7 +6,6 @@ from discord.ext import commands
 import asyncio
 from discord.utils import get
 
-
 roastlistpy = [
     "I'd like to roast you, but it looks like God already did.",
     "You look like someone set your face on fire and then put it out with a hammer.",
@@ -278,7 +277,8 @@ class Fun(commands.Cog):
         results = results.replace("{", "")
         results = results.replace("}", "")
         results = results.replace("'", "")
-        await ctx.send(f"Results: \n{results}")
+        results = results.replace(",", "\n")
+        await ctx.send(embed=discord.Embed(title=f"Poll Results For {question}:", description=f"{results}"))
 
 
 def setup(client):

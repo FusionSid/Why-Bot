@@ -4,7 +4,7 @@ import os
 from discord.ext import commands
 import json
 
-cd = "home/runner/Why-Bot/"
+cd = "/home/runner/Why-Bot/cogs/"
 
 with open('shop.json') as f:
     mainshop = json.load(f)
