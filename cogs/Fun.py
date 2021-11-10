@@ -82,6 +82,10 @@ roastlistpy = [
     "The only way you could get laid is if you crawled up a chicken's ass and waited."
 ]
 
+async def get_roast():
+    with open('utils/roastlist.json') as f:
+        data = json.load(f)
+    return random.choice(data)
 
 class Fun(commands.Cog):
     def __init__(self, client):
@@ -126,7 +130,7 @@ class Fun(commands.Cog):
 
     @commands.command(aliases=['roastme'])
     async def roast(self, ctx):
-        roast = random.choice(roastlistpy)
+        roast = get_roast()
         em = discord.Embed(title=roast)
         await ctx.send(embed=em)
 
@@ -139,7 +143,7 @@ class Fun(commands.Cog):
     @commands.command(aliases=['sr'])
     async def sendroast(self, ctx, member: discord.Member):
         await ctx.channel.purge(limit=1)
-        message = random.choice(roastlistpy)
+        message = get_roast()
         embeddm = discord.Embed(
             title=message, description="Imagine being roasted by a bot")
         await member.send(embed=embeddm)
