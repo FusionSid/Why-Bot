@@ -254,6 +254,7 @@ async def setup(ctx):
     else:
         try:
             mod = int(mod)
+            data[0]["mod_channel"] = mod
         except:
             await ctx.send("Invalid Input")
 
@@ -267,6 +268,7 @@ async def setup(ctx):
     else:
         try:
             counting = int(counting)
+            data[1]["counting_channel"] = counting
         except:
             await ctx.send("Invalid Input")
 
@@ -280,18 +282,17 @@ async def setup(ctx):
     else:
         try:
             welcome = int(welcome)
+            data[2]["welcome_channel"] = welcome
         except:
             await ctx.send("Invalid Input")
-
-    data[0]["mod_channel"] = mod
-    data[1]["counting_channel"] = counting
-    data[2]["welcome_channel"] = welcome
-
+            
+    cd = "/home/runner/Why-Bot"
     os.chdir("{}/Setup".format(cd))
     with open(f'{ctx.guild.id}.json', 'w') as f:
         json.dump(data, f)  # Update setup file
 
     os.chdir(cd)
+    await ctx.send("Setup Complete!\nRemember you can use ?setprefix to change the prefix")
 
 
 # Set Prefix
@@ -508,13 +509,13 @@ async def rank(ctx, member:discord.Member=None):
     "name": f"{member.name}",  # The user's name
     "xp": data.xp,
     "level": data.level,
-    "next_level_xp": brank - arank,
+    "next_level_xp": brank,
     "percentage": percentage,
     "rank": data.rank
     }
 
     background = Editor(Canvas((934, 282), "#23272a"))
-    profile_image = load_image(str(ctx.author.avatar_url))
+    profile_image = load_image(str(member.avatar_url))
     profile = Editor(profile_image).resize((150, 150)).circle_image()
 
 
