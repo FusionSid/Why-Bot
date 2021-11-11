@@ -367,7 +367,7 @@ async def notblacklisted(ctx):
 # Leveling
 
 yes_guild = 893653614990606346
-the_darth_gane = 1
+the_darth_gang = 1
 
 my_awards = {
     yes_guild : [
