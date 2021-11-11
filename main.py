@@ -12,6 +12,7 @@ from discord_slash import SlashCommand
 from discord.ext import commands
 from discordLevelingSystem import DiscordLevelingSystem, RoleAward, LevelUpAnnouncement
 from easy_pil import Editor, Canvas, Font, load_image, Text
+import sys
 
 # Get prefix
 
@@ -170,8 +171,8 @@ async def on_voice_state_update(member, before, after):
 
 # Setup for guild
 async def startguildsetup(id):
-    cd = "/home/runner/why-bot"
-    os.chdir("/home/runner/why-bot/Setup")
+    cd = "/home/runner/Why-Bot"
+    os.chdir("/home/runner/Why-Bot/Setup")
     file = [
         {"mod_channel": None},
         {"counting_channel": None},
@@ -186,7 +187,7 @@ async def startguildsetup(id):
     data[id] = 0  # Set counting to 0
     with open("counting.json", 'w') as f:
         json.dump(data, f)
-    os.chdir("/home/runner/why-bot/MainDB")
+    os.chdir("/home/runner/Why-Bot/MainDB")
     conn = sqlite3.connect(f"warn{id}.db")
     c = conn.cursor()
     c.execute(
@@ -197,7 +198,7 @@ async def startguildsetup(id):
     with open(f"ticket{id}.json", 'w') as f:
         json.dump(newtickettemplate, f)
     os.chdir(cd)
-    os.chdir("/home/runner/why-bot/EncryptDB")
+    os.chdir("/home/runner/Why-Bot/EncryptDB")
     conn = sqlite3.connect(f"{id}.db")
     c = conn.cursor()
     os.chdir(cd)
@@ -237,7 +238,7 @@ async def setup(ctx):
 
     # Tell em what the need
     await ctx.send(embed=discord.Embed(title="To setup the bot you will need to copy the id's of some channels.", description="Please turn on developer mode to be able to copy channel id's"))
-    cd = "/home/runner/why-bot"
+    cd = "/home/runner/Why-Bot"
     os.chdir("{}/Setup".format(cd))
     with open(f'{ctx.guild.id}.json') as f:
         data = json.load(f)
@@ -297,7 +298,7 @@ async def setup(ctx):
 @client.command()
 @commands.has_permissions(administrator=True)
 async def setprefix(ctx, pref: str):
-    cd = "/home/runner/why-bot"
+    cd = "/home/runner/Why-Bot"
     os.chdir("{}/Setup".format(cd))
     with open(f'{ctx.guild.id}.json') as f:
         data = json.load(f)
@@ -311,7 +312,7 @@ async def setprefix(ctx, pref: str):
 # Get the counting channel
 async def get_counting_channel(guild):
   try:
-    cd = "/home/runner/why-bot"
+    cd = "/home/runner/Why-Bot"
 
     os.chdir(f"{cd}/Setup")
 
@@ -337,6 +338,7 @@ async def counting(msg, guild, channel):
         return
     cc = await get_counting_channel(guild)
     if cc == False:
+        print("Not channel")
         return
     if channel.id == cc:
         with open("counting.json") as f:
@@ -352,7 +354,7 @@ async def counting(msg, guild, channel):
 
 
 # Blacklist system
-def notblacklisted(ctx):
+async def notblacklisted(ctx):
     with open("blacklisted.json") as f:
         blacklisted = json.load(f)  # Check if blacklisted
     for user in blacklisted:
@@ -592,7 +594,7 @@ async def slvl(ctx, member:discord.Member, level:int):
 async def on_message(message):
     if message.author == client.user:
         return  # if bot - no
-    await lvl.award_xp(amount=[15,25], message=message)
+
     # Fome variables that come in useful later
     channel = message.channel
     msg = message.content
@@ -601,9 +603,11 @@ async def on_message(message):
     # Check if counting channel
     await counting(msg, guild, channel)
 
+    await lvl.award_xp(amount=[15,25], message=message)
+
     # if blacklisted dont let them use bot
     try:
-        bl = notblacklisted(message)
+        bl = await notblacklisted(message)
         if bl == True:
             await client.process_commands(message)
     except:
