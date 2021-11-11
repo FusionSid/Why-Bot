@@ -2,3 +2,4 @@
 .DS_Store
 .breakpoints
 __pycache__
+.replit
