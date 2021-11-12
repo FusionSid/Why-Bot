@@ -2,6 +2,7 @@
   {
     "name": "Laptop",
     "price": 1000,
+    "sell": true,
     "description": "For them memes and for watching videos",
     "buy": true,
     "icon_path": "laptop.png"
@@ -9,6 +10,7 @@
   {
     "name": "PC",
     "price": 5000,
+    "sell": true,
     "description": "a really powerful gaming pc powered by the blood of you enemies",
     "buy": true,
     "icon_path": "pc.png"
@@ -16,6 +18,7 @@
   {
     "name": "Car",
     "price": 15000,
+    "sell": true,
     "description": "Car go brrr",
     "buy": true,
     "icon_path": "car.png"
@@ -23,7 +26,7 @@
   {
     "name": "Goose Statue",
     "price": 420069021,
-    
+    "sell": false,
     "description": "A massive statue of the almighty Goose god.\nCollectable - Not Available to buy",
     "buy": false,
     "icon_path": "goose.png"
@@ -31,6 +34,7 @@
   {
     "name": "Sticker",
     "price": 10,
+    "sell": true,
     "description": "A little sticker",
     "buy": true,
     "icon_path": "sticker.png"

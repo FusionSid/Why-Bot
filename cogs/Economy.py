@@ -76,6 +76,8 @@ async def sell_this(user, item_name, amount, price=None):
             name_ = name
             if price == None:
                 price = 0.7 * item["price"]
+            if item['sell'] == False:
+                return
             break
 
     if name_ == None:
