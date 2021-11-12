@@ -500,7 +500,7 @@ async def rank(ctx, member:discord.Member=None):
     else:
       pass
     arank = data.xp
-    brank = LEVELS_AND_XP[f"{data.level+1}"] - LEVELS_AND_XP[f"{data.level}"]
+    brank = LEVELS_AND_XP[f"{data.level+1}"]
     frac = arank/brank
     percentage = "{:.0%}".format(frac)
     percentage = int(percentage[:-1])
