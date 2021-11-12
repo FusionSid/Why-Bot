@@ -1,6 +1,6 @@
 {
     "624076054969188363": {
-        "wallet": 0.0,
+        "wallet": 14.0,
         "bank": 2574607,
         "bag": [
             {
@@ -17,7 +17,11 @@
             },
             {
                 "item": "sticker",
-                "amount": 2139
+                "amount": 2137
+            },
+            {
+                "item": "Goose Statue",
+                "amount": 1
             }
         ]
     },
