@@ -94,28 +94,28 @@ class Minecraft(commands.Cog):
         else:
             uuid = await get_uuid(str(player))
 
-        response = await get_hydata(uuid)
-        player = response["player"]
-        player_name = player["displayname"]
-        lastLogin = player["lastLogin"]
-        lastLogout = player["lastLogout"]
+        #    response = await get_hydata(uuid)
+        #    player = response["player"]
+        #    player_name = player["displayname"]
+        #    lastLogin = player["lastLogin"]
+        #    lastLogout = player["lastLogout"]
 
-        if "monthlyPackageRank" in player:
-            rank = "MVP++"
-            full_ign = "{} {}".format(rank, player_name)
-        elif "newPackageRank" in player:
-            rank = player["newPackageRank"]
-            if "_PLUS" in rank:
-                rank = rank.replace("_PLUS", '+')
-            full_ign = "{} {}".format(rank, player_name)
-        else:
-            rank = None
-            full_ign = player_name
+        #    if "monthlyPackageRank" in player:
+        #        rank = "MVP++"
+        #        full_ign = "{} {}".format(rank, player_name)
+        #    elif "newPackageRank" in player:
+        #        rank = player["newPackageRank"]
+        #        if "_PLUS" in rank:
+        #            rank = rank.replace("_PLUS", '+')
+        #        full_ign = "{} {}".format(rank, player_name)
+        #    else:
+        #        rank = None
+        #        full_ign = player_name
 
-        if lastLogout < lastLogin:
-            online = "Yes"
-        else:
-            online = "No"
+        #    if lastLogout < lastLogin:
+        #        online = "Yes"
+        #    else:
+        #        online = "No"
 
         url = "https://hypixel.paniek.de/signature/{}/general-tooltip".format(
             uuid)
@@ -124,10 +124,12 @@ class Minecraft(commands.Cog):
             f.write(response.content)
         await ctx.send(file=discord.File('hypixel_pic.png'))
         os.remove('hypixel_pic.png')
-        em = discord.Embed(title="Extra:")
-        em.add_field(name="IGN:", value=full_ign)
-        em.add_field(name="Online:", value=online)
-        await ctx.send(embed=em)
+
+        # em = discord.Embed(title="Extra:")
+        # em.add_field(name="IGN:", value=full_ign)
+        # em.add_field(name="Online:", value=online)
+        # await ctx.send(embed=em)
+
 
     @commands.command(aliases=['bw', 'bedwars'])
     async def bwstats(self, ctx, player=None):
@@ -186,6 +188,7 @@ class Minecraft(commands.Cog):
             value_ = dictionary[key]
             em.add_field(name=key, value=value_)
         await ctx.send(embed=em)
+
 
     @commands.command()
     async def bwchallenge(self, ctx):

@@ -23,6 +23,7 @@
   {
     "name": "Goose Statue",
     "price": 420069021,
+    
     "description": "A massive statue of the almighty Goose god.\nCollectable - Not Available to buy",
     "buy": false,
     "icon_path": "goose.png"
