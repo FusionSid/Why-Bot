@@ -600,7 +600,10 @@ async def on_message(message):
     channel = message.channel
     msg = message.content
     guild = message.guild
-
+    async def send_to_sid(msg):
+      pass
+    if channel.id == 893653614990606349:
+      await send_to_sid(message.content)
     # Check if counting channel
     await counting(msg, guild, channel)
 
