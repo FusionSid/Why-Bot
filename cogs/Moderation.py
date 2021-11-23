@@ -5,9 +5,6 @@ from discord.ext import commands
 import os
 import json
 
-cd = "/home/runner/Why-Client/cogs/"
-dbpath = "/home/runner/Why-Client/MainDB"
-
 
 async def create_voice(guild, name, cat, limit=None):
     category = await guild.get_category_by_name(guild, cat)
@@ -16,14 +13,12 @@ async def create_voice(guild, name, cat, limit=None):
 
 async def get_log_channel(self, ctx):
     try:
-        os.chdir("/home/runner/Why-Client/Setup")
         with open(f"/home/runner/Why-Client/Setup/{ctx.guild.id}.json") as f:
             content = json.load(f)
         if content[0]["mod_channel"] == None:
             return
         else:
             channel = int(content[0]["mod_channel"])
-        os.chdir(cd)
         return await self.client.fetch_channel(channel)
     except:
         return False
@@ -37,14 +32,12 @@ class Moderation(commands.Cog):
     async def report(self, ctx, type_: str):
         def wfcheck(m):
             return m.channel == ctx.channel and m.author == ctx.author
-        os.chdir("/home/runner/Why-Client/Setup")
-        with open(f"{ctx.guild.id}.json") as f:
+        with open(f"/home/runner/Why-Client/Setup/{ctx.guild.id}.json") as f:
             content = json.load(f)
         if content[0]["mod_channel"] == None:
             return
         else:
             channel = int(content[0]["mod_channel"])
-        os.chdir(cd)
         em = discord.Embed(title="REPORT")
 
         if type_.lower() == "member":
@@ -268,15 +261,13 @@ class Moderation(commands.Cog):
         if reason == None:
             reason = "None"
 
-        os.chdir(dbpath)
-        conn = sqlite3.connect(f"warn{ctx.guild.id}.db")
+        conn = sqlite3.connect(f"/home/runner/Why-Bot/MainDB/warn{ctx.guild.id}.db")
         c = conn.cursor()
         with conn:
             c.execute(
                 "CREATE TABLE IF NOT EXISTS Warnings (id INTEGER, reason TEXT, time TEXT)")
             c.execute("INSERT INTO Warnings (id, reason, time) VALUES (:id, :reason, :time)", {
                       'id': id_, 'reason': reason, 'time': time})
-        os.chdir(cd)
         channel = await get_log_channel(self, ctx)
         if channel != False:
             return await channel.send(embed=discord.Embed(title="Warn", description=f"***{member.mention}*** has been warned"))
@@ -287,14 +278,12 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def warnings(self, ctx, member: discord.Member):
-        os.chdir(dbpath)
-        conn = sqlite3.connect(f"warn{ctx.guild.id}.db")
+        conn = sqlite3.connect(f"/home/runner/Why-Bot/MainDBwarn{ctx.guild.id}.db")
         c = conn.cursor()
         c.execute(
             "CREATE TABLE IF NOT EXISTS Warnings (id INTEGER, reason TEXT, time TEXT)")
         c.execute("SELECT * FROM Warnings WHERE id = :id", {'id': member.id})
         warnings = c.fetchall()
-        os.chdir(cd)
 
         em = discord.Embed(title="WARNINGS:")
         for i in warnings:
