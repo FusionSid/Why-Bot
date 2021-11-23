@@ -33,8 +33,7 @@ class Database(commands.Cog):
 
     @commands.command(aliases=['storage', 'db'])
     async def store(self, ctx):
-        os.chdir(db_path)
-        conn = sqlite3.connect(f"{ctx.guild.id}.db")
+        conn = sqlite3.connect(f"/home/runner/Why-Bot/EncryptDB/{ctx.guild.id}.db")
         c = conn.cursor()
 
         def wfcheck(m):
@@ -73,14 +72,12 @@ class Database(commands.Cog):
             c.execute(f"INSERT INTO {ctx.author.name} (name, password) VALUES (:name, :password)", {
                       'name': name, 'password': evalue})
         await ctx.send("Done")
-        os.chdir(cd)
 
     @commands.command(aliases=['getdb', 'find'])
     async def get(self, ctx):
         def wfcheck(m):
             return m.channel == ctx.channel and m.author == ctx.author
-        os.chdir(db_path)
-        conn = sqlite3.connect(f"{ctx.guild.id}.db")
+        conn = sqlite3.connect(f"/home/runner/Why-Bot/EncryptDB/{ctx.guild.id}.db")
         c = conn.cursor()
 
         def find(search_type="all", search=None):
@@ -144,7 +141,6 @@ class Database(commands.Cog):
         name = value[0][1]
         await ctx.send("Decrypted sent to dms")
         await ctx.author.send(f"Id: {id_}\nName: {name}\nDecrypted: {decrypted}")
-        os.chdir(cd)
 
     @commands.command(aliases=['key', 'genkey'])
     async def gen_key(self, ctx):

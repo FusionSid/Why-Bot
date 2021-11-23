@@ -18,12 +18,9 @@ import sys
 
 def get_prefix(client, message):
     try:
-      cd = "/home/runner/Why-Bot"
-      os.chdir(f"{cd}/Setup")
-      with open(f"{message.guild.id}.json") as f:  # open prefix file
+      with open(f"/home/runner/Why-Bot/Setup/{message.guild.id}.json") as f:  # open prefix file
           data = json.load(f)
       prefix = data[3]["prefix"]
-      os.chdir(cd)
       return prefix
     except:
       return "?"
@@ -92,12 +89,9 @@ async def memberjoin(member):
         await member.send(file=discord.File(f"welcome{member.id}.png"))  # Welcome message
     except:
         print('f')
-    cd = "/home/runner/Why-Bot"
-    os.chdir(f"{cd}/Setup/")
-    with open(f"{member.guild.id}.json") as f:
+    with open(f"/home/runner/Why-Bot/Setup/{member.guild.id}.json") as f:
         # Open setup file and check if there is a welcome channel
         data = json.load(f)
-    os.chdir(cd)
     cha = data[2]["welcome_channel"]
     if cha == None:
         await member.guild.system_channel.send(file=discord.File(f"welcome{member.id}.png"))
@@ -133,7 +127,6 @@ async def on_raw_reaction_add(payload):
 # On voice channel join
 @client.event
 async def on_voice_state_update(member, before, after):
-    os.chdir("/home/runner/Why-Bot")
     if member.bot:
         return
     if not before.channel and not after.channel:
@@ -171,37 +164,30 @@ async def on_voice_state_update(member, before, after):
 
 # Setup for guild
 async def startguildsetup(id):
-    cd = "/home/runner/Why-Bot"
-    os.chdir("/home/runner/Why-Bot/Setup")
     file = [
         {"mod_channel": None},
         {"counting_channel": None},
         {"welcome_channel": None},
         {"prefix": "?"}
     ]
-    with open(f'{id}.json', 'w') as f:
+    with open(f'/home/runner/Why-Bot/Setup/{id}.json', 'w') as f:
         json.dump(file, f)
-    os.chdir(cd)  # Create blank setup file
     with open("counting.json") as f:
         data = json.load(f)
     data[id] = 0  # Set counting to 0
     with open("counting.json", 'w') as f:
         json.dump(data, f)
-    os.chdir("/home/runner/Why-Bot/MainDB")
-    conn = sqlite3.connect(f"warn{id}.db")
+    conn = sqlite3.connect(f"/home/runner/Why-Bot/MainDB/warn{id}.db")
     c = conn.cursor()
     c.execute(
         "CREATE TABLE IF NOT EXISTS Warnings (id INTEGER, reason TEXT, time TEXT)")
     # c.execute() create level table
     newtickettemplate = {"ticket-counter": 0, "valid-roles": [],
                          "pinged-roles": [], "ticket-channel-ids": [], "verified-roles": []}
-    with open(f"ticket{id}.json", 'w') as f:
+    with open(f"/home/runner/Why-Bot/MainDB/ticket{id}.json", 'w') as f:
         json.dump(newtickettemplate, f)
-    os.chdir(cd)
-    os.chdir("/home/runner/Why-Bot/EncryptDB")
-    conn = sqlite3.connect(f"{id}.db")
+    conn = sqlite3.connect(f"/home/runner/Why-Bot/EncryptDB/{id}.db")
     c = conn.cursor()
-    os.chdir(cd)
 
 
 # On Guild Join
@@ -238,11 +224,8 @@ async def setup(ctx):
 
     # Tell em what the need
     await ctx.send(embed=discord.Embed(title="To setup the bot you will need to copy the id's of some channels.", description="Please turn on developer mode to be able to copy channel id's"))
-    cd = "/home/runner/Why-Bot"
-    os.chdir("{}/Setup".format(cd))
-    with open(f'{ctx.guild.id}.json') as f:
+    with open(f'/home/runner/Why-Bot/Setup/{ctx.guild.id}.json') as f:
         data = json.load(f)
-    os.chdir(cd)
 
     # ask for mod channel
     await ctx.send(embed=discord.Embed(title="Please enter the id for the mod/staff channel.", description="All mod commands done by the bot will be logged here. Also reports will be sent to this channel.\nAlso members can report messages and they will be sent to this channel for review\nType None if you dont/want one"))
@@ -286,12 +269,9 @@ async def setup(ctx):
         except:
             await ctx.send("Invalid Input")
             
-    cd = "/home/runner/Why-Bot"
-    os.chdir("{}/Setup".format(cd))
-    with open(f'{ctx.guild.id}.json', 'w') as f:
+    with open(f'/home/runner/Why-Bot/Setup/{ctx.guild.id}.json', 'w') as f:
         json.dump(data, f)  # Update setup file
 
-    os.chdir(cd)
     await ctx.send("Setup Complete!\nRemember you can use ?setprefix to change the prefix")
 
 
@@ -299,28 +279,20 @@ async def setup(ctx):
 @client.command()
 @commands.has_permissions(administrator=True)
 async def setprefix(ctx, pref: str):
-    cd = "/home/runner/Why-Bot"
-    os.chdir("{}/Setup".format(cd))
-    with open(f'{ctx.guild.id}.json') as f:
+    with open(f'/home/runner/Why-Bot/Setup/{ctx.guild.id}.json') as f:
         data = json.load(f)
     data[3]["prefix"] = pref
-    with open(f'{ctx.guild.id}.json', 'w') as f:
+    with open(f'/home/runner/Why-Bot/Setup/{ctx.guild.id}.json', 'w') as f:
         json.dump(data, f)
     await ctx.send(f"Prefix is now `{pref}`")
-    os.chdir(cd)
 
 
 # Get the counting channel
 async def get_counting_channel(guild):
   try:
-    cd = "/home/runner/Why-Bot"
 
-    os.chdir(f"{cd}/Setup")
-
-    with open(f"{guild.id}.json") as f:
+    with open(f"/home/runner/Why-Bot/Setup/{guild.id}.json") as f:
         data = json.load(f)  # open setup file and find channel
-
-    os.chdir(cd)
 
     cc = data[1]["counting_channel"]
     if cc == None:

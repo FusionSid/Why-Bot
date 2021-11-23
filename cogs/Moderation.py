@@ -17,7 +17,7 @@ async def create_voice(guild, name, cat, limit=None):
 async def get_log_channel(self, ctx):
     try:
         os.chdir("/home/runner/Why-Client/Setup")
-        with open(f"{ctx.guild.id}.json") as f:
+        with open(f"/home/runner/Why-Client/Setup/{ctx.guild.id}.json") as f:
             content = json.load(f)
         if content[0]["mod_channel"] == None:
             return

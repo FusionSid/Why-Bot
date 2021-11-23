@@ -10,6 +10,7 @@ cryptography==35.0.0
 discord-py-slash-command==3.0.1
 discord.py==1.7.3
 discordLevelingSystem==1.0.2
+easy-pil==0.1.0
 Flask==2.0.22
 google-api-python-client==2.29.0
 googlesearch-python==1.0.1

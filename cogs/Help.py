@@ -5,9 +5,6 @@ import json
 from discord_slash import cog_ext, SlashContext
 from discord_slash.utils.manage_commands import create_option
 
-cd = "/home/runner/Why-Bot/cogs/"
-path = "/home/runner/Why-Bot/MainDB/"
-
 
 class Help(commands.Cog):
     def __init__(self, client):
@@ -309,10 +306,8 @@ class Help(commands.Cog):
                 return await ctx.send(embed=embed)
 
             if cat.lower() == "ticket":
-                os.chdir(path)
-                with open(f"ticket{ctx.guild.id}.json") as f:
+                with open(f"/home/runner/Why-Bot/MainDB/ticket{ctx.guild.id}.json") as f:
                     data = json.load(f)
-                os.chdir(cd)
                 valid_user = False
 
                 for role_id in data["verified-roles"]:
@@ -660,10 +655,8 @@ class Help(commands.Cog):
                 return await ctx.send(embed=embed)
 
             if cat.lower() == "ticket":
-                os.chdir(path)
-                with open(f"ticket{ctx.guild.id}.json") as f:
+                with open(f"/home/runner/Why-Bot/MainDB/ticket{ctx.guild.id}.json") as f:
                     data = json.load(f)
-                os.chdir(cd)
                 valid_user = False
 
                 for role_id in data["verified-roles"]:
