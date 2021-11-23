@@ -3,3 +3,5 @@
 .breakpoints
 __pycache__
 .replit
+.poetry
+.toml

@@ -7,6 +7,7 @@ attrs==21.2.0
 autopep8==1.6.0
 beautifulsoup4==4.9.3
 cryptography==35.0.0
+discord-py-interactions==3.0.2
 discord-py-slash-command==3.0.1
 discord.py==1.7.3
 discordLevelingSystem==1.0.2
