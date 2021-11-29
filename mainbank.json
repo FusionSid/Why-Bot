@@ -1,7 +1,7 @@
 {
     "624076054969188363": {
-        "wallet": 0.0,
-        "bank": 2574682,
+        "wallet": 44,
+        "bank": 0,
         "bag": [
             {
                 "item": "pc",
@@ -18,16 +18,12 @@
             {
                 "item": "sticker",
                 "amount": 2137
-            },
-            {
-                "item": "Goose Statue",
-                "amount": 1
             }
         ]
     },
     "768693329188749344": {
-        "wallet": 135,
-        "bank": 69420,
+        "wallet": 69,
+        "bank": 0,
         "bag": [
             {
                 "item": "Goose Statue",
