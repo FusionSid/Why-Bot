@@ -27,8 +27,7 @@ def get_prefix(client, message):
 
 
 intents = discord.Intents.all()
-client = commands.Bot(command_prefix=get_prefix,
-                      intents=intents, help_command=None)
+client = commands.Bot(command_prefix=get_prefix,intents=intents, help_command=None)
 slash = SlashCommand(client, sync_commands=True)
 
 
@@ -379,7 +378,7 @@ async def rank(ctx, member:discord.Member=None):
         '85': 1192550,'86': 1233025,'87': 1274405,'88': 1316700,'89': 1359920,'90': 1404075,'91': 1449175,'92': 1495230,
         '93': 1542250,'94': 1590245,'95': 1639225,'96': 1689200,'97': 1740180,'98': 1792175,'99': 1845195,'100': 1899250
     }
-    
+
     if member == None:
       member = ctx.author
     else:
