@@ -474,6 +474,11 @@ async def rxp(ctx, member:discord.Member, amount:int):
 async def slvl(ctx, member:discord.Member, level:int):
     await lvl.set_level(member=member, level=level)
 
+@client.command()
+async def punch(ctx, person:discord.Member):
+  await ctx.send(f"You punched {person.mention}")
+
+
 # On Message
 @client.event
 async def on_message(message):
