@@ -4,14 +4,12 @@ import os
 from discord.ext import commands
 import json
 
-cd = "/home/runner/Why-Bot/cogs/"
-
-with open('shop.json') as f:
+with open('./database/shop.json') as f:
     mainshop = json.load(f)
 
 
 async def get_bank_data():
-    with open('mainbank.json', 'r') as f:
+    with open('./database/economy.json', 'r') as f:
         users = json.load(f)
 
     return users
@@ -27,7 +25,7 @@ async def open_account(user):
         users[str(user.id)] = {}
         users[str(user.id)]["wallet"] = 0
         users[str(user.id)]["bank"] = 0
-    with open('mainbank.json', 'w') as f:
+    with open('./database/economy.json', 'w') as f:
         json.dump(users, f, indent=4)
     return True
 
@@ -61,7 +59,7 @@ async def update_bank(user, change=0, mode='wallet'):
 
     users[str(user.id)][mode] += change
 
-    with open('mainbank.json', 'w') as f:
+    with open('./database/economy.json', 'w') as f:
         json.dump(users, f, indent=4)
     bal = users[str(user.id)]['wallet'], users[str(user.id)]['bank']
     return bal
@@ -110,7 +108,7 @@ async def sell_this(user, item_name, amount, price=None):
     for item in users[str(user.id)]["bag"]:
         if item["amount"] == 0:
             users[str(user.id)]["bag"].remove(item)
-    with open("mainbank.json", "w") as f:
+    with open("./database/economy.json", "w") as f:
         json.dump(users, f, indent=4)
     await update_bank(user, cost, "wallet")
 
@@ -157,7 +155,7 @@ async def buy_this(user, amount, item_name):
     except:
         obj = {"item": item_name, "amount": amount}
         users[str(user.id)]["bag"] = [obj]
-    with open("mainbank.json", "w") as f:
+    with open("./database/economy.json", "w") as f:
         json.dump(users, f, indent=4)
 
     await update_bank(user, cost*-1, "wallet")
@@ -229,7 +227,7 @@ class Economy(commands.Cog):
         await ctx.send(embed=discord.Embed(title=f'{ctx.author.mention} Here you filty peasant', description=f'Got `{earnings}` coins!!'))
 
         users[str(user.id)]["wallet"] += earnings
-        with open("mainbank.json", 'w') as f:
+        with open("./database/economy.json", 'w') as f:
             json.dump(users, f, indent=4)
 
     @commands.command()
@@ -245,7 +243,7 @@ class Economy(commands.Cog):
         await ctx.send(embed=discord.Embed(title=f'{ctx.author.mention}', description='Got `{:,}` coins!!'.format(earnings)))
 
         users[str(user.id)]["wallet"] += earnings
-        with open("mainbank.json", 'w') as f:
+        with open("./database/economy.json", 'w') as f:
             json.dump(users, f, indent=4)
 
 
@@ -459,12 +457,8 @@ class Economy(commands.Cog):
                         img = None
                     else:
                         img = True
-                        imgpath = item["icon_path"]
-                        os.chdir('/home/runner/Why-Bot/shopimages/')
-                        file = discord.File(
-                            f"{imgpath}", filename=f"{imgpath}")
-                        em.set_thumbnail(url=f"attachment://{imgpath}")
-                    os.chdir(cd)
+                        file = discord.File(f"./shopimages/{item['icon_path']}")
+                        em.set_thumbnail(url=f"attachment://./shopimages/{item['icon_path']}")
                     inshop = True
                     break
             if inshop == False:

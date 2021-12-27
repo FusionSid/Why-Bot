@@ -3,23 +3,19 @@ from discord.ext import commands
 from discord.ext.commands import has_permissions, MissingPermissions
 import json
 import asyncio
-import os
 
-cd = "/home/runner/Why-Bot/cogs/"
-homepath = "/home/runner/Why-Bot/MainDB/"
+homepath = "./tickets/"
 newtickettemplate = {"ticket-counter": 0, "valid-roles": [],
                      "pinged-roles": [], "ticket-channel-ids": [], "verified-roles": []}
 
 
 def createticketfile(ctx):
-    os.chdir(homepath)
     try:
-        with open(f"ticket{ctx.guild.id}.json") as f:
+        with open(f"./tickets/{ctx.guild.id}.json") as f:
             print("Success")
     except FileNotFoundError:
-        with open(f"ticket{ctx.guild.id}.json", 'w') as f:
+        with open(f"./tickets/{ctx.guild.id}.json", 'w') as f:
             json.dump(newtickettemplate, f, indent=4)
-    os.chdir(cd)
 
 
 class Ticket(commands.Cog):
@@ -39,10 +35,8 @@ class Ticket(commands.Cog):
             message_content = "Please wait, we will be with you shortly!\nYour Message: {}\nUse ?closeticket to close the ticket".format(
                 args)
 
-        os.chdir(homepath)
-        with open(f"ticket{ctx.guild.id}.json") as f:
+        with open(f"./tickets/ticket{ctx.guild.id}.json") as f:
             data = json.load(f)
-        os.chdir(cd)
 
         ticket_number = int(data["ticket-counter"])
         ticket_number += 1
@@ -87,10 +81,8 @@ class Ticket(commands.Cog):
         data["ticket-channel-ids"].append(ticket_channel.id)
 
         data["ticket-counter"] = int(ticket_number)
-        os.chdir(homepath)
-        with open(f"ticket{ctx.guild.id}.json", 'w') as f:
+        with open(f"./tickets/ticket{ctx.guild.id}.json", 'w') as f:
             json.dump(data, f, indent=4)
-        os.chdir(cd)
 
         created_em = discord.Embed(title="Why Tickets", description="Your ticket has been created at {}".format(
             ticket_channel.mention), color=0x00a8ff)
@@ -100,10 +92,8 @@ class Ticket(commands.Cog):
     @commands.command(aliases=['close'])
     async def closeticket(self, ctx):
         createticketfile(ctx)
-        os.chdir(homepath)
-        with open(f'ticket{ctx.guild.id}.json') as f:
+        with open(f'./tickets/ticket{ctx.guild.id}.json') as f:
             data = json.load(f)
-        os.chdir(cd)
 
         if ctx.channel.id in data["ticket-channel-ids"]:
 
@@ -124,10 +114,8 @@ class Ticket(commands.Cog):
                 index = data["ticket-channel-ids"].index(channel_id)
                 del data["ticket-channel-ids"][index]
 
-                os.chdir(homepath)
-                with open(f'ticket{ctx.guild.id}.json', 'w') as f:
+                with open(f'./tickets/ticket{ctx.guild.id}.json', 'w') as f:
                     json.dump(data, f, indent=4)
-                os.chdir(cd)
 
             except asyncio.TimeoutError:
                 em = discord.Embed(
@@ -137,10 +125,8 @@ class Ticket(commands.Cog):
     @commands.command()
     async def addaccess(self, ctx, role_id=None):
         createticketfile(ctx)
-        os.chdir(homepath)
-        with open(f'ticket{ctx.guild.id}.json') as f:
+        with open(f'./tickets/ticket{ctx.guild.id}.json') as f:
             data = json.load(f)
-        os.chdir(cd)
 
         valid_user = False
 
@@ -159,16 +145,12 @@ class Ticket(commands.Cog):
                 try:
                     role = ctx.guild.get_role(role_id)
 
-                    os.chdir(homepath)
-                    with open(f"ticket{ctx.guild.id}.json") as f:
+                    with open(f"./tickets/ticket{ctx.guild.id}.json") as f:
                         data = json.load(f)
-                    os.chdir(cd)
                     data["valid-roles"].append(role_id)
 
-                    os.chdir(homepath)
-                    with open(f'ticket{ctx.guild.id}.json', 'w') as f:
+                    with open(f'./tickets/ticket{ctx.guild.id}.json', 'w') as f:
                         json.dump(data, f, indent=4)
-                    os.chdir(cd)
 
                     em = discord.Embed(title="Why Tickets", description="You have successfully added `{}` to the list of roles with access to tickets.".format(
                         role.name), color=0x00a8ff)
@@ -193,10 +175,8 @@ class Ticket(commands.Cog):
     @commands.command()
     async def delaccess(self, ctx, role_id=None):
         createticketfile(ctx)
-        os.chdir(homepath)
-        with open(f'ticket{ctx.guild.id}.json') as f:
+        with open(f'./tickets/ticket{ctx.guild.id}.json') as f:
             data = json.load(f)
-        os.chdir(cd)
 
         valid_user = False
 
@@ -212,10 +192,8 @@ class Ticket(commands.Cog):
             try:
                 role_id = int(role_id)
                 role = ctx.guild.get_role(role_id)
-                os.chdir(homepath)
-                with open(f"ticket{ctx.guild.id}.json") as f:
+                with open(f"./tickets/{ctx.guild.id}.json") as f:
                     data = json.load(f)
-                os.chdir(cd)
 
                 valid_roles = data["valid-roles"]
 
@@ -225,10 +203,8 @@ class Ticket(commands.Cog):
                     del valid_roles[index]
 
                     data["valid-roles"] = valid_roles
-                    os.chdir(homepath)
-                    with open(f'ticket{ctx.guild.id}.json', 'w') as f:
+                    with open(f'./tickets/ticket{ctx.guild.id}.json', 'w') as f:
                         json.dump(data, f, indent=4)
-                    os.chdir(cd)
 
                     em = discord.Embed(title="Why Tickets", description="You have successfully removed `{}` from the list of roles with access to tickets.".format(
                         role.name), color=0x00a8ff)
@@ -259,16 +235,12 @@ class Ticket(commands.Cog):
         try:
             role_id = int(role_id)
             role = ctx.guild.get_role(role_id)
-            os.chdir(homepath)
-            with open(f"ticket{ctx.guild.id}.json") as f:
+            with open(f"./tickets/ticket{ctx.guild.id}.json") as f:
                 data = json.load(f)
-            os.chdir(cd)
 
             data["verified-roles"].append(role_id)
-            os.chdir(homepath)
-            with open(f'ticket{ctx.guild.id}.json', 'w') as f:
+            with open(f'./tickets/ticket{ctx.guild.id}.json', 'w') as f:
                 json.dump(data, f, indent=4)
-            os.chdir(cd)
 
             em = discord.Embed(
                 title="Why Tickets", description="You have successfully added `{}` to the list of roles that can run admin-level commands!".format(role.name), color=0x00a8ff)
@@ -286,10 +258,8 @@ class Ticket(commands.Cog):
         try:
             role_id = int(role_id)
             role = ctx.guild.get_role(role_id)
-            os.chdir(homepath)
-            with open(f"ticket{ctx.guild.id}.json") as f:
+            with open(f"./tickets/ticket{ctx.guild.id}.json") as f:
                 data = json.load(f)
-            os.chdir(cd)
 
             admin_roles = data["verified-roles"]
 
@@ -299,10 +269,8 @@ class Ticket(commands.Cog):
                 del admin_roles[index]
 
                 data["verified-roles"] = admin_roles
-                os.chdir(homepath)
-                with open(f'ticket{ctx.guild.id}.json', 'w') as f:
+                with open(f'./tickets/ticket{ctx.guild.id}.json', 'w') as f:
                     json.dump(data, f, indent=4)
-                os.chdir(cd)
 
                 em = discord.Embed(title="Why Tickets", description="You have successfully removed `{}` from the list of roles that get pinged when new tickets are created.".format(
                     role.name), color=0x00a8ff)

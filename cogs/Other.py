@@ -26,12 +26,12 @@ class Other(commands.Cog):
             em = discord.Embed(title="Person Info",
                                description=f"For: {member.name}")
             em.add_field(name="ID:", value=member.id)
-            em.set_thumbnail(url=member.avatar_url)
+            em.set_thumbnail(url=member.avatar.url)
             em.add_field(name="Created Account:", value=member.created_at.strftime(
                 "%a, %#d, %B, %Y, #I:%M %p UTC"))
             em.add_field(name="Joined Server:", value=member.joined_at.strftime(
                 "%a, %#d, %B, %Y, #I:%M %p UTC"))
-            em.add_field(name=f"Roles ({len(roles)}):", value=" ".join(
+            em.add_field(name=f"Roles ({len(roles)}):", value="\ ".join(
                 role.mention for role in roles))
             await ctx.send(embed=em)
 
@@ -48,7 +48,7 @@ class Other(commands.Cog):
 
     @commands.command(aliases=['sug'])
     async def suggest(self, ctx, *, suggestion):
-        sid = await self.client.fetch_user(624076054969188363)
+        sid = await self.client.fetch_channel(925157029092413460)
         await sid.send(f"Suggestion:\n{suggestion}\n\nBy: {ctx.author.name}\nID: {ctx.author.id}")
         await ctx.send("Thank you for you suggestion!")
 

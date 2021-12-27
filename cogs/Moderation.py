@@ -1,9 +1,13 @@
 import discord
 from datetime import datetime
-import sqlite3
+from discord.ui import Button, View
+from discord import Option
 from discord.ext import commands
 import os
 import json
+import dotenv
+
+dotenv.load_dotenv()
 
 
 async def create_voice(guild, name, cat, limit=None):
@@ -12,16 +16,14 @@ async def create_voice(guild, name, cat, limit=None):
 
 
 async def get_log_channel(self, ctx):
-    try:
-        with open(f"/home/runner/Why-Client/Setup/{ctx.guild.id}.json") as f:
-            content = json.load(f)
-        if content[0]["mod_channel"] == None:
-            return
-        else:
-            channel = int(content[0]["mod_channel"])
-        return await self.client.fetch_channel(channel)
-    except:
-        return False
+    with open("./database/db.json") as f:
+        data = json.load(f)
+    for i in data:
+        if i["guild_id"] == ctx.guild.id:
+            channel = i['log_channel']
+            return await self.client.fetch_channel(channel)
+
+    return False
 
 
 class Moderation(commands.Cog):
@@ -32,12 +34,9 @@ class Moderation(commands.Cog):
     async def report(self, ctx, type_: str):
         def wfcheck(m):
             return m.channel == ctx.channel and m.author == ctx.author
-        with open(f"/home/runner/Why-Client/Setup/{ctx.guild.id}.json") as f:
-            content = json.load(f)
-        if content[0]["mod_channel"] == None:
-            return
-        else:
-            channel = int(content[0]["mod_channel"])
+
+        channel = await get_log_channel(self, ctx)
+
         em = discord.Embed(title="REPORT")
 
         if type_.lower() == "member":
@@ -205,7 +204,7 @@ class Moderation(commands.Cog):
         embedVar = discord.Embed(description=message)
         msg = await ctx.channel.send(embed=embedVar)
         await msg.add_reaction(emoji)
-        with open("react.json") as json_file:
+        with open("./database/react.json") as json_file:
             data = json.load(json_file)
 
             new_react_role = {
@@ -257,17 +256,21 @@ class Moderation(commands.Cog):
         now = datetime.now()
 
         time = now.strftime("%Y-%m-%d %H:%M:%S")
-        id_ = member.id
         if reason == None:
             reason = "None"
 
-        conn = sqlite3.connect(f"/home/runner/Why-Bot/MainDB/warn{ctx.guild.id}.db")
-        c = conn.cursor()
-        with conn:
-            c.execute(
-                "CREATE TABLE IF NOT EXISTS Warnings (id INTEGER, reason TEXT, time TEXT)")
-            c.execute("INSERT INTO Warnings (id, reason, time) VALUES (:id, :reason, :time)", {
-                      'id': id_, 'reason': reason, 'time': time})
+        with open("./database/db.json") as f:
+            data = json.load(f)
+        
+        for i in data:
+            if i["guild_id"] == ctx.guild.id:
+                warn = {'time':time, 'reason':reason}
+                try:
+                    i['warnings'][f"{member.id}"].append(warn)
+                except:
+                    i['warnings'][f"{member.id}"] = []
+                    i['warnings'][f"{member.id}"].append(warn)
+
         channel = await get_log_channel(self, ctx)
         if channel != False:
             return await channel.send(embed=discord.Embed(title="Warn", description=f"***{member.mention}*** has been warned"))
@@ -278,17 +281,20 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def warnings(self, ctx, member: discord.Member):
-        conn = sqlite3.connect(f"/home/runner/Why-Bot/MainDBwarn{ctx.guild.id}.db")
-        c = conn.cursor()
-        c.execute(
-            "CREATE TABLE IF NOT EXISTS Warnings (id INTEGER, reason TEXT, time TEXT)")
-        c.execute("SELECT * FROM Warnings WHERE id = :id", {'id': member.id})
-        warnings = c.fetchall()
+        with open("./database/db.json") as f:
+            data = json.load(f)
+        for i in data:
+            if i["guild_id"] == ctx.guild.id:
+                warns = i['warnings']
+        try:
+            warnings = warns[f'{member.id}']
+        except:
+            return await ctx.send("This person has no warnings")
 
         em = discord.Embed(title="WARNINGS:")
         for i in warnings:
-            t = i[2]
-            r = i[1]
+            t = i["time"]
+            r = i["reason"]
             em.add_field(name=t, value=f"Reason: {r}")
 
         await ctx.send(embed=em)
@@ -349,6 +355,10 @@ class Moderation(commands.Cog):
         message = await ctx.channel.fetch_message(id)
         await message.clear_reactions()
         await ctx.send("Removed")
+
+    @commands.command()
+    async def settings(self, ctx):
+        pass
 
 
 def setup(client):

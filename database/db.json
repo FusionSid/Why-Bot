@@ -1,0 +1,11 @@
+[
+    {
+        "guild_id": 763348615233667082,
+        "prefix": "?",
+        "counting_channel": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {}
+    }
+]

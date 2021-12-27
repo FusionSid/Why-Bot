@@ -1,11 +1,9 @@
 import discord
-import random
-import os
 import json
-import requests
 from discord.ext import commands
-import sqlite3
+import dotenv
 
+dotenv.load_dotenv()
 
 def is_it_me(ctx):
     return ctx.author.id == 624076054969188363
@@ -19,7 +17,7 @@ class Fusion(commands.Cog):
     @commands.command(aliases=['bl'])
     @commands.check(is_it_me)
     async def blacklist(self, ctx, userid: int):
-        with open('blacklisted.json') as f:
+        with open('./database/blacklisted.json') as f:
             blacklisted = json.load(f)
 
         if userid in blacklisted:
@@ -28,13 +26,13 @@ class Fusion(commands.Cog):
             blacklisted.append(userid)
             await ctx.send("User has been blacklisted")
 
-        with open('blacklisted.json', 'w') as f:
+        with open('./database/blacklisted.json', 'w') as f:
             json.dump(blacklisted, f, indent=4)
 
     @commands.command(aliases=['wl'])
     @commands.check(is_it_me)
     async def whitelist(self, ctx, userid: int):
-        with open('blacklisted.json') as f:
+        with open('./database/blacklisted.json') as f:
             blacklisted = json.load(f)
 
         if userid in blacklisted:
@@ -43,13 +41,13 @@ class Fusion(commands.Cog):
         else:
             await ctx.send("User isnt blacklisted")
 
-        with open('blacklisted.json', 'w') as f:
+        with open('./database/blacklisted.json', 'w') as f:
             json.dump(blacklisted, f, indent=4)
 
     @commands.command(aliases=['blacklisted', 'lb'])
     @commands.check(is_it_me)
     async def listblack(self, ctx):
-        with open('blacklisted.json') as f:
+        with open('./database/blacklisted.json') as f:
             blacklisted = json.load(f)
 
         await ctx.send(blacklisted)

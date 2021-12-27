@@ -5,9 +5,12 @@ import random
 from discord.ext import commands
 import asyncio
 from discord.utils import get
+import dotenv
+
+dotenv.load_dotenv()
 
 async def get_roast():
-    with open('roastlist.json') as f:
+    with open('./database/roastlist.json') as f:
         data = json.load(f)
     return random.choice(data)
 
@@ -165,7 +168,7 @@ class Fun(commands.Cog):
     @commands.command(aliases=['num'])
     async def numrn(self, ctx):
         guild = ctx.guild
-        with open('counting.json') as f:
+        with open('./database/counting.json') as f:
             data = json.load(f)
         guildid = f'{guild.id}'
         numrn = data[guildid]

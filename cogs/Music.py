@@ -13,8 +13,7 @@ from gtts import gTTS
 from mutagen.mp3 import MP3
 
 
-ffmpeg = "/home/runner/Why-Bot/Why-Bot/ffmpeg.exe"
-cookies = "/home/runner/Why-Bot/cookies.txt"
+cookies = "./database/cookies.txt"
 ffmpeg_options = {  # ffmpeg options
     "before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
     "options": "-vn"
@@ -530,7 +529,10 @@ class Music(commands.Cog):
             await ctx.send("❎ Loop disabled!")
             loops[ctx.guild.id] = "none"
 
+
+
     # Playlists
+
 
     @commands.command(aliases=['cp'])
     async def createplaylist(self, ctx, pname: str = None):
@@ -540,20 +542,20 @@ class Music(commands.Cog):
         name = f"{ctx.author.id}"
         pname = pname
 
-        with open('customplaylist.json') as f:
+        with open('./database/playlists.json') as f:
             data = json.load(f)
         if name in data:
             data[name][pname] = []
         else:
             plist = {pname: []}
             data[name] = plist
-        with open('customplaylist.json', 'w') as f:
+        with open('./database/playlists.json', 'w') as f:
             json.dump(data, f, indent=4)
-        return await ctx.send(embed=discord.Embed(title="Playlist created!", description="To add to the playlist use ?add [playlistname] [song/songurl]"))
+        return await ctx.send(embed=discord.Embed(title=f"Playlist `{pname}` created!", description="To add to the playlist use ?add [playlistname] [song/songurl]"))
 
     @commands.command()
-    async def list(self, ctx, pname: str):
-        with open('customplaylist.json') as f:
+    async def plist(self, ctx, pname: str):
+        with open('./database/playlists.json') as f:
             data = json.load(f)
         if f"{ctx.author.id}" in data:
             pass
@@ -563,15 +565,19 @@ class Music(commands.Cog):
             pass
         else:
             return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description='Use ?createplaylist [name] to create one'))
+        em = discord.Embed(title=f"Playlist: {pname}", description="Songs:")
         if len(data[f"{ctx.author.id}"][pname]):
+            c = 1
             for song in data[f"{ctx.author.id}"][pname]:
-                await ctx.send(song)
+                em.add_field(name=f"{c}. {song}", value="** **", inline=False)
+                c += 1
+            await ctx.send(embed=em)
         else:
-            await ctx.send("List is empty use ?add [song]")
+            await ctx.send(f"List is empty use ?add {pname} [songname/url]")
 
     @commands.command()
-    async def add(self, ctx, pname: str, *,  song: str):
-        with open('customplaylist.json') as f:
+    async def padd(self, ctx, pname: str, *,  song: str):
+        with open('./database/playlists.json') as f:
             data = json.load(f)
         if f"{ctx.author.id}" in data:
             pass
@@ -583,12 +589,12 @@ class Music(commands.Cog):
             return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description='Use ?createplaylist [name] to create one'))
         data[f"{ctx.author.id}"][pname].append(song)
         await ctx.send(f"{song} Added to {pname}")
-        with open('customplaylist.json', 'w') as f:
+        with open('./database/playlists.json', 'w') as f:
             json.dump(data, f, indent=4)
 
     @commands.command()
     async def playlist(self, ctx, pname: str):
-        with open('customplaylist.json') as f:
+        with open('./database/playlists.json') as f:
             data = json.load(f)
         if f"{ctx.author.id}" in data:
             pass
@@ -606,7 +612,7 @@ class Music(commands.Cog):
 
     @commands.command()
     async def pdel(self, ctx, pname: str):
-        with open('customplaylist.json') as f:
+        with open('./database/playlists.json') as f:
             data = json.load(f)
         if f"{ctx.author.id}" in data:
             pass
@@ -639,9 +645,10 @@ class Music(commands.Cog):
             print(rm)
             data[f"{ctx.author.id}"][pname].remove(rm)
         except Exception as e:
-            await ctx.send(e)
-        with open('customplaylist.json', 'w') as f:
+            return
+        with open('./database/playlists.json', 'w') as f:
             json.dump(data, f, indent=4)
+        await ctx.send("Song deleted from playlist.")
 
     # Text to speech
 
@@ -653,9 +660,8 @@ class Music(commands.Cog):
 
         output = gTTS(text=text, lang=language, slow=False)
 
-        os.chdir("/home/runner/Why-Bot")
         name = ctx.author.id
-        output.save(f"{name}.mp3")
+        output.save(f"./tempstorage/{name}.mp3")
 
         if ctx.author.voice is None:
             return await ctx.send(f"{ctx.author.mention}, You have to be connected to a voice channel.")
@@ -678,11 +684,10 @@ class Music(commands.Cog):
             voice_client.play(audio_source, after=None)
         else:
             await ctx.send("Something is playling right now, Try using this command after its finished")
-        audio = MP3(f"{name}.mp3")
+        audio = MP3(f"./tempstorage/{name}.mp3")
         wait = int(audio.info.length)
-        await asyncio.sleep(wait)
-        os.remove(f'{name}.mp3')
-        os.chdir("home/runner/Why-Bot/cogs/")
+        await asyncio.sleep(wait+5)
+        os.remove(f'./tempstorage/{name}.mp3')
     
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
