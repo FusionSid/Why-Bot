@@ -230,7 +230,7 @@ async def on_command_error(ctx, error):
             title="Missing permissions",
             description="You don't have permissions to use this commands",
         )
-
+    await ctx.send(embed=em)
 
 @client.command()
 async def setupallserversjustincase(ctx):
