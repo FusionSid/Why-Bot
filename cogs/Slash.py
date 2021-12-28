@@ -18,7 +18,7 @@ class Slash(commands.Cog):
         else:
             await ctx.respond(f"Hello {user.mention}")
 
-    @slash_command()
+    @slash_command(guild_ids=[763348615233667082], name="set", description="Set Channels")
     async def set(self, ctx, category: Option(str, "Category", required=True, choices=["Mod/Log Channel", "Counting Channel", "Welcome Channel"]), channel: Option(discord.TextChannel, "The channel", required=True)):
         channel_id = channel.id
         with open("./database/db.json") as f:
@@ -38,6 +38,7 @@ class Slash(commands.Cog):
             for i in data:
                 if i["guild_id"] == ctx.guild.id:
                     i["welcome_channel"] = channel_id
+        await ctx.respond(f"{channel.name} successfully set as {category}")            
         with open("./database/db.json", 'w') as f:
             json.dump(data, f, indent=4)
 
