@@ -7,7 +7,7 @@ lxml
 mutagen
 praw
 prawcore
-py-cord
+git+https://github.com/Pycord-Development/pycord@master#egg=py-cord
 PyNaCl
 python-dotenv
 pyttsx3
