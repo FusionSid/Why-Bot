@@ -13,7 +13,7 @@ class Help(commands.Cog):
         def check(m):
             return m.channel == ctx.channel and m.author == ctx.author
 
-        with open("help.json") as f:
+        with open("./database/help.json") as f:
             data = json.load(f)
             
         if ctx.author.id in dev_ids:
@@ -63,7 +63,7 @@ class Help(commands.Cog):
         else:
             for i in data:
                 if i["name"] == command:
-                    em = discord.Embed(title="Simplex Help:", description="Use `.help <command>` for more info on command")
+                    em = discord.Embed(title="Why Bot Help:", description="Use `.help <command>` for more info on command")
                     em.add_field(name="Name: ", value=i["name"])
                     em.add_field(name="Description: ", value=i["description"])
                     em.add_field(name="Usage: ", value=i["usage"])

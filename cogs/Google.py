@@ -4,7 +4,7 @@ import random
 from googleapiclient.discovery import build
 import re
 import urllib.request
-from googlesearch import search
+# from googlesearch import search
 
 isapi_key = "AIzaSyCj52wnSciil-4JPd6faOXXHfEb1pzrCuY"
 
@@ -43,9 +43,9 @@ class Google(commands.Cog):
     async def google(self, ctx, *, search_):
         em = discord.Embed(title="Google Search",
                            description="Showing first 10 urls")
-        for i in search(search_, tld="com", num=10, stop=10):
-            em.add_field(name=i, value="** **")
-        await ctx.send(embed=em)
+      #  for i in search(search_, tld="com", num=10, stop=10):
+            #em.add_field(name=i, value="** **")
+        #await ctx.send(embed=em)
 
 
 def setup(client):

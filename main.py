@@ -2,7 +2,6 @@ import math
 import json
 import sys
 import sqlite3
-from discord.utils import valid_icon_size
 from discordLevelingSystem import DiscordLevelingSystem, RoleAward, LevelUpAnnouncement
 import os
 from os import listdir
