@@ -25,7 +25,8 @@ async def get_prefix(client, message):
     return "?"
 
 intents = discord.Intents.all()
-client = commands.Bot(command_prefix=get_prefix, intents=intents, help_command=None)
+client = commands.Bot(command_prefix=get_prefix,
+                      intents=intents, help_command=None)
 
 
 async def update_activity():
@@ -51,7 +52,7 @@ async def startguildsetup(id):
         "welcome_channel": None,
         "warnings": {
         },
-        "settings": {  
+        "settings": {
         }
     }
     with open("database/db.json") as f:
@@ -60,11 +61,14 @@ async def startguildsetup(id):
     data.append(file)
     with open("database/db.json", 'w') as f:
         json.dump(data, f, indent=4)
-    newtickettemplate = {"ticket-counter": 0, "valid-roles": [], "pinged-roles": [], "ticket-channel-ids": [], "verified-roles": []}
+    newtickettemplate = {"ticket-counter": 0, "valid-roles": [],
+                         "pinged-roles": [], "ticket-channel-ids": [], "verified-roles": []}
     with open(f"./tickets/{id}.json", 'w') as f:
         json.dump(newtickettemplate, f, indent=4)
 
 # On Guild Join
+
+
 @client.event
 async def on_guild_join(guild):
     cha = client.get_channel(896932591620464690)
@@ -73,14 +77,19 @@ async def on_guild_join(guild):
     await startguildsetup(guild.id)
     embed = discord.Embed(color=discord.Color(value=0x36393e))
     embed.set_author(name="Here's some stuff to get you started:")
-    embed.add_field(name="Default Prefix: `?`", value="This can be changed later using `?setprefix`")
-    embed.add_field(name="Channel Setting", value="To set the counting, mod and welcome channel use `?set`")
-    embed.add_field(name="Settings", value="You can use `?settings` to change some bot settings")
-    embed.set_footer(text=f"Thank You - Why bot is now on {len(client.guilds)} servers!")
+    embed.add_field(name="Default Prefix: `?`",
+                    value="This can be changed later using `?setprefix`")
+    embed.add_field(name="Channel Setting",
+                    value="To set the counting, mod and welcome channel use `?set`")
+    embed.add_field(
+        name="Settings", value="You can use `?settings` to change some bot settings")
+    embed.set_footer(
+        text=f"Thank You - Why bot is now on {len(client.guilds)} servers!")
     try:
         await guild.system_channel.send(content="**Thanks for inviting me! :wave: **", embed=embed)
     except:
         pass
+
 
 @client.event
 async def on_raw_reaction_add(payload):
@@ -97,6 +106,8 @@ async def on_raw_reaction_add(payload):
                 pass
 
 # Set Prefix
+
+
 @client.command()
 @commands.has_permissions(administrator=True)
 async def setprefix(ctx, pref: str):
@@ -108,6 +119,7 @@ async def setprefix(ctx, pref: str):
     with open(f'database/db.json', 'w') as f:
         json.dump(data, f)
     await ctx.send(embed=discord.Embed(title=f"Prefix has been set to `{pref}`"))
+
 
 @client.event
 async def on_guild_remove(guild):
@@ -126,6 +138,8 @@ lvl = DiscordLevelingSystem(
 lvl.connect_to_database_file('database/DiscordLevelingSystem.db')
 
 # Get the counting channel
+
+
 async def get_counting_channel(guild):
     with open("database/db.json") as f:
         data = json.load(f)
@@ -135,6 +149,8 @@ async def get_counting_channel(guild):
     return None
 
 # Counting
+
+
 async def counting(msg, guild, channel):
     try:
         msg = int(msg)
@@ -151,8 +167,9 @@ async def counting(msg, guild, channel):
             data[dataid] += 1
         else:
             data[dataid] = 0
-            em = discord.Embed(title="You ruined it!", description="Count reset to zero")
-            await channel.send(embed = em)
+            em = discord.Embed(title="You ruined it!",
+                               description="Count reset to zero")
+            await channel.send(embed=em)
         with open("counting.json", 'w') as f:
             json.dump(data, f, indent=4)
 
@@ -181,7 +198,7 @@ async def on_message(message):
     # Check if counting channel
     await counting(msg, guild, channel)
 
-    await lvl.award_xp(amount=[15,25], message=message)
+    await lvl.award_xp(amount=[15, 25], message=message)
 
     # if blacklisted dont let them use bot
     try:
@@ -233,7 +250,7 @@ async def on_command_error(ctx, error):
             description="You don't have permissions to use this commands",
         )
         await ctx.send(embed=em)
-    
+
 
 @client.command()
 async def setupallserversjustincase(ctx):
@@ -243,6 +260,8 @@ async def setupallserversjustincase(ctx):
         await startguildsetup(i.id)
 
 # Start the bot
+
+
 def start_bot(client):
     client.remove_command("help")
     keep_alive()
@@ -260,7 +279,6 @@ def start_bot(client):
     except Exception as e:
         print(
             f"\n###################\nPOSSIBLE FATAL ERROR:\n{e}\nTHIS MEANS THE BOT HAS NOT STARTED CORRECTLY!")
-
 
 
 if __name__ == '__main__':
