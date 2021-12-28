@@ -18,14 +18,14 @@ class Slash(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @slash_command(guild_ids=[763348615233667082, 893653614990606346], name="hi", description="Hello")
+    @slash_command(name="hi", description="Hello")
     async def hello(self, ctx, user: Option(discord.Member, "The user", required=False) = None):
         if user is None:
             await ctx.respond("Hello")
         else:
             await ctx.respond(f"Hello {user.mention}")
 
-    @slash_command(guild_ids=[763348615233667082, 893653614990606346], name="set", description="Set Channels")
+    @slash_command(name="set", description="Set Channels")
     async def set(self, ctx, category: Option(str, "Category", required=True, choices=["Mod/Log Channel", "Counting Channel", "Welcome Channel"]), channel: Option(discord.TextChannel, "The channel", required=True)):
         channel_id = channel.id
         with open("./database/db.json") as f:
@@ -105,7 +105,7 @@ class Slash(commands.Cog):
             title=message, description="Imagine being roasted by a bot")
         await member.send(embed=embeddm)
 
-    @slash_command(aliases=['noembed'])
+    @slash_command(name="say", description="The bot says what you want")
     async def say(self, ctx, text: Option(str, "The text", required=True)):
         await ctx.respond(text)
 
@@ -124,7 +124,7 @@ class Slash(commands.Cog):
         await sid.send(f"Suggestion:\n{suggestion}\n\nBy: {ctx.author.name}\nID: {ctx.author.id}")
         await ctx.respond("Thank you for you suggestion!")
 
-    @slash_command()
+    @slash_command(name="Ping", description="shows you the bots ping")
     async def ping(self, ctx):
         await ctx.respond(f"{round(self.client.latency * 1000)}ms")
 
