@@ -12,6 +12,7 @@ from discord import Option
 from discord.ui import Button, View
 from keep_alive import keep_alive
 import dotenv
+import requests
 
 dotenv.load_dotenv()
 
@@ -89,6 +90,30 @@ async def on_guild_join(guild):
         await guild.system_channel.send(content="**Thanks for inviting me! :wave: **", embed=embed)
     except:
         pass
+
+@client.event
+async def on_member_join(member):
+    with open("database/db.json") as f:
+        data = json.load(f)
+    for i in data:
+        if i["guild_id"] == member.guild.id:
+            channel = i["welcome_channel"]
+    r = requests.get(
+        url='https://api.xzusfin.repl.co/card?',
+        params={
+            'avatar': str(member.avatar_url_as(format='png')),
+            'middle': 'welcome',
+            'name': str(member.name),
+            'bottom': str('on ' + member.guild.name),
+            'text': '#CCCCCC',
+            'avatarborder': '#CCCCCC',
+            'avatarbackground': '#CCCCCC',
+            'background': 'https://c4.wallpaperflare.com/wallpaper/969/697/87/square-shapes-black-dark-wallpaper-preview.jpg'  # or image url
+        }
+    )
+    em = discord.Embed()
+    em.set_image(url=r.url)
+    await channel.send(embed=em)
 
 
 @client.event
