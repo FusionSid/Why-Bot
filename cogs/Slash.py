@@ -124,7 +124,7 @@ class Slash(commands.Cog):
         await sid.send(f"Suggestion:\n{suggestion}\n\nBy: {ctx.author.name}\nID: {ctx.author.id}")
         await ctx.respond("Thank you for you suggestion!")
 
-    @slash_command(name="Ping", description="shows you the bots ping")
+    @slash_command(name="ping", description="shows you the bots ping")
     async def ping(self, ctx):
         await ctx.respond(f"{round(self.client.latency * 1000)}ms")
 

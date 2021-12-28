@@ -64,7 +64,7 @@ async def startguildsetup(id):
         json.dump(data, f, indent=4)
     newtickettemplate = {"ticket-counter": 0, "valid-roles": [],
                          "pinged-roles": [], "ticket-channel-ids": [], "verified-roles": []}
-    with open(f"./tickets/{id}.json", 'w') as f:
+    with open(f"./tickets/ticket{id}.json", 'w') as f:
         json.dump(newtickettemplate, f, indent=4)
 
 # On Guild Join
