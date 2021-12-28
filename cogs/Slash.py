@@ -19,6 +19,7 @@ class Slash(commands.Cog):
         else:
             await ctx.respond(f"Hello {user.mention}")
 
+<<<<<<< HEAD
     @slash_command()
     async def set(self, ctx, category: Option(str, "Category", required=True, choices=["Mod/Log Channel", "Counting Channel", "Welcome Channel"]), channel: Option(discord.TextChannel, "The channel", required=True)):
         channel_id = channel.id
@@ -41,3 +42,7 @@ class Slash(commands.Cog):
                     i["welcome_channel"] = channel_id
         with open("./database/db.json", 'w') as f:
             json.dump(data, f, indent=4)
+=======
+def setup(client):
+    client.add_cog(Slash(client))
+>>>>>>> c3163ea8ff4766ac688e0d02db342a56493d9351

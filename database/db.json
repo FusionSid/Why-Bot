@@ -1,4 +1,5 @@
 [
+<<<<<<< HEAD
   {
     "guild_id": 763348615233667082,
     "prefix": "?",
@@ -27,3 +28,33 @@
     "settings": {}
   }
 ]
+=======
+    {
+        "guild_id": 893653614990606346,
+        "prefix": "?",
+        "counting_channel": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {}
+    },
+    {
+        "guild_id": 920807731961679913,
+        "prefix": "?",
+        "counting_channel": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {}
+    },
+    {
+        "guild_id": 763348615233667082,
+        "prefix": "?",
+        "counting_channel": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {}
+    }
+]
+>>>>>>> c3163ea8ff4766ac688e0d02db342a56493d9351
