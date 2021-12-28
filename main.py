@@ -11,6 +11,7 @@ import discord
 from discord.ext import commands
 from discord import Option
 from discord.ui import Button, View
+from keep_alive import keep_alive
 import dotenv
 
 dotenv.load_dotenv()
@@ -242,6 +243,7 @@ async def setupallserversjustincase(ctx):
 # Start the bot
 def start_bot(client):
     client.remove_command("help")
+    keep_alive()
     lst = [f for f in listdir("cogs/") if isfile(join("cogs/", f))]
     no_py = [s.replace('.py', '') for s in lst]
     startup_extensions = ["cogs." + no_py for no_py in no_py]
