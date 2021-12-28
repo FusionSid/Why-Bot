@@ -15,3 +15,6 @@ class Slash(commands.Cog):
             await ctx.respond("Hello")
         else:
             await ctx.respond(f"Hello {user.mention}")
+
+def setup(client):
+    client.add_cog(Slash(client))
