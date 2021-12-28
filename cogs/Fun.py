@@ -6,6 +6,9 @@ from discord.ext import commands
 import asyncio
 from discord.utils import get
 import dotenv
+from discord import Option
+from discord.commands import slash_command
+import requests
 
 dotenv.load_dotenv()
 
@@ -55,18 +58,21 @@ class Fun(commands.Cog):
         em.add_field(name="Bot Choice", value=cpu_choice)
         await ctx.send(embed=em)
 
+
     @commands.command(aliases=['roastme'])
     async def roast(self, ctx):
         await ctx.message.delete()
         roast = await get_roast()
         em = discord.Embed(title=roast)
         await ctx.send(embed=em)
+    
 
     @commands.command(aliases=['sendmsg'])
     async def dm(self, ctx, member: discord.Member, *, message):
         await ctx.message.delete()
         embeddm = discord.Embed(title=message)
         await member.send(embed=embeddm)
+    
 
     @commands.command(aliases=['sr'])
     async def sendroast(self, ctx, member: discord.Member):
@@ -75,6 +81,7 @@ class Fun(commands.Cog):
         embeddm = discord.Embed(
             title=message, description="Imagine being roasted by a bot")
         await member.send(embed=embeddm)
+
 
     @commands.command(aliases=['8ball'])
     async def _8ball(self, ctx, *, question):
@@ -163,7 +170,10 @@ class Fun(commands.Cog):
 
     @commands.command(aliases=['noembed'])
     async def say(self, ctx, *, text):
+        await ctx.message.delete()
         await ctx.send(text)
+    
+   
 
     @commands.command(aliases=['num'])
     async def numrn(self, ctx):

@@ -198,7 +198,7 @@ async def counting(msg, guild, channel):
             em = discord.Embed(title="You ruined it!",
                                description="Count reset to zero")
             await channel.send(embed=em)
-        with open("counting.json", 'w') as f:
+        with open("database/counting.json", 'w') as f:
             json.dump(data, f, indent=4)
 
 
@@ -261,7 +261,7 @@ async def on_command_error(ctx, error):
         retry_after = await better_time(int(math.ceil(error.retry_after)))
         em = discord.Embed(
             title="Wow buddy, Slow it down\nThis command is on cooldown",
-            description=f"Try again in {retry_after}seconds.",
+            description=f"Try again in **{retry_after}**",
         )
         await ctx.send(embed=em)
 
