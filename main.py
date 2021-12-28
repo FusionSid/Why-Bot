@@ -98,6 +98,8 @@ async def on_member_join(member):
     for i in data:
         if i["guild_id"] == member.guild.id:
             channel = i["welcome_channel"]
+            if channel == None:
+                channel = member.guild.system_channel
     r = requests.get(
         url='https://api.xzusfin.repl.co/card?',
         params={
