@@ -218,19 +218,22 @@ async def on_command_error(ctx, error):
             title="Wow buddy, Slow it down\nThis command is on cooldown",
             description=f"Try again in {retry_after}seconds.",
         )
+        await ctx.send(embed=em)
 
     elif isinstance(error, commands.MissingRequiredArgument):
         em = discord.Embed(
             title="Missing a requred value/arg",
             description="You haven't passed in all value/arg",
         )
+        await ctx.send(embed=em)
 
     elif isinstance(error, commands.MissingPermissions):
         em = discord.Embed(
             title="Missing permissions",
             description="You don't have permissions to use this commands",
         )
-    await ctx.send(embed=em)
+        await ctx.send(embed=em)
+    
 
 @client.command()
 async def setupallserversjustincase(ctx):
