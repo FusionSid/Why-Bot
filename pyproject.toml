@@ -26,6 +26,7 @@ py-cord = {git = "https://github.com/Pycord-Development/pycord"}
 Flask = "^2.0.2"
 discord = "^1.7.3"
 pycord = {extras = ["voice"], version = "^0.1.1"}
+typing-extensions = "^4.0.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
