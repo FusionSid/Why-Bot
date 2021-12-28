@@ -100,10 +100,11 @@ async def on_member_join(member):
             channel = i["welcome_channel"]
             if channel == None:
                 channel = member.guild.system_channel
+    channel = await client.fetch_channel(channel)
     r = requests.get(
         url='https://api.xzusfin.repl.co/card?',
         params={
-            'avatar': str(member.avatar_url_as(format='png')),
+            'avatar': str(member.avatar.url),
             'middle': 'welcome',
             'name': str(member.name),
             'bottom': str('on ' + member.guild.name),

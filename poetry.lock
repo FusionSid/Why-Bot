@@ -563,7 +563,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "py-cord"
-version = "2.0.0a4671+g51dd856e"
+version = "2.0.0a4688+g52fdbb1b"
 description = "A Python wrapper for the Discord API"
 category = "main"
 optional = false
@@ -582,7 +582,7 @@ voice = ["PyNaCl (>=1.3.0,<1.5)"]
 type = "git"
 url = "https://github.com/Pycord-Development/pycord"
 reference = "master"
-resolved_reference = "51dd856e9e07b16440790812a64eac0bf451633f"
+resolved_reference = "52fdbb1b00efb54a3e13f9a76be1af3aa6e21148"
 
 [[package]]
 name = "pyasn1"
@@ -2767,7 +2767,7 @@ httpx = ">=0.14.2"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "4b1b4cd0448c8f270c0b050127e059720527b5b4abf8189d1209c59b40ea7127"
+content-hash = "14022b8748543b14437f49766517b127a6058685310f3dfeba3742c4be0a20da"
 
 [metadata.files]
 aiohttp = [
