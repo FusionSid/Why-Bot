@@ -64,6 +64,7 @@ class Other(commands.Cog):
         em = discord.Embed(title = 'Why Bot', description = 'just why?')
         em.add_field(name="Server Count", value=f"{len(self.client.guilds)}")
         em.add_field(name="Ping", value=f"{round(self.client.latency * 1000)}")
+        em.set_footer(text="Mostly made by `FusionSid#3645`")
         em.add_field(name = 'CPU Usage', value = f'{psutil.cpu_percent()}%', inline = False)
         em.add_field(name = 'Memory Usage', value = f'{psutil.virtual_memory().percent}%', inline = False)
         em.add_field(name = 'Available Memory', value = f'{psutil.virtual_memory().available * 100 / psutil.virtual_memory().total}%', inline = False)
