@@ -11,15 +11,15 @@ class Help(commands.Cog):
     @commands.command()
     async def help(self, ctx, cmd = None):
         em = discord.Embed(title="Why Help")
+        cats = ["economy", "fun", "reddit", "google", "minecraft", "moderation", "music", "slash", "text", "ticket", "utilities", "other"]
         if cmd is None:
-            em.add_field(name="`?help [category`]`", value="Lists all commands in that category")
+            em.add_field(name="`?help [category]`", value="Lists all commands in that category")
             em.add_field(name="`?help [command]`", value="Give information about a specific command")
-            em.add_field(name="Useful Commands:", value="`/set`, `?settings`, `?setprefix`, ``")
+            em.add_field(name="Useful Commands:", value="`/set`, `?settings`, `?setprefix`")
             em.add_field(name="Why Support Server", value="https://discord.gg/8fJaesY8SR")
             em.add_field(name="Categories:", value="Economy, Fun, Reddit, Google, Minecraft, Moderation, Music. Slash, Text, Ticket, Utilities and Other")
             return await ctx.send(embed=em)
-        cats = ["Economy", "Fun", "Reddit", "Google", "Minecraft", "Moderation", "Music", "Slash", "Text", "Ticket", "Utilities", "Other"]
-        if cmd.lower() in cats.lower():
+        elif cmd.lower() in cats:
             found =False
             for i in cats:
                 if i.lower() == cmd.lower():
@@ -28,7 +28,7 @@ class Help(commands.Cog):
             if found == False:
                 return await ctx.send("Invalid category, Use `?help` to get a list of them")
             # loop thru all commands and show all with this category
-            with open('help.json') as f:
+            with open('./database/help.json') as f:
                 data = json.load(f)
             em = discord.Embed(title="Why Help:", description="Use `?help [command]` for more info on command")
             for i in data:
@@ -37,7 +37,7 @@ class Help(commands.Cog):
             await ctx.send(embed=em)
         else:
             # loop thru all command to find one that has the same name and show its info
-            with open('help.json') as f:
+            with open('./database/help.json') as f:
                 data = json.load(f)
             em = discord.Embed(title="Why Help:", description="Use `?help [command]` for more info on command")
             found = False
@@ -112,7 +112,7 @@ def setup(client):
 
 @commands.command()
 async def help(self, ctx, command=None):
-    with open('help.json') as f:
+    with open('./help.json') as f:
         data = json.load(f)
 
     if command == None:
