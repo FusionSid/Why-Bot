@@ -42,10 +42,10 @@ class Moderation(commands.Cog):
         if type_.lower() == "member":
 
             await ctx.send("Enter the @ of the member")
-            member = await self.client.wait_for("message", check=wfcheck)
+            member = await self.client.wait_for("message", timeout=300, check=wfcheck)
             member = member.content
             await ctx.send("Please give a short description about why you are reporting this person")
-            reason = await self.client.wait_for("message", check=wfcheck)
+            reason = await self.client.wait_for("message", check=wfcheck, timeout=300)
             reporter = reason.author
             reason = reason.content
             em.description = "Member Report"
@@ -58,7 +58,7 @@ class Moderation(commands.Cog):
         elif type_.lower() == "message":
 
             await ctx.send("Enter the id of the message")
-            messageid = await self.client.wait_for("message", check=wfcheck)
+            messageid = await self.client.wait_for("message", check=wfcheck, timeout=300)
             messageid = messageid.content
 
             try:
@@ -67,7 +67,7 @@ class Moderation(commands.Cog):
                 return
 
             await ctx.send("Please give a short description about why you are reporting this message")
-            reason = await self.client.wait_for("message", check=wfcheck)
+            reason = await self.client.wait_for("message", check=wfcheck, timeout=300)
             reporter = reason.author
             reason = reason.content
 
@@ -86,7 +86,7 @@ class Moderation(commands.Cog):
         elif type_.lower() == "bug":
 
             await ctx.send("Please give a short description about the issure/bug")
-            reason = await self.client.wait_for("message", check=wfcheck)
+            reason = await self.client.wait_for("message", check=wfcheck, timeout=300)
             reporter = reason.author
             reason = reason.content
             em.description = "Bug Report"

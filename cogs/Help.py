@@ -63,7 +63,7 @@ class Help(commands.Cog):
         if ctx.author.id in dev_ids:
 
             await ctx.send(embed=discord.Embed(title="Please enter the command name:"))
-            name = await self.client.wait_for("message", check=check)
+            name = await self.client.wait_for("message", check=check, timeout=300)
             name = str(name.content)
 
             for cmd in data:
@@ -72,15 +72,15 @@ class Help(commands.Cog):
                     return
 
             await ctx.send(embed=discord.Embed(title="Please enter the description:"))
-            desc = await self.client.wait_for("message", check=check)
+            desc = await self.client.wait_for("message", check=check, timeout=300)
             desc = str(desc.content)
 
             await ctx.send(embed=discord.Embed(title="Please enter the usage:"))
-            use = await self.client.wait_for("message", check=check)
+            use = await self.client.wait_for("message", check=check, timeout=300)
             use = str(use.content)
 
             await ctx.send(embed=discord.Embed(title="Please enter the category:"))
-            cat = await self.client.wait_for("message", check=check)
+            cat = await self.client.wait_for("message", check=check, timeout=300)
             cat = str(cat.content)
 
             help_command = {

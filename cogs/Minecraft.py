@@ -65,20 +65,21 @@ class Minecraft(commands.Cog):
             for user in users:
                 if user["id"] == ctx.author.id:
                     await ctx.send("You've already set you ign, Would you like to change it?\ny/n")
-                    confirm = await client.wait_for("message", check=wfcheck)
+                    confirm = await client.wait_for("message", check=wfcheck, timeout=300)
                     confirm = confirm.content
                     if confirm.lower() == "y":
-                        index = users.index(user)
-                        users.remove[index]
-                        confirm = True
-                        break
+                        await ctx.send("Enter your Minecraft ign:")
+                        ign = await client.wait_for("message", check=wfcheck, timeout=300)
+                        ign = str(ign.content)
+                        uuid = await get_uuid(ign)
+                        user["uuid"] = uuid
+                        with open('./database/igns.json', 'w') as f:
+                            json.dump(users, f, indent=4)
+                        return
                     else:
                         return
-        if confirm == True:
-            with open('./database/igns.json', 'w') as f:
-                json.dump(users, f, indent=4)
         await ctx.send("Enter your Minecraft ign:")
-        ign = await client.wait_for("message", check=wfcheck)
+        ign = await client.wait_for("message", check=wfcheck, timeout=300)
         ign = str(ign.content)
         uuid = await get_uuid(ign)
         user = {"id": ctx.author.id, "uuid": uuid}

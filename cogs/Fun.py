@@ -118,22 +118,22 @@ class Fun(commands.Cog):
         em = discord.Embed()
         if fields == "t":
             await ctx.send("Enter Title:", delete_after=2)
-            title = await self.client.wait_for("message", check=wfcheck)
+            title = await self.client.wait_for("message", check=wfcheck, timeout=300)
             await title.delete()
             em.title = title.content
         if fields == "d":
             await ctx.send("Enter Description:", delete_after=2)
-            desc = await self.client.wait_for("message", check=wfcheck)
+            desc = await self.client.wait_for("message", check=wfcheck, timeout=300)
             await desc.delete()
             em.description = desc.content
         if fields == "td":
             await ctx.send("Enter Title:", delete_after=2)
-            title = await self.client.wait_for("message", check=wfcheck)
+            title = await self.client.wait_for("message", check=wfcheck, timeout=300)
             await title.delete()
             em.title = title.content
 
             await ctx.send("Enter Description:", delete_after=2)
-            desc = await self.client.wait_for("message", check=wfcheck)
+            desc = await self.client.wait_for("message", check=wfcheck, timeout=300)
             await desc.delete()
             em.description = desc.content
 
@@ -143,11 +143,11 @@ class Fun(commands.Cog):
         else:
             for i in range(extra):
                 await ctx.send("Enter Name:", delete_after=2)
-                name = await self.client.wait_for("message", check=wfcheck)
+                name = await self.client.wait_for("message", check=wfcheck, timeout=300)
                 await name.delete()
 
                 await ctx.send("Enter Value:", delete_after=2)
-                value = await self.client.wait_for("message", check=wfcheck)
+                value = await self.client.wait_for("message", check=wfcheck, timeout=300)
                 await value.delete()
 
                 em.add_field(name=name.content, value=value.content)
