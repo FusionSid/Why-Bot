@@ -28,7 +28,7 @@ class Help(commands.Cog):
             if found == False:
                 return await ctx.send("Invalid category, Use `?help` to get a list of them")
             # loop thru all commands and show all with this category
-            with open('help.json') as f:
+            with open('./database/help.json') as f:
                 data = json.load(f)
             em = discord.Embed(title="Why Help:", description="Use `?help [command]` for more info on command")
             for i in data:
@@ -37,7 +37,7 @@ class Help(commands.Cog):
             await ctx.send(embed=em)
         else:
             # loop thru all command to find one that has the same name and show its info
-            with open('help.json') as f:
+            with open('./database/help.json') as f:
                 data = json.load(f)
             em = discord.Embed(title="Why Help:", description="Use `?help [command]` for more info on command")
             found = False
@@ -61,7 +61,7 @@ class Help(commands.Cog):
         def check(m):
             return m.channel == ctx.channel and m.author == ctx.author
 
-        with open("help.json") as f:
+        with open("./database/help.json") as f:
             data = json.load(f)
             
         if ctx.author.id in dev_ids:
@@ -95,7 +95,7 @@ class Help(commands.Cog):
             }
 
             data.append(help_command)
-            with open('help.json', 'w') as f:
+            with open('./database/help.json', 'w') as f:
                 json.dump(data, f, indent=4)
             
             await ctx.send(embed=discord.Embed(title=f"Command created successfully.", description="You can view it using `.help {name}`"))
@@ -105,22 +105,3 @@ class Help(commands.Cog):
 
 def setup(client):
     client.add_cog(Help(client))
-
-    
-
-
-
-@commands.command()
-async def help(self, ctx, command=None):
-    with open('help.json') as f:
-        data = json.load(f)
-
-    if command == None:
-        em = discord.Embed(title="Simplex Help:", description="Use `.help <command>` for more info on command")
-        for i in data:
-            em.add_field(name=i['name'], value=i["description"], inline=False)
-            await ctx.send(embed=em)
-            return
-    else:
-        
-        await ctx.send(embed=discord.Embed(title="Simplex Help:", description="Command not found. Use `.help` for a list of commands"))
