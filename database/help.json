@@ -1,1 +1,8 @@
-[]
+[
+    {
+        "name": "kick",
+        "description": "Kicks a user from the serber",
+        "usage": "`.kick @user`",
+        "category": "Moderation"
+    }
+]

@@ -11,9 +11,9 @@
     {
         "guild_id": 893653614990606346,
         "prefix": "?",
-        "counting_channel": null,
-        "log_channel": null,
-        "welcome_channel": null,
+        "counting_channel": 898379052321218630,
+        "log_channel": 899463777513271379,
+        "welcome_channel": 894090935317708820,
         "warnings": {},
         "settings": {}
     },
