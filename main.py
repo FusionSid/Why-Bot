@@ -31,7 +31,7 @@ client = commands.Bot(command_prefix=get_prefix,
 
 
 async def update_activity():
-    await client.change_presence(activity=discord.Game(f"On {len(client.guilds)} guilds! | ?help"))
+    await client.change_presence(activity=discord.Game(f"On {len(client.guilds)} servers! | ?help"))
     print("Updated presence")
 
 

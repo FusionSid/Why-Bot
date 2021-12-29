@@ -4,6 +4,7 @@ from discord.ext import commands
 from discord.ext.commands.core import command
 from discord import Option
 from discord.commands import slash_command
+import psutil
 
 
 class Other(commands.Cog):
@@ -20,33 +21,21 @@ class Other(commands.Cog):
         await ctx.send(embed=discord.Embed(title="Invite **Why?** to your server:", description="https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands"))
 
     @commands.command()
-    async def info(self, ctx, cat, member: discord.Member = None):
-        if cat.lower() == 'person':
-            if member == None:
-                return await ctx.send("?info person <@person>\nYou didnt @ the member")
-            roles = [role for role in member.roles]
-            em = discord.Embed(title="Person Info",
-                               description=f"For: {member.name}")
-            em.add_field(name="ID:", value=member.id)
-            em.set_thumbnail(url=member.avatar.url)
-            em.add_field(name="Created Account:", value=member.created_at.strftime(
-                "%a, %#d, %B, %Y, #I:%M %p UTC"))
-            em.add_field(name="Joined Server:", value=member.joined_at.strftime(
-                "%a, %#d, %B, %Y, #I:%M %p UTC"))
-            em.add_field(name=f"Roles ({len(roles)}):", value="\ ".join(
-                role.mention for role in roles))
-            await ctx.send(embed=em)
-
-        if cat.lower() == 'server':
-            role_count = len(ctx.guild.roles)
-            list_of_bots = [
-                bot.mention for bot in ctx.guild.members if bot.bot]
-            em = discord.Embed(
-                title="Server Info:", description=f"For: {ctx.guild.name}", color=ctx.author.color)
-            em.add_field(name="Member Count:", value=ctx.guild.member_count)
-            em.add_field(name="Number of roles:", value=str(role_count))
-            em.add_field(name="Bots", value=", ".join(list_of_bots))
-            await ctx.send(embed=em)
+    async def info(self, ctx, member: discord.Member = None):
+        if member == None:
+            return await ctx.send("?info person <@person>\nYou didnt @ the member")
+        roles = [role for role in member.roles]
+        em = discord.Embed(title="Person Info",
+                            description=f"For: {member.name}")
+        em.add_field(name="ID:", value=member.id)
+        em.set_thumbnail(url=member.avatar.url)
+        em.add_field(name="Created Account:", value=member.created_at.strftime(
+            "%a, %#d, %B, %Y, #I:%M %p UTC"))
+        em.add_field(name="Joined Server:", value=member.joined_at.strftime(
+            "%a, %#d, %B, %Y, #I:%M %p UTC"))
+        em.add_field(name=f"Roles ({len(roles)}):", value=" ".join(
+            role.mention for role in roles))
+        await ctx.send(embed=em)
 
     @commands.command(aliases=['sug'])
     async def suggest(self, ctx, *, suggestion):
@@ -58,6 +47,27 @@ class Other(commands.Cog):
     async def ping(self, ctx):
         await ctx.send(f"Pong! jk\n{round(self.client.latency * 1000)}ms")
 
+    @commands.command()
+    async def serverinfo(self, ctx):
+        role_count = len(ctx.guild.roles)
+        list_of_bots = [
+            bot.mention for bot in ctx.guild.members if bot.bot]
+        em = discord.Embed(
+            title="Server Info:", description=f"For: {ctx.guild.name}", color=ctx.author.color)
+        em.add_field(name="Member Count:", value=ctx.guild.member_count)
+        em.add_field(name="Number of roles:", value=str(role_count))
+        em.add_field(name="Bots", value=", ".join(list_of_bots))
+        await ctx.send(embed=em)
+    
+    @commands.command()
+    async def botinfo(self, ctx):
+        em = discord.Embed(title = 'Why Bot', description = 'just why?')
+        em.add_field(name="Server Count", value=f"{len(self.client.guilds)}")
+        em.add_field(name="Ping", value=f"{round(self.client.latency * 1000)}")
+        em.add_field(name = 'CPU Usage', value = f'{psutil.cpu_percent()}%', inline = False)
+        em.add_field(name = 'Memory Usage', value = f'{psutil.virtual_memory().percent}%', inline = False)
+        em.add_field(name = 'Available Memory', value = f'{psutil.virtual_memory().available * 100 / psutil.virtual_memory().total}%', inline = False)
+        await ctx.send(embed = em)
 
 def setup(client):
     client.add_cog(Other(client))

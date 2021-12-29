@@ -4,5 +4,11 @@
         "description": "Kicks a user from the serber",
         "usage": "`.kick @user`",
         "category": "Moderation"
+    },
+    {
+        "name": "play",
+        "description": "Plays a song",
+        "usage": "`?play [song/song url]`",
+        "category": "Music"
     }
 ]

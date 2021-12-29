@@ -96,6 +96,7 @@ class Slash(commands.Cog):
     async def dm(self, ctx, member: Option(discord.Member, "The person you want to dm", required=True), message: Option(str, 'The message', required=True)):
         embeddm = discord.Embed(title=message)
         await member.send(embed=embeddm)
+        await ctx.respond("Done")
 
     @slash_command(name="sendroast", description="the bot sends someone a roast")
     async def sendroast(self, ctx, member: Option(discord.Member, "The person you want to roast", required=True)):
@@ -103,6 +104,7 @@ class Slash(commands.Cog):
         embeddm = discord.Embed(
             title=message, description="Imagine being roasted by a bot")
         await member.send(embed=embeddm)
+        await ctx.respond("Done")
 
     @slash_command(name="say", description="The bot says what you want")
     async def say(self, ctx, text: Option(str, "The text", required=True)):
