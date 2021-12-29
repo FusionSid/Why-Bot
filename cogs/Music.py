@@ -607,6 +607,7 @@ class Music(commands.Cog):
         if len(data[f"{ctx.author.id}"][pname]):
             for song in data[f"{ctx.author.id}"][pname]:
                 await playy(ctx, video=song)
+                await asyncio.sleep(3)
         else:
             await ctx.send("List is empty use ?add [song]")
 
