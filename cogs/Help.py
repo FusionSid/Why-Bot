@@ -13,11 +13,12 @@ class Help(commands.Cog):
         em = discord.Embed(title="Why Help")
         cats = ["economy", "fun", "reddit", "google", "minecraft", "moderation", "music", "slash", "text", "ticket", "utilities", "other"]
         if cmd is None:
-            em.add_field(name="`?help [category]`", value="Lists all commands in that category")
-            em.add_field(name="`?help [command]`", value="Give information about a specific command")
-            em.add_field(name="Useful Commands:", value="`/set`, `?settings`, `?setprefix`")
-            em.add_field(name="Why Support Server", value="https://discord.gg/8fJaesY8SR")
-            em.add_field(name="Categories:", value="Economy, Fun, Reddit, Google, Minecraft, Moderation, Music. Slash, Text, Ticket, Utilities and Other")
+            em.add_field(inline=True,name="`?help [category]`", value="Lists all commands in that category")
+            em.add_field(inline=True,name="`?help [command]`", value="Give information about a specific command")
+            em.add_field(inline=True,name="Useful Commands:", value="`/set`, `?settings`, `?setprefix`")
+            em.add_field(inline=True,name="Why Support Server", value="https://discord.gg/8fJaesY8SR")
+            em.set_footer(text="Defauly prefix is `?` might be different for you")
+            em.add_field(inline=True,name="Categories:", value="Economy, Fun, Reddit, Google, Minecraft, Moderation, Music. Slash, Text, Ticket, Utilities and Other")
             return await ctx.send(embed=em)
         elif cmd.lower() in cats:
             for i in cats:
