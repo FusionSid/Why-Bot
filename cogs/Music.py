@@ -206,24 +206,8 @@ async def playy(ctx, video=None):
             options=ffmpeg_options["options"]
             # calling the check_new_songs function after playing the current music
         ), after=lambda a: check_new_songs(ctx.guild.id, vc))
-    except discord.errors.ClientException:
+    except:
         pass
-
-    # Adding embed, depending on the queue
-    if len(queues[ctx.guild.id]) != 1:
-        embed = discord.Embed(
-            title="Queue",
-            description=f"🔎 Searching for `{video_search}`\n\n" +
-            f"""✅ [{video_title}]({video_url}) - successfully added to queue.""",
-            color=0x515596)
-    else:
-        embed = discord.Embed(
-            title="Now playing",
-            description=f"✅ Successfully joined to `{channel}`\n\n" +
-            f"🔎 Searching for `{video_search}`\n\n" +
-            f"""▶️ Now playing - [{video_title}]({video_url})""",
-            color=0x515596)
-
 
 class Music(commands.Cog):
     def __init__(self, client):
@@ -606,8 +590,11 @@ class Music(commands.Cog):
             return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description='Use ?createplaylist [name] to create one'))
         if len(data[f"{ctx.author.id}"][pname]):
             for song in data[f"{ctx.author.id}"][pname]:
-                await playy(ctx, video=song)
-                await asyncio.sleep(3)
+                try:
+                  await playy(ctx, video=song)
+                except Exception as e:
+                  print(e)
+                await asyncio.sleep(0.5)
         else:
             await ctx.send("List is empty use ?add [song]")
 

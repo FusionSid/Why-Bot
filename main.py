@@ -278,15 +278,7 @@ async def on_command_error(ctx, error):
             description="You don't have permissions to use this commands",
         )
         await ctx.send(embed=em)
-
-
-@client.command()
-async def setupallserversjustincase(ctx):
-    servers = list(client.guilds)
-    for i in servers:
-        print(i)
-        await startguildsetup(i.id)
-
+      
 # Start the bot
 
 
