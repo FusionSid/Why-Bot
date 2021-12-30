@@ -190,14 +190,16 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_channels=True)
     async def clear(self, ctx, amount: int=10):
-      if amount > 10:
-        amount = 10
+      if amount > 15:
+        amount = 15
         await ctx.channel.purge(limit=amount+1)
-        channel = await get_log_channel(self, ctx)
-        if channel != False:
-            return await channel.send(embed=discord.Embed(title="Message Clear", description=f"***{amount}*** messages have been cleared from ***{ctx.channel.name}***"))
-        else:
-            pass
+      else:
+        await ctx.channel.purge(limit=amount+1)
+      channel = await get_log_channel(self, ctx)
+      if channel != False:
+          return await channel.send(embed=discord.Embed(title="Message Clear", description=f"***{amount}*** messages have been cleared from ***{ctx.channel.name}***"))
+      else:
+          pass
 
 
     @commands.command()

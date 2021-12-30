@@ -7,6 +7,10 @@ from discord import Option
 import json
 import random
 
+cogs = ["Economy", "Fun", "Fusion", "Google", "Help", "Minecraft", "Moderation", "Music", "Other", "Reddit", "Slash", "TextConvert", "Ticket", "Utilities"]
+
+def is_it_me(ctx):
+    return ctx.author.id == 624076054969188363
 
 async def get_roast():
     with open('./database/roastlist.json') as f:
@@ -129,6 +133,13 @@ class Slash(commands.Cog):
     async def ping(self, ctx):
         await ctx.respond(f"{round(self.client.latency * 1000)}ms")
 
+    @slash_command(name="reload", description="reloads a cog")
+    @commands.check(is_it_me)
+    async def reload(self, ctx, extension:Option(str, "Cog Name", required=True, choices=cogs)):
+        self.client.reload_extension(f"cogs.{extension}")
+        embed = discord.Embed(
+            title='Reload', description=f'{extension} successfully reloaded', color=0xff00c8)
+        await ctx.respond(embed=embed)
 
 def setup(client):
     client.add_cog(Slash(client))

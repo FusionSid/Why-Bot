@@ -59,6 +59,7 @@ class Fusion(commands.Cog):
         embed = discord.Embed(
             title='Reload', description=f'{extension} successfully reloaded', color=0xff00c8)
         await ctx.send(embed=embed)
+  
 
     @commands.command()
     @commands.check(is_it_me)

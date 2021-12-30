@@ -27,6 +27,8 @@ Flask = "^2.0.2"
 discord = "^1.7.3"
 pycord = {extras = ["voice"], version = "^0.1.1"}
 typing-extensions = "^4.0.1"
+psutil = "^5.9.0"
+easy-pil = "^0.1.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
