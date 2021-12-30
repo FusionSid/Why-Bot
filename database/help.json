@@ -2,7 +2,7 @@
     {
         "name": "kick",
         "description": "Kicks a user from the serber",
-        "usage": "`.kick @user`",
+        "usage": "`?kick @[user]`",
         "category": "Moderation"
     },
     {
@@ -10,5 +10,347 @@
         "description": "Plays a song",
         "usage": "`?play [song/song url]`",
         "category": "Music"
+    },
+    {
+        "name": "rps",
+        "description": "Rock Paper Scissors",
+        "usage": "`?rps [rock/paper/scissors]`",
+        "category": "Fun"
+    },
+    {
+        "name": "roast",
+        "description": "Bot roasts you",
+        "usage": "`?roast`",
+        "category": "Fun"
+    },
+    {
+        "name": "dm",
+        "description": "Bot sends a dm on your behalf",
+        "usage": "`?dm @[person] [message]`",
+        "category": "Fun"
+    },
+    {
+        "name": "sendroast",
+        "description": "Bot sends a roast to someone",
+        "usage": "`?sendroast @[person]]`",
+        "category": "Fun"
+    },
+    {
+        "name": "8ball",
+        "description": "Asks the magical ball a question",
+        "usage": "`?8ball [question]`",
+        "category": "Fun"
+    },
+    {
+        "name": "numrn",
+        "description": "Displays the current number for the counting game",
+        "usage": "`?numrn`",
+        "category": "Fun"
+    },
+    {
+        "name": "yesorno",
+        "description": "Asks a yes or no poll",
+        "usage": "`?yesorno [question]`",
+        "category": "Fun"
+    },
+    {
+        "name": "poll",
+        "description": "Makes a poll that lasts for a cetain amount of time and then shows the results",
+        "usage": "`?poll [seconds] '[question]' [each answer followed by a comma]`",
+        "category": "Fun"
+    },
+    {
+        "name": "imagesearch",
+        "description": "Searches google for an image",
+        "usage": "`?imagesearch [query]`",
+        "category": "Google"
+    },
+    {
+        "name": "youtube",
+        "description": "Finds youtube videos",
+        "usage": "`?youtube [query]`",
+        "category": "Google"
+    },
+    {
+        "name": "getuuid",
+        "description": "Returns the uuid of the player using the ign",
+        "usage": "`?uuid [ign]`",
+        "category": "Minecraft"
+    },
+    {
+        "name": "setign",
+        "description": "Sets your ign for all the other minecraft commands",
+        "usage": "`?setign [ign]`",
+        "category": "Minecraft"
+    },
+    {
+        "name": "hystats",
+        "description": "Gives some stats about your hypixel account",
+        "usage": "`?hystats [ign(unless you setign)]`",
+        "category": "Minecraft"
+    },
+    {
+        "name": "bwstats",
+        "description": "Gives some hypixel bedwars stats",
+        "usage": "`?bwstats [ign(unless you setign)]`",
+        "category": "Minecraft"
+    },
+    {
+        "name": "report",
+        "description": "Reports a message/person/bug",
+        "usage": "`?report [message/member/bug]`",
+        "category": "Moderation"
+    },
+    {
+        "name": "giverole",
+        "description": "gives a roll to a person",
+        "usage": "`?giverole @[role] @[person]`",
+        "category": "Moderation"
+    },
+    {
+        "name": "takerole",
+        "description": "Removes a role from a person",
+        "usage": "`?takerole @[role] @[member]`",
+        "category": "Moderation"
+    },
+    {
+        "name": "ban",
+        "description": "Bans a person",
+        "usage": "`?ban @[person]`",
+        "category": "Moderation"
+    },
+    {
+        "name": "lockdown",
+        "description": "puts the channel into lockdown (stops messages)",
+        "usage": "`?lockdown [channel(optional)]`",
+        "category": "Moderation"
+    },
+    {
+        "name": "unlock",
+        "description": "Stops a channel from lockdown",
+        "usage": "`?unlock [channel(optional)]`",
+        "category": "Moderation"
+    },
+    {
+        "name": "clear",
+        "description": "deletes messages",
+        "usage": "`?clear [amount]`",
+        "category": "Moderation"
+    },
+    {
+        "name": "reactrole",
+        "description": "makes a message which upon reacting to give you a role",
+        "usage": "`?reactrole [emoji] @[role] [message-text]`",
+        "category": "Moderation"
+    },
+    {
+        "name": "makechannel",
+        "description": "Makes a discord text channel",
+        "usage": "`?makechannel [name]`",
+        "category": "Moderation"
+    },
+    {
+        "name": "makevc",
+        "description": "Makes a vc",
+        "usage": "`?makevc [limit] [name]`",
+        "category": "Moderation"
+    },
+    {
+        "name": "warn",
+        "description": "Warns a person",
+        "usage": "`?warn @[user] [reason]`",
+        "category": "Moderation"
+    },
+    {
+        "name": "warnings",
+        "description": "Shows the warnings that a person has",
+        "usage": "`?warnings @[person]`",
+        "category": "Moderation"
+    },
+    {
+        "name": "nickname",
+        "description": "Sets a users nick",
+        "usage": "`?nickname @[person] [nick]`",
+        "category": "Moderation"
+    },
+    {
+        "name": "slowmode",
+        "description": "Sets a channel to slowmode",
+        "usage": "`?slowmode [seconds]`",
+        "category": "Moderation"
+    },
+    {
+        "name": "rslowmode",
+        "description": "Reverses and stops slowmode",
+        "usage": "`?rslowmode`",
+        "category": "Moderation"
+    },
+    {
+        "name": "pin",
+        "description": "Pins a message",
+        "usage": "`?pin [messageid]`",
+        "category": "Moderation"
+    },
+    {
+        "name": "unpin",
+        "description": "Unpins a message",
+        "usage": "`?unpin [messageid]`",
+        "category": "Moderation"
+    },
+    {
+        "name": "removereactions",
+        "description": "Removes reactions from a message",
+        "usage": "`?removereactions [messageid]`",
+        "category": "Moderation"
+    },
+    {
+        "name": "invite",
+        "description": "Makes an invite for the server",
+        "usage": "`?invite`",
+        "category": "Other"
+    },
+    {
+        "name": "botinvite",
+        "description": "Gives you a link to get the bot",
+        "usage": "`?botinvite`",
+        "category": "Other"
+    },
+    {
+        "name": "info",
+        "description": "Gives info about a person",
+        "usage": "`?info @[person]`",
+        "category": "Other"
+    },
+    {
+        "name": "suggest",
+        "description": "makes a suggestion",
+        "usage": "`?suggest [suggestion]`",
+        "category": "Other"
+    },
+    {
+        "name": "botinfo",
+        "description": "Gives info about the bot",
+        "usage": "`?botinfo`",
+        "category": "Other"
+    },
+    {
+        "name": "redditimg",
+        "description": "Searches a subreddit for an image",
+        "usage": "`?redditimg [subreddit]`",
+        "category": "Reddit"
+    },
+    {
+        "name": "meme",
+        "description": "Gives a nice meme",
+        "usage": "`?meme`",
+        "category": "Reddit"
+    },
+    {
+        "name": "reddit",
+        "description": "Finds some reddit posts from a subreddit",
+        "usage": "`?reddit [subreddit]`",
+        "category": "Reddit"
+    },
+    {
+        "name": "drunkify",
+        "description": "dRuNKifYs text",
+        "usage": "`?drunkify [text]`",
+        "category": "Text"
+    },
+    {
+        "name": "expand",
+        "description": "E x p a n d s text",
+        "usage": "`?expand [text]`",
+        "category": "Text"
+    },
+    {
+        "name": "reverse",
+        "description": "esrever (reverses) text",
+        "usage": "`?reverse [text]`",
+        "category": "Text"
+    },
+    {
+        "name": "texttohex",
+        "description": "Converts text to hex",
+        "usage": "`?texttohex [text]`",
+        "category": "Text"
+    },
+    {
+        "name": "hextotext",
+        "description": "Converts hex to text",
+        "usage": "`?hexttotext [hex]`",
+        "category": "Text"
+    },
+    {
+        "name": "texttobinary",
+        "description": "Converts text to binary",
+        "usage": "`?texttobinary [text]`",
+        "category": "Text"
+    },
+    {
+        "name": "binarytotext",
+        "description": "Converts binary to text",
+        "usage": "`?binarytotext [binary]`",
+        "category": "Text"
+    },
+    {
+        "name": "emojify",
+        "description": "converts text to emojis",
+        "usage": "`?emojify [text]`",
+        "category": "Text"
+    },
+    {
+        "name": "calculator",
+        "description": "Calculates a math equation",
+        "usage": "`?calculator [num1] [operator] [num2]`",
+        "category": "Utilities"
+    },
+    {
+        "name": "qrcode",
+        "description": "Makes a link into a qrcode",
+        "usage": "`?qrcode [link]`",
+        "category": "Utilities"
+    },
+    {
+        "name": "Slash Commands",
+        "description": "A bunch of slash commands",
+        "usage": "`type / to get a list`",
+        "category": "Slash"
+    },
+    {
+        "name": "newticket",
+        "description": "Makes a ticket",
+        "usage": "`?newticket`",
+        "category": "Ticket"
+    },
+    {
+        "name": "closeticket",
+        "description": "Closes a ticket, Only works in a ticket",
+        "usage": "`?closeticket`",
+        "category": "Ticket"
+    },
+    {
+        "name": "addaccess",
+        "description": "Gives a role access to a ticket",
+        "usage": "`?addaccess [roleid]`",
+        "category": "Ticket"
+    },
+    {
+        "name": "delaccess",
+        "description": "Removes a role from accessing a ticket",
+        "usage": "`?delaccess [roleid]`",
+        "category": "Ticket"
+    },
+    {
+        "name": "addadminrole",
+        "description": "Add an admin role",
+        "usage": "`?addadminrole [roleid]`",
+        "category": "Ticket"
+    },
+    {
+        "name": "deladminrole",
+        "description": "Removes admin role for tickets",
+        "usage": "`?deladminrole [roleid]`",
+        "category": "Ticket"
     }
 ]
