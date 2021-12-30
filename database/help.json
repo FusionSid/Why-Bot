@@ -352,5 +352,83 @@
         "description": "Removes admin role for tickets",
         "usage": "`?deladminrole [roleid]`",
         "category": "Ticket"
+    },
+    {
+        "name": "join",
+        "description": "Bot joins the vc",
+        "usage": "`?join`",
+        "category": "Music"
+    },
+    {
+        "name": "skip",
+        "description": "Skips a song",
+        "usage": "`?skip`",
+        "category": "Music"
+    },
+    {
+        "name": "leave",
+        "description": "Bot leaves the vc",
+        "usage": "`?leave`",
+        "category": "Music"
+    },
+    {
+        "name": "pause",
+        "description": "Paused current song",
+        "usage": "`?pause`",
+        "category": "Music"
+    },
+    {
+        "name": "resume",
+        "description": "Resumes song",
+        "usage": "`?resume`",
+        "category": "Music"
+    },
+    {
+        "name": "queue",
+        "description": "Lists the songs in the queue",
+        "usage": "`?queue`",
+        "category": "Music"
+    },
+    {
+        "name": "loop",
+        "description": "Loops song/queue",
+        "usage": "`?loop`",
+        "category": "Music"
+    },
+    {
+        "name": "creatplaylist",
+        "description": "Creates a music playlist",
+        "usage": "`?createplaylist [name]`",
+        "category": "Music"
+    },
+    {
+        "name": "padd",
+        "description": "Adds song to a playlist",
+        "usage": "`?padd [playlistname] [song/url]`",
+        "category": "Music"
+    },
+    {
+        "name": "playlist",
+        "description": "Plays songs from a playlist",
+        "usage": "`?playlist [playlist name]`",
+        "category": "Music"
+    },
+    {
+        "name": "pdel",
+        "description": "Deletes song from a playlist",
+        "usage": "`?pdel [playlist name]`",
+        "category": "Music"
+    },
+    {
+        "name": "plist",
+        "description": "Lists songs in a playlist",
+        "usage": "`?plist [playlist name]`",
+        "category": "Music"
+    },
+    {
+        "name": "tts",
+        "description": "Bot speaks text in vc",
+        "usage": "`?tts [text]`",
+        "category": "Music"
     }
 ]

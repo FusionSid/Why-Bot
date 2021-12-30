@@ -432,7 +432,7 @@ async def on_message(message):
 
 @client.event
 async def on_command_error(ctx, error):
-    cha = client.get_channel(896932591620464690)
+    cha = client.fetch_channel(896932591620464690)
     await cha.send(embed=discord.Embed(title="ERROR", description=error))
 
     if isinstance(error, commands.CommandOnCooldown):
