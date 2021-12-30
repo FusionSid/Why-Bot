@@ -1,1 +1,29 @@
-[{"guild_id": 763348615233667082, "prefix": "?", "counting_channel": 897289768621211719, "log_channel": 925513395883606129, "welcome_channel": 897289727663812608, "warnings": {}, "settings": {}}, {"guild_id": 893653614990606346, "prefix": "?", "counting_channel": 898379052321218630, "log_channel": 899463777513271379, "welcome_channel": 894090935317708820, "warnings": {}, "settings": {}}, {"guild_id": 920807731961679913, "prefix": "?", "counting_channel": null, "log_channel": null, "welcome_channel": null, "warnings": {}, "settings": {}}]
+[
+  {
+    "guild_id": 763348615233667082,
+    "prefix": ">",
+    "counting_channel": 897289768621211719,
+    "log_channel": 925513395883606129,
+    "welcome_channel": 897289727663812608,
+    "warnings": {},
+    "settings": {}
+  },
+  {
+    "guild_id": 893653614990606346,
+    "prefix": "?",
+    "counting_channel": 898379052321218630,
+    "log_channel": 899463777513271379,
+    "welcome_channel": 894090935317708820,
+    "warnings": {},
+    "settings": {}
+  },
+  {
+    "guild_id": 920807731961679913,
+    "prefix": "?",
+    "counting_channel": null,
+    "log_channel": null,
+    "welcome_channel": null,
+    "warnings": {},
+    "settings": {}
+  }
+]

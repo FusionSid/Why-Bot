@@ -74,5 +74,11 @@ class Fusion(commands.Cog):
         for guild in self.client.guilds:
             await guild.text_channels[0].send(message)
 
+    @commands.command()
+    @commands.check(is_it_me)
+    async def dmreply(self, ctx, id:int, *, msg):
+        person = await self.client.fetch_user(id)
+        await person.send(msg)
+
 def setup(client):
     client.add_cog(Fusion(client))

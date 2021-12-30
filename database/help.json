@@ -430,5 +430,11 @@
         "description": "Bot speaks text in vc",
         "usage": "`?tts [text]`",
         "category": "Music"
+    },
+    {
+        "name": "mp3",
+        "description": "Plays an mp3 file in vc",
+        "usage": "`?mp3 (drag and drop the mp3 file in or add as an attachment)`",
+        "category": "Music"
     }
 ]

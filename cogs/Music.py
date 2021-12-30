@@ -714,7 +714,8 @@ class Music(commands.Cog):
         guild = ctx.guild
         voice_client: discord.VoiceClient = discord.utils.get(
             self.client.voice_clients, guild=guild)
-        
+        if len(ctx.message.attachments) == 0:
+            return await ctx.send("You must provide an mp3 file for this to work")
         attachment_url = ctx.message.attachments[0].url
         if attachment_url.endswith(".mp3"):
             pass

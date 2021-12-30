@@ -2,6 +2,7 @@ import math
 import json
 import sys
 import sqlite3
+from discord.channel import DMChannel
 from discordLevelingSystem import DiscordLevelingSystem, RoleAward, LevelUpAnnouncement
 import os
 from os import listdir
@@ -19,12 +20,14 @@ dotenv.load_dotenv()
 
 
 async def get_prefix(client, message):
-    with open('database/db.json') as f:
-        data = json.load(f)
-    for i in data:
-        if i['guild_id'] == message.guild.id:
-            return i['prefix']
-    return "?"
+    try:
+        with open('database/db.json') as f:
+            data = json.load(f)
+        for i in data:
+            if i['guild_id'] == message.guild.id:
+                return i['prefix']
+    except:
+        return "?"
 
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix=get_prefix,
@@ -397,7 +400,7 @@ async def counting(msg, guild, channel):
 
 # Blacklist system
 async def notblacklisted(message):
-    with open("blacklisted.json") as f:
+    with open("database/blacklisted.json") as f:
         blacklisted = json.load(f)  # Check if blacklisted
     for user in blacklisted:
         if message.author.id == user:
@@ -410,6 +413,10 @@ async def notblacklisted(message):
 async def on_message(message):
     if message.author == client.user:
         return  # if bot - no
+
+    if isinstance(message.channel, DMChannel):
+        cha = await client.fetch_channel(926232260166975508)
+        msg = await cha.send(f"{message.content}\n{message.author.id}")
 
     # Fome variables that come in useful later
     channel = message.channel
@@ -428,7 +435,6 @@ async def on_message(message):
             await client.process_commands(message)
     except:
         await client.process_commands(message)
-
 
 @client.event
 async def on_command_error(ctx, error):

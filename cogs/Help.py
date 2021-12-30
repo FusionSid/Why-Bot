@@ -13,12 +13,12 @@ class Help(commands.Cog):
         em = discord.Embed(title="Why Help")
         cats = ["economy", "fun", "reddit", "google", "minecraft", "moderation", "music", "slash", "text", "ticket", "utilities", "other"]
         if cmd is None:
-            em.add_field(inline=True,name="`?help [category]`", value="Lists all commands in that category")
-            em.add_field(inline=True,name="`?help [command]`", value="Give information about a specific command")
-            em.add_field(inline=True,name="Useful Commands:", value="`/set`, `?settings`, `?setprefix`")
-            em.add_field(inline=True,name="Why Support Server", value="https://discord.gg/8fJaesY8SR")
+            em.add_field(inline=False,name="`?help [category]`", value="Lists all commands in that category")
+            em.add_field(inline=False,name="`?help [command]`", value="Give information about a specific command")
+            em.add_field(inline=False,name="Useful Commands:", value="`/set`, `?settings`, `?setprefix`")
+            em.add_field(inline=False,name="Why Support Server", value="https://discord.gg/8fJaesY8SR")
             em.set_footer(text="Defauly prefix is ? might be different for you")
-            em.add_field(inline=True,name="Categories:", value="Economy, Fun, Reddit, Google, Minecraft, Moderation, Music. Slash, Text, Ticket, Utilities and Other")
+            em.add_field(inline=False,name="Categories:", value="Economy, Fun, Reddit, Google, Minecraft, Moderation, Music. Slash, Text, Ticket, Utilities and Other")
             return await ctx.send(embed=em)
         elif cmd.lower() in cats:
             for i in cats:
@@ -30,7 +30,7 @@ class Help(commands.Cog):
             em = discord.Embed(title="Why Help:", description="Use `?help [command]` for more info on command")
             for i in data:
                 if i['category'].lower() == category.lower():
-                    em.add_field(inline=True,name=i["name"], value=i["description"])
+                    em.add_field(inline=False,name=i["name"], value=i["description"])
             em.set_footer(text="Defauly prefix is ? might be different for you")
             await ctx.send(embed=em)
         else:
@@ -42,10 +42,10 @@ class Help(commands.Cog):
             for i in data:
                 if i["name"] == cmd.lower():
                     found = True
-                    em.add_field(inline=True,name="Name: ", value=i["name"])
-                    em.add_field(inline=True,name="Description: ", value=i["description"])
-                    em.add_field(inline=True,name="Usage: ", value=i["usage"])
-                    em.add_field(inline=True,name="Category: ", value=i["category"])
+                    em.add_field(inline=False,name="Name: ", value=i["name"])
+                    em.add_field(inline=False,name="Description: ", value=i["description"])
+                    em.add_field(inline=False,name="Usage: ", value=i["usage"])
+                    em.add_field(inline=False,name="Category: ", value=i["category"])
                     em.set_footer(text="Defauly prefix is ? might be different for you")
 
                     return await ctx.send(embed=em)
@@ -97,7 +97,7 @@ class Help(commands.Cog):
             with open('./database/help.json', 'w') as f:
                 json.dump(data, f, indent=4)
             
-            await ctx.send(embed=discord.Embed(title=f"Command created successfully.", description="You can view it using `.help {name}`"))
+            await ctx.send(embed=discord.Embed(title=f"Command created successfully.", description="You can view it using `?help {name}`"))
 
         else:
             await ctx.send("You dont have permission to use this command")
