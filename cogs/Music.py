@@ -1,4 +1,5 @@
 import discord
+import shutil
 import wget
 import requests
 import asyncio
@@ -719,7 +720,12 @@ class Music(commands.Cog):
             pass
         else:
             return await ctx.send("Must be an mp3 file")
-        filename = wget.download(url=str(attachment_url))
+        r = requests.get(attachment_url, stream=True)
+        filename=f"./tempstorage/{ctx.author.id}.mp3"
+        if r.status_code == 200:
+            with open(f"./tempstorage/{ctx.author.id}.mp3", 'wb') as f:
+                r.raw.decode_content = True
+                shutil.copyfileobj(r.raw, f)
         audio_source = discord.FFmpegPCMAudio(filename)
         if not voice_client.is_playing():
             voice_client.play(audio_source, after=None)

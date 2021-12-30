@@ -596,7 +596,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "py-cord"
-version = "2.0.0a4706+g758ff5f1"
+version = "2.0.0a4716+g51d110ba"
 description = "A Python wrapper for the Discord API"
 category = "main"
 optional = false
@@ -615,7 +615,7 @@ voice = ["PyNaCl (>=1.3.0,<1.5)"]
 type = "git"
 url = "https://github.com/Pycord-Development/pycord"
 reference = "master"
-resolved_reference = "758ff5f19ba6948e9abfd5670ec8d6786d707c7d"
+resolved_reference = "51d110ba7666862e26ee923a3a07215cb054acd4"
 
 [[package]]
 name = "pyasn1"
@@ -2767,6 +2767,14 @@ python-versions = ">=3.6"
 watchdog = ["watchdog"]
 
 [[package]]
+name = "wget"
+version = "3.2"
+description = "pure python download utility"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "yarl"
 version = "1.7.2"
 description = "Yet another URL library"
@@ -2800,7 +2808,7 @@ httpx = ">=0.14.2"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "656da880adbdf02bb51c61e485ca3afbb1f2a5f78ebbfcd19c50887f0864f275"
+content-hash = "ca607e7a48289e8a8f3dd04e438c575e7e230711e4a71c3c994f0de05a2928a2"
 
 [metadata.files]
 aiohttp = [
@@ -4281,6 +4289,9 @@ websocket-client = [
 werkzeug = [
     {file = "Werkzeug-2.0.2-py3-none-any.whl", hash = "sha256:63d3dc1cf60e7b7e35e97fa9861f7397283b75d765afcaefd993d6046899de8f"},
     {file = "Werkzeug-2.0.2.tar.gz", hash = "sha256:aa2bb6fc8dee8d6c504c0ac1e7f5f7dc5810a9903e793b6f715a9f015bdadb9a"},
+]
+wget = [
+    {file = "wget-3.2.zip", hash = "sha256:35e630eca2aa50ce998b9b1a127bb26b30dfee573702782aa982f875e3f16061"},
 ]
 yarl = [
     {file = "yarl-1.7.2-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:f2a8508f7350512434e41065684076f640ecce176d262a7d54f0da41d99c5a95"},

@@ -29,6 +29,7 @@ pycord = {extras = ["voice"], version = "^0.1.1"}
 typing-extensions = "^4.0.1"
 psutil = "^5.9.0"
 easy-pil = "^0.1.3"
+wget = "^3.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
