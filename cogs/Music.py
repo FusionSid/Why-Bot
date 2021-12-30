@@ -5,9 +5,7 @@ import youtube_dl
 from youtubesearchpython import VideosSearch
 from multiprocessing import Pool
 import os
-import platform
 import discord.voice_client
-import nacl
 import json
 from gtts import gTTS
 from mutagen.mp3 import MP3
@@ -667,7 +665,7 @@ class Music(commands.Cog):
         guild = ctx.guild
         voice_client: discord.VoiceClient = discord.utils.get(
             self.client.voice_clients, guild=guild)
-        audio_source = discord.FFmpegPCMAudio(f'{name}.mp3')
+        audio_source = discord.FFmpegPCMAudio(f'./tempstorage/{name}.mp3')
         if not voice_client.is_playing():
             voice_client.play(audio_source, after=None)
         else:
