@@ -407,6 +407,35 @@ async def notblacklisted(message):
             return False
     return True  # If notblacklisted return true else return false
 
+async def update_user_db(user):
+    with open("database/userdb.json") as f:
+        data = json.load(f)
+    found = False
+    for i in data:
+        if i['user_id'] == user:
+            found = True
+            return
+    if found == False:
+        user_data = [
+            {
+                "user_id":user,
+                "command_count":0,
+                "settings":{}
+            }
+        ]
+        data.append(user_data)
+        with open("database/userdb.json", 'w') as f:
+            json.dump(data, f, indent=4)
+
+async def update_command_count(user):
+    await update_user_db(user)
+    with open("database/userdb.json") as f:
+        data = json.load(f)
+    for i in data:
+        if i["user_id"] == user:
+            i["command_count"] += 1
+    with open('database/userdb.json', 'w') as f:
+        json.dump(data, f, indent=4)
 
 # On Message
 @client.event
@@ -434,6 +463,9 @@ async def on_message(message):
         if notbl == True:
             await client.process_commands(message)
     except:
+        prefix = get_prefix(client, message)
+        if prefix in message.content:
+            await update_command_count(message.author.id)
         await client.process_commands(message)
 
 @client.event

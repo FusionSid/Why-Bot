@@ -15,8 +15,10 @@ class Help(commands.Cog):
         if cmd is None:
             em.add_field(inline=False,name="`?help [category]`", value="Lists all commands in that category")
             em.add_field(inline=False,name="`?help [command]`", value="Give information about a specific command")
-            em.add_field(inline=False,name="Useful Commands:", value="`/set`, `?settings`, `?setprefix`")
+            em.add_field(inline=False,name="Useful Commands:", value="`/set`, `?settings`, `?setprefix`, `?report`")
             em.add_field(inline=False,name="Why Support Server", value="https://discord.gg/8fJaesY8SR")
+            em.add_field(inline=False,name="Contribute/Source Code", value="https://github.com/FusionSid/Why-Bot")
+            em.add_field(inline=False,name="Dm Bot", value="You can always just dm the bot for help, suggestions, bugreports etc")
             em.set_footer(text="Defauly prefix is ? might be different for you")
             em.add_field(inline=False,name="Categories:", value="Economy, Fun, Reddit, Google, Minecraft, Moderation, Music. Slash, Text, Ticket, Utilities and Other")
             return await ctx.send(embed=em)
