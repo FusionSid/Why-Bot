@@ -17,7 +17,7 @@ class Help(commands.Cog):
             em.add_field(inline=True,name="`?help [command]`", value="Give information about a specific command")
             em.add_field(inline=True,name="Useful Commands:", value="`/set`, `?settings`, `?setprefix`")
             em.add_field(inline=True,name="Why Support Server", value="https://discord.gg/8fJaesY8SR")
-            em.set_footer(text="Defauly prefix is `?` might be different for you")
+            em.set_footer(text="Defauly prefix is ? might be different for you")
             em.add_field(inline=True,name="Categories:", value="Economy, Fun, Reddit, Google, Minecraft, Moderation, Music. Slash, Text, Ticket, Utilities and Other")
             return await ctx.send(embed=em)
         elif cmd.lower() in cats:
@@ -30,7 +30,8 @@ class Help(commands.Cog):
             em = discord.Embed(title="Why Help:", description="Use `?help [command]` for more info on command")
             for i in data:
                 if i['category'].lower() == category.lower():
-                    em.add_field(name=i["name"], value=i["description"])
+                    em.add_field(inline=True,name=i["name"], value=i["description"])
+            em.set_footer(text="Defauly prefix is ? might be different for you")
             await ctx.send(embed=em)
         else:
             # loop thru all command to find one that has the same name and show its info
@@ -41,10 +42,11 @@ class Help(commands.Cog):
             for i in data:
                 if i["name"] == cmd.lower():
                     found = True
-                    em.add_field(name="Name: ", value=i["name"])
-                    em.add_field(name="Description: ", value=i["description"])
-                    em.add_field(name="Usage: ", value=i["usage"])
-                    em.add_field(name="Category: ", value=i["category"])
+                    em.add_field(inline=True,name="Name: ", value=i["name"])
+                    em.add_field(inline=True,name="Description: ", value=i["description"])
+                    em.add_field(inline=True,name="Usage: ", value=i["usage"])
+                    em.add_field(inline=True,name="Category: ", value=i["category"])
+                    em.set_footer(text="Defauly prefix is ? might be different for you")
 
                     return await ctx.send(embed=em)
             em.add_field(name="Command/Category Not Found", value="Use `?help` to find help")

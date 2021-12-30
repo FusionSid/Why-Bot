@@ -1,4 +1,6 @@
 import discord
+import wget
+import requests
 import asyncio
 from discord.ext import commands
 import youtube_dl
@@ -691,6 +693,43 @@ class Music(commands.Cog):
                     break #if it's playing it breaks
                 else:
                     await voice.disconnect() #if not it disconnects
+
+    @commands.command()
+    async def mp3(self, ctx):
+
+        if ctx.author.voice is None:
+            return await ctx.send(f"{ctx.author.mention}, You have to be connected to a voice channel.")
+
+        channel = ctx.author.voice.channel
+
+        if ctx.voice_client is None:  # if bot is not connected to a voice channel, connecting to a voice channel
+            await channel.connect()
+        else:  # else, just moving to ctx author voice channel
+            await ctx.voice_client.move_to(channel)
+
+        # self deaf
+        await ctx.guild.change_voice_state(channel=channel, self_mute=False, self_deaf=True)
+
+        guild = ctx.guild
+        voice_client: discord.VoiceClient = discord.utils.get(
+            self.client.voice_clients, guild=guild)
+        
+        attachment_url = ctx.message.attachments[0].url
+        if attachment_url.endswith(".mp3"):
+            pass
+        else:
+            return await ctx.send("Must be an mp3 file")
+        filename = wget.download(url=str(attachment_url))
+        audio_source = discord.FFmpegPCMAudio(filename)
+        if not voice_client.is_playing():
+            voice_client.play(audio_source, after=None)
+        else:
+            await ctx.send("Something is playling right now, Try using this command after its finished")
+        audio = MP3(filename)
+        wait = int(audio.info.length)
+        await asyncio.sleep(wait+5)
+        os.remove(filename)
+    
                     
 def setup(client):
     client.add_cog(Music(client))
