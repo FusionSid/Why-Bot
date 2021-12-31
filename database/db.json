@@ -25,5 +25,14 @@
         "welcome_channel": null,
         "warnings": {},
         "settings": {}
+    },
+    {
+        "guild_id": 925673700324429825,
+        "prefix": "?",
+        "counting_channel": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {}
     }
 ]

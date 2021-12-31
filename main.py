@@ -375,7 +375,7 @@ async def get_counting_channel(guild):
 # Counting
 
 
-async def counting(msg, guild, channel):
+async def counting(msg, guild, channel, m):
     try:
         msg = int(msg)
     except:
@@ -388,9 +388,11 @@ async def counting(msg, guild, channel):
             data = json.load(f)
         dataid = f'{guild.id}'
         if (data[dataid] + 1) == msg:
-            data[dataid] += 1
+            data[dataid] +=1
+            await m.add_reaction("✅")
         else:
             data[dataid] = 0
+            await m.add_reaction("❌")
             em = discord.Embed(title="You ruined it!",
                                description="Count reset to zero")
             await channel.send(embed=em)
@@ -441,7 +443,7 @@ async def on_message(message):
     guild = message.guild
 
     # Check if counting channel
-    await counting(msg, guild, channel)
+    await counting(msg, guild, channel, message)
 
     await lvl.award_xp(amount=[15, 25], message=message)
 

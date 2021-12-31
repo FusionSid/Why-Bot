@@ -1,7 +1,12 @@
 [
     {
         "user_id": 624076054969188363,
-        "command_count": 12,
+        "command_count": 16,
+        "settings": {}
+    },
+    {
+        "user_id": 782350976219873302,
+        "command_count": 1,
         "settings": {}
     }
 ]
