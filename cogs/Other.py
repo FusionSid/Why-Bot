@@ -7,6 +7,16 @@ from discord import Option
 from discord.commands import slash_command
 import psutil
 
+def get_lines():
+    lines = 0
+    files = ['main.py', 'keep_alive.py', 'add_help.py', 'cogs/Economy.py', 'cogs/Fun.py', 'cogs/Fusion.py', 'Cogs/Google.py', 'cogs/Help.py', "cogs/Minecraft.py", "cogs/Moderation.py", "cogs/Music.py", "cogs/Other.py", "cogs/Reddit.py", "cogs/Slash.py", "cogs/TextConvert.py", "cogs/Ticket.py", "cogs/Utilities.py"]
+    for i in files:
+        count = 0
+        with open(i, 'r') as f:
+            for line in f:
+                count += 1
+        lines += count
+    return lines
 
 class Other(commands.Cog):
     def __init__(self, client):
@@ -72,6 +82,7 @@ class Other(commands.Cog):
         em.set_footer(text="Mostly made by `FusionSid#3645`")
         em.add_field(name = 'CPU Usage', value = f'{psutil.cpu_percent()}%', inline = False)
         em.add_field(name = 'Memory Usage', value = f'{psutil.virtual_memory().percent}%', inline = False)
+        em.add_field(name="Python code", value=f"{get_lines()} of code")
         em.add_field(name = 'Available Memory', value = f'{psutil.virtual_memory().available * 100 / psutil.virtual_memory().total}%', inline = False)
         await ctx.send(embed = em)
 
