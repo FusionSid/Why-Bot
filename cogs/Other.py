@@ -1,4 +1,5 @@
 import discord
+import json
 from discord import role
 from discord.ext import commands
 from discord.ext.commands.core import command
@@ -74,5 +75,13 @@ class Other(commands.Cog):
         em.add_field(name = 'Available Memory', value = f'{psutil.virtual_memory().available * 100 / psutil.virtual_memory().total}%', inline = False)
         await ctx.send(embed = em)
 
+    @commands.command()
+    async def cuse(self, ctx):
+        with open('./database/userdb.json') as f:
+            data = json.load(f)
+        for i in data:
+            if i["user_id"] == ctx.author.id:
+                cuse = i["command_count"]
+        await ctx.send(f"You have used Why Bot {cuse} times")        
 def setup(client):
     client.add_cog(Other(client))
