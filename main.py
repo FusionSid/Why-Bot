@@ -414,27 +414,15 @@ async def update_user_db(user):
     for i in data:
         if i['user_id'] == user:
             found = True
-            return
+            i["command_count"] = i["command_count"] + 1
     if found == False:
-        user_data = [
-            {
-                "user_id":user,
-                "command_count":0,
-                "settings":{}
-            }
-        ]
+        user_data = {
+            "user_id":user,
+            "command_count" : 1,
+            "settings":{}
+        }
         data.append(user_data)
-        with open("database/userdb.json", 'w') as f:
-            json.dump(data, f, indent=4)
-
-async def update_command_count(user):
-    await update_user_db(user)
-    with open("database/userdb.json") as f:
-        data = json.load(f)
-    for i in data:
-        if i["user_id"] == user:
-            i["command_count"] += 1
-    with open('database/userdb.json', 'w') as f:
+    with open("database/userdb.json", 'w') as f:
         json.dump(data, f, indent=4)
 
 # On Message
@@ -461,11 +449,11 @@ async def on_message(message):
     try:
         notbl = await notblacklisted(message)
         if notbl == True:
+            prefix = await get_prefix(client, message)
+            if prefix in message.content:
+                await update_user_db(message.author.id)
             await client.process_commands(message)
     except:
-        prefix = get_prefix(client, message)
-        if prefix in message.content:
-            await update_command_count(message.author.id)
         await client.process_commands(message)
 
 @client.event
@@ -475,21 +463,23 @@ async def on_command_error(ctx, error):
 
     if isinstance(error, commands.CommandOnCooldown):
 
-        async def better_time(cd: int):
-            time = f"{cd}s"
-            if cd > 60:
-                minutes = cd - (cd % 60)
-                seconds = cd - minutes
-                minutes = int(minutes / 60)
-                time = f"{minutes}min {seconds}s"
-            if minutes > 60:
-                hoursglad = minutes - (minutes % 60)
-                hours = int(hoursglad / 60)
-                minutes = minutes - (hours * 60)
-                time = f"{hours}h {minutes}min {seconds}s"
-            return time
-
-        retry_after = await better_time(int(math.ceil(error.retry_after)))
+        async def better_time(cd:int):
+          time = f"{cd}s"
+          if cd > 60:
+              minutes = cd - (cd % 60)
+              seconds = cd - minutes
+              minutes = int(minutes/ 60)
+              time = f"{minutes}min {seconds}s"
+              if minutes > 60:
+                  hoursglad = minutes -(minutes % 60)
+                  hours = int(hoursglad/ 60)
+                  minutes = minutes - (hours*60)
+                  time = f"{hours}h {minutes}min {seconds}s"
+          return time
+        cd = round(error.retry_after)
+        if cd == 0:
+            cd = 1
+        retry_after = await better_time(cd)
         em = discord.Embed(
             title="Wow buddy, Slow it down\nThis command is on cooldown",
             description=f"Try again in **{retry_after}**",
