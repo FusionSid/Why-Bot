@@ -83,5 +83,6 @@ class Other(commands.Cog):
             if i["user_id"] == ctx.author.id:
                 cuse = i["command_count"]
         await ctx.send(f"You have used Why Bot {cuse} times")        
+        
 def setup(client):
     client.add_cog(Other(client))

@@ -436,5 +436,11 @@
         "description": "Plays an mp3 file in vc",
         "usage": "`?mp3 (drag and drop the mp3 file in or add as an attachment)`",
         "category": "Music"
+    },
+    {
+        "name": "cuse",
+        "description": "Shows how many times you have used why bot",
+        "usage": "`?cuse`",
+        "category": "Other"
     }
 ]
