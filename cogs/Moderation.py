@@ -93,7 +93,7 @@ class Moderation(commands.Cog):
             em.add_field(name="Reason", value=reason)
             em.add_field(name="Report By:", value=reporter)
 
-            cha = await self.client.fetch_channel(896932591620464690)
+            cha = await self.client.fetch_channel(925513395883606129)
             await cha.send(embed=em)
 
 
@@ -378,7 +378,7 @@ class Moderation(commands.Cog):
         await ctx.send(f"{role.mention} set as autorole for this server")
 
     @commands.Cog.listener()
-    async def on_member_join(member):
+    async def on_member_join(self, member):
         with open("./database/db.json") as f:
             data = json.load(f)
         role = False
@@ -393,6 +393,7 @@ class Moderation(commands.Cog):
         elif role == None:
             return
         else:
+            role = member.guild.get_role(role)
             await member.add_roles(role)
 
 def setup(client):

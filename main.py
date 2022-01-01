@@ -439,7 +439,9 @@ async def on_message(message):
 
     if isinstance(message.channel, DMChannel):
         cha = await client.fetch_channel(926232260166975508)
-        msg = await cha.send(f"{message.content}\n{message.author.id}")
+        em = discord.Embed(title="New DM", description=f"From {message.author.name}")
+        em.add_field(name="Content", value=f"{message.content}")
+        msg = await cha.send(content=f"{message.author.id}", embed=em)
 
     # Fome variables that come in useful later
     channel = message.channel

@@ -1,11 +1,7 @@
 [
     {
         "user_id": 624076054969188363,
-<<<<<<< HEAD
-        "command_count": 17,
-=======
-        "command_count": 148,
->>>>>>> 6d15de5514ca6fbab9b36b254f7b95def5c19ad9
+        "command_count": 1168,
         "settings": {}
     },
     {
@@ -35,7 +31,7 @@
     },
     {
         "user_id": 583032764559917057,
-        "command_count": 1,
+        "command_count": 2,
         "settings": {}
     }
 ]
