@@ -44,7 +44,7 @@ async def update_activity():
 async def on_ready():
     print("=======================\nConnected\n=========")
     await update_activity()
-    channel = client.get_channel(896932591620464690)
+    channel = client.get_channel(925513395883606129)
     await channel.send("Online")
 
 
@@ -80,7 +80,7 @@ async def startguildsetup(id):
 
 @client.event
 async def on_guild_join(guild):
-    cha = client.get_channel(896932591620464690)
+    cha = client.get_channel(925513395883606129)
     await cha.send(embed=discord.Embed(title="Join", description=f"Joined: {guild.name}"))
     await update_activity()
     await startguildsetup(guild.id)

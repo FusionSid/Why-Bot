@@ -1,11 +1,36 @@
 [
     {
         "user_id": 624076054969188363,
-        "command_count": 16,
+        "command_count": 148,
         "settings": {}
     },
     {
         "user_id": 782350976219873302,
+        "command_count": 1,
+        "settings": {}
+    },
+    {
+        "user_id": 913618154318618645,
+        "command_count": 4,
+        "settings": {}
+    },
+    {
+        "user_id": 842638586879803402,
+        "command_count": 2,
+        "settings": {}
+    },
+    {
+        "user_id": 768693329188749344,
+        "command_count": 3,
+        "settings": {}
+    },
+    {
+        "user_id": 516812635233058826,
+        "command_count": 26,
+        "settings": {}
+    },
+    {
+        "user_id": 583032764559917057,
         "command_count": 1,
         "settings": {}
     }
