@@ -1,4 +1,6 @@
 import discord
+import os
+import platform
 import json
 from discord import role
 from discord.ext import commands
@@ -82,6 +84,8 @@ class Other(commands.Cog):
         em.set_footer(text="Mostly made by `FusionSid#3645`")
         em.add_field(name = 'CPU Usage', value = f'{psutil.cpu_percent()}%', inline = False)
         em.add_field(name = 'Memory Usage', value = f'{psutil.virtual_memory().percent}%', inline = False)
+        em.add_field(name="Python version", value= f"{platform.python_version()}")
+        em.add_field(name="Running on", value=f"{platform.system()} {platform.release()} ({os.name})")
         em.add_field(name="Python code", value=f"{get_lines()} of code")
         em.add_field(name = 'Available Memory', value = f'{psutil.virtual_memory().available * 100 / psutil.virtual_memory().total}%', inline = False)
         await ctx.send(embed = em)
