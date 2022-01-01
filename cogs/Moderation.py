@@ -361,9 +361,39 @@ class Moderation(commands.Cog):
         await ctx.send("Removed")
 
     @commands.command()
-    async def settings(self, ctx):
-        pass
+    @commands.has_permissions(administrator=True)
+    async def autorole(self, ctx, role:discord.Role, type:str):
+        with open("./database/db.json") as f:
+            data = json.load(f)
+        for i in data:
+            if i["guild_id"] == ctx.guild.id:
+                if type.lower() == 'all':
+                    i['autorole']['all'] = role.id
+                elif type.lower() == 'bot':
+                    i['autorole']['bot'] = role.id
+                else:
+                    return await ctx.send("?autorole @role [all/bot]\nYou must specify if roles if for all or for bots")
+        with open('./database/db.json', 'w') as f:
+            json.dump(data, f, indent=4)
+        await ctx.send(f"{role.mention} set as autorole for this server")
 
+    @commands.Cog.listener()
+    async def on_member_join(member):
+        with open("./database/db.json") as f:
+            data = json.load(f)
+        role = False
+        for i in data:
+            if i["guild_id"] == member.guild.id:
+                if not member.bot:
+                    role = i['autorole']['all']
+                else:
+                    role = i['autorole']['bot']
+        if role == False:
+            return
+        elif role == None:
+            return
+        else:
+            await member.add_roles(role)
 
 def setup(client):
     client.add_cog(Moderation(client))

@@ -58,6 +58,10 @@ async def startguildsetup(id):
         "warnings": {
         },
         "settings": {
+        },
+        "autorole": {
+            "all": None,
+            "bot": None
         }
     }
     with open("database/db.json") as f:
