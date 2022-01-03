@@ -442,5 +442,11 @@
         "description": "Shows how many times you have used why bot",
         "usage": "`?cuse`",
         "category": "Other"
+    },
+    {
+        "name": "autorole",
+        "description": "Sets the autorole for the server for bots or for all",
+        "usage": "`?autorole @[role] [bot/all]`",
+        "category": "Moderation"
     }
 ]
