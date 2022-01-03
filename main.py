@@ -1,4 +1,5 @@
 import math
+from backup import backup
 import json
 import sys
 import sqlite3
@@ -513,6 +514,7 @@ async def on_command_error(ctx, error):
 
 def start_bot(client):
     client.remove_command("help")
+    backup()
     keep_alive()
     lst = [f for f in listdir("cogs/") if isfile(join("cogs/", f))]
     no_py = [s.replace('.py', '') for s in lst]
