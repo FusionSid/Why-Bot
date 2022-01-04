@@ -425,7 +425,8 @@ async def update_user_db(user):
         user_data = {
             "user_id":user,
             "command_count" : 1,
-            "settings":{}
+            "settings":{},
+            "on_pinged": {"title": None, "description":None, "color":None}
         }
         data.append(user_data)
     with open("database/userdb.json", 'w') as f:
@@ -467,7 +468,10 @@ async def on_message(message):
 @client.event
 async def on_command_error(ctx, error):
     cha = await client.fetch_channel(896932591620464690)
-    await cha.send(embed=discord.Embed(title="ERROR", description=error))
+    chaem = discord.Embed(title="ERROR", description=error)
+    chaem.add_field(name="Server:", value=f"{ctx.guild.id} ({ctx.guild.name})")
+    chaem.add_field(name="User:", value=f"{ctx.author.id} ({ctx.author.name})")
+    await cha.send(embed=chaem)
 
     if isinstance(error, commands.CommandOnCooldown):
 

@@ -1,37 +1,72 @@
 [
     {
         "user_id": 624076054969188363,
-        "command_count": 1168,
-        "settings": {}
+        "command_count": 1196,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
     },
     {
         "user_id": 782350976219873302,
         "command_count": 1,
-        "settings": {}
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
     },
     {
         "user_id": 913618154318618645,
         "command_count": 4,
-        "settings": {}
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
     },
     {
         "user_id": 842638586879803402,
         "command_count": 2,
-        "settings": {}
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
     },
     {
         "user_id": 768693329188749344,
         "command_count": 3,
-        "settings": {}
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
     },
     {
         "user_id": 516812635233058826,
         "command_count": 26,
-        "settings": {}
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
     },
     {
         "user_id": 583032764559917057,
         "command_count": 2,
-        "settings": {}
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
     }
 ]

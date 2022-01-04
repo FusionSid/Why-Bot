@@ -76,6 +76,14 @@ class Fusion(commands.Cog):
 
     @commands.command()
     @commands.check(is_it_me)
+    async def msgserver(self, ctx, id:int, *, message):
+        for guild in self.client.guilds:
+            if guild.id == id:
+                return await guild.text_channels[0].send(message)
+        await ctx.send("guild not found")
+
+    @commands.command()
+    @commands.check(is_it_me)
     async def dmreply(self, ctx, id:int, *, msg):
         person = await self.client.fetch_user(id)
         await person.send(msg)
