@@ -536,7 +536,7 @@ class Music(commands.Cog):
             data[name] = plist
         with open('./database/playlists.json', 'w') as f:
             json.dump(data, f, indent=4)
-        return await ctx.send(embed=discord.Embed(title=f"Playlist `{pname}` created!", description="To add to the playlist use ?add [playlistname] [song/songurl]"))
+        return await ctx.send(embed=discord.Embed(title=f"Playlist `{pname}` created!", description="To add to the playlist use ?padd [playlistname] [song/songurl]"))
 
     @commands.command()
     async def plist(self, ctx, pname: str):
@@ -558,7 +558,7 @@ class Music(commands.Cog):
                 c += 1
             await ctx.send(embed=em)
         else:
-            await ctx.send(f"List is empty use ?add {pname} [songname/url]")
+            await ctx.send(f"List is empty use ?padd {pname} [songname/url]")
 
     @commands.command()
     async def padd(self, ctx, pname: str, *,  song: str):

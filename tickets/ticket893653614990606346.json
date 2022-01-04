@@ -1,7 +1,11 @@
 {
     "ticket-counter": 0,
-    "valid-roles": [],
+    "valid-roles": [
+        893654387220701206
+    ],
     "pinged-roles": [],
     "ticket-channel-ids": [],
-    "verified-roles": []
+    "verified-roles": [
+        893654387220701206
+    ]
 }
