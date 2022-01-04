@@ -448,5 +448,11 @@
         "description": "Sets the autorole for the server for bots or for all",
         "usage": "`?autorole @[role] [bot/all]`",
         "category": "Moderation"
+    },
+    {
+        "name": "onpinged",
+        "description": "A message that will display when you are pinged",
+        "usage": "`?onpinged [set/clear] <- optional`",
+        "category": "Custom"
     }
 ]
