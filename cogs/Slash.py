@@ -7,7 +7,7 @@ from discord import Option
 import json
 import random
 
-cogs = ["Economy", "Fun", "Fusion", "Google", "Help", "Minecraft", "Moderation", "Music", "Other", "Reddit", "Slash", "TextConvert", "Ticket", "Utilities"]
+cogs = ["Economy", "Fun", "Fusion", "Google", "Help", "Minecraft", "Moderation", "Music", "Other", "Reddit", "Slash", "TextConvert", "Ticket", "Utilities", "Custom"]
 
 def is_it_me(ctx):
     return ctx.author.id == 624076054969188363

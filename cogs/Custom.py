@@ -117,19 +117,25 @@ class Custom(commands.Cog):
         with open("./database/userdb.json") as f:
             data = json.load(f)
         for i in data:
-            user = await self.client.fetch_user(i['user_id'])
-            if user.name in message.content:
+            if f"<@!{i['user_id']}>" in message.content:
                 em = discord.Embed()
                 em.title = i["on_pinged"]["title"]
                 em.description= i["on_pinged"]["description"]
-                em.color = i["on_pinged"]["color"]
+                if i["on_pinged"]["color"] == None:
+                  pass
+                else:
+                  em.color = i["on_pinged"]["color"]
                 return await message.channel.send(embed=em)
-            if f"<@!{user.id}>" in message.content:
-                em = discord.Embed()
-                em.title = i["on_pinged"]["title"]
-                em.description= i["on_pinged"]["description"]
-                em.color = i["on_pinged"]["color"]
-                return await message.channel.send(embed=em)
+            # user = await self.client.fetch_user(i['user_id'])
+            # if user.name in message.content:
+            #     em = discord.Embed()
+            #     em.title = i["on_pinged"]["title"]
+            #     em.description= i["on_pinged"]["description"]
+            #     if i["on_pinged"]["color"] == None:
+            #       pass
+            #     else:
+            #       em.color = i["on_pinged"]["color"]
+            #     return await message.channel.send(embed=em)
 
 
 def setup(client):
