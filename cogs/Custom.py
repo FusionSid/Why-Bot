@@ -125,17 +125,16 @@ class Custom(commands.Cog):
                   pass
                 else:
                   em.color = i["on_pinged"]["color"]
-                return await message.channel.send(embed=em)
-            # user = await self.client.fetch_user(i['user_id'])
-            # if user.name in message.content:
-            #     em = discord.Embed()
-            #     em.title = i["on_pinged"]["title"]
-            #     em.description= i["on_pinged"]["description"]
-            #     if i["on_pinged"]["color"] == None:
-            #       pass
-            #     else:
-            #       em.color = i["on_pinged"]["color"]
-            #     return await message.channel.send(embed=em)
+                return await message.reply(embed=em)
+            if f"<@{i['user_id']}>" in message.content:
+                em = discord.Embed()
+                em.title = i["on_pinged"]["title"]
+                em.description= i["on_pinged"]["description"]
+                if i["on_pinged"]["color"] == None:
+                  pass
+                else:
+                  em.color = i["on_pinged"]["color"]
+                return await message.reply(embed=em)
 
 
 def setup(client):
