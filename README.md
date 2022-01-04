@@ -9,12 +9,12 @@
 This is the best discord bot I have ever made.
 
 # Contributing
-## Fork this repository
-## Clone the repository
-## Create a branch
-## Make necessary changes and commit those changes
-## Push changes to GitHub
-## Submit your changes for review
+### 1. Fork this repository
+### 2. Clone the repository
+### 3. Create a branch
+### 4. Make necessary changes and commit those changes
+### 5. Push changes to GitHub
+### 6. Submit your changes for review
 
 If you go to your repository on GitHub, you'll see a `Compare & pull request` button. Click on that button.
 Now submit the pull request.
