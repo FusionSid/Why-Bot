@@ -7,6 +7,8 @@ import json
 with open('./database/shop.json') as f:
     mainshop = json.load(f)
 
+def is_it_me(ctx):
+    return ctx.author.id == 624076054969188363
 
 async def get_bank_data():
     with open('./database/economy.json', 'r') as f:

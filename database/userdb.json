@@ -1,12 +1,12 @@
 [
     {
         "user_id": 624076054969188363,
-        "command_count": 1219,
+        "command_count": 1259,
         "settings": {},
         "on_pinged": {
-            "title": "ayooo",
+            "title": null,
             "description": "fuck off",
-            "color": 16711680
+            "color": 0
         }
     },
     {
@@ -41,7 +41,7 @@
     },
     {
         "user_id": 768693329188749344,
-        "command_count": 3,
+        "command_count": 13,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -51,7 +51,7 @@
     },
     {
         "user_id": 768693329188749344,
-        "command_count": 77,
+        "command_count": 87,
         "settings": {}
     },
     {
@@ -66,6 +66,16 @@
     },
     {
         "user_id": 583032764559917057,
+        "command_count": 2,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 270904126974590976,
         "command_count": 2,
         "settings": {},
         "on_pinged": {

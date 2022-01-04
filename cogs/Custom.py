@@ -117,6 +117,8 @@ class Custom(commands.Cog):
         with open("./database/userdb.json") as f:
             data = json.load(f)
         for i in data:
+            if message.reference is None:
+              return
             if f"<@!{i['user_id']}>" in message.content:
                 em = discord.Embed()
                 em.title = i["on_pinged"]["title"]
