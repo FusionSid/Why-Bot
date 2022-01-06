@@ -405,7 +405,7 @@ async def on_message(message):
     msg = message.content
     guild = message.guild
 
-   # await lvl.award_xp(amount=[15, 25], message=message)
+    await lvl.award_xp(amount=[15, 25], message=message)
 
     # if blacklisted dont let them use bot
     try:
