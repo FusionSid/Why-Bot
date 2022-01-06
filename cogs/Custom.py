@@ -127,7 +127,10 @@ class Custom(commands.Cog):
                   pass
                 else:
                   em.color = i["on_pinged"]["color"]
-                return await message.reply(embed=em)
+                try:
+                  return await message.reply(embed=em)
+                except:
+                  return await message.channel.send(embed=em)
             if f"<@{i['user_id']}>" in message.content:
                 em = discord.Embed()
                 em.title = i["on_pinged"]["title"]
@@ -136,8 +139,10 @@ class Custom(commands.Cog):
                   pass
                 else:
                   em.color = i["on_pinged"]["color"]
-                return await message.reply(embed=em)
-
+                try:
+                  return await message.reply(embed=em)
+                except:
+                  return await message.channel.send(embed=em)
 
 def setup(client):
     client.add_cog(Custom(client))
