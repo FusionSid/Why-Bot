@@ -1,5 +1,6 @@
 import discord
 import shutil
+from discord import interactions
 import wget
 import requests
 import asyncio
@@ -12,7 +13,8 @@ import discord.voice_client
 import json
 from gtts import gTTS
 from mutagen.mp3 import MP3
-
+from discord.ui import Button, View, view
+from discord import Option
 
 cookies = "./database/cookies.txt"
 ffmpeg_options = {  # ffmpeg options
@@ -589,13 +591,14 @@ class Music(commands.Cog):
             pass
         else:
             return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description='Use ?createplaylist [name] to create one'))
+        await ctx.send(embed=discord.Embed(title="Playing Playlist", description=f"Songs in {pname} being added to queue"))
         if len(data[f"{ctx.author.id}"][pname]):
             for song in data[f"{ctx.author.id}"][pname]:
                 try:
                   await playy(ctx, video=song)
                 except Exception as e:
                   print(e)
-                await asyncio.sleep(0.5)
+                await asyncio.sleep(1)
         else:
             await ctx.send("List is empty use ?add [song]")
 
@@ -737,6 +740,86 @@ class Music(commands.Cog):
         await asyncio.sleep(wait+5)
         os.remove(filename)
     
-                    
+    @commands.command()
+    async def music(self, ctx):
+        em = discord.Embed(title="Music", description="This command in under construction do not use")
+        async def play(interaction):
+            if ctx.voice_client is None:
+                em.description = "I am not playing any songs for you."
+
+            if ctx.author.voice is None:
+                em.description = f"{ctx.author.mention}, You have to be connected to a voice channel."
+
+            if ctx.author.voice.channel.id != ctx.voice_client.channel.id:
+                em.description = "You are in the wrong channel."
+
+            ctx.voice_client.resume()  # resume music
+            em.description = "Successfully resumed."
+
+            await interaction.response.edit_message(embed=em)
+
+        async def pause(interaction):
+            if ctx.voice_client is None:
+                em.description = "I am not playing any songs for you."
+
+            if ctx.author.voice is None:
+                em.description = f"{ctx.author.mention}, You have to be connected to a voice channel."
+
+            if ctx.author.voice.channel.id != ctx.voice_client.channel.id:
+                em.description = "You are in the wrong channel."
+
+            ctx.voice_client.pause()  # stopping a music
+            em.description = "Successfully paused."
+
+            await interaction.response.edit_message(embed=em)
+
+        async def skip(interaction):
+            if ctx.voice_client is None:
+                em.description = "I am not playing any songs for you."
+
+            if ctx.author.voice is None:
+                em.description = f"{ctx.author.mention}, You have to be connected to a voice channel."
+
+            if ctx.author.voice.channel.id != ctx.voice_client.channel.id:
+                em.description = "You are in the wrong channel."
+
+            ctx.voice_client.stop()  # skipping current track
+            em.description = "Successfully skipped."
+            await interaction.response.edit_message(embed=em)
+
+        async def leave(interaction):
+            if ctx.voice_client is None:
+                em.description = "I am not playing any songs for you."
+
+            if ctx.author.voice is None:
+                em.description = f"{ctx.author.mention}, You have to be connected to a voice channel."
+
+            if ctx.author.voice.channel.id != ctx.voice_client.channel.id:
+                em.description = "You are in the wrong channel."
+
+            await ctx.voice_client.disconnect()  # leaving a voice channel
+            em.description = "Successfully disconnected."
+            await interaction.response.edit_message(embed=em)
+
+        button1 = Button(style=discord.ButtonStyle.green, emoji="▶️")
+        button1.callback = play
+        
+        button2 = Button(style=discord.ButtonStyle.green, emoji="⏸️")
+        button2.callback = pause
+
+        button3 = Button(style=discord.ButtonStyle.green, emoji="⏭️")
+        button3.callback = skip
+
+        button4 = Button(style=discord.ButtonStyle.green, label="Leave VC")
+        button4.callback = leave
+    
+        view= View(timeout=60)
+        view.add_item(button1)
+        view.add_item(button2)
+        view.add_item(button3)
+        view.add_item(button4)
+        
+        await ctx.send(embed=em, view=view)
+
 def setup(client):
     client.add_cog(Music(client))

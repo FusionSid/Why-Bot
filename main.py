@@ -15,6 +15,8 @@ from keep_alive import keep_alive
 import dotenv
 from easy_pil import Editor, Canvas, Font, load_image, Text
 import requests
+from discord.ui import Button, View
+from discord import Option
 
 dotenv.load_dotenv()
 
@@ -351,6 +353,12 @@ async def givexp(ctx, member:discord.Member, amount:int):
     await lvl.add_xp(member=member, amount=amount)
     await ctx.send(f"Gave {amount} xp to {member.name}, Removed {amount} xp from {ctx.author.name}")
 
+@client.command()
+async def vote(ctx):
+    button = Button(style=discord.ButtonStyle.grey,label="Vote link:", url="https://discordbotlist.com/bots/why")
+    view= View(timeout=15)
+    view.add_item(button)
+    await ctx.send(embed=discord.Embed(title="Vote for Why Bot here:"), view=view)
 
 # Blacklist system
 async def notblacklisted(message):

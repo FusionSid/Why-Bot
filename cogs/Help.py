@@ -3,6 +3,8 @@ from discord.commands import slash_command
 from discord.ext import commands
 from discord import Option
 import json
+from discord.ui import Button, View
+from discord import Option
 
 class Help(commands.Cog):
     def __init__(self, client):
@@ -21,7 +23,18 @@ class Help(commands.Cog):
             em.add_field(inline=False,name="Dm Bot", value="You can always just dm the bot for help, suggestions, bugreports etc")
             em.set_footer(text="Defauly prefix is ? might be different for you")
             em.add_field(inline=False,name="Categories:", value="Economy, Fun, Reddit, Google, Minecraft, Moderation, Music. Slash, Text, Ticket, Utilities and Other")
-            return await ctx.send(embed=em)
+            button = Button(style=discord.ButtonStyle.grey,label="Vote:", url="https://discordbotlist.com/bots/why")
+            button2 = Button(style=discord.ButtonStyle.grey,label="Source:", url="https://github.com/FusionSid/Why-Bot")
+            button3 = Button(style=discord.ButtonStyle.grey,label="Discord:", url="https://discord.gg/8fJaesY8SR")
+            button4 = Button(style=discord.ButtonStyle.grey,label="Todo:", url="https://github.com/users/FusionSid/projects/1")
+            button5 = Button(style=discord.ButtonStyle.grey,label="Website:", url="https://fusionsid.xyz/whybot")
+            view= View(timeout=15)
+            view.add_item(button)
+            view.add_item(button2)
+            view.add_item(button3)
+            view.add_item(button4)
+            view.add_item(button5)
+            return await ctx.send(embed=em, view=view)
         elif cmd.lower() in cats:
             for i in cats:
                 if i.lower() == cmd.lower():

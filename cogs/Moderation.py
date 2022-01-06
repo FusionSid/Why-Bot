@@ -78,8 +78,10 @@ class Moderation(commands.Cog):
 
             em.description = "Message Report"
             em.add_field(name="Reason:", value=reason, inline=False)
-            em.add_field(name="Message Content:", value=messagecontent, inline=False)
-            em.add_field(name="Message Author:", value=messageauthor, inline=False)
+            em.add_field(name="Message Content:",
+                         value=messagecontent, inline=False)
+            em.add_field(name="Message Author:",
+                         value=messageauthor, inline=False)
             em.add_field(name="Report By:", value=reporter, inline=False)
             cha = await self.client.fetch_channel(channel)
             await cha.send(embed=em)
@@ -97,7 +99,6 @@ class Moderation(commands.Cog):
             cha = await self.client.fetch_channel(925513395883606129)
             await cha.send(embed=em)
 
-
     @commands.command(aliases=['grole'])
     @commands.has_permissions(administrator=True)
     async def giverole(self, ctx, role: discord.Role, user: discord.Member):
@@ -108,7 +109,6 @@ class Moderation(commands.Cog):
         else:
             pass
         await ctx.send(f"{user} has been given the {role} role")
-
 
     @commands.command(aliases=['trole'])
     @commands.has_permissions(administrator=True)
@@ -121,11 +121,10 @@ class Moderation(commands.Cog):
             pass
         await ctx.send(f"{role} has been removed from {user}")
 
-
     @commands.command()
     @commands.has_permissions(ban_members=True)
-    @commands.cooldown(1,5,commands.BucketType.user)
-    async def ban(self,ctx,member:discord.Member,*,reason=None):
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def ban(self, ctx, member: discord.Member, *, reason=None):
         if ctx.author.top_role.position > member.top_role.position:
             if reason is not None:
                 reason = f"{reason} - Requested by {ctx.author.name} ({ctx.author.id})"
@@ -140,11 +139,10 @@ class Moderation(commands.Cog):
             pass
         await ctx.send(f"User {member} has been banned")
 
-
     @commands.command()
     @commands.has_permissions(kick_members=True)
-    @commands.cooldown(1,5,commands.BucketType.user)
-    async def kick(self,ctx,member:discord.Member,*,reason=None):
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def kick(self, ctx, member: discord.Member, *, reason=None):
         if ctx.author.top_role.position > member.top_role.position:
             if reason is not None:
                 reason = f"{reason} - Requested by {ctx.author.name} ({ctx.author.id})"
@@ -159,7 +157,6 @@ class Moderation(commands.Cog):
             pass
         await ctx.send(f"User {member} has been kicked")
 
-
     @commands.command(aliases=['lock'])
     @commands.has_permissions(manage_channels=True)
     async def lockdown(self, ctx, channel: discord.TextChannel = None):
@@ -172,7 +169,6 @@ class Moderation(commands.Cog):
             return await cha.send(embed=discord.Embed(title="Lockdown", description=f"***{channel.mention}*** is now in lockdown"))
         else:
             pass
-
 
     @commands.command()
     @commands.has_permissions(manage_channels=True)
@@ -187,22 +183,20 @@ class Moderation(commands.Cog):
         else:
             pass
 
-
     @commands.command()
-    @commands.cooldown(1,3,commands.BucketType.user)
+    @commands.cooldown(1, 3, commands.BucketType.user)
     @commands.has_permissions(manage_channels=True)
-    async def clear(self, ctx, amount: int=10):
-      if amount > 50:
-        amount = 50
-        await ctx.channel.purge(limit=amount+1)
-      else:
-        await ctx.channel.purge(limit=amount+1)
-      channel = await get_log_channel(self, ctx)
-      if channel != False:
-          return await channel.send(embed=discord.Embed(title="Message Clear", description=f"***{amount}*** messages have been cleared from ***{ctx.channel.name}***"))
-      else:
-          pass
-
+    async def clear(self, ctx, amount: int = 10):
+        if amount > 50:
+            amount = 50
+            await ctx.channel.purge(limit=amount+1)
+        else:
+            await ctx.channel.purge(limit=amount+1)
+        channel = await get_log_channel(self, ctx)
+        if channel != False:
+            return await channel.send(embed=discord.Embed(title="Message Clear", description=f"***{amount}*** messages have been cleared from ***{ctx.channel.name}***"))
+        else:
+            pass
 
     @commands.command()
     @commands.has_permissions(administrator=True)
@@ -224,7 +218,7 @@ class Moderation(commands.Cog):
 
         with open("./database/react.json", "w") as f:
             json.dump(data, f, indent=4)
-    
+
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
         if payload.member.bot:
@@ -250,7 +244,6 @@ class Moderation(commands.Cog):
         else:
             pass
 
-
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def make_vc(self, ctx, limit=None, *, name):
@@ -264,7 +257,6 @@ class Moderation(commands.Cog):
             return await channel.send(embed=discord.Embed(title="Create Voice Channel", description=f"***{name}*** voice channel has been created"))
         else:
             pass
-
 
     @commands.command()
     @commands.has_permissions(administrator=True)
@@ -280,10 +272,10 @@ class Moderation(commands.Cog):
 
         with open("./database/db.json") as f:
             data = json.load(f)
-        
+
         for i in data:
             if i["guild_id"] == ctx.guild.id:
-                warn = {'time':time, 'reason':reason}
+                warn = {'time': time, 'reason': reason}
                 try:
                     i['warnings'][f"{member.id}"].append(warn)
                 except:
@@ -295,7 +287,6 @@ class Moderation(commands.Cog):
             return await channel.send(embed=discord.Embed(title="Warn", description=f"***{member.mention}*** has been warned"))
         else:
             pass
-
 
     @commands.command()
     @commands.has_permissions(administrator=True)
@@ -318,66 +309,60 @@ class Moderation(commands.Cog):
 
         await ctx.send(embed=em)
 
-
     @commands.command()
     @commands.has_permissions(manage_nicknames=True)
-    @commands.cooldown(1,5,commands.BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def nickname(self, ctx, member: discord.Member, *, nickname: str = "no nick"):
         if ctx.author.top_role.position > member.top_role.position:
             await member.edit(nick=nickname)
         else:
             await ctx.reply("Sorry, you cannot perform that action due to role hierarchy")
 
-    
     @commands.command()
     @commands.has_permissions(ban_members=True)
-    @commands.cooldown(1,5,commands.BucketType.user)
-    async def unban(self,ctx,memberid:int=None):
-        member = discord.Object(id=memberid) 
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def unban(self, ctx, memberid: int = None):
+        member = discord.Object(id=memberid)
         try:
             await ctx.guild.unban(member)
         except:
             await ctx.send("Sorry, a user with that id was not found or isn't a previously banned member.")
 
-
     @commands.group()
-    async def slowmode(self,ctx, seconds: int=5):   
+    async def slowmode(self, ctx, seconds: int = 5):
         await ctx.channel.edit(slowmode_delay=seconds)
         await ctx.send(f"Set the slowmode delay in this channel to {seconds} seconds!")
 
     @commands.command()
-    async def rslowmode(self,ctx):
+    async def rslowmode(self, ctx):
         await ctx.channel.edit(slowmode_delay=0)
         await ctx.send('removed slowmode for the channel')
 
-
-    @commands.command(name="pin",help="Pins the message with the specified ID to the current channel")
+    @commands.command(name="pin", help="Pins the message with the specified ID to the current channel")
     @commands.has_permissions(manage_messages=True)
-    async def pin(self, ctx, id:int):      
+    async def pin(self, ctx, id: int):
         message = await ctx.channel.fetch_message(id)
         await message.pin()
         await ctx.send("Successfully pinned that msg")
 
-
-    @commands.command(name="unpin",help="Unpins the message with the specified ID from the current channel")
+    @commands.command(name="unpin", help="Unpins the message with the specified ID from the current channel")
     @commands.has_permissions(manage_messages=True)
-    async def unpin(self, ctx, id:int):
+    async def unpin(self, ctx, id: int):
         pinned_messages = await ctx.channel.pins()
         message = discord.utils.get(pinned_messages, id=id)
         await message.unpin()
         await ctx.send("Successfully unpinned that msg")
-        
-        
-    @commands.command(name="removereactions",help="Clear reactions from a message in the current channel")
+
+    @commands.command(name="removereactions", help="Clear reactions from a message in the current channel")
     @commands.has_permissions(manage_messages=True)
-    async def removereactions(self, ctx, id:int):
+    async def removereactions(self, ctx, id: int):
         message = await ctx.channel.fetch_message(id)
         await message.clear_reactions()
         await ctx.send("Removed")
 
     @commands.command()
     @commands.has_permissions(administrator=True)
-    async def autorole(self, ctx, role:discord.Role, type:str):
+    async def autorole(self, ctx, role: discord.Role, type: str):
         with open("./database/db.json") as f:
             data = json.load(f)
         for i in data:
@@ -411,12 +396,14 @@ class Moderation(commands.Cog):
             role = member.guild.get_role(role)
             await member.add_roles(role)
 
+    @commands.command()
+    async def settings(self, ctx):
+        pass
+
+    @commands.command()
+    async def serversettings(self, ctx):
+        pass
+
+
 def setup(client):
     client.add_cog(Moderation(client))
-
-
-
-    
-
-    
-
