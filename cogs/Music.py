@@ -15,6 +15,7 @@ from gtts import gTTS
 from mutagen.mp3 import MP3
 from discord.ui import Button, View, view
 from discord import Option
+import random
 
 cookies = "./database/cookies.txt"
 ffmpeg_options = {  # ffmpeg options
@@ -591,9 +592,37 @@ class Music(commands.Cog):
             pass
         else:
             return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description='Use ?createplaylist [name] to create one'))
-        await ctx.send(embed=discord.Embed(title="Playing Playlist", description=f"Songs in {pname} being added to queue"))
+        await ctx.send(embed=discord.Embed(title=f"Playing playlist: {pname}", description=f"Songs are being added to queue"))
         if len(data[f"{ctx.author.id}"][pname]):
             for song in data[f"{ctx.author.id}"][pname]:
+                try:
+                  await playy(ctx, video=song)
+                except Exception as e:
+                  print(e)
+                await asyncio.sleep(1)
+        else:
+            await ctx.send("List is empty use ?add [song]")
+
+    @commands.command()
+    async def shuffleplaylist(self, ctx, pname: str):
+        with open('./database/playlists.json') as f:
+            data = json.load(f)
+        if f"{ctx.author.id}" in data:
+            pass
+        else:
+            return await ctx.send(embed=discord.Embed(title="You dont have any playlists!", description='Use ?createplaylist [name] to create one'))
+        if pname in data[f"{ctx.author.id}"]:
+            pass
+        else:
+            return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description='Use ?createplaylist [name] to create one'))
+        await ctx.send(embed=discord.Embed(title="Playing Playlist", description=f"Songs are being added to queue in random order"))
+        if len(data[f"{ctx.author.id}"][pname]):
+            slist = data[f"{ctx.author.id}"][pname]
+            def myfunction():
+              return 0.1
+            random.shuffle(slist, myfunction)
+            print(slist)
+            for song in slist:
                 try:
                   await playy(ctx, video=song)
                 except Exception as e:
@@ -742,7 +771,7 @@ class Music(commands.Cog):
     
     @commands.command()
     async def music(self, ctx):
-        em = discord.Embed(title="Music", description="This command in under construction do not use")
+        em = discord.Embed(title="Music")
         async def play(interaction):
             if ctx.voice_client is None:
                 em.description = "I am not playing any songs for you."
@@ -804,13 +833,13 @@ class Music(commands.Cog):
         button1 = Button(style=discord.ButtonStyle.green, emoji="▶️")
         button1.callback = play
         
-        button2 = Button(style=discord.ButtonStyle.green, emoji="⏸️")
+        button2 = Button(style=discord.ButtonStyle.blue, emoji="⏸️")
         button2.callback = pause
 
-        button3 = Button(style=discord.ButtonStyle.green, emoji="⏭️")
+        button3 = Button(style=discord.ButtonStyle.grey, emoji="⏭️")
         button3.callback = skip
 
-        button4 = Button(style=discord.ButtonStyle.green, label="Leave VC")
+        button4 = Button(style=discord.ButtonStyle.red, label="Leave VC")
         button4.callback = leave
     
         view= View(timeout=60)
