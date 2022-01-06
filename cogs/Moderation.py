@@ -6,6 +6,7 @@ from discord.ext import commands
 import os
 import json
 import dotenv
+from discord.utils import get
 
 dotenv.load_dotenv()
 
@@ -188,10 +189,11 @@ class Moderation(commands.Cog):
 
 
     @commands.command()
+    @commands.cooldown(1,3,commands.BucketType.user)
     @commands.has_permissions(manage_channels=True)
     async def clear(self, ctx, amount: int=10):
-      if amount > 15:
-        amount = 15
+      if amount > 50:
+        amount = 50
         await ctx.channel.purge(limit=amount+1)
       else:
         await ctx.channel.purge(limit=amount+1)
@@ -220,9 +222,22 @@ class Moderation(commands.Cog):
 
             data.append(new_react_role)
 
-        with open("react.json", "w") as f:
+        with open("./database/react.json", "w") as f:
             json.dump(data, f, indent=4)
-
+    
+    @commands.Cog.listener()
+    async def on_raw_reaction_add(self, payload):
+        if payload.member.bot:
+            return
+        with open("./database/react.json") as f:
+            data = json.load(f)
+            for x in data:
+                if x['emoji'] == payload.emoji.name and x["message_id"] == payload.message_id:
+                    role = discord.utils.get(self.client.get_guild(
+                        payload.guild_id).roles, id=x['role_id'])
+                    await payload.member.add_roles(role)
+                else:
+                    pass
 
     @commands.command()
     @commands.has_permissions(administrator=True)

@@ -1,5 +1,4 @@
 import math
-from backup import backup
 import json
 import sys
 import sqlite3
@@ -54,6 +53,7 @@ async def startguildsetup(id):
         "guild_id": id,
         "prefix": "?",
         "counting_channel": None,
+        "lastcounter":None,
         "log_channel": None,
         "welcome_channel": None,
         "warnings": {
@@ -191,20 +191,6 @@ async def mj(member):
 async def on_member_join(member):
     await memberjoin(member)
     
-
-@client.event
-async def on_raw_reaction_add(payload):
-    if payload.member.bot:
-        return
-    with open("database/react.json") as f:
-        data = json.load(f)
-        for x in data:
-            if x['emoji'] == payload.emoji.name and x["message_id"] == payload.message_id:
-                role = discord.utils.get(client.get_guild(
-                    payload.guild_id).roles, id=x['role_id'])
-                await payload.member.add_roles(role)
-            else:
-                pass
 
 # Set Prefix
 
@@ -366,45 +352,6 @@ async def givexp(ctx, member:discord.Member, amount:int):
     await ctx.send(f"Gave {amount} xp to {member.name}, Removed {amount} xp from {ctx.author.name}")
 
 
-# Get the counting channel
-
-
-async def get_counting_channel(guild):
-    with open("database/db.json") as f:
-        data = json.load(f)
-    for i in data:
-        if i["guild_id"] == guild.id:
-            return int(i["counting_channel"])
-    return None
-
-# Counting
-
-
-async def counting(msg, guild, channel, m):
-    try:
-        msg = int(msg)
-    except:
-        return
-    cc = await get_counting_channel(guild)
-    if cc is None:
-        return
-    if channel.id == cc:
-        with open("database/counting.json") as f:
-            data = json.load(f)
-        dataid = f'{guild.id}'
-        if (data[dataid] + 1) == msg:
-            data[dataid] +=1
-            await m.add_reaction("✅")
-        else:
-            data[dataid] = 0
-            await m.add_reaction("❌")
-            em = discord.Embed(title="You ruined it!",
-                               description="Count reset to zero")
-            await channel.send(embed=em)
-        with open("database/counting.json", 'w') as f:
-            json.dump(data, f, indent=4)
-
-
 # Blacklist system
 async def notblacklisted(message):
     with open("database/blacklisted.json") as f:
@@ -450,10 +397,7 @@ async def on_message(message):
     msg = message.content
     guild = message.guild
 
-    # Check if counting channel
-    await counting(msg, guild, channel, message)
-
-    await lvl.award_xp(amount=[15, 25], message=message)
+   # await lvl.award_xp(amount=[15, 25], message=message)
 
     # if blacklisted dont let them use bot
     try:
