@@ -833,13 +833,13 @@ class Music(commands.Cog):
         button1 = Button(style=discord.ButtonStyle.green, emoji="▶️")
         button1.callback = play
         
-        button2 = Button(style=discord.ButtonStyle.blue, emoji="⏸️")
+        button2 = Button(style=discord.ButtonStyle.red, emoji="⏸️")
         button2.callback = pause
 
-        button3 = Button(style=discord.ButtonStyle.grey, emoji="⏭️")
+        button3 = Button(style=discord.ButtonStyle.green, emoji="⏭️")
         button3.callback = skip
 
-        button4 = Button(style=discord.ButtonStyle.red, label="Leave VC")
+        button4 = Button(style=discord.ButtonStyle.grey, label="Leave VC")
         button4.callback = leave
     
         view= View(timeout=60)
