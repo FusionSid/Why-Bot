@@ -31,6 +31,131 @@ all_queues_info = {}  # all queue info, for +queue command
 
 # function, which splitting the queue into queues of 10 songs
 
+class MusicView(View):
+    def __init__(self, ctx, client):
+        super().__init__(timeout=100)
+        self.ctx = ctx
+        self.em = discord.Embed(title="Music")
+        self.client = client
+
+    @discord.ui.button(style=discord.ButtonStyle.green, emoji="▶️", custom_id="button")
+    
+    async def play(self, button, interaction):
+        if self.ctx.voice_client is None:
+            self.em.description = "I am not playing any songs for you."
+
+        if self.ctx.author.voice is None:
+            self.em.description = f"{self.ctx.author.mention}, You have to be connected to a voice channel."
+
+        if self.ctx.author.voice.channel.id != self.ctx.voice_client.channel.id:
+            self.em.description = "You are in the wrong channel."
+
+        self.ctx.voice_client.resume()  # resume music
+        self.em.description = "Successfully resumed."
+
+        await interaction.response.edit_message(embed=self.em)
+        
+    @discord.ui.button(style=discord.ButtonStyle.red, emoji="⏸️", custom_id="button2")
+    async def pause(self, button, interaction):
+        if self.ctx.voice_client is None:
+            self.em.description = "I am not playing any songs for you."
+
+        if self.ctx.author.voice is None:
+            self.em.description = f"{self.ctx.author.mention}, You have to be connected to a voice channel."
+
+        if self.ctx.author.voice.channel.id != self.ctx.voice_client.channel.id:
+            self.em.description = "You are in the wrong channel."
+
+        self.ctx.voice_client.pause()  # stopping a music
+        self.em.description = "Successfully paused."
+
+        await interaction.response.edit_message(embed=self.em)
+
+    @discord.ui.button(style=discord.ButtonStyle.green, emoji="⏭️", custom_id="button3")
+    async def skip(self, button, interaction):
+        if self.ctx.voice_client is None:
+            self.em.description = "I am not playing any songs for you."
+
+        if self.ctx.author.voice is None:
+            self.em.description = f"{self.ctx.author.mention}, You have to be connected to a voice channel."
+
+        if self.ctx.author.voice.channel.id != self.ctx.voice_client.channel.id:
+            self.em.description = "You are in the wrong channel."
+
+        self.ctx.voice_client.stop()  # skipping current track
+        self.em.description = "Successfully skipped."
+        await interaction.response.edit_message(embed=self.em)
+
+    @discord.ui.button(style=discord.ButtonStyle.grey, label="Leave VC", custom_id="button4", row=2)
+    async def leave(self, button, interaction):
+        if self.ctx.voice_client is None:
+            self.em.description = "I am not playing any songs for you."
+
+        if self.ctx.author.voice is None:
+            self.em.description = f"{self.ctx.author.mention}, You have to be connected to a voice channel."
+
+        if self.ctx.author.voice.channel.id != self.ctx.voice_client.channel.id:
+            self.em.description = "You are in the wrong channel."
+
+        await self.ctx.voice_client.disconnect()  # leaving a voice channel
+        self.em.description = "Successfully disconnected."
+        await interaction.response.edit_message(embed=self.em)
+    
+    @discord.ui.button(style=discord.ButtonStyle.grey, label="Join VC", custom_id="button5", row=2)
+    async def join(self, button, interaction):
+        if self.ctx.author.voice is None:
+            self.em.description = f"{self.ctx.author.mention}, You have to be connected to a voice channel."
+
+        channel = self.ctx.author.voice.channel
+
+        if self.ctx.voice_client is None:  # if bot is not connected to a voice channel, connecting to a voice channel
+            await channel.connect()
+        else:  # else, just moving to ctx author voice channel
+            await self.ctx.voice_client.move_to(channel)
+
+        # self deaf
+        await self.ctx.guild.change_voice_state(channel=channel, self_mute=False, self_deaf=True)
+
+        self.em.description = f"Successfully joined to `{channel}`"
+        await interaction.response.edit_message(embed=self.em)
+    
+    @discord.ui.button(style=discord.ButtonStyle.blurple, label="Playlist", custom_id="button6", row=2)
+    async def playlist(self, button, interaction):
+        def check(m):
+            return m.channel == self.ctx.channel and m.author == self.ctx.author
+        await self.ctx.send("Enter playlist name:")
+        pname = await self.client.wait_for("message", check=check, timeout=300)
+        with open('./database/playlists.json') as f:
+            data = json.load(f)
+        if f"{self.ctx.author.id}" in data:
+            pass
+        else:
+            self.em.description = "You dont have any playlists!, Use ?createplaylist [name] to create one"
+        if pname in data[f"{self.ctx.author.id}"]:
+            pass
+        else:
+            self.em.description = "This playlist doesnt exist!, Use ?createplaylist [name] to create one"
+        self.em.description = "Playing Playlist, Songs are being added to queue in random order"
+        if len(data[f"{self.ctx.author.id}"][pname]):
+            slist = data[f"{self.ctx.author.id}"][pname]
+            def myfunction():
+              return 0.1
+            random.shuffle(slist, myfunction)
+            print(slist)
+            for song in slist:
+                try:
+                  await playy(self.ctx, video=song)
+                except Exception as e:
+                  print(e)
+                await asyncio.sleep(1)
+        else:
+            self.em.description = "List is empty use ?add [song]"
+        await interaction.response.edit_message(embed=self.em)
+
+    async def on_timeout(self):
+        await self.ctx.send("Button timeout!")
+
+
 
 def split(arr, size):
     arrays = []
@@ -772,82 +897,7 @@ class Music(commands.Cog):
     @commands.command()
     async def music(self, ctx):
         em = discord.Embed(title="Music")
-        async def play(interaction):
-            if ctx.voice_client is None:
-                em.description = "I am not playing any songs for you."
-
-            if ctx.author.voice is None:
-                em.description = f"{ctx.author.mention}, You have to be connected to a voice channel."
-
-            if ctx.author.voice.channel.id != ctx.voice_client.channel.id:
-                em.description = "You are in the wrong channel."
-
-            ctx.voice_client.resume()  # resume music
-            em.description = "Successfully resumed."
-
-            await interaction.response.edit_message(embed=em)
-
-        async def pause(interaction):
-            if ctx.voice_client is None:
-                em.description = "I am not playing any songs for you."
-
-            if ctx.author.voice is None:
-                em.description = f"{ctx.author.mention}, You have to be connected to a voice channel."
-
-            if ctx.author.voice.channel.id != ctx.voice_client.channel.id:
-                em.description = "You are in the wrong channel."
-
-            ctx.voice_client.pause()  # stopping a music
-            em.description = "Successfully paused."
-
-            await interaction.response.edit_message(embed=em)
-
-        async def skip(interaction):
-            if ctx.voice_client is None:
-                em.description = "I am not playing any songs for you."
-
-            if ctx.author.voice is None:
-                em.description = f"{ctx.author.mention}, You have to be connected to a voice channel."
-
-            if ctx.author.voice.channel.id != ctx.voice_client.channel.id:
-                em.description = "You are in the wrong channel."
-
-            ctx.voice_client.stop()  # skipping current track
-            em.description = "Successfully skipped."
-            await interaction.response.edit_message(embed=em)
-
-        async def leave(interaction):
-            if ctx.voice_client is None:
-                em.description = "I am not playing any songs for you."
-
-            if ctx.author.voice is None:
-                em.description = f"{ctx.author.mention}, You have to be connected to a voice channel."
-
-            if ctx.author.voice.channel.id != ctx.voice_client.channel.id:
-                em.description = "You are in the wrong channel."
-
-            await ctx.voice_client.disconnect()  # leaving a voice channel
-            em.description = "Successfully disconnected."
-            await interaction.response.edit_message(embed=em)
-
-        button1 = Button(style=discord.ButtonStyle.green, emoji="▶️")
-        button1.callback = play
-        
-        button2 = Button(style=discord.ButtonStyle.red, emoji="⏸️")
-        button2.callback = pause
-
-        button3 = Button(style=discord.ButtonStyle.green, emoji="⏭️")
-        button3.callback = skip
-
-        button4 = Button(style=discord.ButtonStyle.grey, label="Leave VC")
-        button4.callback = leave
-    
-        view= View(timeout=60)
-        view.add_item(button1)
-        view.add_item(button2)
-        view.add_item(button3)
-        view.add_item(button4)
-        
+        view= MusicView(ctx, self.client)
         await ctx.send(embed=em, view=view)
 
 def setup(client):

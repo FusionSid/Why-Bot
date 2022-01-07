@@ -399,10 +399,7 @@ class Moderation(commands.Cog):
     @commands.command()
     async def settings(self, ctx):
         pass
-
-    @commands.command()
-    async def serversettings(self, ctx):
-        pass
+    # dm, bot update notifications, levelup notif, mod, counting, welcome
 
 
 def setup(client):

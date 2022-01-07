@@ -1,4 +1,6 @@
 import discord
+from discord import utils
+from discord import interactions
 from discord.commands import slash_command
 from discord.ext import commands
 from discord import Option
@@ -6,6 +8,33 @@ import json
 from discord.ui import Button, View
 from discord import Option
 
+class HelpView(View):
+    def __init__(self, ctx, ems):
+        super().__init__(timeout=100)
+        self.em = ems
+        self.index = 0
+    
+    @discord.ui.button(style=discord.ButtonStyle.green, emoji="⬅", custom_id="left")
+    async def left(self, button, interaction):
+        if self.index == 0:
+            return
+        else:
+            self.index -= 1
+        em = self.em[self.index]
+        await interaction.response.edit_message(embed=em)
+    
+    @discord.ui.button(style=discord.ButtonStyle.green, emoji="➡️", custom_id="right")
+    async def right(self, button, interaction):
+        if self.index == 10:
+            return
+        else:
+            self.index += 1
+        em = self.em[self.index]
+        await interaction.response.edit_message(embed=em)
+    
+    async def on_timeout(self):
+        await self.ctx.send("Button timeout!")
+        
 class Help(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -14,6 +43,59 @@ class Help(commands.Cog):
     async def help(self, ctx, cmd = None):
         em = discord.Embed(title="Why Help")
         cats = ["economy", "fun", "reddit", "google", "minecraft", "moderation", "music", "slash", "text", "ticket", "utilities", "other"]
+        if cmd == 'all':
+            with open("./database/help.json") as f:
+                data = json.load(f)
+            economy = discord.Embed(title="Why Help `[Economy]`:", description="Use `?help [command]` for more info on command")
+            fun = discord.Embed(title="Why Help: `[Fun]`", description="Use `?help [command]` for more info on command")
+            reddit = discord.Embed(title="Why Help: `[Reddit]`", description="Use `?help [command]` for more info on command")
+            google = discord.Embed(title="Why Help: `[Google]`", description="Use `?help [command]` for more info on command")
+            minecraft = discord.Embed(title="Why Help: `[Minecraft]`", description="Use `?help [command]` for more info on command")
+            moderation = discord.Embed(title="Why Help: `[Moderation]`", description="Use `?help [command]` for more info on command")
+            music = discord.Embed(title="Why Help: `[Music]`", description="Use `?help [command]` for more info on command")
+            text = discord.Embed(title="Why Help: `[Text]`", description="Use `?help [command]` for more info on command")
+            ticket = discord.Embed(title="Why Help: `[Ticket]`", description="Use `?help [command]` for more info on command")
+            utilities = discord.Embed(title="Why Help: `[Utilities]`", description="Use `?help [command]` for more info on command")
+            other = discord.Embed(title="Why Help: `[Other]`", description="Use `?help [command]` for more info on command")
+            for i in data:
+                if i['category'] == "Economy":
+                    economy.add_field(name=i["name"], value=i["description"], inline=False)
+
+                if i['category'] == "Fun":
+                    fun.add_field(name=i["name"], value=i["description"], inline=False)
+
+                if i['category'] == "Reddit":
+                    reddit.add_field(name=i["name"], value=i["description"], inline=False)
+
+                if i['category'] == "Google":
+                    google.add_field(name=i["name"], value=i["description"], inline=False)
+
+                if i['category'] == "Minecraft":
+                    minecraft.add_field(name=i["name"], value=i["description"], inline=False)
+
+                if i['category'] == "Moderation":
+                    moderation.add_field(name=i["name"], value=i["description"], inline=False)
+
+                if i['category'] == "Music":
+                    music.add_field(name=i["name"], value=i["description"], inline=False)
+
+                if i['category'] == "Text":
+                    text.add_field(name=i["name"], value=i["description"], inline=False)
+
+                if i['category'] == "Ticket":
+                    ticket.add_field(name=i["name"], value=i["description"], inline=False)
+
+                if i['category'] == "Utilities":
+                    utilities.add_field(name=i["name"], value=i["description"], inline=False)
+
+                if i['category'] == "Other":
+                    other.add_field(name=i["name"], value=i["description"], inline=False)
+
+            em = discord.Embed(title="Why Help:", description="Use `?help [command]` for more info on command")
+            ems = [economy, fun, reddit, google, minecraft, moderation, music, text, ticket, utilities, other]
+            view = HelpView(ctx, ems)
+            return await ctx.send(embed=em, view=view)
+
         if cmd is None:
             em.add_field(inline=False,name="`?help [category]`", value="Lists all commands in that category")
             em.add_field(inline=False,name="`?help [command]`", value="Give information about a specific command")

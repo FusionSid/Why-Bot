@@ -596,7 +596,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "py-cord"
-version = "2.0.0a4748+gc602bc45"
+version = "2.0.0a4750+gef92c70d"
 description = "A Python wrapper for the Discord API"
 category = "main"
 optional = false
@@ -615,7 +615,7 @@ voice = ["PyNaCl (>=1.3.0,<1.5)"]
 type = "git"
 url = "https://github.com/Pycord-Development/pycord"
 reference = "master"
-resolved_reference = "c602bc453450d018c5c4b876f9203431e7b5ff3b"
+resolved_reference = "ef92c70db27df57c94e899d7d6c14f78622d5a8c"
 
 [[package]]
 name = "pyasn1"
@@ -2666,6 +2666,18 @@ python-versions = ">=3.6,<4"
 pyasn1 = ">=0.1.3"
 
 [[package]]
+name = "simpcalci"
+version = "0.0.2"
+description = "A python lib that uses math.js api to carry out calculations"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+aiohttp = "*"
+urllib3 = "*"
+
+[[package]]
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
@@ -2808,7 +2820,7 @@ httpx = ">=0.14.2"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "ca607e7a48289e8a8f3dd04e438c575e7e230711e4a71c3c994f0de05a2928a2"
+content-hash = "86037b48acdcf6a3766e9758662133dcd2b669e4d1d45efc71e9101eae1e339a"
 
 [metadata.files]
 aiohttp = [
@@ -4249,6 +4261,9 @@ rfc3986 = [
 rsa = [
     {file = "rsa-4.8-py3-none-any.whl", hash = "sha256:95c5d300c4e879ee69708c428ba566c59478fd653cc3a22243eeb8ed846950bb"},
     {file = "rsa-4.8.tar.gz", hash = "sha256:5c6bd9dc7a543b7fe4304a631f8a8a3b674e2bbfc49c2ae96200cdbe55df6b17"},
+]
+simpcalci = [
+    {file = "simpcalci-0.0.2-py3-none-any.whl", hash = "sha256:3a88522eb616de28882b0813364d39f07452c1bc9fadcc1b2d0670af6a1bba45"},
 ]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
