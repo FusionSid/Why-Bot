@@ -33,7 +33,7 @@ all_queues_info = {}  # all queue info, for +queue command
 
 class MusicView(View):
     def __init__(self, ctx, client):
-        super().__init__(timeout=100)
+        super().__init__(timeout=600)
         self.ctx = ctx
         self.em = discord.Embed(title="Music")
         self.client = client

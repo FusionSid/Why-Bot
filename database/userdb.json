@@ -1,7 +1,7 @@
 [
     {
         "user_id": 624076054969188363,
-        "command_count": 1569,
+        "command_count": 1587,
         "settings": {},
         "on_pinged": {
             "title": "eeeeee",
@@ -11,7 +11,7 @@
     },
     {
         "user_id": 782350976219873302,
-        "command_count": 2,
+        "command_count": 3,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -21,7 +21,7 @@
     },
     {
         "user_id": 913618154318618645,
-        "command_count": 14,
+        "command_count": 22,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -41,7 +41,7 @@
     },
     {
         "user_id": 768693329188749344,
-        "command_count": 36,
+        "command_count": 40,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -51,7 +51,7 @@
     },
     {
         "user_id": 768693329188749344,
-        "command_count": 110,
+        "command_count": 114,
         "settings": {}
     },
     {
@@ -96,7 +96,7 @@
     },
     {
         "user_id": 881251029587488799,
-        "command_count": 6,
+        "command_count": 7,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -126,7 +126,7 @@
     },
     {
         "user_id": 797797679136374815,
-        "command_count": 1,
+        "command_count": 2,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -137,6 +137,56 @@
     {
         "user_id": 699692015172059256,
         "command_count": 6,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 920880961955176540,
+        "command_count": 1,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 838024815368994826,
+        "command_count": 3,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 887024920096296962,
+        "command_count": 2,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 883740223115255839,
+        "command_count": 1,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 922535832554971237,
+        "command_count": 1,
         "settings": {},
         "on_pinged": {
             "title": null,
