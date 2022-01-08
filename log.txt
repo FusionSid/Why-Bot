@@ -1,0 +1,19 @@
+
+09/01/2022 12:46:35 | ----------START----------
+09/01/2022 12:46:35 | Loaded cogs.Ticket
+09/01/2022 12:46:35 | Loaded cogs.Slash
+09/01/2022 12:46:35 | Loaded cogs.Fun
+09/01/2022 12:46:35 | Loaded cogs.Custom
+09/01/2022 12:46:35 | Loaded cogs.Economy
+09/01/2022 12:46:35 | Loaded cogs.Counting
+09/01/2022 12:46:35 | Loaded cogs.Moderation
+09/01/2022 12:46:35 | Loaded cogs.Other
+09/01/2022 12:46:35 | Loaded cogs.Google
+09/01/2022 12:46:35 | Loaded cogs.Music
+09/01/2022 12:46:35 | Loaded cogs.Minecraft
+09/01/2022 12:46:35 | Loaded cogs.Fusion
+09/01/2022 12:46:35 | Loaded cogs.Utilities
+09/01/2022 12:46:35 | Loaded cogs.Reddit
+09/01/2022 12:46:35 | Loaded cogs.Help
+09/01/2022 12:46:35 | Loaded cogs.TextConvert
+09/01/2022 12:46:35 | All Cogs Loaded, Logging into Discord

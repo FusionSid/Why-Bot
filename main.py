@@ -17,6 +17,7 @@ from easy_pil import Editor, Canvas, Font, load_image, Text
 import requests
 from discord.ui import Button, View
 from discord import Option
+from datetime import datetime
 
 dotenv.load_dotenv()
 
@@ -30,6 +31,14 @@ async def get_prefix(client, message):
                 return i['prefix']
     except:
         return "?"
+
+def log(log):
+    now = datetime.now()
+    timern = now.strftime("%d/%m/%Y %H:%M:%S")
+
+    with open('log.txt', 'a') as f:
+        f.write('\n')
+        f.write(f"{timern} | {log}")
 
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix=get_prefix,
@@ -420,14 +429,14 @@ async def on_message(message):
 
 @client.event
 async def on_command_error(ctx, error):
-    cha = await client.fetch_channel(896932591620464690)
-    chaem = discord.Embed(title="ERROR", description=error)
-    chaem.add_field(name="Server:", value=f"{ctx.guild.id} ({ctx.guild.name})")
-    chaem.add_field(name="User:", value=f"{ctx.author.id} ({ctx.author.name})")
-    await cha.send(embed=chaem)
+    # cha = await client.fetch_channel(896932591620464690)
+    # chaem = discord.Embed(title="ERROR", description=error)
+    # chaem.add_field(name="Server:", value=f"{ctx.guild.id} ({ctx.guild.name})")
+    # chaem.add_field(name="User:", value=f"{ctx.author.id} ({ctx.author.name})")
+    # await cha.send(embed=chaem)
+    log(f"ERROR: {error}, {ctx.guild.id} ({ctx.guild.name}), {ctx.author.id} ({ctx.author.name})")
 
     if isinstance(error, commands.CommandOnCooldown):
-
         async def better_time(cd:int):
           time = f"{cd}s"
           if cd > 60:
@@ -469,23 +478,26 @@ async def on_command_error(ctx, error):
 
 
 def start_bot(client):
+    log("----------START----------")
     client.remove_command("help")
-    # backup()
     keep_alive()
     lst = [f for f in listdir("cogs/") if isfile(join("cogs/", f))]
     no_py = [s.replace('.py', '') for s in lst]
     startup_extensions = ["cogs." + no_py for no_py in no_py]
+    startup_extensions.remove("cogs.usefulstuff")
     try:
         for cogs in startup_extensions:
             client.load_extension(cogs)  # Startup all cogs
+            log(f"Loaded {cogs}")
             print(f"Loaded {cogs}")
 
         print("\nAll Cogs Loaded\n===============\nLogging into Discord...")
+        log("All Cogs Loaded, Logging into Discord")
         client.run(os.environ['TOKEN'])
 
     except Exception as e:
-        print(
-            f"\n###################\nPOSSIBLE FATAL ERROR:\n{e}\nTHIS MEANS THE BOT HAS NOT STARTED CORRECTLY!")
+        print(f"\n###################\nPOSSIBLE FATAL ERROR:\n{e}\nTHIS MEANS THE BOT HAS NOT STARTED CORRECTLY!")
+        log(f"\n###################\nPOSSIBLE FATAL ERROR:\n{e}\nTHIS MEANS THE BOT HAS NOT STARTED CORRECTLY!")
 
 
 if __name__ == '__main__':

@@ -1,40 +1,9 @@
 import discord
-from discord import utils
-from discord import interactions
-from discord.commands import slash_command
 from discord.ext import commands
-from discord import Option
 import json
 from discord.ui import Button, View
-from discord import Option
+from .usefulstuff import Paginator
 
-class HelpView(View):
-    def __init__(self, ctx, ems):
-        super().__init__(timeout=100)
-        self.em = ems
-        self.index = 0
-    
-    @discord.ui.button(style=discord.ButtonStyle.green, emoji="⬅", custom_id="left")
-    async def left(self, button, interaction):
-        if self.index == 0:
-            return
-        else:
-            self.index -= 1
-        em = self.em[self.index]
-        await interaction.response.edit_message(embed=em)
-    
-    @discord.ui.button(style=discord.ButtonStyle.green, emoji="➡️", custom_id="right")
-    async def right(self, button, interaction):
-        if self.index == 10:
-            return
-        else:
-            self.index += 1
-        em = self.em[self.index]
-        await interaction.response.edit_message(embed=em)
-    
-    async def on_timeout(self):
-        await self.ctx.send("Button timeout!")
-        
 class Help(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -93,7 +62,7 @@ class Help(commands.Cog):
 
             em = discord.Embed(title="Why Help:", description="Use `?help [command]` for more info on command")
             ems = [economy, fun, reddit, google, minecraft, moderation, music, text, ticket, utilities, other]
-            view = HelpView(ctx, ems)
+            view = Paginator(ctx, ems)
             return await ctx.send(embed=em, view=view)
 
         if cmd is None:
