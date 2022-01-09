@@ -17,3 +17,49 @@
 09/01/2022 12:46:35 | Loaded cogs.Help
 09/01/2022 12:46:35 | Loaded cogs.TextConvert
 09/01/2022 12:46:35 | All Cogs Loaded, Logging into Discord
+08/01/2022 23:48:31 | ----------START----------
+08/01/2022 23:48:31 | Loaded cogs.Ticket
+08/01/2022 23:48:32 | Loaded cogs.Google
+08/01/2022 23:48:32 | Loaded cogs.Minecraft
+08/01/2022 23:48:32 | Loaded cogs.Fun
+08/01/2022 23:48:32 | Loaded cogs.Reddit
+08/01/2022 23:48:32 | Loaded cogs.TextConvert
+08/01/2022 23:48:32 | Loaded cogs.Other
+08/01/2022 23:48:32 | Loaded cogs.Fusion
+08/01/2022 23:48:32 | Loaded cogs.Slash
+08/01/2022 23:48:32 | Loaded cogs.Economy
+08/01/2022 23:48:32 | Loaded cogs.Counting
+08/01/2022 23:48:32 | Loaded cogs.Moderation
+08/01/2022 23:48:32 | Loaded cogs.Utilities
+08/01/2022 23:48:34 | Loaded cogs.Music
+08/01/2022 23:48:34 | Loaded cogs.Custom
+08/01/2022 23:48:34 | Loaded cogs.Help
+08/01/2022 23:48:34 | All Cogs Loaded, Logging into Discord
+08/01/2022 23:48:45 | ERROR: Command "e" is not found, 763348615233667082 (Why Bot), 624076054969188363 (FusionSid)
+09/01/2022 00:18:40 | ----------START----------
+09/01/2022 00:18:40 | Loaded cogs.Ticket
+09/01/2022 00:18:40 | Loaded cogs.Google
+09/01/2022 00:18:40 | Loaded cogs.Minecraft
+09/01/2022 00:18:40 | Loaded cogs.Fun
+09/01/2022 00:18:40 | Loaded cogs.Reddit
+09/01/2022 00:18:40 | Loaded cogs.TextConvert
+09/01/2022 00:18:40 | Loaded cogs.Other
+09/01/2022 00:18:40 | Loaded cogs.Fusion
+09/01/2022 00:18:40 | Loaded cogs.Slash
+09/01/2022 00:18:40 | Loaded cogs.Economy
+09/01/2022 00:18:40 | Loaded cogs.Counting
+09/01/2022 00:18:40 | Loaded cogs.Moderation
+09/01/2022 00:18:40 | Loaded cogs.Utilities
+09/01/2022 00:18:41 | Loaded cogs.Music
+09/01/2022 00:18:41 | Loaded cogs.Custom
+09/01/2022 00:18:41 | Loaded cogs.Help
+09/01/2022 00:18:41 | All Cogs Loaded, Logging into Discord
+09/01/2022 06:47:40 | ERROR: Command raised an exception: AttributeError: module 'discord.commands.errors' has no attribute 'ClientException', 893653614990606346 (Yes), 768693329188749344 (Goose)
+09/01/2022 06:48:23 | ERROR: Command raised an exception: FileNotFoundError: [Errno 2] No such file or directory: './tempstorage/624076054969188363.mp3', 893653614990606346 (Yes), 624076054969188363 (FusionSid)
+09/01/2022 06:53:07 | ERROR: Command "Tts" is not found, 893653614990606346 (Yes), 768693329188749344 (Goose)
+09/01/2022 06:58:09 | ERROR: Command "E" is not found, 893653614990606346 (Yes), 624076054969188363 (FusionSid)
+09/01/2022 06:58:12 | ERROR: Command "e" is not found, 893653614990606346 (Yes), 624076054969188363 (FusionSid)
+09/01/2022 06:58:13 | ERROR: Command "eefe" is not found, 893653614990606346 (Yes), 624076054969188363 (FusionSid)
+09/01/2022 06:58:15 | ERROR: Command "AEgteagteg" is not found, 893653614990606346 (Yes), 624076054969188363 (FusionSid)
+09/01/2022 06:58:17 | ERROR: Command "ur" is not found, 893653614990606346 (Yes), 624076054969188363 (FusionSid)
+09/01/2022 08:40:37 | ERROR: Command raised an exception: FileNotFoundError: [Errno 2] No such file or directory: './tempstorage/768693329188749344.mp3', 893653614990606346 (Yes), 768693329188749344 (Goose)

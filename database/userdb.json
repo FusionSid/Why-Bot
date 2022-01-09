@@ -1,7 +1,7 @@
 [
     {
         "user_id": 624076054969188363,
-        "command_count": 1595,
+        "command_count": 1635,
         "settings": {},
         "on_pinged": {
             "title": "eeeeee",
@@ -41,7 +41,7 @@
     },
     {
         "user_id": 768693329188749344,
-        "command_count": 40,
+        "command_count": 59,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -51,7 +51,7 @@
     },
     {
         "user_id": 768693329188749344,
-        "command_count": 114,
+        "command_count": 133,
         "settings": {}
     },
     {
@@ -166,7 +166,7 @@
     },
     {
         "user_id": 887024920096296962,
-        "command_count": 2,
+        "command_count": 3,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -186,6 +186,26 @@
     },
     {
         "user_id": 922535832554971237,
+        "command_count": 1,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 845905852053454889,
+        "command_count": 4,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 870876545764433980,
         "command_count": 1,
         "settings": {},
         "on_pinged": {
