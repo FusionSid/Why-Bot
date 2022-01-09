@@ -397,6 +397,16 @@ class Moderation(commands.Cog):
             await member.add_roles(role)
 
     @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def createhook(self, ctx, name, channel:discord.TextChannel=None, avatarurl=None):
+        if channel == None:
+            channel = ctx.channel
+            await channel.create_webhook(name=name, avatar=avatarurl, reason=None)
+        else:
+            await channel.create_webhook(name=name, avatar=avatarurl, reason=None)
+
+
+    @commands.command()
     async def settings(self, ctx):
         pass
     # dm, bot update notifications, levelup notif, mod, counting, welcome

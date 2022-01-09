@@ -429,12 +429,12 @@ async def on_message(message):
 
 @client.event
 async def on_command_error(ctx, error):
-    # cha = await client.fetch_channel(896932591620464690)
-    # chaem = discord.Embed(title="ERROR", description=error)
-    # chaem.add_field(name="Server:", value=f"{ctx.guild.id} ({ctx.guild.name})")
-    # chaem.add_field(name="User:", value=f"{ctx.author.id} ({ctx.author.name})")
-    # await cha.send(embed=chaem)
-    log(f"ERROR: {error}, {ctx.guild.id} ({ctx.guild.name}), {ctx.author.id} ({ctx.author.name})")
+    cha = await client.fetch_channel(896932591620464690)
+    chaem = discord.Embed(title="ERROR", description=error)
+    chaem.add_field(name="Server:", value=f"{ctx.guild.id} ({ctx.guild.name})")
+    chaem.add_field(name="User:", value=f"{ctx.author.id} ({ctx.author.name})")
+    await cha.send(embed=chaem)
+    log(f"ERROR: {error}")
 
     if isinstance(error, commands.CommandOnCooldown):
         async def better_time(cd:int):
