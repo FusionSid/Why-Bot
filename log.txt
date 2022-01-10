@@ -1,0 +1,41 @@
+
+09/01/2022 23:57:28 | ----------START----------
+09/01/2022 23:57:28 | Loaded cogs.Ticket
+09/01/2022 23:57:29 | Loaded cogs.Google
+09/01/2022 23:57:29 | Loaded cogs.Minecraft
+09/01/2022 23:57:29 | Loaded cogs.Fun
+09/01/2022 23:57:29 | Loaded cogs.Reddit
+09/01/2022 23:57:29 | Loaded cogs.TextConvert
+09/01/2022 23:57:29 | Loaded cogs.Fusion
+09/01/2022 23:57:29 | Loaded cogs.Slash
+09/01/2022 23:57:29 | Loaded cogs.Economy
+09/01/2022 23:57:29 | Loaded cogs.Counting
+09/01/2022 23:57:29 | Loaded cogs.Utilities
+09/01/2022 23:57:31 | Loaded cogs.Music
+09/01/2022 23:57:31 | Loaded cogs.Custom
+09/01/2022 23:57:31 | Loaded cogs.Help
+09/01/2022 23:57:31 | Loaded cogs.Moderation
+09/01/2022 23:57:31 | Loaded cogs.Other
+09/01/2022 23:57:31 | All Cogs Loaded, Logging into Discord
+09/01/2022 23:59:14 | ERROR: Command "create" is not found
+10/01/2022 02:36:24 | ----------START----------
+10/01/2022 02:36:24 | Loaded cogs.Ticket
+10/01/2022 02:36:25 | Loaded cogs.Google
+10/01/2022 02:36:25 | Loaded cogs.Minecraft
+10/01/2022 02:36:25 | Loaded cogs.Fun
+10/01/2022 02:36:25 | Loaded cogs.Reddit
+10/01/2022 02:36:25 | Loaded cogs.TextConvert
+10/01/2022 02:36:25 | Loaded cogs.Fusion
+10/01/2022 02:36:25 | Loaded cogs.Slash
+10/01/2022 02:36:25 | Loaded cogs.Economy
+10/01/2022 02:36:25 | Loaded cogs.Counting
+10/01/2022 02:36:25 | Loaded cogs.Utilities
+10/01/2022 02:36:27 | Loaded cogs.Music
+10/01/2022 02:36:27 | Loaded cogs.Custom
+10/01/2022 02:36:27 | Loaded cogs.Help
+10/01/2022 02:36:27 | Loaded cogs.Moderation
+10/01/2022 02:36:27 | Loaded cogs.Other
+10/01/2022 02:36:27 | All Cogs Loaded, Logging into Discord
+10/01/2022 02:53:36 | ERROR: Command raised an exception: AttributeError: 'Message' object has no attribute 'edit_message'
+10/01/2022 03:02:07 | ERROR: Command raised an exception: AttributeError: 'Message' object has no attribute 'edit_message'
+10/01/2022 03:02:55 | ERROR: Command raised an exception: AttributeError: 'Message' object has no attribute 'edit_message'

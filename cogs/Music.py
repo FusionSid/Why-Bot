@@ -13,7 +13,7 @@ import discord.voice_client
 import json
 from gtts import gTTS
 from mutagen.mp3 import MP3
-from discord.ui import Button, View, view
+from discord.ui import Button, View
 from discord import Option
 import random
 
@@ -118,43 +118,6 @@ class MusicView(View):
 
         self.em.description = f"Successfully joined to `{channel}`"
         await interaction.response.edit_message(embed=self.em)
-    
-    @discord.ui.button(style=discord.ButtonStyle.blurple, label="Playlist", custom_id="button6", row=2)
-    async def playlist(self, button, interaction):
-        def check(m):
-            return m.channel == self.ctx.channel and m.author == self.ctx.author
-        await self.ctx.send("Enter playlist name:")
-        pname = await self.client.wait_for("message", check=check, timeout=300)
-        with open('./database/playlists.json') as f:
-            data = json.load(f)
-        if f"{self.ctx.author.id}" in data:
-            pass
-        else:
-            self.em.description = "You dont have any playlists!, Use ?createplaylist [name] to create one"
-        if pname in data[f"{self.ctx.author.id}"]:
-            pass
-        else:
-            self.em.description = "This playlist doesnt exist!, Use ?createplaylist [name] to create one"
-        self.em.description = "Playing Playlist, Songs are being added to queue in random order"
-        if len(data[f"{self.ctx.author.id}"][pname]):
-            slist = data[f"{self.ctx.author.id}"][pname]
-            def myfunction():
-              return 0.1
-            random.shuffle(slist, myfunction)
-            print(slist)
-            for song in slist:
-                try:
-                  await playy(self.ctx, video=song)
-                except Exception as e:
-                  print(e)
-                await asyncio.sleep(1)
-        else:
-            self.em.description = "List is empty use ?add [song]"
-        await interaction.response.edit_message(embed=self.em)
-
-    async def on_timeout(self):
-        await self.ctx.send("Button timeout!")
-
 
 
 def split(arr, size):
@@ -898,7 +861,12 @@ class Music(commands.Cog):
     async def music(self, ctx):
         em = discord.Embed(title="Music")
         view= MusicView(ctx, self.client)
-        await ctx.send(embed=em, view=view)
+        message = await ctx.send(embed=em, view=view)
+        res = await view.wait()
+        if res:
+          for i in view.children:
+            i.disabled = True
+          return await message.edit(view=view)
 
 def setup(client):
     client.add_cog(Music(client))

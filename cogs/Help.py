@@ -63,7 +63,12 @@ class Help(commands.Cog):
             em = discord.Embed(title="Why Help:", description="Use `?help [command]` for more info on command")
             ems = [economy, fun, reddit, google, minecraft, moderation, music, text, ticket, utilities, other]
             view = Paginator(ctx, ems)
-            return await ctx.send(embed=em, view=view)
+            message = await ctx.send(embed=em, view=view)
+            res = await view.wait()
+            if res:
+              for i in view.children:
+                i.disabled = True
+            return await message.edit(view=view)
 
         if cmd is None:
             em.add_field(inline=False,name="`?help [category]`", value="Lists all commands in that category")
@@ -85,7 +90,12 @@ class Help(commands.Cog):
             view.add_item(button3)
             view.add_item(button4)
             view.add_item(button5)
-            return await ctx.send(embed=em, view=view)
+            message = await ctx.send(embed=em, view=view)
+            res = await view.wait()
+            if res:
+              for i in view.children:
+                i.disabled = True
+            return await message.edit(view=view)
         elif cmd.lower() in cats:
             for i in cats:
                 if i.lower() == cmd.lower():

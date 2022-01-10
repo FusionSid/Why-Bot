@@ -140,7 +140,12 @@ class Utilities(commands.Cog):
     @commands.command(aliases=['calc', 'calculator'])
     async def calculate(self, ctx):
         view = InteractiveView()
-        await ctx.send("```\n```",view=view)
+        message = await ctx.send("```\n```", view=view)
+        res = await view.wait()
+        if res:
+          for i in view.children:
+            i.disabled = True
+        return await message.edit(view=view)
 
 def setup(client):
     client.add_cog(Utilities(client))
