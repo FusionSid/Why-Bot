@@ -454,5 +454,17 @@
         "description": "A message that will display when you are pinged",
         "usage": "`?onpinged [set/clear] <- optional`",
         "category": "Custom"
+    },
+    {
+        "name": "createhook",
+        "description": "Creates a webhook",
+        "usage": "`?createhook [name] [channel] [profile-pic-url]`",
+        "category": "Moderation"
+    },
+    {
+        "name": "webhook",
+        "description": "Sends text using a webhook",
+        "usage": "`?webhook [url] [text]`",
+        "category": "Modertation"
     }
 ]

@@ -84,3 +84,42 @@
 11/01/2022 01:52:44 | ERROR: Command raised an exception: AttributeError: '_io.BytesIO' object has no attribute 'startswith'
 11/01/2022 01:53:44 | ERROR: Command raised an exception: TypeError: startswith first arg must be str or a tuple of str, not bytes
 11/01/2022 02:01:32 | ERROR: Command raised an exception: AttributeError: module 'requests' has no attribute 'content'
+11/01/2022 02:11:55 | ERROR: Channel "[channel]" not found.
+11/01/2022 02:12:37 | ERROR: Command "webhook" is not found
+11/01/2022 02:13:57 | ERROR: Command "createwebhook" is not found
+11/01/2022 02:16:31 | ----------START----------
+11/01/2022 02:16:31 | Loaded cogs.Ticket
+11/01/2022 02:16:31 | Loaded cogs.Google
+11/01/2022 02:16:31 | Loaded cogs.Minecraft
+11/01/2022 02:16:31 | Loaded cogs.Fun
+11/01/2022 02:16:32 | Loaded cogs.Reddit
+11/01/2022 02:16:32 | Loaded cogs.TextConvert
+11/01/2022 02:16:32 | Loaded cogs.Fusion
+11/01/2022 02:16:32 | Loaded cogs.Slash
+11/01/2022 02:16:32 | Loaded cogs.Economy
+11/01/2022 02:16:32 | Loaded cogs.Counting
+11/01/2022 02:16:32 | Loaded cogs.Custom
+11/01/2022 02:16:32 | Loaded cogs.Other
+11/01/2022 02:16:33 | Loaded cogs.Music
+11/01/2022 02:16:33 | Loaded cogs.Help
+11/01/2022 02:16:33 | Loaded cogs.Utilities
+11/01/2022 02:16:33 | Loaded cogs.Moderation
+11/01/2022 02:16:33 | All Cogs Loaded, Logging into Discord
+11/01/2022 02:41:24 | ----------START----------
+11/01/2022 02:41:24 | Loaded cogs.Ticket
+11/01/2022 02:41:24 | Loaded cogs.Google
+11/01/2022 02:41:24 | Loaded cogs.Minecraft
+11/01/2022 02:41:24 | Loaded cogs.Fun
+11/01/2022 02:41:24 | Loaded cogs.Reddit
+11/01/2022 02:41:24 | Loaded cogs.TextConvert
+11/01/2022 02:41:24 | Loaded cogs.Fusion
+11/01/2022 02:41:25 | Loaded cogs.Slash
+11/01/2022 02:41:25 | Loaded cogs.Economy
+11/01/2022 02:41:25 | Loaded cogs.Counting
+11/01/2022 02:41:25 | Loaded cogs.Custom
+11/01/2022 02:41:25 | Loaded cogs.Other
+11/01/2022 02:41:26 | Loaded cogs.Music
+11/01/2022 02:41:26 | Loaded cogs.Help
+11/01/2022 02:41:26 | Loaded cogs.Utilities
+11/01/2022 02:41:26 | Loaded cogs.Moderation
+11/01/2022 02:41:26 | All Cogs Loaded, Logging into Discord
