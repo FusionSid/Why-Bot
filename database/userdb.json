@@ -1,7 +1,7 @@
 [
     {
         "user_id": 624076054969188363,
-        "command_count": 1655,
+        "command_count": 1697,
         "settings": {},
         "on_pinged": {
             "title": "eeeeee",
@@ -41,7 +41,7 @@
     },
     {
         "user_id": 768693329188749344,
-        "command_count": 59,
+        "command_count": 60,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -51,12 +51,12 @@
     },
     {
         "user_id": 768693329188749344,
-        "command_count": 133,
+        "command_count": 134,
         "settings": {}
     },
     {
         "user_id": 516812635233058826,
-        "command_count": 30,
+        "command_count": 38,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -66,7 +66,7 @@
     },
     {
         "user_id": 583032764559917057,
-        "command_count": 3,
+        "command_count": 4,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -126,7 +126,7 @@
     },
     {
         "user_id": 797797679136374815,
-        "command_count": 2,
+        "command_count": 3,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -176,7 +176,7 @@
     },
     {
         "user_id": 883740223115255839,
-        "command_count": 1,
+        "command_count": 2,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -196,7 +196,7 @@
     },
     {
         "user_id": 845905852053454889,
-        "command_count": 4,
+        "command_count": 9,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -206,7 +206,17 @@
     },
     {
         "user_id": 870876545764433980,
-        "command_count": 3,
+        "command_count": 5,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 835824068384129045,
+        "command_count": 1,
         "settings": {},
         "on_pinged": {
             "title": null,

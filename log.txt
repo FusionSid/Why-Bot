@@ -39,3 +39,23 @@
 10/01/2022 02:53:36 | ERROR: Command raised an exception: AttributeError: 'Message' object has no attribute 'edit_message'
 10/01/2022 03:02:07 | ERROR: Command raised an exception: AttributeError: 'Message' object has no attribute 'edit_message'
 10/01/2022 03:02:55 | ERROR: Command raised an exception: AttributeError: 'Message' object has no attribute 'edit_message'
+10/01/2022 04:13:25 | ERROR: Command "PLAY" is not found
+10/01/2022 11:46:39 | ERROR: role is a required argument that is missing.
+11/01/2022 00:29:30 | ----------START----------
+11/01/2022 00:29:30 | Loaded cogs.Ticket
+11/01/2022 00:29:31 | Loaded cogs.Google
+11/01/2022 00:29:31 | Loaded cogs.Minecraft
+11/01/2022 00:29:31 | Loaded cogs.Fun
+11/01/2022 00:29:31 | Loaded cogs.Reddit
+11/01/2022 00:29:31 | Loaded cogs.TextConvert
+11/01/2022 00:29:31 | Loaded cogs.Fusion
+11/01/2022 00:29:31 | Loaded cogs.Slash
+11/01/2022 00:29:31 | Loaded cogs.Economy
+11/01/2022 00:29:31 | Loaded cogs.Counting
+11/01/2022 00:29:31 | Loaded cogs.Custom
+11/01/2022 00:29:31 | Loaded cogs.Moderation
+11/01/2022 00:29:31 | Loaded cogs.Other
+11/01/2022 00:29:33 | Loaded cogs.Music
+11/01/2022 00:29:33 | Loaded cogs.Help
+11/01/2022 00:29:33 | Loaded cogs.Utilities
+11/01/2022 00:29:33 | All Cogs Loaded, Logging into Discord

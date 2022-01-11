@@ -34,5 +34,17 @@
         "role_id": 928453275538321448,
         "emoji": "\ud83d\ude27",
         "message_id": 928459632505151548
+    },
+    {
+        "role_name": "[DEV]",
+        "role_id": 926682128094232577,
+        "emoji": "\ud83e\udd16",
+        "message_id": 930062833037742140
+    },
+    {
+        "role_name": "Ping",
+        "role_id": 928059678183800902,
+        "emoji": "\ud83d\ude03",
+        "message_id": 930063545620639754
     }
 ]
