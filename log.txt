@@ -59,3 +59,28 @@
 11/01/2022 00:29:33 | Loaded cogs.Help
 11/01/2022 00:29:33 | Loaded cogs.Utilities
 11/01/2022 00:29:33 | All Cogs Loaded, Logging into Discord
+11/01/2022 01:19:53 | ERROR: Command raised an exception: ExtensionFailed: Extension 'cogs.Moderation' raised an error: ModuleNotFoundError: No module named 'discord_webhook'
+11/01/2022 01:26:16 | ----------START----------
+11/01/2022 01:26:16 | Loaded cogs.Ticket
+11/01/2022 01:26:16 | Loaded cogs.Google
+11/01/2022 01:26:16 | Loaded cogs.Minecraft
+11/01/2022 01:26:16 | Loaded cogs.Fun
+11/01/2022 01:26:17 | Loaded cogs.Reddit
+11/01/2022 01:26:17 | Loaded cogs.TextConvert
+11/01/2022 01:26:17 | Loaded cogs.Fusion
+11/01/2022 01:26:17 | Loaded cogs.Slash
+11/01/2022 01:26:17 | Loaded cogs.Economy
+11/01/2022 01:26:17 | Loaded cogs.Counting
+11/01/2022 01:26:17 | Loaded cogs.Custom
+11/01/2022 01:26:17 | Loaded cogs.Other
+11/01/2022 01:26:18 | Loaded cogs.Music
+11/01/2022 01:26:18 | Loaded cogs.Help
+11/01/2022 01:26:18 | Loaded cogs.Utilities
+11/01/2022 01:26:18 | Loaded cogs.Moderation
+11/01/2022 01:26:18 | All Cogs Loaded, Logging into Discord
+11/01/2022 01:39:49 | ERROR: Command raised an exception: ExtensionFailed: Extension 'cogs.Moderation' raised an error: SyntaxError: invalid syntax (Moderation.py, line 38)
+11/01/2022 01:40:11 | ERROR: Command raised an exception: ExtensionFailed: Extension 'cogs.Moderation' raised an error: SyntaxError: invalid syntax (Moderation.py, line 410)
+11/01/2022 01:43:09 | ERROR: Command raised an exception: AttributeError: 'NoneType' object has no attribute 'timeout'
+11/01/2022 01:52:44 | ERROR: Command raised an exception: AttributeError: '_io.BytesIO' object has no attribute 'startswith'
+11/01/2022 01:53:44 | ERROR: Command raised an exception: TypeError: startswith first arg must be str or a tuple of str, not bytes
+11/01/2022 02:01:32 | ERROR: Command raised an exception: AttributeError: module 'requests' has no attribute 'content'

@@ -8,7 +8,9 @@ import json
 import dotenv
 from discord.utils import get
 from discord_webhook import DiscordWebhook
-
+from io import BytesIO
+from urllib.request import urlopen
+import requests
 dotenv.load_dotenv()
 
 
@@ -26,7 +28,6 @@ async def get_log_channel(self, ctx):
             return await self.client.fetch_channel(channel)
 
     return False
-
 
 class Moderation(commands.Cog):
     def __init__(self, client):
@@ -402,11 +403,18 @@ class Moderation(commands.Cog):
     async def createhook(self, ctx, name, channel:discord.TextChannel=None, avatarurl=None):
         if channel == None:
             channel = ctx.channel
-            await channel.create_webhook(name=name, avatar=avatarurl, reason=None)
+        if avatarurl == None:
+            e = await channel.create_webhook(name=name,reason=None)
         else:
-            await channel.create_webhook(name=name, avatar=avatarurl, reason=None)
+            aimg = requests.get(avatarurl)
+            aimg = aimg.content
+            e = await channel.create_webhook(name=name, avatar=bytes(aimg), reason=None)
+        webhook = await self.client.fetch_webhook(e.id)
+        await ctx.author.send(webhook.url)
+        await ctx.message.delete()
+        await ctx.send(embed=discord.Embed(title="Url sent in dms", description="Use `?wh [url] [message]` to send messages using that webhook"))
 
-    @commands.command()
+    @commands.command(aliases=['webhook', 'swh'])
     async def wh(self, ctx, url, *, text):
         await ctx.message.delete()
         webhook = DiscordWebhook(url=url, content=text)
