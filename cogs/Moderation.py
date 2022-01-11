@@ -7,6 +7,7 @@ import os
 import json
 import dotenv
 from discord.utils import get
+from discord_webhook import DiscordWebhook
 
 dotenv.load_dotenv()
 
@@ -397,7 +398,7 @@ class Moderation(commands.Cog):
             await member.add_roles(role)
 
     @commands.command()
-    @commands.has_permissions(administrator=True)
+    @commands.has_permissions(manage_webhooks=True)
     async def createhook(self, ctx, name, channel:discord.TextChannel=None, avatarurl=None):
         if channel == None:
             channel = ctx.channel
@@ -405,6 +406,11 @@ class Moderation(commands.Cog):
         else:
             await channel.create_webhook(name=name, avatar=avatarurl, reason=None)
 
+    @commands.command()
+    async def wh(self, ctx, url, *, text):
+        await ctx.message.delete()
+        webhook = DiscordWebhook(url=url, content=text)
+        response = webhook.execute()
 
     @commands.command()
     async def settings(self, ctx):
