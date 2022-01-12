@@ -1,15 +1,12 @@
 import discord
 import os
 import platform
-import json
 from discord import role
 from discord.ext import commands
 import psutil
 import qrcode
-import math
-import requests
-import datetime
 from simpcalc import simpcalc
+from discord.ui import Button, View
 
 class InteractiveView(discord.ui.View):
     def __init__(self):
@@ -232,6 +229,13 @@ class Utilities(commands.Cog):
           for i in view.children:
             i.disabled = True
         return await message.edit(view=view)
+
+    @commands.command()
+    async def vote(ctx):
+        button = Button(style=discord.ButtonStyle.grey,label="Vote link:", url="https://discordbotlist.com/bots/why")
+        view= View(timeout=15)
+        view.add_item(button)
+        await ctx.send(embed=discord.Embed(title="Vote for Why Bot here:"), view=view)
         
 def setup(client):
     client.add_cog(Utilities(client))

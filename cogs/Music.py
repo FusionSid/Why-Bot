@@ -867,6 +867,11 @@ class Music(commands.Cog):
           for i in view.children:
             i.disabled = True
           return await message.edit(view=view)
+          
+    @commands.command()
+    async def oihweogth(self, ctx):
+        global queues
+        print(queues[ctx.guild.id])
 
 def setup(client):
     client.add_cog(Music(client))
