@@ -10,7 +10,7 @@ async def get_data(user_id):
             return user
     return None
 
-class Custom(commands.Cog):
+class Onping(commands.Cog):
     def __init__(self, client):
         self.client = client
     
@@ -144,4 +144,4 @@ class Custom(commands.Cog):
                   return await message.channel.send(embed=em)
 
 def setup(client):
-    client.add_cog(Custom(client))
+    client.add_cog(Onping(client))

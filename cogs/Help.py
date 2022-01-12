@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import json
 from discord.ui import Button, View
-from .usefulstuff import Paginator
+from ..utils.buttons import Paginator
 
 class Help(commands.Cog):
     def __init__(self, client):

@@ -7,7 +7,21 @@
         "log_channel": 925513395883606129,
         "welcome_channel": 926451103170715688,
         "warnings": {},
-        "settings": {},
+        "settings": {
+            "welcometext":"THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins":{
+                "Counting":false,
+                "Economy":false,
+                "Text":false,
+                "Search":false,
+                "Welcome":false,
+                "Leveling":false,
+                "Music":false,
+                "Onping":false,
+                "Tickets":false,
+                "Minecraft":false
+            }
+        },
         "autorole": {
             "all": 926682198168457246,
             "bot": 926298900640444497
@@ -21,7 +35,21 @@
         "log_channel": 899463777513271379,
         "welcome_channel": 894090935317708820,
         "warnings": {},
-        "settings": {},
+        "settings": {
+            "welcometext":"THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins":{
+                "Counting":false,
+                "Economy":false,
+                "Text":false,
+                "Search":false,
+                "Welcome":false,
+                "Leveling":false,
+                "Music":false,
+                "Onping":false,
+                "Tickets":false,
+                "Minecraft":false
+            }
+        },
         "autorole": {
             "all": 893681219269705728,
             "bot": 893743125426761738
@@ -35,7 +63,21 @@
         "log_channel": null,
         "welcome_channel": null,
         "warnings": {},
-        "settings": {},
+        "settings": {
+            "welcometext":"THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins":{
+                "Counting":false,
+                "Economy":false,
+                "Text":false,
+                "Search":false,
+                "Welcome":false,
+                "Leveling":false,
+                "Music":false,
+                "Onping":false,
+                "Tickets":false,
+                "Minecraft":false
+            }
+        },
         "autorole": {
             "all": null,
             "bot": null
@@ -49,7 +91,21 @@
         "log_channel": null,
         "welcome_channel": null,
         "warnings": {},
-        "settings": {},
+        "settings": {
+            "welcometext":"THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins":{
+                "Counting":false,
+                "Economy":false,
+                "Text":false,
+                "Search":false,
+                "Welcome":false,
+                "Leveling":false,
+                "Music":false,
+                "Onping":false,
+                "Tickets":false,
+                "Minecraft":false
+            }
+        },
         "autorole": {
             "all": null,
             "bot": null

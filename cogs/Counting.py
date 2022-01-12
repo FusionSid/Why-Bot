@@ -67,6 +67,15 @@ async def counting(msg, guild, channel, m):
 class Counting(commands.Cog):
     def __init__(self, client):
         self.client = client
+        
+    @commands.command(aliases=['num'])
+    async def numrn(self, ctx):
+        guild = ctx.guild
+        with open('./database/counting.json') as f:
+            data = json.load(f)
+        guildid = f'{guild.id}'
+        numrn = data[guildid]
+        await ctx.send(f"Current number is {numrn}")
 
     @commands.Cog.listener()
     async def on_message(self, message):

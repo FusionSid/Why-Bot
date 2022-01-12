@@ -1,14 +1,19 @@
 import discord
 from discord.ext import commands
-import os
 import random
+from googleapiclient.discovery import build
+import re
+import urllib.request
+import os
 import praw
-import requests
 import dotenv
 
 dotenv.load_dotenv()
 
-# Create reddit client
+
+isapi_key = "AIzaSyCj52wnSciil-4JPd6faOXXHfEb1pzrCuY"
+
+
 def reddit_client():
     client = praw.Reddit(
         client_id=os.environ['CLIENT_ID'],
@@ -18,7 +23,6 @@ def reddit_client():
     return client
 
 
-# Check if its an image
 def is_image(post):
     try:
         return post.post_hint == "image"
@@ -26,7 +30,6 @@ def is_image(post):
         return False
 
 
-# Get top 50 image urls (memes)
 async def get_img_url(client: praw.Reddit, sub_name: str, limit: int):
     hot_memes = client.subreddit(sub_name).hot(limit=limit)
     image_urls = []
@@ -44,9 +47,35 @@ async def get_url(client: praw.Reddit, sub_name: str, limit: int):
     return urls
 
 
-class Reddit(commands.Cog):
+class Search(commands.Cog):
     def __init__(self, client):
         self.client = client
+
+    @commands.command(aliases=['is'])
+    async def imagesearch(self, ctx, *, search):
+        ran = random.randint(0, 9)
+        resource = build("customsearch", "v1", developerKey=isapi_key).cse()
+        result = resource.list(
+            q=f"{search}", cx="54c1117c3e104029b", searchType="image"
+        ).execute()
+        url = result["items"][ran]["link"]
+        embed1 = discord.Embed(title=f"Search:({search.title()})")
+        embed1.set_image(url=url)
+        await ctx.send(embed=embed1)
+
+    @commands.command(aliases=['yt'])
+    async def youtube(self, ctx, *, search_):
+        search_ = search_.replace(" ", "+")
+        html = urllib.request.urlopen(
+            f'http://www.youtube.com/results?search_query={search_}')
+        ids = re.findall(r"watch\?v=(\S{11})", html.read().decode())
+        base_url = "https://www.youtube.com/watch?v="
+        em = discord.Embed(title="Youtube Search",
+                           description="Showing first 5 urls")
+        videos = [ids[0], ids[1], ids[2], ids[3], ids[4]]
+        for video in videos:
+            em.add_field(name=f"{base_url}{video}", value="** **")
+        await ctx.send(embed=em)
 
     @commands.command(aliases=['rimg'])
     async def redditimg(self, ctx, subreddit: str):
@@ -86,4 +115,4 @@ class Reddit(commands.Cog):
 
 
 def setup(client):
-    client.add_cog(Reddit(client))
+    client.add_cog(Search(client))

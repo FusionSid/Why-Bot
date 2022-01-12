@@ -6,8 +6,14 @@ from discord.ui import Button, View
 from discord import Option
 import json
 import random
+import os
 
-cogs = ["Economy", "Fun", "Fusion", "Google", "Help", "Minecraft", "Moderation", "Music", "Other", "Reddit", "Slash", "TextConvert", "Ticket", "Utilities", "Custom"]
+cogs = []
+for i in os.listdir("cogs/"):
+    if i == "__pycache__":
+        pass
+    else:
+        print(i[:-3])
 
 def is_it_me(ctx):
     return ctx.author.id == 624076054969188363

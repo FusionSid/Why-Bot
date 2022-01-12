@@ -11,7 +11,7 @@ import discord
 from discord.ext import commands
 from discord import Option
 from discord.ui import Button, View
-from keep_alive import keep_alive
+from utils.keep_alive import keep_alive
 import dotenv
 from easy_pil import Editor, Canvas, Font, load_image, Text
 import requests
@@ -36,7 +36,7 @@ def log(log):
     now = datetime.now()
     timern = now.strftime("%d/%m/%Y %H:%M:%S")
 
-    with open('log.txt', 'a') as f:
+    with open('other/log.txt', 'a') as f:
         f.write('\n')
         f.write(f"{timern} | {log}")
 
@@ -114,95 +114,7 @@ async def on_guild_join(guild):
         await guild.system_channel.send(content="**Thanks for inviting me! :wave: **", embed=embed)
     except:
         pass
-
-async def memberjoin(member):
-    # Custom Image
-    background = Editor(Canvas((900, 270), "#23272a"))
-
-    # For profile to use users profile picture load it from url using the load_image/load_image_async function
-    profile_image = load_image(str(member.avatar.url))
-    profile = Editor(profile_image).resize((200, 200)).circle_image()
-
-    # Fonts to use with different size
-    poppins_big = Font.poppins(variant="bold", size=50)
-    poppins_mediam = Font.poppins(variant="bold", size=40)
-    poppins_regular = Font.poppins(variant="regular", size=30)
-    poppins_thin = Font.poppins(variant="light", size=18)
-
-    card_left_shape = [(0, 0), (0, 270), (330, 270), (260, 0)]
-
-    background.polygon(card_left_shape, "#2C2F33")
-    background.paste(profile, (40, 35))
-    background.text((600, 20), "WELCOME", font=poppins_big, color="white", align="center")
-    background.text(
-        (600, 70), f"{member.name}", font=poppins_regular, color="white", align="center"
-    )
-    background.text(
-        (600, 120), "THANKS FOR JOINING", font=poppins_mediam, color="white", align="center"
-    )
-    background.text(
-        (600, 160), f"{member.guild.name}", font=poppins_regular, color="white", align="center"
-    )
-    background.text(
-        (620, 245),
-        "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
-        font=poppins_thin,
-        color="white",
-        align="center",
-    )
-
-    background.save(f"tempstorage/welcome{member.id}.png")
-
-    try:
-        await member.send(file=discord.File(f"tempstorage/welcome{member.id}.png"))  # Welcome message
-    except:
-        print('f')
-    with open(f"database/db.json") as f:
-        # Open setup file and check if there is a welcome channel
-        data = json.load(f)
-    for i in data:
-        if i["guild_id"] == member.guild.id:
-            cha = i["welcome_channel"]
-    if cha == None:
-        await member.guild.system_channel.send(file=discord.File(f"welcome{member.id}.png"))
-    else:
-        channel = await client.fetch_channel(int(cha))
-        # Send welcome message in server welcome channel
-        await channel.send(file=discord.File(f"tempstorage/welcome{member.id}.png"))
-    os.remove(f"tempstorage/welcome{member.id}.png")
-
-async def mj(member):
-    with open("database/db.json") as f:
-        data = json.load(f)
-    for i in data:
-        if i["guild_id"] == member.guild.id:
-            channel = i["welcome_channel"]
-            if channel == None:
-                channel = member.guild.system_channel
-    channel = await client.fetch_channel(channel)
-    r = requests.get(
-        url='https://api.xzusfin.repl.co/card?',
-        params={
-            'avatar': str(member.avatar.url),
-            'middle': 'welcome',
-            'name': str(member.name),
-            'bottom': str('on ' + member.guild.name),
-            'text': '#CCCCCC',
-            'avatarborder': '#CCCCCC',
-            'avatarbackground': '#CCCCCC',
-            'background': 'https://c4.wallpaperflare.com/wallpaper/969/697/87/square-shapes-black-dark-wallpaper-preview.jpg'  # or image url
-        }
-    )
-    em = discord.Embed()
-    em.set_image(url=r.url)
-    await channel.send(embed=em)
-
-
-@client.event
-async def on_member_join(member):
-    await memberjoin(member)
     
-
 # Set Prefix
 
 

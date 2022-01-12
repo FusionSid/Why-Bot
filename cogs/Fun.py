@@ -172,17 +172,8 @@ class Fun(commands.Cog):
     async def say(self, ctx, *, text):
         await ctx.message.delete()
         await ctx.send(text)
-    
-   
 
-    @commands.command(aliases=['num'])
-    async def numrn(self, ctx):
-        guild = ctx.guild
-        with open('./database/counting.json') as f:
-            data = json.load(f)
-        guildid = f'{guild.id}'
-        numrn = data[guildid]
-        await ctx.send(f"Current number is {numrn}")
+    # Polls
 
     @commands.command(aliases=['yahornah', 'yn'])
     async def yesorno(self, ctx, *, message):
@@ -231,8 +222,8 @@ class Fun(commands.Cog):
         embed.description = f"{embed.description}\n** **"
         embed.add_field(name=f"Results:", value=f"** **\n {results}")
         embed.set_footer(text="Voting is closed")
-        await message.edit(embed=embed)
-        await ctx.send(embed=discord.Embed(title=f"Poll Results For {question}:", description=f"Votes:\n {results}"))
+        # await message.edit(embed=embed)
+        await message.reply(embed=discord.Embed(title=f"Poll Results For {question}:", description=f"**Votes:**\n {results}"))
 
 
 def setup(client):

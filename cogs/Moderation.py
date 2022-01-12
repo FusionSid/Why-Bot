@@ -420,11 +420,6 @@ class Moderation(commands.Cog):
         webhook = DiscordWebhook(url=url, content=text)
         response = webhook.execute()
 
-    @commands.command()
-    async def settings(self, ctx):
-        pass
-    # dm, bot update notifications, levelup notif, mod, counting, welcome
-
 
 def setup(client):
     client.add_cog(Moderation(client))
