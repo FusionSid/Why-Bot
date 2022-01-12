@@ -390,7 +390,6 @@ def start_bot(client):
     lst = [f for f in listdir("cogs/") if isfile(join("cogs/", f))]
     no_py = [s.replace('.py', '') for s in lst]
     startup_extensions = ["cogs." + no_py for no_py in no_py]
-    startup_extensions.remove("cogs.usefulstuff")
     try:
         for cogs in startup_extensions:
             client.load_extension(cogs)  # Startup all cogs

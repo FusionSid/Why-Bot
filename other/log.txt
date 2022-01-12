@@ -215,3 +215,184 @@ THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
 12/01/2022 00:15:41 | Loaded cogs.Custom
 12/01/2022 00:15:41 | All Cogs Loaded, Logging into Discord
 12/01/2022 01:01:30 | ERROR: Member "e" not found.
+12/01/2022 02:19:10 | ----------START----------
+12/01/2022 02:19:44 | ----------START----------
+12/01/2022 02:19:44 | Loaded cogs.Ticket
+12/01/2022 02:19:44 | Loaded cogs.Minecraft
+12/01/2022 02:19:44 | Loaded cogs.TextConvert
+12/01/2022 02:19:44 | Loaded cogs.Fusion
+12/01/2022 02:19:44 | Loaded cogs.Economy
+12/01/2022 02:19:44 | Loaded cogs.Counting
+12/01/2022 02:19:44 | Loaded cogs.Fun
+12/01/2022 02:19:44 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.Help' raised an error: ValueError: attempted relative import beyond top-level package
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+12/01/2022 02:20:36 | ----------START----------
+12/01/2022 02:20:36 | Loaded cogs.Ticket
+12/01/2022 02:20:36 | Loaded cogs.Minecraft
+12/01/2022 02:20:36 | Loaded cogs.TextConvert
+12/01/2022 02:20:36 | Loaded cogs.Fusion
+12/01/2022 02:20:36 | Loaded cogs.Economy
+12/01/2022 02:20:36 | Loaded cogs.Counting
+12/01/2022 02:20:36 | Loaded cogs.Fun
+12/01/2022 02:20:36 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.Help' raised an error: ValueError: attempted relative import beyond top-level package
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+12/01/2022 02:24:31 | ----------START----------
+12/01/2022 02:24:31 | Loaded cogs.Ticket
+12/01/2022 02:24:31 | Loaded cogs.Minecraft
+12/01/2022 02:24:31 | Loaded cogs.TextConvert
+12/01/2022 02:24:31 | Loaded cogs.Fusion
+12/01/2022 02:24:31 | Loaded cogs.Economy
+12/01/2022 02:24:31 | Loaded cogs.Counting
+12/01/2022 02:24:31 | Loaded cogs.Fun
+12/01/2022 02:24:31 | Loaded cogs.Moderation
+12/01/2022 02:24:32 | Loaded cogs.Music
+12/01/2022 02:24:32 | Loaded cogs.Onping
+12/01/2022 02:24:32 | Loaded cogs.Search
+12/01/2022 02:24:32 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.Settings' raised an error: ValueError: attempted relative import beyond top-level package
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+12/01/2022 02:24:43 | ----------START----------
+12/01/2022 02:24:43 | Loaded cogs.Ticket
+12/01/2022 02:24:43 | Loaded cogs.Minecraft
+12/01/2022 02:24:43 | Loaded cogs.TextConvert
+12/01/2022 02:24:43 | Loaded cogs.Fusion
+12/01/2022 02:24:43 | Loaded cogs.Economy
+12/01/2022 02:24:43 | Loaded cogs.Counting
+12/01/2022 02:24:43 | Loaded cogs.Fun
+12/01/2022 02:24:43 | Loaded cogs.Moderation
+12/01/2022 02:24:44 | Loaded cogs.Music
+12/01/2022 02:24:44 | Loaded cogs.Onping
+12/01/2022 02:24:45 | Loaded cogs.Search
+12/01/2022 02:24:45 | Loaded cogs.Slash
+12/01/2022 02:24:45 | Loaded cogs.Utilities
+12/01/2022 02:24:45 | Loaded cogs.Welcome
+12/01/2022 02:24:45 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.Help' raised an error: ValueError: attempted relative import beyond top-level package
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+12/01/2022 02:26:19 | ----------START----------
+12/01/2022 02:26:19 | Loaded cogs.Ticket
+12/01/2022 02:26:19 | Loaded cogs.Minecraft
+12/01/2022 02:26:19 | Loaded cogs.TextConvert
+12/01/2022 02:26:19 | Loaded cogs.Fusion
+12/01/2022 02:26:19 | Loaded cogs.Economy
+12/01/2022 02:26:19 | Loaded cogs.Counting
+12/01/2022 02:26:19 | Loaded cogs.Fun
+12/01/2022 02:26:19 | Loaded cogs.Moderation
+12/01/2022 02:26:20 | Loaded cogs.Music
+12/01/2022 02:26:20 | Loaded cogs.Onping
+12/01/2022 02:26:21 | Loaded cogs.Search
+12/01/2022 02:26:21 | Loaded cogs.Slash
+12/01/2022 02:26:21 | Loaded cogs.Utilities
+12/01/2022 02:26:21 | Loaded cogs.Welcome
+12/01/2022 02:26:21 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.Settings' raised an error: ValueError: attempted relative import beyond top-level package
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+12/01/2022 02:26:30 | ----------START----------
+12/01/2022 02:26:30 | Loaded cogs.Ticket
+12/01/2022 02:26:30 | Loaded cogs.Minecraft
+12/01/2022 02:26:30 | Loaded cogs.TextConvert
+12/01/2022 02:26:30 | Loaded cogs.Fusion
+12/01/2022 02:26:30 | Loaded cogs.Economy
+12/01/2022 02:26:30 | Loaded cogs.Counting
+12/01/2022 02:26:30 | Loaded cogs.Fun
+12/01/2022 02:26:30 | Loaded cogs.Moderation
+12/01/2022 02:26:31 | Loaded cogs.Music
+12/01/2022 02:26:31 | Loaded cogs.Onping
+12/01/2022 02:26:31 | Loaded cogs.Search
+12/01/2022 02:26:31 | Loaded cogs.Slash
+12/01/2022 02:26:32 | Loaded cogs.Utilities
+12/01/2022 02:26:32 | Loaded cogs.Welcome
+12/01/2022 02:26:32 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.Help' raised an error: ImportError: cannot import name 'Paginator' from 'utils' (/home/runner/Why-Discord-Bot/utils/__init__.py)
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+12/01/2022 02:27:25 | ----------START----------
+12/01/2022 02:27:25 | Loaded cogs.Ticket
+12/01/2022 02:27:25 | Loaded cogs.Minecraft
+12/01/2022 02:27:25 | Loaded cogs.TextConvert
+12/01/2022 02:27:25 | Loaded cogs.Fusion
+12/01/2022 02:27:25 | Loaded cogs.Economy
+12/01/2022 02:27:25 | Loaded cogs.Counting
+12/01/2022 02:27:25 | Loaded cogs.Fun
+12/01/2022 02:27:25 | Loaded cogs.Moderation
+12/01/2022 02:27:26 | Loaded cogs.Music
+12/01/2022 02:27:26 | Loaded cogs.Onping
+12/01/2022 02:27:26 | Loaded cogs.Search
+12/01/2022 02:27:26 | Loaded cogs.Slash
+12/01/2022 02:27:26 | Loaded cogs.Utilities
+12/01/2022 02:27:26 | Loaded cogs.Welcome
+12/01/2022 02:27:26 | Loaded cogs.Help
+12/01/2022 02:27:26 | All Cogs Loaded, Logging into Discord
+12/01/2022 02:30:42 | ----------START----------
+12/01/2022 02:30:42 | Loaded cogs.Ticket
+12/01/2022 02:30:42 | Loaded cogs.Minecraft
+12/01/2022 02:30:42 | Loaded cogs.TextConvert
+12/01/2022 02:30:42 | Loaded cogs.Fusion
+12/01/2022 02:30:42 | Loaded cogs.Economy
+12/01/2022 02:30:42 | Loaded cogs.Counting
+12/01/2022 02:30:42 | Loaded cogs.Fun
+12/01/2022 02:30:42 | Loaded cogs.Moderation
+12/01/2022 02:30:43 | Loaded cogs.Music
+12/01/2022 02:30:43 | Loaded cogs.Onping
+12/01/2022 02:30:44 | Loaded cogs.Search
+12/01/2022 02:30:44 | Loaded cogs.Slash
+12/01/2022 02:30:44 | Loaded cogs.Utilities
+12/01/2022 02:30:44 | Loaded cogs.Welcome
+12/01/2022 02:30:44 | Loaded cogs.Help
+12/01/2022 02:30:44 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.Settings' raised an error: ValueError: attempted relative import beyond top-level package
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+12/01/2022 02:30:52 | ----------START----------
+12/01/2022 02:30:52 | Loaded cogs.Ticket
+12/01/2022 02:30:52 | Loaded cogs.Minecraft
+12/01/2022 02:30:52 | Loaded cogs.TextConvert
+12/01/2022 02:30:52 | Loaded cogs.Fusion
+12/01/2022 02:30:52 | Loaded cogs.Economy
+12/01/2022 02:30:52 | Loaded cogs.Counting
+12/01/2022 02:30:52 | Loaded cogs.Fun
+12/01/2022 02:30:52 | Loaded cogs.Moderation
+12/01/2022 02:30:53 | Loaded cogs.Music
+12/01/2022 02:30:53 | Loaded cogs.Onping
+12/01/2022 02:30:53 | Loaded cogs.Search
+12/01/2022 02:30:53 | Loaded cogs.Slash
+12/01/2022 02:30:53 | Loaded cogs.Utilities
+12/01/2022 02:30:53 | Loaded cogs.Welcome
+12/01/2022 02:30:53 | Loaded cogs.Help
+12/01/2022 02:30:53 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.Settings' raised an error: ValueError: attempted relative import beyond top-level package
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+12/01/2022 02:31:13 | ----------START----------
+12/01/2022 02:31:13 | Loaded cogs.Ticket
+12/01/2022 02:31:13 | Loaded cogs.Minecraft
+12/01/2022 02:31:13 | Loaded cogs.TextConvert
+12/01/2022 02:31:13 | Loaded cogs.Fusion
+12/01/2022 02:31:13 | Loaded cogs.Economy
+12/01/2022 02:31:13 | Loaded cogs.Counting
+12/01/2022 02:31:13 | Loaded cogs.Fun
+12/01/2022 02:31:13 | Loaded cogs.Moderation
+12/01/2022 02:31:14 | Loaded cogs.Music
+12/01/2022 02:31:14 | Loaded cogs.Onping
+12/01/2022 02:31:14 | Loaded cogs.Search
+12/01/2022 02:31:14 | Loaded cogs.Slash
+12/01/2022 02:31:14 | Loaded cogs.Utilities
+12/01/2022 02:31:14 | Loaded cogs.Welcome
+12/01/2022 02:31:14 | Loaded cogs.Help
+12/01/2022 02:31:14 | Loaded cogs.Settings
+12/01/2022 02:31:14 | All Cogs Loaded, Logging into Discord
