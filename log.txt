@@ -123,3 +123,95 @@
 11/01/2022 02:41:26 | Loaded cogs.Utilities
 11/01/2022 02:41:26 | Loaded cogs.Moderation
 11/01/2022 02:41:26 | All Cogs Loaded, Logging into Discord
+11/01/2022 04:16:09 | ----------START----------
+11/01/2022 04:16:09 | Loaded cogs.Ticket
+11/01/2022 04:16:10 | Loaded cogs.Google
+11/01/2022 04:16:10 | Loaded cogs.Minecraft
+11/01/2022 04:16:10 | Loaded cogs.Fun
+11/01/2022 04:16:10 | Loaded cogs.Reddit
+11/01/2022 04:16:10 | Loaded cogs.TextConvert
+11/01/2022 04:16:10 | Loaded cogs.Fusion
+11/01/2022 04:16:10 | Loaded cogs.Slash
+11/01/2022 04:16:10 | Loaded cogs.Economy
+11/01/2022 04:16:10 | Loaded cogs.Counting
+11/01/2022 04:16:10 | Loaded cogs.Other
+11/01/2022 04:16:12 | Loaded cogs.Music
+11/01/2022 04:16:12 | Loaded cogs.Help
+11/01/2022 04:16:12 | Loaded cogs.Utilities
+11/01/2022 04:16:12 | Loaded cogs.Moderation
+11/01/2022 04:16:12 | Loaded cogs.Custom
+11/01/2022 04:16:12 | All Cogs Loaded, Logging into Discord
+11/01/2022 05:05:56 | ERROR: Command "mute" is not found
+11/01/2022 05:14:24 | ----------START----------
+11/01/2022 05:14:24 | Loaded cogs.Ticket
+11/01/2022 05:14:25 | Loaded cogs.Google
+11/01/2022 05:14:25 | Loaded cogs.Minecraft
+11/01/2022 05:14:25 | Loaded cogs.Fun
+11/01/2022 05:14:25 | Loaded cogs.Reddit
+11/01/2022 05:14:25 | Loaded cogs.TextConvert
+11/01/2022 05:14:25 | Loaded cogs.Fusion
+11/01/2022 05:14:25 | Loaded cogs.Slash
+11/01/2022 05:14:25 | Loaded cogs.Economy
+11/01/2022 05:14:25 | Loaded cogs.Counting
+11/01/2022 05:14:25 | Loaded cogs.Other
+11/01/2022 05:14:26 | Loaded cogs.Music
+11/01/2022 05:14:26 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.Help' raised an error: IndentationError: unindent does not match any outer indentation level (usefulstuff.py, line 29)
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+11/01/2022 06:42:53 | ----------START----------
+11/01/2022 06:42:53 | Loaded cogs.Ticket
+11/01/2022 06:42:53 | Loaded cogs.Google
+11/01/2022 06:42:53 | Loaded cogs.Minecraft
+11/01/2022 06:42:53 | Loaded cogs.Fun
+11/01/2022 06:42:54 | Loaded cogs.Reddit
+11/01/2022 06:42:54 | Loaded cogs.TextConvert
+11/01/2022 06:42:54 | Loaded cogs.Fusion
+11/01/2022 06:42:54 | Loaded cogs.Slash
+11/01/2022 06:42:54 | Loaded cogs.Economy
+11/01/2022 06:42:54 | Loaded cogs.Counting
+11/01/2022 06:42:54 | Loaded cogs.Other
+11/01/2022 06:42:55 | Loaded cogs.Music
+11/01/2022 06:42:55 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.Help' raised an error: IndentationError: unindent does not match any outer indentation level (usefulstuff.py, line 29)
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+11/01/2022 06:43:57 | ----------START----------
+11/01/2022 06:43:57 | Loaded cogs.Ticket
+11/01/2022 06:43:58 | Loaded cogs.Google
+11/01/2022 06:43:58 | Loaded cogs.Minecraft
+11/01/2022 06:43:58 | Loaded cogs.Fun
+11/01/2022 06:43:58 | Loaded cogs.Reddit
+11/01/2022 06:43:58 | Loaded cogs.TextConvert
+11/01/2022 06:43:58 | Loaded cogs.Fusion
+11/01/2022 06:43:58 | Loaded cogs.Slash
+11/01/2022 06:43:58 | Loaded cogs.Economy
+11/01/2022 06:43:58 | Loaded cogs.Counting
+11/01/2022 06:43:58 | Loaded cogs.Other
+11/01/2022 06:43:59 | Loaded cogs.Music
+11/01/2022 06:43:59 | Loaded cogs.Help
+11/01/2022 06:43:59 | Loaded cogs.Utilities
+11/01/2022 06:43:59 | Loaded cogs.Moderation
+11/01/2022 06:43:59 | Loaded cogs.Custom
+11/01/2022 06:43:59 | All Cogs Loaded, Logging into Discord
+12/01/2022 00:15:40 | ----------START----------
+12/01/2022 00:15:40 | Loaded cogs.Ticket
+12/01/2022 00:15:40 | Loaded cogs.Google
+12/01/2022 00:15:40 | Loaded cogs.Minecraft
+12/01/2022 00:15:40 | Loaded cogs.Fun
+12/01/2022 00:15:40 | Loaded cogs.Reddit
+12/01/2022 00:15:40 | Loaded cogs.TextConvert
+12/01/2022 00:15:40 | Loaded cogs.Fusion
+12/01/2022 00:15:40 | Loaded cogs.Slash
+12/01/2022 00:15:40 | Loaded cogs.Economy
+12/01/2022 00:15:40 | Loaded cogs.Counting
+12/01/2022 00:15:40 | Loaded cogs.Other
+12/01/2022 00:15:41 | Loaded cogs.Music
+12/01/2022 00:15:41 | Loaded cogs.Help
+12/01/2022 00:15:41 | Loaded cogs.Utilities
+12/01/2022 00:15:41 | Loaded cogs.Moderation
+12/01/2022 00:15:41 | Loaded cogs.Custom
+12/01/2022 00:15:41 | All Cogs Loaded, Logging into Discord
+12/01/2022 01:01:30 | ERROR: Member "e" not found.

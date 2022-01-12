@@ -16,9 +16,8 @@ class Paginator(View):
     @discord.ui.button(style=discord.ButtonStyle.green, emoji="⬅", custom_id="left")
     async def left(self, button, interaction):
         if self.index == 0:
-            for i in self.children:
-              if i.custom_id == "left":
-                i.disabled = True
+            button = [x for x in self.children if x.custom_id=="left"][0]
+            button.disabled = True
             return interaction.response.edit_message(view=self)
         else:
             self.index -= 1
@@ -28,9 +27,8 @@ class Paginator(View):
     @discord.ui.button(style=discord.ButtonStyle.green, emoji="➡️", custom_id="right")
     async def right(self, button, interaction):
         if self.index == (len(self.em)-1):
-            for i in self.children:
-              if i.custom_id == "right":
-                i.disabled = True
+            button = [x for x in self.children if x.custom_id=="right"][0]
+            button.disabled = True
             return interaction.response.edit_message(view=self)
         else:
             self.index += 1
