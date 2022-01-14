@@ -206,6 +206,7 @@ class Fun(commands.Cog):
         for reaction in reactions[:len(options)]:
             await react_message.add_reaction(reaction)
             reacting.append(reaction)
+            
         await asyncio.sleep(time)
         message = await ctx.channel.fetch_message(react_message.id)
         results = {}

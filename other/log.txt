@@ -396,3 +396,221 @@ THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
 12/01/2022 02:31:14 | Loaded cogs.Help
 12/01/2022 02:31:14 | Loaded cogs.Settings
 12/01/2022 02:31:14 | All Cogs Loaded, Logging into Discord
+12/01/2022 06:22:42 | ERROR: Command "??" is not found
+12/01/2022 06:23:04 | ERROR: Command raised an exception: MissingSchema: Invalid URL 'kill': No scheme supplied. Perhaps you meant http://kill?
+12/01/2022 07:04:08 | ERROR: Command "deletechannel" is not found
+12/01/2022 09:00:32 | ERROR: Command "botcommand" is not found
+12/01/2022 09:03:08 | ERROR: Command "b" is not found
+12/01/2022 09:07:36 | ERROR: Channel "https://media.discordapp.net/attachments/925678380672753705/930749453906882590/1635141448464.jpg" not found.
+12/01/2022 09:07:52 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+12/01/2022 09:08:23 | ERROR: Channel "https://media.discordapp.net/attachments/925678380672753705/930749453906882590/1635141448464.jpg" not found.
+12/01/2022 09:13:15 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+12/01/2022 09:28:55 | ERROR: Command "onping" is not found
+12/01/2022 09:29:05 | ERROR: Command "onping" is not found
+12/01/2022 11:07:11 | ERROR: Command "?" is not found
+12/01/2022 12:09:41 | ERROR: Command "invitebot" is not found
+12/01/2022 12:14:32 | ERROR: Command "settings" is not found
+12/01/2022 12:14:37 | ERROR: Command "setting" is not found
+12/01/2022 12:14:59 | ERROR: Command "Settings" is not found
+12/01/2022 12:15:24 | ERROR: Command "set" is not found
+12/01/2022 12:19:25 | ERROR: Command raised an exception: JSONDecodeError: [Errno Expecting value] : 0
+12/01/2022 13:06:23 | ERROR: Converting to "int" failed for parameter "id".
+12/01/2022 13:28:54 | ERROR: Command "?" is not found
+12/01/2022 19:56:43 | ERROR: Command "mute" is not found
+12/01/2022 23:03:15 | ----------START----------
+12/01/2022 23:03:15 | Loaded cogs.Ticket
+12/01/2022 23:03:15 | Loaded cogs.Minecraft
+12/01/2022 23:03:15 | Loaded cogs.TextConvert
+12/01/2022 23:03:15 | Loaded cogs.Fusion
+12/01/2022 23:03:15 | Loaded cogs.Economy
+12/01/2022 23:03:15 | Loaded cogs.Counting
+12/01/2022 23:03:15 | Loaded cogs.Fun
+12/01/2022 23:03:17 | Loaded cogs.Music
+12/01/2022 23:03:17 | Loaded cogs.Onping
+12/01/2022 23:03:18 | Loaded cogs.Search
+12/01/2022 23:03:18 | Loaded cogs.Slash
+12/01/2022 23:03:19 | Loaded cogs.Utilities
+12/01/2022 23:03:19 | Loaded cogs.Welcome
+12/01/2022 23:03:19 | Loaded cogs.Help
+12/01/2022 23:03:19 | Loaded cogs.Settings
+12/01/2022 23:03:19 | Loaded cogs.Moderation
+12/01/2022 23:03:19 | All Cogs Loaded, Logging into Discord
+12/01/2022 23:44:23 | ERROR: Command "autism" is not found
+13/01/2022 00:16:20 | ERROR: Command raised an exception: NotFound: 404 Not Found (error code: 10008): Unknown Message
+13/01/2022 00:17:11 | ERROR: Command raised an exception: NotFound: 404 Not Found (error code: 10008): Unknown Message
+13/01/2022 00:29:31 | ----------START----------
+13/01/2022 00:29:32 | Loaded cogs.Ticket
+13/01/2022 00:29:32 | Loaded cogs.Minecraft
+13/01/2022 00:29:32 | Loaded cogs.TextConvert
+13/01/2022 00:29:32 | Loaded cogs.Fusion
+13/01/2022 00:29:32 | Loaded cogs.Economy
+13/01/2022 00:29:32 | Loaded cogs.Counting
+13/01/2022 00:29:33 | Loaded cogs.Music
+13/01/2022 00:29:33 | Loaded cogs.Onping
+13/01/2022 00:29:34 | Loaded cogs.Search
+13/01/2022 00:29:34 | Loaded cogs.Slash
+13/01/2022 00:29:34 | Loaded cogs.Utilities
+13/01/2022 00:29:34 | Loaded cogs.Welcome
+13/01/2022 00:29:34 | Loaded cogs.Help
+13/01/2022 00:29:34 | Loaded cogs.Settings
+13/01/2022 00:29:34 | Loaded cogs.Moderation
+13/01/2022 00:29:34 | Loaded cogs.Fun
+13/01/2022 00:29:34 | Loaded cogs.Poll
+13/01/2022 00:29:34 | All Cogs Loaded, Logging into Discord
+13/01/2022 00:30:45 | ERROR: Command raised an exception: TypeError: list indices must be integers or slices, not str
+13/01/2022 00:35:45 | ERROR: Command "bwg" is not found
+13/01/2022 00:45:54 | ERROR: Command raised an exception: ExtensionNotLoaded: Extension 'cogs.Fum' has not been loaded.
+13/01/2022 00:48:58 | ----------START----------
+13/01/2022 00:48:58 | Loaded cogs.Ticket
+13/01/2022 00:48:58 | Loaded cogs.Minecraft
+13/01/2022 00:48:58 | Loaded cogs.TextConvert
+13/01/2022 00:48:58 | Loaded cogs.Fusion
+13/01/2022 00:48:58 | Loaded cogs.Economy
+13/01/2022 00:48:58 | Loaded cogs.Counting
+13/01/2022 00:48:59 | Loaded cogs.Music
+13/01/2022 00:48:59 | Loaded cogs.Onping
+13/01/2022 00:49:00 | Loaded cogs.Search
+13/01/2022 00:49:00 | Loaded cogs.Slash
+13/01/2022 00:49:00 | Loaded cogs.Utilities
+13/01/2022 00:49:00 | Loaded cogs.Welcome
+13/01/2022 00:49:00 | Loaded cogs.Help
+13/01/2022 00:49:00 | Loaded cogs.Settings
+13/01/2022 00:49:00 | Loaded cogs.Moderation
+13/01/2022 00:49:00 | Loaded cogs.Fun
+13/01/2022 00:49:00 | Loaded cogs.Poll
+13/01/2022 00:49:00 | All Cogs Loaded, Logging into Discord
+13/01/2022 00:49:59 | ERROR: Converting to "int" failed for parameter "vote".
+13/01/2022 00:50:05 | ERROR: Command raised an exception: FileNotFoundError: [Errno 2] No such file or directory: '.\\database\\scheduler.json'
+13/01/2022 00:51:11 | ERROR: Command raised an exception: FileNotFoundError: [Errno 2] No such file or directory: '.\\database\\scheduler.json'
+13/01/2022 04:13:20 | ERROR: Command "??" is not found
+13/01/2022 07:16:21 | ERROR: You are on cooldown. Try again in 1.20s
+13/01/2022 07:16:26 | ERROR: Command "clear]" is not found
+13/01/2022 07:21:17 | ERROR: id is a required argument that is missing.
+13/01/2022 07:21:25 | ERROR: Command raised an exception: NotFound: 404 Not Found (error code: 10013): Unknown User
+13/01/2022 07:23:26 | ERROR: Command raised an exception: AttributeError: 'Bot' object has no attribute 'fetch_message'
+13/01/2022 07:24:17 | ERROR: Command raised an exception: AttributeError: 'NoneType' object has no attribute 'message_id'
+13/01/2022 07:24:33 | ERROR: Command raised an exception: AttributeError: 'NoneType' object has no attribute 'id'
+13/01/2022 07:24:42 | ERROR: Command raised an exception: AttributeError: 'MessageReference' object has no attribute 'id'
+13/01/2022 07:25:23 | ERROR: Command raised an exception: AttributeError: 'MessageReference' object has no attribute 'id'
+13/01/2022 07:26:35 | ERROR: You are on cooldown. Try again in 0.59s
+13/01/2022 07:26:50 | ERROR: You are on cooldown. Try again in 1.35s
+13/01/2022 07:26:54 | ERROR: You are on cooldown. Try again in 1.32s
+13/01/2022 09:47:07 | ----------START----------
+13/01/2022 09:47:07 | Loaded cogs.Ticket
+13/01/2022 09:47:07 | Loaded cogs.Minecraft
+13/01/2022 09:47:07 | Loaded cogs.TextConvert
+13/01/2022 09:47:07 | Loaded cogs.Economy
+13/01/2022 09:47:07 | Loaded cogs.Counting
+13/01/2022 09:47:08 | Loaded cogs.Music
+13/01/2022 09:47:08 | Loaded cogs.Onping
+13/01/2022 09:47:09 | Loaded cogs.Search
+13/01/2022 09:47:09 | Loaded cogs.Slash
+13/01/2022 09:47:09 | Loaded cogs.Utilities
+13/01/2022 09:47:09 | Loaded cogs.Welcome
+13/01/2022 09:47:09 | Loaded cogs.Help
+13/01/2022 09:47:09 | Loaded cogs.Settings
+13/01/2022 09:47:09 | Loaded cogs.Moderation
+13/01/2022 09:47:09 | Loaded cogs.Fun
+13/01/2022 09:47:09 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.Fusion' raised an error: SyntaxError: invalid syntax (Fusion.py, line 88)
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+13/01/2022 23:34:59 | ----------START----------
+13/01/2022 23:34:59 | Loaded cogs.Ticket
+13/01/2022 23:34:59 | Loaded cogs.Minecraft
+13/01/2022 23:34:59 | Loaded cogs.TextConvert
+13/01/2022 23:34:59 | Loaded cogs.Economy
+13/01/2022 23:34:59 | Loaded cogs.Counting
+13/01/2022 23:35:02 | Loaded cogs.Music
+13/01/2022 23:35:02 | Loaded cogs.Onping
+13/01/2022 23:35:04 | Loaded cogs.Search
+13/01/2022 23:35:04 | Loaded cogs.Slash
+13/01/2022 23:35:04 | Loaded cogs.Utilities
+13/01/2022 23:35:04 | Loaded cogs.Welcome
+13/01/2022 23:35:04 | Loaded cogs.Help
+13/01/2022 23:35:04 | Loaded cogs.Settings
+13/01/2022 23:35:04 | Loaded cogs.Moderation
+13/01/2022 23:35:04 | Loaded cogs.Fun
+13/01/2022 23:35:04 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.Fusion' raised an error: SyntaxError: invalid syntax (Fusion.py, line 88)
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+13/01/2022 23:35:21 | ----------START----------
+13/01/2022 23:35:21 | Loaded cogs.Ticket
+13/01/2022 23:35:21 | Loaded cogs.Minecraft
+13/01/2022 23:35:21 | Loaded cogs.TextConvert
+13/01/2022 23:35:21 | Loaded cogs.Economy
+13/01/2022 23:35:21 | Loaded cogs.Counting
+13/01/2022 23:35:24 | Loaded cogs.Music
+13/01/2022 23:35:24 | Loaded cogs.Onping
+13/01/2022 23:35:25 | Loaded cogs.Search
+13/01/2022 23:35:25 | Loaded cogs.Slash
+13/01/2022 23:35:25 | Loaded cogs.Utilities
+13/01/2022 23:35:25 | Loaded cogs.Welcome
+13/01/2022 23:35:25 | Loaded cogs.Help
+13/01/2022 23:35:25 | Loaded cogs.Settings
+13/01/2022 23:35:25 | Loaded cogs.Moderation
+13/01/2022 23:35:25 | Loaded cogs.Fun
+13/01/2022 23:35:25 | Loaded cogs.Fusion
+13/01/2022 23:35:25 | All Cogs Loaded, Logging into Discord
+14/01/2022 07:29:27 | ----------START----------
+14/01/2022 07:29:27 | Loaded cogs.Ticket
+14/01/2022 07:29:27 | Loaded cogs.Minecraft
+14/01/2022 07:29:27 | Loaded cogs.TextConvert
+14/01/2022 07:29:27 | Loaded cogs.Economy
+14/01/2022 07:29:27 | Loaded cogs.Counting
+14/01/2022 07:29:28 | Loaded cogs.Music
+14/01/2022 07:29:28 | Loaded cogs.Onping
+14/01/2022 07:29:28 | Loaded cogs.Search
+14/01/2022 07:29:28 | Loaded cogs.Slash
+14/01/2022 07:29:28 | Loaded cogs.Utilities
+14/01/2022 07:29:28 | Loaded cogs.Welcome
+14/01/2022 07:29:28 | Loaded cogs.Help
+14/01/2022 07:29:28 | Loaded cogs.Settings
+14/01/2022 07:29:28 | Loaded cogs.Moderation
+14/01/2022 07:29:28 | Loaded cogs.Fun
+14/01/2022 07:29:28 | Loaded cogs.Fusion
+14/01/2022 07:29:28 | All Cogs Loaded, Logging into Discord
+14/01/2022 08:19:55 | ERROR: Command "whois" is not found
+14/01/2022 08:20:13 | ERROR: Command "whois" is not found
+14/01/2022 08:20:22 | ERROR: Command "whois" is not found
+14/01/2022 08:25:42 | ERROR: Command "whois" is not found
+14/01/2022 08:26:57 | ERROR: Command "whois" is not found
+14/01/2022 08:58:28 | ERROR: Command "roles" is not found
+14/01/2022 09:01:51 | ERROR: Command "avatar" is not found
+14/01/2022 09:55:38 | ERROR: Command "?????" is not found
+14/01/2022 10:06:13 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+14/01/2022 10:13:28 | ERROR: Command "seeuse" is not found
+14/01/2022 10:13:35 | ERROR: Command "cuse" is not found
+14/01/2022 10:17:15 | ----------START----------
+14/01/2022 10:17:15 | Loaded cogs.Ticket
+14/01/2022 10:17:15 | Loaded cogs.Minecraft
+14/01/2022 10:17:15 | Loaded cogs.TextConvert
+14/01/2022 10:17:15 | Loaded cogs.Economy
+14/01/2022 10:17:15 | Loaded cogs.Counting
+14/01/2022 10:17:16 | Loaded cogs.Music
+14/01/2022 10:17:16 | Loaded cogs.Onping
+14/01/2022 10:17:16 | Loaded cogs.Search
+14/01/2022 10:17:16 | Loaded cogs.Slash
+14/01/2022 10:17:16 | Loaded cogs.Utilities
+14/01/2022 10:17:16 | Loaded cogs.Welcome
+14/01/2022 10:17:16 | Loaded cogs.Help
+14/01/2022 10:17:16 | Loaded cogs.Settings
+14/01/2022 10:17:16 | Loaded cogs.Moderation
+14/01/2022 10:17:16 | Loaded cogs.Fun
+14/01/2022 10:17:16 | Loaded cogs.Fusion
+14/01/2022 10:17:16 | All Cogs Loaded, Logging into Discord
+14/01/2022 10:30:40 | ERROR: Command "hepl" is not found
+14/01/2022 10:36:26 | ERROR: Command raised an exception: NotFound: 404 Not Found (error code: 10008): Unknown Message
+14/01/2022 10:39:15 | ERROR: Command "invo" is not found
+14/01/2022 11:35:23 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+14/01/2022 12:09:26 | ERROR: Command "setting" is not found
+14/01/2022 12:09:40 | ERROR: Command "settings" is not found
+14/01/2022 12:09:57 | ERROR: Command "settings" is not found
+14/01/2022 12:18:44 | ERROR: Command raised an exception: TimeoutError: 

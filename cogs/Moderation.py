@@ -11,6 +11,7 @@ from discord_webhook import DiscordWebhook
 from io import BytesIO
 from urllib.request import urlopen
 import requests
+import asyncio
 dotenv.load_dotenv()
 
 
@@ -419,6 +420,7 @@ class Moderation(commands.Cog):
         await ctx.message.delete()
         webhook = DiscordWebhook(url=url, content=text)
         response = webhook.execute()
+
 
 
 def setup(client):

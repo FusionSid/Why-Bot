@@ -86,6 +86,7 @@ class Fusion(commands.Cog):
     @commands.check(is_it_me)
     async def dmreply(self, ctx, id:int, *, msg):
         person = await self.client.fetch_user(id)
+        await ctx.message.delete()
         await person.send(msg)
 
 def setup(client):
