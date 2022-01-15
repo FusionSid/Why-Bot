@@ -614,3 +614,40 @@ In channel_id: Value "None" is not snowflake.
 14/01/2022 12:09:40 | ERROR: Command "settings" is not found
 14/01/2022 12:09:57 | ERROR: Command "settings" is not found
 14/01/2022 12:18:44 | ERROR: Command raised an exception: TimeoutError: 
+14/01/2022 13:01:16 | ERROR: Command "disable" is not found
+14/01/2022 13:30:05 | ERROR: Command "onping" is not found
+14/01/2022 16:23:02 | ERROR: You are missing Administrator permission(s) to run this command.
+14/01/2022 16:27:03 | ERROR: You are missing Administrator permission(s) to run this command.
+14/01/2022 16:38:01 | ERROR: Command "?" is not found
+14/01/2022 16:40:46 | ERROR: You are missing Administrator permission(s) to run this command.
+14/01/2022 16:42:53 | ERROR: You are missing Administrator permission(s) to run this command.
+14/01/2022 16:46:36 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+14/01/2022 16:46:53 | ERROR: Command "remove" is not found
+14/01/2022 17:20:11 | ERROR: You are missing Administrator permission(s) to run this command.
+14/01/2022 17:20:59 | ERROR: member is a required argument that is missing.
+14/01/2022 17:21:22 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+14/01/2022 17:21:31 | ERROR: Command "onpingee" is not found
+14/01/2022 17:21:36 | ERROR: Command "warning" is not found
+14/01/2022 17:53:16 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+14/01/2022 23:34:50 | ----------START----------
+14/01/2022 23:34:50 | Loaded cogs.Ticket
+14/01/2022 23:34:50 | Loaded cogs.Minecraft
+14/01/2022 23:34:50 | Loaded cogs.TextConvert
+14/01/2022 23:34:50 | Loaded cogs.Economy
+14/01/2022 23:34:50 | Loaded cogs.Counting
+14/01/2022 23:34:52 | Loaded cogs.Music
+14/01/2022 23:34:52 | Loaded cogs.Onping
+14/01/2022 23:34:54 | Loaded cogs.Search
+14/01/2022 23:34:54 | Loaded cogs.Slash
+14/01/2022 23:34:54 | Loaded cogs.Utilities
+14/01/2022 23:34:54 | Loaded cogs.Welcome
+14/01/2022 23:34:54 | Loaded cogs.Help
+14/01/2022 23:34:54 | Loaded cogs.Settings
+14/01/2022 23:34:54 | Loaded cogs.Moderation
+14/01/2022 23:34:54 | Loaded cogs.Fun
+14/01/2022 23:34:54 | Loaded cogs.Fusion
+14/01/2022 23:34:54 | All Cogs Loaded, Logging into Discord
+14/01/2022 23:39:31 | ERROR: Command "botino" is not found

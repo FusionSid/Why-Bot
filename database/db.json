@@ -166,5 +166,33 @@
             "all": null,
             "bot": null
         }
+    },
+    {
+        "guild_id": 931539366311002173,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {},
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 916901648713011230,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {},
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
     }
 ]

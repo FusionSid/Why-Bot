@@ -1,7 +1,7 @@
 [
     {
         "user_id": 624076054969188363,
-        "command_count": 1969,
+        "command_count": 1976,
         "settings": {},
         "on_pinged": {
             "title": "Skill issue, Get good",
@@ -11,7 +11,7 @@
     },
     {
         "user_id": 782350976219873302,
-        "command_count": 10,
+        "command_count": 11,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -21,12 +21,12 @@
     },
     {
         "user_id": 913618154318618645,
-        "command_count": 95,
+        "command_count": 109,
         "settings": {},
         "on_pinged": {
-            "title": "I'm actually doing something with my life",
-            "description": "Broke ass",
-            "color": 65280
+            "title": "I'm doing something right now",
+            "description": "I'm probably grinding RPS or MODing a server",
+            "color": 16711680
         }
     },
     {
@@ -61,7 +61,7 @@
     },
     {
         "user_id": 516812635233058826,
-        "command_count": 43,
+        "command_count": 45,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -71,7 +71,7 @@
     },
     {
         "user_id": 583032764559917057,
-        "command_count": 17,
+        "command_count": 18,
         "settings": {},
         "on_pinged": {
             "title": "If You need Somethin DM Me",
@@ -81,7 +81,7 @@
     },
     {
         "user_id": 270904126974590976,
-        "command_count": 221,
+        "command_count": 275,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -101,7 +101,7 @@
     },
     {
         "user_id": 881251029587488799,
-        "command_count": 14,
+        "command_count": 16,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -121,7 +121,7 @@
     },
     {
         "user_id": 777671599489810432,
-        "command_count": 1,
+        "command_count": 2,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -271,7 +271,7 @@
     },
     {
         "user_id": 557628352828014614,
-        "command_count": 5,
+        "command_count": 6,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -321,7 +321,7 @@
     },
     {
         "user_id": 928038506285109289,
-        "command_count": 1,
+        "command_count": 6,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -331,16 +331,6 @@
     },
     {
         "user_id": 684667858244206592,
-        "command_count": 1,
-        "settings": {},
-        "on_pinged": {
-            "title": null,
-            "description": null,
-            "color": null
-        }
-    },
-    {
-        "user_id": 930997787754135564,
         "command_count": 5,
         "settings": {},
         "on_pinged": {
@@ -350,8 +340,18 @@
         }
     },
     {
+        "user_id": 930997787754135564,
+        "command_count": 6,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
         "user_id": 294882584201003009,
-        "command_count": 8,
+        "command_count": 12,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -421,12 +421,132 @@
     },
     {
         "user_id": 809769116876537856,
-        "command_count": 14,
+        "command_count": 19,
         "settings": {},
         "on_pinged": {
-            "title": "Don't ping me anymore or else",
-            "description": "I'll make u smell sussy Baka fart",
+            "title": "STOP PINGING ME",
+            "description": "ITS MAKE MY RINGTONE ANNOYING AND IF U KEEP PING ME ILL MAKE SURE I CRUSHED U IN A 1V1",
             "color": 16711680
+        }
+    },
+    {
+        "user_id": 901676058363977729,
+        "command_count": 1,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 821002499036282901,
+        "command_count": 3,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 893442943443161088,
+        "command_count": 4,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 897154056936636449,
+        "command_count": 2,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 843373957314641970,
+        "command_count": 9,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 876804245112913920,
+        "command_count": 7,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 903161406281646101,
+        "command_count": 5,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 860524146354421800,
+        "command_count": 1,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 751010533724913694,
+        "command_count": 1,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 716390085896962058,
+        "command_count": 1,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 740648197403443352,
+        "command_count": 4,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 767991071862423582,
+        "command_count": 6,
+        "settings": {},
+        "on_pinged": {
+            "title": "im angry \u2764\ufe0f",
+            "description": "<@767991071862423582>",
+            "color": 16761035
         }
     }
 ]
