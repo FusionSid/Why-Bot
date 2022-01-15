@@ -29,7 +29,7 @@ class TextConvert(commands.Cog):
     @commands.command(aliases=['exp'])
     async def expand(self, ctx,  num: int, *, s: clean_content):
         spacing = ""
-        if num > 0 and num <= 5:
+        if num > 0 and num <= 10:
             for _ in range(num):
                 spacing += " "
             result = spacing.join(s)

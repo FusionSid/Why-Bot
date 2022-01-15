@@ -312,7 +312,7 @@ class Moderation(commands.Cog):
 
         await ctx.send(embed=em)
 
-    @commands.command()
+    @commands.command(aliases=['nick'])
     @commands.has_permissions(manage_nicknames=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def nickname(self, ctx, member: discord.Member, *, nickname: str = "no nick"):

@@ -1,7 +1,7 @@
 [
     {
         "user_id": 624076054969188363,
-        "command_count": 1976,
+        "command_count": 2092,
         "settings": {},
         "on_pinged": {
             "title": "Skill issue, Get good",
@@ -21,12 +21,12 @@
     },
     {
         "user_id": 913618154318618645,
-        "command_count": 109,
+        "command_count": 115,
         "settings": {},
         "on_pinged": {
-            "title": "I'm doing something right now",
-            "description": "I'm probably grinding RPS or MODing a server",
-            "color": 16711680
+            "title": null,
+            "description": null,
+            "color": null
         }
     },
     {
@@ -81,7 +81,7 @@
     },
     {
         "user_id": 270904126974590976,
-        "command_count": 275,
+        "command_count": 291,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -251,12 +251,12 @@
     },
     {
         "user_id": 841945331482230805,
-        "command_count": 71,
+        "command_count": 72,
         "settings": {},
         "on_pinged": {
-            "title": "R U TRYING TO ROB ME?!?",
-            "description": "Don't even try or I'll rob all your money and anyways I'm on passive lol",
-            "color": 16711680
+            "title": "JUST STOP",
+            "description": "I'll be there soon I'm just nolifeing dank memer",
+            "color": 255
         }
     },
     {
@@ -541,7 +541,7 @@
     },
     {
         "user_id": 767991071862423582,
-        "command_count": 6,
+        "command_count": 7,
         "settings": {},
         "on_pinged": {
             "title": "im angry \u2764\ufe0f",

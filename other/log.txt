@@ -651,3 +651,78 @@ In channel_id: Value "None" is not snowflake.
 14/01/2022 23:34:54 | Loaded cogs.Fusion
 14/01/2022 23:34:54 | All Cogs Loaded, Logging into Discord
 14/01/2022 23:39:31 | ERROR: Command "botino" is not found
+15/01/2022 01:12:45 | ----------START----------
+15/01/2022 01:12:45 | Loaded cogs.Ticket
+15/01/2022 01:12:45 | Loaded cogs.Minecraft
+15/01/2022 01:12:45 | Loaded cogs.TextConvert
+15/01/2022 01:12:45 | Loaded cogs.Economy
+15/01/2022 01:12:45 | Loaded cogs.Counting
+15/01/2022 01:12:47 | Loaded cogs.Music
+15/01/2022 01:12:47 | Loaded cogs.Onping
+15/01/2022 01:12:49 | Loaded cogs.Search
+15/01/2022 01:12:49 | Loaded cogs.Slash
+15/01/2022 01:12:49 | Loaded cogs.Utilities
+15/01/2022 01:12:49 | Loaded cogs.Welcome
+15/01/2022 01:12:49 | Loaded cogs.Help
+15/01/2022 01:12:49 | Loaded cogs.Settings
+15/01/2022 01:12:49 | Loaded cogs.Moderation
+15/01/2022 01:12:49 | Loaded cogs.Fun
+15/01/2022 01:12:49 | Loaded cogs.Fusion
+15/01/2022 01:12:49 | All Cogs Loaded, Logging into Discord
+15/01/2022 01:50:11 | ----------START----------
+15/01/2022 01:50:11 | Loaded cogs.Minecraft
+15/01/2022 01:50:11 | Loaded cogs.TextConvert
+15/01/2022 01:50:11 | Loaded cogs.Economy
+15/01/2022 01:50:11 | Loaded cogs.Counting
+15/01/2022 01:50:11 | Loaded cogs.Onping
+15/01/2022 01:50:14 | Loaded cogs.Search
+15/01/2022 01:50:14 | Loaded cogs.Welcome
+15/01/2022 01:50:14 | Loaded cogs.Settings
+15/01/2022 01:50:14 | Loaded cogs.Fun
+15/01/2022 01:50:14 | Loaded cogs.Fusion
+15/01/2022 01:50:14 | Loaded cogs.Help
+15/01/2022 01:50:14 | Loaded cogs.Moderation
+15/01/2022 01:50:16 | Loaded cogs.Music
+15/01/2022 01:50:16 | Loaded cogs.Slash
+15/01/2022 01:50:16 | Loaded cogs.Ticket
+15/01/2022 01:50:16 | Loaded cogs.Utilities
+15/01/2022 01:50:16 | All Cogs Loaded, Logging into Discord
+15/01/2022 01:50:24 | ERROR: Command "addhelp" is not found
+15/01/2022 01:51:30 | ERROR: Command "?help" is not found
+15/01/2022 01:51:31 | ERROR: Command raised an exception: AttributeError: 'NoneType' object has no attribute 'lower'
+15/01/2022 02:19:47 | ERROR: Command raised an exception: AttributeError: 'NoneType' object has no attribute 'lower'
+15/01/2022 02:26:01 | ERROR: Command raised an exception: ExtensionFailed: Extension 'cogs.Help' raised an error: IndentationError: unindent does not match any outer indentation level (Help.py, line 64)
+15/01/2022 02:26:11 | ERROR: Command "be" is not found
+15/01/2022 02:26:13 | ERROR: Command "Be" is not found
+15/01/2022 02:26:15 | ERROR: Command "Beg" is not found
+15/01/2022 02:46:29 | ERROR: url is a required argument that is missing.
+15/01/2022 02:47:04 | ERROR: Command raised an exception: InvalidURL: Failed to parse: [url]
+15/01/2022 02:53:52 | ERROR: Command raised an exception: JSONDecodeError: Expecting value: line 258 column 5 (char 8085)
+15/01/2022 02:54:19 | ERROR: The check functions for command serverlist failed.
+15/01/2022 02:54:50 | ERROR: Command raised an exception: JSONDecodeError: Expecting value: line 258 column 5 (char 8085)
+15/01/2022 02:59:30 | ERROR: Command "hi" is not found
+15/01/2022 02:59:48 | ERROR: Command raised an exception: JSONDecodeError: Expecting value: line 385 column 5 (char 11789)
+15/01/2022 03:00:16 | ERROR: Command raised an exception: JSONDecodeError: Expecting value: line 385 column 5 (char 11789)
+15/01/2022 03:01:17 | ERROR: Converting to "int" failed for parameter "num".
+15/01/2022 03:02:20 | ERROR: Command raised an exception: ExtensionNotLoaded: Extension 'cogs.Text' has not been loaded.
+15/01/2022 03:10:19 | ERROR: Command raised an exception: AttributeError: 'NoneType' object has no attribute 'lower'
+15/01/2022 03:10:21 | ERROR: Command "Help" is not found
+15/01/2022 03:11:04 | ERROR: Command raised an exception: AttributeError: 'NoneType' object has no attribute 'lower'
+15/01/2022 03:27:49 | ----------START----------
+15/01/2022 03:27:49 | Loaded cogs.Minecraft
+15/01/2022 03:27:49 | Loaded cogs.Economy
+15/01/2022 03:27:49 | Loaded cogs.Counting
+15/01/2022 03:27:49 | Loaded cogs.Onping
+15/01/2022 03:27:50 | Loaded cogs.Search
+15/01/2022 03:27:50 | Loaded cogs.Welcome
+15/01/2022 03:27:50 | Loaded cogs.Settings
+15/01/2022 03:27:50 | Loaded cogs.Fun
+15/01/2022 03:27:50 | Loaded cogs.Fusion
+15/01/2022 03:27:52 | Loaded cogs.Music
+15/01/2022 03:27:52 | Loaded cogs.Slash
+15/01/2022 03:27:52 | Loaded cogs.Ticket
+15/01/2022 03:27:52 | Loaded cogs.Utilities
+15/01/2022 03:27:52 | Loaded cogs.Moderation
+15/01/2022 03:27:52 | Loaded cogs.TextConvert
+15/01/2022 03:27:52 | Loaded cogs.Help
+15/01/2022 03:27:52 | All Cogs Loaded, Logging into Discord

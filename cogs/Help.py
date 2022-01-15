@@ -12,6 +12,47 @@ class Help(commands.Cog):
     @commands.command()
     async def help(self, ctx, cmd=None):
         cats = ["Counting","Economy", "Fun", "Minecraft", "Moderation", "Music", "Ping", "Search", "Text", "Ticket", "Utilities"]
+        if cmd == None:
+            em = discord.Embed(title="Why Help")
+            em.add_field(
+                inline=False, name=f"Use `{ctx.prefix}help all`", value="For all commands")
+            em.add_field(
+                inline=False, name=f"`{ctx.prefix}help [command]`", value="Give information about a specific command")
+            em.add_field(
+                inline=False, name=f"`{ctx.prefix}help [category]`", value="Give information about a specific category")
+            em.add_field(inline=False, name="Useful Commands:",
+                         value=f"`/set`, `{ctx.prefix}settings`, `{ctx.prefix}setprefix`, `{ctx.prefix}report`")
+            em.add_field(inline=False, name="Why Support Server",
+                         value="https://discord.gg/8fJaesY8SR")
+            em.add_field(inline=False, name="Contribute/Source Code",
+                         value="https://github.com/FusionSid/Why-Bot")
+            em.add_field(inline=False, name="Dm Bot",
+                         value="You can always just dm the bot for help, suggestions, bugreports etc")
+            em.add_field(inline=False, name="Categories", value="Counting,Economy, Fun, Minecraft, Moderation, Music, Ping, Search, Text, Ticket, Utilities")
+            em.set_footer(
+                text="Default prefix is ? might be different for you")
+            button = Button(style=discord.ButtonStyle.grey, label="Vote:",
+                            url="https://discordbotlist.com/bots/why")
+            button2 = Button(style=discord.ButtonStyle.grey, label="Source:",
+                             url="https://github.com/FusionSid/Why-Bot")
+            button3 = Button(style=discord.ButtonStyle.grey,
+                             label="Discord:", url="https://discord.gg/8fJaesY8SR")
+            button4 = Button(style=discord.ButtonStyle.grey, label="Todo:",
+                             url="https://github.com/users/FusionSid/projects/1")
+            button5 = Button(style=discord.ButtonStyle.grey,
+                             label="Website:", url="https://fusionsid.xyz/whybot")
+            view = View(timeout=15)
+            view.add_item(button)
+            view.add_item(button2)
+            view.add_item(button3)
+            view.add_item(button4)
+            view.add_item(button5)
+            message = await ctx.send(embed=em, view=view)
+            res = await view.wait()
+            if res:
+                for i in view.children:
+                    i.disabled = True
+            return await message.edit(view=view)
         if cmd.lower() == "all":
             counting = discord.Embed(title="Why Help `[Counting]`:", description="Use `?help [command]` for more info on command")
             economy = discord.Embed(title="Why Help: `[Economy]`", description="Use `?help [command]` for more info on command")
@@ -60,55 +101,23 @@ class Help(commands.Cog):
                 if key == "Utilities":
                     for i in value:
                         utilites.add_field(name=i["name"], value=i["description"], inline=False)
-                em = discord.Embed(title="Why Help", description="Use the buttons to look through all the commands\nUse `?help [command]` for more info on command")
-                ems = [counting, economy, fun, minecraft, moderation, music, ping, search, text, ticket, utilites]
-                view = Paginator(ctx, ems)
-                message = await ctx.send(embed=em, view=view)
-                res = await view.wait()
-                if res:
-                    for i in view.children:
-                        i.disabled = True
-                return await message.edit(view=view)
-
-
-        if cmd == None:
-            em = discord.Embed(title="Why Help")
-            em.add_field(
-                inline=False, name=f"Use `{ctx.prefix}help all`", value="For all commands")
-            em.add_field(
-                inline=False, name=f"`{ctx.prefix}help [command]`", value="Give information about a specific command")
-            em.add_field(inline=False, name="Useful Commands:",
-                         value=f"`/set`, `{ctx.prefix}settings`, `{ctx.prefix}setprefix`, `{ctx.prefix}report`")
-            em.add_field(inline=False, name="Why Support Server",
-                         value="https://discord.gg/8fJaesY8SR")
-            em.add_field(inline=False, name="Contribute/Source Code",
-                         value="https://github.com/FusionSid/Why-Bot")
-            em.add_field(inline=False, name="Dm Bot",
-                         value="You can always just dm the bot for help, suggestions, bugreports etc")
-            em.set_footer(
-                text="Default prefix is ? might be different for you")
-            button = Button(style=discord.ButtonStyle.grey, label="Vote:",
-                            url="https://discordbotlist.com/bots/why")
-            button2 = Button(style=discord.ButtonStyle.grey, label="Source:",
-                             url="https://github.com/FusionSid/Why-Bot")
-            button3 = Button(style=discord.ButtonStyle.grey,
-                             label="Discord:", url="https://discord.gg/8fJaesY8SR")
-            button4 = Button(style=discord.ButtonStyle.grey, label="Todo:",
-                             url="https://github.com/users/FusionSid/projects/1")
-            button5 = Button(style=discord.ButtonStyle.grey,
-                             label="Website:", url="https://fusionsid.xyz/whybot")
-            view = View(timeout=15)
-            view.add_item(button)
-            view.add_item(button2)
-            view.add_item(button3)
-            view.add_item(button4)
-            view.add_item(button5)
+            em = discord.Embed(title="Why Help", description="Use the buttons to look through all the commands\nUse `?help [command]` for more info on command")
+            ems = [counting, economy, fun, minecraft, moderation, music, ping, search, text, ticket, utilites]
+            view = Paginator(ctx, ems)
             message = await ctx.send(embed=em, view=view)
             res = await view.wait()
             if res:
                 for i in view.children:
                     i.disabled = True
             return await message.edit(view=view)
+        elif cmd in cats:
+          with open("./database/help.json") as f:
+            data = json.load(f)
+          stuff = data[cmd]
+          e = discord.Embed(title="Why Help", description=f"Use {ctx.prefix}help [command] for more info on a specific command")
+          for i in stuff:
+            e.add_field(name=i['name'], value=i['description'])
+          await ctx.send(embed=e)
         else:
             with open('./database/help.json') as f:
                 data = json.load(f)
