@@ -627,7 +627,7 @@ class Music(commands.Cog):
             data[name] = plist
         with open('./database/playlists.json', 'w') as f:
             json.dump(data, f, indent=4)
-        return await ctx.send(embed=discord.Embed(title=f"Playlist `{pname}` created!", description="To add to the playlist use ?padd [playlistname] [song/songurl]"))
+        return await ctx.send(embed=discord.Embed(title=f"Playlist `{pname}` created!", description=f"To add to the playlist use {ctx.prefix}padd [playlistname] [song/songurl]"))
 
     @commands.command()
     async def plist(self, ctx, pname: str):
@@ -636,11 +636,11 @@ class Music(commands.Cog):
         if f"{ctx.author.id}" in data:
             pass
         else:
-            return await ctx.send(embed=discord.Embed(title="You dont have any playlists!", description='Use ?createplaylist [name] to create one'))
+            return await ctx.send(embed=discord.Embed(title="You dont have any playlists!", description=f'Use {ctx.prefix}createplaylist [name] to create one'))
         if pname in data[f"{ctx.author.id}"]:
             pass
         else:
-            return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description='Use ?createplaylist [name] to create one'))
+            return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description=f'Use {ctx.prefix}createplaylist [name] to create one'))
         em = discord.Embed(title=f"Playlist: {pname}", description="Songs:")
         if len(data[f"{ctx.author.id}"][pname]):
             c = 1
@@ -649,7 +649,7 @@ class Music(commands.Cog):
                 c += 1
             await ctx.send(embed=em)
         else:
-            await ctx.send(f"List is empty use ?padd {pname} [songname/url]")
+            await ctx.send(f"List is empty use {ctx.prefix}padd {pname} [songname/url]")
 
     @commands.command()
     async def padd(self, ctx, pname: str, *,  song: str):
@@ -658,11 +658,11 @@ class Music(commands.Cog):
         if f"{ctx.author.id}" in data:
             pass
         else:
-            return await ctx.send(embed=discord.Embed(title="You dont have any playlists!", description='Use ?createplaylist [name] to create one'))
+            return await ctx.send(embed=discord.Embed(title="You dont have any playlists!", description=f'Use {ctx.prefix}createplaylist [name] to create one'))
         if pname in data[f"{ctx.author.id}"]:
             pass
         else:
-            return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description='Use ?createplaylist [name] to create one'))
+            return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description=f'Use {ctx.prefix}createplaylist [name] to create one'))
         data[f"{ctx.author.id}"][pname].append(song)
         await ctx.send(f"{song} Added to {pname}")
         with open('./database/playlists.json', 'w') as f:
@@ -675,11 +675,11 @@ class Music(commands.Cog):
         if f"{ctx.author.id}" in data:
             pass
         else:
-            return await ctx.send(embed=discord.Embed(title="You dont have any playlists!", description='Use ?createplaylist [name] to create one'))
+            return await ctx.send(embed=discord.Embed(title="You dont have any playlists!", description=f'Use {ctx.prefix}createplaylist [name] to create one'))
         if pname in data[f"{ctx.author.id}"]:
             pass
         else:
-            return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description='Use ?createplaylist [name] to create one'))
+            return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description=f'Use {ctx.prefix}createplaylist [name] to create one'))
         await ctx.send(embed=discord.Embed(title=f"Playing playlist: {pname}", description=f"Songs are being added to queue"))
         if len(data[f"{ctx.author.id}"][pname]):
             for song in data[f"{ctx.author.id}"][pname]:
@@ -689,7 +689,7 @@ class Music(commands.Cog):
                   print(e)
                 await asyncio.sleep(1)
         else:
-            await ctx.send("List is empty use ?add [song]")
+            await ctx.send(f"List is empty use {ctx.prefix}add [song]")
 
     @commands.command()
     async def shuffleplaylist(self, ctx, pname: str):
@@ -698,11 +698,11 @@ class Music(commands.Cog):
         if f"{ctx.author.id}" in data:
             pass
         else:
-            return await ctx.send(embed=discord.Embed(title="You dont have any playlists!", description='Use ?createplaylist [name] to create one'))
+            return await ctx.send(embed=discord.Embed(title="You dont have any playlists!", description=f'Use {ctx.prefix}createplaylist [name] to create one'))
         if pname in data[f"{ctx.author.id}"]:
             pass
         else:
-            return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description='Use ?createplaylist [name] to create one'))
+            return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description=f'Use {ctx.prefix}createplaylist [name] to create one'))
         await ctx.send(embed=discord.Embed(title="Playing Playlist", description=f"Songs are being added to queue in random order"))
         if len(data[f"{ctx.author.id}"][pname]):
             slist = data[f"{ctx.author.id}"][pname]
@@ -717,7 +717,7 @@ class Music(commands.Cog):
                   print(e)
                 await asyncio.sleep(1)
         else:
-            await ctx.send("List is empty use ?add [song]")
+            await ctx.send(f"List is empty use {ctx.prefix}add [song]")
 
     @commands.command()
     async def pdel(self, ctx, pname: str):
@@ -726,18 +726,18 @@ class Music(commands.Cog):
         if f"{ctx.author.id}" in data:
             pass
         else:
-            return await ctx.send(embed=discord.Embed(title="You dont have any playlists!", description='Use ?createplaylist [name] to create one'))
+            return await ctx.send(embed=discord.Embed(title="You dont have any playlists!", description=f'Use {ctx.prefix}createplaylist [name] to create one'))
         if pname in data[f"{ctx.author.id}"]:
             pass
         else:
-            return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description='Use ?createplaylist [name] to create one'))
+            return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description=f'Use {ctx.prefix}createplaylist [name] to create one'))
         if len(data[f"{ctx.author.id}"][pname]):
             n = 1
             for song in data[f"{ctx.author.id}"][pname]:
                 await ctx.send(f"{n}: {song}")
                 n += 1
         else:
-            await ctx.send("List is empty use ?add [song]")
+            await ctx.send(f"List is empty use {ctx.prefix}add [song]")
 
         def wfcheck(m):
             return m.channel == ctx.channel and m.author == ctx.author

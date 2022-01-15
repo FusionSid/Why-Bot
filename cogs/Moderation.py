@@ -375,7 +375,7 @@ class Moderation(commands.Cog):
                 elif type.lower() == 'bot':
                     i['autorole']['bot'] = role.id
                 else:
-                    return await ctx.send("?autorole @role [all/bot]\nYou must specify if roles if for all or for bots")
+                    return await ctx.send(f"{ctx.prefix}autorole @role [all/bot]\nYou must specify if roles if for all or for bots")
         with open('./database/db.json', 'w') as f:
             json.dump(data, f, indent=4)
         await ctx.send(f"{role.mention} set as autorole for this server")
@@ -399,7 +399,7 @@ class Moderation(commands.Cog):
             role = member.guild.get_role(role)
             await member.add_roles(role)
 
-    @commands.command()
+    @commands.command(aliases=["createwebhook", 'cwh'])
     @commands.has_permissions(manage_webhooks=True)
     async def createhook(self, ctx, name, channel:discord.TextChannel=None, avatarurl=None):
         if channel == None:
@@ -413,7 +413,7 @@ class Moderation(commands.Cog):
         webhook = await self.client.fetch_webhook(e.id)
         await ctx.author.send(webhook.url)
         await ctx.message.delete()
-        await ctx.send(embed=discord.Embed(title="Url sent in dms", description="Use `?wh [url] [message]` to send messages using that webhook"))
+        await ctx.send(embed=discord.Embed(title="Url sent in dms", description=f"Use `{ctx.prefix}wh [url] [message]` to send messages using that webhook"))
 
     @commands.command(aliases=['webhook', 'swh'])
     async def wh(self, ctx, url, *, text):

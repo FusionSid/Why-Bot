@@ -7,6 +7,7 @@ from discord import Option
 import json
 import random
 import os
+from utils import is_it_me
 
 cogs = []
 for i in os.listdir("cogs/"):
@@ -15,8 +16,6 @@ for i in os.listdir("cogs/"):
     else:
         print(i[:-3])
 
-def is_it_me(ctx):
-    return ctx.author.id == 624076054969188363
 
 async def get_roast():
     with open('./database/roastlist.json') as f:

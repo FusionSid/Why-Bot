@@ -2,12 +2,8 @@ import discord
 import json
 from discord.ext import commands
 import dotenv
-
+from utils import is_it_me
 dotenv.load_dotenv()
-
-def is_it_me(ctx):
-    return ctx.author.id == 624076054969188363
-
 
 class Fusion(commands.Cog):
 

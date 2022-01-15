@@ -150,7 +150,7 @@ class Utilities(commands.Cog):
     @commands.command()
     async def info(self, ctx, member: discord.Member = None):
         if member == None:
-            return await ctx.send("?info person <@person>\nYou didnt @ the member")
+            return await ctx.send(f"{ctx.prefix}info person <@person>\nYou didnt @ the member")
         roles = [role for role in member.roles]
         em = discord.Embed(title="Person Info",
                             description=f"For: {member.name}")
@@ -188,7 +188,7 @@ class Utilities(commands.Cog):
     
     @commands.command()
     async def botinfo(self, ctx):
-        em = discord.Embed(title = 'Why Bot', description = 'just why?')
+        em = discord.Embed(title = 'Why Bot', description = 'Just Why?')
         em.add_field(inline = False,name="Server Count", value=f"{len(self.client.guilds)}")
         mlist = []
         for i in list(self.client.get_all_members()):

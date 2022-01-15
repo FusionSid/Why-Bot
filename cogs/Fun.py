@@ -113,6 +113,7 @@ class Fun(commands.Cog):
 
     @commands.command(aliases=['em'])
     async def embed(self, ctx, fields: str, extra: int= None, channel: int = None,*, img=None):
+        await ctx.message.delete()
         def wfcheck(m):
             return m.channel == ctx.channel and m.author == ctx.author
         em = discord.Embed()

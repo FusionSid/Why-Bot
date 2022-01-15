@@ -1,7 +1,4 @@
-import math
 import json
-import sys
-import sqlite3
 from discord.channel import DMChannel
 from discordLevelingSystem import DiscordLevelingSystem, RoleAward, LevelUpAnnouncement
 import os
@@ -13,10 +10,9 @@ from discord.ui import Button, View
 from utils.keep_alive import keep_alive
 import dotenv
 from easy_pil import Editor, Canvas, Font, load_image, Text
-import requests
 from discord.ui import Button, View
-from discord import Option
 from datetime import datetime
+from utils import is_it_me
 
 dotenv.load_dotenv()
 
@@ -241,10 +237,6 @@ async def leaderboard(ctx):
       if n == 10:
         break 
     await ctx.send(embed=em)
-
-
-def is_it_me(ctx):
-    return ctx.author.id == 624076054969188363
 
 
 @client.command()
