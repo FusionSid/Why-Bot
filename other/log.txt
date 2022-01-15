@@ -726,3 +726,65 @@ In channel_id: Value "None" is not snowflake.
 15/01/2022 03:27:52 | Loaded cogs.TextConvert
 15/01/2022 03:27:52 | Loaded cogs.Help
 15/01/2022 03:27:52 | All Cogs Loaded, Logging into Discord
+15/01/2022 04:16:22 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+15/01/2022 04:25:03 | ERROR: Command "clearwarn" is not found
+15/01/2022 04:29:48 | ERROR: Command "warnungs" is not found
+15/01/2022 04:51:51 | ERROR: Command "?" is not found
+15/01/2022 05:37:09 | ERROR: type is a required argument that is missing.
+15/01/2022 05:37:38 | ERROR: Role "add" not found.
+15/01/2022 05:38:30 | ERROR: Role "add" not found.
+15/01/2022 05:53:44 | ----------START----------
+15/01/2022 05:53:44 | Loaded cogs.Minecraft
+15/01/2022 05:53:44 | Loaded cogs.Economy
+15/01/2022 05:53:44 | Loaded cogs.Counting
+15/01/2022 05:53:44 | Loaded cogs.Onping
+15/01/2022 05:53:44 | Loaded cogs.Search
+15/01/2022 05:53:44 | Loaded cogs.Welcome
+15/01/2022 05:53:45 | Loaded cogs.Settings
+15/01/2022 05:53:45 | Loaded cogs.Fun
+15/01/2022 05:53:45 | Loaded cogs.Fusion
+15/01/2022 05:53:46 | Loaded cogs.Music
+15/01/2022 05:53:46 | Loaded cogs.Slash
+15/01/2022 05:53:46 | Loaded cogs.Ticket
+15/01/2022 05:53:46 | Loaded cogs.Moderation
+15/01/2022 05:53:46 | Loaded cogs.TextConvert
+15/01/2022 05:53:46 | Loaded cogs.Help
+15/01/2022 05:53:46 | Loaded cogs.Utilities
+15/01/2022 05:53:46 | All Cogs Loaded, Logging into Discord
+15/01/2022 07:12:01 | ERROR: Command "cakc" is not found
+15/01/2022 07:13:51 | ERROR: You are on cooldown. Try again in 0.78s
+15/01/2022 08:22:28 | ERROR: Command "afk" is not found
+15/01/2022 08:24:13 | ERROR: Command "afk" is not found
+15/01/2022 10:11:14 | ERROR: Command "?" is not found
+15/01/2022 10:21:41 | ERROR: Command "?" is not found
+15/01/2022 10:21:44 | ERROR: Command "??" is not found
+15/01/2022 10:28:53 | ERROR: Command "reactionrole" is not found
+15/01/2022 10:29:51 | ERROR: Command "reactionrole" is not found
+15/01/2022 10:43:08 | ERROR: Command "reactionrole" is not found
+15/01/2022 10:44:49 | ERROR: Command "reactionrole.make" is not found
+15/01/2022 10:45:02 | ERROR: Command "reactionrole" is not found
+15/01/2022 10:49:22 | ERROR: Command "reactionrole" is not found
+15/01/2022 10:52:18 | ERROR: Command "reactionrole" is not found
+15/01/2022 10:52:33 | ERROR: Command "reactionrole" is not found
+15/01/2022 12:34:12 | ERROR: Command "afk" is not found
+15/01/2022 12:43:39 | ERROR: Command "???????" is not found
+15/01/2022 13:36:41 | ----------START----------
+15/01/2022 13:36:41 | Loaded cogs.Minecraft
+15/01/2022 13:36:41 | Loaded cogs.Economy
+15/01/2022 13:36:41 | Loaded cogs.Counting
+15/01/2022 13:36:41 | Loaded cogs.Onping
+15/01/2022 13:36:42 | Loaded cogs.Search
+15/01/2022 13:36:42 | Loaded cogs.Welcome
+15/01/2022 13:36:42 | Loaded cogs.Settings
+15/01/2022 13:36:42 | Loaded cogs.Fun
+15/01/2022 13:36:42 | Loaded cogs.Fusion
+15/01/2022 13:36:43 | Loaded cogs.Music
+15/01/2022 13:36:43 | Loaded cogs.Slash
+15/01/2022 13:36:43 | Loaded cogs.Ticket
+15/01/2022 13:36:43 | Loaded cogs.Moderation
+15/01/2022 13:36:43 | Loaded cogs.TextConvert
+15/01/2022 13:36:43 | Loaded cogs.Help
+15/01/2022 13:36:43 | Loaded cogs.Utilities
+15/01/2022 13:36:43 | All Cogs Loaded, Logging into Discord
+15/01/2022 22:42:57 | ERROR: Command raised an exception: AttributeError: module 'discord.commands.errors' has no attribute 'ClientException'

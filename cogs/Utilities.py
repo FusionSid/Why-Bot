@@ -126,6 +126,9 @@ def get_lines():
     for i in os.listdir("cogs/"):
         if i.endswith(".py"):
             files.append(f"cogs/{i}")
+    for i in os.listdir("utils/"):
+        if i.endswith(".py"):
+            files.append(f"utils/{i}")
     for i in files:
         count = 0
         with open(i, 'r') as f:
