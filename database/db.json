@@ -3,7 +3,7 @@
         "guild_id": 763348615233667082,
         "prefix": "?",
         "counting_channel": 926260517188829184,
-        "lastcounter": null,
+        "lastcounter": 624076054969188363,
         "log_channel": 925513395883606129,
         "welcome_channel": 926451103170715688,
         "warnings": {},
@@ -11,15 +11,17 @@
             "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
             "plugins": {
                 "Counting": true,
+                "Moderation": true,
                 "Economy": true,
-                "Text": true,
+                "TextConvert": true,
                 "Search": true,
                 "Welcome": true,
                 "Leveling": true,
                 "Music": true,
                 "Onping": true,
-                "Tickets": true,
-                "Minecraft": true
+                "Ticket": true,
+                "Minecraft": true,
+                "Utilities": true
             }
         },
         "autorole": {
@@ -40,14 +42,16 @@
             "plugins": {
                 "Counting": true,
                 "Economy": true,
-                "Text": true,
+                "TextConvert": true,
                 "Search": true,
                 "Welcome": true,
                 "Leveling": true,
                 "Music": true,
                 "Onping": true,
-                "Tickets": true,
-                "Minecraft": true
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true
             }
         },
         "autorole": {
@@ -68,14 +72,16 @@
             "plugins": {
                 "Counting": true,
                 "Economy": true,
-                "Text": true,
+                "TextConvert": true,
                 "Search": true,
                 "Welcome": true,
                 "Leveling": true,
                 "Music": true,
                 "Onping": true,
-                "Tickets": true,
-                "Minecraft": true
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true
             }
         },
         "autorole": {
@@ -96,14 +102,16 @@
             "plugins": {
                 "Counting": true,
                 "Economy": true,
-                "Text": true,
+                "TextConvert": true,
                 "Search": true,
                 "Welcome": true,
                 "Leveling": true,
                 "Music": true,
                 "Onping": true,
-                "Tickets": true,
-                "Minecraft": true
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true
             }
         },
         "autorole": {
@@ -124,14 +132,16 @@
             "plugins": {
                 "Counting": true,
                 "Economy": true,
-                "Text": true,
+                "TextConvert": true,
                 "Search": true,
                 "Welcome": true,
                 "Leveling": true,
                 "Music": true,
                 "Onping": true,
-                "Tickets": true,
-                "Minecraft": true
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true
             }
         },
         "autorole": {
@@ -152,14 +162,16 @@
             "plugins": {
                 "Counting": true,
                 "Economy": true,
-                "Text": true,
+                "TextConvert": true,
                 "Search": true,
                 "Welcome": true,
                 "Leveling": true,
                 "Music": true,
                 "Onping": true,
-                "Tickets": true,
-                "Minecraft": true
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true
             }
         },
         "autorole": {
@@ -180,14 +192,16 @@
             "plugins": {
                 "Counting": true,
                 "Economy": true,
-                "Text": true,
+                "TextConvert": true,
                 "Search": true,
                 "Welcome": true,
                 "Leveling": true,
                 "Music": true,
                 "Onping": true,
-                "Tickets": true,
-                "Minecraft": true
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true
             }
         },
         "autorole": {
@@ -208,14 +222,16 @@
             "plugins": {
                 "Counting": true,
                 "Economy": true,
-                "Text": true,
+                "TextConvert": true,
                 "Search": true,
                 "Welcome": true,
                 "Leveling": true,
                 "Music": true,
                 "Onping": true,
-                "Tickets": true,
-                "Minecraft": true
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true
             }
         },
         "autorole": {
@@ -236,14 +252,16 @@
             "plugins": {
                 "Counting": true,
                 "Economy": true,
-                "Text": true,
+                "TextConvert": true,
                 "Search": true,
                 "Welcome": true,
                 "Leveling": true,
                 "Music": true,
                 "Onping": true,
-                "Tickets": true,
-                "Minecraft": true
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true
             }
         },
         "autorole": {
@@ -264,14 +282,16 @@
             "plugins": {
                 "Counting": true,
                 "Economy": true,
-                "Text": true,
+                "TextConvert": true,
                 "Search": true,
                 "Welcome": true,
                 "Leveling": true,
                 "Music": true,
                 "Onping": true,
-                "Tickets": true,
-                "Minecraft": true
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true
             }
         },
         "autorole": {
@@ -292,14 +312,16 @@
             "plugins": {
                 "Counting": true,
                 "Economy": true,
-                "Text": true,
+                "TextConvert": true,
                 "Search": true,
                 "Welcome": true,
                 "Leveling": true,
                 "Music": true,
                 "Onping": true,
-                "Tickets": true,
-                "Minecraft": true
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true
             }
         },
         "autorole": {

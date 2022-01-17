@@ -23,7 +23,7 @@ class Leveling(commands.Cog):
 
     @commands.command(aliases=['lvl'])
     @commands.check(plugin_enabled)
-    async def rank(ctx, member:discord.Member=None):
+    async def rank(self, ctx, member:discord.Member=None):
         if member == None:
             data = await lvl.get_data_for(ctx.author)
         else:
@@ -108,7 +108,7 @@ class Leveling(commands.Cog):
 
     @commands.command()
     @commands.check(plugin_enabled)
-    async def leaderboard(ctx):
+    async def leaderboard(self, ctx):
         data = await lvl.each_member_data(ctx.guild, sort_by='rank')
         em = discord.Embed(title="Leaderboard")
         n = 0

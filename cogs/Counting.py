@@ -19,7 +19,11 @@ async def counting(msg, guild, channel, m):
     try:
         msg = int(msg)
     except:
-        return
+        try:
+          msg = int(eval(msg))
+          await m.reply(msg)
+        except:
+          return
 
     cc = await get_counting_channel(guild)
 
