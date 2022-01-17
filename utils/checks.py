@@ -8,3 +8,18 @@ def notblacklisted(ctx):
         data = json.load(f)
     if ctx.author.id not in data:
         return True
+
+async def plugin_enabled(ctx):
+    if ctx.cog is None:
+        return True
+    with open('./database/db.json') as f:
+        data = json.load(f)
+    for i in data:
+        if i["guild_id"] == ctx.guild.id:
+            settings = i['settings']
+
+    if settings[ctx.cog.qualified_name] == False:
+        await ctx.send("This command had been disabled", delete_after=5)
+        return False
+    else:
+        return True
