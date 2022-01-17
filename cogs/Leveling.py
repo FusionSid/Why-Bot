@@ -122,26 +122,26 @@ class Leveling(commands.Cog):
 
     @commands.command()
     @commands.check(is_it_me)
-    async def addxp(ctx, member:discord.Member, amount:int):
+    async def addxp(self, ctx, member:discord.Member, amount:int):
         await ctx.message.delete()
         await lvl.add_xp(member=member, amount=amount)
 
 
     @commands.command()
     @commands.check(is_it_me)
-    async def removexp(ctx, member:discord.Member, amount:int):
+    async def removexp(self, ctx, member:discord.Member, amount:int):
         await ctx.message.delete()
         await lvl.remove_xp(member=member, amount=amount)
 
 
     @commands.command()
     @commands.check(is_it_me)
-    async def setlvl(ctx, member:discord.Member, level:int):
+    async def setlvl(self,ctx, member:discord.Member, level:int):
         await ctx.message.delete()
         await lvl.set_level(member=member, level=level)
 
     @commands.command()
-    async def givexp(ctx, member:discord.Member, amount:int):
+    async def givexp(self, ctx, member:discord.Member, amount:int):
         await lvl.remove_xp(member=ctx.author, amount=amount)
         await lvl.add_xp(member=member, amount=amount)
         await ctx.send(f"Gave {amount} xp to {member.name}, Removed {amount} xp from {ctx.author.name}")
