@@ -113,6 +113,8 @@ class Onping(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        if message.author.bot:
+          return
         with open("./database/userdb.json") as f:
             data = json.load(f)
         for i in data:

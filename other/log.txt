@@ -788,3 +788,116 @@ In channel_id: Value "None" is not snowflake.
 15/01/2022 13:36:43 | Loaded cogs.Utilities
 15/01/2022 13:36:43 | All Cogs Loaded, Logging into Discord
 15/01/2022 22:42:57 | ERROR: Command raised an exception: AttributeError: module 'discord.commands.errors' has no attribute 'ClientException'
+16/01/2022 01:12:27 | ----------START----------
+16/01/2022 01:12:27 | Loaded cogs.Minecraft
+16/01/2022 01:12:27 | Loaded cogs.Economy
+16/01/2022 01:12:27 | Loaded cogs.Counting
+16/01/2022 01:12:27 | Loaded cogs.Onping
+16/01/2022 01:12:28 | Loaded cogs.Search
+16/01/2022 01:12:28 | Loaded cogs.Welcome
+16/01/2022 01:12:28 | Loaded cogs.Settings
+16/01/2022 01:12:28 | Loaded cogs.Fun
+16/01/2022 01:12:28 | Loaded cogs.Fusion
+16/01/2022 01:12:30 | Loaded cogs.Music
+16/01/2022 01:12:30 | Loaded cogs.Slash
+16/01/2022 01:12:30 | Loaded cogs.Ticket
+16/01/2022 01:12:30 | Loaded cogs.Moderation
+16/01/2022 01:12:30 | Loaded cogs.TextConvert
+16/01/2022 01:12:30 | Loaded cogs.Help
+16/01/2022 01:12:30 | Loaded cogs.Utilities
+16/01/2022 01:12:30 | All Cogs Loaded, Logging into Discord
+16/01/2022 01:51:33 | ----------START----------
+16/01/2022 01:51:33 | Loaded cogs.Minecraft
+16/01/2022 01:51:33 | Loaded cogs.Economy
+16/01/2022 01:51:33 | Loaded cogs.Counting
+16/01/2022 01:51:33 | Loaded cogs.Onping
+16/01/2022 01:51:33 | Loaded cogs.Search
+16/01/2022 01:51:33 | Loaded cogs.Welcome
+16/01/2022 01:51:33 | Loaded cogs.Settings
+16/01/2022 01:51:33 | Loaded cogs.Fun
+16/01/2022 01:51:33 | Loaded cogs.Fusion
+16/01/2022 01:51:34 | Loaded cogs.Music
+16/01/2022 01:51:34 | Loaded cogs.Slash
+16/01/2022 01:51:34 | Loaded cogs.Ticket
+16/01/2022 01:51:34 | Loaded cogs.Moderation
+16/01/2022 01:51:34 | Loaded cogs.TextConvert
+16/01/2022 01:51:34 | Loaded cogs.Help
+16/01/2022 01:51:34 | Loaded cogs.Utilities
+16/01/2022 01:51:34 | All Cogs Loaded, Logging into Discord
+17/01/2022 01:23:01 | ----------START----------
+17/01/2022 01:23:01 | Loaded cogs.Minecraft
+17/01/2022 01:23:01 | Loaded cogs.Economy
+17/01/2022 01:23:01 | Loaded cogs.Counting
+17/01/2022 01:23:01 | Loaded cogs.Onping
+17/01/2022 01:23:01 | Loaded cogs.Search
+17/01/2022 01:23:01 | Loaded cogs.Welcome
+17/01/2022 01:23:01 | Loaded cogs.Settings
+17/01/2022 01:23:01 | Loaded cogs.Fun
+17/01/2022 01:23:01 | Loaded cogs.Fusion
+17/01/2022 01:23:03 | Loaded cogs.Music
+17/01/2022 01:23:03 | Loaded cogs.Slash
+17/01/2022 01:23:03 | Loaded cogs.Ticket
+17/01/2022 01:23:03 | Loaded cogs.Moderation
+17/01/2022 01:23:03 | Loaded cogs.TextConvert
+17/01/2022 01:23:03 | Loaded cogs.Help
+17/01/2022 01:23:03 | Loaded cogs.Utilities
+17/01/2022 01:23:03 | All Cogs Loaded, Logging into Discord
+17/01/2022 07:04:52 | ERROR: Command "?" is not found
+17/01/2022 07:08:42 | ERROR: Command "?" is not found
+17/01/2022 07:12:46 | ERROR: Command "?" is not found
+17/01/2022 08:37:54 | ERROR: Command "??" is not found
+17/01/2022 09:49:09 | ERROR: Command "afk" is not found
+17/01/2022 09:52:43 | ERROR: Command "afk" is not found
+17/01/2022 09:59:19 | ERROR: Command "?" is not found
+17/01/2022 10:00:48 | ERROR: Command "dig" is not found
+17/01/2022 10:04:31 | ERROR: You are on cooldown. Try again in 16.09s
+17/01/2022 10:08:49 | ERROR: Command "purge" is not found
+17/01/2022 10:09:56 | ERROR: Command "?????????????" is not found
+17/01/2022 10:10:33 | ERROR: Command "purge" is not found
+17/01/2022 10:12:07 | ERROR: Command "?" is not found
+17/01/2022 10:20:49 | ERROR: Command "??" is not found
+17/01/2022 10:32:37 | ERROR: Command "afk" is not found
+17/01/2022 10:33:00 | ERROR: Command "afk" is not found
+17/01/2022 10:34:07 | ERROR: Command "AFK" is not found
+17/01/2022 10:39:18 | ERROR: Command "???" is not found
+17/01/2022 10:39:19 | ERROR: Command "???" is not found
+17/01/2022 10:39:20 | ERROR: Command "???" is not found
+17/01/2022 10:39:22 | ERROR: Command "??" is not found
+17/01/2022 10:39:23 | ERROR: Command "???" is not found
+17/01/2022 10:39:24 | ERROR: Command "???" is not found
+17/01/2022 10:39:25 | ERROR: Command "???" is not found
+17/01/2022 10:39:26 | ERROR: Command "???" is not found
+17/01/2022 10:39:27 | ERROR: Command "??" is not found
+17/01/2022 10:43:28 | ERROR: Command "??" is not found
+17/01/2022 10:43:31 | ERROR: Command "afk" is not found
+17/01/2022 10:56:50 | ERROR: Command "??" is not found
+17/01/2022 11:15:09 | ERROR: Command "?" is not found
+17/01/2022 11:26:37 | ERROR: Command "afk" is not found
+17/01/2022 11:27:32 | ERROR: Command "afk" is not found
+17/01/2022 11:36:59 | ERROR: Command "reactionrole" is not found
+17/01/2022 12:36:55 | ERROR: Command "??" is not found
+17/01/2022 12:48:59 | ERROR: Command "??" is not found
+17/01/2022 12:53:34 | ERROR: Command "afk" is not found
+17/01/2022 12:56:21 | ERROR: Command "afk" is not found
+17/01/2022 12:57:06 | ERROR: Command "afk" is not found
+17/01/2022 12:57:34 | ERROR: Command "afk" is not found
+17/01/2022 13:29:08 | ERROR: You are missing Administrator permission(s) to run this command.
+17/01/2022 13:51:26 | ERROR: You are missing Administrator permission(s) to run this command.
+17/01/2022 13:51:30 | ERROR: You are missing Administrator permission(s) to run this command.
+17/01/2022 13:54:39 | ERROR: Command "?" is not found
+17/01/2022 13:54:47 | ERROR: Command "????????" is not found
+17/01/2022 13:54:54 | ERROR: Command "???????????????" is not found
+17/01/2022 14:06:32 | ERROR: Command "?" is not found
+17/01/2022 14:11:22 | ERROR: Command "?" is not found
+17/01/2022 14:20:11 | ERROR: Command "afk" is not found
+17/01/2022 14:20:58 | ERROR: Command "im" is not found
+17/01/2022 14:21:08 | ERROR: Command "afk" is not found
+17/01/2022 14:52:08 | ERROR: Member "<@913813123926994994>" not found.
+17/01/2022 14:58:31 | ERROR: Command "afk" is not found
+17/01/2022 15:00:00 | ERROR: Command "afk" is not found
+17/01/2022 15:01:13 | ERROR: Command "afk" is not found
+17/01/2022 15:01:30 | ERROR: Command "afk" is not found
+17/01/2022 15:15:29 | ERROR: Command "afk" is not found
+17/01/2022 16:23:22 | ERROR: Command "?" is not found
+17/01/2022 19:05:01 | ERROR: Command "??????" is not found
+17/01/2022 21:17:47 | ERROR: Command "PLAYLIST" is not found
