@@ -2,7 +2,7 @@ import discord
 import discord
 from discord.ext import commands
 import json
-
+from utils.checks import plugin_enabled
 
 async def get_counting_channel(guild):
     with open("./database/db.json") as f:
@@ -69,6 +69,7 @@ class Counting(commands.Cog):
         self.client = client
         
     @commands.command(aliases=['num'])
+    @commands.check(plugin_enabled)
     async def numrn(self, ctx):
         guild = ctx.guild
         with open('./database/counting.json') as f:
