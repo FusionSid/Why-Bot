@@ -1,4 +1,5 @@
 import discord
+from utils.checks import plugin_enabled
 import asyncio
 import random
 import time

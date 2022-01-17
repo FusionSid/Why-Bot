@@ -1,4 +1,5 @@
 import discord
+from utils.checks import plugin_enabled
 from discord.ext import commands
 import json
 

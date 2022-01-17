@@ -1,4 +1,5 @@
 import discord
+from utils.checks import plugin_enabled
 import os
 import platform
 from discord import role

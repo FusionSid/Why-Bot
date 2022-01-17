@@ -5,6 +5,7 @@ import json
 import requests
 from discord.ext import commands
 import dotenv
+from utils.checks import plugin_enabled
 
 dotenv.load_dotenv()
 

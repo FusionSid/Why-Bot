@@ -1,4 +1,5 @@
 import discord
+from utils.checks import plugin_enabled
 from datetime import datetime
 from discord.ui import Button, View
 from discord import Option

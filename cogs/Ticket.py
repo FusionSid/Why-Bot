@@ -1,4 +1,5 @@
 import discord
+from utils.checks import plugin_enabled
 from discord.ext import commands
 from discord.ext.commands import has_permissions, MissingPermissions
 import json

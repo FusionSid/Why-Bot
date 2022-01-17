@@ -62,6 +62,14 @@ class Welcome(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
+        with open("./database/db.json") as f:
+          data = json.load(f)
+        for i in data:
+          if i["guild_id"] == member.guild.id:
+            if i['settings']['plugins']['Welcome'] == False:
+              return
+            else:
+              pass
         await memberjoin(self.client, member)
 
 def setup(client):
