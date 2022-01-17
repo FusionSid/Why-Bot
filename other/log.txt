@@ -919,3 +919,41 @@ In channel_id: Value "None" is not snowflake.
 17/01/2022 21:55:06 | Loaded cogs.Utilities
 17/01/2022 21:55:06 | Loaded cogs.Onping
 17/01/2022 21:55:06 | All Cogs Loaded, Logging into Discord
+17/01/2022 22:56:13 | ----------START----------
+17/01/2022 22:56:13 | Loaded cogs.Minecraft
+17/01/2022 22:56:14 | Loaded cogs.Economy
+17/01/2022 22:56:15 | Loaded cogs.Search
+17/01/2022 22:56:15 | Loaded cogs.Welcome
+17/01/2022 22:56:15 | Loaded cogs.Settings
+17/01/2022 22:56:15 | Loaded cogs.Fun
+17/01/2022 22:56:15 | Loaded cogs.Fusion
+17/01/2022 22:56:17 | Loaded cogs.Music
+17/01/2022 22:56:17 | Loaded cogs.Slash
+17/01/2022 22:56:17 | Loaded cogs.Ticket
+17/01/2022 22:56:17 | Loaded cogs.Moderation
+17/01/2022 22:56:17 | Loaded cogs.Help
+17/01/2022 22:56:17 | Loaded cogs.Utilities
+17/01/2022 22:56:17 | Loaded cogs.Onping
+17/01/2022 22:56:17 | Loaded cogs.TextConvert
+17/01/2022 22:56:17 | Loaded cogs.Counting
+17/01/2022 22:56:17 | All Cogs Loaded, Logging into Discord
+17/01/2022 22:57:27 | ----------START----------
+17/01/2022 22:57:27 | Loaded cogs.Minecraft
+17/01/2022 22:57:27 | Loaded cogs.Economy
+17/01/2022 22:57:28 | Loaded cogs.Search
+17/01/2022 22:57:28 | Loaded cogs.Welcome
+17/01/2022 22:57:28 | Loaded cogs.Settings
+17/01/2022 22:57:28 | Loaded cogs.Fun
+17/01/2022 22:57:28 | Loaded cogs.Fusion
+17/01/2022 22:57:30 | Loaded cogs.Music
+17/01/2022 22:57:30 | Loaded cogs.Slash
+17/01/2022 22:57:30 | Loaded cogs.Ticket
+17/01/2022 22:57:31 | Loaded cogs.Moderation
+17/01/2022 22:57:31 | Loaded cogs.Help
+17/01/2022 22:57:31 | Loaded cogs.Utilities
+17/01/2022 22:57:31 | Loaded cogs.Onping
+17/01/2022 22:57:31 | Loaded cogs.TextConvert
+17/01/2022 22:57:31 | Loaded cogs.Counting
+17/01/2022 22:57:31 | All Cogs Loaded, Logging into Discord
+17/01/2022 22:57:56 | ERROR: The check functions for command numrn failed.
+17/01/2022 23:00:16 | ERROR: The check functions for command numrn failed.

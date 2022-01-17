@@ -80,6 +80,14 @@ class Counting(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        with open("./database/db.json") as f:
+          data = json.load(f)
+        for i in data:
+          if i["guild_id"] == message.guild.id:
+            if i['settings']['plugins']['Counting'] == False:
+              return
+            else:
+              pass
 
         channel = message.channel
         msg = message.content
