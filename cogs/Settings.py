@@ -10,7 +10,7 @@ async def enabled_cogs(guild_id):
     for i in data:
         if i["guild_id"] == guild_id:
             plugins = i['settings']['plugins']
-    for plugin in plugins.items()
+    # for plugin in plugins.items()
 
 class Settings(commands.Cog):
     def __init__(self, client):

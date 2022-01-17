@@ -1035,3 +1035,68 @@ THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
 17/01/2022 23:48:55 | Loaded cogs.Counting
 17/01/2022 23:48:55 | Loaded cogs.Leveling
 17/01/2022 23:48:55 | All Cogs Loaded, Logging into Discord
+17/01/2022 23:54:03 | ERROR: Command "slvl" is not found
+17/01/2022 23:54:18 | ERROR: Converting to "int" failed for parameter "level".
+17/01/2022 23:55:01 | ERROR: Converting to "int" failed for parameter "level".
+17/01/2022 23:56:07 | ----------START----------
+17/01/2022 23:56:07 | Loaded cogs.Economy
+17/01/2022 23:56:07 | Loaded cogs.Fusion
+17/01/2022 23:56:07 | Loaded cogs.Slash
+17/01/2022 23:56:07 | Loaded cogs.Help
+17/01/2022 23:56:07 | Loaded cogs.Welcome
+17/01/2022 23:56:07 | Loaded cogs.Fun
+17/01/2022 23:56:07 | Loaded cogs.Minecraft
+17/01/2022 23:56:07 | Loaded cogs.Moderation
+17/01/2022 23:56:08 | Loaded cogs.Music
+17/01/2022 23:56:08 | Loaded cogs.Onping
+17/01/2022 23:56:09 | Loaded cogs.Search
+17/01/2022 23:56:09 | Loaded cogs.TextConvert
+17/01/2022 23:56:09 | Loaded cogs.Ticket
+17/01/2022 23:56:09 | Loaded cogs.Utilities
+17/01/2022 23:56:09 | Loaded cogs.Counting
+17/01/2022 23:56:09 | Loaded cogs.Leveling
+17/01/2022 23:56:09 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.Settings' raised an error: SyntaxError: invalid syntax (Settings.py, line 13)
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+17/01/2022 23:56:54 | ----------START----------
+17/01/2022 23:56:54 | Loaded cogs.Economy
+17/01/2022 23:56:54 | Loaded cogs.Fusion
+17/01/2022 23:56:54 | Loaded cogs.Slash
+17/01/2022 23:56:54 | Loaded cogs.Help
+17/01/2022 23:56:54 | Loaded cogs.Welcome
+17/01/2022 23:56:54 | Loaded cogs.Fun
+17/01/2022 23:56:54 | Loaded cogs.Minecraft
+17/01/2022 23:56:54 | Loaded cogs.Moderation
+17/01/2022 23:56:56 | Loaded cogs.Music
+17/01/2022 23:56:56 | Loaded cogs.Onping
+17/01/2022 23:56:57 | Loaded cogs.Search
+17/01/2022 23:56:57 | Loaded cogs.TextConvert
+17/01/2022 23:56:57 | Loaded cogs.Ticket
+17/01/2022 23:56:57 | Loaded cogs.Utilities
+17/01/2022 23:56:57 | Loaded cogs.Counting
+17/01/2022 23:56:57 | Loaded cogs.Leveling
+17/01/2022 23:56:57 | Loaded cogs.Settings
+17/01/2022 23:56:57 | All Cogs Loaded, Logging into Discord
+17/01/2022 23:56:58 | ERROR: Member "@Autistic" not found.
+17/01/2022 23:57:02 | ERROR: Member "@Autistic" not found.
+17/01/2022 23:58:46 | ----------START----------
+17/01/2022 23:58:46 | Loaded cogs.Economy
+17/01/2022 23:58:46 | Loaded cogs.Fusion
+17/01/2022 23:58:46 | Loaded cogs.Slash
+17/01/2022 23:58:46 | Loaded cogs.Help
+17/01/2022 23:58:46 | Loaded cogs.Welcome
+17/01/2022 23:58:46 | Loaded cogs.Fun
+17/01/2022 23:58:46 | Loaded cogs.Minecraft
+17/01/2022 23:58:46 | Loaded cogs.Moderation
+17/01/2022 23:58:47 | Loaded cogs.Music
+17/01/2022 23:58:47 | Loaded cogs.Onping
+17/01/2022 23:58:48 | Loaded cogs.Search
+17/01/2022 23:58:48 | Loaded cogs.TextConvert
+17/01/2022 23:58:48 | Loaded cogs.Ticket
+17/01/2022 23:58:48 | Loaded cogs.Utilities
+17/01/2022 23:58:48 | Loaded cogs.Counting
+17/01/2022 23:58:48 | Loaded cogs.Settings
+17/01/2022 23:58:48 | Loaded cogs.Leveling
+17/01/2022 23:58:48 | All Cogs Loaded, Logging into Discord

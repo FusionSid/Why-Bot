@@ -117,7 +117,7 @@ class Leveling(commands.Cog):
             n += 1
             if n == 10:
                 break 
-            await ctx.send(embed=em)
+        await ctx.send(embed=em)
 
 
     @commands.command()
