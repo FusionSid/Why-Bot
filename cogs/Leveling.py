@@ -143,3 +143,6 @@ class Leveling(commands.Cog):
         await lvl.add_xp(member=member, amount=amount)
         await ctx.send(f"Gave {amount} xp to {member.name}, Removed {amount} xp from {ctx.author.name}")
 
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        await lvl.award_xp(amount=[15, 25], message=message)
