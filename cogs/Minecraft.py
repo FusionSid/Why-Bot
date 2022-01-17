@@ -43,6 +43,7 @@ class Minecraft(commands.Cog):
         self.client = client
 
     @commands.command(aliases=['uuid'])
+    @commands.check(plugin_enabled)
     async def getuuid(self, ctx, player=None):
         if player == None:
             uuid = await get_user_uuid(ctx)
@@ -53,6 +54,7 @@ class Minecraft(commands.Cog):
     # Register IGN
 
     @commands.command(aliases=['ign'])
+    @commands.check(plugin_enabled)
     async def setign(self, ctx):
         client = self.client
         confirm = False
@@ -93,6 +95,7 @@ class Minecraft(commands.Cog):
     # Hypixel image
 
     @commands.command(aliases=['hypixel'])
+    @commands.check(plugin_enabled)
     async def hystats(self, ctx, player=None):
         if player == None:
             uuid = await get_user_uuid(ctx)
@@ -109,6 +112,7 @@ class Minecraft(commands.Cog):
 
 
     @commands.command(aliases=['bw', 'bedwars'])
+    @commands.check(plugin_enabled)
     async def bwstats(self, ctx, player=None):
         if player == None:
             uuid = await get_user_uuid(ctx)

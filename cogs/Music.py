@@ -308,6 +308,7 @@ class Music(commands.Cog):
 
     # join command
     @commands.command(aliases=["j"])
+    @commands.check(plugin_enabled)
     async def join(self, ctx):
         if ctx.author.voice is None:
             return await ctx.send(f"{ctx.author.mention}, You have to be connected to a voice channel.")
@@ -328,6 +329,7 @@ class Music(commands.Cog):
     # noinspection PyTypeChecker
 
     @commands.command(aliases=["p"])
+    @commands.check(plugin_enabled)
     async def play(self, ctx, *, video=None):
         global queues
         global now_playing_pos
@@ -443,6 +445,7 @@ class Music(commands.Cog):
     # skip command
 
     @commands.command(aliases=["s"])
+    @commands.check(plugin_enabled)
     async def skip(self, ctx):
         if ctx.voice_client is None:
             return await ctx.send("I am not playing any songs for you.")
@@ -460,6 +463,7 @@ class Music(commands.Cog):
     # leave command
 
     @commands.command(aliases=["l", "disconnect", "d"])
+    @commands.check(plugin_enabled)
     async def leave(self, ctx):
         if ctx.voice_client is None:
             return await ctx.send("I am not playing any songs for you.")
@@ -487,6 +491,7 @@ class Music(commands.Cog):
     # stop command
 
     @commands.command(aliases=["stop"])
+    @commands.check(plugin_enabled)
     async def pause(self, ctx):
         if ctx.voice_client is None:
             return await ctx.send("I am not playing any songs for you.")
@@ -504,6 +509,7 @@ class Music(commands.Cog):
     # continue command
 
     @commands.command(aliases=["continue", "unpause"])
+    @commands.check(plugin_enabled)
     async def resume(self, ctx):
         if ctx.voice_client is None:
             return await ctx.send("I am not playing any songs for you.")
@@ -521,6 +527,7 @@ class Music(commands.Cog):
     # queue command
 
     @commands.command(aliases=["q"])
+    @commands.check(plugin_enabled)
     async def queue(self, ctx):
         global all_queues_info
 
@@ -583,6 +590,7 @@ class Music(commands.Cog):
     # loop command
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def loop(self, ctx):
         global loops
 
@@ -612,6 +620,7 @@ class Music(commands.Cog):
 
 
     @commands.command(aliases=['cp'])
+    @commands.check(plugin_enabled)
     async def createplaylist(self, ctx, pname: str = None):
         if pname == None:
             return await ctx.send("You need to name the playlist")
@@ -631,6 +640,7 @@ class Music(commands.Cog):
         return await ctx.send(embed=discord.Embed(title=f"Playlist `{pname}` created!", description=f"To add to the playlist use {ctx.prefix}padd [playlistname] [song/songurl]"))
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def plist(self, ctx, pname: str):
         with open('./database/playlists.json') as f:
             data = json.load(f)
@@ -653,6 +663,7 @@ class Music(commands.Cog):
             await ctx.send(f"List is empty use {ctx.prefix}padd {pname} [songname/url]")
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def padd(self, ctx, pname: str, *,  song: str):
         with open('./database/playlists.json') as f:
             data = json.load(f)
@@ -670,6 +681,7 @@ class Music(commands.Cog):
             json.dump(data, f, indent=4)
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def playlist(self, ctx, pname: str):
         with open('./database/playlists.json') as f:
             data = json.load(f)
@@ -693,6 +705,7 @@ class Music(commands.Cog):
             await ctx.send(f"List is empty use {ctx.prefix}add [song]")
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def shuffleplaylist(self, ctx, pname: str):
         with open('./database/playlists.json') as f:
             data = json.load(f)
@@ -721,6 +734,7 @@ class Music(commands.Cog):
             await ctx.send(f"List is empty use {ctx.prefix}add [song]")
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def pdel(self, ctx, pname: str):
         with open('./database/playlists.json') as f:
             data = json.load(f)
@@ -763,6 +777,7 @@ class Music(commands.Cog):
     # Text to speech
 
     @commands.command(aliases=['speak'])
+    @commands.check(plugin_enabled)
     async def tts(self, ctx, *, text):
         text = str(text)
 
@@ -817,6 +832,7 @@ class Music(commands.Cog):
                     await voice.disconnect() #if not it disconnects
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def mp3(self, ctx):
 
         if ctx.author.voice is None:
@@ -859,6 +875,7 @@ class Music(commands.Cog):
         os.remove(filename)
     
     @commands.command()
+    @commands.check(plugin_enabled)
     async def music(self, ctx):
         em = discord.Embed(title="Music")
         view= MusicView(ctx, self.client)
@@ -869,10 +886,5 @@ class Music(commands.Cog):
             i.disabled = True
           return await message.edit(view=view)
           
-    @commands.command()
-    async def oihweogth(self, ctx):
-        global queues
-        print(queues[ctx.guild.id])
-
 def setup(client):
     client.add_cog(Music(client))

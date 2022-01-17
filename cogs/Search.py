@@ -53,6 +53,7 @@ class Search(commands.Cog):
         self.client = client
 
     @commands.command(aliases=['is'])
+    @commands.check(plugin_enabled)
     async def imagesearch(self, ctx, *, search):
         ran = random.randint(0, 9)
         resource = build("customsearch", "v1", developerKey=isapi_key).cse()
@@ -65,6 +66,7 @@ class Search(commands.Cog):
         await ctx.send(embed=embed1)
 
     @commands.command(aliases=['yt'])
+    @commands.check(plugin_enabled)
     async def youtube(self, ctx, *, search_):
         search_ = search_.replace(" ", "+")
         html = urllib.request.urlopen(
@@ -79,6 +81,7 @@ class Search(commands.Cog):
         await ctx.send(embed=em)
 
     @commands.command(aliases=['rimg'])
+    @commands.check(plugin_enabled)
     async def redditimg(self, ctx, subreddit: str):
         rclient = reddit_client()
         urls = await get_img_url(client=rclient, sub_name=subreddit, limit=50)
@@ -88,6 +91,7 @@ class Search(commands.Cog):
         await ctx.send(embed=em)
 
     @commands.command(aliases=['getmeme'])
+    @commands.check(plugin_enabled)
     async def meme(self, ctx):
         reddit = reddit_client()
         subreddit = reddit.subreddit("memes")
@@ -107,6 +111,7 @@ class Search(commands.Cog):
         await ctx.send(embed=em)
 
     @commands.command(aliases=['redditsearch'])
+    @commands.check(plugin_enabled)
     async def reddit(self, ctx, subreddit: str):
         rclient = reddit_client()
         urls = await get_url(client=rclient, sub_name=subreddit, limit=50)

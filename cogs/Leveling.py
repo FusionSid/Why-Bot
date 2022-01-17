@@ -1,9 +1,10 @@
 import discord
+import json
 from discord.ext import commands
 from discordLevelingSystem import DiscordLevelingSystem, RoleAward, LevelUpAnnouncement
 from easy_pil import Editor, Canvas, Font, load_image, Text
 import os
-from utils.checks import is_it_me
+from utils.checks import is_it_me, plugin_enabled
 
 lvlembed = discord.Embed()
 lvlembed.set_author(name=LevelUpAnnouncement.Member.name,
@@ -21,6 +22,7 @@ class Leveling(commands.Cog):
         self.client = client
 
     @commands.command(aliases=['lvl'])
+    @commands.check(plugin_enabled)
     async def rank(ctx, member:discord.Member=None):
         if member == None:
             data = await lvl.get_data_for(ctx.author)
@@ -105,6 +107,7 @@ class Leveling(commands.Cog):
 
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def leaderboard(ctx):
         data = await lvl.each_member_data(ctx.guild, sort_by='rank')
         em = discord.Embed(title="Leaderboard")
@@ -145,4 +148,15 @@ class Leveling(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        with open("./database/db.json") as f:
+          data = json.load(f)
+        for i in data:
+          if i["guild_id"] == message.guild.id:
+            if i['settings']['plugins']['Welcome'] == False:
+              return
+            else:
+              pass
         await lvl.award_xp(amount=[15, 25], message=message)
+
+def setup(client):
+    client.add_cog(Leveling(client))

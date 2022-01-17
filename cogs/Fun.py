@@ -23,6 +23,7 @@ class Fun(commands.Cog):
         self.client = client
 
     @commands.command(aliases=['rockpaperscissors'])
+    @commands.check(plugin_enabled)
     async def rps(self, ctx, rps: str):
         choices = ["rock", "paper", "scissors"]
         cpu_choice = random.choice(choices)
@@ -61,6 +62,7 @@ class Fun(commands.Cog):
 
 
     @commands.command(aliases=['roastme'])
+    @commands.check(plugin_enabled)
     async def roast(self, ctx):
         await ctx.message.delete()
         roast = await get_roast()
@@ -69,6 +71,7 @@ class Fun(commands.Cog):
     
 
     @commands.command(aliases=['sendmsg'])
+    @commands.check(plugin_enabled)
     async def dm(self, ctx, member: discord.Member, *, message):
         await ctx.message.delete()
         embeddm = discord.Embed(title=message)
@@ -76,6 +79,7 @@ class Fun(commands.Cog):
     
 
     @commands.command(aliases=['sr'])
+    @commands.check(plugin_enabled)
     async def sendroast(self, ctx, member: discord.Member):
         await ctx.message.delete()
         message = await get_roast()
@@ -85,6 +89,7 @@ class Fun(commands.Cog):
 
 
     @commands.command(aliases=['8ball'])
+    @commands.check(plugin_enabled)
     async def _8ball(self, ctx, *, question):
         _8ballans = [
             "As I see it, yes",
@@ -113,6 +118,7 @@ class Fun(commands.Cog):
         await ctx.send(embed=em)
 
     @commands.command(aliases=['em'])
+    @commands.check(plugin_enabled)
     async def embed(self, ctx, fields: str, extra: int= None, channel: int = None,*, img=None):
         await ctx.message.delete()
         def wfcheck(m):
@@ -171,6 +177,7 @@ class Fun(commands.Cog):
             await cha.send(embed=em)
 
     @commands.command(aliases=['noembed'])
+    @commands.check(plugin_enabled)
     async def say(self, ctx, *, text):
         await ctx.message.delete()
         await ctx.send(text)
@@ -178,12 +185,14 @@ class Fun(commands.Cog):
     # Polls
 
     @commands.command(aliases=['yahornah', 'yn'])
+    @commands.check(plugin_enabled)
     async def yesorno(self, ctx, *, message):
         msg = await ctx.send(embed=discord.Embed(title="Yah or Nah?", description=message))
         await msg.add_reaction('👍')
         await msg.add_reaction('👎')
 
     @commands.command(pass_context=True, aliases=['makepoll', 'question'])
+    @commands.check(plugin_enabled)
     async def poll(self, ctx, time: int, question, *options: str):
         if len(options) <= 1:
             await ctx.send('You need more than one option to make a poll!')

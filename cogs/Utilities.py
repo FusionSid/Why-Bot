@@ -143,15 +143,18 @@ class Utilities(commands.Cog):
         self.client = client
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def invite(self, ctx):
         link = await ctx.channel.create_invite(max_age=10)
         await ctx.send(link)
 
     @commands.command(aliases=['bot'])
+    @commands.check(plugin_enabled)
     async def botinvite(self, ctx):
         await ctx.send(embed=discord.Embed(title="Invite **Why?** to your server:", description="https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands"))
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def info(self, ctx, member: discord.Member = None):
         if member == None:
             return await ctx.send(f"{ctx.prefix}info person <@person>\nYou didnt @ the member")
@@ -169,16 +172,19 @@ class Utilities(commands.Cog):
         await ctx.send(embed=em)
 
     @commands.command(aliases=['sug'])
+    @commands.check(plugin_enabled)
     async def suggest(self, ctx, *, suggestion):
         sid = await self.client.fetch_channel(925157029092413460)
         await sid.send(f"Suggestion:\n{suggestion}\n\nBy: {ctx.author.name}\nID: {ctx.author.id}")
         await ctx.send("Thank you for you suggestion!")
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def ping(self, ctx):
         await ctx.send(f"Pong! jk\n{round(self.client.latency * 1000)}ms")
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def serverinfo(self, ctx):
         role_count = len(ctx.guild.roles)
         list_of_bots = [
@@ -191,6 +197,7 @@ class Utilities(commands.Cog):
         await ctx.send(embed=em)
     
     @commands.command()
+    @commands.check(plugin_enabled)
     async def botinfo(self, ctx):
         em = discord.Embed(title = 'Why Bot', description = 'Just Why?')
         em.add_field(inline = False,name="Server Count", value=f"{len(self.client.guilds)}")
@@ -209,6 +216,7 @@ class Utilities(commands.Cog):
         await ctx.send(embed = em)
 
     @commands.command(aliases=['qr'])
+    @commands.check(plugin_enabled)
     async def qrcode(self, ctx, *, url):
         qr = qrcode.QRCode(
             version=1,
@@ -225,6 +233,7 @@ class Utilities(commands.Cog):
 
 
     @commands.command(aliases=['calc', 'calculator'])
+    @commands.check(plugin_enabled)
     async def calculate(self, ctx):
         view = InteractiveView()
         message = await ctx.send("```\n```", view=view)
@@ -235,6 +244,7 @@ class Utilities(commands.Cog):
         return await message.edit(view=view)
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def vote(ctx):
         button = Button(style=discord.ButtonStyle.grey,label="Vote link:", url="https://discordbotlist.com/bots/why")
         view= View(timeout=15)

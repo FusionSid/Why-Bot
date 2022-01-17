@@ -16,6 +16,7 @@ class Onping(commands.Cog):
         self.client = client
     
     @commands.group(aliases=["on_pinged", 'pinged'])
+    @commands.check(plugin_enabled)
     async def onpinged(self, ctx):
         if ctx.invoked_subcommand is None:
             user = await get_data(ctx.author.id)
@@ -46,6 +47,7 @@ class Onping(commands.Cog):
 
 
     @onpinged.command()
+    @commands.check(plugin_enabled)
     async def set(self, ctx):
         user = await get_data(ctx.author.id)
         if user == None:
@@ -99,6 +101,7 @@ class Onping(commands.Cog):
         
 
     @onpinged.command()
+    @commands.check(plugin_enabled)
     async def clear(self, ctx):
         with open("./database/userdb.json") as f:
             data = json.load(f)
@@ -116,6 +119,14 @@ class Onping(commands.Cog):
     async def on_message(self, message):
         if message.author.bot:
           return
+        with open("./database/db.json") as f:
+          data = json.load(f)
+        for i in data:
+          if i["guild_id"] == message.guild.id:
+            if i['settings']['plugins']['Onping'] == False:
+              return
+            else:
+              pass
         with open("./database/userdb.json") as f:
             data = json.load(f)
         for i in data:

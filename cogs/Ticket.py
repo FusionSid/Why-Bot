@@ -24,6 +24,7 @@ class Ticket(commands.Cog):
         self.client = client
 
     @commands.command(aliases=['new'])
+    @commands.check(plugin_enabled)
     async def newticket(self, ctx, *, args=None):
         createticketfile(ctx)
 
@@ -91,6 +92,7 @@ class Ticket(commands.Cog):
         await ctx.send(embed=created_em)
 
     @commands.command(aliases=['close'])
+    @commands.check(plugin_enabled)
     async def closeticket(self, ctx):
         createticketfile(ctx)
         with open(f'./tickets/ticket{ctx.guild.id}.json') as f:
@@ -124,6 +126,7 @@ class Ticket(commands.Cog):
                 await ctx.send(embed=em)
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def addaccess(self, ctx, role_id=None):
         createticketfile(ctx)
         with open(f'./tickets/ticket{ctx.guild.id}.json') as f:
@@ -174,6 +177,7 @@ class Ticket(commands.Cog):
             await ctx.send(embed=em)
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def delaccess(self, ctx, role_id=None):
         createticketfile(ctx)
         with open(f'./tickets/ticket{ctx.guild.id}.json') as f:
@@ -229,6 +233,7 @@ class Ticket(commands.Cog):
             await ctx.send(embed=em)
 
     @commands.command()
+    @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def addadminrole(self, ctx, role_id=None):
         createticketfile(ctx)
@@ -253,6 +258,7 @@ class Ticket(commands.Cog):
             await ctx.send(embed=em)
 
     @commands.command()
+    @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def deladminrole(self, ctx, role_id=None):
         createticketfile(ctx)

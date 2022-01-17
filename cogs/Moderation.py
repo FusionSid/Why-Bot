@@ -36,6 +36,7 @@ class Moderation(commands.Cog):
         self.client = client
 
     @commands.command(aliases=['rp'])
+    @commands.check(plugin_enabled)
     async def report(self, ctx, type_: str):
         def wfcheck(m):
             return m.channel == ctx.channel and m.author == ctx.author
@@ -104,6 +105,7 @@ class Moderation(commands.Cog):
             await cha.send(embed=em)
 
     @commands.command(aliases=['grole'])
+    @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def giverole(self, ctx, role: discord.Role, user: discord.Member):
         await user.add_roles(role)
@@ -115,6 +117,7 @@ class Moderation(commands.Cog):
         await ctx.send(f"{user} has been given the {role} role")
 
     @commands.command(aliases=['trole'])
+    @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def takerole(self, ctx, role: discord.Role, user: discord.Member):
         await user.remove_roles(role)
@@ -126,6 +129,7 @@ class Moderation(commands.Cog):
         await ctx.send(f"{role} has been removed from {user}")
 
     @commands.command()
+    @commands.check(plugin_enabled)
     @commands.has_permissions(ban_members=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def ban(self, ctx, member: discord.Member, *, reason=None):
@@ -144,6 +148,7 @@ class Moderation(commands.Cog):
         await ctx.send(f"User {member} has been banned")
 
     @commands.command()
+    @commands.check(plugin_enabled)
     @commands.has_permissions(kick_members=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def kick(self, ctx, member: discord.Member, *, reason=None):
@@ -162,6 +167,7 @@ class Moderation(commands.Cog):
         await ctx.send(f"User {member} has been kicked")
 
     @commands.command(aliases=['lock'])
+    @commands.check(plugin_enabled)
     @commands.has_permissions(manage_channels=True)
     async def lockdown(self, ctx, channel: discord.TextChannel = None):
         if channel == None:
@@ -175,6 +181,7 @@ class Moderation(commands.Cog):
             pass
 
     @commands.command()
+    @commands.check(plugin_enabled)
     @commands.has_permissions(manage_channels=True)
     async def unlock(self, ctx, channel: discord.TextChannel = None):
         if channel == None:
@@ -188,6 +195,7 @@ class Moderation(commands.Cog):
             pass
 
     @commands.command()
+    @commands.check(plugin_enabled)
     @commands.cooldown(1, 3, commands.BucketType.user)
     @commands.has_permissions(manage_channels=True)
     async def clear(self, ctx, amount: int = 10):
@@ -203,6 +211,7 @@ class Moderation(commands.Cog):
             pass
 
     @commands.command()
+    @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def reactrole(self, ctx, emoji, role: discord.Role, *, message):
         embedVar = discord.Embed(description=message)
@@ -224,6 +233,7 @@ class Moderation(commands.Cog):
             json.dump(data, f, indent=4)
 
     @commands.Cog.listener()
+    @commands.check(plugin_enabled)
     async def on_raw_reaction_add(self, payload):
         if payload.member.bot:
             return
@@ -238,6 +248,7 @@ class Moderation(commands.Cog):
                     pass
 
     @commands.command()
+    @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def make_channel(self, ctx, *, name):
         guild = ctx.guild
@@ -249,6 +260,7 @@ class Moderation(commands.Cog):
             pass
 
     @commands.command()
+    @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def make_vc(self, ctx, limit=None, *, name):
         guild = ctx.guild
@@ -263,6 +275,7 @@ class Moderation(commands.Cog):
             pass
 
     @commands.command()
+    @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def warn(self, ctx, member: discord.Member, *, reason=None):
         if member.id in [ctx.author.id, self.client.user.id]:
@@ -293,6 +306,7 @@ class Moderation(commands.Cog):
             pass
 
     @commands.command()
+    @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def warnings(self, ctx, member: discord.Member):
         with open("./database/db.json") as f:
@@ -314,6 +328,7 @@ class Moderation(commands.Cog):
         await ctx.send(embed=em)
 
     @commands.command(aliases=['nick'])
+    @commands.check(plugin_enabled)
     @commands.has_permissions(manage_nicknames=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def nickname(self, ctx, member: discord.Member, *, nickname: str = "no nick"):
@@ -323,6 +338,7 @@ class Moderation(commands.Cog):
             await ctx.reply("Sorry, you cannot perform that action due to role hierarchy")
 
     @commands.command()
+    @commands.check(plugin_enabled)
     @commands.has_permissions(ban_members=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def unban(self, ctx, memberid: int = None):
@@ -332,17 +348,20 @@ class Moderation(commands.Cog):
         except:
             await ctx.send("Sorry, a user with that id was not found or isn't a previously banned member.")
 
-    @commands.group()
+    @commands.command()
+    @commands.check(plugin_enabled)
     async def slowmode(self, ctx, seconds: int = 5):
         await ctx.channel.edit(slowmode_delay=seconds)
         await ctx.send(f"Set the slowmode delay in this channel to {seconds} seconds!")
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def rslowmode(self, ctx):
         await ctx.channel.edit(slowmode_delay=0)
         await ctx.send('removed slowmode for the channel')
 
     @commands.command(name="pin", help="Pins the message with the specified ID to the current channel")
+    @commands.check(plugin_enabled)
     @commands.has_permissions(manage_messages=True)
     async def pin(self, ctx, id: int):
         message = await ctx.channel.fetch_message(id)
@@ -350,6 +369,7 @@ class Moderation(commands.Cog):
         await ctx.send("Successfully pinned that msg")
 
     @commands.command(name="unpin", help="Unpins the message with the specified ID from the current channel")
+    @commands.check(plugin_enabled)
     @commands.has_permissions(manage_messages=True)
     async def unpin(self, ctx, id: int):
         pinned_messages = await ctx.channel.pins()
@@ -358,6 +378,7 @@ class Moderation(commands.Cog):
         await ctx.send("Successfully unpinned that msg")
 
     @commands.command(name="removereactions", help="Clear reactions from a message in the current channel")
+    @commands.check(plugin_enabled)
     @commands.has_permissions(manage_messages=True)
     async def removereactions(self, ctx, id: int):
         message = await ctx.channel.fetch_message(id)
@@ -365,6 +386,7 @@ class Moderation(commands.Cog):
         await ctx.send("Removed")
 
     @commands.command()
+    @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def autorole(self, ctx, role: discord.Role, type: str):
         with open("./database/db.json") as f:
@@ -384,6 +406,14 @@ class Moderation(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         with open("./database/db.json") as f:
+          data = json.load(f)
+        for i in data:
+          if i["guild_id"] == member.guild.id:
+            if i['settings']['plugins']['Moderation'] == False:
+              return
+            else:
+              pass
+        with open("./database/db.json") as f:
             data = json.load(f)
         role = False
         for i in data:
@@ -401,6 +431,7 @@ class Moderation(commands.Cog):
             await member.add_roles(role)
 
     @commands.command(aliases=["createwebhook", 'cwh'])
+    @commands.check(plugin_enabled)
     @commands.has_permissions(manage_webhooks=True)
     async def createhook(self, ctx, name, channel:discord.TextChannel=None, avatarurl=None):
         if channel == None:
@@ -417,6 +448,7 @@ class Moderation(commands.Cog):
         await ctx.send(embed=discord.Embed(title="Url sent in dms", description=f"Use `{ctx.prefix}wh [url] [message]` to send messages using that webhook"))
 
     @commands.command(aliases=['webhook', 'swh'])
+    @commands.check(plugin_enabled)
     async def wh(self, ctx, url, *, text):
         await ctx.message.delete()
         webhook = DiscordWebhook(url=url, content=text)
