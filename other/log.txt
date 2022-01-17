@@ -901,3 +901,21 @@ In channel_id: Value "None" is not snowflake.
 17/01/2022 16:23:22 | ERROR: Command "?" is not found
 17/01/2022 19:05:01 | ERROR: Command "??????" is not found
 17/01/2022 21:17:47 | ERROR: Command "PLAYLIST" is not found
+17/01/2022 21:55:03 | ----------START----------
+17/01/2022 21:55:03 | Loaded cogs.Minecraft
+17/01/2022 21:55:03 | Loaded cogs.Economy
+17/01/2022 21:55:03 | Loaded cogs.Counting
+17/01/2022 21:55:04 | Loaded cogs.Search
+17/01/2022 21:55:04 | Loaded cogs.Welcome
+17/01/2022 21:55:04 | Loaded cogs.Settings
+17/01/2022 21:55:04 | Loaded cogs.Fun
+17/01/2022 21:55:04 | Loaded cogs.Fusion
+17/01/2022 21:55:06 | Loaded cogs.Music
+17/01/2022 21:55:06 | Loaded cogs.Slash
+17/01/2022 21:55:06 | Loaded cogs.Ticket
+17/01/2022 21:55:06 | Loaded cogs.Moderation
+17/01/2022 21:55:06 | Loaded cogs.TextConvert
+17/01/2022 21:55:06 | Loaded cogs.Help
+17/01/2022 21:55:06 | Loaded cogs.Utilities
+17/01/2022 21:55:06 | Loaded cogs.Onping
+17/01/2022 21:55:06 | All Cogs Loaded, Logging into Discord
