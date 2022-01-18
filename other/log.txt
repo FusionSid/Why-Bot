@@ -1337,3 +1337,98 @@ THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
 18/01/2022 01:14:04 | ERROR: Command raised an exception: AttributeError: 'Bot' object has no attribute 'fetch_role'
 18/01/2022 01:14:54 | ERROR: Command raised an exception: AttributeError: 'Bot' object has no attribute 'fetch_role'
 18/01/2022 01:16:15 | ERROR: Command "Settings" is not found
+18/01/2022 01:19:08 | ERROR: The check functions for command onpinged failed.
+18/01/2022 02:15:04 | ERROR: Command raised an exception: Forbidden: 403 Forbidden (error code: 50013): Missing Permissions
+18/01/2022 02:20:17 | ERROR: text is a required argument that is missing.
+18/01/2022 02:38:45 | ----------START----------
+18/01/2022 02:38:45 | Loaded cogs.Economy
+18/01/2022 02:38:45 | Loaded cogs.Fusion
+18/01/2022 02:38:45 | Loaded cogs.Slash
+18/01/2022 02:38:45 | Loaded cogs.Help
+18/01/2022 02:38:45 | Loaded cogs.Fun
+18/01/2022 02:38:45 | Loaded cogs.Minecraft
+18/01/2022 02:38:45 | Loaded cogs.Moderation
+18/01/2022 02:38:46 | Loaded cogs.Music
+18/01/2022 02:38:46 | Loaded cogs.Onping
+18/01/2022 02:38:47 | Loaded cogs.Search
+18/01/2022 02:38:47 | Loaded cogs.TextConvert
+18/01/2022 02:38:47 | Loaded cogs.Ticket
+18/01/2022 02:38:47 | Loaded cogs.Utilities
+18/01/2022 02:38:47 | Loaded cogs.Counting
+18/01/2022 02:38:47 | Loaded cogs.Leveling
+18/01/2022 02:38:47 | Loaded cogs.Settings
+18/01/2022 02:38:47 | Loaded cogs.Welcome
+18/01/2022 02:38:47 | All Cogs Loaded, Logging into Discord
+18/01/2022 02:38:47 | 
+###################
+POSSIBLE FATAL ERROR:
+429 Too Many Requests (error code: 0): You are being blocked from accessing our API temporarily due to exceeding our rate limits frequently. Please read our docs at https://discord.com/developers/docs/topics/rate-limits to prevent this moving forward.
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+18/01/2022 06:20:48 | ----------START----------
+18/01/2022 06:20:48 | Loaded cogs.Economy
+18/01/2022 06:20:48 | Loaded cogs.Fusion
+18/01/2022 06:20:49 | Loaded cogs.Slash
+18/01/2022 06:20:49 | Loaded cogs.Help
+18/01/2022 06:20:49 | Loaded cogs.Fun
+18/01/2022 06:20:49 | Loaded cogs.Minecraft
+18/01/2022 06:20:49 | Loaded cogs.Moderation
+18/01/2022 06:20:50 | Loaded cogs.Music
+18/01/2022 06:20:50 | Loaded cogs.Onping
+18/01/2022 06:20:51 | Loaded cogs.Search
+18/01/2022 06:20:51 | Loaded cogs.TextConvert
+18/01/2022 06:20:51 | Loaded cogs.Ticket
+18/01/2022 06:20:51 | Loaded cogs.Utilities
+18/01/2022 06:20:51 | Loaded cogs.Counting
+18/01/2022 06:20:51 | Loaded cogs.Leveling
+18/01/2022 06:20:51 | Loaded cogs.Settings
+18/01/2022 06:20:51 | Loaded cogs.Welcome
+18/01/2022 06:20:51 | All Cogs Loaded, Logging into Discord
+18/01/2022 06:21:11 | ERROR: Command "??" is not found
+18/01/2022 06:25:47 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+18/01/2022 06:26:16 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+18/01/2022 07:12:57 | ERROR: Command "?" is not found
+18/01/2022 08:10:05 | ERROR: Command "settibga" is not found
+18/01/2022 08:10:09 | ERROR: Command "settinga" is not found
+18/01/2022 08:24:06 | ERROR: Command "message_server" is not found
+18/01/2022 08:24:28 | ERROR: Command "messageserver" is not found
+18/01/2022 08:26:05 | ERROR: Command "message_server" is not found
+18/01/2022 09:16:36 | ERROR: Command "minecraft" is not found
+18/01/2022 09:25:25 | ERROR: Command "afk" is not found
+18/01/2022 09:25:44 | ERROR: Command "afk" is not found
+18/01/2022 09:27:20 | ERROR: Command "afk" is not found
+18/01/2022 09:32:21 | ERROR: Command "afk" is not found
+18/01/2022 09:33:35 | ERROR: Command "afk" is not found
+18/01/2022 09:35:02 | ERROR: Command "afk" is not found
+18/01/2022 09:35:26 | ERROR: Command "afk" is not found
+18/01/2022 09:35:37 | ERROR: Command "afk" is not found
+18/01/2022 10:45:18 | ERROR: Command "?" is not found
+18/01/2022 11:13:16 | ERROR: Member "chr7st" not found.
+18/01/2022 11:19:47 | ERROR: Command "afk" is not found
+18/01/2022 12:25:27 | ERROR: You are missing Administrator permission(s) to run this command.
+18/01/2022 13:28:46 | ERROR: Command "?" is not found
+18/01/2022 13:32:42 | ERROR: Command "afk" is not found
+18/01/2022 13:33:15 | ERROR: Command "afk" is not found
+18/01/2022 13:39:02 | ----------START----------
+18/01/2022 13:39:02 | Loaded cogs.Economy
+18/01/2022 13:39:02 | Loaded cogs.Fusion
+18/01/2022 13:39:02 | Loaded cogs.Slash
+18/01/2022 13:39:02 | Loaded cogs.Help
+18/01/2022 13:39:02 | Loaded cogs.Fun
+18/01/2022 13:39:02 | Loaded cogs.Minecraft
+18/01/2022 13:39:02 | Loaded cogs.Moderation
+18/01/2022 13:39:03 | Loaded cogs.Music
+18/01/2022 13:39:03 | Loaded cogs.Onping
+18/01/2022 13:39:04 | Loaded cogs.Search
+18/01/2022 13:39:04 | Loaded cogs.TextConvert
+18/01/2022 13:39:04 | Loaded cogs.Ticket
+18/01/2022 13:39:04 | Loaded cogs.Utilities
+18/01/2022 13:39:04 | Loaded cogs.Counting
+18/01/2022 13:39:04 | Loaded cogs.Leveling
+18/01/2022 13:39:04 | Loaded cogs.Settings
+18/01/2022 13:39:04 | Loaded cogs.Welcome
+18/01/2022 13:39:04 | All Cogs Loaded, Logging into Discord
+18/01/2022 13:48:26 | ERROR: Command "afk" is not found
+18/01/2022 14:32:11 | ERROR: Command "?" is not found
+18/01/2022 15:47:46 | ERROR: Command "afk" is not found

@@ -3,12 +3,12 @@
         "guild_id": 763348615233667082,
         "prefix": "?",
         "counting_channel": 926260517188829184,
-        "lastcounter": 624076054969188363,
+        "lastcounter": null,
         "log_channel": 925513395883606129,
         "welcome_channel": 926451103170715688,
         "warnings": {},
         "settings": {
-            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "welcometext": "get good skill issue",
             "plugins": {
                 "Counting": true,
                 "Moderation": true,
@@ -38,7 +38,7 @@
         "welcome_channel": 894090935317708820,
         "warnings": {},
         "settings": {
-            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "welcometext": "Get good skill issue",
             "plugins": {
                 "Counting": true,
                 "Economy": true,

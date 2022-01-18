@@ -5,6 +5,11 @@ import os
 import json
 
 async def memberjoin(client, member):
+    with open("./database/db.json") as f:
+      data = json.load(f)
+    for i in data:
+      if i['guild_id'] == member.guild.id:
+        WELCOMETEXT = i['settings']['welcometext']
     # Custom Image
     background = Editor(Canvas((900, 270), "#23272a"))
 
@@ -34,7 +39,7 @@ async def memberjoin(client, member):
     )
     background.text(
         (620, 245),
-        "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+        f"{WELCOMETEXT}",
         font=poppins_thin,
         color="white",
         align="center",

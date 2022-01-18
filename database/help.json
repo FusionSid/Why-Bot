@@ -516,6 +516,18 @@
             "description": "shows the settings for your server and how to modify them",
             "usage": "settings",
             "category": "Utilities"
+        },
+        {
+            "name": "plugins",
+            "description": "Enables/Disables Plugins",
+            "usage": "plugins [enable/disable] [plugin name ]",
+            "category": "Utilities"
+        },
+        {
+            "name": "?setwelcometext",
+            "description": "Sets the welcome text for the server",
+            "usage": "setwelcometext [text]",
+            "category": "Utilities"
         }
     ]
 }
