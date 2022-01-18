@@ -1310,3 +1310,5 @@ THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
 18/01/2022 00:50:07 | ERROR: Command "item" is not found
 18/01/2022 00:50:38 | ERROR: Converting to "int" failed for parameter "amount".
 18/01/2022 00:54:38 | ERROR: Converting to "int" failed for parameter "amount".
+18/01/2022 00:55:37 | ERROR: Command "use" is not found
+18/01/2022 00:55:44 | ERROR: Command "use" is not found
