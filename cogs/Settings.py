@@ -10,7 +10,7 @@ async def enabled_cogs(ctx):
     for i in data:
         if i["guild_id"] == ctx.guild.id:
             plugins = i['settings']['plugins']
-    em = discord.Embed("Plugins:")
+    em = discord.Embed(title="Plugins:",description="These are all the plugins that have been enabled on your server")
     for key, value in plugins.items():
         if value == True:
             emoji = "Enabled ✅"
@@ -30,8 +30,8 @@ class Settings(commands.Cog):
         plugins = await enabled_cogs(ctx)
 
         em = discord.Embed(title="Settings", description="Use the arrows to look throught the settings")
-        ems = [plugins]
-        view = Paginator(ctx, ems)
+        ems = [plugins, em]
+        view = Paginator(ctx=ctx, ems=ems)
 
         message = await ctx.send(embed=em, view=view)
         res = await view.wait()
