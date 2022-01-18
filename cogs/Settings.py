@@ -20,7 +20,64 @@ async def enabled_cogs(ctx):
         em.add_field(name=key, value=emoji)
     em.set_footer(text=f"Use {ctx.prefix}plugins to toggle plugins")
     return em
+
+async def get_channels(self, ctx):
+    with open("./database/db.json") as f:
+        data = json.load(f)
+    em = discord.Embed(title="Channels")
+    em.set_footer(text="Use /set to set these")
+    for i in data:
+        if i['guild_id'] == ctx.guild.id:
+            if i['counting_channel'] == None:
+                counting="Not Set"
+            else:
+                channel = self.client.fetch_channel(i['counting_channel'])
+                counting = channel.mention
+            if i['welcome_channel'] == None:
+                welcome="Not Set"
+            else:
+                channel = self.client.fetch_channel(i['welcome_channel'])
+                welcome = channel.mention
+            if i['log_channel'] == None:
+                log="Not Set"
+            else:
+                channel = self.client.fetch_channel(i['log_channel'])
+                log = channel.mention
+            em.add_field(name="Counting:", value=counting)
+            em.add_field(name="Welcome:", value=welcome)
+            em.add_field(name="Log:", value=log)
+    return em
         
+async def autorole(self, ctx):
+    with open("./database/db.json") as f:
+        data = json.load(f)
+    em = discord.Embed(title="Autorole")
+    em.set_footer(text="Use ?autorole [@role] [all/bot] to set the autorole")
+    for i in data:
+        if i['guild_id'] == ctx.guild.id:
+            autorole = i['autorole']
+    if autorole['all'] == None:
+        em.add_field(name="All", value="Not set")
+    else:
+        role = self.client.fetch_role(autorole['all'])
+        em.add_field(name="All", value=role.mention)
+    if autorole['bot'] == None:
+        em.add_field(name="Bot", value="Not set")
+    else:
+        role = self.client.fetch_role(autorole['bot'])
+        em.add_field(name="Bot", value=role.mention)
+    return em
+
+async def welcome_text(ctx):
+    with open("./database/db.json") as f:
+        data = json.load(f)
+    em = discord.Embed(title="Welcome Text")
+    em.set_footer(text="Use ?setwelcometext [text] to set the text")
+    for i in data:
+        if i['guild_id'] == ctx.guild.id:
+            wt = i['settings']['welcometext']
+    em.add_field(name="Text:", value=wt)
+    return em
 
 class Settings(commands.Cog):
     def __init__(self, client):
@@ -31,9 +88,15 @@ class Settings(commands.Cog):
         plugins = await enabled_cogs(ctx)
 
         em = discord.Embed(title="Settings", description="Use the arrows to look throught the settings")
+        
         prefix = discord.Embed(title = "Prefix", description=f"The prefix is `{ctx.prefix}`")
         prefix.set_footer(text=f"You can use {ctx.prefix}setprefix [prefix] to set the prefix")
-        ems = [plugins, prefix]
+
+        channels = await get_channels(self, ctx)
+        autoroles = await autorole(self, ctx)
+        welcometext = await welcome_text(ctx)
+
+        ems = [plugins, prefix, channels, autoroles, welcometext]
         view = Paginator(ctx=ctx, ems=ems)
 
         message = await ctx.send(embed=em, view=view)
@@ -86,6 +149,19 @@ class Settings(commands.Cog):
         
         await ctx.send(f"{plugin} has been disabled")
 
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def setwelcometext(self, ctx, *, text):
+        if len(text) > 55:
+            return await ctx.send("Text is to big")
+        with open("./database/db.json") as f:
+            data = json.load(f)
+        for i in data:
+            if i['guild_id'] == ctx.guild.id:
+                i['settings']['welcometext'] = text
+        with open("./database/db.json", 'w') as f:
+            json.dump(data, f, indent=4)
+        await ctx.send(f"{text}\nHas been set as the welcome text")
 
 def setup(client):
     client.add_cog(Settings(client))
