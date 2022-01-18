@@ -4,13 +4,22 @@ import json
 from discord.ui import Button, View
 from utils import Paginator
 
-async def enabled_cogs(guild_id):
+async def enabled_cogs(ctx):
     with open("./database/db.json") as f:
         data = json.load(f)
     for i in data:
-        if i["guild_id"] == guild_id:
+        if i["guild_id"] == ctx.guild.id:
             plugins = i['settings']['plugins']
-    # for plugin in plugins.items()
+    em = discord.Embed("Plugins:")
+    for key, value in plugins.items():
+        if value == True:
+            emoji = "Enabled ✅"
+        else:
+            emoji = "Disabled ❌"
+        em.add_field(name=key, value=emoji)
+    em.set_footer(text=f"Use {ctx.prefix} to toggle plugins")
+    return em
+        
 
 class Settings(commands.Cog):
     def __init__(self, client):
@@ -18,7 +27,18 @@ class Settings(commands.Cog):
 
     @commands.command()
     async def settings(self,ctx):
-        pass
+        plugins = await enabled_cogs(ctx)
+
+        em = discord.Embed(title="Settings", description="Use the arrows to look throught the settings")
+        ems = [plugins]
+        view = Paginator(ctx, ems)
+
+        message = await ctx.send(embed=em, view=view)
+        res = await view.wait()
+        if res:
+            for i in view.children:
+                i.disabled = True
+        return await message.edit(view=view)
 
 def setup(client):
     client.add_cog(Settings(client))
