@@ -31,18 +31,18 @@ async def get_channels(self, ctx):
             if i['counting_channel'] == None:
                 counting="Not Set"
             else:
-                channel = self.client.fetch_channel(i['counting_channel'])
-                counting = channel.mention
+                channel = await self.client.fetch_channel(i['counting_channel'])
+                counting = channel
             if i['welcome_channel'] == None:
                 welcome="Not Set"
             else:
-                channel = self.client.fetch_channel(i['welcome_channel'])
-                welcome = channel.mention
+                channel = await self.client.fetch_channel(i['welcome_channel'])
+                welcome = channel
             if i['log_channel'] == None:
                 log="Not Set"
             else:
-                channel = self.client.fetch_channel(i['log_channel'])
-                log = channel.mention
+                channel = await self.client.fetch_channel(i['log_channel'])
+                log = channel
             em.add_field(name="Counting:", value=counting)
             em.add_field(name="Welcome:", value=welcome)
             em.add_field(name="Log:", value=log)
@@ -59,13 +59,13 @@ async def autorole(self, ctx):
     if autorole['all'] == None:
         em.add_field(name="All", value="Not set")
     else:
-        role = self.client.fetch_role(autorole['all'])
-        em.add_field(name="All", value=role.mention)
+        #role = await self.client.fetch_role(autorole['all'])
+        em.add_field(name="All", value=autorole['all'])
     if autorole['bot'] == None:
         em.add_field(name="Bot", value="Not set")
     else:
-        role = self.client.fetch_role(autorole['bot'])
-        em.add_field(name="Bot", value=role.mention)
+        #role = await self.client.fetch_role(autorole['bot'])
+        em.add_field(name="Bot", value=autorole['bot'])
     return em
 
 async def welcome_text(ctx):
@@ -96,7 +96,7 @@ class Settings(commands.Cog):
         autoroles = await autorole(self, ctx)
         welcometext = await welcome_text(ctx)
 
-        ems = [plugins, prefix, channels, autoroles, welcometext]
+        ems = [em, plugins, prefix, channels, autoroles, welcometext]
         view = Paginator(ctx=ctx, ems=ems)
 
         message = await ctx.send(embed=em, view=view)

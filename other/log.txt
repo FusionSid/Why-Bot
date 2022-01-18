@@ -1312,3 +1312,28 @@ THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
 18/01/2022 00:54:38 | ERROR: Converting to "int" failed for parameter "amount".
 18/01/2022 00:55:37 | ERROR: Command "use" is not found
 18/01/2022 00:55:44 | ERROR: Command "use" is not found
+18/01/2022 01:12:40 | ----------START----------
+18/01/2022 01:12:40 | Loaded cogs.Economy
+18/01/2022 01:12:40 | Loaded cogs.Fusion
+18/01/2022 01:12:40 | Loaded cogs.Slash
+18/01/2022 01:12:40 | Loaded cogs.Help
+18/01/2022 01:12:40 | Loaded cogs.Welcome
+18/01/2022 01:12:40 | Loaded cogs.Fun
+18/01/2022 01:12:40 | Loaded cogs.Minecraft
+18/01/2022 01:12:40 | Loaded cogs.Moderation
+18/01/2022 01:12:42 | Loaded cogs.Music
+18/01/2022 01:12:42 | Loaded cogs.Onping
+18/01/2022 01:12:43 | Loaded cogs.Search
+18/01/2022 01:12:43 | Loaded cogs.TextConvert
+18/01/2022 01:12:43 | Loaded cogs.Ticket
+18/01/2022 01:12:43 | Loaded cogs.Utilities
+18/01/2022 01:12:43 | Loaded cogs.Counting
+18/01/2022 01:12:43 | Loaded cogs.Leveling
+18/01/2022 01:12:43 | Loaded cogs.Settings
+18/01/2022 01:12:43 | All Cogs Loaded, Logging into Discord
+18/01/2022 01:12:47 | ERROR: Command raised an exception: AttributeError: 'coroutine' object has no attribute 'mention'
+18/01/2022 01:12:54 | ERROR: Command raised an exception: AttributeError: 'coroutine' object has no attribute 'mention'
+18/01/2022 01:13:42 | ERROR: Command raised an exception: AttributeError: 'coroutine' object has no attribute 'name'
+18/01/2022 01:14:04 | ERROR: Command raised an exception: AttributeError: 'Bot' object has no attribute 'fetch_role'
+18/01/2022 01:14:54 | ERROR: Command raised an exception: AttributeError: 'Bot' object has no attribute 'fetch_role'
+18/01/2022 01:16:15 | ERROR: Command "Settings" is not found
