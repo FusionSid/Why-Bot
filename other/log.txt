@@ -1185,3 +1185,123 @@ THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
 18/01/2022 00:18:49 | Loaded cogs.Leveling
 18/01/2022 00:18:49 | Loaded cogs.Settings
 18/01/2022 00:18:49 | All Cogs Loaded, Logging into Discord
+18/01/2022 00:32:22 | ----------START----------
+18/01/2022 00:32:22 | Loaded cogs.Economy
+18/01/2022 00:32:22 | Loaded cogs.Fusion
+18/01/2022 00:32:22 | Loaded cogs.Slash
+18/01/2022 00:32:22 | Loaded cogs.Help
+18/01/2022 00:32:22 | Loaded cogs.Welcome
+18/01/2022 00:32:22 | Loaded cogs.Fun
+18/01/2022 00:32:22 | Loaded cogs.Minecraft
+18/01/2022 00:32:22 | Loaded cogs.Moderation
+18/01/2022 00:32:23 | Loaded cogs.Music
+18/01/2022 00:32:23 | Loaded cogs.Onping
+18/01/2022 00:32:24 | Loaded cogs.Search
+18/01/2022 00:32:24 | Loaded cogs.TextConvert
+18/01/2022 00:32:24 | Loaded cogs.Ticket
+18/01/2022 00:32:24 | Loaded cogs.Utilities
+18/01/2022 00:32:24 | Loaded cogs.Counting
+18/01/2022 00:32:24 | Loaded cogs.Leveling
+18/01/2022 00:32:24 | Loaded cogs.Settings
+18/01/2022 00:32:24 | All Cogs Loaded, Logging into Discord
+18/01/2022 00:32:49 | ERROR: Command raised an exception: FileNotFoundError: [Errno 2] No such file or directory: './databases/db.json'
+18/01/2022 00:33:47 | ERROR: Command raised an exception: KeyError: 'plugin'
+18/01/2022 00:36:04 | ----------START----------
+18/01/2022 00:36:04 | Loaded cogs.Economy
+18/01/2022 00:36:04 | Loaded cogs.Fusion
+18/01/2022 00:36:04 | Loaded cogs.Slash
+18/01/2022 00:36:04 | Loaded cogs.Help
+18/01/2022 00:36:04 | Loaded cogs.Welcome
+18/01/2022 00:36:04 | Loaded cogs.Fun
+18/01/2022 00:36:04 | Loaded cogs.Minecraft
+18/01/2022 00:36:04 | Loaded cogs.Moderation
+18/01/2022 00:36:05 | Loaded cogs.Music
+18/01/2022 00:36:05 | Loaded cogs.Onping
+18/01/2022 00:36:06 | Loaded cogs.Search
+18/01/2022 00:36:06 | Loaded cogs.TextConvert
+18/01/2022 00:36:06 | Loaded cogs.Ticket
+18/01/2022 00:36:06 | Loaded cogs.Utilities
+18/01/2022 00:36:06 | Loaded cogs.Counting
+18/01/2022 00:36:06 | Loaded cogs.Leveling
+18/01/2022 00:36:06 | Loaded cogs.Settings
+18/01/2022 00:36:06 | All Cogs Loaded, Logging into Discord
+18/01/2022 00:38:57 | ----------START----------
+18/01/2022 00:38:57 | Loaded cogs.Economy
+18/01/2022 00:38:57 | Loaded cogs.Fusion
+18/01/2022 00:38:57 | Loaded cogs.Slash
+18/01/2022 00:38:57 | Loaded cogs.Help
+18/01/2022 00:38:57 | Loaded cogs.Welcome
+18/01/2022 00:38:57 | Loaded cogs.Fun
+18/01/2022 00:38:57 | Loaded cogs.Minecraft
+18/01/2022 00:38:57 | Loaded cogs.Moderation
+18/01/2022 00:38:58 | Loaded cogs.Music
+18/01/2022 00:38:58 | Loaded cogs.Onping
+18/01/2022 00:38:59 | Loaded cogs.Search
+18/01/2022 00:38:59 | Loaded cogs.TextConvert
+18/01/2022 00:38:59 | Loaded cogs.Ticket
+18/01/2022 00:38:59 | Loaded cogs.Utilities
+18/01/2022 00:38:59 | Loaded cogs.Counting
+18/01/2022 00:38:59 | Loaded cogs.Leveling
+18/01/2022 00:38:59 | Loaded cogs.Settings
+18/01/2022 00:38:59 | All Cogs Loaded, Logging into Discord
+18/01/2022 00:39:24 | ----------START----------
+18/01/2022 00:39:24 | Loaded cogs.Economy
+18/01/2022 00:39:24 | Loaded cogs.Fusion
+18/01/2022 00:39:24 | Loaded cogs.Slash
+18/01/2022 00:39:24 | Loaded cogs.Help
+18/01/2022 00:39:24 | Loaded cogs.Welcome
+18/01/2022 00:39:24 | Loaded cogs.Fun
+18/01/2022 00:39:24 | Loaded cogs.Minecraft
+18/01/2022 00:39:24 | Loaded cogs.Moderation
+18/01/2022 00:39:26 | Loaded cogs.Music
+18/01/2022 00:39:26 | Loaded cogs.Onping
+18/01/2022 00:39:27 | Loaded cogs.Search
+18/01/2022 00:39:27 | Loaded cogs.TextConvert
+18/01/2022 00:39:27 | Loaded cogs.Ticket
+18/01/2022 00:39:27 | Loaded cogs.Utilities
+18/01/2022 00:39:27 | Loaded cogs.Counting
+18/01/2022 00:39:27 | Loaded cogs.Leveling
+18/01/2022 00:39:27 | Loaded cogs.Settings
+18/01/2022 00:39:27 | All Cogs Loaded, Logging into Discord
+18/01/2022 00:39:48 | ----------START----------
+18/01/2022 00:39:48 | Loaded cogs.Economy
+18/01/2022 00:39:48 | Loaded cogs.Fusion
+18/01/2022 00:39:48 | Loaded cogs.Slash
+18/01/2022 00:39:48 | Loaded cogs.Help
+18/01/2022 00:39:48 | Loaded cogs.Welcome
+18/01/2022 00:39:48 | Loaded cogs.Fun
+18/01/2022 00:39:48 | Loaded cogs.Minecraft
+18/01/2022 00:39:48 | Loaded cogs.Moderation
+18/01/2022 00:39:50 | Loaded cogs.Music
+18/01/2022 00:39:50 | Loaded cogs.Onping
+18/01/2022 00:39:50 | Loaded cogs.Search
+18/01/2022 00:39:50 | Loaded cogs.TextConvert
+18/01/2022 00:39:50 | Loaded cogs.Ticket
+18/01/2022 00:39:51 | Loaded cogs.Utilities
+18/01/2022 00:39:51 | Loaded cogs.Counting
+18/01/2022 00:39:51 | Loaded cogs.Leveling
+18/01/2022 00:39:51 | Loaded cogs.Settings
+18/01/2022 00:39:51 | All Cogs Loaded, Logging into Discord
+18/01/2022 00:41:23 | ----------START----------
+18/01/2022 00:41:23 | Loaded cogs.Economy
+18/01/2022 00:41:23 | Loaded cogs.Fusion
+18/01/2022 00:41:23 | Loaded cogs.Slash
+18/01/2022 00:41:23 | Loaded cogs.Help
+18/01/2022 00:41:23 | Loaded cogs.Welcome
+18/01/2022 00:41:23 | Loaded cogs.Fun
+18/01/2022 00:41:23 | Loaded cogs.Minecraft
+18/01/2022 00:41:23 | Loaded cogs.Moderation
+18/01/2022 00:41:25 | Loaded cogs.Music
+18/01/2022 00:41:25 | Loaded cogs.Onping
+18/01/2022 00:41:25 | Loaded cogs.Search
+18/01/2022 00:41:25 | Loaded cogs.TextConvert
+18/01/2022 00:41:25 | Loaded cogs.Ticket
+18/01/2022 00:41:25 | Loaded cogs.Utilities
+18/01/2022 00:41:25 | Loaded cogs.Counting
+18/01/2022 00:41:26 | Loaded cogs.Leveling
+18/01/2022 00:41:26 | Loaded cogs.Settings
+18/01/2022 00:41:26 | All Cogs Loaded, Logging into Discord
+18/01/2022 00:42:19 | ERROR: Command raised an exception: KeyError: 'plugin'
+18/01/2022 00:43:24 | ERROR: Command raised an exception: KeyError: 'plugin'
+18/01/2022 00:44:13 | ERROR: The check functions for command onpinged failed.
+18/01/2022 00:44:43 | ERROR: The check functions for command calculate failed.

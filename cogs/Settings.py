@@ -31,7 +31,7 @@ class Settings(commands.Cog):
         plugins = await enabled_cogs(ctx)
 
         em = discord.Embed(title="Settings", description="Use the arrows to look throught the settings")
-        ems = [plugins]
+        ems = [em, plugins]
         view = Paginator(ctx=ctx, ems=ems)
 
         message = await ctx.send(embed=em, view=view)
@@ -43,9 +43,11 @@ class Settings(commands.Cog):
     
     @commands.group()
     async def plugins(self, ctx):
-        em = discord.Embed(title="Plugins", description=f"Use `{ctx.prefix}plugins [enable/disable] [plugin name]`")
-        em.add_field(name="Plugin List:", value="Counting\nModeration\nEconomy\nTextConvert\nSearch\nWelcome\nLeveling\nMusic\nOnping\nTicket\nMinecraft\nUtilities")
-        em.set_footer(text="This command is case sensitive so please use capital letters")
+        if ctx.invoked_subcommand is None:
+          em = discord.Embed(title="Plugins", description=f"Use `{ctx.prefix}plugins [enable/disable] [plugin name]`")
+          em.add_field(name="Plugin List:", value="Counting\nModeration\nEconomy\nTextConvert\nSearch\nWelcome\nLeveling\nMusic\nOnping\nTicket\nMinecraft\nUtilities")
+          em.set_footer(text="This command is case sensitive so please use capital letters")
+          await ctx.send(embed=em)
     
     @plugins.group()
     @commands.has_permissions(administrator=True)
@@ -53,11 +55,11 @@ class Settings(commands.Cog):
         plist = ["Counting","Moderation","Economy","TextConvert","Search","Welcome","Leveling","Music","Onping","Ticket","Minecraft","Utilities"]
         if plugin not in plist:
             return await ctx.send(f"Plugin not found, use `{ctx.prefix}plugins` for a list of them")
-        with open('./databases/db.json') as f:
+        with open('./database/db.json') as f:
             data = json.load(f)
         for i in data:
             if i['guild_id'] == ctx.guild.id:
-                i['settings']['plugin'][plugin] = True
+                i['settings']['plugins'][plugin] = True
 
         with open("./database/db.json", 'w') as f:
             json.dump(data, f, indent=4)
@@ -71,11 +73,11 @@ class Settings(commands.Cog):
         plist = ["Counting","Moderation","Economy","TextConvert","Search","Welcome","Leveling","Music","Onping","Ticket","Minecraft","Utilities"]
         if plugin not in plist:
             return await ctx.send(f"Plugin not found, use `{ctx.prefix}plugins` for a list of them")
-        with open('./databases/db.json') as f:
+        with open('./database/db.json') as f:
             data = json.load(f)
         for i in data:
             if i['guild_id'] == ctx.guild.id:
-                i['settings']['plugin'][plugin] = False
+                i['settings']['plugins'][plugin] = False
 
         with open("./database/db.json", 'w') as f:
             json.dump(data, f, indent=4)
