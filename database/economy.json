@@ -64,7 +64,29 @@
         "bank": 88
     },
     "835824068384129045": {
-        "wallet": 10112,
-        "bank": 0
+        "wallet": 10089888888659865422968,
+        "bank": 0,
+        "bag": [
+            {
+                "item": "car",
+                "amount": 501001
+            },
+            {
+                "item": "goose statue",
+                "amount": 50
+            },
+            {
+                "item": "pc",
+                "amount": 101000
+            },
+            {
+                "item": "sticker",
+                "amount": 1011111121111111108
+            },
+            {
+                "item": "laptop",
+                "amount": 100000000
+            }
+        ]
     }
 }

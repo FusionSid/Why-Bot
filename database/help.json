@@ -510,6 +510,12 @@
             "description": "generates a qr code",
             "usage": "qrcode [link]",
             "category": "Utilities"
+        },
+        {
+            "name": "settings",
+            "description": "shows the settings for your server and how to modify them",
+            "usage": "settings",
+            "category": "Utilities"
         }
     ]
 }

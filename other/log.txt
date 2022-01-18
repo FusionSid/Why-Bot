@@ -1305,3 +1305,8 @@ THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
 18/01/2022 00:43:24 | ERROR: Command raised an exception: KeyError: 'plugin'
 18/01/2022 00:44:13 | ERROR: The check functions for command onpinged failed.
 18/01/2022 00:44:43 | ERROR: The check functions for command calculate failed.
+18/01/2022 00:49:24 | ERROR: Command raised an exception: AttributeError: 'NoneType' object has no attribute 'lower'
+18/01/2022 00:49:29 | ERROR: Converting to "int" failed for parameter "amount".
+18/01/2022 00:50:07 | ERROR: Command "item" is not found
+18/01/2022 00:50:38 | ERROR: Converting to "int" failed for parameter "amount".
+18/01/2022 00:54:38 | ERROR: Converting to "int" failed for parameter "amount".

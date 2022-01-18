@@ -31,7 +31,9 @@ class Settings(commands.Cog):
         plugins = await enabled_cogs(ctx)
 
         em = discord.Embed(title="Settings", description="Use the arrows to look throught the settings")
-        ems = [em, plugins]
+        prefix = discord.Embed(title = "Prefix", description=f"The prefix is `{ctx.prefix}`")
+        prefix.set_footer(text=f"You can use {ctx.prefix}setprefix [prefix] to set the prefix")
+        ems = [plugins, prefix]
         view = Paginator(ctx=ctx, ems=ems)
 
         message = await ctx.send(embed=em, view=view)
