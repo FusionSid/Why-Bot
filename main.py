@@ -5,7 +5,7 @@ import os
 from os import listdir
 from os.path import isfile, join
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord.ui import Button, View
 from utils.keep_alive import keep_alive
 import dotenv
@@ -189,12 +189,19 @@ async def on_message(message):
     except:
         await client.process_commands(message)
 
+@tasks.loop(hours=1)
+async def post_logs():
+  file = discord.File("./other/log.txt")
+  cha = await client.fetch_channel(896932591620464690)
+  await cha.send(file=file)
+      
+
 @client.event
 async def on_command_error(ctx, error):
-    cha = await client.fetch_channel(896932591620464690)
-    chaem = discord.Embed(title="ERROR", description=error)
-    chaem.add_field(name="Server:", value=f"{ctx.guild.id} ({ctx.guild.name})")
-    chaem.add_field(name="User:", value=f"{ctx.author.id} ({ctx.author.name})")
+    #cha = await client.fetch_channel(896932591620464690)
+    #chaem = discord.Embed(title="ERROR", description=error)
+    #chaem.add_field(name="Server:", value=f"{ctx.guild.id} ({ctx.guild.name})")
+    #chaem.add_field(name="User:", value=f"{ctx.author.id} ({ctx.author.name})")
     # await cha.send(embed=chaem)
     log(f"ERROR: {error}")
 
@@ -253,8 +260,10 @@ def start_bot(client):
             print(f"Loaded {cogs}")
 
         print("\nAll Cogs Loaded\n===============\nLogging into Discord...")
-        
+      
+        post_logs.start()
         client.run(os.environ['TOKEN'])
+        
 
     except Exception as e:
         print(f"\n###################\nPOSSIBLE FATAL ERROR:\n{e}\nTHIS MEANS THE BOT HAS NOT STARTED CORRECTLY!")
