@@ -85,5 +85,11 @@ class Fusion(commands.Cog):
         await ctx.message.delete()
         await person.send(msg)
 
+    @commands.command()
+    @commands.check(is_it_me)
+    async def logs(self, ctx):
+      file = discord.File("./other/log.txt")
+      await ctx.send(file=file)
+          
 def setup(client):
     client.add_cog(Fusion(client))

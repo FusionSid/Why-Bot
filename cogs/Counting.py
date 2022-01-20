@@ -9,8 +9,9 @@ async def get_counting_channel(guild):
         data = json.load(f)
     for i in data:
         if i["guild_id"] == guild.id:
-            return int(i["counting_channel"])
-    return None
+          if i['counting_channel'] == None:
+              return None
+          return int(i["counting_channel"])
 
 # Counting
 

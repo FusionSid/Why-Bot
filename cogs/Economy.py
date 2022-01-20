@@ -226,7 +226,7 @@ class Economy(commands.Cog):
 
         earnings = random.randrange(101)
 
-        await ctx.send(embed=discord.Embed(title=f'{ctx.author.mention} Here you filty peasant', description=f'Got `{earnings}` coins!!'))
+        await ctx.send(embed=discord.Embed(title=f'{ctx.author.display_name} Here you filty peasant', description=f'Got `{earnings}` coins!!'))
 
         users[str(user.id)]["wallet"] += earnings
         with open("./database/economy.json", 'w') as f:
@@ -242,7 +242,7 @@ class Economy(commands.Cog):
 
         earnings = 10000
 
-        await ctx.send(embed=discord.Embed(title=f'{ctx.author.mention}', description='Got `{:,}` coins!!'.format(earnings)))
+        await ctx.send(embed=discord.Embed(title=f'{ctx.author.display_name}', description='Got `{:,}` coins!!'.format(earnings)))
 
         users[str(user.id)]["wallet"] += earnings
         with open("./database/economy.json", 'w') as f:

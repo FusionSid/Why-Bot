@@ -1,12 +1,12 @@
 [
     {
         "user_id": 624076054969188363,
-        "command_count": 2369,
+        "command_count": 2387,
         "settings": {},
         "on_pinged": {
-            "title": "Skill issue, Get good",
+            "title": null,
             "description": null,
-            "color": 16753920
+            "color": null
         }
     },
     {
@@ -41,7 +41,7 @@
     },
     {
         "user_id": 768693329188749344,
-        "command_count": 82,
+        "command_count": 84,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -51,7 +51,7 @@
     },
     {
         "user_id": 768693329188749344,
-        "command_count": 156,
+        "command_count": 158,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -81,7 +81,7 @@
     },
     {
         "user_id": 270904126974590976,
-        "command_count": 653,
+        "command_count": 668,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -221,12 +221,12 @@
     },
     {
         "user_id": 835824068384129045,
-        "command_count": 106,
+        "command_count": 116,
         "settings": {},
         "on_pinged": {
-            "title": "Hello, I'm busy",
-            "description": "I am working on LMAO guild right now.",
-            "color": 16711680
+            "title": "Hello",
+            "description": "I probaly can't talk rn",
+            "color": 16776960
         }
     },
     {
@@ -351,7 +351,7 @@
     },
     {
         "user_id": 294882584201003009,
-        "command_count": 22,
+        "command_count": 31,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -541,7 +541,7 @@
     },
     {
         "user_id": 767991071862423582,
-        "command_count": 71,
+        "command_count": 72,
         "settings": {},
         "on_pinged": {
             "title": "im angry \u2764\ufe0f",
@@ -551,7 +551,7 @@
     },
     {
         "user_id": 862258920038989845,
-        "command_count": 82,
+        "command_count": 83,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -751,7 +751,7 @@
     },
     {
         "user_id": 826389145995444254,
-        "command_count": 2,
+        "command_count": 3,
         "settings": {},
         "on_pinged": {
             "title": null,

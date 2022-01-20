@@ -240,7 +240,7 @@ async def on_command_error(ctx, error):
 
 
 def start_bot(client):
-    log("----------START----------")
+
     client.remove_command("help")
     keep_alive()
     lst = [f for f in listdir("cogs/") if isfile(join("cogs/", f))]
@@ -249,11 +249,11 @@ def start_bot(client):
     try:
         for cogs in startup_extensions:
             client.load_extension(cogs)  # Startup all cogs
-            log(f"Loaded {cogs}")
+
             print(f"Loaded {cogs}")
 
         print("\nAll Cogs Loaded\n===============\nLogging into Discord...")
-        log("All Cogs Loaded, Logging into Discord")
+        
         client.run(os.environ['TOKEN'])
 
     except Exception as e:
