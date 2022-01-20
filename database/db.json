@@ -21,7 +21,8 @@
                 "Onping": true,
                 "Ticket": true,
                 "Minecraft": true,
-                "Utilities": true
+                "Utilities": true,
+                "Fun": true
             }
         },
         "autorole": {
@@ -51,7 +52,8 @@
                 "Ticket": true,
                 "Minecraft": true,
                 "Moderation": true,
-                "Utilities": true
+                "Utilities": true,
+                "Fun": true
             }
         },
         "autorole": {
@@ -81,7 +83,8 @@
                 "Ticket": true,
                 "Minecraft": true,
                 "Moderation": true,
-                "Utilities": true
+                "Utilities": true,
+                "Fun": true
             }
         },
         "autorole": {
@@ -111,7 +114,8 @@
                 "Ticket": true,
                 "Minecraft": true,
                 "Moderation": true,
-                "Utilities": true
+                "Utilities": true,
+                "Fun": true
             }
         },
         "autorole": {
@@ -141,7 +145,8 @@
                 "Ticket": true,
                 "Minecraft": true,
                 "Moderation": true,
-                "Utilities": true
+                "Utilities": true,
+                "Fun": true
             }
         },
         "autorole": {
@@ -171,7 +176,8 @@
                 "Ticket": true,
                 "Minecraft": true,
                 "Moderation": true,
-                "Utilities": true
+                "Utilities": true,
+                "Fun": true
             }
         },
         "autorole": {
@@ -201,7 +207,8 @@
                 "Ticket": true,
                 "Minecraft": true,
                 "Moderation": true,
-                "Utilities": true
+                "Utilities": true,
+                "Fun": true
             }
         },
         "autorole": {
@@ -231,7 +238,8 @@
                 "Ticket": true,
                 "Minecraft": true,
                 "Moderation": true,
-                "Utilities": true
+                "Utilities": true,
+                "Fun": true
             }
         },
         "autorole": {
@@ -261,7 +269,8 @@
                 "Ticket": true,
                 "Minecraft": true,
                 "Moderation": true,
-                "Utilities": true
+                "Utilities": true,
+                "Fun": true
             }
         },
         "autorole": {
@@ -291,7 +300,8 @@
                 "Ticket": true,
                 "Minecraft": true,
                 "Moderation": true,
-                "Utilities": true
+                "Utilities": true,
+                "Fun": true
             }
         },
         "autorole": {
@@ -321,9 +331,24 @@
                 "Ticket": true,
                 "Minecraft": true,
                 "Moderation": true,
-                "Utilities": true
+                "Utilities": true,
+                "Fun": true
             }
         },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 922525953043877959,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {},
         "autorole": {
             "all": null,
             "bot": null

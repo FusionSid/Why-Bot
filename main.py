@@ -195,7 +195,7 @@ async def on_command_error(ctx, error):
     chaem = discord.Embed(title="ERROR", description=error)
     chaem.add_field(name="Server:", value=f"{ctx.guild.id} ({ctx.guild.name})")
     chaem.add_field(name="User:", value=f"{ctx.author.id} ({ctx.author.name})")
-    await cha.send(embed=chaem)
+    # await cha.send(embed=chaem)
     log(f"ERROR: {error}")
 
     if isinstance(error, commands.CommandOnCooldown):

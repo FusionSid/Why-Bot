@@ -117,7 +117,7 @@ class Settings(commands.Cog):
     @plugins.group()
     @commands.has_permissions(administrator=True)
     async def enable(self, ctx, plugin:str):
-        plist = ["Counting","Moderation","Economy","TextConvert","Search","Welcome","Leveling","Music","Onping","Ticket","Minecraft","Utilities"]
+        plist = ["Counting","Moderation","Economy","TextConvert","Search","Welcome","Leveling","Music","Onping","Ticket","Minecraft","Utilities", "Fun"]
         if plugin not in plist:
             return await ctx.send(f"Plugin not found, use `{ctx.prefix}plugins` for a list of them")
         with open('./database/db.json') as f:

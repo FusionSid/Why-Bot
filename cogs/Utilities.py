@@ -1,4 +1,5 @@
 import discord
+import json
 from utils.checks import plugin_enabled
 import os
 import platform
@@ -250,6 +251,17 @@ class Utilities(commands.Cog):
         view= View(timeout=15)
         view.add_item(button)
         await ctx.send(embed=discord.Embed(title="Vote for Why Bot here:"), view=view)
+    @commands.command()
+    async def cuse(self, ctx, member:discord.Member=None):
+        if member is None:
+          member = ctx.author
+        with open('./database/userdb.json') as f:
+          data = json.load(f)
+          for i in data:
+            if i["user_id"] == member.id:
+                cuse = i["command_count"]
+        await ctx.send(f"You have used Why Bot {cuse} times")        
+        
         
 def setup(client):
     client.add_cog(Utilities(client))

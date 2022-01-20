@@ -1432,3 +1432,131 @@ In channel_id: Value "None" is not snowflake.
 18/01/2022 13:48:26 | ERROR: Command "afk" is not found
 18/01/2022 14:32:11 | ERROR: Command "?" is not found
 18/01/2022 15:47:46 | ERROR: Command "afk" is not found
+18/01/2022 20:19:58 | ERROR: Command "botinoo" is not found
+18/01/2022 21:21:25 | ERROR: Command "mute" is not found
+19/01/2022 00:44:00 | ERROR: Command "work" is not found
+19/01/2022 05:23:32 | ERROR: Command "afk" is not found
+19/01/2022 07:04:49 | ERROR: Command "??" is not found
+19/01/2022 08:16:05 | ----------START----------
+19/01/2022 08:16:05 | Loaded cogs.Economy
+19/01/2022 08:16:05 | Loaded cogs.Fusion
+19/01/2022 08:16:05 | Loaded cogs.Slash
+19/01/2022 08:16:05 | Loaded cogs.Help
+19/01/2022 08:16:05 | Loaded cogs.Fun
+19/01/2022 08:16:05 | Loaded cogs.Minecraft
+19/01/2022 08:16:05 | Loaded cogs.Moderation
+19/01/2022 08:16:06 | Loaded cogs.Music
+19/01/2022 08:16:06 | Loaded cogs.Onping
+19/01/2022 08:16:08 | Loaded cogs.Search
+19/01/2022 08:16:08 | Loaded cogs.TextConvert
+19/01/2022 08:16:08 | Loaded cogs.Ticket
+19/01/2022 08:16:08 | Loaded cogs.Utilities
+19/01/2022 08:16:08 | Loaded cogs.Counting
+19/01/2022 08:16:08 | Loaded cogs.Leveling
+19/01/2022 08:16:08 | Loaded cogs.Welcome
+19/01/2022 08:16:08 | Loaded cogs.Settings
+19/01/2022 08:16:08 | All Cogs Loaded, Logging into Discord
+19/01/2022 09:28:07 | ERROR: Command "?" is not found
+19/01/2022 11:24:34 | ERROR: Command "?" is not found
+19/01/2022 13:11:55 | ERROR: Command "afk" is not found
+19/01/2022 13:24:03 | ERROR: Command "?????" is not found
+19/01/2022 13:28:06 | ERROR: Command "??" is not found
+19/01/2022 13:29:54 | ERROR: Command "?" is not found
+19/01/2022 13:52:54 | ERROR: Command "??" is not found
+19/01/2022 14:02:52 | ERROR: Command "afk" is not found
+19/01/2022 14:05:14 | ERROR: Command "afk" is not found
+19/01/2022 14:18:05 | ERROR: Command "mute" is not found
+19/01/2022 14:25:01 | ERROR: Command "?" is not found
+19/01/2022 14:31:20 | ERROR: Command "afk" is not found
+19/01/2022 14:31:35 | ERROR: Command "afk" is not found
+19/01/2022 15:35:02 | ----------START----------
+19/01/2022 15:35:02 | Loaded cogs.Economy
+19/01/2022 15:35:02 | Loaded cogs.Fusion
+19/01/2022 15:35:02 | Loaded cogs.Slash
+19/01/2022 15:35:02 | Loaded cogs.Help
+19/01/2022 15:35:02 | Loaded cogs.Fun
+19/01/2022 15:35:02 | Loaded cogs.Minecraft
+19/01/2022 15:35:02 | Loaded cogs.Moderation
+19/01/2022 15:35:03 | Loaded cogs.Music
+19/01/2022 15:35:03 | Loaded cogs.Onping
+19/01/2022 15:35:04 | Loaded cogs.Search
+19/01/2022 15:35:04 | Loaded cogs.TextConvert
+19/01/2022 15:35:04 | Loaded cogs.Ticket
+19/01/2022 15:35:04 | Loaded cogs.Utilities
+19/01/2022 15:35:04 | Loaded cogs.Counting
+19/01/2022 15:35:04 | Loaded cogs.Leveling
+19/01/2022 15:35:04 | Loaded cogs.Welcome
+19/01/2022 15:35:04 | Loaded cogs.Settings
+19/01/2022 15:35:04 | All Cogs Loaded, Logging into Discord
+19/01/2022 22:36:39 | ----------START----------
+19/01/2022 22:36:39 | Loaded cogs.Economy
+19/01/2022 22:36:39 | Loaded cogs.Fusion
+19/01/2022 22:36:39 | Loaded cogs.Slash
+19/01/2022 22:36:39 | Loaded cogs.Help
+19/01/2022 22:36:39 | Loaded cogs.Fun
+19/01/2022 22:36:39 | Loaded cogs.Minecraft
+19/01/2022 22:36:39 | Loaded cogs.Moderation
+19/01/2022 22:36:40 | Loaded cogs.Music
+19/01/2022 22:36:40 | Loaded cogs.Onping
+19/01/2022 22:36:41 | Loaded cogs.Search
+19/01/2022 22:36:41 | Loaded cogs.TextConvert
+19/01/2022 22:36:41 | Loaded cogs.Ticket
+19/01/2022 22:36:41 | Loaded cogs.Utilities
+19/01/2022 22:36:41 | Loaded cogs.Counting
+19/01/2022 22:36:41 | Loaded cogs.Leveling
+19/01/2022 22:36:41 | Loaded cogs.Welcome
+19/01/2022 22:36:41 | Loaded cogs.Settings
+19/01/2022 22:36:41 | All Cogs Loaded, Logging into Discord
+20/01/2022 03:53:28 | ERROR: Command "afk" is not found
+20/01/2022 03:54:10 | ERROR: Command "afk" is not found
+20/01/2022 04:54:44 | ERROR: Command "afk" is not found
+20/01/2022 05:48:04 | ERROR: Command "?" is not found
+20/01/2022 05:58:17 | ERROR: Command "work" is not found
+20/01/2022 06:02:28 | ERROR: You are on cooldown. Try again in 24.66s
+20/01/2022 06:59:25 | ERROR: Command "??" is not found
+20/01/2022 07:02:20 | ERROR: Command "work" is not found
+20/01/2022 08:33:18 | ----------START----------
+20/01/2022 08:33:18 | Loaded cogs.Economy
+20/01/2022 08:33:18 | Loaded cogs.Fusion
+20/01/2022 08:33:18 | Loaded cogs.Slash
+20/01/2022 08:33:18 | Loaded cogs.Help
+20/01/2022 08:33:18 | Loaded cogs.Fun
+20/01/2022 08:33:18 | Loaded cogs.Minecraft
+20/01/2022 08:33:18 | Loaded cogs.Moderation
+20/01/2022 08:33:20 | Loaded cogs.Music
+20/01/2022 08:33:20 | Loaded cogs.Onping
+20/01/2022 08:33:21 | Loaded cogs.Search
+20/01/2022 08:33:21 | Loaded cogs.TextConvert
+20/01/2022 08:33:21 | Loaded cogs.Ticket
+20/01/2022 08:33:21 | Loaded cogs.Utilities
+20/01/2022 08:33:21 | Loaded cogs.Counting
+20/01/2022 08:33:21 | Loaded cogs.Leveling
+20/01/2022 08:33:21 | Loaded cogs.Welcome
+20/01/2022 08:33:21 | Loaded cogs.Settings
+20/01/2022 08:33:21 | All Cogs Loaded, Logging into Discord
+20/01/2022 08:33:21 | 
+###################
+POSSIBLE FATAL ERROR:
+429 Too Many Requests (error code: 0): You are being blocked from accessing our API temporarily due to exceeding our rate limits frequently. Please read our docs at https://discord.com/developers/docs/topics/rate-limits to prevent this moving forward.
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+20/01/2022 09:43:14 | ----------START----------
+20/01/2022 09:43:14 | Loaded cogs.Economy
+20/01/2022 09:43:14 | Loaded cogs.Fusion
+20/01/2022 09:43:14 | Loaded cogs.Slash
+20/01/2022 09:43:14 | Loaded cogs.Help
+20/01/2022 09:43:14 | Loaded cogs.Fun
+20/01/2022 09:43:14 | Loaded cogs.Minecraft
+20/01/2022 09:43:14 | Loaded cogs.Moderation
+20/01/2022 09:43:15 | Loaded cogs.Music
+20/01/2022 09:43:15 | Loaded cogs.Onping
+20/01/2022 09:43:16 | Loaded cogs.Search
+20/01/2022 09:43:16 | Loaded cogs.TextConvert
+20/01/2022 09:43:16 | Loaded cogs.Ticket
+20/01/2022 09:43:16 | Loaded cogs.Utilities
+20/01/2022 09:43:16 | Loaded cogs.Counting
+20/01/2022 09:43:16 | Loaded cogs.Leveling
+20/01/2022 09:43:16 | Loaded cogs.Welcome
+20/01/2022 09:43:16 | Loaded cogs.Settings
+20/01/2022 09:43:16 | All Cogs Loaded, Logging into Discord
+20/01/2022 09:49:08 | ERROR: Command "rich" is not found
+20/01/2022 10:00:42 | ERROR: Command raised an exception: ExtensionNotLoaded: Extension 'cogs.Utilites' has not been loaded.
