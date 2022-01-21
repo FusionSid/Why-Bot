@@ -2,6 +2,7 @@ import discord
 from utils.checks import plugin_enabled
 from discord.ext import commands
 from discord.ext.commands import has_permissions, MissingPermissions
+from utils.other import log
 import json
 import asyncio
 
@@ -189,8 +190,8 @@ class Ticket(commands.Cog):
             try:
                 if ctx.guild.get_role(role_id) in ctx.author.roles:
                     valid_user = True
-            except:
-                pass
+            except Exception as e:
+                log(e)
 
         if valid_user or ctx.author.guild_permissions.administrator:
 

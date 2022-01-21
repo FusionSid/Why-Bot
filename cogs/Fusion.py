@@ -3,6 +3,8 @@ import json
 from discord.ext import commands
 import dotenv
 from utils import is_it_me
+from utils.other import log
+
 dotenv.load_dotenv()
 
 class Fusion(commands.Cog):

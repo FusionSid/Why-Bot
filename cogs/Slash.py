@@ -3,6 +3,7 @@ import discord
 from discord.commands import slash_command
 from discord.ext import commands
 from discord.ui import Button, View
+from utils.other import log
 from discord import Option
 import json
 import random

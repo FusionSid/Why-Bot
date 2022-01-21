@@ -4,6 +4,7 @@ from datetime import datetime
 from discord.ui import Button, View
 from discord import Option
 from discord.ext import commands
+from utils.other import log
 import os
 import json
 import dotenv

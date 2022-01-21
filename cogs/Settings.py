@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import json
 from discord.ui import Button, View
+from utils.other import log
 from utils import Paginator
 from utils.checks import plugin_enabled
 
@@ -162,6 +163,19 @@ class Settings(commands.Cog):
         with open("./database/db.json", 'w') as f:
             json.dump(data, f, indent=4)
         await ctx.send(f"{text}\nHas been set as the welcome text")
+
+
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def setprefix(ctx, pref: str):
+        with open(f'./database/db.json') as f:
+            data = json.load(f)
+        for i in data:
+            if i["guild_id"] == ctx.guild.id:
+                i["prefix"] = pref
+        with open(f'./database/db.json', 'w') as f:
+            json.dump(data, f)
+        await ctx.send(embed=discord.Embed(title=f"Prefix has been set to `{pref}`"))
 
 def setup(client):
     client.add_cog(Settings(client))

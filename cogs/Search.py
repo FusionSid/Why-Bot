@@ -3,6 +3,7 @@ from utils.checks import plugin_enabled
 from discord.ext import commands
 import random
 from googleapiclient.discovery import build
+from utils.other import log
 import re
 import urllib.request
 import os

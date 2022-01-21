@@ -3,7 +3,7 @@ from discord.ext import commands
 import json
 from discord.ui import Button, View
 from utils import Paginator, is_it_me
-
+from utils.other import log
 
 class Help(commands.Cog):
     def __init__(self, client):

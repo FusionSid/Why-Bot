@@ -3,6 +3,7 @@ import discord
 from discord.ext import commands
 import json
 from utils.checks import plugin_enabled
+from utils.other import log
 
 async def get_counting_channel(guild):
     with open("./database/db.json") as f:

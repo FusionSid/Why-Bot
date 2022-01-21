@@ -1,4 +1,5 @@
 import discord
+from utils.other import log
 from discord.ext import commands
 from easy_pil import Editor, Canvas, Font, load_image, Text
 import os

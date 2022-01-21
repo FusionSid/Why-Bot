@@ -7,7 +7,14 @@
             "category": "Counting"
         }
     ],
-    "Economy": [],
+    "Economy": [
+        {
+            "name": "UNDER CONSTRUCTION",
+            "description": "ECONOMY SYSTEM IS TILL IN PROGRESS",
+            "usage": "UNDER CONSTRUCTION",
+            "category": "Economy"
+        }
+    ],
     "Fun": [
         {
             "name": "rps",
@@ -524,7 +531,7 @@
             "category": "Utilities"
         },
         {
-            "name": "?setwelcometext",
+            "name": "setwelcometext",
             "description": "Sets the welcome text for the server",
             "usage": "setwelcometext [text]",
             "category": "Utilities"

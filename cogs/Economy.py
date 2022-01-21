@@ -1,6 +1,6 @@
 import discord
 import random
-import os
+from utils.other import log
 from discord.ext import commands
 import json
 

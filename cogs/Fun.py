@@ -9,6 +9,7 @@ import dotenv
 from discord import Option
 from discord.commands import slash_command
 import requests
+from utils.other import log
 from utils.checks import plugin_enabled
 
 dotenv.load_dotenv()

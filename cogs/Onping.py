@@ -1,6 +1,7 @@
 import discord
 from utils.checks import plugin_enabled
 from discord.ext import commands
+from utils.other import log
 import json
 
 async def get_data(user_id):

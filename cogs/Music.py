@@ -6,6 +6,7 @@ import wget
 import requests
 import asyncio
 from discord.ext import commands
+from utils.other import log
 import youtube_dl
 from youtubesearchpython import VideosSearch
 from multiprocessing import Pool
@@ -161,8 +162,8 @@ def check_new_songs(guild_id, vc):
                         before_options=ffmpeg_options["before_options"],
                         options=ffmpeg_options["options"]
                         ), after=lambda a: check_new_songs(guild_id, vc))
-            except discord.errors.ClientException:
-                pass
+            except discord.errors.ClientException as e: 
+                log(e)
 
             return
 
@@ -299,8 +300,8 @@ async def playy(ctx, video=None):
             options=ffmpeg_options["options"]
             # calling the check_new_songs function after playing the current music
         ), after=lambda a: check_new_songs(ctx.guild.id, vc))
-    except:
-        pass
+    except Exception as e:
+        log(e)
 
 class Music(commands.Cog):
     def __init__(self, client):
