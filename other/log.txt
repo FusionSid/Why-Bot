@@ -67,3 +67,4 @@ In channel_id: Value "None" is not snowflake.
 23/01/2022 10:59:35 | ERROR: You are missing Administrator permission(s) to run this command.
 23/01/2022 11:00:15 | ERROR: Command raised an exception: ExtensionFailed: Extension 'cogs.Counting' raised an error: ModuleNotFoundError: No module named 'numexpr'
 23/01/2022 11:39:04 | ERROR: Command "op" is not found
+23/01/2022 12:17:30 | ERROR: Command "??" is not found
