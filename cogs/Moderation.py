@@ -318,6 +318,8 @@ class Moderation(commands.Cog):
                     i['warnings'][f"{member.id}"] = []
                     i['warnings'][f"{member.id}"].append(warn)
 
+        with open("./database/db.json",'w') as f:
+          json.dump(data,f,indent=4)
         channel = await get_log_channel(self, ctx)
         if channel != False:
             return await channel.send(embed=discord.Embed(title="Warn", description=f"***{member.mention}*** has been warned"))

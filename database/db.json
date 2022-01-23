@@ -6,7 +6,14 @@
         "lastcounter": null,
         "log_channel": 925513395883606129,
         "welcome_channel": 926451103170715688,
-        "warnings": {},
+        "warnings": {
+            "913618154318618645": [
+                {
+                    "time": "2022-01-23 11:38:20",
+                    "reason": "Speaking Facts"
+                }
+            ]
+        },
         "settings": {
             "welcometext": "get good skill issue",
             "plugins": {
