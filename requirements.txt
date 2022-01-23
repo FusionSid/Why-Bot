@@ -5,10 +5,8 @@ gTTS
 lxml
 mutagen
 praw
-prawcore
 PyNaCl
 python-dotenv
-pyttsx3
 qrcode
 requests
 urllib3
