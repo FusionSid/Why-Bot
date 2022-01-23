@@ -12,3 +12,13 @@
 20/01/2022 16:26:34 | ERROR: Command "?" is not found
 20/01/2022 16:50:16 | ERROR: Command "afk" is not found
 20/01/2022 17:55:46 | ERROR: Command "afk" is not found
+24/01/2022 10:13:11 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.Leveling' raised an error: ModuleNotFoundError: No module named 'discordLevelingSystem'
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+24/01/2022 10:13:28 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.Leveling' raised an error: ModuleNotFoundError: No module named 'discordLevelingSystem'
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!

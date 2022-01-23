@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 def log(log):
     now = datetime.now()
