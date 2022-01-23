@@ -381,5 +381,98 @@
             "all": null,
             "bot": null
         }
+    },
+    {
+        "guild_id": 934382485352112158,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins": {
+                "Counting": true,
+                "Moderation": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Utilities": true,
+                "Fun": true
+            }
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 898557704858136617,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins": {
+                "Counting": true,
+                "Moderation": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Utilities": true,
+                "Fun": true
+            }
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 819224446727487518,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins": {
+                "Counting": true,
+                "Moderation": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Utilities": true,
+                "Fun": true
+            }
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
     }
 ]

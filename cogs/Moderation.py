@@ -236,17 +236,35 @@ class Moderation(commands.Cog):
     @commands.Cog.listener()
     @commands.check(plugin_enabled)
     async def on_raw_reaction_add(self, payload):
+        if not payload.guild_id:
+          return
         if payload.member.bot:
             return
         with open("./database/react.json") as f:
             data = json.load(f)
-            for x in data:
-                if x['emoji'] == payload.emoji.name and x["message_id"] == payload.message_id:
-                    role = discord.utils.get(self.client.get_guild(
-                        payload.guild_id).roles, id=x['role_id'])
-                    await payload.member.add_roles(role)
-                else:
-                    pass
+        for x in data:
+            if x['emoji'] == payload.emoji.name and x["message_id"] == payload.message_id:
+                guild = await self.client.fetch_guild(payload.guild_id)
+                role = guild.get_role(x['role_id'])
+                await payload.member.add_roles(role)
+            else:
+                pass
+    
+    @commands.Cog.listener()
+    @commands.check(plugin_enabled)
+    async def on_raw_reaction_remove(self, payload):
+        if not payload.guild_id:
+          return
+        with open("./database/react.json") as f:
+            data = json.load(f)
+        for x in data:
+            if x['emoji'] == payload.emoji.name and x["message_id"] == payload.message_id:
+                guild = await self.client.fetch_guild(payload.guild_id)
+                role = guild.get_role(x['role_id'])
+                member = await guild.fetch_member(payload.user_id)
+                await member.remove_roles(role)
+            else:
+                pass
 
     @commands.command()
     @commands.check(plugin_enabled)
