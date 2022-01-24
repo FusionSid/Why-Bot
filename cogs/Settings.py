@@ -60,13 +60,13 @@ async def autorole(self, ctx):
     if autorole['all'] == None:
         em.add_field(name="All", value="Not set")
     else:
-        #role = await self.client.fetch_role(autorole['all'])
-        em.add_field(name="All", value=autorole['all'])
+        role = await ctx.guild.get_role(autorole['all'])
+        em.add_field(name="All", value=role.mention)
     if autorole['bot'] == None:
         em.add_field(name="Bot", value="Not set")
     else:
-        #role = await self.client.fetch_role(autorole['bot'])
-        em.add_field(name="Bot", value=autorole['bot'])
+        role = await ctx.guild.fetch_role(autorole['bot'])
+        em.add_field(name="Bot", value=role.mention)
     return em
 
 async def welcome_text(ctx):

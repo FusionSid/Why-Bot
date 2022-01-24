@@ -22,9 +22,13 @@
     {
         "user_id": 913618154318618645,
         "command_count": 174,
-        "settings": {},
+        "settings": {
+            "update_dms":true,
+            "on_pinged":true,
+            "passive":true
+        },
         "on_pinged": {
-            "title": "Shut the heck up",
+            "title": "Shut the fuck up",
             "description": "Beat it, you no life scumbag",
             "color": 255
         }
