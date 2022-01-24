@@ -5,7 +5,7 @@ from os.path import isfile, join
 import discord
 from discord.ext import commands, tasks
 from discord.ui import Button, View
-from utils.keep_alive import keep_alive
+from embed_gen import keep_alive
 import dotenv
 from discord.ui import Button, View
 from datetime import datetime
