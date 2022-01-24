@@ -81,3 +81,9 @@ In channel_id: Value "None" is not snowflake.
 23/01/2022 11:39:04 | ERROR: Command "op" is not found
 23/01/2022 12:17:30 | ERROR: Command "??" is not found
 >>>>>>> f33e1c057ae2c8909085b7d45cdad4a99a64706a
+
+24/01/2022 00:46:49 | ERROR: Command raised an exception: TypeError: em_test() takes 1 positional argument but 2 were given
+24/01/2022 00:47:26 | ERROR: Command raised an exception: IndentationError: unexpected indent (<string>, line 2)
+24/01/2022 00:48:32 | ERROR: Command raised an exception: SyntaxError: 'await' outside function (<string>, line 3)
+24/01/2022 00:50:22 | ERROR: code is a required argument that is missing.
+24/01/2022 00:50:27 | ERROR: Command raised an exception: SyntaxError: 'await' outside function (<string>, line 2)

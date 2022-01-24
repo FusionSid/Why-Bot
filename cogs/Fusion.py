@@ -100,6 +100,6 @@ class Fusion(commands.Cog):
       os.system("git add .")
       os.system("git commit -m 'backup' ")
       os.system("git push")
-          
+    
 def setup(client):
     client.add_cog(Fusion(client))
