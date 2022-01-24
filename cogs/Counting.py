@@ -27,6 +27,12 @@ async def counting(msg, guild, channel, m):
         try:
           calc = ne.evaluate(msg)
           msg = int(calc)
+          with open("./database/db.json") as f:
+            data = json.load(f)
+          for i in data:
+            if i['guild_id'] == guild.id:
+              if i['settings']['autocalc'] == True:
+                await m.reply(msg)
         except:
           return
 

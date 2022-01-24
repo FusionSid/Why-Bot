@@ -155,3 +155,9 @@ In user_id: Value "?dmreply hi" is not snowflake.
 24/01/2022 11:59:05 | ERROR: Command "??" is not found
 24/01/2022 11:59:57 | ERROR: Command raised an exception: AttributeError: 'coroutine' object has no attribute 'content'
 24/01/2022 12:01:01 | ERROR: Command "??" is not found
+24/01/2022 12:33:44 | ERROR: Command raised an exception: AttributeError: 'Settings' object has no attribute 'guild'
+24/01/2022 12:35:00 | ERROR: Command raised an exception: AttributeError: 'Context' object has no attribute 'content'
+24/01/2022 12:35:06 | ERROR: Command raised an exception: AttributeError: 'Context' object has no attribute 'content'
+24/01/2022 12:36:03 | ERROR: ena is a required argument that is missing.
+24/01/2022 12:36:06 | ERROR: Command raised an exception: AttributeError: 'Context' object has no attribute 'content'
+24/01/2022 12:38:17 | ERROR: You are missing Administrator permission(s) to run this command.

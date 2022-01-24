@@ -80,6 +80,21 @@ async def welcome_text(ctx):
     em.add_field(name="Text:", value=wt)
     return em
 
+async def autocalc(ctx):
+  with open("./database/db.json") as f:
+    data = json.load(f)
+  for i in data:
+    if i['guild_id'] == ctx.guild.id:
+      autocalc = i['settings']['autocalc']
+  if autocalc == True:
+    status = "Enabled ✅"
+  if autocalc == False:
+    status = "Disabled ❌"
+    
+  em = discord.Embed(title='Auto Calculator', description=status)
+
+  return em
+  
 class Settings(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -96,8 +111,9 @@ class Settings(commands.Cog):
         channels = await get_channels(self, ctx)
         autoroles = await autorole(self, ctx)
         welcometext = await welcome_text(ctx)
+        auto_calc  = await autocalc(ctx)
 
-        ems = [em, plugins, prefix, channels, autoroles, welcometext]
+        ems = [em, plugins, prefix, channels, autoroles, auto_calc, welcometext]
         view = Paginator(ctx=ctx, ems=ems)
 
         message = await ctx.send(embed=em, view=view)
@@ -167,7 +183,7 @@ class Settings(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(administrator=True)
-    async def setprefix(ctx, pref: str):
+    async def setprefix(self, ctx, pref: str):
         with open(f'./database/db.json') as f:
             data = json.load(f)
         for i in data:
@@ -177,5 +193,24 @@ class Settings(commands.Cog):
             json.dump(data, f)
         await ctx.send(embed=discord.Embed(title=f"Prefix has been set to `{pref}`"))
 
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def autocalc(self, ctx, ena):
+        with open(f'./database/db.json') as f:
+            data = json.load(f)
+        for i in data:
+            if i["guild_id"] == ctx.guild.id:
+                if ena.lower() == "true":
+                  status = "Enabled ✅"
+                  i["settings"]['autocalc'] = True
+                elif ena.lower() == "false":
+                  i["settings"]['autocalc'] = False
+                  status = "Disabled ❌"
+                else:
+                  await ctx.send("Invalid option. Only `true` or `false`")
+        with open(f'./database/db.json', 'w') as f:
+            json.dump(data, f)
+        await ctx.send(embed=discord.Embed(title=f"Autocalc is {status}"))
+    
 def setup(client):
     client.add_cog(Settings(client))
