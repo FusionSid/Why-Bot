@@ -87,3 +87,6 @@ In channel_id: Value "None" is not snowflake.
 24/01/2022 00:48:32 | ERROR: Command raised an exception: SyntaxError: 'await' outside function (<string>, line 3)
 24/01/2022 00:50:22 | ERROR: code is a required argument that is missing.
 24/01/2022 00:50:27 | ERROR: Command raised an exception: SyntaxError: 'await' outside function (<string>, line 2)
+24/01/2022 01:10:11 | ERROR: Command raised an exception: TypeError: object Role can't be used in 'await' expression
+24/01/2022 01:11:19 | ERROR: Command raised an exception: AttributeError: 'Guild' object has no attribute 'fetch_role'
+24/01/2022 01:40:01 | ERROR: Command raised an exception: NotFound: 404 Not Found (error code: 10008): Unknown Message

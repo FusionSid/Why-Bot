@@ -1,7 +1,7 @@
 [
     {
         "user_id": 624076054969188363,
-        "command_count": 2485,
+        "command_count": 2498,
         "settings": {},
         "on_pinged": {
             "title": "skill issue, get good",
@@ -11,7 +11,7 @@
     },
     {
         "user_id": 782350976219873302,
-        "command_count": 21,
+        "command_count": 22,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -21,11 +21,11 @@
     },
     {
         "user_id": 913618154318618645,
-        "command_count": 174,
+        "command_count": 177,
         "settings": {
-            "update_dms":true,
-            "on_pinged":true,
-            "passive":true
+            "update_dms": true,
+            "on_pinged": true,
+            "passive": true
         },
         "on_pinged": {
             "title": "Shut the fuck up",
@@ -85,7 +85,7 @@
     },
     {
         "user_id": 270904126974590976,
-        "command_count": 857,
+        "command_count": 871,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -275,7 +275,7 @@
     },
     {
         "user_id": 557628352828014614,
-        "command_count": 17,
+        "command_count": 18,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -355,7 +355,7 @@
     },
     {
         "user_id": 294882584201003009,
-        "command_count": 31,
+        "command_count": 35,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -425,7 +425,7 @@
     },
     {
         "user_id": 809769116876537856,
-        "command_count": 55,
+        "command_count": 58,
         "settings": {},
         "on_pinged": {
             "title": "STOP PINGING ME",
@@ -645,7 +645,7 @@
     },
     {
         "user_id": 769615220674789397,
-        "command_count": 2,
+        "command_count": 3,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -725,7 +725,7 @@
     },
     {
         "user_id": 800441420531630111,
-        "command_count": 15,
+        "command_count": 16,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -965,7 +965,7 @@
     },
     {
         "user_id": 481377376475938826,
-        "command_count": 12,
+        "command_count": 13,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -1026,6 +1026,16 @@
     {
         "user_id": 851960190587633664,
         "command_count": 1,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 818200812030787635,
+        "command_count": 4,
         "settings": {},
         "on_pinged": {
             "title": null,
