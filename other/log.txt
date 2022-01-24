@@ -126,3 +126,32 @@ In channel_id: Value "None" is not snowflake.
 24/01/2022 08:02:55 | ERROR: Command "reactionrole" is not found
 24/01/2022 08:03:34 | ERROR: Command raised an exception: Forbidden: 403 Forbidden (error code: 50013): Missing Permissions
 24/01/2022 08:04:13 | ERROR: Command raised an exception: Forbidden: 403 Forbidden (error code: 50013): Missing Permissions
+24/01/2022 09:33:36 | ERROR: Command raised an exception: ExtensionFailed: Extension 'cogs.Moderation' raised an error: SyntaxError: invalid syntax (Moderation.py, line 493)
+24/01/2022 09:34:05 | ERROR: text is a required argument that is missing.
+24/01/2022 09:34:26 | ERROR: Command raised an exception: AttributeError: 'coroutine' object has no attribute 'lower'
+24/01/2022 09:35:12 | ERROR: Command raised an exception: AttributeError: 'coroutine' object has no attribute 'lower'
+24/01/2022 09:36:17 | ERROR: Command raised an exception: AttributeError: 'coroutine' object has no attribute 'content'
+24/01/2022 09:37:08 | ERROR: Command raised an exception: ExtensionNotLoaded: Extension 'cogs.Moderatiion' has not been loaded.
+24/01/2022 09:37:21 | ERROR: name is a required argument that is missing.
+24/01/2022 09:37:33 | ERROR: Command raised an exception: UnsupportedOperation: not writable
+24/01/2022 09:41:22 | ERROR: Command raised an exception: KeyError: 'hi'
+24/01/2022 11:37:20 | ERROR: You are missing Manage Channels permission(s) to run this command.
+24/01/2022 11:43:17 | ERROR: Command "dmsend?" is not found
+24/01/2022 11:44:07 | ERROR: The check functions for command dmreply failed.
+24/01/2022 11:44:52 | ERROR: The check functions for command dmreply failed.
+24/01/2022 11:49:48 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In user_id: Value "?dmreply hi" is not snowflake.
+24/01/2022 11:51:37 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In user_id: Value "?dmreply hi" is not snowflake.
+24/01/2022 11:52:43 | ERROR: Command raised an exception: AttributeError: 'MessageReference' object has no attribute 'content'
+24/01/2022 11:52:54 | ERROR: The check functions for command dmreply failed.
+24/01/2022 11:53:08 | ERROR: Command "invitebot" is not found
+24/01/2022 11:53:19 | ERROR: Command "reboot" is not found
+24/01/2022 11:53:32 | ERROR: Command "shutdown" is not found
+24/01/2022 11:53:44 | ERROR: Command "startww" is not found
+24/01/2022 11:54:07 | ERROR: Command "rickroll" is not found
+24/01/2022 11:57:28 | ERROR: Command raised an exception: AttributeError: 'MessageReference' object has no attribute 'content'
+24/01/2022 11:58:58 | ERROR: Command raised an exception: AttributeError: 'Bot' object has no attribute 'fetch_message'
+24/01/2022 11:59:05 | ERROR: Command "??" is not found
+24/01/2022 11:59:57 | ERROR: Command raised an exception: AttributeError: 'coroutine' object has no attribute 'content'
+24/01/2022 12:01:01 | ERROR: Command "??" is not found

@@ -455,22 +455,48 @@ class Moderation(commands.Cog):
     @commands.check(plugin_enabled)
     @commands.has_permissions(manage_webhooks=True)
     async def createhook(self, ctx, name, channel:discord.TextChannel=None, avatarurl=None):
+        def check(m):
+            return m.channel == ctx.channel and m.author == ctx.author
         if channel == None:
             channel = ctx.channel
-        if avatarurl == None:
+        await ctx.send("Enter the url for the image you want to use as the profile pic (or type none for default)")
+        avatarurl = await self.client.wait_for("message", timeout=300, check=check)
+        avatarurl = avatarurl.content
+        if avatarurl.lower() == "none":
             e = await channel.create_webhook(name=name,reason=None)
         else:
             aimg = requests.get(avatarurl)
             aimg = aimg.content
             e = await channel.create_webhook(name=name, avatar=bytes(aimg), reason=None)
         webhook = await self.client.fetch_webhook(e.id)
-        await ctx.author.send(webhook.url)
+        await ctx.send(f"Enter the id for the bot (What youll use in the `{ctx.prefix}webhook` command)")
+        id = await self.client.wait_for("message", timeout=300, check=check)
+        id = id.content
+        with open("./database/userdb.json") as f:
+          data = json.load(f)
+        for i in data:
+          if i['user_id'] == ctx.author.id:
+            i['webhooks'][id] = webhook.url
+        with open('./database/userdb.json', 'w') as f:
+          json.dump(data, f, indent=4)
         await ctx.message.delete()
-        await ctx.send(embed=discord.Embed(title="Url sent in dms", description=f"Use `{ctx.prefix}wh [url] [message]` to send messages using that webhook"))
+        await ctx.send(embed=discord.Embed(title="Webhook Created", description=f"Use `{ctx.prefix}webhook {id} [message]` to send messages using that webhook"))
 
     @commands.command(aliases=['webhook', 'swh'])
     @commands.check(plugin_enabled)
-    async def wh(self, ctx, url, *, text):
+    async def wh(self, ctx, id, *, text):
+        with open("./database/userdb.json") as f:
+          data = json.load(f)
+        found = False
+        for i in data:
+          if i['user_id'] == ctx.author.id:
+            try:
+              url = i['webhooks'][id]
+            except:
+              pass
+            found = True
+        if found == False:
+          return await ctx.send("Id not found")
         await ctx.message.delete()
         webhook = DiscordWebhook(url=url, content=text)
         response = webhook.execute()

@@ -1,12 +1,15 @@
 [
     {
         "user_id": 624076054969188363,
-        "command_count": 2628,
+        "command_count": 2680,
         "settings": {},
         "on_pinged": {
             "title": "Get good, skill issue",
             "description": "F off goose",
             "color": 16753920
+        },
+        "webhooks": {
+            "lol": "https://discord.com/api/webhooks/935106709981126676/FpfLiZ0BQDqxc6NlWinMhWBijG_0IWc-LlmLsrUPg7U1g7wHQlicRITty1sNMM0Nr2rd"
         }
     },
     {
@@ -17,7 +20,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 913618154318618645,
@@ -31,7 +35,8 @@
             "title": "Shut the fuck up",
             "description": "Beat it, you no life scumbag",
             "color": 255
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 842638586879803402,
@@ -41,7 +46,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 768693329188749344,
@@ -51,7 +57,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 768693329188749344,
@@ -61,7 +68,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 516812635233058826,
@@ -71,7 +79,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 583032764559917057,
@@ -81,7 +90,8 @@
             "title": "If You need Somethin DM Me",
             "description": "God You Are Stupid (Dum Dum)",
             "color": 16711680
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 270904126974590976,
@@ -91,7 +101,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 897255745769340938,
@@ -101,7 +112,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 881251029587488799,
@@ -111,7 +123,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 850443816472936499,
@@ -121,7 +134,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 777671599489810432,
@@ -131,7 +145,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 797797679136374815,
@@ -141,7 +156,8 @@
             "title": "Shut the f*ck up",
             "description": "Don't ping me *_*",
             "color": 255
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 699692015172059256,
@@ -151,7 +167,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 920880961955176540,
@@ -161,7 +178,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 838024815368994826,
@@ -171,7 +189,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 887024920096296962,
@@ -181,7 +200,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 883740223115255839,
@@ -191,7 +211,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 922535832554971237,
@@ -201,7 +222,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 845905852053454889,
@@ -211,7 +233,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 870876545764433980,
@@ -221,7 +244,8 @@
             "title": "What Do You Want \u4e42\u0e3f\u00d8\u2c6b\u00d8\u4e42",
             "description": "What Do You Need (why ping?)",
             "color": 0
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 835824068384129045,
@@ -231,7 +255,8 @@
             "title": "Hello",
             "description": "I probaly can't talk rn",
             "color": 16776960
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 928523288580329502,
@@ -241,17 +266,19 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 590754348074663983,
-        "command_count": 11,
+        "command_count": 12,
         "settings": {},
         "on_pinged": {
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 841945331482230805,
@@ -261,7 +288,8 @@
             "title": "WAIT",
             "description": "Let me nolife dank/Minecraft",
             "color": 16753920
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 507939895197827072,
@@ -271,7 +299,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 557628352828014614,
@@ -281,7 +310,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 458276816071950337,
@@ -291,7 +321,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 905490795640016906,
@@ -301,7 +332,8 @@
             "title": "Shut up",
             "description": "Nerd",
             "color": 16711680
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 770854599224590366,
@@ -311,7 +343,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 751205580550701058,
@@ -321,7 +354,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 928038506285109289,
@@ -331,17 +365,19 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 684667858244206592,
-        "command_count": 15,
+        "command_count": 16,
         "settings": {},
         "on_pinged": {
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 930997787754135564,
@@ -351,7 +387,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 294882584201003009,
@@ -361,7 +398,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 742788951546265621,
@@ -371,7 +409,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 842668205025525810,
@@ -381,7 +420,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 763530972142501948,
@@ -391,7 +431,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 722503581722345492,
@@ -401,7 +442,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 840869869843251241,
@@ -411,7 +453,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 681081949594320929,
@@ -421,7 +464,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 809769116876537856,
@@ -431,7 +475,8 @@
             "title": "STOP PINGING ME",
             "description": "ITS MAKE MY RINGTONE ANNOYING AND IF U KEEP PING ME ILL MAKE SURE I CRUSHED U IN A 1V1",
             "color": 16711680
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 901676058363977729,
@@ -441,7 +486,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 821002499036282901,
@@ -451,7 +497,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 893442943443161088,
@@ -461,7 +508,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 897154056936636449,
@@ -471,7 +519,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 843373957314641970,
@@ -481,7 +530,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 876804245112913920,
@@ -491,7 +541,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 903161406281646101,
@@ -501,7 +552,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 860524146354421800,
@@ -511,7 +563,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 751010533724913694,
@@ -521,7 +574,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 716390085896962058,
@@ -531,7 +585,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 740648197403443352,
@@ -541,7 +596,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 767991071862423582,
@@ -551,17 +607,19 @@
             "title": "im angry \u2764\ufe0f",
             "description": "<@767991071862423582>",
             "color": 16761035
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 862258920038989845,
-        "command_count": 110,
+        "command_count": 113,
         "settings": {},
         "on_pinged": {
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 720341384518697072,
@@ -571,7 +629,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 900365802895708172,
@@ -581,7 +640,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 870176893515730994,
@@ -591,7 +651,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 927196011355586592,
@@ -601,17 +662,19 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 876048116179152936,
-        "command_count": 4,
+        "command_count": 16,
         "settings": {},
         "on_pinged": {
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 833971207249461359,
@@ -621,17 +684,19 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 235148962103951360,
-        "command_count": 25,
+        "command_count": 28,
         "settings": {},
         "on_pinged": {
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 408785106942164992,
@@ -641,7 +706,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 769615220674789397,
@@ -651,7 +717,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 886979534396723332,
@@ -661,7 +728,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 926215264201224192,
@@ -671,7 +739,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 848156315670282250,
@@ -681,7 +750,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 930763084593758249,
@@ -691,7 +761,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 915105467896823868,
@@ -701,7 +772,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 815926354766856212,
@@ -711,7 +783,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 853875802197458964,
@@ -721,7 +794,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 800441420531630111,
@@ -731,7 +805,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 847733500282535976,
@@ -741,7 +816,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 902122304119652384,
@@ -751,7 +827,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 826389145995444254,
@@ -761,7 +838,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 729550843849736232,
@@ -771,7 +849,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 710440145534320720,
@@ -781,7 +860,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 720057358205845546,
@@ -791,7 +871,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 895905641749676054,
@@ -801,7 +882,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 924756635803603014,
@@ -811,7 +893,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 929989562120405004,
@@ -821,7 +904,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 624572769484668938,
@@ -831,7 +915,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 927212407623942144,
@@ -841,7 +926,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 843888781257342987,
@@ -851,7 +937,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 438057969251254293,
@@ -861,7 +948,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 857516478390599700,
@@ -871,7 +959,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 795901445799018496,
@@ -881,7 +970,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 477404830076502027,
@@ -891,7 +981,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 794922182235914270,
@@ -901,7 +992,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 428463277400391683,
@@ -911,7 +1003,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 705998279107936276,
@@ -921,7 +1014,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 842264878592426014,
@@ -931,7 +1025,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 908360161515687968,
@@ -941,7 +1036,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 827192816756588585,
@@ -951,7 +1047,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 753303928262623293,
@@ -961,17 +1058,19 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 481377376475938826,
-        "command_count": 13,
+        "command_count": 27,
         "settings": {},
         "on_pinged": {
             "title": null,
             "description": "Sub to Michael media group",
             "color": 255
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 774510369489158154,
@@ -981,7 +1080,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 807926574443266049,
@@ -991,7 +1091,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 792608802901983232,
@@ -1001,7 +1102,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 550278380243648513,
@@ -1011,7 +1113,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 390668810073538560,
@@ -1021,7 +1124,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 851960190587633664,
@@ -1031,7 +1135,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 818200812030787635,
@@ -1041,7 +1146,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 793834479722037261,
@@ -1051,7 +1157,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 924810896839176192,
@@ -1061,7 +1168,8 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     },
     {
         "user_id": 770933336620400650,
@@ -1071,6 +1179,7 @@
             "title": null,
             "description": null,
             "color": null
-        }
+        },
+        "webhooks": {}
     }
 ]

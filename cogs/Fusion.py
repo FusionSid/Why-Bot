@@ -83,9 +83,14 @@ class Fusion(commands.Cog):
 
     @commands.command()
     @commands.check(is_it_me)
-    async def dmreply(self, ctx, id:int, *, msg):
+    async def dmreply(self, ctx, *, msg):
+        if ctx.message.reference is None:
+          return
+        else:
+          id = ctx.message.reference.message_id
+          id = await ctx.channel.fetch_message(id)
+          id = int(id.content)
         person = await self.client.fetch_user(id)
-        await ctx.message.delete()
         await person.send(msg)
 
     @commands.command()
