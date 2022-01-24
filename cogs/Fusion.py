@@ -100,6 +100,16 @@ class Fusion(commands.Cog):
       os.system("git add .")
       os.system("git commit -m 'backup' ")
       os.system("git push")
+
+    @commands.command()
+    @commands.check(is_it_me)
+    async def useembed(self, ctx, code:str, channel:id=None):
+        if channel is None:
+            channel=ctx.channel
+        else:
+            channel = self.client.fetch_channel(channel)
+        func = __import__(f"..tempstorage.{code}")
+        await func.run(channel)
     
 def setup(client):
     client.add_cog(Fusion(client))
