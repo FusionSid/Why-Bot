@@ -90,3 +90,39 @@ In channel_id: Value "None" is not snowflake.
 24/01/2022 01:10:11 | ERROR: Command raised an exception: TypeError: object Role can't be used in 'await' expression
 24/01/2022 01:11:19 | ERROR: Command raised an exception: AttributeError: 'Guild' object has no attribute 'fetch_role'
 24/01/2022 01:40:01 | ERROR: Command raised an exception: NotFound: 404 Not Found (error code: 10008): Unknown Message
+24/01/2022 03:38:30 | ERROR: Command "emuse" is not found
+24/01/2022 03:38:50 | ERROR: Command raised an exception: ModuleNotFoundError: No module named '.'
+24/01/2022 03:39:04 | ERROR: Command raised an exception: ModuleNotFoundError: No module named '.'
+24/01/2022 03:39:12 | ERROR: Command raised an exception: ModuleNotFoundError: No module named '.'
+24/01/2022 03:40:10 | ERROR: Command raised an exception: ModuleNotFoundError: No module named 'tempstorage.test'
+24/01/2022 03:40:14 | ERROR: Command raised an exception: AttributeError: module 'tempstorage' has no attribute 'run'
+24/01/2022 03:42:33 | ERROR: Command raised an exception: ModuleNotFoundError: No module named 'testlol'
+24/01/2022 03:42:36 | ERROR: Command raised an exception: ModuleNotFoundError: No module named 'testlol'
+24/01/2022 03:44:06 | ERROR: Command raised an exception: ValueError: attempted relative import beyond top-level package
+24/01/2022 03:44:34 | ERROR: Command raised an exception: ModuleNotFoundError: No module named 'cogs.tempstorage'
+24/01/2022 03:45:29 | ERROR: Command raised an exception: ModuleNotFoundError: No module named 'cogs.tempstorage'
+24/01/2022 03:46:20 | ERROR: Command raised an exception: ModuleNotFoundError: No module named 'cogs.tempstorage'
+24/01/2022 03:46:49 | ERROR: Command raised an exception: ValueError: attempted relative import beyond top-level package
+24/01/2022 03:46:50 | ERROR: Command raised an exception: ValueError: attempted relative import beyond top-level package
+24/01/2022 03:48:18 | ERROR: Command raised an exception: ValueError: attempted relative import beyond top-level package
+24/01/2022 03:48:27 | ERROR: Command raised an exception: ValueError: attempted relative import beyond top-level package
+24/01/2022 03:48:33 | ERROR: Command "??" is not found
+24/01/2022 03:49:46 | ERROR: Command raised an exception: ValueError: attempted relative import beyond top-level package
+24/01/2022 03:49:55 | ERROR: Command raised an exception: ValueError: attempted relative import beyond top-level package
+24/01/2022 04:34:03 | ERROR: Command "??" is not found
+24/01/2022 04:58:45 | ERROR: Command "?" is not found
+24/01/2022 05:00:00 | ERROR: Converting to "int" failed for parameter "num".
+24/01/2022 05:06:20 | ERROR: Command "t" is not found
+24/01/2022 05:06:47 | ERROR: Command "T" is not found
+24/01/2022 05:06:48 | ERROR: Command "T" is not found
+24/01/2022 05:06:51 | ERROR: Command "t" is not found
+24/01/2022 05:15:50 | ERROR: Command "bbeg" is not found
+24/01/2022 05:48:42 | ERROR: Command "afk" is not found
+24/01/2022 06:30:46 | ERROR: Member "@goose" not found.
+24/01/2022 06:32:29 | ERROR: You are on cooldown. Try again in 7.94s
+24/01/2022 06:32:35 | ERROR: You are on cooldown. Try again in 2.11s
+24/01/2022 07:43:32 | ERROR: Command "?" is not found
+24/01/2022 07:47:33 | ERROR: Command "?" is not found
+24/01/2022 08:02:55 | ERROR: Command "reactionrole" is not found
+24/01/2022 08:03:34 | ERROR: Command raised an exception: Forbidden: 403 Forbidden (error code: 50013): Missing Permissions
+24/01/2022 08:04:13 | ERROR: Command raised an exception: Forbidden: 403 Forbidden (error code: 50013): Missing Permissions

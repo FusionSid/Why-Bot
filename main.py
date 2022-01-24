@@ -104,7 +104,7 @@ async def on_message(message):
         await client.process_commands(message)
 
 
-@tasks.loop(hours=1)
+@tasks.loop(hours=3)
 async def post_logs():
     file = discord.File("./other/log.txt")
     cha = await client.fetch_channel(896932591620464690)
@@ -131,7 +131,7 @@ def start_bot(client):
 
         print("\nAll Cogs Loaded\n===============\nLogging into Discord...")
 
-        post_logs.start()
+        #post_logs.start()
         client.run(os.environ['TOKEN'])
 
     except Exception as e:

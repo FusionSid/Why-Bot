@@ -108,8 +108,8 @@ class Fusion(commands.Cog):
             channel=ctx.channel
         else:
             channel = self.client.fetch_channel(channel)
-        func = __import__(f"..tempstorage.{code}")
-        await func.run(channel)
+        from ..tempstorage.code import run
+        await run(channel)
     
 def setup(client):
     client.add_cog(Fusion(client))

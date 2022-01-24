@@ -27,7 +27,6 @@ async def counting(msg, guild, channel, m):
         try:
           calc = ne.evaluate(msg)
           msg = int(calc)
-          await m.reply(msg)
         except:
           return
 
@@ -61,6 +60,7 @@ async def counting(msg, guild, channel, m):
                     
         if (data[f"{guild.id}"] + 1) == msg:
             data[f"{guild.id}"] += 1
+            await m.reply(msg)
             await m.add_reaction("✅")
         else:
             await m.add_reaction("❌")
