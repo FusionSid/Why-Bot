@@ -4,6 +4,9 @@ from discord.ext import commands
 import json
 from utils.checks import plugin_enabled
 from utils.other import log
+import numexpr as ne
+import numpy
+
 
 async def get_counting_channel(guild):
     with open("./database/db.json") as f:
@@ -22,7 +25,8 @@ async def counting(msg, guild, channel, m):
         msg = int(msg)
     except:
         try:
-          msg = int(eval(msg))
+          calc = ne.evaluate(msg)
+          msg = int(calc)
           await m.reply(msg)
         except:
           return

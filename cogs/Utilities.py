@@ -230,8 +230,8 @@ class Utilities(commands.Cog):
         qr.make(fit=True)
         img = qr.make_image(fill_color="black",
                             back_color="white").convert('RGB')
-        img.save('qrcode.png')
-        await ctx.send(file=discord.File('qrcode.png'))
+        img.save('./tempstorage/qrcode.png')
+        await ctx.send(file=discord.File('./tempstorage/qrcode.png'))
 
 
     @commands.command(aliases=['calc', 'calculator'])
@@ -247,7 +247,7 @@ class Utilities(commands.Cog):
 
     @commands.command()
     @commands.check(plugin_enabled)
-    async def vote(ctx):
+    async def vote(self, ctx):
         button = Button(style=discord.ButtonStyle.grey,label="Vote link:", url="https://discordbotlist.com/bots/why")
         view= View(timeout=15)
         view.add_item(button)

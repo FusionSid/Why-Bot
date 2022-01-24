@@ -26,10 +26,10 @@ async def get_prefix(client, message):
 
 
 intents = discord.Intents.all()
-client = commands.Bot(command_prefix=get_prefix, intents=intents, help_command=None)
+client = commands.Bot(command_prefix=get_prefix, intents=intents, help_command=None, owner_id=624076054969188363)
 
 
-async def update_activity(client):
+async def update_activity():
     await client.change_presence(activity=discord.Game(f"On {len(client.guilds)} servers! | ?help"))
     print("Updated presence")
 
@@ -109,6 +109,11 @@ async def post_logs():
     file = discord.File("./other/log.txt")
     cha = await client.fetch_channel(896932591620464690)
     await cha.send(file=file)
+
+    dir = './tempstorage/'
+    for f in os.listdir(dir):
+      os.remove(os.path.join(dir, f))
+ 
 
 
 def start_bot(client):

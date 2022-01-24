@@ -1,4 +1,5 @@
 import discord
+import os
 import json
 from discord.ext import commands
 import dotenv
@@ -92,6 +93,13 @@ class Fusion(commands.Cog):
     async def logs(self, ctx):
       file = discord.File("./other/log.txt")
       await ctx.send(file=file)
+
+    @commands.command()
+    @commands.check(is_it_me)
+    async def backup(self, ctx):
+      os.system("git add .")
+      os.system("git commit -m 'backup' ")
+      os.system("git push")
           
 def setup(client):
     client.add_cog(Fusion(client))

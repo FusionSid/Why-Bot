@@ -94,7 +94,7 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_remove(self,guild):
-        await update_activity()
+        await update_activity(self.client)
         cha = self.client.get_channel(925513395883606129)
         await cha.send(embed=discord.Embed(title="Leave", description=f"Left: {guild.name}"))
 
