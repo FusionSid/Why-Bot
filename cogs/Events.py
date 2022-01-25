@@ -26,6 +26,7 @@ async def startguildsetup(id):
         },
         "settings": {
             "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "autocalc":True,
         "plugins": {
             "Counting": True,
             "Moderation": True,

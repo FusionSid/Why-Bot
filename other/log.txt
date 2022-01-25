@@ -161,3 +161,74 @@ In user_id: Value "?dmreply hi" is not snowflake.
 24/01/2022 12:36:03 | ERROR: ena is a required argument that is missing.
 24/01/2022 12:36:06 | ERROR: Command raised an exception: AttributeError: 'Context' object has no attribute 'content'
 24/01/2022 12:38:17 | ERROR: You are missing Administrator permission(s) to run this command.
+24/01/2022 12:39:45 | ERROR: Command "Settings" is not found
+24/01/2022 12:41:27 | ERROR: Command "????" is not found
+24/01/2022 12:41:41 | ERROR: Command "??" is not found
+24/01/2022 12:46:31 | ERROR: Command "weather" is not found
+24/01/2022 12:46:42 | ERROR: Command "weather" is not found
+24/01/2022 13:39:34 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+24/01/2022 13:39:57 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+24/01/2022 13:40:33 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+24/01/2022 13:41:56 | ERROR: Command "set" is not found
+24/01/2022 13:42:03 | ERROR: Command "set" is not found
+24/01/2022 13:42:39 | ERROR: Command "onping" is not found
+24/01/2022 13:42:46 | ERROR: Command "set" is not found
+24/01/2022 13:42:52 | ERROR: Command "onping" is not found
+24/01/2022 14:15:26 | ERROR: Command "afk" is not found
+24/01/2022 14:51:35 | ERROR: Command "?" is not found
+24/01/2022 19:58:22 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+24/01/2022 20:38:24 | Already playing audio.
+24/01/2022 20:38:29 | Already playing audio.
+24/01/2022 20:38:33 | Already playing audio.
+24/01/2022 20:38:37 | Already playing audio.
+25/01/2022 00:04:11 | ERROR: Channel "good" not found.
+25/01/2022 01:07:51 | ERROR: Command "takeroll" is not found
+25/01/2022 02:44:59 | ERROR: Command "rules" is not found
+25/01/2022 03:12:31 | ERROR: Command raised an exception: KeyError: 'items'
+25/01/2022 03:13:13 | ERROR: Command "??????" is not found
+25/01/2022 03:40:44 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+25/01/2022 03:47:55 | ERROR: Command "??" is not found
+25/01/2022 03:59:46 | ERROR: Command "??????" is not found
+25/01/2022 04:02:12 | ERROR: Command "?????" is not found
+25/01/2022 04:03:45 | ERROR: Command "??????????????????????????????????" is not found
+25/01/2022 04:16:06 | ERROR: Command raised an exception: NotFound: 404 Not Found (error code: 10008): Unknown Message
+25/01/2022 04:59:59 | ERROR: Command "??" is not found
+25/01/2022 05:12:57 | ERROR: type is a required argument that is missing.
+25/01/2022 05:19:15 | ERROR: Command "sudo" is not found
+25/01/2022 05:20:13 | ERROR: Command "sudo" is not found
+25/01/2022 05:39:13 | ERROR: Member "<@&935408414891311147>" not found.
+25/01/2022 06:00:00 | ERROR: Command "??" is not found
+25/01/2022 06:16:57 | ERROR: Command "?" is not found
+25/01/2022 06:17:49 | ERROR: Command raised an exception: Forbidden: 403 Forbidden (error code: 50013): Missing Permissions
+25/01/2022 06:18:59 | ERROR: Command "??" is not found
+25/01/2022 06:27:28 | ERROR: Command raised an exception: KeyError: 'autocalc'
+25/01/2022 06:27:46 | ERROR: Command raised an exception: KeyError: 'autocalc'
+25/01/2022 06:30:02 | ERROR: Command raised an exception: ExtensionNotLoaded: Extension 'cogs.Event' has not been loaded.
+25/01/2022 06:32:16 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+25/01/2022 07:05:15 | ERROR: Command "???" is not found
+25/01/2022 08:02:25 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+25/01/2022 08:28:59 | ERROR: Command "??" is not found
+25/01/2022 10:20:06 | ERROR: Command "??" is not found
+25/01/2022 10:20:13 | ERROR: Command "?" is not found
+25/01/2022 10:24:58 | ERROR: Command "??" is not found
+25/01/2022 10:30:15 | ERROR: Command "???\" is not found
+25/01/2022 10:31:56 | ERROR: Command "??" is not found
+25/01/2022 10:44:16 | ERROR: You are on cooldown. Try again in 23.96s
+25/01/2022 10:50:53 | ERROR: Command "baltop" is not found
+25/01/2022 10:50:57 | ERROR: Command "top" is not found
+25/01/2022 11:00:17 | ERROR: Command raised an exception: AttributeError: 'Member' object has no attribute 'avatar_url'
+25/01/2022 11:04:58 | ERROR: Command raised an exception: OperationalError: no such table: voiceChannel
+25/01/2022 11:05:03 | ERROR: Command raised an exception: OperationalError: no such table: voiceChannel
+25/01/2022 11:07:22 | ERROR: Command raised an exception: AttributeError: 'NoneType' object has no attribute 'channel'
+25/01/2022 11:08:25 | ERROR: Command raised an exception: AttributeError: 'Member' object has no attribute 'avatar_url'
+25/01/2022 11:10:48 | ERROR: Command raised an exception: AttributeError: 'NoneType' object has no attribute 'channel'
+25/01/2022 11:11:00 | ERROR: Command "bank" is not found
+25/01/2022 11:12:47 | ERROR: Member "<@&926297631414689833>" not found.
+25/01/2022 11:13:13 | ERROR: Command "item" is not found

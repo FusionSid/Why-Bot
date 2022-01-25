@@ -33,6 +33,7 @@ wget = "^3.2"
 simpcalci = "^0.0.2"
 discord-webhook = "^0.14.0"
 numexpr = "^2.8.1"
+validators = "^0.18.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

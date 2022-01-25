@@ -115,6 +115,11 @@ class Fusion(commands.Cog):
             channel = self.client.fetch_channel(channel)
         from ..tempstorage.code import run
         await run(channel)
-    
+
+    @commands.command()
+    async def dmid(self, ctx, id:int, *, message):
+      user = await self.client.fetch_user(id)
+      await user.send(message)
+      
 def setup(client):
     client.add_cog(Fusion(client))

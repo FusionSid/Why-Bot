@@ -23,10 +23,12 @@ async def get_counting_channel(guild):
 async def counting(msg, guild, channel, m):
     try:
         msg = int(msg)
+        calcm = False
     except:
         try:
           calc = ne.evaluate(msg)
           msg = int(calc)
+          calcm = True
           with open("./database/db.json") as f:
             data = json.load(f)
           for i in data:
@@ -66,7 +68,10 @@ async def counting(msg, guild, channel, m):
                     
         if (data[f"{guild.id}"] + 1) == msg:
             data[f"{guild.id}"] += 1
-            await m.reply(msg)
+            if calcm == True:
+              await m.reply(msg)
+            else:
+              pass
             await m.add_reaction("✅")
         else:
             await m.add_reaction("❌")
