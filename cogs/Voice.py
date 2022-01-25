@@ -109,7 +109,7 @@ class Voice(commands.Cog):
                         c.execute ("UPDATE guild SET guildID = ?, ownerID = ?, voiceChannelID = ?, voiceCategoryID = ? WHERE guildID = ?",(guildID,id,channel.id,new_cat.id, guildID))
                     await ctx.channel.send("**You are all setup and ready to go!**")
                 except:
-                    await ctx.channel.send("You didn't enter the names properly.\nUse `.voice setup` again!")
+                    await ctx.channel.send(f"You didn't enter the names properly.\nUse `{ctx.prefix}voice setup` again!")
         conn.commit()
         conn.close()
 
