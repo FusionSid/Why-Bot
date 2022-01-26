@@ -69,7 +69,8 @@ async def counting(msg, guild, channel, m):
         if (data[f"{guild.id}"] + 1) == msg:
             data[f"{guild.id}"] += 1
             if calcm == True:
-              await m.reply(msg)
+              #await m.reply(msg)
+              pass
             else:
               pass
             await m.add_reaction("✅")

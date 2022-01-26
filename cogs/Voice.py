@@ -72,17 +72,17 @@ class Voice(commands.Cog):
         conn.close()
 
     @commands.group()
-    @commands.check(administrator = True)
+    @commands.has_permissions(administrator  = True)
     async def voice(self, ctx):
         pass
 
     @voice.command()
-    @commands.check(administrator = True)
+    @commands.has_permissions(administrator = True)
     async def setup(self, ctx):
         conn = sqlite3.connect('./database/voice.db')
         c = conn.cursor()
         guildID = ctx.guild.id
-    id = ctx.author.id
+        id = ctx.author.id
         def check(m):
             return m.author.id == ctx.author.id
         await ctx.channel.send("**You have 60 seconds to answer each question!**")
@@ -114,7 +114,7 @@ class Voice(commands.Cog):
         conn.close()
 
     @voice.command()
-    @commands.check(administrator = True)
+    @commands.has_permissions(administrator = True)
     async def setlimit(self, ctx, num):
         conn = sqlite3.connect('./database/voice.db')
         c = conn.cursor()

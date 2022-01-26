@@ -232,3 +232,25 @@ In channel_id: Value "None" is not snowflake.
 25/01/2022 11:11:00 | ERROR: Command "bank" is not found
 25/01/2022 11:12:47 | ERROR: Member "<@&926297631414689833>" not found.
 25/01/2022 11:13:13 | ERROR: Command "item" is not found
+25/01/2022 11:16:33 | ERROR: Member "mic" not found.
+25/01/2022 11:16:41 | ERROR: You are on cooldown. Try again in 21.53s
+25/01/2022 11:20:11 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.Voice' raised an error: IndentationError: unexpected indent (Voice.py, line 86)
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+25/01/2022 11:21:22 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.Voice' raised an error: TypeError: check() got an unexpected keyword argument 'administrator'
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+25/01/2022 11:23:48 | ERROR: You are on cooldown. Try again in 21.48s
+25/01/2022 11:31:21 | ERROR: Command raised an exception: Forbidden: 403 Forbidden (error code: 50013): Missing Permissions
+25/01/2022 11:35:40 | ERROR: Command "setlimit" is not found
+25/01/2022 11:35:53 | ERROR: Command "setlimit" is not found
+25/01/2022 11:38:29 | ERROR: Command "setlimit" is not found
+25/01/2022 11:38:33 | ERROR: Command "setlimit" is not found
+25/01/2022 12:08:22 | ERROR: Command "?" is not found
+25/01/2022 12:23:39 | ERROR: Command raised an exception: ValueError: invalid literal for int() with base 10: 'amx'
+25/01/2022 13:11:32 | ERROR: You are on cooldown. Try again in 22.23s
+25/01/2022 13:28:31 | ERROR: Command raised an exception: TimeoutError: 
