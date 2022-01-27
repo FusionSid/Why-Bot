@@ -17,9 +17,11 @@ async def plugin_enabled(ctx):
     for i in data:
         if i["guild_id"] == ctx.guild.id:
             settings = i['settings']
-
-    if settings["plugins"][ctx.cog.qualified_name] == False:
+    try:
+      if settings["plugins"][ctx.cog.qualified_name] == False:
         await ctx.send("This command had been disabled", delete_after=5)
         return False
-    else:
-        return True
+      else:
+          return True
+    except:
+      return True

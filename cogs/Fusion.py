@@ -66,12 +66,20 @@ class Fusion(commands.Cog):
         servers = list(self.client.guilds)
         await ctx.send(f"Connected on {str(len(servers))} servers:")
         await ctx.send('\n'.join(guild.name for guild in servers))
-
+    
     @commands.command()
     @commands.check(is_it_me)
     async def message_servers(self, ctx, *, message):
+        c = 0
         for guild in self.client.guilds:
-            await guild.text_channels[0].send(message)
+            for i in guild.text_channels:
+              try:
+                await i.send(message)
+                c +=1
+                break
+              except Exception as e:
+                await ctx.send(embed=discord.Embed(title=f"Failed to send to {i.name}", description=e))
+        await ctx.send(f"Message sent to {c}/{len(self.client.guilds)} servers")
 
     @commands.command()
     @commands.check(is_it_me)
@@ -105,16 +113,6 @@ class Fusion(commands.Cog):
       os.system("git add .")
       os.system("git commit -m 'backup' ")
       os.system("git push")
-
-    @commands.command()
-    @commands.check(is_it_me)
-    async def useembed(self, ctx, code:str, channel:id=None):
-        if channel is None:
-            channel=ctx.channel
-        else:
-            channel = self.client.fetch_channel(channel)
-        from ..tempstorage.code import run
-        await run(channel)
       
     @commands.command()
     @commands.check(is_it_me)

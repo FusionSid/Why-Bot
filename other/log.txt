@@ -283,3 +283,9 @@ In channel_id: Value "None" is not snowflake.
 27/01/2022 05:29:47 | Already playing audio.
 27/01/2022 05:29:57 | Already playing audio.
 27/01/2022 06:27:47 | ERROR: Command "?????" is not found
+27/01/2022 08:17:05 | ERROR: Command raised an exception: TypeError: can only concatenate str (not "int") to str
+27/01/2022 08:18:46 | ERROR: The check functions for command serverlist failed.
+27/01/2022 08:19:23 | ERROR: Command raised an exception: Forbidden: 403 Forbidden (error code: 50001): Missing Access
+27/01/2022 08:40:19 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50007): Cannot send messages to this user
+27/01/2022 08:42:03 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50007): Cannot send messages to this user
+27/01/2022 08:45:48 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50007): Cannot send messages to this user
