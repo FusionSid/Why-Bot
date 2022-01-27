@@ -83,7 +83,7 @@ class Events(commands.Cog):
         embed.add_field(name="Default Prefix: `?`",
                         value="This can be changed later using `?setprefix`")
         embed.add_field(name="Channel Setting",
-                        value="To set the counting, mod and welcome channel use `?set`")
+                        value="To set the counting, mod and welcome channel use `/set`")
         embed.add_field(
             name="Settings", value="You can use `?settings` to change some bot settings")
         embed.set_footer(

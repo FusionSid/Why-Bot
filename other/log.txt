@@ -254,3 +254,32 @@ THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
 25/01/2022 12:23:39 | ERROR: Command raised an exception: ValueError: invalid literal for int() with base 10: 'amx'
 25/01/2022 13:11:32 | ERROR: You are on cooldown. Try again in 22.23s
 25/01/2022 13:28:31 | ERROR: Command raised an exception: TimeoutError: 
+26/01/2022 03:26:18 | ERROR: Command "av" is not found
+26/01/2022 03:30:58 | ERROR: Command "av" is not found
+26/01/2022 03:31:06 | ERROR: Command "av" is not found
+26/01/2022 03:34:38 | ERROR: Command "av" is not found
+26/01/2022 03:52:37 | ERROR: Command "av" is not found
+26/01/2022 04:58:14 | ERROR: Command "????/???/" is not found
+26/01/2022 05:20:31 | ERROR: Command "?hmm" is not found
+26/01/2022 05:33:40 | ERROR: Command "???" is not found
+26/01/2022 05:58:40 | ERROR: You are on cooldown. Try again in 17.99s
+26/01/2022 06:15:10 | ERROR: Command "afk" is not found
+26/01/2022 07:38:22 | Already playing audio.
+26/01/2022 07:38:26 | Already playing audio.
+26/01/2022 07:38:30 | Already playing audio.
+26/01/2022 07:38:34 | Already playing audio.
+26/01/2022 12:01:58 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+26/01/2022 12:02:41 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+26/01/2022 16:57:59 | ERROR: Command raised an exception: KeyError: 'player'
+26/01/2022 21:24:26 | 403 Forbidden (error code: 50001): Missing Access
+27/01/2022 04:03:04 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+27/01/2022 04:03:21 | ERROR: Command raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In channel_id: Value "None" is not snowflake.
+27/01/2022 05:29:24 | Already playing audio.
+27/01/2022 05:29:34 | Already playing audio.
+27/01/2022 05:29:47 | Already playing audio.
+27/01/2022 05:29:57 | Already playing audio.
+27/01/2022 06:27:47 | ERROR: Command "?????" is not found

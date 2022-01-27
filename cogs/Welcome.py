@@ -15,10 +15,10 @@ async def memberjoin(client, member):
     background = Editor(Canvas((900, 270), "#23272a"))
 
     # For profile to use users profile picture load it from url using the load_image/load_image_async function
-    try:
+    if member.avatar is not None:
       profile_image = load_image(str(member.avatar.url))
-    except:
-      profile_image = load_image(str("https://discord.com/assets/2d20a45d79110dc5bf947137e9d99b66.svg"))
+    else:
+      profile_image = load_image(str("https://cdn.logojoy.com/wp-content/uploads/20210422095037/discord-mascot.png"))
     profile = Editor(profile_image).resize((200, 200)).circle_image()
 
     # Fonts to use with different size

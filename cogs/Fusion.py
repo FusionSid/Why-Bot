@@ -115,11 +115,11 @@ class Fusion(commands.Cog):
             channel = self.client.fetch_channel(channel)
         from ..tempstorage.code import run
         await run(channel)
-
-    @commands.command()
-    async def dmid(self, ctx, id:int, *, message):
-      user = await self.client.fetch_user(id)
-      await user.send(message)
       
+    @commands.command()
+    @commands.check(is_it_me)
+    async def embedcreatorpy(self,ctx):
+      await ctx.send("[Embed Creator Python](https://why-discord-bot.fusionsid.repl.co/embed)")
+
 def setup(client):
     client.add_cog(Fusion(client))
