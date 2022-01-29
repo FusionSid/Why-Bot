@@ -188,14 +188,13 @@ class Utilities(commands.Cog):
     @commands.command()
     @commands.check(plugin_enabled)
     async def serverinfo(self, ctx):
-        role_count = len(ctx.guild.roles)
-        list_of_bots = [
-            bot.mention for bot in ctx.guild.members if bot.bot]
-        em = discord.Embed(
-            title="Server Info:", description=f"For: {ctx.guild.name}", color=ctx.author.color)
+        em = discord.Embed(title="Server Info:", description=f"For: {ctx.guild.name}", color=ctx.author.color)
+        em.set_thumbnail(url=ctx.guild.icon.url)
+        em.set_author(name=f"Guild Owner: {ctx.guild.owner.name}", icon_url=ctx.guild.owner.icon.url)
         em.add_field(name="Member Count:", value=ctx.guild.member_count)
-        em.add_field(name="Number of roles:", value=str(role_count))
-        em.add_field(name="Bots", value=", ".join(list_of_bots))
+        em.add_field(name="Number of roles:", value=len(ctx.guild.roles))
+        em.add_field(name="Created: ", value=f"<:t{ctx.guild.created_at}>")
+        em.add_field(name="ID:", value=ctx.guild.id)
         await ctx.send(embed=em)
     
     @commands.command()
