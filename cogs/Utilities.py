@@ -185,6 +185,16 @@ class Utilities(commands.Cog):
         em.add_field(name="Created Account:", value=f"<t:{int(time.mktime(member.created_at.timetuple()))}>", inline=False)
         em.add_field(name="Joined Server:", value=f"<t:{int(time.mktime(member.joined_at.timetuple()))}>", inline=False)
         em.add_field(name="Highest Role:", value=member.top_role.mention, inline=False)
+
+        with open("./database/db.json") as f:
+          data = json.load(f)
+        for i in data:
+          if i['guild_id'] == ctx.guild.id:
+            warnings = i['warnings']
+        if str(member.id) not in warnings:
+          em.add_field(name="Warnings", value="This user has no warnings")
+        else:
+          em.add_field(name="Warnings", value=len(warnings[str(member.id)]))
         if len(roles) > 15:
           em.add_field(name="Roles:", value=f"{len(roles)}", inline=False)
         else:

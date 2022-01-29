@@ -12,6 +12,12 @@
                     "time": "2022-01-23 11:38:20",
                     "reason": "Speaking Facts"
                 }
+            ],
+            "481377376475938826": [
+                {
+                    "time": "2022-01-29 06:47:10",
+                    "reason": "For being a good person"
+                }
             ]
         },
         "settings": {
@@ -437,9 +443,26 @@
         "log_channel": null,
         "welcome_channel": null,
         "warnings": {},
-        "settings": {
-            "autocalc": false
-        },
+        "settings": 
+            {
+                "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+                "autocalc": true,
+                "plugins": {
+                    "Counting": true,
+                    "Moderation": true,
+                    "Economy": true,
+                    "TextConvert": true,
+                    "Search": true,
+                    "Welcome": true,
+                    "Leveling": true,
+                    "Music": true,
+                    "Onping": true,
+                    "Ticket": true,
+                    "Minecraft": true,
+                    "Utilities": true,
+                    "Fun": true
+                }
+            },
         "autorole": {
             "all": null,
             "bot": null
@@ -453,9 +476,26 @@
         "log_channel": null,
         "welcome_channel": null,
         "warnings": {},
-        "settings": {
-            "autocalc": false
-        },
+        "settings": 
+            {
+                "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+                "autocalc": true,
+                "plugins": {
+                    "Counting": true,
+                    "Moderation": true,
+                    "Economy": true,
+                    "TextConvert": true,
+                    "Search": true,
+                    "Welcome": true,
+                    "Leveling": true,
+                    "Music": true,
+                    "Onping": true,
+                    "Ticket": true,
+                    "Minecraft": true,
+                    "Utilities": true,
+                    "Fun": true
+                }
+            },
         "autorole": {
             "all": null,
             "bot": null
@@ -470,7 +510,23 @@
         "welcome_channel": null,
         "warnings": {},
         "settings": {
-            "autocalc": false
+                "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+                "autocalc": true,
+                "plugins": {
+                    "Counting": true,
+                    "Moderation": true,
+                    "Economy": true,
+                    "TextConvert": true,
+                    "Search": true,
+                    "Welcome": true,
+                    "Leveling": true,
+                    "Music": true,
+                    "Onping": true,
+                    "Ticket": true,
+                    "Minecraft": true,
+                    "Utilities": true,
+                    "Fun": true
+                }
         },
         "autorole": {
             "all": null,
