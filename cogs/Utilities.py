@@ -2,6 +2,7 @@ import discord
 import json
 from utils.checks import plugin_enabled
 import os
+import time
 from utils.other import log
 import platform
 from discord import role
@@ -163,14 +164,31 @@ class Utilities(commands.Cog):
         roles = [role for role in member.roles]
         em = discord.Embed(title="Person Info",
                             description=f"For: {member.name}")
-        em.add_field(name="ID:", value=member.id)
+        if str(member.status) == "online":
+          status = "🟢 Online"
+        elif str(member.status) == "offline":
+          status = "🔴 Offline"
+        elif str(member.status) == "dnd":
+          status = '⛔ Do not disturb'
+        elif str(member.status) == "invisible":
+          status = "🔴 Invisible"
+        elif str(member.status) == "idle":
+          status = "🌙 Idle"
+        elif str(member.status) == "streaming":
+          status = "📷 Streaming"
+        else:
+          status = member.status
+        em.add_field(name="Status:", value=status, inline=False)
+
+        em.add_field(name="ID:", value=member.id, inline=False)
         em.set_thumbnail(url=member.avatar.url)
-        em.add_field(name="Created Account:", value=member.created_at.strftime(
-            "%a, %#d, %B, %Y, #I:%M %p UTC"))
-        em.add_field(name="Joined Server:", value=member.joined_at.strftime(
-            "%a, %#d, %B, %Y, #I:%M %p UTC"))
-        em.add_field(name=f"Roles ({len(roles)}):", value=" ".join(
-            role.mention for role in roles))
+        em.add_field(name="Created Account:", value=f"<t:{int(time.mktime(member.created_at.timetuple()))}>", inline=False)
+        em.add_field(name="Joined Server:", value=f"<t:{int(time.mktime(member.joined_at.timetuple()))}>", inline=False)
+        em.add_field(name="Highest Role:", value=member.top_role.mention, inline=False)
+        if len(roles) > 15:
+          em.add_field(name="Roles:", value=f"{len(roles)}", inline=False)
+        else:
+          em.add_field(name=f"Roles ({len(roles)}):", value=" ".join(role.mention for role in roles), inline=False)
         await ctx.send(embed=em)
 
     @commands.command(aliases=['sug'])
@@ -190,10 +208,11 @@ class Utilities(commands.Cog):
     async def serverinfo(self, ctx):
         em = discord.Embed(title="Server Info:", description=f"For: {ctx.guild.name}", color=ctx.author.color)
         em.set_thumbnail(url=ctx.guild.icon.url)
-        em.set_author(name=f"Guild Owner: {ctx.guild.owner.name}", icon_url=ctx.guild.owner.icon.url)
+        em.set_author(name=f"Guild Owner: {ctx.guild.owner.name}", icon_url=ctx.guild.owner.avatar.url)
         em.add_field(name="Member Count:", value=ctx.guild.member_count)
-        em.add_field(name="Number of roles:", value=len(ctx.guild.roles))
-        em.add_field(name="Created: ", value=f"<:t{ctx.guild.created_at}>")
+        em.add_field(name="Number of roles:", value=len(ctx.guild.roles)) 
+        print(ctx.guild.created_at)
+        em.add_field(name="Created: ", value=f"<t:{int(time.mktime(ctx.guild.created_at.timetuple()))}>")
         em.add_field(name="ID:", value=ctx.guild.id)
         await ctx.send(embed=em)
     

@@ -1,0 +1,7 @@
+
+29/01/2022 04:28:42 | ERROR: Command raised an exception: AttributeError: 'Member' object has no attribute 'icon'
+29/01/2022 04:30:19 | ERROR: Command raised an exception: AttributeError: 'Member' object has no attribute 'icon_url'
+29/01/2022 04:53:11 | ERROR: Command raised an exception: AttributeError: module 'discord.role' has no attribute 'mention'
+29/01/2022 04:55:44 | ERROR: Command raised an exception: ExtensionNotLoaded: Extension 'cogs.Utilties' has not been loaded.
+29/01/2022 04:55:50 | ERROR: Command raised an exception: AttributeError: module 'discord.role' has no attribute 'mention'
+29/01/2022 04:56:37 | ERROR: Command "inifo" is not found

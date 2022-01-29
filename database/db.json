@@ -25,7 +25,7 @@
                 "Welcome": true,
                 "Leveling": true,
                 "Music": true,
-                "Onping": true,
+                "Onping": false,
                 "Ticket": true,
                 "Minecraft": true,
                 "Utilities": true,
