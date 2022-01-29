@@ -5,6 +5,7 @@ from discord.ext import commands
 import dotenv
 from utils import is_it_me
 from utils.other import log
+import time
 
 dotenv.load_dotenv()
 
@@ -131,5 +132,16 @@ class Fusion(commands.Cog):
     async def embedcreatorpy(self,ctx):
       await ctx.send(embed=discord.Embed(description="[Embed Creator Python](https://why-discord-bot.fusionsid.repl.co/embed)"))
 
+    @commands.command()
+    @commands.check(is_it_me)
+    async def sserverinfo(self, ctx, guild:int):
+        guild = await self.client.fetch_guild(guild)
+        em = discord.Embed(title="Server Info:", description=f"For: {guild.name}", color=ctx.author.color)
+        em.set_thumbnail(url=guild.icon.url)
+        em.set_author(name=f"Guild Owner: {guild.owner.name}", icon_url=guild.owner.avatar.url)
+        em.add_field(name="Member Count:", value=guild.member_count) 
+        em.add_field(name="Created: ", value=f"<t:{int(time.mktime(guild.created_at.timetuple()))}>")
+        em.add_field(name="ID:", value=guild.id)
+        await ctx.send(embed=em)
 def setup(client):
     client.add_cog(Fusion(client))

@@ -1,2 +1,0 @@
-
-29/01/2022 05:33:34 | ERROR: Command "embedgenpy" is not found
