@@ -223,6 +223,12 @@
             "description": "Sends a message through a webhook",
             "usage": "webhook [url] [message]",
             "category": "Moderation"
+        },
+        {
+            "name": "voice setup",
+            "description": "Sets up the custom vc for your server",
+            "usage": "voice setup",
+            "category": "Moderation"
         }
     ],
     "Music": [

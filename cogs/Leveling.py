@@ -143,6 +143,8 @@ class Leveling(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        if message.guild is None:
+          return
         with open("./database/db.json") as f:
           data = json.load(f)
         for i in data:

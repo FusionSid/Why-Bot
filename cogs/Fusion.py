@@ -66,6 +66,19 @@ class Fusion(commands.Cog):
         servers = list(self.client.guilds)
         await ctx.send(f"Connected on {str(len(servers))} servers:")
         await ctx.send('\n'.join(guild.name for guild in servers))
+
+    @commands.command()
+    @commands.check(is_it_me)
+    async def svrls(self, ctx):
+      await ctx.message.delete()
+      for guild in self.client.guilds:
+        em = discord.Embed(title=guild.name)
+        em.add_field(name="ID:", value=guild.id)
+        em.add_field(name="Owner name", value=guild.owner.name)
+        em.add_field(name="Member Count", value=guild.member_count)
+        await ctx.author.send(embed=em)
+        
+        
     
     @commands.command()
     @commands.check(is_it_me)
@@ -105,7 +118,7 @@ class Fusion(commands.Cog):
     @commands.check(is_it_me)
     async def logs(self, ctx):
       file = discord.File("./other/log.txt")
-      await ctx.send(file=file)
+      await ctx.author.send(file=file)
 
     @commands.command()
     @commands.check(is_it_me)

@@ -21,6 +21,8 @@ async def get_counting_channel(guild):
 
 
 async def counting(msg, guild, channel, m):
+    if "this" in msg:
+      return
     try:
         msg = int(msg)
         calcm = False

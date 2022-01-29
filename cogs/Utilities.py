@@ -201,12 +201,16 @@ class Utilities(commands.Cog):
     @commands.command()
     @commands.check(plugin_enabled)
     async def botinfo(self, ctx):
+        with open("./database/userdb.json") as f:
+          data = json.load(f)
+        active = len(data)
         em = discord.Embed(title = 'Why Bot', description = 'Just Why?')
         em.add_field(inline = False,name="Server Count", value=f"{len(self.client.guilds)}")
         mlist = []
         for i in list(self.client.get_all_members()):
             mlist.append(i.name)
         em.add_field(inline = False,name="User Count", value=len(mlist))
+        em.add_field(inline = False,name="Active User Count", value=active)
         em.add_field(inline = False,name="Ping", value=f"{round(self.client.latency * 1000)}ms")
         em.set_footer(text="Mostly made by FusionSid#3645")
         em.add_field(name = 'CPU Usage', value = f'{psutil.cpu_percent()}%', inline = False)

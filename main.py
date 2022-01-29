@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 import os
 from os import listdir
 from os.path import isfile, join
@@ -26,7 +27,7 @@ async def get_prefix(client, message):
 
 
 intents = discord.Intents.all()
-client = commands.Bot(command_prefix=get_prefix, intents=intents, help_command=None, owner_id=624076054969188363)
+client = commands.Bot(command_prefix=get_prefix, intents=intents, help_command=None, owner_id=624076054969188363,case_insensitive=True)
 
 
 async def update_activity():
@@ -104,22 +105,20 @@ async def on_message(message):
         await client.process_commands(message)
 
 
-@tasks.loop(hours=3)
-async def post_logs():
-    file = discord.File("./other/log.txt")
-    cha = await client.fetch_channel(896932591620464690)
-    await cha.send(file=file)
-
-    dir = './tempstorage/'
+@tasks.loop(hours=2.0)
+async def clear_stuff():
+    dir = 'tempstorage/'
     for f in os.listdir(dir):
       os.remove(os.path.join(dir, f))
- 
+    with open("other/log.txt", 'w') as f:
+      f.truncate(0)
 
 
 def start_bot(client):
 
     client.remove_command("help")
     keep_alive()
+    
     lst = [f for f in listdir("cogs/") if isfile(join("cogs/", f))]
     no_py = [s.replace('.py', '') for s in lst]
     startup_extensions = ["cogs." + no_py for no_py in no_py]
@@ -130,8 +129,7 @@ def start_bot(client):
             print(f"Loaded {cogs}")
 
         print("\nAll Cogs Loaded\n===============\nLogging into Discord...")
-
-        #post_logs.start()
+        clear_stuff.start()
         client.run(os.environ['TOKEN'])
 
     except Exception as e:
