@@ -1,7 +1,7 @@
 [
     {
         "user_id": 624076054969188363,
-        "command_count": 3179,
+        "command_count": 3191,
         "settings": {},
         "on_pinged": {
             "title": "skill issue gang",
@@ -525,7 +525,7 @@
     },
     {
         "user_id": 843373957314641970,
-        "command_count": 230,
+        "command_count": 232,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -580,7 +580,7 @@
     },
     {
         "user_id": 716390085896962058,
-        "command_count": 111,
+        "command_count": 112,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -613,7 +613,7 @@
     },
     {
         "user_id": 862258920038989845,
-        "command_count": 155,
+        "command_count": 156,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -635,7 +635,7 @@
     },
     {
         "user_id": 900365802895708172,
-        "command_count": 111,
+        "command_count": 113,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -943,7 +943,7 @@
     },
     {
         "user_id": 438057969251254293,
-        "command_count": 125,
+        "command_count": 130,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -1375,6 +1375,16 @@
     },
     {
         "user_id": 654066248249901066,
+        "command_count": 1,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 849285016064098344,
         "command_count": 1,
         "settings": {},
         "on_pinged": {

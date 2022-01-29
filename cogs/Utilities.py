@@ -209,7 +209,16 @@ class Utilities(commands.Cog):
         em = discord.Embed(title="Server Info:", description=f"For: {ctx.guild.name}", color=ctx.author.color)
         em.set_thumbnail(url=ctx.guild.icon.url)
         em.set_author(name=f"Guild Owner: {ctx.guild.owner.name}", icon_url=ctx.guild.owner.avatar.url)
-        em.add_field(name="Member Count:", value=ctx.guild.member_count) 
+        em.add_field(name="Channels:", value=f"**Text:** {len(ctx.guild.text_channels)}\n**Voice:** {len(ctx.guild.voice_channels)}")
+        em.add_field(name="Roles:", value=len(ctx.guild.roles))
+        bots = 0
+        members = 0
+        for i in ctx.guild.members:
+          if i.bot:
+            bots += 1
+          else:
+            members += 1
+        em.add_field(name="Members:", value=f"**Total:** {ctx.guild.member_count}\n**Humans:** {members}\n**Bots:** {bots}")
         em.add_field(name="Created: ", value=f"<t:{int(time.mktime(ctx.guild.created_at.timetuple()))}>")
         em.add_field(name="ID:", value=ctx.guild.id)
         await ctx.send(embed=em)
