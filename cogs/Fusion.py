@@ -134,8 +134,9 @@ class Fusion(commands.Cog):
 
     @commands.command()
     @commands.check(is_it_me)
-    async def sserverinfo(self, ctx, guild:int):
-        guild = await self.client.fetch_guild(guild)
+    async def ssinfo(self, ctx, g:int):
+        guild = self.client.get_guild(g)
+        print(guild)
         em = discord.Embed(title="Server Info:", description=f"For: {guild.name}", color=ctx.author.color)
         em.set_thumbnail(url=guild.icon.url)
         em.set_author(name=f"Guild Owner: {guild.owner.name}", icon_url=guild.owner.avatar.url)

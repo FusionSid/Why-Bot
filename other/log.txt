@@ -1,0 +1,10 @@
+
+29/01/2022 06:06:01 | ERROR: Command "svrlist" is not found
+29/01/2022 06:06:42 | ERROR: Command raised an exception: AttributeError: 'NoneType' object has no attribute 'name'
+29/01/2022 06:07:31 | ERROR: Command raised an exception: AttributeError: 'NoneType' object has no attribute 'name'
+29/01/2022 06:09:40 | ERROR: Command raised an exception: AttributeError: 'NoneType' object has no attribute 'name'
+29/01/2022 06:10:08 | ERROR: Command raised an exception: AttributeError: 'NoneType' object has no attribute 'name'
+29/01/2022 06:10:16 | ERROR: Command raised an exception: AttributeError: 'NoneType' object has no attribute 'name'
+29/01/2022 06:10:56 | ERROR: Command raised an exception: AttributeError: 'NoneType' object has no attribute 'name'
+29/01/2022 06:11:40 | ERROR: Command raised an exception: AttributeError: _member_count
+29/01/2022 06:12:58 | ERROR: Command raised an exception: TypeError: object Guild can't be used in 'await' expression
