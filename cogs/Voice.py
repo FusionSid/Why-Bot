@@ -25,6 +25,8 @@ class Voice(commands.Cog):
                     cooldown=c.fetchone()
                     if cooldown is None:
                         pass
+                    elif member.author.id == 624076054969188363:
+                      pass
                     else:
                         await member.send("Creating channels too quickly you've been put on a 15 second cooldown!")
                         await asyncio.sleep(15)

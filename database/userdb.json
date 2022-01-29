@@ -1,7 +1,7 @@
 [
     {
         "user_id": 624076054969188363,
-        "command_count": 3142,
+        "command_count": 3152,
         "settings": {},
         "on_pinged": {
             "title": "skill issue gang",
@@ -26,7 +26,7 @@
     },
     {
         "user_id": 913618154318618645,
-        "command_count": 203,
+        "command_count": 204,
         "settings": {
             "update_dms": true,
             "on_pinged": true,
@@ -1064,7 +1064,7 @@
     },
     {
         "user_id": 481377376475938826,
-        "command_count": 103,
+        "command_count": 108,
         "settings": {},
         "on_pinged": {
             "title": null,

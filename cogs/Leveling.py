@@ -153,7 +153,10 @@ class Leveling(commands.Cog):
               return
             else:
               pass
-        await lvl.award_xp(amount=[15, 25], message=message)
+        try:
+          await lvl.award_xp(amount=[15, 25], message=message)
+        except:
+          pass
 
 def setup(client):
     client.add_cog(Leveling(client))

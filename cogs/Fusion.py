@@ -128,9 +128,8 @@ class Fusion(commands.Cog):
       os.system("git push")
       
     @commands.command()
-    @commands.check(is_it_me)
     async def embedcreatorpy(self,ctx):
-      await ctx.send("[Embed Creator Python](https://why-discord-bot.fusionsid.repl.co/embed)")
+      await ctx.send(embed=discord.Embed(description="[Embed Creator Python](https://why-discord-bot.fusionsid.repl.co/embed)"))
 
 def setup(client):
     client.add_cog(Fusion(client))
