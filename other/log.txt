@@ -9,3 +9,4 @@
 29/01/2022 06:11:40 | ERROR: Command raised an exception: AttributeError: _member_count
 29/01/2022 06:12:58 | ERROR: Command raised an exception: TypeError: object Guild can't be used in 'await' expression
 29/01/2022 06:49:13 | ERROR: You are missing Administrator permission(s) to run this command.
+29/01/2022 07:00:20 | ERROR: Command raised an exception: ExtensionNotLoaded: Extension 'cogs.Onpinh' has not been loaded.

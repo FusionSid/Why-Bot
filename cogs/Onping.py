@@ -135,7 +135,9 @@ class Onping(commands.Cog):
         for i in data:
             if message.reference != None:
               return
-            if f"<@!{i['user_id']}>" in message.content:
+            if i['user_id'] == message.author.id:
+              pass
+            elif f"<@!{i['user_id']}>" in message.content:
                 em = discord.Embed()
                 em.title = i["on_pinged"]["title"]
                 em.description= i["on_pinged"]["description"]
@@ -147,7 +149,7 @@ class Onping(commands.Cog):
                   return await message.reply(embed=em)
                 except:
                   return await message.channel.send(embed=em)
-            if f"<@{i['user_id']}>" in message.content:
+            elif f"<@{i['user_id']}>" in message.content:
                 em = discord.Embed()
                 em.title = i["on_pinged"]["title"]
                 em.description= i["on_pinged"]["description"]
