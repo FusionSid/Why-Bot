@@ -118,6 +118,8 @@ class Onping(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        if message.guild is None:
+          return
         if message.author.bot:
           return
         with open("./database/db.json") as f:

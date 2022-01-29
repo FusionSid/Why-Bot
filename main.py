@@ -78,6 +78,8 @@ async def update_user_db(user):
 
 @client.event
 async def on_message(message):
+    if message.guild is None:
+          return
     if message.author == client.user:
         return  # if bot - no
 
