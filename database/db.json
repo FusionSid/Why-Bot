@@ -1,0 +1,797 @@
+[
+    {
+        "guild_id": 763348615233667082,
+        "prefix": ">",
+        "counting_channel": 926260517188829184,
+        "lastcounter": 624076054969188363,
+        "log_channel": 925513395883606129,
+        "welcome_channel": 926451103170715688,
+        "warnings": {
+            "913618154318618645": [
+                {
+                    "time": "2022-01-23 11:38:20",
+                    "reason": "Speaking Facts"
+                }
+            ],
+            "481377376475938826": [
+                {
+                    "time": "2022-01-29 06:47:10",
+                    "reason": "For being a good person"
+                }
+            ]
+        },
+        "settings": {
+            "welcometext": "get good skill issue",
+            "plugins": {
+                "Counting": true,
+                "Moderation": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Utilities": true,
+                "Fun": true
+            },
+            "autocalc": true
+        },
+        "autorole": {
+            "all": 926682198168457246,
+            "bot": 926298900640444497
+        }
+    },
+    {
+        "guild_id": 893653614990606346,
+        "prefix": "?",
+        "counting_channel": 898379052321218630,
+        "lastcounter": 624076054969188363,
+        "log_channel": 899463777513271379,
+        "welcome_channel": 894090935317708820,
+        "warnings": {},
+        "settings": {
+            "welcometext": "Get good skill issue",
+            "plugins": {
+                "Counting": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true,
+                "Fun": true
+            },
+            "autocalc": false
+        },
+        "autorole": {
+            "all": 893681219269705728,
+            "bot": 893743125426761738
+        }
+    },
+    {
+        "guild_id": 920807731961679913,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins": {
+                "Counting": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true,
+                "Fun": true
+            },
+            "autocalc": false
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 925673700324429825,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins": {
+                "Counting": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true,
+                "Fun": true
+            },
+            "autocalc": false
+        },
+        "autorole": {
+            "all": null,
+            "bot": 925676473162039366
+        }
+    },
+    {
+        "guild_id": 909370809045381140,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {
+            "698233602319712257": [
+                {
+                    "time": "2022-01-24 19:58:22",
+                    "reason": "racial slurs."
+                }
+            ],
+            "896109009369694208": [
+                {
+                    "time": "2022-01-28 09:09:10",
+                    "reason": "Refrain from taking up space in voice chats."
+                }
+            ]
+        },
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins": {
+                "Counting": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true,
+                "Fun": true
+            },
+            "autocalc": false
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 929882949560700928,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": 929882950026293289,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins": {
+                "Counting": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true,
+                "Fun": true
+            },
+            "autocalc": false
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 809774702331428894,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {
+            "705998279107936276": [
+                {
+                    "time": "2022-01-24 13:39:33",
+                    "reason": "SUS"
+                },
+                {
+                    "time": "2022-01-24 13:40:33",
+                    "reason": "None"
+                }
+            ],
+            "842264878592426014": [
+                {
+                    "time": "2022-01-24 13:39:57",
+                    "reason": "AMOGUS"
+                }
+            ]
+        },
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins": {
+                "Counting": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true,
+                "Fun": true
+            },
+            "autocalc": false
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 925437523948339302,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins": {
+                "Counting": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true,
+                "Fun": true
+            },
+            "autocalc": false
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 931539366311002173,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins": {
+                "Counting": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true,
+                "Fun": true
+            },
+            "autocalc": false
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 916901648713011230,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {
+            "893442943443161088": [
+                {
+                    "time": "2022-01-25 03:40:44",
+                    "reason": "links"
+                }
+            ],
+            "886979534396723332": [
+                {
+                    "time": "2022-01-25 06:32:16",
+                    "reason": "spam in bot and command"
+                }
+            ],
+            "903161406281646101": [
+                {
+                    "time": "2022-01-25 08:02:25",
+                    "reason": "using @ ping"
+                }
+            ],
+            "767991071862423582": [
+                {
+                    "time": "2022-01-26 12:01:58",
+                    "reason": "using @ ping"
+                }
+            ],
+            "900365802895708172": [
+                {
+                    "time": "2022-01-26 12:02:41",
+                    "reason": "using @ everyone next time use @ ping"
+                }
+            ],
+            "927196011355586592": [
+                {
+                    "time": "2022-01-27 04:03:04",
+                    "reason": "None"
+                },
+                {
+                    "time": "2022-01-27 04:03:21",
+                    "reason": "using @ everyone"
+                }
+            ]
+        },
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins": {
+                "Counting": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true,
+                "Fun": true
+            },
+            "autocalc": false
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 922394109799452682,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins": {
+                "Counting": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Moderation": true,
+                "Utilities": true,
+                "Fun": true
+            },
+            "autocalc": false
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 922525953043877959,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "autocalc": true,
+            "plugins": {
+                "Counting": true,
+                "Moderation": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Utilities": true,
+                "Fun": true
+            }
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 933693174612905985,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "autocalc": true,
+            "plugins": {
+                "Counting": true,
+                "Moderation": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Utilities": true,
+                "Fun": true
+            }
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 933148809389805639,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "autocalc": true,
+            "plugins": {
+                "Counting": true,
+                "Moderation": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Utilities": true,
+                "Fun": true
+            }
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 934382485352112158,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins": {
+                "Counting": true,
+                "Moderation": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Utilities": true,
+                "Fun": true
+            },
+            "autocalc": true
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 898557704858136617,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins": {
+                "Counting": true,
+                "Moderation": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Utilities": true,
+                "Fun": true
+            },
+            "autocalc": false
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 819224446727487518,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "plugins": {
+                "Counting": true,
+                "Moderation": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Utilities": true,
+                "Fun": true
+            },
+            "autocalc": true
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 935375973917003806,
+        "prefix": "?",
+        "counting_channel": 935419555780644864,
+        "lastcounter": 624076054969188363,
+        "log_channel": 935420434931941397,
+        "welcome_channel": 935419584423542814,
+        "warnings": {
+            "935337927976812594": [
+                {
+                    "time": "2022-01-26 22:08:14",
+                    "reason": "test"
+                }
+            ]
+        },
+        "settings": {
+            "autocalc": false,
+            "welcometext": "get good skill issue",
+            "plugins": {
+                "Counting": true,
+                "Moderation": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Utilities": true,
+                "Fun": true
+            }
+        },
+        "autorole": {
+            "all": 935417933121875979,
+            "bot": 935381528500916265
+        }
+    },
+    {
+        "guild_id": 906938940618051655,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "autocalc": true,
+            "plugins": {
+                "Counting": true,
+                "Moderation": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Utilities": true,
+                "Fun": true
+            }
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 933148809389805639,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "autocalc": true,
+            "plugins": {
+                "Counting": true,
+                "Moderation": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Utilities": true,
+                "Fun": true
+            }
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 903553515014737951,
+        "prefix": "~",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "autocalc": true,
+            "plugins": {
+                "Counting": true,
+                "Moderation": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Utilities": true,
+                "Fun": true
+            }
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    },
+    {
+        "guild_id": 936566714500542524,
+        "prefix": "?",
+        "counting_channel": null,
+        "lastcounter": null,
+        "log_channel": null,
+        "welcome_channel": null,
+        "warnings": {},
+        "settings": {
+            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
+            "autocalc": true,
+            "plugins": {
+                "Counting": true,
+                "Moderation": true,
+                "Economy": true,
+                "TextConvert": true,
+                "Search": true,
+                "Welcome": true,
+                "Leveling": true,
+                "Music": true,
+                "Onping": true,
+                "Ticket": true,
+                "Minecraft": true,
+                "Utilities": true,
+                "Fun": true
+            }
+        },
+        "autorole": {
+            "all": null,
+            "bot": null
+        }
+    }
+]

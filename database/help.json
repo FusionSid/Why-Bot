@@ -1,0 +1,546 @@
+{
+    "Counting": [
+        {
+            "name": "numrn",
+            "description": "Displays the current number for the counting game",
+            "usage": "numrn",
+            "category": "Counting"
+        }
+    ],
+    "Economy": [
+        {
+            "name": "UNDER CONSTRUCTION",
+            "description": "ECONOMY SYSTEM IS TILL IN PROGRESS",
+            "usage": "UNDER CONSTRUCTION",
+            "category": "Economy"
+        }
+    ],
+    "Fun": [
+        {
+            "name": "rps",
+            "description": "You and the bot play a game of rock paper scissors",
+            "usage": "rps [rock/paper/scissors]",
+            "category": "Fun"
+        },
+        {
+            "name": "roast",
+            "description": "The bot roasts you",
+            "usage": "roast",
+            "category": "Fun"
+        },
+        {
+            "name": "dm",
+            "description": "The bot dm's someone on your behalf",
+            "usage": "dm [@user] [message]",
+            "category": "Fun"
+        },
+        {
+            "name": "sendroast",
+            "description": "The bots send a roast to someone of you choosing",
+            "usage": "sendroast [@user]",
+            "category": "Fun"
+        },
+        {
+            "name": "8ball",
+            "description": "You ask the magical 8ball a question",
+            "usage": "8ball [question]",
+            "category": "Fun"
+        },
+        {
+            "name": "embed",
+            "description": "Makes a embed message",
+            "usage": "embed [t/d/td] [fields(optional)] [channel(optional)] [img(optional)]",
+            "category": "Fun"
+        },
+        {
+            "name": "say",
+            "description": "The bot says what you want",
+            "usage": "say [text]",
+            "category": "Fun"
+        },
+        {
+            "name": "yesorno",
+            "description": "Creates a yes or no poll",
+            "usage": "yesorno [question]",
+            "category": "Fun"
+        },
+        {
+            "name": "poll",
+            "description": "Creates a poll",
+            "usage": "poll [time:seconds] '[title]' [each option followed by a space]",
+            "category": "Fun"
+        }
+    ],
+    "Minecraft": [
+        {
+            "name": "setign",
+            "description": "Saves your Minecraft IGN so you don't have to type it every time",
+            "usage": "setign",
+            "category": "Minecraft"
+        },
+        {
+            "name": "getuuid",
+            "description": "Get the UUID for you minecraft account",
+            "usage": "getuuid [player(optional if you used setign before)]",
+            "category": "Minecraft"
+        },
+        {
+            "name": "hystats",
+            "description": "Shows a small image about you hypixel account",
+            "usage": "hystats [player(optional if you have used setign)]",
+            "category": "Minecraft"
+        },
+        {
+            "name": "bwstats",
+            "description": "Gets your hypixel bedwars stats",
+            "usage": "bwstats [player(optional if you setign before)]",
+            "category": "Minecraft"
+        }
+    ],
+    "Moderation": [
+        {
+            "name": "report",
+            "description": "Reports a Member/Message to the server mods. Also you can report bugs to us",
+            "usage": "report [member/message/bug]",
+            "category": "Moderation"
+        },
+        {
+            "name": "giverole",
+            "description": "Gives a member a role",
+            "usage": "giverole [@role] [@member]",
+            "category": "Moderation"
+        },
+        {
+            "name": "takerole",
+            "description": "Removes a role from a member",
+            "usage": "takerole [@role] [@member]",
+            "category": "Moderation"
+        },
+        {
+            "name": "ban",
+            "description": "Bans a user from the server",
+            "usage": "ban [@user]",
+            "category": "Moderation"
+        },
+        {
+            "name": "kick",
+            "description": "Kicks a user from the server",
+            "usage": "kick [@user]",
+            "category": "Moderation"
+        },
+        {
+            "name": "lockdown",
+            "description": "Puts the channel into lockdown (read only)",
+            "usage": "lockdown [#channel(optional)]",
+            "category": "Moderation"
+        },
+        {
+            "name": "unlock",
+            "description": "Removes lockdown from a channel",
+            "usage": "unlock [#channel(optional)]",
+            "category": "Moderation"
+        },
+        {
+            "name": "clear",
+            "description": "Deletes message from chat (Max 50 at a time)",
+            "usage": "clear [amount]",
+            "category": "Moderation"
+        },
+        {
+            "name": "reactrole",
+            "description": "Creates a message which when reacted to give the user a role",
+            "usage": "reactrole [emoji] [@role] [message]",
+            "category": "Moderation"
+        },
+        {
+            "name": "make_channel",
+            "description": "Creates a discord text channel",
+            "usage": "makechannel [name]",
+            "category": "Moderation"
+        },
+        {
+            "name": "make_vc",
+            "description": "Creates a discord voice channel",
+            "usage": "make_vc [name]",
+            "category": "Moderation"
+        },
+        {
+            "name": "warn",
+            "description": "Warns a user and saves the reason to a database",
+            "usage": "warn [@user] [reason]",
+            "category": "Moderation"
+        },
+        {
+            "name": "warnings",
+            "description": "Shows the warnings that a user has",
+            "usage": "warnings [@user]",
+            "category": "Moderation"
+        },
+        {
+            "name": "nick",
+            "description": "Sets a users nickname",
+            "usage": "nickname [@user] [nicknam]",
+            "category": "Moderation"
+        },
+        {
+            "name": "slowmode",
+            "description": "Puts the channel into slowmode",
+            "usage": "slowmode [cooldown]",
+            "category": "Moderation"
+        },
+        {
+            "name": "rslowmode",
+            "description": "Removes slow mode from a channel",
+            "usage": "rslowmode",
+            "category": "Moderation"
+        },
+        {
+            "name": "pin",
+            "description": "pins a message to a channel",
+            "usage": "pin [message_id]",
+            "category": "Moderation"
+        },
+        {
+            "name": "unpin",
+            "description": "Unpins a message",
+            "usage": "unpin [message_id]",
+            "category": "Moderation"
+        },
+        {
+            "name": "autorole",
+            "description": "Creates an autorole for the server",
+            "usage": "autorole [@role] [all/bot]",
+            "category": "Moderation"
+        },
+        {
+            "name": "createhook",
+            "description": "Creates a webhook and sends you the url",
+            "usage": "createhook [name] [channel(optional)] [profilepic(optional)]",
+            "category": "Moderation"
+        },
+        {
+            "name": "webhook",
+            "description": "Sends a message through a webhook",
+            "usage": "webhook [url] [message]",
+            "category": "Moderation"
+        },
+        {
+            "name": "voice setup",
+            "description": "Sets up the custom vc for your server",
+            "usage": "voice setup",
+            "category": "Moderation"
+        }
+    ],
+    "Music": [
+        {
+            "name": "play",
+            "description": "Plays a song",
+            "usage": "play [songurl/name]",
+            "category": "Music"
+        },
+        {
+            "name": "join",
+            "description": "The bot joins the vc",
+            "usage": "join",
+            "category": "Music"
+        },
+        {
+            "name": "skip",
+            "description": "Skips the song",
+            "usage": "skip",
+            "category": "Music"
+        },
+        {
+            "name": "leave",
+            "description": "Bot leaves the vc",
+            "usage": "leave",
+            "category": "Music"
+        },
+        {
+            "name": "pause",
+            "description": "Pauses the current song",
+            "usage": "pause",
+            "category": "Music"
+        },
+        {
+            "name": "resume",
+            "description": "Resume the paused song",
+            "usage": "resume",
+            "category": "Music"
+        },
+        {
+            "name": "queue",
+            "description": "Shows the songs in the queue",
+            "usage": "queue",
+            "category": "Music"
+        },
+        {
+            "name": "loop",
+            "description": "Toggles track/queue loop",
+            "usage": "loop",
+            "category": "Music"
+        },
+        {
+            "name": "createplaylist",
+            "description": "creates a playlist of songs",
+            "usage": "createplaylist [name]",
+            "category": "Music"
+        },
+        {
+            "name": "plist",
+            "description": "Lists the songs in a playlist",
+            "usage": "plist [playlist-name]",
+            "category": "Music"
+        },
+        {
+            "name": "padd",
+            "description": "Adds a song to a playlist",
+            "usage": "padd [playlist-name] [songname/url]",
+            "category": "Music"
+        },
+        {
+            "name": "pdel",
+            "description": "Deletes a song from a playlist",
+            "usage": "pdel [playlist name]",
+            "category": "Music"
+        },
+        {
+            "name": "playlist",
+            "description": "Plays the songs from a playlist",
+            "usage": "playlist [playlist-name]",
+            "category": "Music"
+        },
+        {
+            "name": "shuffleplaylist",
+            "description": "Plays the songs in a playlist - Shuffled",
+            "usage": "shuffleplaylist [playlist-name]",
+            "category": "Music"
+        },
+        {
+            "name": "tts",
+            "description": "Text to speech",
+            "usage": "tts [text]",
+            "category": "Music"
+        },
+        {
+            "name": "music",
+            "description": "Makes a small dashboard of button controls for managing the music",
+            "usage": "music",
+            "category": "Music"
+        },
+        {
+            "name": "mp3",
+            "description": "Plays an mp3 file that you upload",
+            "usage": "mp3 [you must attach an mp3 file to the message for this to work]",
+            "category": "Moderation"
+        }
+    ],
+    "Ping": [
+        {
+            "name": "onping",
+            "description": "Sets the message that will be displayed when someone pings you",
+            "usage": "onpinged [set/clear]",
+            "category": "Ping"
+        }
+    ],
+    "Search": [
+        {
+            "name": "imagesearch",
+            "description": "Searches google for an image",
+            "usage": "imagesearch [query]",
+            "category": "Search"
+        },
+        {
+            "name": "youtube",
+            "description": "Finds youtube videos",
+            "usage": "youtube [query]",
+            "category": "Search"
+        },
+        {
+            "name": "redditimg",
+            "description": "Searches a subreddit for an image",
+            "usage": "redditimg [subreddit]",
+            "category": "Search"
+        },
+        {
+            "name": "meme",
+            "description": "Gives a nice meme",
+            "usage": "meme",
+            "category": "Search"
+        },
+        {
+            "name": "reddit",
+            "description": "Finds some reddit posts from a subreddit",
+            "usage": "reddit [subreddit]",
+            "category": "Search"
+        }
+    ],
+    "Text": [
+        {
+            "name": "drunkify",
+            "description": "dRuNKifYs text",
+            "usage": "drunkify [text]",
+            "category": "Text"
+        },
+        {
+            "name": "expand",
+            "description": "E x p a n d s text",
+            "usage": "expand [space] [text]",
+            "category": "Text"
+        },
+        {
+            "name": "reverse",
+            "description": "esrever (reverses) text",
+            "usage": "reverse [text]",
+            "category": "Text"
+        },
+        {
+            "name": "texttohex",
+            "description": "Converts text to hex",
+            "usage": "texttohex [text]",
+            "category": "Text"
+        },
+        {
+            "name": "hextotext",
+            "description": "Converts hex to text",
+            "usage": "hexttotext [hex]",
+            "category": "Text"
+        },
+        {
+            "name": "texttobinary",
+            "description": "Converts text to binary",
+            "usage": "texttobinary [text]",
+            "category": "Text"
+        },
+        {
+            "name": "binarytotext",
+            "description": "Converts binary to text",
+            "usage": "binarytotext [binary]",
+            "category": "Text"
+        },
+        {
+            "name": "emojify",
+            "description": "converts text to emojis",
+            "usage": "emojify [text]",
+            "category": "Text"
+        }
+    ],
+    "Ticket": [
+        {
+            "name": "newticket",
+            "description": "Makes a ticket",
+            "usage": "newticket",
+            "category": "Ticket"
+        },
+        {
+            "name": "closeticket",
+            "description": "Closes a ticket, Only works in a ticket",
+            "usage": "closeticket",
+            "category": "Ticket"
+        },
+        {
+            "name": "addaccess",
+            "description": "Gives a role access to a ticket",
+            "usage": "addaccess [roleid]",
+            "category": "Ticket"
+        },
+        {
+            "name": "delaccess",
+            "description": "Removes a role from accessing a ticket",
+            "usage": "delaccess [roleid]",
+            "category": "Ticket"
+        },
+        {
+            "name": "addadminrole",
+            "description": "Add an admin role",
+            "usage": "addadminrole [roleid]",
+            "category": "Ticket"
+        },
+        {
+            "name": "deladminrole",
+            "description": "Removes admin role for tickets",
+            "usage": "deladminrole [roleid]",
+            "category": "Ticket"
+        }
+    ],
+    "Utilities": [
+        {
+            "name": "invite",
+            "description": "Makes an invite for the server",
+            "usage": "invite",
+            "category": "Utilities"
+        },
+        {
+            "name": "botinvite",
+            "description": "Gives you a link to get the bot",
+            "usage": "botinvite",
+            "category": "Utilities"
+        },
+        {
+            "name": "info",
+            "description": "Gives info about a person",
+            "usage": "info @[person]",
+            "category": "Utilities"
+        },
+        {
+            "name": "suggest",
+            "description": "makes a suggestion",
+            "usage": "suggest [suggestion]",
+            "category": "Utilities"
+        },
+        {
+            "name": "botinfo",
+            "description": "Gives info about the bot",
+            "usage": "botinfo",
+            "category": "Utilities"
+        },
+        {
+            "name": "ping",
+            "description": "Shows the bots ping",
+            "usage": "ping",
+            "category": "Utilities"
+        },
+        {
+            "name": "vote",
+            "description": "Lets you vote for the bot (please do)",
+            "usage": "vote",
+            "category": "Utilities"
+        },
+        {
+            "name": "calculate",
+            "description": "Brings up an interactive button calculator in chat",
+            "usage": "calculator",
+            "category": "Utilities"
+        },
+        {
+            "name": "serverinfo",
+            "description": "Gives some info about the server",
+            "usage": "serverinfo",
+            "category": "Utilities"
+        },
+        {
+            "name": "qrcode",
+            "description": "generates a qr code",
+            "usage": "qrcode [link]",
+            "category": "Utilities"
+        },
+        {
+            "name": "settings",
+            "description": "shows the settings for your server and how to modify them",
+            "usage": "settings",
+            "category": "Utilities"
+        },
+        {
+            "name": "plugins",
+            "description": "Enables/Disables Plugins",
+            "usage": "plugins [enable/disable] [plugin name ]",
+            "category": "Utilities"
+        },
+        {
+            "name": "setwelcometext",
+            "description": "Sets the welcome text for the server",
+            "usage": "setwelcometext [text]",
+            "category": "Utilities"
+        }
+    ]
+}
