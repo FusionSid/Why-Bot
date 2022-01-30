@@ -11,6 +11,7 @@ from discord.commands import slash_command
 import requests
 from utils.other import log
 from utils.checks import plugin_enabled
+from discord.ui import Button, View
 
 dotenv.load_dotenv()
 
@@ -19,9 +20,29 @@ async def get_roast():
         data = json.load(f)
     return random.choice(data)
 
+class MyView(View):
+    def __init__(self):
+        super().__init__(timeout=500)
+
+    @button(style=discord.ButtonStyle.green, label="Claim", custom_id="b1")
+    async def button1(self, interaction, button):
+        await interaction.response.send_message("https://imgur.com/NQinKJB", empherial=True)
+        button.style = discord.ButtonStyle.red
+        button.label = "Claimed"
+        button.disabled=True
+        await interaction.response.edit_message(view=self)
+
+    
 class Fun(commands.Cog):
     def __init__(self, client):
         self.client = client
+
+    @commands.command()
+    @commands.check(plugin_enabled)
+    async def nitro(self,ctx):
+        em = discord.Embed(title="Claim Nitro")
+        em.set_image(url="https://gudstory.s3.us-east-2.amazonaws.com/wp-content/uploads/2021/02/08150513/Discord-Nitro.png")
+        await ctx.send(embed=em, view=MyView)
 
     @commands.command(aliases=['rockpaperscissors'], extras={"category":"Fun"}, usage="rps [rock/paper/scissors]", help="This command if for playing rock paper scissors with the bot.", description="Play a game of rock paper scissors against the bot")
     @commands.check(plugin_enabled)
