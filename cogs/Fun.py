@@ -39,9 +39,9 @@ class Fun(commands.Cog):
 
     @commands.command()
     @commands.check(plugin_enabled)
-    async def nitro(self,ctx):
-        em = discord.Embed(title="Claim Nitro")
-        em.set_image(url="https://gudstory.s3.us-east-2.amazonaws.com/wp-content/uploads/2021/02/08150513/Discord-Nitro.png")
+    async def claim(self,ctx):
+        em = discord.Embed(title="Claim 100k Why Coins")
+        # em.set_image(url="https://gudstory.s3.us-east-2.amazonaws.com/wp-content/uploads/2021/02/08150513/Discord-Nitro.png")
         await ctx.send(embed=em, view=MyView())
 
     @commands.command(aliases=['rockpaperscissors'], extras={"category":"Fun"}, usage="rps [rock/paper/scissors]", help="This command if for playing rock paper scissors with the bot.", description="Play a game of rock paper scissors against the bot")
