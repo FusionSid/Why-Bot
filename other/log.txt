@@ -1,0 +1,41 @@
+
+30/01/2022 20:23:49 | 
+###################
+POSSIBLE FATAL ERROR:
+Event loop stopped before Future completed.
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+30/01/2022 20:33:52 | 
+###################
+POSSIBLE FATAL ERROR:
+Event loop stopped before Future completed.
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+30/01/2022 20:39:08 | 
+###################
+POSSIBLE FATAL ERROR:
+Event loop stopped before Future completed.
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+30/01/2022 21:04:34 | 
+###################
+POSSIBLE FATAL ERROR:
+Event loop stopped before Future completed.
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+30/01/2022 21:15:12 | 
+###################
+POSSIBLE FATAL ERROR:
+Event loop stopped before Future completed.
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+30/01/2022 21:15:45 | 
+###################
+POSSIBLE FATAL ERROR:
+Event loop stopped before Future completed.
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+30/01/2022 21:19:15 | 
+###################
+POSSIBLE FATAL ERROR:
+Event loop stopped before Future completed.
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+30/01/2022 21:45:44 | 
+###################
+POSSIBLE FATAL ERROR:
+Event loop stopped before Future completed.
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
