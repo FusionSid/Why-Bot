@@ -16,7 +16,7 @@ class Leveling(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=['lvl'])
+    @commands.command(aliases=['lvl'], extras={"category":"Leveling"}, usage="rank [@user(optional)]", help="This command shows your rank for the leveling system.", description="Shows your rank image")
     @commands.check(plugin_enabled)
     async def rank(self, ctx, member:discord.Member=None):
         if member == None:
@@ -101,7 +101,7 @@ class Leveling(commands.Cog):
         os.remove(f"tempstorage/rank{member.id}.png")
 
 
-    @commands.command()
+    @commands.command(aliases=['lb'], extras={"category":"Leveling"}, usage="leaderboard", help="This command shows the leaderboard for this server.\nIt is sorted by most highest level to lowest.", description="Shows the leaderboard for your server")
     @commands.check(plugin_enabled)
     async def leaderboard(self, ctx):
         data = await lvl.each_member_data(ctx.guild, sort_by='rank')

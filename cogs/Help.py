@@ -178,6 +178,10 @@ class Help(commands.Cog):
 
         await ctx.send(embed=discord.Embed(title="Command created successfully.", description=f"You can view it using `{ctx.prefix}help {name}`"))
 
+    @commands.command()
+    async def hep(self, ctx):
+        for i in self.client.commands:
+            pass
 
 def setup(client):
     client.add_cog(Help(client))

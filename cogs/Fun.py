@@ -23,7 +23,7 @@ class Fun(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=['rockpaperscissors'])
+    @commands.command(aliases=['rockpaperscissors'], extras={"category":"Fun"}, usage="rps [rock/paper/scissors]", help="This command if for playing rock paper scissors with the bot.", description="Play a game of rock paper scissors against the bot")
     @commands.check(plugin_enabled)
     async def rps(self, ctx, rps: str):
         choices = ["rock", "paper", "scissors"]
@@ -62,7 +62,7 @@ class Fun(commands.Cog):
         await ctx.send(embed=em)
 
 
-    @commands.command(aliases=['roastme'])
+    @commands.command(aliases=['roastme'], extras={"category":"Fun"}, usage="roast", help="The bot sends a roast into the chat", description="Bot roasts you")
     @commands.check(plugin_enabled)
     async def roast(self, ctx):
         await ctx.message.delete()
@@ -71,7 +71,7 @@ class Fun(commands.Cog):
         await ctx.send(embed=em)
     
 
-    @commands.command(aliases=['sendmsg'])
+    @commands.command(aliases=['sendmsg'], extras={"category":"Fun"}, usage="dm [@user] [message]", help="You can use this command to send a dm to a user. The bot will send the message to the user.", description="Bot sends a message on your behalf")
     @commands.check(plugin_enabled)
     async def dm(self, ctx, member: discord.Member, *, message):
         await ctx.message.delete()
@@ -79,7 +79,7 @@ class Fun(commands.Cog):
         await member.send(embed=embeddm)
     
 
-    @commands.command(aliases=['sr'])
+    @commands.command(aliases=['sr'], extras={"category":"Fun"}, usage="sendroast [@user]", help="The bot picks a random roast from a list and send it to a person of your choosing", description="The bots send a roast to someone on your behalf")
     @commands.check(plugin_enabled)
     async def sendroast(self, ctx, member: discord.Member):
         await ctx.message.delete()
@@ -89,7 +89,7 @@ class Fun(commands.Cog):
         await member.send(embed=embeddm)
 
 
-    @commands.command(aliases=['8ball'])
+    @commands.command(aliases=['8ball'], extras={"category":"Fun"}, name="8 ball", usage="8ball [question]", help="The bot asks the magical 8ball and gets you the result", description="Asks the 8ball a question")
     @commands.check(plugin_enabled)
     async def _8ball(self, ctx, *, question):
         _8ballans = [
@@ -118,7 +118,7 @@ class Fun(commands.Cog):
                            description=f"{question}\nAnswer: {random.choice(_8ballans)}")
         await ctx.send(embed=em)
 
-    @commands.command(aliases=['em'])
+    @commands.command(aliases=['em'], extras={"category":"Fun"}, usage="embed [t/d/td] [fields(optional)] [channel(optional)] [img(optional)]", help="This command is used to make an embeded message.\nThe bot will create a nice embed and then send it to the channel youre in or the channel you want.", description="Makes an embed")
     @commands.check(plugin_enabled)
     async def embed(self, ctx, fields: str, extra: int= None, channel: int = None,*, img=None):
         await ctx.message.delete()
@@ -177,7 +177,7 @@ class Fun(commands.Cog):
             cha = await self.client.fetch_channel(channel)
             await cha.send(embed=em)
 
-    @commands.command(aliases=['noembed'])
+    @commands.command(aliases=['noembed'], extras={"category":"Fun"}, usage="say [text]", help="The bot speaks text that you want", description="Bot sends text")
     @commands.check(plugin_enabled)
     async def say(self, ctx, *, text):
         await ctx.message.delete()
@@ -185,14 +185,14 @@ class Fun(commands.Cog):
 
     # Polls
 
-    @commands.command(aliases=['yahornah', 'yn'])
+    @commands.command(aliases=['yahornah', 'yn'], extras={"category":"Fun"}, usage="yesorno [question]", help="This command makes a small poll which users can vote either yes, or no", description="Makes a Yah or Nah poll")
     @commands.check(plugin_enabled)
     async def yesorno(self, ctx, *, message):
         msg = await ctx.send(embed=discord.Embed(title="Yah or Nah?", description=message))
         await msg.add_reaction('👍')
         await msg.add_reaction('👎')
 
-    @commands.command(pass_context=True, aliases=['makepoll', 'question'])
+    @commands.command(pass_context=True, aliases=['makepoll', 'question'], extras={"category":"Fun"}, usage="poll [time:seconds] '[title]' [each option followed by a space]", help="This command creates a poll which can have up to 10 options to vote to.\nThe poll will last for a certain amount of seconds that you choose, and after those seconds you will get the results.", description="Makes a poll")
     @commands.check(plugin_enabled)
     async def poll(self, ctx, time: int, question, *options: str):
         if len(options) <= 1:

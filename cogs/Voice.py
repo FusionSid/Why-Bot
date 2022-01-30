@@ -78,7 +78,7 @@ class Voice(commands.Cog):
     async def voice(self, ctx):
         pass
 
-    @voice.command()
+    @voice.command(extras={"category":"Voice"}, usage="voice setup", help="This command is used to set up the Custom Vc for your server.\nThis channel, upon joining will create a temporary vc with your name on it and once everyone leave that channel, it will be deleted", description="Sets the custom vc for the channel")
     @commands.has_permissions(administrator = True)
     async def setup(self, ctx):
         conn = sqlite3.connect('./database/voice.db')
@@ -115,7 +115,7 @@ class Voice(commands.Cog):
         conn.commit()
         conn.close()
 
-    @voice.command()
+    @voice.command(extras={"category":"Voice"}, usage="voice setlimit", help="This command sets the limit for the custom vc.", description="Sets limit for custom vc")
     @commands.has_permissions(administrator = True)
     async def setlimit(self, ctx, num):
         conn = sqlite3.connect('./database/voice.db')

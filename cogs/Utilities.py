@@ -11,6 +11,7 @@ import psutil
 import qrcode
 from simpcalc import simpcalc
 from discord.ui import Button, View
+import numexpr as ne
 
 class InteractiveView(discord.ui.View):
     def __init__(self,ctx):
@@ -154,18 +155,18 @@ class Utilities(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(extras={"category":"Utilities"}, usage="invite", help="This command creates a quick invite for your server", description="Creates a 10 day invite for your discord server.")
     @commands.check(plugin_enabled)
     async def invite(self, ctx):
         link = await ctx.channel.create_invite(max_age=10)
         await ctx.send(link)
 
-    @commands.command(aliases=['bot'])
+    @commands.command(aliases=['bot'], extras={"category":"Utilities"}, usage="botinvite", help="Creates an invite link so you can invite Why to your server", description="Invite why to your server")
     @commands.check(plugin_enabled)
     async def botinvite(self, ctx):
         await ctx.send(embed=discord.Embed(title="Invite **Why?** to your server:", description="https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands"))
 
-    @commands.command()
+    @commands.command(extras={"category":"Utilities"}, usage="info [@user]", help="This command shows a message with info on a user.", description="Returns info on a user")
     @commands.check(plugin_enabled)
     async def info(self, ctx, member: discord.Member = None):
         if member == None:
@@ -210,19 +211,19 @@ class Utilities(commands.Cog):
           em.add_field(name=f"Roles ({len(roles)}):", value=" ".join(role.mention for role in roles), inline=False)
         await ctx.send(embed=em)
 
-    @commands.command(aliases=['sug'])
+    @commands.command(aliases=['sug'], extras={"category":"Utilities"}, usage="suggest [suggestion]", help="This command is used to suggest new features/commands to us", description="Suggest something for Why")
     @commands.check(plugin_enabled)
     async def suggest(self, ctx, *, suggestion):
         sid = await self.client.fetch_channel(925157029092413460)
         await sid.send(f"Suggestion:\n{suggestion}\n\nBy: {ctx.author.name}\nID: {ctx.author.id}")
         await ctx.send("Thank you for you suggestion!")
 
-    @commands.command()
+    @commands.command(extras={"category":"Utilities"}, usage="ping", help="Shows the bots ping", description="Shows bot ping")
     @commands.check(plugin_enabled)
     async def ping(self, ctx):
         await ctx.send(f"Pong! jk\n{round(self.client.latency * 1000)}ms")
 
-    @commands.command()
+    @commands.command(extras={"category":"Utilities"}, usage="serverinfo", help="Returns info on this server.", description="shows server info")
     @commands.check(plugin_enabled)
     async def serverinfo(self, ctx):
         em = discord.Embed(title="Server Info:", description=f"For: {ctx.guild.name}", color=ctx.author.color)
@@ -242,7 +243,7 @@ class Utilities(commands.Cog):
         em.add_field(name="ID:", value=ctx.guild.id)
         await ctx.send(embed=em)
     
-    @commands.command()
+    @commands.command(extras={"category":"Utilities"}, usage="botinfo", help="This command shows info on the bot", description="Info about Why bot")
     @commands.check(plugin_enabled)
     async def botinfo(self, ctx):
         with open("./database/userdb.json") as f:
@@ -266,7 +267,7 @@ class Utilities(commands.Cog):
         em.add_field(name="Python code", value=f"{get_lines()} of code")
         await ctx.send(embed = em)
 
-    @commands.command(aliases=['qr'])
+    @commands.command(aliases=['qr'], extras={"category":"Utilities"}, usage="qrcode [url]", help="This command takes in a url and makes a qrcode.", description="Creates a qrcode")
     @commands.check(plugin_enabled)
     async def qrcode(self, ctx, *, url):
         qr = qrcode.QRCode(
@@ -283,7 +284,7 @@ class Utilities(commands.Cog):
         await ctx.send(file=discord.File('./tempstorage/qrcode.png'))
 
 
-    @commands.command(aliases=['calc', 'calculator'])
+    @commands.command(aliases=['calculator'], extras={"category":"Utilities"}, usage="calculator", help="This command shows an interactive button calculator", description="Interactive button calculator")
     @commands.check(plugin_enabled)
     async def calculate(self, ctx):
         view = InteractiveView(ctx)
@@ -293,15 +294,27 @@ class Utilities(commands.Cog):
           for i in view.children:
             i.disabled = True
         return await message.edit(view=view)
+    
+    @commands.command(extras={"category":"Utilities"}, usage="calc [query]", help="This command returns a calculated result. It supports binary, and bit shifts and squareroots", description="Calculates your query")
+    @commands.check(plugin_enabled)
+    async def calc(self, ctx, *, query):
+        try:
+            calc = ne.evaluate(query)
+            msg = int(calc)
+            await ctx.send(msg)
+        except Exception as e:
+            await ctx.send(f"Calculation Error\n{e}")
 
-    @commands.command()
+    @commands.command(extras={"category":"Utilities"}, usage="vote", help="This command allows you to vote for Why bot", description="Vote for why bot")
     @commands.check(plugin_enabled)
     async def vote(self, ctx):
         button = Button(style=discord.ButtonStyle.grey,label="Vote link:", url="https://discordbotlist.com/bots/why")
         view= View(timeout=15)
         view.add_item(button)
         await ctx.send(embed=discord.Embed(title="Vote for Why Bot here:"), view=view)
-    @commands.command()
+
+
+    @commands.command(extras={"category":"Utilities"}, usage="cuse [@user(optional)]", help="Shows how many times you have used Why bot", description="How many times have you used Why?")
     async def cuse(self, ctx, member:discord.Member=None):
         if member is None:
           member = ctx.author
@@ -310,11 +323,7 @@ class Utilities(commands.Cog):
           for i in data:
             if i["user_id"] == member.id:
                 cuse = i["command_count"]
-        await ctx.send(f"You have used Why Bot {cuse} times")        
-        
-    @commands.command()
-    async def cmdslist(self,ctx):
-      print(self.client.commands)
+        await ctx.send(embed=discord.Embed(title=f"You have used Why Bot {cuse} times"))
       
 def setup(client):
     client.add_cog(Utilities(client))

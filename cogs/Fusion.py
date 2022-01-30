@@ -44,7 +44,7 @@ class Fusion(commands.Cog):
         with open('./database/blacklisted.json', 'w') as f:
             json.dump(blacklisted, f, indent=4)
 
-    @commands.command(aliases=['blacklisted', 'lb'])
+    @commands.command(aliases=['blacklisted'])
     @commands.check(is_it_me)
     async def listblack(self, ctx):
         with open('./database/blacklisted.json') as f:
