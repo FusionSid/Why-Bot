@@ -60,6 +60,26 @@ class Fusion(commands.Cog):
             title='Reload', description=f'{extension} successfully reloaded', color=0xff00c8)
         await ctx.send(embed=embed)
   
+    @commands.command()
+    @commands.check(is_it_me)
+    async def pull(self, ctx):
+        os.system("git pull")
+    
+    @commands.command()
+    @commands.check(is_it_me)
+    async def load(self, ctx, extension):
+        self.client.load_extension(f"cogs.{extension}")
+        embed = discord.Embed(
+            title='Load', description=f'{extension} successfully loaded', color=0xff00c8)
+        await ctx.send(embed=embed)
+    
+    @commands.command()
+    @commands.check(is_it_me)
+    async def unload(self, ctx, extension):
+        self.client.unload_extension(f"cogs.{extension}")
+        embed = discord.Embed(
+            title='Unload', description=f'{extension} successfully unloaded', color=0xff00c8)
+        await ctx.send(embed=embed)
 
     @commands.command()
     @commands.check(is_it_me)
