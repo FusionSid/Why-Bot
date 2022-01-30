@@ -30,7 +30,7 @@ class MyView(View):
         button.style = discord.ButtonStyle.red
         button.label = "Claimed"
         button.disabled=True
-        await interaction.message.edit_message(view=self)
+        await interaction.followup.edit_message(view=self)
 
     
 class Fun(commands.Cog):
