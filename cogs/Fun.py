@@ -24,7 +24,7 @@ class MyView(View):
     def __init__(self):
         super().__init__(timeout=500)
 
-    @button(style=discord.ButtonStyle.green, label="Claim", custom_id="b1")
+    @Button(style=discord.ButtonStyle.green, label="Claim", custom_id="b1")
     async def button1(self, interaction, button):
         await interaction.response.send_message("https://imgur.com/NQinKJB", empherial=True)
         button.style = discord.ButtonStyle.red
