@@ -5,5 +5,5 @@ __pycache__
 .replit
 .poetry
 .toml
-.db
-.json
+*.db
+*.json
