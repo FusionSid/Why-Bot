@@ -1,7 +1,7 @@
 [
     {
         "user_id": 624076054969188363,
-        "command_count": 3308,
+        "command_count": 3320,
         "settings": {},
         "on_pinged": {
             "title": "skill issue gang",
@@ -877,7 +877,7 @@
     },
     {
         "user_id": 895905641749676054,
-        "command_count": 28,
+        "command_count": 31,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -1064,7 +1064,7 @@
     },
     {
         "user_id": 481377376475938826,
-        "command_count": 117,
+        "command_count": 118,
         "settings": {},
         "on_pinged": {
             "title": null,
@@ -1396,6 +1396,16 @@
     {
         "user_id": 773178372016308224,
         "command_count": 1,
+        "settings": {},
+        "on_pinged": {
+            "title": null,
+            "description": null,
+            "color": null
+        }
+    },
+    {
+        "user_id": 892273729810346015,
+        "command_count": 2,
         "settings": {},
         "on_pinged": {
             "title": null,
