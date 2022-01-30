@@ -21,7 +21,9 @@ async def get_counting_channel(guild):
 
 
 async def counting(msg, guild, channel, m):
-    if "this" in msg:
+    if msg.startswith("this"):
+      return
+    if msg.startswith("that"):
       return
     try:
         msg = int(msg)
@@ -104,6 +106,8 @@ class Counting(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        if message.guild is None:
+          return
         if message.author.bot:
           return
         with open("./database/db.json") as f:

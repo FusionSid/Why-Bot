@@ -36,4 +36,10 @@ class Paginator(View):
             self.index += 1
         em = self.em[self.index]
         await interaction.response.edit_message(view=self,embed=em)
-    
+       
+    async def interaction_check(self, interaction) -> bool:
+      if interaction.user != self.ctx.author:
+          await interaction.response.send_message("This isnt for you",ephemeral=True)
+          return False
+      else:
+          return True

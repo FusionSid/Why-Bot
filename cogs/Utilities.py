@@ -13,9 +13,10 @@ from simpcalc import simpcalc
 from discord.ui import Button, View
 
 class InteractiveView(discord.ui.View):
-    def __init__(self):
+    def __init__(self,ctx):
         super().__init__(timeout=100)
         self.expr = ""
+        self.ctx = ctx
         self.calc = simpcalc.Calculate() # if you are using the above function, no need to declare this!
 
     @discord.ui.button(style=discord.ButtonStyle.blurple, label="1", row=0)
@@ -120,6 +121,14 @@ class InteractiveView(discord.ui.View):
     async def back(self, button: discord.ui.Button, interaction: discord.Interaction):
         self.expr = self.expr[:-1]
         await interaction.message.edit(content=f"```\n{self.expr}\n```")
+
+    async def interaction_check(self, interaction) -> bool:
+      if interaction.user != self.ctx.author:
+          await interaction.response.send_message("This isnt for you",ephemeral=True)
+          return False
+      else:
+          return True
+
 
 def get_lines():
     lines = 0
@@ -245,6 +254,7 @@ class Utilities(commands.Cog):
         for i in list(self.client.get_all_members()):
             mlist.append(i.name)
         em.add_field(inline = False,name="User Count", value=len(mlist))
+        em.add_field(inline = False,name="Command Count", value=len(self.client.commands))
         em.add_field(inline = False,name="Active User Count", value=active)
         em.add_field(inline = False,name="Ping", value=f"{round(self.client.latency * 1000)}ms")
         em.set_footer(text="Mostly made by FusionSid#3645")
@@ -276,7 +286,7 @@ class Utilities(commands.Cog):
     @commands.command(aliases=['calc', 'calculator'])
     @commands.check(plugin_enabled)
     async def calculate(self, ctx):
-        view = InteractiveView()
+        view = InteractiveView(ctx)
         message = await ctx.send("```\n```", view=view)
         res = await view.wait()
         if res:
@@ -302,6 +312,9 @@ class Utilities(commands.Cog):
                 cuse = i["command_count"]
         await ctx.send(f"You have used Why Bot {cuse} times")        
         
-        
+    @commands.command()
+    async def cmdslist(self,ctx):
+      print(self.client.commands)
+      
 def setup(client):
     client.add_cog(Utilities(client))

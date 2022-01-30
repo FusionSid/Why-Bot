@@ -27,7 +27,8 @@ async def get_prefix(client, message):
 
 
 intents = discord.Intents.all()
-client = commands.Bot(command_prefix=get_prefix, intents=intents, help_command=None, owner_id=624076054969188363,case_insensitive=True)
+am = discord.AllowedMentions(everyone=False)
+client = commands.Bot(command_prefix=get_prefix, intents=intents, help_command=None, owner_id=624076054969188363,case_insensitive=True,allowed_mentions=am)
 
 
 async def update_activity():
@@ -78,8 +79,6 @@ async def update_user_db(user):
 
 @client.event
 async def on_message(message):
-    if message.guild is None:
-          return
     if message.author == client.user:
         return  # if bot - no
 
