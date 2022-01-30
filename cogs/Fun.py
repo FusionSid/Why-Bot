@@ -26,10 +26,10 @@ class MyView(View):
 
     @discord.ui.button(style=discord.ButtonStyle.green, label="Claim", custom_id="b1")
     async def button1(self, button, interaction):
-        await interaction.response.edit_message(view=self)
         button.style = discord.ButtonStyle.red
         button.label = "Claimed"
         button.disabled=True
+        await interaction.response.edit_message(view=self)
         await interaction.followup.send("https://imgur.com/NQinKJB",ephemeral=True)
 
     
