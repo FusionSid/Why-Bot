@@ -39,3 +39,9 @@ THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
 POSSIBLE FATAL ERROR:
 Event loop stopped before Future completed.
 THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+31/01/2022 12:31:32 | ERROR: Command raised an exception: ExtensionNotLoaded: Extension 'cogs.Utilites' has not been loaded.
+31/01/2022 12:42:08 | 
+###################
+POSSIBLE FATAL ERROR:
+Event loop stopped before Future completed.
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
