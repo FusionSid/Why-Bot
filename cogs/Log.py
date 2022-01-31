@@ -8,9 +8,9 @@ async def get_log_channel(self, guild):
     for i in data:
         if i["guild_id"] == guild.id:
             channel = i['log_channel']
+            if channel == None:
+              return None
             return await self.client.fetch_channel(channel)
-
-    return None
 
 class Log(commands.Cog):
   def __init__(self,client):
