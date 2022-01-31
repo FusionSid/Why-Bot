@@ -31,6 +31,13 @@ class MyView(View):
         button.disabled=True
         await interaction.response.edit_message(view=self)
         await interaction.followup.send("https://imgur.com/NQinKJB",ephemeral=True)
+        with open("./database/other.json") as f:
+            data = json.load(f)
+        data["claimrickroll"] += 1
+        count = data["claimrickroll"]
+        await interaction.followup.send(f"You were the {count} person to get rick rolled",ephemeral=True)
+        with open("./database/other.json", 'w') as f:
+            json.dump(data, f, indent=4)
 
 def is_it_me(ctx):
     return ctx.author.id == 624076054969188363
