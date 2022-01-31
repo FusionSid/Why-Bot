@@ -36,6 +36,7 @@ class Slash(commands.Cog):
             await ctx.respond(f"Hello {user.mention}")
 
     @slash_command(name="set", description="Set Channels")
+    @commands.has_permissions(administrator=True)
     async def set(self, ctx, category: Option(str, "Category", required=True, choices=["Mod/Log Channel", "Counting Channel", "Welcome Channel"]), channel: Option(discord.TextChannel, "The channel", required=True)):
         channel_id = channel.id
         with open("./database/db.json") as f:
