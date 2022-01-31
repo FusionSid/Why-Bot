@@ -43,7 +43,6 @@ class Fun(commands.Cog):
     @commands.check(plugin_enabled)
     async def claim(self,ctx):
         em = discord.Embed(title="Claim 100k Why Coins")
-        # em.set_image(url="https://gudstory.s3.us-east-2.amazonaws.com/wp-content/uploads/2021/02/08150513/Discord-Nitro.png")
         await ctx.send(embed=em, view=MyView())
         
     @commands.command()

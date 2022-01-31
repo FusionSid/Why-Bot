@@ -180,6 +180,19 @@ class Help(commands.Cog):
 
     @commands.command()
     async def hep(self, ctx):
+        counting = discord.Embed(title="Why Help `[Counting]`:", description="Use `?help [command]` for more info on command")
+        economy = discord.Embed(title="Why Help: `[Economy]`", description="Use `?help [command]` for more info on command")
+        fun = discord.Embed(title="Why Help: `[Fun]`", description="Use `?help [command]` for more info on command")
+        minecraft = discord.Embed(title="Why Help: `[Minecraft]`", description="Use `?help [command]` for more info on command")
+        moderation = discord.Embed(title="Why Help: `[Moderation]`", description="Use `?help [command]` for more info on command")
+        music = discord.Embed(title="Why Help: `[Music]`", description="Use `?help [command]` for more info on command")
+        ping = discord.Embed(title="Why Help: `[Ping]`", description="Use `?help [command]` for more info on command")
+        search = discord.Embed(title="Why Help: `[Search]`", description="Use `?help [command]` for more info on command")
+        text = discord.Embed(title="Why Help: `[Text]`", description="Use `?help [command]` for more info on command")
+        ticket = discord.Embed(title="Why Help: `[Ticket]`", description="Use `?help [command]` for more info on command")
+        utilities = discord.Embed(title="Why Help: `[Utilites]`", description="Use `?help [command]` for more info on command")
+        settings = discord.Embed(title="Why Help: `[Settings]`", description="Use `?help [command]` for more info on command")
+        voice = discord.Embed(title="Why Help: `[Voice]`", description="Use `?help [command]` for more info on command")
         for i in self.client.commands:
             pass
 
