@@ -32,7 +32,9 @@ class MyView(View):
         await interaction.response.edit_message(view=self)
         await interaction.followup.send("https://imgur.com/NQinKJB",ephemeral=True)
 
-    
+def is_it_me(ctx):
+    return ctx.author.id == 624076054969188363
+
 class Fun(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -45,9 +47,9 @@ class Fun(commands.Cog):
         await ctx.send(embed=em, view=MyView())
         
     @commands.command()
-    @is_owner()
+    @commands.check(is_it_me)
     @commands.check(plugin_enabled)
-    async def claim(self,ctx):
+    async def nitro(self,ctx):
         em = discord.Embed(title="Claim Free Nitro")
         em.set_image(url="https://gudstory.s3.us-east-2.amazonaws.com/wp-content/uploads/2021/02/08150513/Discord-Nitro.png")
         await ctx.send(embed=em, view=MyView())
