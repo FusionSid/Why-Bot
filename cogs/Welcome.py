@@ -85,6 +85,30 @@ class Welcome(commands.Cog):
               pass
         await memberjoin(self.client, member)
 
+    @commands.Cog.listener()
+    async def on_member_remove(self, member):
+      try:
+        await member.send(f"Goodbye {member.name}")
+      except:
+        pass
+      with open("./database/db.json") as f:
+        data = json.load(f)
+      for i in data:
+        if i["guild_id"] == member.guild.id:
+          if i['settings']['plugins']['Welcome'] == False:
+            return
+          else:
+            pass
+      with open(f"./database/db.json") as f:
+        data = json.load(f)
+      for i in data:
+          if i["guild_id"] == member.guild.id:
+              cha = i["welcome_channel"]
+      if cha == None:
+        pass
+      else:
+        cha.send(f"Goodbye {member.name}")
+      
 def setup(client):
     client.add_cog(Welcome(client))
 

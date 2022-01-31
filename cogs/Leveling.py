@@ -1,15 +1,19 @@
 import discord
 import json
 from discord.ext import commands
-from discordLevelingSystem import DiscordLevelingSystem
+from discordLevelingSystem import DiscordLevelingSystem, LevelUpAnnouncement
 from easy_pil import Editor, Canvas, Font, load_image, Text
 import os
 from utils.checks import is_it_me, plugin_enabled
 from utils.other import log
 
+lvlembed = discord.Embed()
+lvlembed.set_author(name=LevelUpAnnouncement.Member.name)
+lvlembed.description = f'Congrats {LevelUpAnnouncement.Member.mention}! You are now level {LevelUpAnnouncement.LEVEL} 😎'
 
-lvl = DiscordLevelingSystem(
-    rate=1, per=10.0,)
+announcement = LevelUpAnnouncement(lvlembed)
+
+lvl = DiscordLevelingSystem(rate=1, per=10.0,level_up_announcement=announcement)
 lvl.connect_to_database_file('database/DiscordLevelingSystem.db')
 
 class Leveling(commands.Cog):

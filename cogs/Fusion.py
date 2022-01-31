@@ -6,6 +6,8 @@ import dotenv
 from utils import is_it_me
 from utils.other import log
 import time
+from os import listdir
+from os.path import isfile, join
 
 dotenv.load_dotenv()
 
@@ -64,6 +66,7 @@ class Fusion(commands.Cog):
     @commands.check(is_it_me)
     async def pull(self, ctx):
         os.system("git pull")
+        await ctx.send("Pulled from github :)")
     
     @commands.command()
     @commands.check(is_it_me)
@@ -164,5 +167,24 @@ class Fusion(commands.Cog):
         em.add_field(name="Created: ", value=f"<t:{int(time.mktime(guild.created_at.timetuple()))}>")
         em.add_field(name="ID:", value=guild.id)
         await ctx.send(embed=em)
+
+    @commands.command()
+    @commands.check(is_it_me)
+    async def reloadall(self, ctx):
+        lst = [f for f in listdir("cogs/") if isfile(join("cogs/", f))]
+        no_py = [s.replace('.py', '') for s in lst]
+        startup_extensions = ["cogs." + no_py for no_py in no_py]
+
+        try:
+            for cogs in startup_extensions:
+                self.client.load_extension(cogs)
+                print(f"Loaded {cogs}")
+
+            await ctx.send("All Reloaded")
+
+        except Exception as e:
+            print(e)
+        
+
 def setup(client):
     client.add_cog(Fusion(client))
