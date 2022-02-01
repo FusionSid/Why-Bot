@@ -86,7 +86,7 @@ class HelpView(View):
 
         button1 = Button(style=discord.ButtonStyle.grey, label="Vote:",url="https://discordbotlist.com/bots/why")
         button2 = Button(style=discord.ButtonStyle.grey, label="Source:",url="https://github.com/FusionSid/Why-Bot")
-        button3 = Button(style=discord.ButtonStyle.grey,label="Discord:", url="https://discord.gg/8fJaesY8SR")
+        button3 = Button(style=discord.ButtonStyle.grey,label="Discord:", url="https://discord.gg/ryEmgnpKND")
         button4 = Button(style=discord.ButtonStyle.grey, label="Todo:",url="https://github.com/users/FusionSid/projects/1")
         button5 = Button(style=discord.ButtonStyle.grey,label="Website:", url="https://fusionsid.xyz/whybot")
 
