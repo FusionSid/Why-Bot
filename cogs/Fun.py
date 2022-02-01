@@ -46,7 +46,7 @@ class Fun(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(help="This command gives you free coins. Click claim.", extras={"category":"Fun"}, usage="claim", description="Free Coins")
     @commands.check(plugin_enabled)
     async def claim(self,ctx):
         em = discord.Embed(title="Claim 100k Why Coins")

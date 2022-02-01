@@ -92,8 +92,8 @@ async def counting(msg, guild, channel, m):
 class Counting(commands.Cog):
     def __init__(self, client):
         self.client = client
-        
-    @commands.command(aliases=['num', 'nrn'], extras={"category":"Counting"}, usage="numrn", help="This command shows the current number for the Counting game.\nYou can use `/set Counting <channel>` to set the counting channel.\nThis commamd is very useful if somebody deletes/edited their message and you dont know whats the next number.", description="Current number for the counting game")
+    
+    @commands.command(aliases=['num', 'nrn'], extras={"category":"Counting"}, usage="numrn", help="This command shows the current number for the Counting game.\nYou can use /set Counting Channel [#channel] to set the counting channel.\nThis commamd is very useful if somebody deletes/edited their message and you dont know whats the next number", description="Current number for the counting game")
     @commands.check(plugin_enabled)
     async def numrn(self, ctx):
         guild = ctx.guild

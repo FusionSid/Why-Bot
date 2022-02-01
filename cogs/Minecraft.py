@@ -43,7 +43,7 @@ class Minecraft(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=['uuid'], extras={"category":"Minecraft"}, usage="getuuid [ign(optional)]", help="This command will return your minecraft ign.\nIf you have used `setign` before then you wont have to specify the user.", description="Returns your minecraft ign")
+    @commands.command(aliases=['uuid'], extras={"category":"Minecraft"}, usage="getuuid [ign(optional)]", help="This command will return your minecraft ign.\nIf you have used setign before then you wont have to specify the user.", description="Returns your minecraft ign")
     @commands.check(plugin_enabled)
     async def getuuid(self, ctx, player=None):
         if player == None:
@@ -95,7 +95,7 @@ class Minecraft(commands.Cog):
 
     # Hypixel image
 
-    @commands.command(aliases=['hypixel'], extras={"category":"Minecraft"}, usage="hystats [ign(optional)]", help="This command shows the hypixel stats for a Hypixel user.\nYou can specify an ign or if youve used `setign` befre you wont have to", description="Shows a nice pic of your hypixel stats")
+    @commands.command(aliases=['hypixel'], extras={"category":"Minecraft"}, usage="hystats [ign(optional)]", help="This command shows the hypixel stats for a Hypixel user.\nYou can specify an ign or if youve used setign befre you wont have to", description="Shows a nice pic of your hypixel stats")
     @commands.check(plugin_enabled)
     async def hystats(self, ctx, player=None):
         if player == None:
@@ -112,7 +112,7 @@ class Minecraft(commands.Cog):
         os.remove('./tempstorage/hypixel_pic.png')
 
 
-    @commands.command(aliases=['bw', 'bedwars'], extras={"category":"Minecraft"}, usage="bwstats [ign(optional)", help="This command shows the hypixel bedwars stats for a Hypixel user.\nYou can specify an ign or if youve used `setign` befre you wont have to", description="Shows your bedwars stats")
+    @commands.command(aliases=['bw', 'bedwars'], extras={"category":"Minecraft"}, usage="bwstats [ign(optional)", help="This command shows the hypixel bedwars stats for a Hypixel user.\nYou can specify an ign or if youve used setign befre you wont have to", description="Shows your bedwars stats")
     @commands.check(plugin_enabled)
     async def bwstats(self, ctx, player=None):
         if player == None:

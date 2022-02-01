@@ -107,7 +107,7 @@ class Welcome(commands.Cog):
       if cha == None:
         pass
       else:
-        cha.send(f"Goodbye {member.name}")
+        cha.send(f"Goodbye: {member.name}")
       
 def setup(client):
     client.add_cog(Welcome(client))

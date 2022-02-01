@@ -73,10 +73,13 @@ class Voice(commands.Cog):
         conn.commit()
         conn.close()
 
-    @commands.group()
+    @commands.group( help="These commands are used to set the custom VC for your server. The custom vc is a voice channel which upon joining creates a new temporary discord Voice Channel and deletes said channel when all members leave the channel.\nYou can use voice set to set the channel and voice setlimit to set the limit. ", extras={"category":"Voice"}, usage="voice [set/setlimit]", description="Sets the custom vc for you voice channel")
     @commands.has_permissions(administrator  = True)
     async def voice(self, ctx):
-        pass
+        if ctx.invoked_subcommand is not None:
+            pass
+        else:
+            await ctx.send(f"`{ctx.prefix}voice set` To set the channel\n`{ctx.prefix}voice setlimit` To set the limit")
 
     @voice.command(extras={"category":"Voice"}, usage="voice setup", help="This command is used to set up the Custom Vc for your server.\nThis channel, upon joining will create a temporary vc with your name on it and once everyone leave that channel, it will be deleted", description="Sets the custom vc for the channel")
     @commands.has_permissions(administrator = True)

@@ -24,7 +24,7 @@ class Ticket(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=['new'])
+    @commands.command(aliases=['new'], help="This command is use to create a new ticket.", extras={"category":"Ticket"}, usage="newticket", description="Creates a ticket")
     @commands.check(plugin_enabled)
     async def newticket(self, ctx, *, args=None):
         createticketfile(ctx)
@@ -92,7 +92,7 @@ class Ticket(commands.Cog):
 
         await ctx.send(embed=created_em)
 
-    @commands.command(aliases=['close'])
+    @commands.command(aliases=['close'], help="This command is used to close a ticket", extras={"category":"Ticket"}, usage="closeticket", description="Close a ticket")
     @commands.check(plugin_enabled)
     async def closeticket(self, ctx):
         createticketfile(ctx)
@@ -126,7 +126,7 @@ class Ticket(commands.Cog):
                     title="Why Tickets", description="You have run out of time to close this ticket. Please run the command again.", color=0x00a8ff)
                 await ctx.send(embed=em)
 
-    @commands.command()
+    @commands.command(help="This command is used to add access to a role for the tickets.\nWhen a new ticket is creates theses roles will have access to that ticket.", extras={"category":"Ticket"}, usage="addaccess [roleid]", description="Gives a role access to tickets")
     @commands.check(plugin_enabled)
     async def addaccess(self, ctx, role_id=None):
         createticketfile(ctx)
@@ -177,7 +177,7 @@ class Ticket(commands.Cog):
                 title="Why Tickets", description="Sorry, you don't have permission to run that command.", color=0x00a8ff)
             await ctx.send(embed=em)
 
-    @commands.command()
+    @commands.command(help="This command removes a role from accessing the tickets", extras={"category":"Ticket"}, usage="delaccess [roleid]", description="Removes a role from accessing tickets")
     @commands.check(plugin_enabled)
     async def delaccess(self, ctx, role_id=None):
         createticketfile(ctx)
@@ -233,7 +233,7 @@ class Ticket(commands.Cog):
                 title="Why Tickets", description="Sorry, you don't have permission to run that command.", color=0x00a8ff)
             await ctx.send(embed=em)
 
-    @commands.command()
+    @commands.command(help="This command sets an admin role for the ticket system", extras={"category":"Ticket"}, usage="addadminrole [roleid]", description="Adds an admin role for tickets")
     @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def addadminrole(self, ctx, role_id=None):
@@ -258,7 +258,7 @@ class Ticket(commands.Cog):
                 title="Why Tickets", description="That isn't a valid role ID. Please try again with a valid role ID.")
             await ctx.send(embed=em)
 
-    @commands.command()
+    @commands.command(help="This command removes an admin role from accessing the tickets", extras={"category":"Ticket"}, usage="deladminrole [roleid]", description="Removes an admin role from accessing tickets")
     @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def deladminrole(self, ctx, role_id=None):

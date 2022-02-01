@@ -36,7 +36,7 @@ class Moderation(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=['rp'])
+    @commands.command(aliases=['rp'],help="This command is very useful. It lets you report bugs, messages and members. You need to /set Mod/Log channel for the member/message reports to work but bug reports will be sent to me.", extras={"category":"Moderation"}, usage="report [message/member/bug]", description="Report member/message to your server mods and report bugs to me")
     @commands.check(plugin_enabled)
     async def report(self, ctx, type_: str):
         def wfcheck(m):
@@ -105,7 +105,7 @@ class Moderation(commands.Cog):
             cha = await self.client.fetch_channel(925513395883606129)
             await cha.send(embed=em)
 
-    @commands.command(aliases=['grole'])
+    @commands.command(aliases=['grole'], help="This command is used to give a role to a user.", extras={"category":"Moderation"}, usage="giverole [@role] [@member]", description="Give role to a member")
     @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def giverole(self, ctx, role: discord.Role, user: discord.Member):
@@ -117,7 +117,7 @@ class Moderation(commands.Cog):
             pass
         await ctx.send(f"{user} has been given the {role} role")
 
-    @commands.command(aliases=['trole'])
+    @commands.command(aliases=['trole'], help="This commmand is used to remove a role from a member", extras={"category":"Moderation"}, usage="takerole [@role] [@member]", description="Remove roles form member")
     @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def takerole(self, ctx, role: discord.Role, user: discord.Member):
@@ -129,7 +129,7 @@ class Moderation(commands.Cog):
             pass
         await ctx.send(f"{role} has been removed from {user}")
 
-    @commands.command()
+    @commands.command(help="This command is used to ban a member", extras={"category":"Moderation"}, usage="ban [@user]", description="Ban a member")
     @commands.check(plugin_enabled)
     @commands.has_permissions(ban_members=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -148,7 +148,7 @@ class Moderation(commands.Cog):
             pass
         await ctx.send(f"User {member} has been banned")
 
-    @commands.command()
+    @commands.command(help="This command is used to kick a member", extras={"category":"Moderation"}, usage="kick [@user]", description="Kick a member")
     @commands.check(plugin_enabled)
     @commands.has_permissions(kick_members=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -167,7 +167,7 @@ class Moderation(commands.Cog):
             pass
         await ctx.send(f"User {member} has been kicked")
 
-    @commands.command(aliases=['lock'])
+    @commands.command(aliases=['lock'], help="This command is used to put a discord text channel into lockdown", extras={"category":"Moderation"}, usage="lockdown [#channel]", description="Lockdown a channel")
     @commands.check(plugin_enabled)
     @commands.has_permissions(manage_channels=True)
     async def lockdown(self, ctx, channel: discord.TextChannel = None):
@@ -181,7 +181,7 @@ class Moderation(commands.Cog):
         else:
             pass
 
-    @commands.command()
+    @commands.command(help="This command is the unlocks a discord text channel from lockdown", extras={"category":"Moderation"}, usage="unlock [#channel]", description="Unlock a channel")
     @commands.check(plugin_enabled)
     @commands.has_permissions(manage_channels=True)
     async def unlock(self, ctx, channel: discord.TextChannel = None):
@@ -195,9 +195,9 @@ class Moderation(commands.Cog):
         else:
             pass
 
-    @commands.command()
+    @commands.command(help="This command deletes a certain amount of message from a channel. Limit it 50 messages", extras={"category":"Moderation"}, usage="clear [amount]", description="Delete messages")
     @commands.check(plugin_enabled)
-    @commands.cooldown(1, 3, commands.BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(manage_channels=True)
     async def clear(self, ctx, amount: int = 10):
         if amount > 50:
@@ -211,7 +211,7 @@ class Moderation(commands.Cog):
         else:
             pass
 
-    @commands.command()
+    @commands.command(help="This command creates a simple react role that users can react to to get a role. ", extras={"category":"Moderation"}, usage="reactrole [:emoji:] [@role] [message text]", description="Creates a reactrole")
     @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def reactrole(self, ctx, emoji, role: discord.Role, *, message):
@@ -266,7 +266,7 @@ class Moderation(commands.Cog):
             else:
                 pass
 
-    @commands.command()
+    @commands.command(help="This command creates a discord Text Channel", extras={"category":"Moderation"}, usage="make_channel [name]", description="Create a text channel")
     @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def make_channel(self, ctx, *, name):
@@ -278,7 +278,7 @@ class Moderation(commands.Cog):
         else:
             pass
 
-    @commands.command()
+    @commands.command(help="This command creates a discord Voice Channel", extras={"category":"Moderation"}, usage="make_vc [limit(If none change to None)] [name]", description="Create a VC")
     @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def make_vc(self, ctx, limit=None, *, name):
@@ -293,7 +293,7 @@ class Moderation(commands.Cog):
         else:
             pass
 
-    @commands.command()
+    @commands.command(help="This command is used to warn a user\nThe warning gets added and you can use the warnings command to check the users warnings", extras={"category":"Moderation"}, usage="warn [@user] [reason]", description="Warns a user")
     @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def warn(self, ctx, member: discord.Member, *, reason=None):
@@ -326,7 +326,7 @@ class Moderation(commands.Cog):
         else:
             pass
 
-    @commands.command()
+    @commands.command(help="This commands shows all the warnings that a user has", extras={"category":"Moderation"}, usage="warnings [@user]", description="Displays a users warnings")
     @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def warnings(self, ctx, member: discord.Member):
@@ -348,7 +348,7 @@ class Moderation(commands.Cog):
 
         await ctx.send(embed=em)
 
-    @commands.command(aliases=['nick'])
+    @commands.command(aliases=['nick'],help="This command is used to change the nick of a user", extras={"category":"Moderation"}, usage="nick [@user] [nickname]", description="Change a users nick")
     @commands.check(plugin_enabled)
     @commands.has_permissions(manage_nicknames=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -358,7 +358,7 @@ class Moderation(commands.Cog):
         else:
             await ctx.reply("Sorry, you cannot perform that action due to role hierarchy")
 
-    @commands.command()
+    @commands.command(help="This command is used to unban a user who is banned from the guild.", extras={"category":"Moderation"}, usage="unban [member id]", description="Unban a banned member")
     @commands.check(plugin_enabled)
     @commands.has_permissions(ban_members=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -369,19 +369,19 @@ class Moderation(commands.Cog):
         except:
             await ctx.send("Sorry, a user with that id was not found or isn't a previously banned member.")
 
-    @commands.command()
+    @commands.command(help="This command is used to put the discord channel youre in into slow mode", extras={"category":"Moderation"}, usage="slowmode [seconds]", description="Set channel to slowmode")
     @commands.check(plugin_enabled)
     async def slowmode(self, ctx, seconds: int = 5):
         await ctx.channel.edit(slowmode_delay=seconds)
         await ctx.send(f"Set the slowmode delay in this channel to {seconds} seconds!")
 
-    @commands.command()
+    @commands.command(help="This command is used to put a channel thats in slowmode no longer into slowmode", extras={"category":"Moderation"}, usage="rslowmode", description="Removes slowmode from a channel")
     @commands.check(plugin_enabled)
     async def rslowmode(self, ctx):
         await ctx.channel.edit(slowmode_delay=0)
         await ctx.send('removed slowmode for the channel')
 
-    @commands.command(name="pin", help="Pins the message with the specified ID to the current channel")
+    @commands.command(name="pin", help="Pins the message with the specified ID to the current channel",extras={"category":"Moderation"}, usage="pin [message id]", description="Pin a message")
     @commands.check(plugin_enabled)
     @commands.has_permissions(manage_messages=True)
     async def pin(self, ctx, id: int):
@@ -389,7 +389,7 @@ class Moderation(commands.Cog):
         await message.pin()
         await ctx.send("Successfully pinned that msg")
 
-    @commands.command(name="unpin", help="Unpins the message with the specified ID from the current channel")
+    @commands.command(name="unpin", help="Unpins the message with the specified ID from the current channel", extras={"category":"Moderation"}, usage="unpin [id]", description="Unpins a message")
     @commands.check(plugin_enabled)
     @commands.has_permissions(manage_messages=True)
     async def unpin(self, ctx, id: int):
@@ -398,7 +398,7 @@ class Moderation(commands.Cog):
         await message.unpin()
         await ctx.send("Successfully unpinned that msg")
 
-    @commands.command(name="removereactions", help="Clear reactions from a message in the current channel")
+    @commands.command(name="removereactions", help="Clear reactions from a message in the current channel", extras={"category":"Moderation"}, usage="removereactions [message id]", description="Removes reactions from a message")
     @commands.check(plugin_enabled)
     @commands.has_permissions(manage_messages=True)
     async def removereactions(self, ctx, id: int):
@@ -406,7 +406,7 @@ class Moderation(commands.Cog):
         await message.clear_reactions()
         await ctx.send("Removed")
 
-    @commands.command()
+    @commands.command(help="This command is used to set the autorole for your server. It has 2 types: all and bot\nThe all type sets the autorole for all members who join the server and the bot type sets the autorole for all bots that join the server.", extras={"category":"Moderation"}, usage="autorole [@role] [all/bot]", description="Sets the autorole role for the server")
     @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def autorole(self, ctx, role: discord.Role, type: str):
@@ -451,10 +451,10 @@ class Moderation(commands.Cog):
             role = member.guild.get_role(role)
             await member.add_roles(role)
 
-    @commands.command(aliases=["createwebhook", 'cwh'])
+    @commands.command(aliases=["createwebhook", 'cwh'], help="This command is used to create a webhook.\nA webhook is sorta like a bot.Once the webhook is made it will be asigned to your name and whenever you type the id that you specify the webhook will send the message what you want.\nWebhooks only work in one channel at a time so if you want to use a webhook in another channel you will need to make another webhook", extras={"category":"Moderation"}, usage="createhook [name] [channel(optional)]", description="Creates a webhook")
     @commands.check(plugin_enabled)
     @commands.has_permissions(manage_webhooks=True)
-    async def createhook(self, ctx, name, channel:discord.TextChannel=None, avatarurl=None):
+    async def createhook(self, ctx, name, channel:discord.TextChannel=None,):
         def check(m):
             return m.channel == ctx.channel and m.author == ctx.author
         if channel == None:
@@ -482,7 +482,7 @@ class Moderation(commands.Cog):
         await ctx.message.delete()
         await ctx.send(embed=discord.Embed(title="Webhook Created", description=f"Use `{ctx.prefix}webhook {id} [message]` to send messages using that webhook"))
 
-    @commands.command(aliases=['webhook', 'swh'])
+    @commands.command(aliases=['webhook', 'swh'],help="This command uses a webhook that you previously made using the createhook command to send a message", extras={"category":"Moderation"}, usage="webhook [id] [text]", description="Send message through a webhook")
     @commands.check(plugin_enabled)
     async def wh(self, ctx, id, *, text):
         with open("./database/userdb.json") as f:

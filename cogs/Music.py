@@ -308,7 +308,7 @@ class Music(commands.Cog):
         self.client = client
 
     # join command
-    @commands.command(aliases=["j"])
+    @commands.command(aliases=["j"], help="Running this command lets the bot join the discord VC you are in.", extras={"category":"Music"}, usage="join", description="Bot joins VC")
     @commands.check(plugin_enabled)
     async def join(self, ctx):
         if ctx.author.voice is None:
@@ -329,7 +329,7 @@ class Music(commands.Cog):
     # play command
     # noinspection PyTypeChecker
 
-    @commands.command(aliases=["p"])
+    @commands.command(aliases=["p"], help="This command is used to play songs. You can type in the name, yt url or yt playlist url and the bot will play the song.", extras={"category":"Music"}, usage="play [name/url]", description="Play a song")
     @commands.check(plugin_enabled)
     async def play(self, ctx, *, video=None):
         global queues
@@ -445,7 +445,7 @@ class Music(commands.Cog):
 
     # skip command
 
-    @commands.command(aliases=["s"])
+    @commands.command(aliases=["s"], help="This command is used to skip the song that is playing", extras={"category":"Music"}, usage="skip", description="Skips the playing song")
     @commands.check(plugin_enabled)
     async def skip(self, ctx):
         if ctx.voice_client is None:
@@ -463,7 +463,7 @@ class Music(commands.Cog):
 
     # leave command
 
-    @commands.command(aliases=["l", "disconnect", "d"])
+    @commands.command(aliases=["l", "disconnect", "d"], help="This command is used to disconnect/make the bot leave the VC.", extras={"category":"Music"}, usage="leave", description="Leave vc")
     @commands.check(plugin_enabled)
     async def leave(self, ctx):
         if ctx.voice_client is None:
@@ -491,7 +491,7 @@ class Music(commands.Cog):
 
     # stop command
 
-    @commands.command(aliases=["stop"])
+    @commands.command(aliases=["stop"], help="This command is used to pause the current plauing song", extras={"category":"Music"}, usage="pause", description="Pause song")
     @commands.check(plugin_enabled)
     async def pause(self, ctx):
         if ctx.voice_client is None:
@@ -509,7 +509,7 @@ class Music(commands.Cog):
 
     # continue command
 
-    @commands.command(aliases=["continue", "unpause"])
+    @commands.command(aliases=["continue", "unpause"], help="This command is used to resume the currently playing song", extras={"category":"Music"}, usage="resume", description="Resume the paused song")
     @commands.check(plugin_enabled)
     async def resume(self, ctx):
         if ctx.voice_client is None:
@@ -527,7 +527,7 @@ class Music(commands.Cog):
 
     # queue command
 
-    @commands.command(aliases=["q"])
+    @commands.command(aliases=["q"], help="This command is used to dispay all the songs in the queue", extras={"category":"Music"}, usage="queue", description="Show queue")
     @commands.check(plugin_enabled)
     async def queue(self, ctx):
         global all_queues_info
@@ -590,7 +590,7 @@ class Music(commands.Cog):
 
     # loop command
 
-    @commands.command()
+    @commands.command( help="This command is used to loop the queue/song", extras={"category":"Music"}, usage="loop", description="Loop queue/song")
     @commands.check(plugin_enabled)
     async def loop(self, ctx):
         global loops
@@ -620,7 +620,7 @@ class Music(commands.Cog):
     # Playlists
 
 
-    @commands.command(aliases=['cp'])
+    @commands.command(aliases=['cp'], help="This command is used to create playlists", extras={"category":"Music"}, usage="createplaylist [playlist name]", description="Create a playlist")
     @commands.check(plugin_enabled)
     async def createplaylist(self, ctx, pname: str = None):
         if pname == None:
@@ -640,7 +640,7 @@ class Music(commands.Cog):
             json.dump(data, f, indent=4)
         return await ctx.send(embed=discord.Embed(title=f"Playlist `{pname}` created!", description=f"To add to the playlist use {ctx.prefix}padd [playlistname] [song/songurl]"))
 
-    @commands.command()
+    @commands.command(help="This command is used to list all the songs in a playlist", extras={"category":"Music"}, usage="plist [playlist name]", description="Displays all the songs in a playlist")
     @commands.check(plugin_enabled)
     async def plist(self, ctx, pname: str):
         with open('./database/playlists.json') as f:
@@ -663,7 +663,7 @@ class Music(commands.Cog):
         else:
             await ctx.send(f"List is empty use {ctx.prefix}padd {pname} [songname/url]")
 
-    @commands.command()
+    @commands.command(help="Lets you add a song to a playlist", extras={"category":"Music"}, usage="padd [playlist name] [song/songurl]", description="Add song to a playlist")
     @commands.check(plugin_enabled)
     async def padd(self, ctx, pname: str, *,  song: str):
         with open('./database/playlists.json') as f:
@@ -681,7 +681,7 @@ class Music(commands.Cog):
         with open('./database/playlists.json', 'w') as f:
             json.dump(data, f, indent=4)
 
-    @commands.command()
+    @commands.command( help="This command is used to play the songs in a playlist. The command works by adding all the songs in the playlist to queue.\nplease dont kick the bot from the vc while the command is running", extras={"category":"Music"}, usage="playlist [playlist name]", description="Play a playlist")
     @commands.check(plugin_enabled)
     async def playlist(self, ctx, pname: str):
         with open('./database/playlists.json') as f:
@@ -705,7 +705,7 @@ class Music(commands.Cog):
         else:
             await ctx.send(f"List is empty use {ctx.prefix}add [song]")
 
-    @commands.command()
+    @commands.command(help="This command is used to play the songs in a playlist on shuffle. The command works by adding all the songs in the playlist to queue in a random order.\nplease dont kick the bot from the vc while the command is running", extras={"category":"Music"}, usage="shuffleplaylist [playlist name]", description="Shuffle a playlist")
     @commands.check(plugin_enabled)
     async def shuffleplaylist(self, ctx, pname: str):
         with open('./database/playlists.json') as f:
@@ -734,7 +734,7 @@ class Music(commands.Cog):
         else:
             await ctx.send(f"List is empty use {ctx.prefix}add [song]")
 
-    @commands.command()
+    @commands.command( help="This command is used to delete songs from a playlist ", extras={"category":"Music"}, usage="pdel [playlist name]", description="Delete song from a playlist")
     @commands.check(plugin_enabled)
     async def pdel(self, ctx, pname: str):
         with open('./database/playlists.json') as f:
@@ -777,7 +777,7 @@ class Music(commands.Cog):
 
     # Text to speech
 
-    @commands.command(aliases=['speak'])
+    @commands.command(aliases=['speak'], help="This command is used to play text in vc. You type text and the bot will text to speech the text in your vc", extras={"category":"Music"}, usage="tts [text]", description="Text to speech")
     @commands.check(plugin_enabled)
     async def tts(self, ctx, *, text):
         text = str(text)
@@ -832,7 +832,7 @@ class Music(commands.Cog):
                 else:
                     await voice.disconnect() #if not it disconnects
 
-    @commands.command()
+    @commands.command(help="This command is used to play an mp3 file ", extras={"category":"Music"}, usage="mp3 [attach mp3 file]", description="Play an mp3 file")
     @commands.check(plugin_enabled)
     async def mp3(self, ctx):
 
@@ -875,7 +875,7 @@ class Music(commands.Cog):
         await asyncio.sleep(wait+5)
         os.remove(filename)
     
-    @commands.command()
+    @commands.command(help="This command is used to make a small button dashboard for the music", extras={"category":"Music"}, usage="music", description="Small music button dashboard")
     @commands.check(plugin_enabled)
     async def music(self, ctx):
         em = discord.Embed(title="Music")

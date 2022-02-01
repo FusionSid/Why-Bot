@@ -81,6 +81,7 @@ class Leveling(commands.Cog):
             fill="#00fa81",
             radius=20,
         )
+        
         background.text((270, 120), user_data["name"], font=poppins, color="#00fa81")
         background.text(
             (870, 125),

@@ -345,7 +345,7 @@ class Utilities(commands.Cog):
                     cuse = i["command_count"]
         await ctx.send(embed=discord.Embed(title=f"You have used Why Bot {cuse} times"))
 
-    @commands.command(no_pm=True)
+    @commands.command(no_pm=True, help="This command is used to check whos playing a certain game/activity", extras={"category":"Utilities"}, usage="whosplaying [game/activity]", description="Check whosplaying activity")
     async def whosplaying(self, ctx, *, game):
         if len(game) <= 1:
             await ctx.send("```The game should be at least 2 characters long...```", delete_after=5.0)
@@ -383,7 +383,8 @@ class Utilities(commands.Cog):
                 description=msg, colour=discord.Colour(value=0x36393e))
             await ctx.send(embed=em)
 
-    @commands.command(no_pm=True)
+
+    @commands.command(no_pm=True, help="This command is used to show the most played games right now", extras={"category":"Utilities"}, usage="currentgames", description="Show current games being played")
     async def currentgames(self, ctx):
         """Shows the most played games right now"""
         guild = ctx.message.guild

@@ -118,6 +118,7 @@ class Events(commands.Cog):
                         minutes = minutes - (hours*60)
                         time = f"{hours}h {minutes}min {seconds}s"
                 return time
+                
             cd = round(error.retry_after)
             if cd == 0:
                 cd = 1

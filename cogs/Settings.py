@@ -99,7 +99,7 @@ class Settings(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(help="This command is used to show the settings for you discord server. You can use this command to quickly check all the current settings to know if you want to change it", extras={"category":"Settings"}, usage="settings", description="Shows the servers Why Bot settings")
     async def settings(self,ctx):
         plugins = await enabled_cogs(ctx)
 
@@ -123,7 +123,7 @@ class Settings(commands.Cog):
                 i.disabled = True
         return await message.edit(view=view)
     
-    @commands.group()
+    @commands.group(help="This command is used to enable/disable plugins for your server. You can stop certain categories from working on this server\nThe plugin name is case sensitive", extras={"category":"Settings"}, usage="plugins [enable/disable] [plugin name]", description="Enable/Disable Plugins for Why bot")
     async def plugins(self, ctx):
         if ctx.invoked_subcommand is None:
           em = discord.Embed(title="Plugins", description=f"Use `{ctx.prefix}plugins [enable/disable] [plugin name]`")
@@ -166,7 +166,7 @@ class Settings(commands.Cog):
         
         await ctx.send(f"{plugin} has been disabled")
 
-    @commands.command()
+    @commands.command(help="This command is used to set the welcome text for the servers Welcome plugin\nWhen the welcome message is sent the footer text will be set to the text you set", extras={"category":"Settings"}, usage="setwelcometext [text]", description="Sets the welcome text for the server")
     @commands.has_permissions(administrator=True)
     async def setwelcometext(self, ctx, *, text):
         if len(text) > 55:
@@ -181,7 +181,7 @@ class Settings(commands.Cog):
         await ctx.send(f"{text}\nHas been set as the welcome text")
 
 
-    @commands.command()
+    @commands.command(help="This command is used to set the prefix for the server. Default prefix is ?", extras={"category":"Settings"}, usage="setprefix [prefix]", description="Sets the server prefix")
     @commands.has_permissions(administrator=True)
     async def setprefix(self, ctx, pref: str):
         with open(f'./database/db.json') as f:
@@ -193,7 +193,7 @@ class Settings(commands.Cog):
             json.dump(data, f)
         await ctx.send(embed=discord.Embed(title=f"Prefix has been set to `{pref}`"))
 
-    @commands.command()
+    @commands.command(help="This command turns on autocalc for the server.\nAuto calc basicaly autocalculates any thing you type. For example in chat you type\n1 + 1\nin chat, The bot will reply 2", extras={"category":"Settings"}, usage="autocalc [True/false]", description="Toggles autocalc for this server")
     @commands.has_permissions(administrator=True)
     async def autocalc(self, ctx, ena):
         with open(f'./database/db.json') as f:

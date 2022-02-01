@@ -115,7 +115,8 @@ class Fusion(commands.Cog):
                 c +=1
                 break
               except Exception as e:
-                await ctx.send(embed=discord.Embed(title=f"Failed to send to {i.name}", description=e))
+                await ctx.send(embed=discord.Embed(title=f"Failed to send to {i.name}\n{guild.name} ({guild.id})", description=e))
+                c -= 1
         await ctx.send(f"Message sent to {c}/{len(self.client.guilds)} servers")
 
     @commands.command()
@@ -185,6 +186,12 @@ class Fusion(commands.Cog):
         except Exception as e:
             print(e)
         
+    @commands.command()
+    async def lol(self,ctx):
+        for i in self.client.commands:
+            if i.usage is None:
+                print(i.name)
+
 
 def setup(client):
     client.add_cog(Fusion(client))

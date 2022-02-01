@@ -11,6 +11,7 @@ import os
 from utils import is_it_me
 
 cogs = []
+
 for i in os.listdir("cogs/"):
     if i == "__pycache__":
         pass
