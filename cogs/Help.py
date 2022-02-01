@@ -173,6 +173,7 @@ class Help(commands.Cog):
                 em.add_field(name="Usage: ", value=f"`{ctx.prefix}{cmd.usage}`", inline=False)
                 em.add_field(name="Description:", value=f"""```{cmd.help}```""", inline=False)
                 return await ctx.send(embed=em)
+        await ctx.send(embed=discord.Embed(title="Command/Category Not Found"))
 
 def setup(client):
     client.add_cog(Help(client))
