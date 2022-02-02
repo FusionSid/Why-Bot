@@ -69,7 +69,7 @@ class Fusion(commands.Cog):
         if ctx.invoked_subcommand is not None:
             return
         else:
-            return await ctx.send(embed=discord.Embed(f"Git Commands", description="git pull\ngit status"))
+            return await ctx.send(embed=discord.Embed(title=f"Git Commands", description="git pull\ngit status"))
 
     @git.command()
     @commands.check(is_it_me)
