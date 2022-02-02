@@ -16,7 +16,7 @@ for i in os.listdir("cogs/"):
     if i == "__pycache__":
         pass
     else:
-        print(i[:-3])
+        cogs.append(i[:-3])
 
 
 async def get_roast():

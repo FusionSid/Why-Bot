@@ -65,8 +65,8 @@ class Fusion(commands.Cog):
     @commands.command()
     @commands.check(is_it_me)
     async def pull(self, ctx):
-        os.system("git pull")
-        await ctx.send("Pulled from github :)")
+        res = os.system("git pull")
+        await ctx.send(f"Pulled from github :)\n{res}")
     
     @commands.command()
     @commands.check(is_it_me)
@@ -185,12 +185,7 @@ class Fusion(commands.Cog):
 
         except Exception as e:
             print(e)
-        
-    @commands.command()
-    async def lol(self,ctx):
-        for i in self.client.commands:
-            if i.usage is None:
-                print(i.name)
+
 
 
 def setup(client):
