@@ -174,3 +174,21 @@ THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
 POSSIBLE FATAL ERROR:
 Event loop stopped before Future completed.
 THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+02/02/2022 13:31:49 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.w' raised an error: AttributeError: module 'discord' has no attribute 'View'
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+02/02/2022 13:31:56 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.w' raised an error: AttributeError: module 'discord' has no attribute 'View'
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+02/02/2022 13:32:18 | 
+###################
+POSSIBLE FATAL ERROR:
+Extension 'cogs.w' raised an error: AttributeError: module 'discord' has no attribute 'view'
+THIS MEANS THE BOT HAS NOT STARTED CORRECTLY!
+02/02/2022 13:32:51 | ERROR: Command raised an exception: JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+02/02/2022 13:37:54 | ERROR: Command raised an exception: ExtensionFailed: Extension 'cogs.w' raised an error: SyntaxError: 'await' outside async function (w.py, line 24)
+02/02/2022 13:39:16 | ERROR: Command raised an exception: ExtensionFailed: Extension 'cogs.w' raised an error: NameError: name 'toggle_label' is not defined
