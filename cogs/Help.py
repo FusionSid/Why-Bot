@@ -169,9 +169,9 @@ class Help(commands.Cog):
             if cmd.name.lower() == cat.lower():
                 em = discord.Embed(title="Why Help", description=f"`{ctx.prefix}help [command]` for more info on command")
                 em.add_field(name=f"Name", value=f"`{cmd.name}`", inline=False)
-                if cmd.aliases is not None:
+                try:
                     em.add_field(name="Aliases:", value=', '.join(cmd.aliases), inline=False)
-                else:
+                except:
                     em.add_field(name="Aliases:", value='None', inline=False)
                 em.add_field(name="Usage: ", value=f"`{ctx.prefix}{cmd.usage}`", inline=False)
                 em.add_field(name="Description:", value=f"""```{cmd.help}```""", inline=False)
