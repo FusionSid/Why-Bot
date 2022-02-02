@@ -182,8 +182,7 @@ class Fusion(commands.Cog):
 
         try:
             for cogs in startup_extensions:
-                self.client.load_extension(cogs)
-                print(f"Loaded {cogs}")
+                self.client.reload_extension(cogs)
 
             await ctx.send("All Reloaded")
 
