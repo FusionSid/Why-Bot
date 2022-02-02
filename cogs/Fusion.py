@@ -66,7 +66,11 @@ class Fusion(commands.Cog):
     @commands.check(is_it_me)
     async def pull(self, ctx):
         res = os.system("git pull")
-        await ctx.send(f"Pulled from github :)\n{res}")
+        if int(res) == 0:
+            res = "Pulled successfully from github :)\nRemember to reload cogs"
+        else:
+            res = "Pull from github failed.\nSSH in to see the error"
+        await ctx.send(res)
     
     @commands.command()
     @commands.check(is_it_me)
