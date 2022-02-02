@@ -202,10 +202,10 @@ def check_new_songs(guild_id, vc):
 # this function extracts all info from video url
 def extract_info(url):
     try:
-        return youtube_dl.YoutubeDL({"format": "bestaudio", "cookiefile": cookies}).extract_info(url, download=False)
+        return youtube_dl.YoutubeDL({"format": "bestaudio" }).extract_info(url, download=False)
     # if there is an error, changing format
     except youtube_dl.utils.ExtractorError and youtube_dl.utils.DownloadError:
-        return youtube_dl.YoutubeDL({"format": "95", "cookiefile": cookies}).extract_info(url, download=False)
+        return youtube_dl.YoutubeDL({"format": "95"}).extract_info(url, download=False)
 
 
 async def playy(ctx, video=None):
