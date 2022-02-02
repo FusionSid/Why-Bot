@@ -20,6 +20,8 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
+        if after.author.id == self.client.user.id:
+            return
         try:
             em = discord.Embed(
                 title="Message Edit", description=f"{before.author} edited their message")
@@ -36,6 +38,8 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_delete(self, message):
+        if message.author.id == self.client.user.id:
+            return
         try:
             em = discord.Embed(
                 title="Message Delete", description=f"{message.author} has deleted the message")

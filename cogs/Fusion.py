@@ -185,12 +185,7 @@ class Fusion(commands.Cog):
 
         except Exception as e:
             print(e)
-        
-    @commands.command()
-    async def lol(self,ctx):
-        for i in self.client.commands:
-            if i.usage is None:
-                print(i.name)
+
 
 
 def setup(client):
