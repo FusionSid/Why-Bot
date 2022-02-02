@@ -127,6 +127,10 @@ class Fusion(commands.Cog):
     async def message_servers(self, ctx, *, message):
         c = 0
         for guild in self.client.guilds:
+            try:
+                await guild.system_channel.send(message)
+            except:
+                pass
             for i in guild.text_channels:
               try:
                 await i.send(message)
