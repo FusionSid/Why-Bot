@@ -113,6 +113,16 @@ class Fusion(commands.Cog):
 
     @commands.command()
     @commands.check(is_it_me)
+    async def terminal(self, ctx, *, cmd):
+        if (1 + 1) == 2:
+            return 
+        cmd = cmd.split(" ")
+        output = run(cmd, capture_output=True).stdout
+
+        await ctx.send(output.decode())
+
+    @commands.command()
+    @commands.check(is_it_me)
     async def load(self, ctx, extension):
         self.client.load_extension(f"cogs.{extension}")
         embed = discord.Embed(

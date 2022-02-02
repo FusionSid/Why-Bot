@@ -53,6 +53,13 @@ async def get_url(client: praw.Reddit, sub_name: str, limit: int):
 class Search(commands.Cog):
     def __init__(self, client):
         self.client = client
+        self.animal_urls = {
+            "dog" : "https://some-random-api.ml/animal/dog",
+            "cat" : "https://some-random-api.ml/animal/cat",
+            "fox" : "https://some-random-api.ml/animal/fox",
+            "panda" : "https://some-random-api.ml/animal/panda",
+            "bird" : "https://some-random-api.ml/animal/bird",
+        }
 
     @commands.command(aliases=['is'], help="This command is used to search for images on google.", extras={"category":"Search"}, usage="imagesearch [search query]", description="Find an image from google")
     @commands.check(plugin_enabled)
@@ -137,7 +144,108 @@ class Search(commands.Cog):
         em.set_image(url=response["image"])
         await ctx.send(embed=em)
 
-    # Some random API:
+    # Animals:
+    @commands.command()
+    @commands.check(plugin_enabled)
+    async def dog(self, ctx):
+        url = self.animal_urls["dog"]
+        r = requests.get(url).json()
+        em = discord.Embed(title="Dog!", description=r['fact'])
+        em.set_image(url=r['image'])
+
+        await ctx.send(embed=em)
+    
+    @commands.command()
+    @commands.check(plugin_enabled)
+    async def cat(self, ctx):
+        url = self.animal_urls["cat"]
+        r = requests.get(url).json()
+        em = discord.Embed(title="Cat!", description=r['fact'])
+        em.set_image(url=r['image'])
+
+        await ctx.send(embed=em)
+
+    @commands.command()
+    @commands.check(plugin_enabled)
+    async def panda(self, ctx):
+        url = self.animal_urls["panda"]
+        r = requests.get(url).json()
+        em = discord.Embed(title="Panda!", description=r['fact'])
+        em.set_image(url=r['image'])
+
+        await ctx.send(embed=em)
+
+    @commands.command()
+    @commands.check(plugin_enabled)
+    async def fox(self, ctx):
+        url = self.animal_urls["fox"]
+        r = requests.get(url).json()
+        em = discord.Embed(title="Fox!", description=r['fact'])
+        em.set_image(url=r['image'])
+
+        await ctx.send(embed=em)
+
+    @commands.command()
+    @commands.check(plugin_enabled)
+    async def bird(self, ctx):
+        url = self.animal_urls["bird"]
+        r = requests.get(url).json()
+        em = discord.Embed(title="Bird!", description=r['fact'])
+        em.set_image(url=r['image'])
+
+        await ctx.send(embed=em)
+
+    
+    @commands.command()
+    @commands.check(plugin_enabled)
+    async def tweet(self, ctx, member: discord.Member, *, message):
+        data = {
+            "username" : member.name,
+            "displayname" : member.display_name,
+            "avatar" : member.avatar.url,
+            "comment" : message
+        }
+
+        url = "https://some-random-api.ml/canvas/tweet/"
+        r = requests.get(url=url, data=data)
+        with open(f"./tempstorage/tweet{ctx.author.id}.png", 'wb') as f:
+            f.write(r.content)
+        file = discord.File(f"./tempstorage/tweet{ctx.author.id}.png")
+        await ctx.send(file=file)
+        os.remove(f"./tempstorage/tweet{ctx.author.id}.png")
+
+    @commands.command(aliases=['ytc'])
+    @commands.check(plugin_enabled)
+    async def ytcomment(self, ctx, member: discord.Member, *, message):
+        data = {
+            "username" : member.name,
+            "avatar" : member.avatar.url,
+            "comment" : message
+        }
+
+        url = "https://some-random-api.ml/canvas/youtube-comment/"
+        r = requests.get(url=url, data=data)
+        with open(f"./tempstorage/yt{ctx.author.id}.png", 'wb') as f:
+            f.write(r.content)
+        file = discord.File(f"./tempstorage/yt{ctx.author.id}.png")
+        await ctx.send(file=file)
+        os.remove(f"./tempstorage/yt{ctx.author.id}.png")
+
+    @commands.command()
+    @commands.check(plugin_enabled)
+    async def simp(self, ctx, member: discord.Member):
+        data = {
+            "avatar" : member.avatar.url,
+        }
+
+        url = "https://some-random-api.ml/canvas/simpcard/"
+        r = requests.get(url=url, data=data)
+        with open(f"./tempstorage/simp{ctx.author.id}.png", 'wb') as f:
+            f.write(r.content)
+        file = discord.File(f"./tempstorage/simp{ctx.author.id}.png")
+        await ctx.send(file=file)
+        os.remove(f"./tempstorage/simp{ctx.author.id}.png")
+
 
 def setup(client):
     client.add_cog(Search(client))
