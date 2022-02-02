@@ -179,7 +179,7 @@ class Fusion(commands.Cog):
         lst = [f for f in listdir("cogs/") if isfile(join("cogs/", f))]
         no_py = [s.replace('.py', '') for s in lst]
         startup_extensions = ["cogs." + no_py for no_py in no_py]
-        startup_extensions.remove("Leveling")
+        startup_extensions.remove("cogs.Leveling")
 
         try:
             for cogs in startup_extensions:
