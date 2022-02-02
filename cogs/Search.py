@@ -233,7 +233,9 @@ class Search(commands.Cog):
 
     @commands.command()
     @commands.check(plugin_enabled)
-    async def simp(self, ctx, member: discord.Member):
+    async def simp(self, ctx, member: discord.Member=None):
+        if member is None:
+            member = ctx.author
         data = {
             "avatar" : member.avatar.url,
         }
@@ -246,6 +248,78 @@ class Search(commands.Cog):
         await ctx.send(file=file)
         os.remove(f"./tempstorage/simp{ctx.author.id}.png")
 
+    @commands.command()
+    @commands.check(plugin_enabled)
+    async def horny(self, ctx, member: discord.Member=None):
+        if member is None:
+            member = ctx.author
+        data = {
+            "avatar" : member.avatar.url,
+        }
 
+        url = "https://some-random-api.ml/canvas/horny/"
+        r = requests.get(url=url, data=data)
+        with open(f"./tempstorage/horny{ctx.author.id}.png", 'wb') as f:
+            f.write(r.content)
+        file = discord.File(f"./tempstorage/horny{ctx.author.id}.png")
+        await ctx.send(file=file)
+        os.remove(f"./tempstorage/horny{ctx.author.id}.png")
+
+    @commands.command()
+    @commands.check(plugin_enabled)
+    async def overlay(self, ctx, type:str=None, member: discord.Member=None):
+        overlays = ["gay","glass","wasted","passed","jail","comrade","triggered"]
+        if type is None or type.lower() not in overlays:
+            return await ctx.send(embed=discord.Embed(title="Overlays:", description="\n".join(overlays)))
+
+        if member is None:
+            member = ctx.author
+            
+        data = {
+            "avatar" : member.avatar.url,
+        }
+
+        url = f"https://some-random-api.ml/canvas/{type}/"
+
+        r = requests.get(url=url, data=data)
+        with open(f"./tempstorage/overlay{ctx.author.id}.png", 'wb') as f:
+            f.write(r.content)
+        file = discord.File(f"./tempstorage/overlay{ctx.author.id}.png")
+        await ctx.send(file=file)
+        os.remove(f"./tempstorage/overlay{ctx.author.id}.png")
+    
+    @commands.command()
+    @commands.check(plugin_enabled)
+    async def joke(self, ctx):
+        url = "https://some-random-api.ml/joke"
+        r = requests.get(url).json()
+        em=discord.Embed(title=r['joke'])
+
+        await ctx.send(embed=em)
+
+    @commands.command()
+    @commands.check(plugin_enabled)
+    async def lyrics(self, ctx, *, song):
+        url = "https://some-random-api.ml/lyrics"
+        song = song.replace(" ", "+")
+        data = {
+            "title" : song
+        }
+
+        r = requests.get(url=url, data=data).json()
+        if 'error' in r:
+            return await ctx.send(r['error'])
+        
+        em = discord.Embed(
+            title=r['title'],
+            description=f"{r['lyrics']}\n\n[Link on genius]({r['links']['genius']})"
+        )
+        em.set_author(name=r['author'])
+        em.set_thumbnail(url=r['thumbnail']['genius'])
+        em.color = ctx.author.color
+
+        await ctx.send(embed=em)
+    
+        
 def setup(client):
     client.add_cog(Search(client))
