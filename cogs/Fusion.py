@@ -86,6 +86,31 @@ class Fusion(commands.Cog):
 
         await ctx.send(output.decode())
 
+
+    @git.command()
+    @commands.check(is_it_me)
+    async def status(self, ctx):
+        output = run(["git", "add", "."], capture_output=True).stdout
+
+        await ctx.send(output.decode())
+
+
+    @git.command()
+    @commands.check(is_it_me)
+    async def status(self, ctx):
+        output = run(["git", "commit", "-m", "'Updated File'"], capture_output=True).stdout
+
+        await ctx.send(output.decode())
+
+
+    @git.command()
+    @commands.check(is_it_me)
+    async def status(self, ctx):
+        output = run(["git", "push"], capture_output=True).stdout
+
+        await ctx.send(output.decode())
+
+
     @commands.command()
     @commands.check(is_it_me)
     async def load(self, ctx, extension):
