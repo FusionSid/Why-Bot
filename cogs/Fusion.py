@@ -69,7 +69,7 @@ class Fusion(commands.Cog):
         if ctx.invoked_subcommand is not None:
             return
         else:
-            return await ctx.send(embed=discord.Embed(title=f"Git Commands", description="git pull\ngit status"))
+            return await ctx.send(embed=discord.Embed(title=f"Git Commands", description="?git pull\n?git status\n?git add\n?git commit\n?git push"))
 
     @git.command()
     @commands.check(is_it_me)
@@ -89,7 +89,7 @@ class Fusion(commands.Cog):
 
     @git.command()
     @commands.check(is_it_me)
-    async def status(self, ctx):
+    async def add(self, ctx):
         output = run(["git", "add", "."], capture_output=True).stdout
 
         await ctx.send(output.decode())
@@ -97,7 +97,7 @@ class Fusion(commands.Cog):
 
     @git.command()
     @commands.check(is_it_me)
-    async def status(self, ctx):
+    async def commit(self, ctx):
         output = run(["git", "commit", "-m", "'Updated File'"], capture_output=True).stdout
 
         await ctx.send(output.decode())
@@ -105,7 +105,7 @@ class Fusion(commands.Cog):
 
     @git.command()
     @commands.check(is_it_me)
-    async def status(self, ctx):
+    async def push(self, ctx):
         output = run(["git", "push"], capture_output=True).stdout
 
         await ctx.send(output.decode())
