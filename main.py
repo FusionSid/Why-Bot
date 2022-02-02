@@ -82,21 +82,6 @@ async def on_message(message):
     if message.author == client.user:
         return  # if bot - no
 
-    if isinstance(message.channel, discord.DMChannel):
-        
-        cha = await client.fetch_channel(926232260166975508)
-        em = discord.Embed(title="New DM", description=f"From {message.author.name}")
-        print(message.content)
-        if message.content != "":
-            em.add_field(name="Content", value=f"{message.content}")
-        await cha.send(content=f"{message.author.id}", embed=em)
-
-        if message.attachments is not None:
-            for attachment in message.attachments:
-                em = discord.Embed(title="** **")
-                em.set_image(url=attachment.url)
-                await cha.send(embed=em)
-
     # if blacklisted dont let them use bot
     try:
         notbl = await notblacklisted(message)

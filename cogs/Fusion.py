@@ -63,13 +63,29 @@ class Fusion(commands.Cog):
             title='Reload', description=f'{extension} successfully reloaded', color=0xff00c8)
         await ctx.send(embed=embed)
   
-    @commands.command()
+    @commands.group()
+    @commands.check(is_it_me)
+    async def git(self, ctx):
+        if ctx.invoked_subcommand is not None:
+            return
+        else:
+            return await ctx.send(embed=discord.Embed(f"Git Commands", description="git pull\ngit status"))
+
+    @git.command()
     @commands.check(is_it_me)
     async def pull(self, ctx):
+        output = run(["git", "pull"], capture_output=True).stdout
+
+        await ctx.send(output.decode())
+
+
+    @git.command()
+    @commands.check(is_it_me)
+    async def status(self, ctx):
         output = run(["git", "status"], capture_output=True).stdout
 
         await ctx.send(output.decode())
-    
+
     @commands.command()
     @commands.check(is_it_me)
     async def load(self, ctx, extension):
@@ -129,30 +145,26 @@ class Fusion(commands.Cog):
                 return await guild.text_channels[0].send(message)
         await ctx.send("guild not found")
 
-    @commands.command()
+    @commands.command(aliases=['dmr'])
     @commands.check(is_it_me)
     async def dmreply(self, ctx, *, msg):
         if ctx.message.reference is None:
           return
         else:
-          id = ctx.message.reference.message_id
-          id = await ctx.channel.fetch_message(id)
-          id = int(id.content)
+            await ctx.message.delete()
+            id = ctx.message.reference.message_id
+            id = await ctx.channel.fetch_message(id)
+            await id.reply(msg)
+            id = int(id.content)
         person = await self.client.fetch_user(id)
         await person.send(msg)
+        
 
     @commands.command()
     @commands.check(is_it_me)
     async def logs(self, ctx):
       file = discord.File("./other/log.txt")
       await ctx.author.send(file=file)
-
-    @commands.command()
-    @commands.check(is_it_me)
-    async def backup(self, ctx):
-      os.system("git add .")
-      os.system("git commit -m 'backup' ")
-      os.system("git push")
       
     @commands.command()
     async def embedcreatorpy(self,ctx):
@@ -188,6 +200,25 @@ class Fusion(commands.Cog):
         except Exception as e:
             print(e)
 
+
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        if message.author.bot:
+            return
+        if isinstance(message.channel, discord.DMChannel):
+        
+            cha = await self.client.fetch_channel(926232260166975508)
+            em = discord.Embed(title="New DM", description=f"From {message.author.name}")
+
+            if message.content != "":
+                em.add_field(name="Content", value=f"{message.content}")
+            await cha.send(content=f"{message.author.id}", embed=em)
+
+            if message.attachments is not None:
+                for attachment in message.attachments:
+                    em = discord.Embed(title="** **")
+                    em.set_image(url=attachment.url)
+                    await cha.send(embed=em)
 
 
 def setup(client):
