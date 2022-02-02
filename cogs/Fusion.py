@@ -5,6 +5,7 @@ from discord.ext import commands
 import dotenv
 from utils import is_it_me
 from utils.other import log
+from subprocess import run
 import time
 from os import listdir
 from os.path import isfile, join
@@ -65,12 +66,9 @@ class Fusion(commands.Cog):
     @commands.command()
     @commands.check(is_it_me)
     async def pull(self, ctx):
-        res = os.system("git pull")
-        if int(res) == 0:
-            res = "Pulled successfully from github :)\nRemember to reload cogs"
-        else:
-            res = "Pull from github failed.\nSSH in to see the error"
-        await ctx.send(res)
+        output = run(["git", "status"], capture_output=True).stdout
+
+        await ctx.send(output.decode())
     
     @commands.command()
     @commands.check(is_it_me)
