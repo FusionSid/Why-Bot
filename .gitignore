@@ -1,10 +1,7 @@
 .env
 .DS_Store
 .breakpoints
-__pycache__
-.replit
-.poetry
-.toml
+*__pycache__
 *.db
 *.json
-other/log.txt
+*.txt
