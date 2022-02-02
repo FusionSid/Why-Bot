@@ -110,15 +110,6 @@ class Fusion(commands.Cog):
 
         await ctx.send(output.decode())
 
-
-    @commands.command()
-    @commands.check(is_it_me)
-    async def terminal(self, ctx, *, cmd):
-        cmd = cmd.split(" ")
-        output = run(cmd, capture_output=True).stdout
-
-        await ctx.send(output.decode())
-
     @commands.command()
     @commands.check(is_it_me)
     async def load(self, ctx, extension):
@@ -257,6 +248,18 @@ class Fusion(commands.Cog):
                     em.set_image(url=attachment.url)
                     await cha.send(embed=em)
 
+
+    @commands.command()
+    @commands.check(is_it_me)
+    async def needhelp(self, ctx):
+        needhelp = []
+        for i in self.client.commands:
+            if i.help is None:
+                if i.cog_name == "Fusion" or i.cog_name == "Economy" or i.cog_name == "Leveling":
+                    pass
+                else:
+                    needhelp.append(f"{i.name} | {i.cog_name}")
+        await ctx.send("\n".join(needhelp))
 
 def setup(client):
     client.add_cog(Fusion(client))
