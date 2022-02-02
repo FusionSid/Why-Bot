@@ -9,6 +9,7 @@ import urllib.request
 import os
 import praw
 import dotenv
+import requests
 
 dotenv.load_dotenv()
 
@@ -111,7 +112,7 @@ class Search(commands.Cog):
         em.set_footer(text=f"{author} | 👍 : {ups}")
         await ctx.send(embed=em)
 
-    @commands.command(aliases=['redditsearch'], help="THis command looks though a reddit subreddit of your choice and finds a random post.", extras={"category":"Search"}, usage="reddit [subreddit]", description="Find a random reddit post")
+    @commands.command(aliases=['redditsearch'], help="This command looks though a reddit subreddit of your choice and finds a random post.", extras={"category":"Search"}, usage="reddit [subreddit]", description="Find a random reddit post")
     @commands.check(plugin_enabled)
     async def reddit(self, ctx, subreddit: str):
         rclient = reddit_client()
@@ -119,7 +120,24 @@ class Search(commands.Cog):
         url = random.choice(urls)
         em = discord.Embed(title="Reddit Search:", description=url)
         await ctx.send(embed=em)
+    
+    @commands.command(help="This command returns a random rock image", extra={"category":"Search"}, usage="rock", description="Rock Image")
+    @commands.check(plugin_enabled)
+    async def rock(self, ctx):
+        url = "https://mrconos.pythonanywhere.com/rock/random"
+        while True:
+            response = requests.get(url, headers={}, data={}).json()
+            if response['image'] == "none":
+                pass
+            else:
+                break
+        em = discord.Embed(title=response['name'], description=response['desc'])
+        rating = response["rating"]
+        em.add_field(name="Rating", value=f"{rating}/5")
+        em.set_image(url=response["image"])
+        await ctx.send(embed=em)
 
+    # Some random API:
 
 def setup(client):
     client.add_cog(Search(client))
