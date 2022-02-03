@@ -128,7 +128,7 @@ class Search(commands.Cog):
         em = discord.Embed(title="Reddit Search:", description=url)
         await ctx.send(embed=em)
     
-    @commands.command(help="This command returns a random rock image", extra={"category":"Search"}, usage="rock", description="Rock Image")
+    @commands.command(help="This command returns a random rock image", extras={"category":"Search"}, usage="rock", description="Rock Image")
     @commands.check(plugin_enabled)
     async def rock(self, ctx):
         url = "https://mrconos.pythonanywhere.com/rock/random"
@@ -146,7 +146,7 @@ class Search(commands.Cog):
 
 
     # Animals:
-    @commands.command(help="This command show a picture of a dog", extra={"category":"Search"}, usage="dog", description="Dog Image")
+    @commands.command(help="This command show a picture of a dog", extras={"category":"Search"}, usage="dog", description="Dog Image")
     @commands.check(plugin_enabled)
     async def dog(self, ctx):
         url = self.animal_urls["dog"]
@@ -156,7 +156,7 @@ class Search(commands.Cog):
 
         await ctx.send(embed=em)
     
-    @commands.command(help="This command show a picture of a cat", extra={"category":"Search"}, usage="cat", description="Cat Image")
+    @commands.command(help="This command show a picture of a cat", extras={"category":"Search"}, usage="cat", description="Cat Image")
     @commands.check(plugin_enabled)
     async def cat(self, ctx):
         url = self.animal_urls["cat"]
@@ -166,7 +166,7 @@ class Search(commands.Cog):
 
         await ctx.send(embed=em)
 
-    @commands.command(help="This command show a picture of a panda", extra={"category":"Search"}, usage="panda", description="Panda Image")
+    @commands.command(help="This command show a picture of a panda", extras={"category":"Search"}, usage="panda", description="Panda Image")
     @commands.check(plugin_enabled)
     async def panda(self, ctx):
         url = self.animal_urls["panda"]
@@ -176,7 +176,7 @@ class Search(commands.Cog):
 
         await ctx.send(embed=em)
 
-    @commands.command(help="This command show a picture of a fox", extra={"category":"Search"}, usage="fox", description="Fox Image")
+    @commands.command(help="This command show a picture of a fox", extras={"category":"Search"}, usage="fox", description="Fox Image")
     @commands.check(plugin_enabled)
     async def fox(self, ctx):
         url = self.animal_urls["fox"]
@@ -186,7 +186,7 @@ class Search(commands.Cog):
 
         await ctx.send(embed=em)
 
-    @commands.command(help="This command show a picture of a bird", extra={"category":"Search"}, usage="bird", description="Bird Image")
+    @commands.command(help="This command show a picture of a bird", extras={"category":"Search"}, usage="bird", description="Bird Image")
     @commands.check(plugin_enabled)
     async def bird(self, ctx):
         url = self.animal_urls["bird"]
@@ -197,7 +197,7 @@ class Search(commands.Cog):
         await ctx.send(embed=em)
 
     
-    @commands.command(help="This command shows a fake tweet image with the user you wants name on it and the message you want", extra={"category":"Search"}, usage="tweet [@person] [message]", description="Fake tweet image")
+    @commands.command(help="This command shows a fake tweet image with the user you wants name on it and the message you want", extras={"category":"Search"}, usage="tweet [@person] [message]", description="Fake tweet image")
     @commands.check(plugin_enabled)
     async def tweet(self, ctx, member: discord.Member, *, message):
         data = {
@@ -215,7 +215,7 @@ class Search(commands.Cog):
         await ctx.send(file=file)
         os.remove(f"./tempstorage/tweet{ctx.author.id}.png")
 
-    @commands.command(aliases=['ytc'], help="This command shows a fake youtube comment image with the user you wants name on it and the message you want", extra={"category":"Search"}, usage="ytcomment [@person] [message]", description="Fake youtube comment image")
+    @commands.command(aliases=['ytc'], help="This command shows a fake youtube comment image with the user you wants name on it and the message you want", extras={"category":"Search"}, usage="ytcomment [@person] [message]", description="Fake youtube comment image")
     @commands.check(plugin_enabled)
     async def ytcomment(self, ctx, member: discord.Member, *, message):
         data = {
@@ -232,7 +232,7 @@ class Search(commands.Cog):
         await ctx.send(file=file)
         os.remove(f"./tempstorage/yt{ctx.author.id}.png")
 
-    @commands.command(help="This command shows a memeber profile pic on a simp card", extra={"category":"Search"}, usage="simp [@member]", description="Simp card")
+    @commands.command(help="This command shows a memeber profile pic on a simp card", extras={"category":"Search"}, usage="simp [@member]", description="Simp card")
     @commands.check(plugin_enabled)
     async def simp(self, ctx, member: discord.Member=None):
         if member is None:
@@ -249,7 +249,7 @@ class Search(commands.Cog):
         await ctx.send(file=file)
         os.remove(f"./tempstorage/simp{ctx.author.id}.png")
 
-    @commands.command(help="This command shows your licence to be horny card", extra={"category":"Search"}, usage="horny [@member]", description="Horny licence")
+    @commands.command(help="This command shows your licence to be horny card", extras={"category":"Search"}, usage="horny [@member]", description="Horny licence")
     @commands.check(plugin_enabled)
     async def horny(self, ctx, member: discord.Member=None):
         if member is None:
@@ -266,7 +266,7 @@ class Search(commands.Cog):
         await ctx.send(file=file)
         os.remove(f"./tempstorage/horny{ctx.author.id}.png")
 
-    @commands.command(help="This command is actually a bunch of commands. You type the command and then specify an overlay type, these are the options:\ngay, glass, wasted, passed, jail, comrade, triggered\nAfter you pick one the bot will put that as an overlay on top of the member you picked profile pictire", extra={"category":"Search"}, usage="overlay [type] [@member]", description="Image overlays for you discord profile pic")
+    @commands.command(help="This command is actually a bunch of commands. You type the command and then specify an overlay type, these are the options:\ngay, glass, wasted, passed, jail, comrade, triggered\nAfter you pick one the bot will put that as an overlay on top of the member you picked profile pictire", extras={"category":"Search"}, usage="overlay [type] [@member]", description="Image overlays for you discord profile pic")
     @commands.check(plugin_enabled)
     async def overlay(self, ctx, type:str=None, member: discord.Member=None):
         overlays = ["gay","glass","wasted","passed","jail","comrade","triggered"]
@@ -289,7 +289,7 @@ class Search(commands.Cog):
         await ctx.send(file=file)
         os.remove(f"./tempstorage/overlay{ctx.author.id}.png")
     
-    @commands.command(help="This command tells a (not funny) joke", extra={"category":"Search"}, usage="joke", description="Joke")
+    @commands.command(help="This command tells a (not funny) joke", extras={"category":"Search"}, usage="joke", description="Joke")
     @commands.check(plugin_enabled)
     async def joke(self, ctx):
         url = "https://some-random-api.ml/joke"
@@ -298,7 +298,7 @@ class Search(commands.Cog):
 
         await ctx.send(embed=em)
 
-    @commands.command(help="This command shows lyrics for a song. You input the title and the bot tries to find the lyrics for that song", extra={"category":"Search"}, usage="lyrics [song name]", description="Song lyrics command")
+    @commands.command(help="This command shows lyrics for a song. You input the title and the bot tries to find the lyrics for that song", extras={"category":"Search"}, usage="lyrics [song name]", description="Song lyrics command")
     @commands.check(plugin_enabled)
     async def lyrics(self, ctx, *, song):
         url = "https://some-random-api.ml/lyrics"
