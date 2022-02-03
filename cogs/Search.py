@@ -10,6 +10,7 @@ import re
 import urllib.request
 import os
 import praw
+import wikipedia
 import dotenv
 
 dotenv.load_dotenv()
@@ -49,6 +50,18 @@ async def get_url(client: praw.Reddit, sub_name: str, limit: int):
     for post in hot_memes:
         urls.append(post.url)
     return urls
+
+
+async def get_wiki(query):
+    page = wikipedia.page(query, auto_suggest=True, preload=True)
+    summary = page.summary
+
+    embed = discord.Embed(title="Wikipedia:", description=summary, color=0x00ff00)
+    embed.set_author(name=f"Searching for {query}")
+    embed.set_thumbnail(url=random.choice(page.images))
+    embed.add_field(name="Link", value=f"[Wikipedia Link]({page.url})")
+
+    return embed
 
 
 class Search(commands.Cog):
@@ -348,6 +361,10 @@ class Search(commands.Cog):
 
         await ctx.send(embed=em)
     
-        
+    @commands.command(aliases=['wkp', 'wikipedia'], help="This command looks through wikipedia and finds you a page based on your search query", usage='wiki [search]', description="Wikipedia Search", extras={"category":"Search"})
+    async def wiki(self, ctx, *, query):
+        embed = await get_wiki(query)
+        await ctx.send(embed=embed)
+
 def setup(client):
     client.add_cog(Search(client))
