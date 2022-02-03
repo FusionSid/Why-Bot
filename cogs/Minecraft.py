@@ -2,11 +2,12 @@ import discord
 import random
 import os
 import json
-import requests
 from discord.ext import commands
 import dotenv
 from utils.checks import plugin_enabled
 from utils.other import log
+import aiohttp
+import aiofiles
 
 dotenv.load_dotenv()
 
@@ -15,8 +16,9 @@ api_key = os.environ['HYPIXEL']
 
 async def get_uuid(user):
     url = f'https://api.mojang.com/users/profiles/minecraft/{user}?'
-    response = requests.get(url)
-    uuid = response.json()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            uuid =  await response.json()
     uuid = uuid['id']
     return uuid
 
@@ -34,8 +36,9 @@ async def get_user_uuid(ctx):
 
 async def get_hydata(uuid):
     url = f"https://api.hypixel.net/player?key={api_key}&uuid={uuid}"
-    response = requests.get(url).json()
-    return response
+    async with aiohttp.ClientSession() as session:
+        response = await session.get(url)
+    return await response.json()
 
 
 class Minecraft(commands.Cog):
@@ -105,9 +108,12 @@ class Minecraft(commands.Cog):
 
         url = "https://hypixel.paniek.de/signature/{}/general-tooltip".format(
             uuid)
-        response = requests.get(url)
-        with open('./tempstorage/hypixel_pic.png', 'wb') as f:
-            f.write(response.content)
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as resp:
+                if resp.status == 200:
+                    f = await aiofiles.open('./tempstorage/hypixel_pic.png', mode='wb')
+                    await f.write(await resp.read())
+                    await f.close()
         await ctx.send(file=discord.File('./tempstorage/hypixel_pic.png'))
         os.remove('./tempstorage/hypixel_pic.png')
 

@@ -2,6 +2,8 @@ import discord
 from utils.checks import plugin_enabled
 from discord.ext import commands
 import random
+import aiohttp
+import aiofiles
 from googleapiclient.discovery import build
 from utils.other import log
 import re
@@ -9,7 +11,6 @@ import urllib.request
 import os
 import praw
 import dotenv
-import requests
 
 dotenv.load_dotenv()
 
@@ -133,11 +134,13 @@ class Search(commands.Cog):
     async def rock(self, ctx):
         url = "https://mrconos.pythonanywhere.com/rock/random"
         while True:
-            response = requests.get(url, headers={}, data={}).json()
-            if response['image'] == "none":
-                pass
-            else:
-                break
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as resp:
+                    response = await resp.json()
+                    if response['image'] == "none":
+                        pass
+                    else:
+                        break
         em = discord.Embed(title=response['name'], description=response['desc'])
         rating = response["rating"]
         em.add_field(name="Rating", value=f"{rating}/5")
@@ -150,7 +153,9 @@ class Search(commands.Cog):
     @commands.check(plugin_enabled)
     async def dog(self, ctx):
         url = self.animal_urls["dog"]
-        r = requests.get(url).json()
+        async with aiohttp.ClientSession() as session:
+                async with session.get(url) as resp:
+                    r = await resp.json()
         em = discord.Embed(title="Dog!", description=r['fact'])
         em.set_image(url=r['image'])
 
@@ -160,7 +165,9 @@ class Search(commands.Cog):
     @commands.check(plugin_enabled)
     async def cat(self, ctx):
         url = self.animal_urls["cat"]
-        r = requests.get(url).json()
+        async with aiohttp.ClientSession() as session:
+                async with session.get(url) as resp:
+                    r = await resp.json()
         em = discord.Embed(title="Cat!", description=r['fact'])
         em.set_image(url=r['image'])
 
@@ -170,7 +177,9 @@ class Search(commands.Cog):
     @commands.check(plugin_enabled)
     async def panda(self, ctx):
         url = self.animal_urls["panda"]
-        r = requests.get(url).json()
+        async with aiohttp.ClientSession() as session:
+                async with session.get(url) as resp:
+                    r = await resp.json()
         em = discord.Embed(title="Panda!", description=r['fact'])
         em.set_image(url=r['image'])
 
@@ -180,7 +189,9 @@ class Search(commands.Cog):
     @commands.check(plugin_enabled)
     async def fox(self, ctx):
         url = self.animal_urls["fox"]
-        r = requests.get(url).json()
+        async with aiohttp.ClientSession() as session:
+                async with session.get(url) as resp:
+                    r = await resp.json()
         em = discord.Embed(title="Fox!", description=r['fact'])
         em.set_image(url=r['image'])
 
@@ -190,7 +201,9 @@ class Search(commands.Cog):
     @commands.check(plugin_enabled)
     async def bird(self, ctx):
         url = self.animal_urls["bird"]
-        r = requests.get(url).json()
+        async with aiohttp.ClientSession() as session:
+                async with session.get(url) as resp:
+                    r = await resp.json()
         em = discord.Embed(title="Bird!", description=r['fact'])
         em.set_image(url=r['image'])
 
@@ -208,9 +221,11 @@ class Search(commands.Cog):
         }
 
         url = "https://some-random-api.ml/canvas/tweet/"
-        r = requests.get(url=url, data=data)
-        with open(f"./tempstorage/tweet{ctx.author.id}.png", 'wb') as f:
-            f.write(r.content)
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, data=data) as resp:
+                    f = await aiofiles.open(f'./tempstorage/tweet{ctx.author.id}.png', mode='wb')
+                    await f.write(await resp.read())
+                    await f.close()
         file = discord.File(f"./tempstorage/tweet{ctx.author.id}.png")
         await ctx.send(file=file)
         os.remove(f"./tempstorage/tweet{ctx.author.id}.png")
@@ -225,9 +240,11 @@ class Search(commands.Cog):
         }
 
         url = "https://some-random-api.ml/canvas/youtube-comment/"
-        r = requests.get(url=url, data=data)
-        with open(f"./tempstorage/yt{ctx.author.id}.png", 'wb') as f:
-            f.write(r.content)
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, data=data) as resp:
+                    f = await aiofiles.open(f'./tempstorage/yt{ctx.author.id}.png', mode='wb')
+                    await f.write(await resp.read())
+                    await f.close()
         file = discord.File(f"./tempstorage/yt{ctx.author.id}.png")
         await ctx.send(file=file)
         os.remove(f"./tempstorage/yt{ctx.author.id}.png")
@@ -242,9 +259,11 @@ class Search(commands.Cog):
         }
 
         url = "https://some-random-api.ml/canvas/simpcard/"
-        r = requests.get(url=url, data=data)
-        with open(f"./tempstorage/simp{ctx.author.id}.png", 'wb') as f:
-            f.write(r.content)
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, data=data) as resp:
+                    f = await aiofiles.open(f'./tempstorage/simp{ctx.author.id}.png', mode='wb')
+                    await f.write(await resp.read())
+                    await f.close()
         file = discord.File(f"./tempstorage/simp{ctx.author.id}.png")
         await ctx.send(file=file)
         os.remove(f"./tempstorage/simp{ctx.author.id}.png")
@@ -259,9 +278,11 @@ class Search(commands.Cog):
         }
 
         url = "https://some-random-api.ml/canvas/horny/"
-        r = requests.get(url=url, data=data)
-        with open(f"./tempstorage/horny{ctx.author.id}.png", 'wb') as f:
-            f.write(r.content)
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, data=data) as resp:
+                    f = await aiofiles.open(f'./tempstorage/horny{ctx.author.id}.png', mode='wb')
+                    await f.write(await resp.read())
+                    await f.close()
         file = discord.File(f"./tempstorage/horny{ctx.author.id}.png")
         await ctx.send(file=file)
         os.remove(f"./tempstorage/horny{ctx.author.id}.png")
@@ -282,9 +303,11 @@ class Search(commands.Cog):
 
         url = f"https://some-random-api.ml/canvas/{type}/"
 
-        r = requests.get(url=url, data=data)
-        with open(f"./tempstorage/overlay{ctx.author.id}.png", 'wb') as f:
-            f.write(r.content)
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, data=data) as resp:
+                    f = await aiofiles.open(f'./tempstorage/overlay{ctx.author.id}.png', mode='wb')
+                    await f.write(await resp.read())
+                    await f.close()
         file = discord.File(f"./tempstorage/overlay{ctx.author.id}.png")
         await ctx.send(file=file)
         os.remove(f"./tempstorage/overlay{ctx.author.id}.png")
@@ -293,7 +316,9 @@ class Search(commands.Cog):
     @commands.check(plugin_enabled)
     async def joke(self, ctx):
         url = "https://some-random-api.ml/joke"
-        r = requests.get(url).json()
+        async with aiohttp.ClientSession() as session:
+                async with session.get(url) as resp:
+                    r = await resp.json()
         em=discord.Embed(title=r['joke'])
 
         await ctx.send(embed=em)
@@ -307,7 +332,9 @@ class Search(commands.Cog):
             "title" : song
         }
 
-        r = requests.get(url=url, data=data).json()
+        async with aiohttp.ClientSession() as session:
+                async with session.get(url, data=data) as resp:
+                    r = await resp.json()
         if 'error' in r:
             return await ctx.send(r['error'])
         
