@@ -47,6 +47,7 @@ class Fun(commands.Cog):
 
     @commands.command(help="This command gives you free coins. Click claim.", extras={"category":"Fun"}, usage="claim", description="Free Coins")
     @commands.check(plugin_enabled)
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def claim(self,ctx):
         em = discord.Embed(title="Claim 100k Why Coins")
         await ctx.send(embed=em, view=MyView())
