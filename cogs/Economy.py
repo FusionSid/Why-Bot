@@ -458,8 +458,8 @@ class Economy(commands.Cog):
                         img = None
                     else:
                         img = True
-                        file = discord.File(f"./shopimages/{item['icon_path']}")
-                        em.set_thumbnail(url=f"attachment://./shopimages/{item['icon_path']}")
+                        file = discord.File(f"./database/shopimages/{item['icon_path']}")
+                        em.set_thumbnail(url=f"attachment://./database/shopimages/{item['icon_path']}")
                     inshop = True
                     break
             if inshop == False:
