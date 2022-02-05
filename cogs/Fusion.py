@@ -176,7 +176,7 @@ class Fusion(commands.Cog):
 
     @commands.command(aliases=['dmr'])
     @commands.check(is_it_me)
-    async def dmreply(self, ctx, *, msg):
+    async def dmreply(self, ctx, *, msg=None):
         if ctx.message.reference is None:
           return
         else:
@@ -186,7 +186,19 @@ class Fusion(commands.Cog):
             await id.reply(msg)
             id = int(id.content)
         person = await self.client.fetch_user(id)
-        await person.send(msg)
+
+        if msg is None:
+            pass
+        else:
+            await person.send(msg)
+
+        if ctx.message.attachments is None:
+            return
+        else:
+            for i in ctx.message.attachments:
+                em = discord.Embed()
+                em.set_image(url=i.url)
+                await person.send(embed=em)
         
 
     @commands.command()
