@@ -5,7 +5,6 @@ from discordLevelingSystem import DiscordLevelingSystem, LevelUpAnnouncement
 from easy_pil import Editor, Canvas, Font, load_image, Text
 import os
 from utils.checks import is_it_me, plugin_enabled
-from utils.other import log
 
 lvlembed = discord.Embed()
 lvlembed.set_author(name=LevelUpAnnouncement.Member.name)

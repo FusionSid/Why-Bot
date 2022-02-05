@@ -5,7 +5,6 @@ import random
 import aiohttp
 import aiofiles
 from googleapiclient.discovery import build
-from utils.other import log
 import re
 import urllib.request
 import os

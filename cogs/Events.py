@@ -2,17 +2,9 @@ import discord
 from discord.ext import commands
 import json
 from datetime import datetime
-from utils import log
+from utils import Log
 
-
-def log(log):
-    now = datetime.now()
-    timern = now.strftime("%d/%m/%Y %H:%M:%S")
-
-    with open('./other/log.txt', 'a') as f:
-        f.write('\n')
-        f.write(f"{timern} | {log}")
-
+log = Log("./database/log.txt", timestamp=True)
 
 async def startguildsetup(id):
     file = {
@@ -91,7 +83,7 @@ class Events(commands.Cog):
         try:
             await guild.system_channel.send(content="**Thanks for inviting me! :wave: **", embed=embed)
         except Exception as e:
-            log(e)
+            pass
 
     @commands.Cog.listener()
     async def on_guild_remove(self,guild):
@@ -101,8 +93,7 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        log(f"ERROR: {error}")
-        print(error)
+        log.log_error(error)
 
         if isinstance(error, commands.CommandOnCooldown):
             async def better_time(cd: int):

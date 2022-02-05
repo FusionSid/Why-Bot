@@ -10,10 +10,11 @@ from embed_gen import keep_alive
 import dotenv
 from discord.ui import Button, View
 from datetime import datetime
-from utils.other import log
+from utils import Log
 
 dotenv.load_dotenv()
 
+log = Log("./database/log.txt", timestamp=True)
 
 async def get_prefix(client, message):
     try:
@@ -43,6 +44,7 @@ async def on_ready():
     await update_activity()
     channel = client.get_channel(925513395883606129)
     await channel.send("Online")
+    log.log_message("Bot is online")
 
 
 # Blacklist system
@@ -104,7 +106,7 @@ async def clear_stuff():
 
 
 def start_bot(client):
-
+    log.log_message("Starting up bot")
     client.remove_command("help")
     keep_alive()
     
@@ -118,13 +120,14 @@ def start_bot(client):
             print(f"Loaded {cogs}")
 
         print("\nAll Cogs Loaded\n===============\nLogging into Discord...")
+        log.log_message("All cogs loaded")
         clear_stuff.start()
         client.run(os.environ['TOKEN'])
 
     except Exception as e:
         print(
             f"\n###################\nPOSSIBLE FATAL ERROR:\n{e}\nTHIS MEANS THE BOT HAS NOT STARTED CORRECTLY!")
-        log(
+        log.log_error(
             f"\n###################\nPOSSIBLE FATAL ERROR:\n{e}\nTHIS MEANS THE BOT HAS NOT STARTED CORRECTLY!")
 
 

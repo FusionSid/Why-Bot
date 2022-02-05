@@ -1,10 +1,7 @@
 import discord
 from discord.ext import commands
 import json
-from discord.ui import Button, View
-from utils.other import log
 from utils import Paginator
-from utils.checks import plugin_enabled
 
 async def enabled_cogs(ctx):
     with open("./database/db.json") as f:

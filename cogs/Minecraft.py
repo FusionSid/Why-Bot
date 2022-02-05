@@ -5,7 +5,6 @@ import json
 from discord.ext import commands
 import dotenv
 from utils.checks import plugin_enabled
-from utils.other import log
 import aiohttp
 import aiofiles
 

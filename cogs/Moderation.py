@@ -1,14 +1,9 @@
 import discord
 from utils.checks import plugin_enabled
 from datetime import datetime
-from discord.ui import Button, View
-from discord import Option
 from discord.ext import commands
-from utils.other import log
-import os
 import json
 import dotenv
-from discord.utils import get
 from discord_webhook import DiscordWebhook
 from io import BytesIO
 from urllib.request import urlopen

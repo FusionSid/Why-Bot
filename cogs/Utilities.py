@@ -3,7 +3,6 @@ import json
 from utils.checks import plugin_enabled
 import os
 import time
-from utils.other import log
 import platform
 from discord import role
 from discord.ext import commands

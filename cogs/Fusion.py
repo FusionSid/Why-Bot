@@ -3,12 +3,13 @@ import os
 import json
 from discord.ext import commands
 import dotenv
-from utils import is_it_me
-from utils.other import log
+from utils import is_it_me, Log
 from subprocess import run
 import time
 from os import listdir
 from os.path import isfile, join
+
+log = Log("./database/log.txt", timestamp=True)
 
 dotenv.load_dotenv()
 

@@ -6,11 +6,8 @@ from discord.ext import commands
 import asyncio
 from discord.utils import get
 import dotenv
-from discord import Option
-from discord.commands import slash_command
-from utils.other import log
 from utils.checks import plugin_enabled
-from discord.ui import Button, View
+from discord.ui import View
 
 dotenv.load_dotenv()
 
