@@ -147,5 +147,17 @@ class Slash(commands.Cog):
             title='Reload', description=f'{extension} successfully reloaded', color=0xff00c8)
         await ctx.respond(embed=embed)
 
+    @slash_command(name="setprefix", description="Sets the server prefix for Why Bot")
+    @commands.has_permissions(administrator=True)
+    async def setprefix(self, ctx, pref: Option(str, "Prefix", required=True)):
+        with open(f'./database/db.json') as f:
+            data = json.load(f)
+        for i in data:
+            if i["guild_id"] == ctx.guild.id:
+                i["prefix"] = pref
+        with open(f'./database/db.json', 'w') as f:
+            json.dump(data, f)
+        await ctx.respond(embed=discord.Embed(title=f"Prefix has been set to `{pref}`"))
+        
 def setup(client):
     client.add_cog(Slash(client))
