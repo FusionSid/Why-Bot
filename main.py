@@ -101,8 +101,8 @@ async def clear_stuff():
     dir = 'tempstorage/'
     for f in os.listdir(dir):
       os.remove(os.path.join(dir, f))
-    with open("other/log.txt", 'w') as f:
-      f.truncate(0)
+    #with open("other/log.txt", 'w') as f:
+    #  f.truncate(0)
 
 
 def start_bot(client):

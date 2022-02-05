@@ -192,7 +192,7 @@ class Fusion(commands.Cog):
     @commands.command()
     @commands.check(is_it_me)
     async def logs(self, ctx):
-      file = discord.File("./other/log.txt")
+      file = discord.File("./database/log.txt")
       await ctx.author.send(file=file)
       
     @commands.command()
