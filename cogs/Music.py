@@ -1,4 +1,5 @@
 import discord
+import pyttsx3
 from utils.checks import plugin_enabled
 import shutil
 from discord import interactions
@@ -779,14 +780,16 @@ class Music(commands.Cog):
     @commands.command(aliases=['speak'], help="This command is used to play text in vc. You type text and the bot will text to speech the text in your vc", extras={"category":"Music"}, usage="tts [text]", description="Text to speech")
     @commands.check(plugin_enabled)
     async def tts(self, ctx, *, text):
+        name = ctx.author.id
+        
         text = str(text)
 
-        language = 'en'
+        tts = pyttsx3.init()
+        tts.setProperty('rate', 200) 
+        tts.setProperty('volume',1.0)
 
-        output = gTTS(text=text, lang=language, slow=False)
-
-        name = ctx.author.id
-        output.save(f"./tempstorage/{name}.mp3")
+        tts.save_to_file(text, f"./tempstorage/{name}.mp3")
+        tts.runAndWait()
 
         if ctx.author.voice is None:
             return await ctx.send(f"{ctx.author.mention}, You have to be connected to a voice channel.")
