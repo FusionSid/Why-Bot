@@ -125,10 +125,8 @@ def start_bot(client):
         client.run(os.environ['TOKEN'])
 
     except Exception as e:
-        print(
-            f"\n###################\nPOSSIBLE FATAL ERROR:\n{e}\nTHIS MEANS THE BOT HAS NOT STARTED CORRECTLY!")
-        log.log_error(
-            f"\n###################\nPOSSIBLE FATAL ERROR:\n{e}\nTHIS MEANS THE BOT HAS NOT STARTED CORRECTLY!")
+        print(f"\n###################\nPOSSIBLE FATAL ERROR:\n{e}\nTHIS MEANS THE BOT HAS NOT STARTED CORRECTLY!")
+        log.log_error(e)
 
 
 if __name__ == '__main__':
