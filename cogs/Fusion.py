@@ -152,18 +152,29 @@ class Fusion(commands.Cog):
     async def message_servers(self, ctx, *, message):
         c = 0
         for guild in self.client.guilds:
-            try:
-                await guild.system_channel.send(message)
-            except:
-                pass
-            for i in guild.text_channels:
-              try:
-                await i.send(message)
-                c +=1
-                break
-              except Exception as e:
-                await ctx.send(embed=discord.Embed(title=f"Failed to send to {i.name}\n{guild.name} ({guild.id})", description=e))
-                c -= 1
+            with open("./database/db.json") as f:
+                data = json.load(f)
+            for i in data:
+                if i["announcement_channel"] is None:
+                    try:
+                        await guild.system_channel.send(message)
+                    except:
+                        pass
+                    for i in guild.text_channels:
+                        try:
+                            await i.send(message)
+                            c +=1
+                            break
+                        except Exception as e:
+                            await ctx.send(embed=discord.Embed(title=f"Failed to send to {i.name}\n{guild.name} ({guild.id})", description=e))
+                            c -= 1
+                else:
+                    try:
+                        channel = await self.client.fetch_channel(int(i["announcement_channel"]))
+                        await channel.send(message)
+                    except:
+                        pass
+           
         await ctx.send(f"Message sent to {c}/{len(self.client.guilds)} servers")
 
     @commands.command()
@@ -274,5 +285,30 @@ class Fusion(commands.Cog):
                     needhelp.append(f"{i.name} | {i.cog_name}")
         await ctx.send("\n".join(needhelp))
 
+    @commands.command()
+    @commands.check(is_it_me)
+    async def cmdtojson(self, ctx):
+        commandlist = []
+        for i in self.client.commands:
+            print(i)
+            if i.usage is None:
+                pass
+            else:
+                if len(i.aliases) == 0:
+                    aliases = None
+                else:
+                    aliases = i.aliases
+                data = {
+                    "name" : i.name,
+                    "aliases" : aliases,
+                    "description" : i.description,
+                    "help" : i.help,
+                    "category" : i.extras['category'].lower(),
+                    "usage" : i.usage
+                }
+                commandlist.append(data)
+        with open("./commands.json", 'w') as f:
+            json.dump(commandlist, f, indent=4)
+    
 def setup(client):
     client.add_cog(Fusion(client))

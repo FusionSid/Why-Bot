@@ -36,7 +36,7 @@ class Slash(commands.Cog):
 
     @slash_command(name="set", description="Set Channels")
     @commands.has_permissions(administrator=True)
-    async def set(self, ctx, category: Option(str, "Category", required=True, choices=["Mod/Log Channel", "Counting Channel", "Welcome Channel"]), channel: Option(discord.TextChannel, "The channel", required=True)):
+    async def set(self, ctx, category: Option(str, "Category", required=True, choices=["Mod/Log Channel", "Counting Channel", "Welcome Channel", "Announcement Channel"]), channel: Option(discord.TextChannel, "The channel", required=True)):
         channel_id = channel.id
         with open("./database/db.json") as f:
             data = json.load(f)
@@ -55,6 +55,12 @@ class Slash(commands.Cog):
             for i in data:
                 if i["guild_id"] == ctx.guild.id:
                     i["welcome_channel"] = channel_id
+
+        elif category == "Announcement Channel":
+            for i in data:
+                if i["guild_id"] == ctx.guild.id:
+                    i["announcement_channel"] = channel_id
+
         await ctx.respond(f"{channel.name} successfully set as {category}")
         with open("./database/db.json", 'w') as f:
             json.dump(data, f, indent=4)

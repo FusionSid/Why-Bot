@@ -14,6 +14,7 @@ async def startguildsetup(id):
         "lastcounter": None,
         "log_channel": None,
         "welcome_channel": None,
+        "announcement_channel" : None,
         "warnings": {
         },
         "settings": {
