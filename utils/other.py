@@ -5,7 +5,6 @@ class Log():
         self.path = path
         self.timestamp = timestamp
 
-
     def log_error(self, error):
         if self.timestamp:
             now = datetime.now()
@@ -18,7 +17,6 @@ class Log():
             f.write('\n')
             f.write(log_string)
 
-
     def log_message(self, message):
         if self.timestamp:
             now = datetime.now()
@@ -30,38 +28,3 @@ class Log():
         with open(self.path, 'a') as f:
             f.write('\n')
             f.write(log_string)
-
-
-    @property
-    def file(self):
-        data = []
-        with open(self.path, 'r') as f:
-            for i in f:
-                data.append(i)
-        return data
-
-
-    @property
-    def today(self):
-        data = []
-
-        todays_date = datetime.now().strftime("%d/%m/%Y")
-
-        with open(self.path, 'r') as f:
-            for line in f:
-                if todays_date in line:
-                    data.append(line)
-        
-        return data
-    
-
-    @property
-    def get_date(self, date):
-        data = []
-
-        with open(self.path, 'r') as f:
-            for line in f:
-                if date in line:
-                    data.append(line)
-        
-        return data
