@@ -150,33 +150,24 @@ class Fusion(commands.Cog):
     @commands.command()
     @commands.check(is_it_me)
     async def message_servers(self, ctx, *, message):
-        c = 0
-        for guild in self.client.guilds:
-            with open("./database/db.json") as f:
+        with open("./database/db.json") as f:
                 data = json.load(f)
+        for guild in self.client.guilds:
             for i in data:
-                if i["announcement_channel"] is None:
-                    try:
-                        await guild.system_channel.send(message)
-                        break
-                    except:
-                        pass
-                    for i in guild.text_channels:
+                if i['guild_id'] == guild.id:
+                    if i["announcement_channel"] is None:
                         try:
-                            await i.send(message)
-                            c +=1
+                            await guild.system_channel.send(message)
                             break
-                        except Exception as e:
-                            await ctx.send(embed=discord.Embed(title=f"Failed to send to {i.name}\n{guild.name} ({guild.id})", description=e))
-                            c -= 1
-                else:
-                    try:
-                        channel = await self.client.fetch_channel(int(i["announcement_channel"]))
-                        await channel.send(message)
-                    except:
-                        pass
+                        except:
+                            break
+                    else:
+                        try:
+                            channel = await self.client.fetch_channel(int(i["announcement_channel"]))
+                            await channel.send(message)
+                        except:
+                            break
            
-        await ctx.send(f"Message sent to {c}/{len(self.client.guilds)} servers")
 
     @commands.command()
     @commands.check(is_it_me)
