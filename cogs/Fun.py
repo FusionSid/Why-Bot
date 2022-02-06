@@ -272,6 +272,21 @@ class Fun(commands.Cog):
         # await message.edit(embed=embed)
         await message.reply(embed=discord.Embed(title=f"Poll Results For {question}:", description=f"**Votes:**\n {results}"))
 
+    @commands.command()
+    @commands.check(plugin_enabled)
+    async def reactemoji(self, ctx,msg:int, *, text):
+        text = text.lower()
+        alpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+        emojis = ["🇦", "🇧", "🇨", "🇩" ,"🇪", "🇫" ,"🇬", "🇭" ,"🇮", "🇯", "🇰", "🇱", "🇲", "🇳" ,"🇴" ,"🇵" ,"🇶", "🇷" ,"🇸", "🇹" ,"🇺", "🇻", "🇼", "🇽", "🇾", "🇿"]
+        
+        emojis = dict(zip(alpha, emojis))
+        message = await ctx.message.channel.fetch_message(msg)
+        for i in text:
+            try:
+                emoji = emojis[i]
+                await message.add_reaction(emoji)
+            except Exception as e:
+                print(e)
 
 def setup(client):
     client.add_cog(Fun(client))
