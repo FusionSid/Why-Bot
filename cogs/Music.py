@@ -1,4 +1,5 @@
 import discord
+import importlib
 import pyttsx3
 from utils.checks import plugin_enabled
 import shutil
@@ -780,6 +781,7 @@ class Music(commands.Cog):
     @commands.command(aliases=['speak'], help="This command is used to play text in vc. You type text and the bot will text to speech the text in your vc", extras={"category":"Music"}, usage="tts [text]", description="Text to speech")
     @commands.check(plugin_enabled)
     async def tts(self, ctx, *, text):
+        importlib.reload(pyttsx3)
         name = ctx.author.id
         
         text = str(text)
