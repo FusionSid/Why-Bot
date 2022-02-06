@@ -158,6 +158,7 @@ class Fusion(commands.Cog):
                 if i["announcement_channel"] is None:
                     try:
                         await guild.system_channel.send(message)
+                        break
                     except:
                         pass
                     for i in guild.text_channels:
