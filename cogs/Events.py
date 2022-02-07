@@ -18,7 +18,6 @@ async def startguildsetup(id):
         "warnings": {
         },
         "settings": {
-            "welcometext": "THANK YOU FOR JOINING. HOPE YOU WILL ENJOY YOUR STAY",
             "autocalc":True,
         "plugins": {
             "Counting": True,
@@ -39,6 +38,12 @@ async def startguildsetup(id):
         "autorole": {
             "all": None,
             "bot": None
+        },
+        "welcome" : {
+            "bg_color" : None,
+            "text_color" : None,
+            "text_footer" : None,
+            "bg_image" : None
         }
     }
     with open("database/db.json") as f:

@@ -76,6 +76,13 @@ class Dropdown(discord.ui.Select):
 
                 if cat.lower() == category.title.lower():
                     await interaction.response.edit_message(embed=category)
+                    
+    async def interaction_check(self, interaction) -> bool:
+      if interaction.user != self.ctx.author:
+          await interaction.response.send_message("This isnt for you",ephemeral=True)
+          return False
+      else:
+          return True
 
 class HelpView(View):
     def __init__(self, client):
@@ -114,6 +121,7 @@ class Help(commands.Cog):
         elif cat.lower() == "welcome":
             em = discord.Embed(title="Welcome", description=f"`{ctx.prefix}help [command]` for more info on command")
             em.add_field(name="This system is used to send welcome messages to a user/into a channel when a member joins", value="Use the `/set Welcome Channel #channel` to set the welcome channel")
+            em.add_field(name=f"Using `{ctx.prefix}welcome` without a subcommand will display the welcome image",value=f"Configure your welcome message:\n`{ctx.prefix}welcome textcolor`\n`{ctx.prefix}welcome image`\n`{ctx.prefix}welcome bgcolor`\n`{ctx.prefix}welcome text`")
             return await ctx.send(embed=em)
 
         elif cat.lower() == "economy":

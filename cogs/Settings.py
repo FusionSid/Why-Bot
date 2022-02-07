@@ -73,7 +73,7 @@ async def welcome_text(ctx):
     em.set_footer(text="Use ?setwelcometext [text] to set the text")
     for i in data:
         if i['guild_id'] == ctx.guild.id:
-            wt = i['settings']['welcometext']
+            wt = i['welcome']['text_footer']
     em.add_field(name="Text:", value=wt)
     return em
 
@@ -162,20 +162,6 @@ class Settings(commands.Cog):
             json.dump(data, f, indent=4)
         
         await ctx.send(f"{plugin} has been disabled")
-
-    @commands.command(help="This command is used to set the welcome text for the servers Welcome plugin\nWhen the welcome message is sent the footer text will be set to the text you set", extras={"category":"Settings"}, usage="setwelcometext [text]", description="Sets the welcome text for the server")
-    @commands.has_permissions(administrator=True)
-    async def setwelcometext(self, ctx, *, text):
-        if len(text) > 55:
-            return await ctx.send("Text is to big")
-        with open("./database/db.json") as f:
-            data = json.load(f)
-        for i in data:
-            if i['guild_id'] == ctx.guild.id:
-                i['settings']['welcometext'] = text
-        with open("./database/db.json", 'w') as f:
-            json.dump(data, f, indent=4)
-        await ctx.send(f"{text}\nHas been set as the welcome text")
 
 
     @commands.command(help="This command is used to set the prefix for the server. Default prefix is ?", extras={"category":"Settings"}, usage="setprefix [prefix]", description="Sets the server prefix")
