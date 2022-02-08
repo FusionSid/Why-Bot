@@ -29,7 +29,7 @@ async def memberjoin(client, member):
     poppins_big = Font.poppins(variant="bold", size=50)
     poppins_mediam = Font.poppins(variant="bold", size=40)
     poppins_regular = Font.poppins(variant="regular", size=30)
-    poppins_thin = Font.poppins(variant="light", size=18)
+    poppins_thin = Font.poppins(variant="regular", size=20)
 
     # Background
     if welcome_bg_image is not None:
@@ -56,13 +56,13 @@ async def memberjoin(client, member):
     # Text
     if welcome_text_color is None:
         welcome_text_color = "#FFFFFF"
-    welcome_image.text((600, 20), "WELCOME", font=poppins_big, color=str(welcome_text_color), align="center")
-    welcome_image.text((600, 70), str(member.name), font=poppins_regular, color=str(welcome_text_color), align="center")
-    welcome_image.text((600, 120), "THANKS FOR JOINING", font=poppins_mediam, color=str(welcome_text_color), align="center")
-    welcome_image.text((600, 160), str(member.guild.name), font=poppins_regular, color=str(welcome_text_color), align="center")
+    welcome_image.text((600, 35), "WELCOME", font=poppins_big, color=str(welcome_text_color), align="center")
+    welcome_image.text((600, 85), str(member.name), font=poppins_regular, color=str(welcome_text_color), align="center")
+    welcome_image.text((600, 135), "THANKS FOR JOINING", font=poppins_mediam, color=str(welcome_text_color), align="center")
+    welcome_image.text((600, 175), str(member.guild.name), font=poppins_regular, color=str(welcome_text_color), align="center")
     if welcome_text_footer is None:
-          welcome_text_footer = "Hope you enjoy your stay at this amazing server"
-    welcome_image.text((620, 240),str(welcome_text_footer),font=poppins_thin,color=str(welcome_text_color),align="center",)
+      welcome_text_footer = "Hope you enjoy your stay at this amazing server"
+    welcome_image.text((620, 237),str(welcome_text_footer),font=poppins_thin,color=str(welcome_text_color),align="center",)
 
 
     welcome_image.save(f"./tempstorage/welcome{member.id}.png")
@@ -156,7 +156,7 @@ class Welcome(commands.Cog):
         poppins_big = Font.poppins(variant="bold", size=50)
         poppins_mediam = Font.poppins(variant="bold", size=40)
         poppins_regular = Font.poppins(variant="regular", size=30)
-        poppins_thin = Font.poppins(variant="light", size=18)
+        poppins_thin = Font.poppins(variant="regular", size=20)
 
 
         # Background
@@ -183,13 +183,13 @@ class Welcome(commands.Cog):
         # Text
         if welcome_text_color is None:
             welcome_text_color = "#FFFFFF"
-        welcome_image.text((600, 20), "WELCOME", font=poppins_big, color=str(welcome_text_color), align="center")
-        welcome_image.text((600, 70), str(member.name), font=poppins_regular, color=str(welcome_text_color), align="center")
-        welcome_image.text((600, 120), "THANKS FOR JOINING", font=poppins_mediam, color=str(welcome_text_color), align="center")
-        welcome_image.text((600, 160), str(member.guild.name), font=poppins_regular, color=str(welcome_text_color), align="center")
+        welcome_image.text((600, 35), "WELCOME", font=poppins_big, color=str(welcome_text_color), align="center")
+        welcome_image.text((600, 85), str(member.name), font=poppins_regular, color=str(welcome_text_color), align="center")
+        welcome_image.text((600, 135), "THANKS FOR JOINING", font=poppins_mediam, color=str(welcome_text_color), align="center")
+        welcome_image.text((600, 175), str(member.guild.name), font=poppins_regular, color=str(welcome_text_color), align="center")
         if welcome_text_footer is None:
           welcome_text_footer = "Hope you enjoy your stay at this amazing server"
-        welcome_image.text((620, 240),str(welcome_text_footer),font=poppins_thin,color=str(welcome_text_color),align="center",)
+        welcome_image.text((620, 237),str(welcome_text_footer),font=poppins_thin,color=str(welcome_text_color),align="center",)
 
   
         welcome_image.save(f"./tempstorage/welcome{member.id}.png")
