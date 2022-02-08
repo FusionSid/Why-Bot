@@ -143,12 +143,16 @@ class Welcome(commands.Cog):
 
 
         welcome_profile_url = "https://cdn.logojoy.com/wp-content/uploads/20210422095037/discord-mascot.png"
-
+        
+        welcome_image = Editor(Canvas((900, 270)))
 
         if welcome_bg_color is None:
             welcome_bg_color = "#23272a"
-        welcome_image = Editor(Canvas((900, 270), str(welcome_bg_color)))
 
+        # Background Color    
+        bg_rect = [((0, 0), 900, 270),]
+        welcome_image.rectangle(bg_rect, fill=welcome_bg_color)
+        
 
         # Fonts to use with different size
         poppins_big = Font.poppins(variant="bold", size=50)
