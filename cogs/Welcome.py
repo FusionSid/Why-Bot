@@ -17,18 +17,20 @@ async def memberjoin(client, member):
 
     welcome_profile_url = "https://cdn.logojoy.com/wp-content/uploads/20210422095037/discord-mascot.png"
 
+    welcome_image = Editor(Canvas((900, 270)))
 
     if welcome_bg_color is None:
         welcome_bg_color = "#23272a"
-    welcome_image = Editor(Canvas((900, 270), str(welcome_bg_color)))
 
+    # Background Color    
+    bg_rect = [((0, 0), 900, 270),]
+    welcome_image.rectangle(bg_rect, fill=welcome_bg_color)
 
     # Fonts to use with different size
     poppins_big = Font.poppins(variant="bold", size=50)
     poppins_mediam = Font.poppins(variant="bold", size=40)
     poppins_regular = Font.poppins(variant="regular", size=30)
     poppins_thin = Font.poppins(variant="light", size=18)
-
 
     # Background
     if welcome_bg_image is not None:
@@ -41,8 +43,8 @@ async def memberjoin(client, member):
 
 
     card_left_shape = [(0, 0), (0, 270), (330, 270), (260, 0)]
-
     welcome_image.polygon(card_left_shape, "#2C2F33")
+
     # Profile Picture
     if member.avatar is not None:
         profile_image = load_image(str(member.avatar.url))
