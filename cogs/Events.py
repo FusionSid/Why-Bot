@@ -48,10 +48,19 @@ async def startguildsetup(id):
     }
     with open("database/db.json") as f:
         data = json.load(f)
-
-    data.append(file)
-    with open("database/db.json", 'w') as f:
-        json.dump(data, f, indent=4)
+    
+    alr_in = False
+    
+    for i in data:
+        if i["guild_id"] == id:
+            alr_in = True
+        else:
+            alr_in = False
+    
+    if alr_in == False:
+        data.append(file)
+        with open("database/db.json", 'w') as f:
+            json.dump(data, f, indent=4)
     newtickettemplate = {"ticket-counter": 0, "valid-roles": [],
                         "pinged-roles": [], "ticket-channel-ids": [], "verified-roles": []}
     with open(f"tickets/ticket{id}.json", 'w') as f:
