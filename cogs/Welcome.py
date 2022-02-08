@@ -23,8 +23,7 @@ async def memberjoin(client, member):
         welcome_bg_color = "#23272a"
 
     # Background Color    
-    bg_rect = [((0, 0), 900, 270),]
-    welcome_image.rectangle(bg_rect, fill=welcome_bg_color)
+    welcome_image.rectangle((0, 0), width=970, height=270, fill=welcome_bg_color)
 
     # Fonts to use with different size
     poppins_big = Font.poppins(variant="bold", size=50)
@@ -150,9 +149,8 @@ class Welcome(commands.Cog):
             welcome_bg_color = "#23272a"
 
         # Background Color    
-        bg_rect = [((0, 0), 900, 270),]
-        welcome_image.rectangle(bg_rect, fill=welcome_bg_color)
-        
+        welcome_image.rectangle((0, 0), width=970, height=270, fill=welcome_bg_color)
+
 
         # Fonts to use with different size
         poppins_big = Font.poppins(variant="bold", size=50)
