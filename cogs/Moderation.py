@@ -22,6 +22,8 @@ async def get_log_channel(self, ctx):
         data = json.load(f)
     for i in data:
         if i["guild_id"] == ctx.guild.id:
+            if i['log_channel'] is None:
+                return None
             channel = i['log_channel']
             return await self.client.fetch_channel(channel)
 
@@ -54,8 +56,7 @@ class Moderation(commands.Cog):
             em.add_field(name="Member:", value=member)
             em.add_field(name="Reason:", value=reason)
             em.add_field(name="Report By:", value=reporter)
-            cha = await self.client.fetch_channel(channel)
-            await cha.send(embed=em)
+            await channel.send(embed=em)
 
         elif type_.lower() == "message":
 
@@ -84,8 +85,8 @@ class Moderation(commands.Cog):
             em.add_field(name="Message Author:",
                          value=messageauthor, inline=False)
             em.add_field(name="Report By:", value=reporter, inline=False)
-            cha = await self.client.fetch_channel(channel)
-            await cha.send(embed=em)
+
+            await channel.send(embed=em)
 
         elif type_.lower() == "bug":
 
@@ -97,7 +98,7 @@ class Moderation(commands.Cog):
             em.add_field(name="Reason", value=reason)
             em.add_field(name="Report By:", value=reporter)
 
-            cha = await self.client.fetch_channel(925513395883606129)
+            cha = await self.client.fetch_channel(940469380054126633)
             await cha.send(embed=em)
 
     @commands.command(aliases=['grole'], help="This command is used to give a role to a user.", extras={"category":"Moderation"}, usage="giverole [@role] [@member]", description="Give role to a member")
