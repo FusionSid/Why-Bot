@@ -262,27 +262,27 @@ class Utilities(commands.Cog):
             data = json.load(f)
         active = len(data)
         em = discord.Embed(title='Why Bot', description='Just Why?')
-        em.add_field(inline=False, name="Server Count",
+        em.add_field(inline=True, name="Server Count",
                      value=f"{len(self.client.guilds)}")
         mlist = []
         for i in list(self.client.get_all_members()):
             mlist.append(i.name)
-        em.add_field(inline=False, name="User Count", value=len(mlist))
-        em.add_field(inline=False, name="Command Count",
+        em.add_field(inline=True, name="User Count", value=len(mlist))
+        em.add_field(inline=True, name="Command Count",
                      value=f"{len(self.client.commands)} commands")
-        em.add_field(inline=False, name="Active User Count", value=active)
-        em.add_field(inline=False, name="Ping",
+        em.add_field(inline=True, name="Active User Count", value=active)
+        em.add_field(inline=True, name="Ping",
                      value=f"{round(self.client.latency * 1000)}ms")
         em.set_footer(text="Mostly made by FusionSid#3645")
         em.add_field(name='CPU Usage',
-                     value=f'{psutil.cpu_percent()}%', inline=False)
+                     value=f'{psutil.cpu_percent()}%', inline=True)
         em.add_field(name='Memory Usage',
-                     value=f'{psutil.virtual_memory().percent}% of ({round((psutil.virtual_memory().total/1073741824), 2)}GB)', inline=False)
+                     value=f'{psutil.virtual_memory().percent}% of ({round((psutil.virtual_memory().total/1073741824), 2)}GB)', inline=True)
         em.add_field(name='Available Memory',
-                     value=f'{round(psutil.virtual_memory().available * 100 / psutil.virtual_memory().total)}%', inline=False)
-        em.add_field(inline=False, name="Python version",
+                     value=f'{round(psutil.virtual_memory().available * 100 / psutil.virtual_memory().total)}%', inline=True)
+        em.add_field(inline=True, name="Python version",
                      value=f"{platform.python_version()}")
-        em.add_field(inline=False, name="Running on",
+        em.add_field(inline=True, name="Running on",
                      value=f"{platform.system()} {platform.release()}")
         em.add_field(name="Python code", value=f"{get_lines()} of code")
         await ctx.send(embed=em)
