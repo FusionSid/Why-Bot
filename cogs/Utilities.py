@@ -273,7 +273,7 @@ class Utilities(commands.Cog):
         em.add_field(inline=True, name="Active User Count", value=active)
         em.add_field(inline=True, name="Ping",
                      value=f"{round(self.client.latency * 1000)}ms")
-        em.set_footer(text="Mostly made by FusionSid#3645")
+        em.set_footer(text="Made by FusionSid#3645")
         em.add_field(name='CPU Usage',
                      value=f'{psutil.cpu_percent()}%', inline=True)
         em.add_field(name='Memory Usage',
