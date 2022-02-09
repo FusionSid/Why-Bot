@@ -2,7 +2,7 @@ import discord
 import json
 from discord.ext import commands
 from discordLevelingSystem import DiscordLevelingSystem, LevelUpAnnouncement
-from easy_pil import Editor, Canvas, Font, load_image, Text
+from easy_pil import Editor, Canvas, Font, load_image_async, Text
 import os
 from utils.checks import is_it_me, plugin_enabled
 
@@ -63,7 +63,7 @@ class Leveling(commands.Cog):
         }
 
         background = Editor(Canvas((934, 282), "#23272a"))
-        profile_image = load_image(str(member.avatar.url))
+        profile_image = await load_image_async(str(member.avatar.url))
         profile = Editor(profile_image).resize((150, 150)).circle_image()
 
 
@@ -109,15 +109,63 @@ class Leveling(commands.Cog):
     @commands.check(plugin_enabled)
     async def leaderboard(self, ctx):
         data = await lvl.each_member_data(ctx.guild, sort_by='rank')
-        em = discord.Embed(title="Leaderboard")
+
+        # em = discord.Embed(title="Leaderboard")
+        # n = 0
+        # for i in data:
+        #     e = em.add_field(name=f'{n+1}: {i.name}', value=f'Level: {i.level}, Total XP: {i.total_xp}', inline=False)
+        #     n += 1
+        #     if n == 10:
+        #         break 
+        # await ctx.send(embed=em)
+
+        leaderboard_image = Editor(Canvas((680, 800)))
+        bg = await load_image_async("https://i.imgur.com/FRJXi4k.png")
+        bg_img = Editor(bg).rotate(90.0)
+        leaderboard_image.rectangle((0, 0), width=680, height=800, fill="#23272A")
+        leaderboard_image.paste(bg_img, (-600, 0))
+        
+        
         n = 0
+        yp = 5
+
         for i in data:
-            em.add_field(name=f'{i.rank}: {i.name}', value=f'Level: {i.level}, Total XP: {i.total_xp}', inline=False)
-            n += 1
+            try:
+                member = await ctx.guild.fetch_member(i.id_number)
+
+                person = Editor(Canvas((670, 75), "#5663F7"))
+
+                if member.avatar is None:
+                    profile_image = await load_image_async("https://cdn.logojoy.com/wp-content/uploads/20210422095037/discord-mascot.png")
+                    person_avatar = Editor(profile_image).resize((60, 60)).circle_image()
+                else:
+                    profile_image = await load_image_async(str(member.avatar.url))
+                    person_avatar = Editor(profile_image).resize((60, 60)).circle_image()
+
+                person.paste(person_avatar, (7, 7))
+                
+                poppins_medium = Font.poppins(variant="bold", size=25)
+                
+                person.text((100, 20), f"#{n+1}  ●  {member.display_name}  ●  LVL: {i.level}", font=poppins_medium, color="white", align="left")
+
+
+                leaderboard_image.paste(person, (5,yp))
+
+                yp += 80
+                n += 1
+            except Exception as e:
+                print(e)
             if n == 10:
                 break 
-        await ctx.send(embed=em)
+        
+        # if n != 10:
+        #     crop = 80 + (75 * (11-n))
+        #     leaderboard_image.resize((680, 800-crop), crop=True)
+        
+        leaderboard_image.save(f"./tempstorage/leveling{ctx.author.id}.png")
 
+        await ctx.send(file=discord.File(f"./tempstorage/leveling{ctx.author.id}.png"))
+    
 
     @commands.command()
     @commands.check(is_it_me)
@@ -161,6 +209,10 @@ class Leveling(commands.Cog):
           await lvl.award_xp(amount=[15, 25], message=message)
         except:
           pass
+
+    @commands.Cog.listener()
+    async def on_member_remove(self, member):
+        await lvl.reset_member(member)
 
 def setup(client):
     client.add_cog(Leveling(client))
