@@ -272,7 +272,7 @@ class Fun(commands.Cog):
         # await message.edit(embed=embed)
         await message.reply(embed=discord.Embed(title=f"Poll Results For {question}:", description=f"**Votes:**\n {results}", color=ctx.author.color))
 
-    @commands.command()
+    @commands.command(extras={"category":"Fun"}, usage="reactemoji [message_id] [word]", help="This command reacts a word to a message. If the word has more then one letter thats the same it wont work", description="React a word to a message")
     @commands.check(plugin_enabled)
     async def reactemoji(self, ctx,msg:int, *, text):
         text = text.lower()

@@ -5,7 +5,7 @@ from discord.ui import Button, View
 class Dropdown(discord.ui.Select):
     def __init__(self, client):
         self.client = client
-        categories = ["Counting", "Fun", "Leveling", "Logs", "Minecraft", "Moderation", "Music", "Ping", "Search", 'Settings', "Text", "Ticket", "Utilities", "Voice", "Welcome", "Economy"]
+        categories = ["Counting", "Fun", "Leveling", "Logs", "Minecraft", "Moderation", "Music", "Ping", "Search", 'Settings', "Text", "Ticket", "Utilities", "Voice", "Welcome", "Economy", "Games"]
 
         for category in categories:
             index = categories.index(category)
@@ -24,7 +24,7 @@ class Dropdown(discord.ui.Select):
                 pass
         
         options = []
-        emojis = ["🔢","😂","🏆","📝","🎮","🛠️","🎵","⚠️","🔎","⚙️","🔀","🎫","📱","🎤","👋","💵"]
+        emojis = ["🔢","😂","🏆","📝","🎮","🛠️","🎵","⚠️","🔎","⚙️","🔀","🎫","📱","🎤","👋","💵", "🕹️"]
         for i in categories:
             index = categories.index(i)
             options.append(discord.SelectOption(emoji=emojis[index],label=i.title, description=f"Get help with the {i.title} commands"))
@@ -38,7 +38,7 @@ class Dropdown(discord.ui.Select):
         )
 
     async def callback(self, interaction: discord.Interaction):
-        categories = ["Counting", "Fun", "Leveling", "Logs", "Minecraft", "Moderation", "Music", "Ping", "Search", 'Settings', "Text", "Ticket", "Utilities", "Voice", "Welcome", "Economy"]
+        categories = ["Counting", "Fun", "Leveling", "Logs", "Minecraft", "Moderation", "Music", "Ping", "Search", 'Settings', "Text", "Ticket", "Utilities", "Voice", "Welcome", "Economy", "Games"]
 
         cat = self.values[0]
 
@@ -129,7 +129,7 @@ class Help(commands.Cog):
             em.add_field(name="This plugin/category is still under construction", value="** **")
             return await ctx.send(embed=em)
 
-        categories = ["Counting", "Fun", "Leveling", "Logs", "Minecraft", "Moderation", "Music", "Ping", "Search", 'Settings', "Text", "Ticket", "Utilities", "Voice", "Welcome", "Economy"]
+        categories = ["Counting", "Fun", "Leveling", "Logs", "Minecraft", "Moderation", "Music", "Ping", "Search", 'Settings', "Text", "Ticket", "Utilities", "Voice", "Welcome", "Economy", "Games"]
 
         if cat is None:
             em = discord.Embed(title="Why Help", color=ctx.author.color)
