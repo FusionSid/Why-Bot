@@ -46,14 +46,14 @@ class Fun(commands.Cog):
     @commands.check(plugin_enabled)
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def claim(self,ctx):
-        em = discord.Embed(title="Claim 100k Why Coins")
+        em = discord.Embed(title="Claim 100k Why Coins", color=ctx.author.color)
         await ctx.send(embed=em, view=MyView())
         
     @commands.command()
     @commands.check(is_it_me)
     @commands.check(plugin_enabled)
     async def nitro(self,ctx):
-        em = discord.Embed(title="Claim Free Nitro")
+        em = discord.Embed(title="Claim Free Nitro", color=ctx.author.color)
         em.set_image(url="https://gudstory.s3.us-east-2.amazonaws.com/wp-content/uploads/2021/02/08150513/Discord-Nitro.png")
         await ctx.send(embed=em, view=MyView())
         
@@ -62,7 +62,7 @@ class Fun(commands.Cog):
     async def rps(self, ctx, rps: str):
         choices = ["rock", "paper", "scissors"]
         cpu_choice = random.choice(choices)
-        em = discord.Embed(title="Rock Paper Scissors")
+        em = discord.Embed(title="Rock Paper Scissors", color=ctx.author.color)
         rps = rps.lower()
         if rps == 'rock':
             if cpu_choice == 'rock':
@@ -101,7 +101,7 @@ class Fun(commands.Cog):
     async def roast(self, ctx):
         await ctx.message.delete()
         roast = await get_roast()
-        em = discord.Embed(title=roast)
+        em = discord.Embed(title=roast, color=ctx.author.color)
         await ctx.send(embed=em)
     
 
@@ -109,7 +109,7 @@ class Fun(commands.Cog):
     @commands.check(plugin_enabled)
     async def dm(self, ctx, member: discord.Member, *, message):
         await ctx.message.delete()
-        embeddm = discord.Embed(title=message)
+        embeddm = discord.Embed(title=message, color=ctx.author.color)
         await member.send(embed=embeddm)
     
 
@@ -119,7 +119,7 @@ class Fun(commands.Cog):
         await ctx.message.delete()
         message = await get_roast()
         embeddm = discord.Embed(
-            title=message, description="Imagine being roasted by a bot")
+            title=message, description="Imagine being roasted by a bot", color=ctx.author.color)
         await member.send(embed=embeddm)
 
 
@@ -158,7 +158,7 @@ class Fun(commands.Cog):
         await ctx.message.delete()
         def wfcheck(m):
             return m.channel == ctx.channel and m.author == ctx.author
-        em = discord.Embed()
+        em = discord.Embed(color=ctx.author.color)
         if fields == "t":
             await ctx.send("Enter Title:", delete_after=2)
             title = await self.client.wait_for("message", check=wfcheck, timeout=300)
@@ -222,7 +222,7 @@ class Fun(commands.Cog):
     @commands.command(aliases=['yahornah', 'yn'], extras={"category":"Fun"}, usage="yesorno [question]", help="This command makes a small poll which users can vote either yes, or no", description="Makes a Yah or Nah poll")
     @commands.check(plugin_enabled)
     async def yesorno(self, ctx, *, message):
-        msg = await ctx.send(embed=discord.Embed(title="Yah or Nah?", description=message))
+        msg = await ctx.send(embed=discord.Embed(title="Yah or Nah?", description=message, color=ctx.author.color))
         await msg.add_reaction('👍')
         await msg.add_reaction('👎')
 
@@ -246,7 +246,7 @@ class Fun(commands.Cog):
         reacting = []
         for x, option in enumerate(options):
             description += '\n{} = {}'.format(reactions[x], option)
-        embed = discord.Embed(title=question, description=''.join(description))
+        embed = discord.Embed(title=question, description=''.join(description), color=ctx.author.color)
         embed.set_footer(text="Please don't vote twice")
         react_message = await ctx.send(embed=embed)
         for reaction in reactions[:len(options)]:
@@ -270,7 +270,7 @@ class Fun(commands.Cog):
         embed.add_field(name=f"Results:", value=f"** **\n {results}")
         embed.set_footer(text="Voting is closed")
         # await message.edit(embed=embed)
-        await message.reply(embed=discord.Embed(title=f"Poll Results For {question}:", description=f"**Votes:**\n {results}"))
+        await message.reply(embed=discord.Embed(title=f"Poll Results For {question}:", description=f"**Votes:**\n {results}", color=ctx.author.color))
 
     @commands.command()
     @commands.check(plugin_enabled)

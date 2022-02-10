@@ -6,7 +6,7 @@ from easy_pil import Editor, Canvas, Font, load_image_async, Text
 import os
 from utils.checks import is_it_me, plugin_enabled
 
-lvlembed = discord.Embed()
+lvlembed = discord.Embed(color=discord.Color.green())
 lvlembed.set_author(name=LevelUpAnnouncement.Member.name)
 lvlembed.description = f'Congrats {LevelUpAnnouncement.Member.mention}! You are now level {LevelUpAnnouncement.LEVEL} 😎'
 

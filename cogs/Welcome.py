@@ -193,7 +193,7 @@ class Welcome(commands.Cog):
 
   
         welcome_image.save(f"./tempstorage/welcome{member.id}.png")
-        await ctx.send(file=discord.File(f"./tempstorage/welcome{member.id}.png"), embed=discord.Embed(title="This is the image that will show as the welcome message",description=f"`{ctx.prefix}welcome textcolor`\n`{ctx.prefix}welcome image`\n`{ctx.prefix}welcome bgcolor`\n`{ctx.prefix}welcome text\n`"))
+        await ctx.send(file=discord.File(f"./tempstorage/welcome{member.id}.png"), embed=discord.Embed(title="This is the image that will show as the welcome message",description=f"`{ctx.prefix}welcome textcolor`\n`{ctx.prefix}welcome image`\n`{ctx.prefix}welcome bgcolor`\n`{ctx.prefix}welcome text\n`", color=ctx.author.color))
         os.remove(f"./tempstorage/welcome{member.id}.png")
         
     
@@ -212,7 +212,7 @@ class Welcome(commands.Cog):
       with open("./database/db.json","w") as f:
         json.dump(data, f, indent=4)
       
-      await ctx.send(embed=discord.Embed(title="Welcome", description=f"Welcome text color set!\nUse `{ctx.prefix}welcome` with no subcommand to see the welcome message that will display"))
+      await ctx.send(embed=discord.Embed(title="Welcome", description=f"Welcome text color set!\nUse `{ctx.prefix}welcome` with no subcommand to see the welcome message that will display", color=ctx.author.color))
       
     @welcome.command()
     @commands.has_permissions(administrator=True)
@@ -228,7 +228,7 @@ class Welcome(commands.Cog):
       with open("./database/db.json","w") as f:
         json.dump(data, f, indent=4)
 
-      await ctx.send(embed=discord.Embed(title="Welcome", description=f"Welcome background color set!\nUse `{ctx.prefix}welcome` with no subcommand to see the welcome message that will display"))
+      await ctx.send(embed=discord.Embed(title="Welcome", description=f"Welcome background color set!\nUse `{ctx.prefix}welcome` with no subcommand to see the welcome message that will display", color=ctx.author.color))
 
 
     @welcome.command()
@@ -246,7 +246,7 @@ class Welcome(commands.Cog):
         
       with open("./database/db.json","w") as f:
         json.dump(data, f, indent=4)
-      await ctx.send(embed=discord.Embed(title="Welcome", description=f"Welcome test set!\nUse `{ctx.prefix}welcome` with no subcommand to see the welcome message that will display"))
+      await ctx.send(embed=discord.Embed(title="Welcome", description=f"Welcome test set!\nUse `{ctx.prefix}welcome` with no subcommand to see the welcome message that will display", color=ctx.author.color))
 
 
     @welcome.command()
@@ -263,7 +263,7 @@ class Welcome(commands.Cog):
       with open("./database/db.json","w") as f:
         json.dump(data, f, indent=4)
       
-      await ctx.send(embed=discord.Embed(title="Welcome", description=f"Welcome background image set!\nUse `{ctx.prefix}welcome` with no subcommand to see the welcome message that will display"))
+      await ctx.send(embed=discord.Embed(title="Welcome", description=f"Welcome background image set!\nUse `{ctx.prefix}welcome` with no subcommand to see the welcome message that will display", color=ctx.author.color))
       
 
 def setup(client):

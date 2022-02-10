@@ -9,7 +9,7 @@ class Dropdown(discord.ui.Select):
 
         for category in categories:
             index = categories.index(category)
-            categories[index] = discord.Embed(title=category)
+            categories[index] = discord.Embed(title=category, color=discord.Color.blue())
 
         for cmd in client.commands:
             try:
@@ -44,7 +44,7 @@ class Dropdown(discord.ui.Select):
 
         for category in categories:
             index = categories.index(category)
-            categories[index] = discord.Embed(title=category)
+            categories[index] = discord.Embed(title=category, color=discord.Color.blue())
 
         for cmd in self.client.commands:
             try:
@@ -60,17 +60,17 @@ class Dropdown(discord.ui.Select):
     
         for category in categories:
                 if cat.lower() == "logs":
-                    em = discord.Embed(title="Logs", description=f"`help [command]` for more info on command")
+                    em = discord.Embed(title="Logs", description=f"`help [command]` for more info on command", color=discord.Color.blue())
                     em.add_field(name="Use the /set command to set the mod/log channel", value="This category doesn't have any commands because it works on events.\nIf you use the `/set Mod/Log Channel #channel` command properly and set the right channel the bot will log things like Bans, Unbans, Messages being deleted/edited, Nick changes and more")
                     await interaction.response.edit_message(embed=em)
 
                 elif cat.lower() == "welcome":
-                    em = discord.Embed(title="Welcome", description=f"`help [command]` for more info on command")
+                    em = discord.Embed(title="Welcome", description=f"`help [command]` for more info on command", color=discord.Color.blue())
                     em.add_field(name="This system is used to send welcome messages to a user/into a channel when a member joins", value="Use the `/set Welcome Channel #channel` to set the welcome channel")
                     await interaction.response.edit_message(embed=em)
 
                 elif cat.lower() == "economy":
-                    em = discord.Embed(title="Economy", description=f"`help [command]` for more info on command")
+                    em = discord.Embed(title="Economy", description=f"`help [command]` for more info on command", color=discord.Color.blue())
                     em.add_field(name="This plugin/category is still under construction", value="** **")
                     await interaction.response.edit_message(embed=em)
 
@@ -114,25 +114,25 @@ class Help(commands.Cog):
             pass
         
         elif cat.lower() == "logs":
-            em = discord.Embed(title="Logs", description=f"`{ctx.prefix}help [command]` for more info on command")
+            em = discord.Embed(title="Logs", description=f"`{ctx.prefix}help [command]` for more info on command", color=ctx.author.color)
             em.add_field(name="Use the /set command to set the mod/log channel", value="This category doesn't have any commands because it works on events.\nIf you use the `/set Mod/Log Channel #channel` command properly and set the right channel the bot will log things like Bans, Unbans, Messages being deleted/edited, Nick changes and more")
             return await ctx.send(embed=em)
 
         elif cat.lower() == "welcome":
-            em = discord.Embed(title="Welcome", description=f"`{ctx.prefix}help [command]` for more info on command")
+            em = discord.Embed(title="Welcome", description=f"`{ctx.prefix}help [command]` for more info on command", color=ctx.author.color)
             em.add_field(name="This system is used to send welcome messages to a user/into a channel when a member joins", value="Use the `/set Welcome Channel #channel` to set the welcome channel")
             em.add_field(name=f"Using `{ctx.prefix}welcome` without a subcommand will display the welcome image",value=f"Configure your welcome message:\n`{ctx.prefix}welcome textcolor`\n`{ctx.prefix}welcome image`\n`{ctx.prefix}welcome bgcolor`\n`{ctx.prefix}welcome text`")
             return await ctx.send(embed=em)
 
         elif cat.lower() == "economy":
-            em = discord.Embed(title="Economy", description=f"`{ctx.prefix}help [command]` for more info on command")
+            em = discord.Embed(title="Economy", description=f"`{ctx.prefix}help [command]` for more info on command", color=ctx.author.color)
             em.add_field(name="This plugin/category is still under construction", value="** **")
             return await ctx.send(embed=em)
 
         categories = ["Counting", "Fun", "Leveling", "Logs", "Minecraft", "Moderation", "Music", "Ping", "Search", 'Settings', "Text", "Ticket", "Utilities", "Voice", "Welcome", "Economy"]
 
         if cat is None:
-            em = discord.Embed(title="Why Help")
+            em = discord.Embed(title="Why Help", color=ctx.author.color)
             em.add_field(inline=False, name=f"Use `{ctx.prefix}help all`", value="For all commands")
             em.add_field(inline=False, name=f"`{ctx.prefix}help [command]`", value="Give information about a specific command")
             em.add_field(inline=False, name=f"`{ctx.prefix}help [category]`", value="Give information about a specific category")
@@ -152,7 +152,7 @@ class Help(commands.Cog):
 
         for category in categories:
             index = categories.index(category)
-            categories[index] = discord.Embed(title=category)
+            categories[index] = discord.Embed(title=category, color=ctx.author.color)
 
         for cmd in self.client.commands:
             try:
@@ -172,7 +172,7 @@ class Help(commands.Cog):
                 
         for cmd in self.client.commands:
             if cmd.name.lower() == cat.lower():
-                em = discord.Embed(title="Why Help", description=f"`{ctx.prefix}help [command]` for more info on command")
+                em = discord.Embed(title="Why Help", description=f"`{ctx.prefix}help [command]` for more info on command", color=ctx.author.color)
                 em.add_field(name=f"Name", value=f"`{cmd.name}`", inline=False)
                 if len(cmd.aliases) == 0:
                     em.add_field(name="Aliases:", value='None', inline=False)
@@ -181,7 +181,7 @@ class Help(commands.Cog):
                 em.add_field(name="Usage: ", value=f"`{ctx.prefix}{cmd.usage}`", inline=False)
                 em.add_field(name="Description:", value=f"""```{cmd.help}```""", inline=False)
                 return await ctx.send(embed=em)
-        await ctx.send(embed=discord.Embed(title="Command/Category Not Found"))
+        await ctx.send(embed=discord.Embed(title="Command/Category Not Found", color=ctx.author.color))
 
 def setup(client):
     client.add_cog(Help(client))

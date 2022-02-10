@@ -167,7 +167,7 @@ class Utilities(commands.Cog):
     @commands.command(aliases=['bot'], extras={"category": "Utilities"}, usage="botinvite", help="Creates an invite link so you can invite Why to your server", description="Invite why to your server")
     @commands.check(plugin_enabled)
     async def botinvite(self, ctx):
-        await ctx.send(embed=discord.Embed(title="Invite **Why?** to your server:", description="https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands"))
+        await ctx.send(embed=discord.Embed(title="Invite **Why?** to your server:", description="[Why Invite Link](https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands)", color=ctx.author.color))
 
     @commands.command(extras={"category": "Utilities"}, usage="info [@user]", help="This command shows a message with info on a user.", description="Returns info on a user")
     @commands.check(plugin_enabled)
@@ -176,7 +176,7 @@ class Utilities(commands.Cog):
             return await ctx.send(f"{ctx.prefix}info person <@person>\nYou didnt @ the member")
         roles = [role for role in member.roles]
         em = discord.Embed(title="Person Info",
-                           description=f"For: {member.name}")
+                           description=f"For: {member.name}", color=ctx.author.color)
         if str(member.status) == "online":
             status = "🟢 Online"
         elif str(member.status) == "offline":
@@ -261,7 +261,7 @@ class Utilities(commands.Cog):
         with open("./database/userdb.json") as f:
             data = json.load(f)
         active = len(data)
-        em = discord.Embed(title='Why Bot', description='Just Why?')
+        em = discord.Embed(title='Why Bot', description='Just Why?', color=ctx.author.color)
         em.add_field(inline=True, name="Server Count",
                      value=f"{len(self.client.guilds)}")
         mlist = []
@@ -331,7 +331,7 @@ class Utilities(commands.Cog):
                         url="https://discordbotlist.com/bots/why")
         view = View(timeout=15)
         view.add_item(button)
-        await ctx.send(embed=discord.Embed(title="Vote for Why Bot here:"), view=view)
+        await ctx.send(embed=discord.Embed(title="Vote for Why Bot here:", color=ctx.author.color), view=view)
 
     @commands.command(extras={"category": "Utilities"}, usage="cuse [@user(optional)]", help="Shows how many times you have used Why bot", description="How many times have you used Why?")
     async def cuse(self, ctx, member: discord.Member = None):
@@ -342,7 +342,7 @@ class Utilities(commands.Cog):
             for i in data:
                 if i["user_id"] == member.id:
                     cuse = i["command_count"]
-        await ctx.send(embed=discord.Embed(title=f"You have used Why Bot {cuse} times"))
+        await ctx.send(embed=discord.Embed(title=f"You have used Why Bot {cuse} times", color=ctx.author.color))
 
     @commands.command(no_pm=True, help="This command is used to check whos playing a certain game/activity", extras={"category":"Utilities"}, usage="whosplaying [game/activity]", description="Check whosplaying activity")
     async def whosplaying(self, ctx, *, game):

@@ -1,4 +1,5 @@
 import discord
+import random
 from discord.ext import commands
 import json
 from datetime import datetime
@@ -82,10 +83,10 @@ class Events(commands.Cog):
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
         cha = self.client.get_channel(925513395883606129)
-        await cha.send(embed=discord.Embed(title="Join", description=f"Joined: {guild.name}"))
+        await cha.send(embed=discord.Embed(title="Join", description=f"Joined: {guild.name}", color=discord.Color.green()))
         await update_activity(self.client)
         await startguildsetup(guild.id)
-        embed = discord.Embed(color=discord.Color(value=0x36393e))
+        embed = discord.Embed(color=discord.Color.blue())
         embed.set_author(name="Here's some stuff to get you started:")
         embed.add_field(name="Default Prefix: `?`",
                         value="This can be changed later using `?setprefix`")
@@ -104,7 +105,7 @@ class Events(commands.Cog):
     async def on_guild_remove(self,guild):
         await update_activity(self.client)
         cha = self.client.get_channel(925513395883606129)
-        await cha.send(embed=discord.Embed(title="Leave", description=f"Left: {guild.name}"))
+        await cha.send(embed=discord.Embed(title="Leave", description=f"Left: {guild.name}", color=discord.Color.red()))
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
@@ -132,6 +133,7 @@ class Events(commands.Cog):
             em = discord.Embed(
                 title="Wow buddy, Slow it down\nThis command is on cooldown",
                 description=f"Try again in **{retry_after}**",
+                color = discord.Color.red()
             )
             await ctx.send(embed=em)
 
@@ -139,6 +141,7 @@ class Events(commands.Cog):
             em = discord.Embed(
                 title="Missing a requred value/arg",
                 description="You haven't passed in all value/arg",
+                color = discord.Color.red()
             )
             await ctx.send(embed=em)
 
@@ -146,6 +149,7 @@ class Events(commands.Cog):
             em = discord.Embed(
                 title="Missing permissions",
                 description="You don't have permissions to use this commands",
+                color = discord.Color.red()
             )
             await ctx.send(embed=em)
 

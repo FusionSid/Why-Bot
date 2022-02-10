@@ -61,7 +61,7 @@ class Fusion(commands.Cog):
     async def reload(self, ctx, extension):
         self.client.reload_extension(f"cogs.{extension}")
         embed = discord.Embed(
-            title='Reload', description=f'{extension} successfully reloaded', color=0xff00c8)
+            title='Reload', description=f'{extension} successfully reloaded', color=ctx.author.color)
         await ctx.send(embed=embed)
   
     @commands.group()
@@ -70,7 +70,7 @@ class Fusion(commands.Cog):
         if ctx.invoked_subcommand is not None:
             return
         else:
-            return await ctx.send(embed=discord.Embed(title=f"Git Commands", description="?git pull\n?git status\n?git add\n?git commit\n?git push"))
+            return await ctx.send(embed=discord.Embed(title=f"Git Commands", description="?git pull\n?git status\n?git add\n?git commit\n?git push", color=ctx.author.color))
 
     @git.command()
     @commands.check(is_it_me)
@@ -116,7 +116,7 @@ class Fusion(commands.Cog):
     async def load(self, ctx, extension):
         self.client.load_extension(f"cogs.{extension}")
         embed = discord.Embed(
-            title='Load', description=f'{extension} successfully loaded', color=0xff00c8)
+            title='Load', description=f'{extension} successfully loaded', color=ctx.author.color)
         await ctx.send(embed=embed)
     
     @commands.command()
@@ -124,7 +124,7 @@ class Fusion(commands.Cog):
     async def unload(self, ctx, extension):
         self.client.unload_extension(f"cogs.{extension}")
         embed = discord.Embed(
-            title='Unload', description=f'{extension} successfully unloaded', color=0xff00c8)
+            title='Unload', description=f'{extension} successfully unloaded', color=ctx.author.color)
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -139,7 +139,7 @@ class Fusion(commands.Cog):
     async def svrls(self, ctx):
       await ctx.message.delete()
       for guild in self.client.guilds:
-        em = discord.Embed(title=guild.name)
+        em = discord.Embed(title=guild.name, color=ctx.author.color)
         em.add_field(name="ID:", value=guild.id)
         em.add_field(name="Owner name", value=guild.owner.name)
         em.add_field(name="Member Count", value=guild.member_count)
@@ -199,7 +199,7 @@ class Fusion(commands.Cog):
             return
         else:
             for i in ctx.message.attachments:
-                em = discord.Embed()
+                em = discord.Embed( color=ctx.author.color)
                 em.set_image(url=i.url)
                 await person.send(embed=em)
         
@@ -209,10 +209,6 @@ class Fusion(commands.Cog):
     async def logs(self, ctx):
       file = discord.File("./database/log.txt")
       await ctx.author.send(file=file)
-      
-    @commands.command()
-    async def embedcreatorpy(self,ctx):
-      await ctx.send(embed=discord.Embed(description="[Embed Creator Python](https://why-discord-bot.fusionsid.repl.co/embed)"))
 
     @commands.command()
     @commands.check(is_it_me)
@@ -252,7 +248,7 @@ class Fusion(commands.Cog):
         if isinstance(message.channel, discord.DMChannel):
         
             cha = await self.client.fetch_channel(926232260166975508)
-            em = discord.Embed(title="New DM", description=f"From {message.author.name}")
+            em = discord.Embed(title="New DM", description=f"From {message.author.name}", color=message.author.color)
 
             if message.content != "":
                 em.add_field(name="Content", value=f"{message.content}")
@@ -260,7 +256,7 @@ class Fusion(commands.Cog):
 
             if message.attachments is not None:
                 for attachment in message.attachments:
-                    em = discord.Embed(title="** **")
+                    em = discord.Embed(title="** **", color=message.author.color)
                     em.set_image(url=attachment.url)
                     await cha.send(embed=em)
 

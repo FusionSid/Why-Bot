@@ -69,7 +69,7 @@ class Slash(commands.Cog):
     async def rps(self, ctx, rps: Option(str, "Rock Paper or Scissors", required=True, choices=["Rock", "Paper", "Scissors"])):
         choices = ["rock", "paper", "scissors"]
         cpu_choice = random.choice(choices)
-        em = discord.Embed(title="Rock Paper Scissors")
+        em = discord.Embed(title="Rock Paper Scissors", color=ctx.author.color)
         rps = rps.lower()
         if rps == 'rock':
             if cpu_choice == 'rock':
@@ -105,12 +105,12 @@ class Slash(commands.Cog):
     @slash_command(name="roast", description="Bot roasts you")
     async def roast(self, ctx):
         roast = await get_roast()
-        em = discord.Embed(title=roast)
+        em = discord.Embed(title=roast, color=ctx.author.color)
         await ctx.respond(embed=em)
 
     @slash_command(name="dm", description="The bot dms someone for you")
     async def dm(self, ctx, member: Option(discord.Member, "The person you want to dm", required=True), message: Option(str, 'The message', required=True)):
-        embeddm = discord.Embed(title=message)
+        embeddm = discord.Embed(title=message, color=ctx.author.color)
         await member.send(embed=embeddm)
         await ctx.respond("Done")
 
@@ -118,7 +118,7 @@ class Slash(commands.Cog):
     async def sendroast(self, ctx, member: Option(discord.Member, "The person you want to roast", required=True)):
         message = await get_roast()
         embeddm = discord.Embed(
-            title=message, description="Imagine being roasted by a bot")
+            title=message, description="Imagine being roasted by a bot", color=ctx.author.color)
         await member.send(embed=embeddm)
         await ctx.respond("Done")
 
@@ -133,7 +133,7 @@ class Slash(commands.Cog):
 
     @slash_command(name="botinvite", description="Invite why to your server :)")
     async def botinvite(self, ctx):
-        await ctx.respond(embed=discord.Embed(title="Invite **Why?** to your server:", description="https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands"))
+        await ctx.respond(embed=discord.Embed(title="Invite **Why?** to your server:", description="[Why invite link](https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands)", color=ctx.author.color))
 
     @slash_command(name="suggest", description="Suggest something for why bot")
     async def suggest(self, ctx, suggestion: Option(str, "The suggestion", required=True)):
@@ -150,7 +150,7 @@ class Slash(commands.Cog):
     async def reload(self, ctx, extension:Option(str, "Cog Name", required=True, choices=cogs)):
         self.client.reload_extension(f"cogs.{extension}")
         embed = discord.Embed(
-            title='Reload', description=f'{extension} successfully reloaded', color=0xff00c8)
+            title='Reload', description=f'{extension} successfully reloaded',color=ctx.author.color)
         await ctx.respond(embed=embed)
 
     @slash_command(name="setprefix", description="Sets the server prefix for Why Bot")
@@ -163,7 +163,7 @@ class Slash(commands.Cog):
                 i["prefix"] = pref
         with open(f'./database/db.json', 'w') as f:
             json.dump(data, f)
-        await ctx.respond(embed=discord.Embed(title=f"Prefix has been set to `{pref}`"))
+        await ctx.respond(embed=discord.Embed(title=f"Prefix has been set to `{pref}`", color=ctx.author.color))
         
 def setup(client):
     client.add_cog(Slash(client))

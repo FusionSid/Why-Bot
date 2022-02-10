@@ -41,7 +41,7 @@ class Moderation(commands.Cog):
 
         channel = await get_log_channel(self, ctx)
 
-        em = discord.Embed(title="REPORT")
+        em = discord.Embed(title="REPORT", color=ctx.author.color)
 
         if type_.lower() == "member":
 
@@ -108,7 +108,7 @@ class Moderation(commands.Cog):
         await user.add_roles(role)
         channel = await get_log_channel(self, ctx)
         if channel != False:
-            return await channel.send(embed=discord.Embed(title="Give Role", description=f"***{user.mention}*** has been given the ***{role.mention}*** role"))
+            return await channel.send(embed=discord.Embed(title="Give Role", description=f"***{user.mention}*** has been given the ***{role.mention}*** role", color=ctx.author.color))
         else:
             pass
         await ctx.send(f"{user} has been given the {role} role")
@@ -120,7 +120,7 @@ class Moderation(commands.Cog):
         await user.remove_roles(role)
         channel = await get_log_channel(self, ctx)
         if channel != False:
-            return await channel.send(embed=discord.Embed(title="Remove Role", description=f"***{role.mention}*** has been removed from ***{user.mention}***"))
+            return await channel.send(embed=discord.Embed(title="Remove Role", description=f"***{role.mention}*** has been removed from ***{user.mention}***", color=ctx.author.color))
         else:
             pass
         await ctx.send(f"{role} has been removed from {user}")
@@ -139,7 +139,7 @@ class Moderation(commands.Cog):
             await ctx.reply("Sorry, you cannot perform that action due to role hierarchy")
         channel = await get_log_channel(self, ctx)
         if channel != False:
-            return await channel.send(embed=discord.Embed(title="Ban", description=f"***{member.mention}*** has been banned"))
+            return await channel.send(embed=discord.Embed(title="Ban", description=f"***{member.mention}*** has been banned", color=ctx.author.color))
         else:
             pass
         await ctx.send(f"User {member} has been banned")
@@ -158,7 +158,7 @@ class Moderation(commands.Cog):
             await ctx.reply("Sorry, you cannot perform that action due to role hierarchy")
         channel = await get_log_channel(self, ctx)
         if channel != False:
-            return await channel.send(embed=discord.Embed(title="Kick", description=f"***{member.mention}*** has been kicked"))
+            return await channel.send(embed=discord.Embed(title="Kick", description=f"***{member.mention}*** has been kicked", color=ctx.author.color))
         else:
             pass
         await ctx.send(f"User {member} has been kicked")
@@ -187,7 +187,7 @@ class Moderation(commands.Cog):
         await channel.set_permissions(ctx.guild.default_role, send_messages=True)
         cha = await get_log_channel(self, ctx)
         if cha == False:
-            return await cha.send(embed=discord.Embed(title="Unlock", description=f"***{channel.mention}*** is no longer in lockdown"))
+            return await cha.send(embed=discord.Embed(title="Unlock", description=f"***{channel.mention}*** is no longer in lockdown", color=ctx.author.color))
         else:
             pass
 
@@ -211,7 +211,7 @@ class Moderation(commands.Cog):
     @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def reactrole(self, ctx, emoji, role: discord.Role, *, message):
-        embedVar = discord.Embed(description=message)
+        embedVar = discord.Embed(description=message, color=ctx.author.color)
         msg = await ctx.channel.send(embed=embedVar)
         await msg.add_reaction(emoji)
         with open("./database/react.json") as json_file:
@@ -270,7 +270,7 @@ class Moderation(commands.Cog):
         channel = await guild.create_text_channel(name)
         channel = await get_log_channel(self, ctx)
         if channel != False:
-            return await channel.send(embed=discord.Embed(title="Create Channel", description=f"***{name}*** text channel has been created"))
+            return await channel.send(embed=discord.Embed(title="Create Channel", description=f"***{name}*** text channel has been created", color=ctx.author.color))
         else:
             pass
 
@@ -285,7 +285,7 @@ class Moderation(commands.Cog):
             channel = await guild.create_voice_channel(name, user_limit=limit)
             channel = await get_log_channel(self, ctx)
         if channel != False:
-            return await channel.send(embed=discord.Embed(title="Create Voice Channel", description=f"***{name}*** voice channel has been created"))
+            return await channel.send(embed=discord.Embed(title="Create Voice Channel", description=f"***{name}*** voice channel has been created", color=ctx.author.color))
         else:
             pass
 
@@ -318,7 +318,7 @@ class Moderation(commands.Cog):
           json.dump(data,f,indent=4)
         channel = await get_log_channel(self, ctx)
         if channel != False:
-            return await channel.send(embed=discord.Embed(title="Warn", description=f"***{member.mention}*** has been warned"))
+            return await channel.send(embed=discord.Embed(title="Warn", description=f"***{member.mention}*** has been warned", color=ctx.author.color))
         else:
             pass
 
@@ -336,7 +336,7 @@ class Moderation(commands.Cog):
         except:
             return await ctx.send("This person has no warnings")
 
-        em = discord.Embed(title="WARNINGS:")
+        em = discord.Embed(title="WARNINGS:", color=ctx.author.color)
         for i in warnings:
             t = i["time"]
             r = i["reason"]
@@ -476,7 +476,7 @@ class Moderation(commands.Cog):
         with open('./database/userdb.json', 'w') as f:
           json.dump(data, f, indent=4)
         await ctx.message.delete()
-        await ctx.send(embed=discord.Embed(title="Webhook Created", description=f"Use `{ctx.prefix}webhook {id} [message]` to send messages using that webhook"))
+        await ctx.send(embed=discord.Embed(title="Webhook Created", description=f"Use `{ctx.prefix}webhook {id} [message]` to send messages using that webhook", color=ctx.author.color))
 
     @commands.command(aliases=['webhook', 'swh'],help="This command uses a webhook that you previously made using the createhook command to send a message", extras={"category":"Moderation"}, usage="webhook [id] [text]", description="Send message through a webhook")
     @commands.check(plugin_enabled)

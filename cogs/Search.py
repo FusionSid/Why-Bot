@@ -9,6 +9,7 @@ import re
 import urllib.request
 import os
 import praw
+import asyncio
 import wikipedia
 import dotenv
 
@@ -83,7 +84,7 @@ class Search(commands.Cog):
             q=f"{search}", cx="54c1117c3e104029b", searchType="image"
         ).execute()
         url = result["items"][ran]["link"]
-        embed1 = discord.Embed(title=f"Search:({search.title()})")
+        embed1 = discord.Embed(title=f"Search:({search.title()})", color=ctx.author.color)
         embed1.set_image(url=url)
         await ctx.send(embed=embed1)
 
@@ -96,7 +97,7 @@ class Search(commands.Cog):
         ids = re.findall(r"watch\?v=(\S{11})", html.read().decode())
         base_url = "https://www.youtube.com/watch?v="
         em = discord.Embed(title="Youtube Search",
-                           description="Showing first 5 urls")
+                           description="Showing first 5 urls", color=ctx.author.color)
         videos = [ids[0], ids[1], ids[2], ids[3], ids[4]]
         for video in videos:
             em.add_field(name=f"{base_url}{video}", value="** **")
@@ -108,7 +109,7 @@ class Search(commands.Cog):
         rclient = reddit_client()
         urls = await get_img_url(client=rclient, sub_name=subreddit, limit=50)
         url = random.choice(urls)
-        em = discord.Embed(title="Reddit Image Search:")
+        em = discord.Embed(title="Reddit Image Search:", color=ctx.author.color)
         em.set_image(url=url)
         await ctx.send(embed=em)
 
@@ -127,7 +128,7 @@ class Search(commands.Cog):
         ups = ran_sub.ups
         downs = ran_sub.downs
         author = ran_sub.author
-        em = discord.Embed(title=name)
+        em = discord.Embed(title=name, color=ctx.author.color)
         em.set_image(url=url)
         em.set_footer(text=f"{author} | 👍 : {ups}")
         await ctx.send(embed=em)
@@ -138,7 +139,7 @@ class Search(commands.Cog):
         rclient = reddit_client()
         urls = await get_url(client=rclient, sub_name=subreddit, limit=50)
         url = random.choice(urls)
-        em = discord.Embed(title="Reddit Search:", description=url)
+        em = discord.Embed(title="Reddit Search:", description=url, color=ctx.author.color)
         await ctx.send(embed=em)
     
     @commands.command(help="This command returns a random rock image", extras={"category":"Search"}, usage="rock", description="Rock Image")
@@ -153,7 +154,7 @@ class Search(commands.Cog):
                         pass
                     else:
                         break
-        em = discord.Embed(title=response['name'], description=response['desc'])
+        em = discord.Embed(title=response['name'], description=response['desc'], color=ctx.author.color)
         rating = response["rating"]
         em.add_field(name="Rating", value=f"{rating}/5")
         em.set_image(url=response["image"])
@@ -168,7 +169,7 @@ class Search(commands.Cog):
         async with aiohttp.ClientSession() as session:
                 async with session.get(url) as resp:
                     r = await resp.json()
-        em = discord.Embed(title="Dog!", description=r['fact'])
+        em = discord.Embed(title="Dog!", description=r['fact'], color=ctx.author.color)
         em.set_image(url=r['image'])
 
         await ctx.send(embed=em)
@@ -180,7 +181,7 @@ class Search(commands.Cog):
         async with aiohttp.ClientSession() as session:
                 async with session.get(url) as resp:
                     r = await resp.json()
-        em = discord.Embed(title="Cat!", description=r['fact'])
+        em = discord.Embed(title="Cat!", description=r['fact'], color=ctx.author.color)
         em.set_image(url=r['image'])
 
         await ctx.send(embed=em)
@@ -192,7 +193,7 @@ class Search(commands.Cog):
         async with aiohttp.ClientSession() as session:
                 async with session.get(url) as resp:
                     r = await resp.json()
-        em = discord.Embed(title="Panda!", description=r['fact'])
+        em = discord.Embed(title="Panda!", description=r['fact'], color=ctx.author.color)
         em.set_image(url=r['image'])
 
         await ctx.send(embed=em)
@@ -204,7 +205,7 @@ class Search(commands.Cog):
         async with aiohttp.ClientSession() as session:
                 async with session.get(url) as resp:
                     r = await resp.json()
-        em = discord.Embed(title="Fox!", description=r['fact'])
+        em = discord.Embed(title="Fox!", description=r['fact'], color=ctx.author.color)
         em.set_image(url=r['image'])
 
         await ctx.send(embed=em)
@@ -216,7 +217,7 @@ class Search(commands.Cog):
         async with aiohttp.ClientSession() as session:
                 async with session.get(url) as resp:
                     r = await resp.json()
-        em = discord.Embed(title="Bird!", description=r['fact'])
+        em = discord.Embed(title="Bird!", description=r['fact'], color=ctx.author.color)
         em.set_image(url=r['image'])
 
         await ctx.send(embed=em)
@@ -304,7 +305,7 @@ class Search(commands.Cog):
     async def overlay(self, ctx, type:str=None, member: discord.Member=None):
         overlays = ["gay","glass","wasted","passed","jail","comrade","triggered"]
         if type is None or type.lower() not in overlays:
-            return await ctx.send(embed=discord.Embed(title="Overlays:", description="\n".join(overlays)))
+            return await ctx.send(embed=discord.Embed(title="Overlays:", description="\n".join(overlays), color=ctx.author.color))
 
         if member is None:
             member = ctx.author
@@ -331,7 +332,7 @@ class Search(commands.Cog):
         async with aiohttp.ClientSession() as session:
                 async with session.get(url) as resp:
                     r = await resp.json()
-        em=discord.Embed(title=r['joke'])
+        em=discord.Embed(title=r['joke'], color=ctx.author.color)
 
         await ctx.send(embed=em)
 
@@ -352,7 +353,7 @@ class Search(commands.Cog):
         
         em = discord.Embed(
             title=r['title'],
-            description=f"{r['lyrics']}\n\n[Link on genius]({r['links']['genius']})"
+            description=f"{r['lyrics']}\n\n[Link on genius]({r['links']['genius']})", color=ctx.author.color
         )
         em.set_author(name=r['author'])
         em.set_thumbnail(url=r['thumbnail']['genius'])

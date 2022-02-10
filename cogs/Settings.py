@@ -9,7 +9,7 @@ async def enabled_cogs(ctx):
     for i in data:
         if i["guild_id"] == ctx.guild.id:
             plugins = i['settings']['plugins']
-    em = discord.Embed(title="Plugins:",description="These are all the plugins that have been enabled on your server")
+    em = discord.Embed(title="Plugins:",description="These are all the plugins that have been enabled on your server", color=ctx.author.color)
     for key, value in plugins.items():
         if value == True:
             emoji = "Enabled ✅"
@@ -22,7 +22,7 @@ async def enabled_cogs(ctx):
 async def get_channels(self, ctx):
     with open("./database/db.json") as f:
         data = json.load(f)
-    em = discord.Embed(title="Channels")
+    em = discord.Embed(title="Channels", color=ctx.author.color)
     em.set_footer(text="Use /set to set these")
     for i in data:
         if i['guild_id'] == ctx.guild.id:
@@ -49,7 +49,7 @@ async def get_channels(self, ctx):
 async def autorole(self, ctx):
     with open("./database/db.json") as f:
         data = json.load(f)
-    em = discord.Embed(title="Autorole")
+    em = discord.Embed(title="Autorole", color=ctx.author.color)
     em.set_footer(text="Use ?autorole [@role] [all/bot] to set the autorole")
     for i in data:
         if i['guild_id'] == ctx.guild.id:
@@ -69,7 +69,7 @@ async def autorole(self, ctx):
 async def welcome_text(ctx):
     with open("./database/db.json") as f:
         data = json.load(f)
-    em = discord.Embed(title="Welcome Text")
+    em = discord.Embed(title="Welcome Text", color=ctx.author.color)
     em.set_footer(text="Use ?setwelcometext [text] to set the text")
     for i in data:
         if i['guild_id'] == ctx.guild.id:
@@ -88,7 +88,7 @@ async def autocalc(ctx):
   if autocalc == False:
     status = "Disabled ❌"
     
-  em = discord.Embed(title='Auto Calculator', description=status)
+  em = discord.Embed(title='Auto Calculator', description=status, color=ctx.author.color)
 
   return em
   
@@ -100,9 +100,9 @@ class Settings(commands.Cog):
     async def settings(self,ctx):
         plugins = await enabled_cogs(ctx)
 
-        em = discord.Embed(title="Settings", description="Use the arrows to look throught the settings")
+        em = discord.Embed(title="Settings", description="Use the arrows to look throught the settings", color=ctx.author.color)
         
-        prefix = discord.Embed(title = "Prefix", description=f"The prefix is `{ctx.prefix}`")
+        prefix = discord.Embed(title = "Prefix", description=f"The prefix is `{ctx.prefix}`", color=ctx.author.color)
         prefix.set_footer(text=f"You can use {ctx.prefix}setprefix [prefix] to set the prefix")
 
         channels = await get_channels(self, ctx)
@@ -123,7 +123,7 @@ class Settings(commands.Cog):
     @commands.group(help="This command is used to enable/disable plugins for your server. You can stop certain categories from working on this server\nThe plugin name is case sensitive", extras={"category":"Settings"}, usage="plugins [enable/disable] [plugin name]", description="Enable/Disable Plugins for Why bot")
     async def plugins(self, ctx):
         if ctx.invoked_subcommand is None:
-          em = discord.Embed(title="Plugins", description=f"Use `{ctx.prefix}plugins [enable/disable] [plugin name]`")
+          em = discord.Embed(title="Plugins", description=f"Use `{ctx.prefix}plugins [enable/disable] [plugin name]`", color=ctx.author.color)
           em.add_field(name="Plugin List:", value="Counting\nModeration\nEconomy\nTextConvert\nSearch\nWelcome\nLeveling\nMusic\nOnping\nTicket\nMinecraft\nUtilities")
           em.set_footer(text="This command is case sensitive so please use capital letters")
           await ctx.send(embed=em)
@@ -174,7 +174,7 @@ class Settings(commands.Cog):
                 i["prefix"] = pref
         with open(f'./database/db.json', 'w') as f:
             json.dump(data, f)
-        await ctx.send(embed=discord.Embed(title=f"Prefix has been set to `{pref}`"))
+        await ctx.send(embed=discord.Embed(title=f"Prefix has been set to `{pref}`", color=ctx.author.color))
 
     @commands.command(help="This command turns on autocalc for the server.\nAuto calc basicaly autocalculates any thing you type. For example in chat you type\n1 + 1\nin chat, The bot will reply 2", extras={"category":"Settings"}, usage="autocalc [True/false]", description="Toggles autocalc for this server")
     @commands.has_permissions(administrator=True)
@@ -193,7 +193,7 @@ class Settings(commands.Cog):
                   await ctx.send("Invalid option. Only `true` or `false`")
         with open(f'./database/db.json', 'w') as f:
             json.dump(data, f)
-        await ctx.send(embed=discord.Embed(title=f"Autocalc is {status}"))
+        await ctx.send(embed=discord.Embed(title=f"Autocalc is {status}", color=ctx.author.color))
     
 def setup(client):
     client.add_cog(Settings(client))

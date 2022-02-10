@@ -23,7 +23,7 @@ class Log(commands.Cog):
         if after.author.id == self.client.user.id:
             return
         try:
-            em = discord.Embed(
+            em = discord.Embed(color=discord.Color.blue(), 
                 title="Message Edit", description=f"{before.author} edited their message")
             em.add_field(name="Before", value=before.content)
             em.add_field(name="After", value=after.content)
@@ -41,7 +41,7 @@ class Log(commands.Cog):
         if message.author.id == self.client.user.id:
             return
         try:
-            em = discord.Embed(
+            em = discord.Embed(color=discord.Color.blue(), 
                 title="Message Delete", description=f"{message.author} has deleted the message")
             em.add_field(name="Content:", value=f"{message.content}")
 
@@ -56,7 +56,7 @@ class Log(commands.Cog):
     @commands.Cog.listener()
     async def on_member_ban(self, guild, user):
         try:
-            em = discord.Embed(
+            em = discord.Embed(color=discord.Color.blue(), 
                 title="Member Banned!", description=f"{user.name} Has been banned from the server")
             channel = await get_log_channel(self, guild)
             if channel == None:
@@ -69,7 +69,7 @@ class Log(commands.Cog):
     @commands.Cog.listener()
     async def on_member_unban(self, guild, user):
         try:
-            em = discord.Embed(
+            em = discord.Embed(color=discord.Color.blue(), 
                 title="Member Unbanned!", description=f"{user.name} Has been unbanned from the server")
             channel = await get_log_channel(self, guild)
             if channel == None:
@@ -83,19 +83,19 @@ class Log(commands.Cog):
     async def on_member_update(self, before, after):
         try:
             if before.nick is not None and after.nick is None:
-                em = discord.Embed(title="Nick Change",
+                em = discord.Embed(color=discord.Color.blue(), title="Nick Change",
                                    description=f"{before.name} has unicked")
                 em.add_field(name="Before:", value=before.nick)
                 em.add_field(name="After:", value="No Nick")
 
             if before.nick is None and after.nick is not None:
-                em = discord.Embed(title="Nick Change",
+                em = discord.Embed(color=discord.Color.blue(), title="Nick Change",
                                    description=f"{before.name} Has nicked")
                 em.add_field(name="Before:", value="No Nick")
                 em.add_field(name="After:", value=after.nick)
 
             elif before.nick != after.nick:
-                em = discord.Embed(
+                em = discord.Embed(color=discord.Color.blue(), 
                     title="Nick Change", description=f"{before.name} Has changed their nick")
                 em.add_field(name="Before:", value=before.nick)
                 em.add_field(name="After:", value=after.nick)
@@ -111,7 +111,7 @@ class Log(commands.Cog):
     @commands.Cog.listener()
     async def on_guild_channel_create(self, channel):
         try:
-            em = discord.Embed(title="Channel Created",
+            em = discord.Embed(color=discord.Color.blue(), title="Channel Created",
                                description=f"`{channel.name}` Has been created")
             channel = await get_log_channel(self, channel.guild)
             if channel == None:
@@ -124,7 +124,7 @@ class Log(commands.Cog):
     @commands.Cog.listener()
     async def on_guild_channel_delete(self, channel):
         try:
-            em = discord.Embed(title="Channel Delete",
+            em = discord.Embed(color=discord.Color.blue(), title="Channel Delete",
                                description=f"`{channel.name}` Has been deleted")
             channel = await get_log_channel(self, channel.guild)
             if channel == None:

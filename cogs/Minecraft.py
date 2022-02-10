@@ -52,7 +52,7 @@ class Minecraft(commands.Cog):
             uuid = await get_user_uuid(ctx)
         else:
             uuid = await get_uuid(str(player))
-        await ctx.send(embed=discord.Embed(title="Your uuid:", description=f'{uuid}'))
+        await ctx.send(embed=discord.Embed(title="Your uuid:", description=f'{uuid}', color=ctx.author.color))
 
     # Register IGN
 
@@ -162,7 +162,7 @@ class Minecraft(commands.Cog):
             full_ign = player_name
 
         em = discord.Embed(title="Bedwars Stats:",
-                           description="For {}".format(full_ign))
+                           description="For {}".format(full_ign), color=ctx.author.color)
         stats_values = [bw_level, bw_wins, bw_losses, bw_winstreak, bw_coins, bw_gold,
                         bw_iron, bw_dias, bw_ems, bw_resources, bw_kills, bw_deaths, bw_beds, bw_finals]
         stat_keys = ["Bedwars Level", "Wins", "Losses", "Current Winstreak", "Coins",
