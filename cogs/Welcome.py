@@ -79,7 +79,7 @@ async def memberjoin(client, member):
     else:
         channel = await client.fetch_channel(int(cha))
         # Send welcome message in server welcome channel
-        await channel.send(file=discord.File(f"./tempstorage/welcome{member.id}.png"))
+        await channel.send(content=member.mention, file=discord.File(f"./tempstorage/welcome{member.id}.png"))
     try:
       await member.send(file=discord.File(f"./tempstorage/welcome{member.id}.png"))
     except:
