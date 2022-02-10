@@ -163,7 +163,7 @@ class Welcome(commands.Cog):
         if welcome_bg_image is not None:
             try:
                 bg_img_url = load_image(str(welcome_bg_image))
-                bg_img = Editor(bg_img_url).resize((970, 270))
+                bg_img = Editor(bg_img_url).resize((970, 270)).blur(amount=10)
                 welcome_image.paste(bg_img, (0, 0))
             except Exception as err:
                 print(err)
