@@ -154,7 +154,7 @@ class Fun(commands.Cog):
                            description=f"{question}\nAnswer: {random.choice(_8ballans)}")
         await ctx.send(embed=em)
 
-    @commands.command(aliases=['em'], extras={"category":"Fun"}, usage="embed [t/d/td] [fields(optional)] [channel(optional)] [img(optional)]", help="This command is used to make an embeded message.\nThe bot will create a nice embed and then send it to the channel youre in or the channel you want.", description="Makes an embed")
+    @commands.command(aliases=['em'], extras={"category":"Fun"}, usage="embed --title test --desc test --channel 123456789 --color blue --timestamp yes --fields 2", help="This command is used to make an embeded message.\nThe bot will create a nice embed and then send it to the channel youre in or the channel you want.", description="Makes an embed")
     @commands.check(plugin_enabled)
     async def embed(self, ctx, *, kwargs):
         colors = {
@@ -199,7 +199,7 @@ class Fun(commands.Cog):
             colorlist.append(c)
             
         def wait_for_check(m):
-            return m.author == ctx.author.name and m.channel == ctx.mesasge.channel
+            return m.author == ctx.author and m.channel == ctx.message.channel
 
         em = discord.Embed()
 
@@ -241,12 +241,14 @@ class Fun(commands.Cog):
                 
                 if vint is True:
                     for i in range(int(value)):
-                        await ctx.send("Enter Name:", delete_after=2)
+                        entername = await ctx.send("Enter Name:")
                         name = await self.client.wait_for("message", check=wait_for_check, timeout=300)
                         await name.delete()
 
-                        await ctx.send("Enter Value:", delete_after=2)
+                        entervalue = await ctx.send("Enter Value:")
                         value = await self.client.wait_for("message", check=wait_for_check, timeout=300)
+                        await entername.delete()
+                        await entervalue.delete()
                         await value.delete()
 
                         em.add_field(name=name.content, value=value.content)
