@@ -5,6 +5,8 @@
 
 #### Use `?help` for help
 
+<a href="https://discordbotlist.com/bots/896932646846885898"><img src="https://discordbotlist.com/api/v1/bots/896932646846885898/widget"></a>
+
 This is the best discord bot I have ever made.
 
 # Contributing
