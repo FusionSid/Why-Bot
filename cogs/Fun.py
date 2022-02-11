@@ -7,6 +7,8 @@ import asyncio
 from discord.utils import get
 import dotenv
 from utils.checks import plugin_enabled
+import datetime
+import shlex
 from discord.ui import View
 
 dotenv.load_dotenv()
@@ -154,62 +156,106 @@ class Fun(commands.Cog):
 
     @commands.command(aliases=['em'], extras={"category":"Fun"}, usage="embed [t/d/td] [fields(optional)] [channel(optional)] [img(optional)]", help="This command is used to make an embeded message.\nThe bot will create a nice embed and then send it to the channel youre in or the channel you want.", description="Makes an embed")
     @commands.check(plugin_enabled)
-    async def embed(self, ctx, fields: str, extra: int= None, channel: int = None,*, img=None):
-        await ctx.message.delete()
-        def wfcheck(m):
-            return m.channel == ctx.channel and m.author == ctx.author
-        em = discord.Embed(color=ctx.author.color)
-        if fields == "t":
-            await ctx.send("Enter Title:", delete_after=2)
-            title = await self.client.wait_for("message", check=wfcheck, timeout=300)
-            await title.delete()
-            em.title = title.content
-        if fields == "d":
-            await ctx.send("Enter Description:", delete_after=2)
-            desc = await self.client.wait_for("message", check=wfcheck, timeout=300)
-            await desc.delete()
-            em.description = desc.content
-        if fields == "td":
-            await ctx.send("Enter Title:", delete_after=2)
-            title = await self.client.wait_for("message", check=wfcheck, timeout=300)
-            await title.delete()
-            em.title = title.content
+    async def embed(self, ctx, *, kwargs):
+        colors = {
+            "none" : None,
+            "blue": discord.Color.blue(),
+            "blurple": discord.Color.blurple(),
+            "brand_green": discord.Color.brand_green(),
+            "brand_red": discord.Color.brand_red(),
+            "dark_blue": discord.Color.dark_blue(),
+            "dark_gold": discord.Color.dark_gold(),
+            "dark_gray": discord.Color.dark_gray(),
+            "dark_green": discord.Color.dark_green(),
+            "dark_grey": discord.Color.dark_grey(),
+            "dark_magenta": discord.Color.dark_magenta(),
+            "dark_orange": discord.Color.dark_orange(),
+            "dark_purple": discord.Color.dark_purple(),
+            "dark_red": discord.Color.dark_red(),
+            "dark_teal": discord.Color.dark_teal(),
+            "dark_theme": discord.Color.dark_theme(),
+            "darker_gray": discord.Color.darker_gray(),
+            "darker_grey": discord.Color.darker_grey(),
+            "fuchsia": discord.Color.fuchsia(),
+            "gold": discord.Color.gold(),
+            "green": discord.Color.green(),
+            "greyple": discord.Color.greyple(),
+            "light_gray": discord.Color.light_gray(),
+            "light_grey": discord.Color.light_grey(),
+            "lighter_gray": discord.Color.lighter_gray(),
+            "lighter_grey": discord.Color.lighter_grey(),
+            "magenta": discord.Color.magenta(),
+            "nitro_pink": discord.Color.nitro_pink(),
+            "og_blurple": discord.Color.og_blurple(),
+            "orange": discord.Color.orange(),
+            "purple": discord.Color.purple(),
+            "random": discord.Color.random(),
+            "red": discord.Color.red(),
+            "teal": discord.Color.teal(),
+        }
 
-            await ctx.send("Enter Description:", delete_after=2)
-            desc = await self.client.wait_for("message", check=wfcheck, timeout=300)
-            await desc.delete()
-            em.description = desc.content
+        colorlist = []
+        for c in colors:
+            colorlist.append(c)
+            
+        def wait_for_check(m):
+            return m.author == ctx.author.name and m.channel == ctx.mesasge.channel
 
-        if extra == None:
-            pass
+        em = discord.Embed()
 
-        else:
-            for i in range(extra):
-                await ctx.send("Enter Name:", delete_after=2)
-                name = await self.client.wait_for("message", check=wfcheck, timeout=300)
-                await name.delete()
+        kwargs = shlex.split(kwargs)
+        args = {}
 
-                await ctx.send("Enter Value:", delete_after=2)
-                value = await self.client.wait_for("message", check=wfcheck, timeout=300)
-                await value.delete()
+        for index in range(len(kwargs)):
+            if index % 2 == 0:
+                args[kwargs[index].lstrip("--")] = kwargs[index+1]
+            index += 0
 
-                em.add_field(name=name.content, value=value.content)
+        channel = ctx.message.channel
 
-        if img == None:
-          pass
-        else:
-          try:
-            em.set_image(url=img)
-          except:
-            await ctx.send("Invalid Image Url", delete_after=2)
+        for key, value in args.items():
+            print(len(args))
+            if key.lower() == "title":
+                em.title = value
+            elif key.lower() == "description" or key.lower() == "desc":
+                em.description = value
+            elif key.lower() == "channel":
+                channel = await self.client.fetch_channel(int(value))
+            elif key.lower() == "img" or key.lower() == "image":
+                em.set_image(url=value)
+            elif key.lower() == "color" or key.lower() == "colour":
+                if value.lower() == "list" or value.lower() == "help":
+                    return await ctx.send(", ".join(colorlist))
+                if value.lower() not in colorlist:
+                    await ctx.send("Color not found", delete_after=2)
+                    em.color = ctx.author.color
+                else:
+                    em.color = colors[value.lower()]
+            elif key.lower() == "fields":
+                vint = False
+                try:
+                    int(value) 
+                    vint= True
+                except:
+                    vint = False
+                
+                if vint is True:
+                    for i in range(int(value)):
+                        await ctx.send("Enter Name:", delete_after=2)
+                        name = await self.client.wait_for("message", check=wait_for_check, timeout=300)
+                        await name.delete()
 
-        if channel == 0:
-          channel = None
-        if channel == None:
-            await ctx.send(embed=em)
-        else:
-            cha = await self.client.fetch_channel(channel)
-            await cha.send(embed=em)
+                        await ctx.send("Enter Value:", delete_after=2)
+                        value = await self.client.wait_for("message", check=wait_for_check, timeout=300)
+                        await value.delete()
+
+                        em.add_field(name=name.content, value=value.content)
+            elif key.lower() in ["timestamp", "time"] and value.lower() in ["true", "yes"]:
+                em.timestamp = datetime.datetime.now()
+            else:
+                pass
+
+        await channel.send(embed=em)
 
     @commands.command(aliases=['noembed'], extras={"category":"Fun"}, usage="say [text]", help="The bot speaks text that you want", description="Bot sends text")
     @commands.check(plugin_enabled)
