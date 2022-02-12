@@ -13,7 +13,7 @@ def embeds():
 def run():
     #app.run(host='0.0.0.0', port=8080)
     #app.run(host="150.107.175.160", port=8080)
-    app.run(host="192.168.68.109", port=8080)
+    app.run(host="192.168.68.109", port=9000)
 
 def keep_alive():
     t = Thread(target=run)
