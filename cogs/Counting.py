@@ -39,6 +39,7 @@ async def counting(msg, guild, channel, m):
                 await m.reply(msg)
         except Exception as e:
           print(e)
+          return
 
     cc = await get_counting_channel(guild)
 
