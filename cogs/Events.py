@@ -47,7 +47,7 @@ async def startguildsetup(id):
             "bg_image" : None
         }
     }
-    with open("database/db.json") as f:
+    with open("./database/db.json") as f:
         data = json.load(f)
     
     alr_in = False
@@ -60,17 +60,16 @@ async def startguildsetup(id):
     
     if alr_in == False:
         data.append(file)
-        with open("database/db.json", 'w') as f:
+        with open("./database/db.json", 'w') as f:
             json.dump(data, f, indent=4)
-    newtickettemplate = {"ticket-counter": 0, "valid-roles": [],
-                        "pinged-roles": [], "ticket-channel-ids": [], "verified-roles": []}
-    with open(f"tickets/ticket{id}.json", 'w') as f:
+    newtickettemplate = {"ticket-counter": 0, "valid-roles": [],"pinged-roles": [], "ticket-channel-ids": [], "verified-roles": []}
+    with open(f"./tickets/ticket{id}.json", 'w') as f:
         json.dump(newtickettemplate, f, indent=4)
-    with open(f"database/counting.json") as f:
-        data = json.load(f)
-    data[f"{id}"] = 0
-    with open(f"database/counting.json", 'w') as f:
-        json.dump(data, f, indent=4)
+    with open(f"./database/counting.json") as f:
+        dataa = json.load(f)
+    dataa[f"{id}"] = 0
+    with open(f"./database/counting.json", 'w') as f:
+        json.dump(dataa, f, indent=4)
 
 async def update_activity(client):
     await client.change_presence(activity=discord.Game(f"On {len(client.guilds)} servers! | ?help"))
@@ -152,6 +151,23 @@ class Events(commands.Cog):
                 color = discord.Color.red()
             )
             await ctx.send(embed=em)
+            
+    @commands.command()
+    async def fixallpls(self, ctx):
+        data = {}
+
+        for i in self.client.guilds:
+            data[str(i.id)] = 0
+
+        with open("./database/counting.json", 'w') as f:
+            json.dump(data, f, indent = 4)
+        
+        newtickettemplate = {"ticket-counter": 0, "valid-roles": [],"pinged-roles": [], "ticket-channel-ids": [], "verified-roles": []}
+
+        for i in self.client.guilds:
+            with open(f"ticket{i}", 'w') as f:
+                json.dump(newtickettemplate, f, indent=4)
+        
 
 def setup(client):
     client.add_cog(Events(client))
