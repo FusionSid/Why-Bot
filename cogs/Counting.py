@@ -20,8 +20,8 @@ async def get_counting_channel(guild):
 
 
 async def counting(msg, guild, channel, m):
-    for i in ['this', 'that', 'is', 'not']:
-      if i in msg:
+    for i in ['this', 'that', 'is', 'not',"false", ]:
+      if i in msg.lower():
         return
     try:
         msg = int(msg)
@@ -37,8 +37,8 @@ async def counting(msg, guild, channel, m):
             if i['guild_id'] == guild.id:
               if i['settings']['autocalc'] == True:
                 await m.reply(msg)
-        except:
-          return
+        except Exception as e:
+          print(e)
 
     cc = await get_counting_channel(guild)
 

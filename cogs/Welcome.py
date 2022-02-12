@@ -75,15 +75,15 @@ async def memberjoin(client, member):
         if i["guild_id"] == member.guild.id:
             cha = i["welcome_channel"]
     if cha == None:
-        await member.guild.system_channel.send(file=discord.File(f"./tempstorage/welcome{member.id}.png"))
+        try:
+          await member.send(file=discord.File(f"./tempstorage/welcome{member.id}.png"))
+        except:
+          pass
     else:
         channel = await client.fetch_channel(int(cha))
         # Send welcome message in server welcome channel
         await channel.send(content=member.mention, file=discord.File(f"./tempstorage/welcome{member.id}.png"))
-    try:
-      await member.send(file=discord.File(f"./tempstorage/welcome{member.id}.png"))
-    except:
-      pass
+    
     os.remove(f"./tempstorage/welcome{member.id}.png")
 
 class Welcome(commands.Cog):
