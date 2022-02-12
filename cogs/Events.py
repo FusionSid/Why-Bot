@@ -151,23 +151,6 @@ class Events(commands.Cog):
                 color = discord.Color.red()
             )
             await ctx.send(embed=em)
-            
-    @commands.command()
-    async def fixallpls(self, ctx):
-        data = {}
-
-        for i in self.client.guilds:
-            data[str(i.id)] = 0
-
-        with open("./database/counting.json", 'w') as f:
-            json.dump(data, f, indent = 4)
-        
-        newtickettemplate = {"ticket-counter": 0, "valid-roles": [],"pinged-roles": [], "ticket-channel-ids": [], "verified-roles": []}
-
-        for i in self.client.guilds:
-            with open(f"./database/tickets/ticket{i.id}", 'w') as f:
-                json.dump(newtickettemplate, f, indent=4)
-        
 
 def setup(client):
     client.add_cog(Events(client))
