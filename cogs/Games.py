@@ -50,15 +50,14 @@ class TicTacToeButton(discord.ui.Button["TicTacToe"]):
 
 
 class TicTacToe(discord.ui.View):
-    def __init__(self, p1, p2):
-        self.p1 = p1
-        self.p2 = p2
     children: List[TicTacToeButton]
     X = -1
     O = 1
     Tie = 2
 
-    def __init__(self):
+    def __init__(self, p1, p2):
+        self.p1 = p1
+        self.p2 = p2
         super().__init__()
         self.current_player = self.X
         self.board = [
