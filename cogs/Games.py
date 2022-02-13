@@ -31,6 +31,8 @@ class TicTacToeButton(discord.ui.Button["TicTacToe"]):
             view.board[self.y][self.x] = view.O
             view.current_player = view.X
             content = "It is now X's turn"
+        else:
+            return await interaction.response.send_message("Its not your turn", ephemeral=True)
 
         winner = view.check_board_winner()
         if winner is not None:
