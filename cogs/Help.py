@@ -137,8 +137,8 @@ class Help(commands.Cog):
             em.add_field(inline=False, name=f"`{ctx.prefix}help [command]`", value="Give information about a specific command")
             em.add_field(inline=False, name=f"`{ctx.prefix}help [category]`", value="Give information about a specific category")
             em.add_field(inline=False, name="Useful Commands:",value=f"`/set`, `{ctx.prefix}settings`, `{ctx.prefix}setprefix`, `{ctx.prefix}report`")
-            em.add_field(inline=False, name="Why Support Server",value="https://discord.gg/8fJaesY8SR")
-            em.add_field(inline=False, name="Contribute/Source Code",value="https://github.com/FusionSid/Why-Bot")
+            em.add_field(inline=False, name="Why Support Server",value="[Link](https://discord.gg/ryEmgnpKND)")
+            em.add_field(inline=False, name="Contribute/Source Code",value="[Link](https://github.com/FusionSid/Why-Bot)")
             em.add_field(inline=False, name="Dm Bot",value="You can always just dm the bot for help, suggestions, bugreports etc")
             em.add_field(inline=False, name="Categories", value=', '.join(categories))
             
@@ -182,6 +182,31 @@ class Help(commands.Cog):
                 em.add_field(name="Description:", value=f"""```{cmd.help}```""", inline=False)
                 return await ctx.send(embed=em)
         await ctx.send(embed=discord.Embed(title="Command/Category Not Found", color=ctx.author.color))
+
+
+    @commands.command(aliases=['contribute', 'src'])
+    async def source(self, ctx):
+        link = "https://github.com/FusionSid/Why-Bot"
+
+        button = Button(style=discord.ButtonStyle.grey, label="Code", url=link)
+        view = View(timeout=30)
+
+        view.add_item(button)
+
+        await ctx.send(embed=discord.Embed(title="**Why Bot** Source Code:", color=ctx.author.color), view=view)
+
+
+    @commands.command(aliases=["support", "discord_server", "server", "discord"])
+    async def discordserver(self, ctx):
+        link = "https://discord.gg/ryEmgnpKND"
+
+        button = Button(style=discord.ButtonStyle.grey, label="Discord Server", url=link)
+        view = View(timeout=30)
+
+        view.add_item(button)
+
+        await ctx.send(embed=discord.Embed(title="**Why Bot** Discord Server:", color=ctx.author.color), view=view)
+
 
 def setup(client):
     client.add_cog(Help(client))

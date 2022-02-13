@@ -265,6 +265,21 @@ class Fun(commands.Cog):
         await ctx.message.delete()
         await ctx.send(text)
 
+    @commands.command()
+    @commands.check(plugin_enabled)
+    async def whypp(self, ctx):
+        await ctx.send(
+"""
+**|   WHY PP   |**
+**         **<:why:932912321544728576> 
+        <:why:932912321544728576> 
+        <:why:932912321544728576> 
+        <:why:932912321544728576> 
+        <:why:932912321544728576> 
+<:why:932912321544728576> **       **  <:why:932912321544728576>
+"""
+        )
+
     # Polls
 
     @commands.command(aliases=['yahornah', 'yn'], extras={"category":"Fun"}, usage="yesorno [question]", help="This command makes a small poll which users can vote either yes, or no", description="Makes a Yah or Nah poll")
