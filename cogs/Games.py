@@ -3,10 +3,12 @@ from discord.ext import commands
 from typing import List
 
 class TicTacToeButton(discord.ui.Button["TicTacToe"]):
-    def __init__(self, x: int, y: int):
+    def __init__(self, x: int, y: int, p1, p2):
         super().__init__(style=discord.ButtonStyle.secondary, label="\u200b", row=y)
         self.x = x
         self.y = y
+        self.p1 = p1.id # o
+        self.p2 = p2.id # x
 
     async def callback(self, interaction: discord.Interaction):
         assert self.view is not None
@@ -15,14 +17,14 @@ class TicTacToeButton(discord.ui.Button["TicTacToe"]):
         if state in (view.X, view.O):
             return
 
-        if view.current_player == view.X:
+        if view.current_player == view.X and interaction.user.id == self.p1:
             self.style = discord.ButtonStyle.danger
             self.label = "X"
             self.disabled = True
             view.board[self.y][self.x] = view.X
             view.current_player = view.O
             content = "It is now O's turn"
-        else:
+        elif view.current_player == view.O and interaction.user.id == self.p2:
             self.style = discord.ButtonStyle.success
             self.label = "O"
             self.disabled = True
@@ -43,11 +45,14 @@ class TicTacToeButton(discord.ui.Button["TicTacToe"]):
                 child.disabled = True
 
             view.stop()
-
+        embed = interaction.
         await interaction.response.edit_message(content=content, view=view)
 
 
 class TicTacToe(discord.ui.View):
+    def __init__(self, p1, p2):
+        self.p1 = p1
+        self.p2 = p2
     children: List[TicTacToeButton]
     X = -1
     O = 1
@@ -65,7 +70,7 @@ class TicTacToe(discord.ui.View):
 
         for x in range(3):
             for y in range(3):
-                self.add_item(TicTacToeButton(x, y))
+                self.add_item(TicTacToeButton(x, y, self.p1, self.p2))
 
 
     def check_board_winner(self):
@@ -107,8 +112,8 @@ class Games(commands.Cog):
         self.client = client
 
     @commands.command(help="This command plays a game of tic tac toe", description="Tic Tac Toe", aliases=['ttt'], usage="tictactoe", extras={"category":"Games"})
-    async def tictactoe(self, ctx):
-        await ctx.send(content="Tic Tac Toe: X goes first", view=TicTacToe())
+    async def tictactoe(self, ctx, person:discord.Member):
+        await ctx.send(content="Tic Tac Toe: X goes first", view=TicTacToe(ctx.author, person))
 
 def setup(client):
     client.add_cog(Games(client))
