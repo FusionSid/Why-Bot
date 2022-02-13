@@ -45,7 +45,7 @@ class TicTacToeButton(discord.ui.Button["TicTacToe"]):
                 child.disabled = True
 
             view.stop()
-        embed = interaction.
+
         await interaction.response.edit_message(content=content, view=view)
 
 
