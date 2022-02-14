@@ -3,6 +3,15 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/fusionsid/why-bot/badge)](https://www.codefactor.io/repository/github/fusionsid/why-bot)
 ## [Invite](https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands)
 
+<p align="center">
+
+	<br>
+	<a href="https://discord.gg/mXdM3n9BKy">
+		<img alt="Discord Help Server" src="https://discordapp.com/api/guilds/763348615233667082/embed.png?style=banner2">
+	</a>
+</p>
+
+
 #### Use `?help` for help
 
 <a href="https://discordbotlist.com/bots/896932646846885898"><img src="https://discordbotlist.com/api/v1/bots/896932646846885898/widget"></a>
