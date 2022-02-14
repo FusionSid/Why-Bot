@@ -1,7 +1,14 @@
 
 # Why-Bot
 [![CodeFactor](https://www.codefactor.io/repository/github/fusionsid/why-bot/badge)](https://www.codefactor.io/repository/github/fusionsid/why-bot)
+![issues](https://img.shields.io/github/issues-raw/FusionSid/Why-bot)
+
+
 ## [Invite](https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands)
+
+
+</p>
+
 
 #### Use `?help` for help
 
