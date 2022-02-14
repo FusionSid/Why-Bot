@@ -10,10 +10,7 @@
 	<a href="https://discordapp.com/oauth2/authorize?permissions=314432&scope=bot&client_id=213476188037971968">
 		<img alt="Registered Users" src="https://img.shields.io/badge/dynamic/json.svg?style=for-the-badge&label=registered%20users&url=http%3A%2F%2Fdillerm.io%2Fdata%2Fmangobyte%2Fshieldstats.json&query=%24.registered_users&colorB=#4c1">
 	</a>
-	<br>	
-	<a href="https://discord.gg/mXdM3n9BKy">
-		<img alt="Discord Help Server" src="https://discordapp.com/api/guilds/763348615233667082/embed.png?style=banner2">
-	</a>
+
 </p>
 
 
