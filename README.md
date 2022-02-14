@@ -1,6 +1,9 @@
 
 # Why-Bot
 [![CodeFactor](https://www.codefactor.io/repository/github/fusionsid/why-bot/badge)](https://www.codefactor.io/repository/github/fusionsid/why-bot)
+[![CodeFactor](https://img.shields.io/tokei/lines/github/FusionSid/Why-Bot)]
+
+
 ## [Invite](https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands)
 
 <p align="center">
