@@ -29,7 +29,8 @@ async def get_prefix(client, message):
 
 intents = discord.Intents.all()
 am = discord.AllowedMentions(everyone=False)
-client = commands.Bot(command_prefix=get_prefix, intents=intents, help_command=None, owner_id=624076054969188363,case_insensitive=True,allowed_mentions=am)
+client = commands.Bot(command_prefix=get_prefix, intents=intents, help_command=None, owner_id=624076054969188363,case_insensitive=True,allowed_mentions=am, debug_guilds=[763348615233667082]) 
+client.connections = {}
 
 
 async def update_activity():

@@ -76,7 +76,8 @@ async def memberjoin(client, member):
             cha = i["welcome_channel"]
     if cha == None:
         try:
-          await member.send(file=discord.File(f"./tempstorage/welcome{member.id}.png"))
+          # await member.send(file=discord.File(f"./tempstorage/welcome{member.id}.png"))
+          pass
         except:
           pass
     else:
