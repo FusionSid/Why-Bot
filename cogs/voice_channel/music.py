@@ -165,7 +165,7 @@ def check_new_songs(guild_id, vc):
                         options=ffmpeg_options["options"]
                         ), after=lambda a: check_new_songs(guild_id, vc))
             except discord.errors.ClientException as e: 
-                pass
+                print("ClientException")
 
             return
 
@@ -206,7 +206,7 @@ def extract_info(url):
     try:
         return youtube_dl.YoutubeDL({"format": "bestaudio" }).extract_info(url, download=False)
     # if there is an error, changing format
-    except youtube_dl.utils.ExtractorError and youtube_dl.utils.DownloadError:
+    except (youtube_dl.utils.ExtractorError, youtube_dl.utils.DownloadError):
         return youtube_dl.YoutubeDL({"format": "95"}).extract_info(url, download=False)
 
 
@@ -303,7 +303,7 @@ async def playy(ctx, video=None):
             # calling the check_new_songs function after playing the current music
         ), after=lambda a: check_new_songs(ctx.guild.id, vc))
     except Exception as e:
-        pass
+        print(e)
 
 class Music(commands.Cog):
     def __init__(self, client):
@@ -426,7 +426,7 @@ class Music(commands.Cog):
                 # calling the check_new_songs function after playing the current music
             ), after=lambda a: check_new_songs(ctx.guild.id, vc))
         except discord.errors.ClientException:
-            pass
+            print("ClientException")
 
         # Adding embed, depending on the queue
         if len(queues[ctx.guild.id]) != 1:
@@ -598,6 +598,7 @@ class Music(commands.Cog):
     @commands.check(plugin_enabled)
     async def loop(self, ctx):
         global loops
+        loops[ctx.guild.id] = "none"
 
         if ctx.voice_client is None:
             return await ctx.send("I am not playing any songs for you.")
@@ -768,13 +769,14 @@ class Music(commands.Cog):
         try:
             index = int(index)
             index = index-1
-        except:
+        except Exception:
             await ctx.send("Index must be a number")
         try:
             rm = data[f"{ctx.author.id}"][pname][index]
             print(rm)
             data[f"{ctx.author.id}"][pname].remove(rm)
         except Exception as e:
+            print(e)
             return
         with open('./database/playlists.json', 'w') as f:
             json.dump(data, f, indent=4)
@@ -830,12 +832,12 @@ class Music(commands.Cog):
             voice = after.channel.guild.voice_client
             while voice.is_playing(): #Checks if voice is playing
                 await asyncio.sleep(1) #While it's playing it sleeps for 1 second
+        else:
+            await asyncio.sleep(300) #If it's not playing it waits 15 seconds
+            while voice.is_playing(): #and checks once again if the bot is not playing
+                break #if it's playing it breaks
             else:
-                await asyncio.sleep(300) #If it's not playing it waits 15 seconds
-                while voice.is_playing(): #and checks once again if the bot is not playing
-                    break #if it's playing it breaks
-                else:
-                    await voice.disconnect() #if not it disconnects
+                await voice.disconnect() #if not it disconnects
 
     @commands.command(help="This command is used to play an mp3 file ", extras={"category":"Music"}, usage="mp3 [attach mp3 file]", description="Play an mp3 file")
     @commands.check(plugin_enabled)
