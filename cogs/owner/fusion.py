@@ -2,6 +2,7 @@ import discord
 import os
 import json
 from discord.ext import commands
+import shlex
 import datetime
 import dotenv
 from utils import is_it_me, Log
