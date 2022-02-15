@@ -203,11 +203,8 @@ class Utilities(commands.Cog):
         em.add_field(name="Highest Role:",
                      value=member.top_role.mention, inline=False)
 
-        with open("./database/db.json") as f:
-            data = json.load(f)
-        for i in data:
-            if i['guild_id'] == ctx.guild.id:
-                warnings = i['warnings']
+        data = await self.client.get_db()
+        warnings = data[str(ctx.guild.id)]['warnings']
         if str(member.id) not in warnings:
             em.add_field(name="Warnings", value="This user has no warnings")
         else:

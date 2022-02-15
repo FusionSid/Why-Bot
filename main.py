@@ -75,7 +75,7 @@ def print_percent_done(index, total, bar_len=50, title='Loading Cogs:'):
 
 async def update_activity():
     await client.change_presence(activity=discord.Game(f"On {len(client.guilds)} servers! | ?help"))
-    print("Updated presence")
+    # print("Updated presence")
 
 
 # On ready
@@ -169,10 +169,11 @@ def start_bot(client):
             i+=1
 
         time.sleep(1)
-
-        print("\nAll Cogs Loaded\n===============\nLogging into Discord...")
-        log.log_message("All cogs loaded")
-        print(len(client.cogs_list))
+        print("\n")
+        
+        # print("\nAll Cogs Loaded\n===============\nLogging into Discord...")
+        # log.log_message("All cogs loaded")
+        # print(len(client.cogs_list))
 
         clear_stuff.start()
 
