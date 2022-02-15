@@ -134,8 +134,16 @@ async def on_message(message):
             if prefix in message.content:
                 await update_user_db(message.author.id)
             await client.process_commands(message)
+
     except Exception as e:
         await client.process_commands(message)
+
+    if f"<@!{client.user.id}>" in message.content or f"<@{client.user.id}>" in message.content:
+        em = discord.Embed(
+            title=f"Hi, my prefix is `{prefix}`", 
+            color=message.author.color
+        )
+        return await message.channel.send(embed=em)
 
 
 @tasks.loop(hours=2.0)

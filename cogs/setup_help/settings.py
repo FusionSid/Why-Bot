@@ -153,7 +153,7 @@ class Settings(commands.Cog):
         plist = ["Counting", "Moderation","Economy","TextConvert","Search","Welcome","Leveling","Music","Onping","Ticket","Minecraft","Utilities"]
         if plugin not in plist:
             return await ctx.send(f"Plugin not found, use `{ctx.prefix}plugins` for a list of them")
-        data = self.client.get_db()
+        data = await self.client.get_db()
         data[str(ctx.guild.id)]['settings']['plugins'][plugin] = False
 
         await self.client.update_db(data)

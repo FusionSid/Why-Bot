@@ -17,53 +17,13 @@ class Fusion(commands.Cog):
         self.client = client
 
 
-    @commands.command(aliases=['bl'])
-    @commands.check(is_it_me)
-    async def blacklist(self, ctx, userid: int):
-        with open('./database/blacklisted.json') as f:
-            blacklisted = json.load(f)
-
-        if userid in blacklisted:
-            await ctx.send("User is already blacklisted")
-        else:
-            blacklisted.append(userid)
-            await ctx.send("User has been blacklisted")
-
-        with open('./database/blacklisted.json', 'w') as f:
-            json.dump(blacklisted, f, indent=4)
-
-
-    @commands.command(aliases=['wl'])
-    @commands.check(is_it_me)
-    async def whitelist(self, ctx, userid: int):
-        with open('./database/blacklisted.json') as f:
-            blacklisted = json.load(f)
-
-        if userid in blacklisted:
-            blacklisted.remove(userid)
-            await ctx.send("User is no longer blacklisted")
-        else:
-            await ctx.send("User isnt blacklisted")
-
-        with open('./database/blacklisted.json', 'w') as f:
-            json.dump(blacklisted, f, indent=4)
-
-
-    @commands.command(aliases=['blacklisted'])
-    @commands.check(is_it_me)
-    async def listblack(self, ctx):
-        with open('./database/blacklisted.json') as f:
-            blacklisted = json.load(f)
-
-        await ctx.send(blacklisted)
-
-
     @commands.command()
     @commands.check(is_it_me)
     async def serverlist(self, ctx):
         servers = list(self.client.guilds)
         await ctx.send(f"Connected on {str(len(servers))} servers:")
         await ctx.send('\n'.join(guild.name for guild in servers))
+
 
     @commands.command()
     @commands.check(is_it_me)
@@ -76,7 +36,6 @@ class Fusion(commands.Cog):
         em.add_field(name="Owner name", value=guild.owner.name)
         em.add_field(name="Member Count", value=guild.member_count)
         await ctx.author.send(embed=em)
-        
         
     
     @commands.command()
@@ -106,34 +65,6 @@ class Fusion(commands.Cog):
         await ctx.send("guild not found")
 
 
-    @commands.command(aliases=['dmr'])
-    @commands.check(is_it_me)
-    async def dmreply(self, ctx, *, msg=None):
-        if ctx.message.reference is None:
-          return
-        else:
-            await ctx.message.delete()
-            id = ctx.message.reference.message_id
-            id = await ctx.channel.fetch_message(id)
-            await id.reply(msg)
-            id = int(id.content)
-        person = await self.client.fetch_user(id)
-
-        if msg is None:
-            pass
-        else:
-            await person.send(msg)
-
-        if ctx.message.attachments is None:
-            return
-        else:
-            for i in ctx.message.attachments:
-                em = discord.Embed( color=ctx.author.color)
-                em.timestamp = datetime.datetime.utcnow()
-                em.set_image(url=i.url)
-                await person.send(embed=em)
-        
-
     @commands.command()
     @commands.check(is_it_me)
     async def logs(self, ctx):
@@ -155,38 +86,13 @@ class Fusion(commands.Cog):
         await ctx.send(embed=em)
 
 
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        if message.author.bot:
-            return
-        if isinstance(message.channel, discord.DMChannel):
-        
-            cha = await self.client.fetch_channel(926232260166975508)
-            em = discord.Embed(title="New DM", description=f"From {message.author.name}", color=message.author.color)
-            em.timestamp = datetime.datetime.utcnow()
-
-            if message.content != "":
-                em.add_field(name="Content", value=f"{message.content}")
-            await cha.send(content=f"{message.author.id}", embed=em)
-
-            if message.attachments is not None:
-                for attachment in message.attachments:
-                    em = discord.Embed(title="** **", color=message.author.color)
-                    em.timestamp = datetime.datetime.utcnow()
-                    em.set_image(url=attachment.url)
-                    await cha.send(embed=em)
-
-
     @commands.command()
     @commands.check(is_it_me)
     async def needhelp(self, ctx):
         needhelp = []
         for i in self.client.commands:
             if i.help is None:
-                if i.cog_name == "Fusion" or i.cog_name == "Economy" or i.cog_name == "Leveling":
-                    pass
-                else:
-                    needhelp.append(f"{i.name} | {i.cog_name}")
+                needhelp.append(f"{i.name} | {i.cog_name}")
         await ctx.send("\n".join(needhelp))
 
 

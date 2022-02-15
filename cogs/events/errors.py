@@ -71,6 +71,9 @@ class Errors(commands.Cog):
             )
             em.timestamp = datetime.datetime.utcnow()
             await ctx.send(embed=em)
+        
+        elif isinstance(error, commands.CheckFailure):
+            return
 
         else:
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)

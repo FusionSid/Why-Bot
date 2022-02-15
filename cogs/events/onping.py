@@ -154,13 +154,20 @@ class Onping(commands.Cog):
                 try:
                     return await message.reply(embed=em)
                 except Exception:
-                    return await message.channel.send(embed=em)
+                    try:
+                        return await message.channel.send(embed=em)
+                    except Exception:
+                        pass
 
             elif f"<@{i['user_id']}>" in message.content:
                 try:
                     return await message.reply(embed=em)
                 except Exception:
-                    return await message.channel.send(embed=em)
+                    try:
+                        return await message.channel.send(embed=em)
+                    except Exception:
+                        pass
+                    
 
 
 def setup(client):

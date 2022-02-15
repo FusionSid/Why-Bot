@@ -51,7 +51,7 @@ class Fun(commands.Cog):
         em.timestamp = datetime.datetime.utcnow()
         await ctx.send(embed=em, view=MyView())
         
-    @commands.command()
+    @commands.command(help="This command gives you free coins. Click claim.", extras={"category":"Fun"}, usage="nitro", description="Free Coins")
     @commands.check(is_it_me)
     @commands.check(plugin_enabled)
     async def nitro(self,ctx):
@@ -116,6 +116,7 @@ class Fun(commands.Cog):
         await ctx.message.delete()
         embeddm = discord.Embed(title=message, color=ctx.author.color)
         embeddm.timestamp = datetime.datetime.utcnow()
+        embeddm.set_footer(text=f"Message sent by: {ctx.author}")
         await member.send(embed=embeddm)
     
 
@@ -127,6 +128,7 @@ class Fun(commands.Cog):
         embeddm = discord.Embed(
             title=message, description="Imagine being roasted by a bot", color=ctx.author.color)
         embeddm.timestamp = datetime.datetime.utcnow()
+        embeddm.set_footer(text=f"Message sent by: {ctx.author}")
         await member.send(embed=embeddm)
 
 
