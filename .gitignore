@@ -4,4 +4,4 @@
 *__pycache__
 *.db
 *.json
-*.txt
+log.txt

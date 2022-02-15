@@ -10,6 +10,7 @@ from urllib.request import urlopen
 import requests
 import asyncio
 dotenv.load_dotenv()
+import datetime
 
 
 async def create_voice(guild, name, cat, limit=None):
@@ -18,16 +19,12 @@ async def create_voice(guild, name, cat, limit=None):
 
 
 async def get_log_channel(self, ctx):
-    with open("./database/db.json") as f:
-        data = json.load(f)
-    for i in data:
-        if i["guild_id"] == ctx.guild.id:
-            if i['log_channel'] is None:
-                return None
-            channel = i['log_channel']
-            return await self.client.fetch_channel(channel)
+    data = await self.client.get_db()
+    if data[str(ctx.guild.id)]['log_channel'] is None:
+        return None
+    channel = data[str(ctx.guild.id)]['log_channel']
+    return await self.client.fetch_channel(channel)
 
-    return False
 
 class Moderation(commands.Cog):
     def __init__(self, client):
@@ -40,8 +37,11 @@ class Moderation(commands.Cog):
             return m.channel == ctx.channel and m.author == ctx.author
 
         channel = await get_log_channel(self, ctx)
+        if channel is None and type_.lower() != "bug":
+            return await ctx.send("You dont have a log channel set on your server")
 
         em = discord.Embed(title="REPORT", color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
 
         if type_.lower() == "member":
 
@@ -107,10 +107,8 @@ class Moderation(commands.Cog):
     async def giverole(self, ctx, role: discord.Role, user: discord.Member):
         await user.add_roles(role)
         channel = await get_log_channel(self, ctx)
-        if channel != False:
+        if channel != None:
             return await channel.send(embed=discord.Embed(title="Give Role", description=f"***{user.mention}*** has been given the ***{role.mention}*** role", color=ctx.author.color))
-        else:
-            pass
         await ctx.send(f"{user} has been given the {role} role")
 
     @commands.command(aliases=['trole'], help="This commmand is used to remove a role from a member", extras={"category":"Moderation"}, usage="takerole [@role] [@member]", description="Remove roles form member")
@@ -119,10 +117,8 @@ class Moderation(commands.Cog):
     async def takerole(self, ctx, role: discord.Role, user: discord.Member):
         await user.remove_roles(role)
         channel = await get_log_channel(self, ctx)
-        if channel != False:
+        if channel != None:
             return await channel.send(embed=discord.Embed(title="Remove Role", description=f"***{role.mention}*** has been removed from ***{user.mention}***", color=ctx.author.color))
-        else:
-            pass
         await ctx.send(f"{role} has been removed from {user}")
 
     @commands.command(help="This command is used to ban a member", extras={"category":"Moderation"}, usage="ban [@user]", description="Ban a member")
@@ -138,10 +134,8 @@ class Moderation(commands.Cog):
         else:
             await ctx.reply("Sorry, you cannot perform that action due to role hierarchy")
         channel = await get_log_channel(self, ctx)
-        if channel != False:
+        if channel != None:
             return await channel.send(embed=discord.Embed(title="Ban", description=f"***{member.mention}*** has been banned", color=ctx.author.color))
-        else:
-            pass
         await ctx.send(f"User {member} has been banned")
 
     @commands.command(help="This command is used to kick a member", extras={"category":"Moderation"}, usage="kick [@user]", description="Kick a member")
@@ -157,10 +151,8 @@ class Moderation(commands.Cog):
         else:
             await ctx.reply("Sorry, you cannot perform that action due to role hierarchy")
         channel = await get_log_channel(self, ctx)
-        if channel != False:
+        if channel != None:
             return await channel.send(embed=discord.Embed(title="Kick", description=f"***{member.mention}*** has been kicked", color=ctx.author.color))
-        else:
-            pass
         await ctx.send(f"User {member} has been kicked")
 
     @commands.command(aliases=['lock'], help="This command is used to put a discord text channel into lockdown", extras={"category":"Moderation"}, usage="lockdown [#channel]", description="Lockdown a channel")
@@ -172,10 +164,8 @@ class Moderation(commands.Cog):
         await channel.send("Channel is now in lockdown")
         await channel.set_permissions(ctx.guild.default_role, send_messages=False)
         cha = await get_log_channel(self, ctx)
-        if cha == False:
+        if cha == None:
             return await cha.send(embed=discord.Embed(title="Lockdown", description=f"***{channel.mention}*** is now in lockdown"))
-        else:
-            pass
 
     @commands.command(help="This command is the unlocks a discord text channel from lockdown", extras={"category":"Moderation"}, usage="unlock [#channel]", description="Unlock a channel")
     @commands.check(plugin_enabled)
@@ -186,10 +176,8 @@ class Moderation(commands.Cog):
         await channel.send("Channel is no longer in lockdown")
         await channel.set_permissions(ctx.guild.default_role, send_messages=True)
         cha = await get_log_channel(self, ctx)
-        if cha == False:
+        if cha == None:
             return await cha.send(embed=discord.Embed(title="Unlock", description=f"***{channel.mention}*** is no longer in lockdown", color=ctx.author.color))
-        else:
-            pass
 
     @commands.command(help="This command deletes a certain amount of message from a channel. Limit it 50 messages", extras={"category":"Moderation"}, usage="clear [amount]", description="Delete messages")
     @commands.check(plugin_enabled)
@@ -202,16 +190,15 @@ class Moderation(commands.Cog):
         else:
             await ctx.channel.purge(limit=amount+1)
         channel = await get_log_channel(self, ctx)
-        if channel != False:
+        if channel != None:
             return await channel.send(embed=discord.Embed(title="Message Clear", description=f"***{amount}*** messages have been cleared from ***{ctx.channel.name}***"))
-        else:
-            pass
 
     @commands.command(help="This command creates a simple react role that users can react to to get a role. ", extras={"category":"Moderation"}, usage="reactrole [:emoji:] [@role] [message text]", description="Creates a reactrole")
     @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def reactrole(self, ctx, emoji, role: discord.Role, *, message):
         embedVar = discord.Embed(description=message, color=ctx.author.color)
+        embedVar.timestamp = datetime.datetime.utcnow()
         msg = await ctx.channel.send(embed=embedVar)
         await msg.add_reaction(emoji)
         with open("./database/react.json") as json_file:
@@ -269,10 +256,8 @@ class Moderation(commands.Cog):
         guild = ctx.guild
         channel = await guild.create_text_channel(name)
         channel = await get_log_channel(self, ctx)
-        if channel != False:
+        if channel != None:
             return await channel.send(embed=discord.Embed(title="Create Channel", description=f"***{name}*** text channel has been created", color=ctx.author.color))
-        else:
-            pass
 
     @commands.command(help="This command creates a discord Voice Channel", extras={"category":"Moderation"}, usage="make_vc [limit(If none change to None)] [name]", description="Create a VC")
     @commands.check(plugin_enabled)
@@ -284,10 +269,8 @@ class Moderation(commands.Cog):
         else:
             channel = await guild.create_voice_channel(name, user_limit=limit)
             channel = await get_log_channel(self, ctx)
-        if channel != False:
+        if channel != None:
             return await channel.send(embed=discord.Embed(title="Create Voice Channel", description=f"***{name}*** voice channel has been created", color=ctx.author.color))
-        else:
-            pass
 
     @commands.command(help="This command is used to warn a user\nThe warning gets added and you can use the warnings command to check the users warnings", extras={"category":"Moderation"}, usage="warn [@user] [reason]", description="Warns a user")
     @commands.check(plugin_enabled)
@@ -302,41 +285,34 @@ class Moderation(commands.Cog):
         if reason == None:
             reason = "None"
 
-        with open("./database/db.json") as f:
-            data = json.load(f)
+        data = await self.client.get_db()
 
-        for i in data:
-            if i["guild_id"] == ctx.guild.id:
-                warn = {'time': time, 'reason': reason}
-                try:
-                    i['warnings'][f"{member.id}"].append(warn)
-                except:
-                    i['warnings'][f"{member.id}"] = []
-                    i['warnings'][f"{member.id}"].append(warn)
+        warn = {'time': time, 'reason': reason}
+        try:
+            data[str(ctx.guild.id)]['warnings'][f"{member.id}"].append(warn)
+        except:
+            data[str(ctx.guild.id)]['warnings'][f"{member.id}"] = []
+            data[str(ctx.guild.id)]['warnings'][f"{member.id}"].append(warn)
 
-        with open("./database/db.json",'w') as f:
-          json.dump(data,f,indent=4)
+        await self.client.update_db(data)
         channel = await get_log_channel(self, ctx)
-        if channel != False:
+        if channel != None:
             return await channel.send(embed=discord.Embed(title="Warn", description=f"***{member.mention}*** has been warned", color=ctx.author.color))
-        else:
-            pass
+        await ctx.send(embed=discord.Embed(title="Warn", description=f"***{member.mention}*** has been warned", color=ctx.author.color))
 
     @commands.command(help="This commands shows all the warnings that a user has", extras={"category":"Moderation"}, usage="warnings [@user]", description="Displays a users warnings")
     @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def warnings(self, ctx, member: discord.Member):
-        with open("./database/db.json") as f:
-            data = json.load(f)
-        for i in data:
-            if i["guild_id"] == ctx.guild.id:
-                warns = i['warnings']
+        data = await self.client.get_db()
+        warns = data[str(ctx.guild.id)]['warnings']
         try:
             warnings = warns[f'{member.id}']
         except:
             return await ctx.send("This person has no warnings")
 
         em = discord.Embed(title="WARNINGS:", color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         for i in warnings:
             t = i["time"]
             r = i["reason"]
@@ -406,39 +382,27 @@ class Moderation(commands.Cog):
     @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def autorole(self, ctx, role: discord.Role, type: str):
-        with open("./database/db.json") as f:
-            data = json.load(f)
-        for i in data:
-            if i["guild_id"] == ctx.guild.id:
-                if type.lower() == 'all':
-                    i['autorole']['all'] = role.id
-                elif type.lower() == 'bot':
-                    i['autorole']['bot'] = role.id
-                else:
-                    return await ctx.send(f"{ctx.prefix}autorole @role [all/bot]\nYou must specify if roles if for all or for bots")
-        with open('./database/db.json', 'w') as f:
-            json.dump(data, f, indent=4)
+        data = await self.client.get_db()
+        if type.lower() == 'all':
+            data[str(ctx.guild.id)]['autorole']['all'] = role.id
+        elif type.lower() == 'bot':
+            data[str(ctx.guild.id)]['autorole']['bot'] = role.id
+        else:
+            return await ctx.send(f"{ctx.prefix}autorole @role [all/bot]\nYou must specify if roles if for all or for bots")
+        await self.client.update_db(data)
         await ctx.send(f"{role.mention} set as autorole for this server")
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        with open("./database/db.json") as f:
-          data = json.load(f)
-        for i in data:
-          if i["guild_id"] == member.guild.id:
-            if i['settings']['plugins']['Moderation'] == False:
-              return
-            else:
-              pass
-        with open("./database/db.json") as f:
-            data = json.load(f)
+        data = await self.client.get_db()
+        if data[str(member.guild.id)]['settings']['plugins']['Moderation'] == False:
+            return
+        await self.client.update_db(data)
         role = False
-        for i in data:
-            if i["guild_id"] == member.guild.id:
-                if not member.bot:
-                    role = i['autorole']['all']
-                else:
-                    role = i['autorole']['bot']
+        if not member.bot:
+            role = data[str(member.guild.id)]['autorole']['all']
+        else:
+            role = data[str(member.guild.id)]['autorole']['bot']
         if role == False:
             return
         elif role == None:

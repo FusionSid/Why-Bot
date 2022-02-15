@@ -3,6 +3,7 @@ from utils.checks import plugin_enabled
 from discord.ext import commands
 from discord.ext.commands import has_permissions, MissingPermissions
 import json
+import datetime
 import asyncio
 
 homepath = "./database/tickets/"
@@ -55,7 +56,8 @@ class Ticket(commands.Cog):
 
         em = discord.Embed(title="New ticket from {}#{}".format(
             ctx.author.name, ctx.author.discriminator), description="{}".format(message_content), color=0x00a8ff)
-
+        em.timestamp = datetime.datetime.utcnow()
+        
         await ticket_channel.send(embed=em)
 
         pinged_msg_content = ""
@@ -88,6 +90,7 @@ class Ticket(commands.Cog):
 
         created_em = discord.Embed(title="Why Tickets", description="Your ticket has been created at {}".format(
             ticket_channel.mention), color=0x00a8ff)
+        created_em.timestamp = datetime.datetime.utcnow()
 
         await ctx.send(embed=created_em)
 
@@ -109,6 +112,7 @@ class Ticket(commands.Cog):
 
                 em = discord.Embed(
                     title="Why Tickets", description="Are you sure you want to close this ticket? Reply with `close` if you are sure.", color=0x00a8ff)
+                em.timestamp = datetime.datetime.utcnow()
 
                 await ctx.send(embed=em)
                 await self.client.wait_for('message', check=check, timeout=60)
@@ -123,6 +127,7 @@ class Ticket(commands.Cog):
             except asyncio.TimeoutError:
                 em = discord.Embed(
                     title="Why Tickets", description="You have run out of time to close this ticket. Please run the command again.", color=0x00a8ff)
+                em.timestamp = datetime.datetime.utcnow()
                 await ctx.send(embed=em)
 
     @commands.command(help="This command is used to add access to a role for the tickets.\nWhen a new ticket is creates theses roles will have access to that ticket.", extras={"category":"Ticket"}, usage="addaccess [roleid]", description="Gives a role access to tickets")
@@ -158,22 +163,26 @@ class Ticket(commands.Cog):
 
                     em = discord.Embed(title="Why Tickets", description="You have successfully added `{}` to the list of roles with access to tickets.".format(
                         role.name), color=0x00a8ff)
+                    em.timestamp = datetime.datetime.utcnow()
 
                     await ctx.send(embed=em)
 
                 except:
                     em = discord.Embed(
                         title="Why Tickets", description="That isn't a valid role ID. Please try again with a valid role ID.")
+                    em.timestamp = datetime.datetime.utcnow()
                     await ctx.send(embed=em)
 
             else:
                 em = discord.Embed(
                     title="Why Tickets", description="That role already has access to tickets!", color=0x00a8ff)
+                em.timestamp = datetime.datetime.utcnow()
                 await ctx.send(embed=em)
 
         else:
             em = discord.Embed(
                 title="Why Tickets", description="Sorry, you don't have permission to run that command.", color=0x00a8ff)
+            em.timestamp = datetime.datetime.utcnow()
             await ctx.send(embed=em)
 
     @commands.command(help="This command removes a role from accessing the tickets", extras={"category":"Ticket"}, usage="delaccess [roleid]", description="Removes a role from accessing tickets")
@@ -213,6 +222,7 @@ class Ticket(commands.Cog):
 
                     em = discord.Embed(title="Why Tickets", description="You have successfully removed `{}` from the list of roles with access to tickets.".format(
                         role.name), color=0x00a8ff)
+                    em.timestamp = datetime.datetime.utcnow()
 
                     await ctx.send(embed=em)
 
@@ -220,16 +230,19 @@ class Ticket(commands.Cog):
 
                     em = discord.Embed(
                         title="Why Tickets", description="That role already doesn't have access to tickets!", color=0x00a8ff)
+                    em.timestamp = datetime.datetime.utcnow()
                     await ctx.send(embed=em)
 
             except:
                 em = discord.Embed(
                     title="Why Tickets", description="That isn't a valid role ID. Please try again with a valid role ID.")
+                em.timestamp = datetime.datetime.utcnow()
                 await ctx.send(embed=em)
 
         else:
             em = discord.Embed(
                 title="Why Tickets", description="Sorry, you don't have permission to run that command.", color=0x00a8ff)
+            em.timestamp = datetime.datetime.utcnow()
             await ctx.send(embed=em)
 
     @commands.command(help="This command sets an admin role for the ticket system", extras={"category":"Ticket"}, usage="addadminrole [roleid]", description="Adds an admin role for tickets")
@@ -250,11 +263,13 @@ class Ticket(commands.Cog):
 
             em = discord.Embed(
                 title="Why Tickets", description="You have successfully added `{}` to the list of roles that can run admin-level commands!".format(role.name), color=0x00a8ff)
+            em.timestamp = datetime.datetime.utcnow()
             await ctx.send(embed=em)
 
         except:
             em = discord.Embed(
                 title="Why Tickets", description="That isn't a valid role ID. Please try again with a valid role ID.")
+            em.timestamp = datetime.datetime.utcnow()
             await ctx.send(embed=em)
 
     @commands.command(help="This command removes an admin role from accessing the tickets", extras={"category":"Ticket"}, usage="deladminrole [roleid]", description="Removes an admin role from accessing tickets")
@@ -281,17 +296,20 @@ class Ticket(commands.Cog):
 
                 em = discord.Embed(title="Why Tickets", description="You have successfully removed `{}` from the list of roles that get pinged when new tickets are created.".format(
                     role.name), color=0x00a8ff)
+                em.timestamp = datetime.datetime.utcnow()
 
                 await ctx.send(embed=em)
 
             else:
                 em = discord.Embed(
                     title="Why Tickets", description="That role isn't getting pinged when new tickets are created!", color=0x00a8ff)
+                em.timestamp = datetime.datetime.utcnow()
                 await ctx.send(embed=em)
 
         except:
             em = discord.Embed(
                 title="Why Tickets", description="That isn't a valid role ID. Please try again with a valid role ID.")
+            em.timestamp = datetime.datetime.utcnow()
             await ctx.send(embed=em)
 
 

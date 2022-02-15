@@ -1,17 +1,14 @@
 import discord
+import datetime
 from discord.ext import commands
-import json
 
 
 async def get_log_channel(self, guild):
-    with open("./database/db.json") as f:
-        data = json.load(f)
-    for i in data:
-        if i["guild_id"] == guild.id:
-            channel = i['log_channel']
-            if channel == None:
-                return None
-            return await self.client.fetch_channel(channel)
+    data = await self.client.get_guild_data(guild.id)
+    channel = data['log_channel']
+    if channel == None:
+        return None
+    return await self.client.fetch_channel(channel)
 
 
 class Log(commands.Cog):
@@ -32,6 +29,7 @@ class Log(commands.Cog):
             if channel == None:
                 return
             else:
+                em.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=em)
         except:
             pass
@@ -49,6 +47,7 @@ class Log(commands.Cog):
             if channel == None:
                 return
             else:
+                em.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=em)
         except:
             pass
@@ -62,6 +61,7 @@ class Log(commands.Cog):
             if channel == None:
                 return
             else:
+                em.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=em)
         except:
             pass
@@ -72,6 +72,7 @@ class Log(commands.Cog):
             em = discord.Embed(color=discord.Color.blue(), 
                 title="Member Unbanned!", description=f"{user.name} Has been unbanned from the server")
             channel = await get_log_channel(self, guild)
+            em.timestamp = datetime.datetime.utcnow()
             if channel == None:
                 return
             else:
@@ -104,6 +105,7 @@ class Log(commands.Cog):
             if channel == None:
                 return
             else:
+                em.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=em)
         except:
             pass
@@ -117,6 +119,7 @@ class Log(commands.Cog):
             if channel == None:
                 return
             else:
+                em.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=em)
         except:
             pass
@@ -130,6 +133,7 @@ class Log(commands.Cog):
             if channel == None:
                 return
             else:
+                em.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=em)
         except:
             pass

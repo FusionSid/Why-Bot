@@ -1,4 +1,5 @@
 # Slash commands
+import datetime
 import discord
 from discord.commands import slash_command
 from discord.ext import commands
@@ -8,14 +9,10 @@ import random
 import os
 from utils import is_it_me
 
-cogs = []
-
-for i in os.listdir("cogs/"):
-    if i == "__pycache__":
-        pass
-    else:
-        cogs.append(i[:-3])
-
+async def get_cog(client, ext):
+    for cog in client.cogs_list:
+        if ext.lower() in cog:
+            return cog
 
 async def get_roast():
     with open('./database/roastlist.json') as f:
@@ -38,38 +35,29 @@ class Slash(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def set(self, ctx, category: Option(str, "Category", required=True, choices=["Mod/Log Channel", "Counting Channel", "Welcome Channel", "Announcement Channel"]), channel: Option(discord.TextChannel, "The channel", required=True)):
         channel_id = channel.id
-        with open("./database/db.json") as f:
-            data = json.load(f)
+        data = await self.client.get_db()
 
         if category == "Mod/Log Channel":
-            for i in data:
-                if i["guild_id"] == ctx.guild.id:
-                    i["log_channel"] = channel_id
+            data[str(ctx.guild.id)]["log_channel"] = channel_id
 
         elif category == "Counting Channel":
-            for i in data:
-                if i["guild_id"] == ctx.guild.id:
-                    i["counting_channel"] = channel_id
+            data[str(ctx.guild.id)]["counting_channel"] = channel_id
 
         elif category == "Welcome Channel":
-            for i in data:
-                if i["guild_id"] == ctx.guild.id:
-                    i["welcome_channel"] = channel_id
+            data[str(ctx.guild.id)]["welcome_channel"] = channel_id
 
         elif category == "Announcement Channel":
-            for i in data:
-                if i["guild_id"] == ctx.guild.id:
-                    i["announcement_channel"] = channel_id
+            data[str(ctx.guild.id)]["announcement_channel"] = channel_id
 
         await ctx.respond(f"{channel.name} successfully set as {category}")
-        with open("./database/db.json", 'w') as f:
-            json.dump(data, f, indent=4)
+        await self.client.update_db(data)
 
     @slash_command(name="rps", description="rock paper scissors")
     async def rps(self, ctx, rps: Option(str, "Rock Paper or Scissors", required=True, choices=["Rock", "Paper", "Scissors"])):
         choices = ["rock", "paper", "scissors"]
         cpu_choice = random.choice(choices)
         em = discord.Embed(title="Rock Paper Scissors", color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         rps = rps.lower()
         if rps == 'rock':
             if cpu_choice == 'rock':
@@ -106,11 +94,13 @@ class Slash(commands.Cog):
     async def roast(self, ctx):
         roast = await get_roast()
         em = discord.Embed(title=roast, color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         await ctx.respond(embed=em)
 
     @slash_command(name="dm", description="The bot dms someone for you")
     async def dm(self, ctx, member: Option(discord.Member, "The person you want to dm", required=True), message: Option(str, 'The message', required=True)):
         embeddm = discord.Embed(title=message, color=ctx.author.color)
+        embeddm.timestamp = datetime.datetime.utcnow()
         await member.send(embed=embeddm)
         await ctx.respond("Done")
 
@@ -119,6 +109,7 @@ class Slash(commands.Cog):
         message = await get_roast()
         embeddm = discord.Embed(
             title=message, description="Imagine being roasted by a bot", color=ctx.author.color)
+        embeddm.timestamp = datetime.datetime.utcnow()
         await member.send(embed=embeddm)
         await ctx.respond("Done")
 
@@ -147,22 +138,18 @@ class Slash(commands.Cog):
 
     @slash_command(name="reload", description="reloads a cog")
     @commands.check(is_it_me)
-    async def reload(self, ctx, extension:Option(str, "Cog Name", required=True, choices=cogs)):
-        self.client.reload_extension(f"cogs.{extension}")
-        embed = discord.Embed(
-            title='Reload', description=f'{extension} successfully reloaded',color=ctx.author.color)
+    async def reload(self, ctx, extension:Option(str, "Cog Name", required=True)):
+        self.client.reload_extension(await get_cog(self.client, extension))
+        embed = discord.Embed(title='Reload', description=f'{extension} successfully reloaded',color=ctx.author.color)
+        embed.timestamp = datetime.datetime.utcnow()
         await ctx.respond(embed=embed)
 
     @slash_command(name="setprefix", description="Sets the server prefix for Why Bot")
     @commands.has_permissions(administrator=True)
     async def setprefix(self, ctx, pref: Option(str, "Prefix", required=True)):
-        with open(f'./database/db.json') as f:
-            data = json.load(f)
-        for i in data:
-            if i["guild_id"] == ctx.guild.id:
-                i["prefix"] = pref
-        with open(f'./database/db.json', 'w') as f:
-            json.dump(data, f)
+        data = await self.client.get_db()
+        data[str(ctx.guild.id)]["prefix"] = pref
+        await self.client.update_db(data)
         await ctx.respond(embed=discord.Embed(title=f"Prefix has been set to `{pref}`", color=ctx.author.color))
         
 def setup(client):

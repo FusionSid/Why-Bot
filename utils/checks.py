@@ -10,13 +10,12 @@ def notblacklisted(ctx):
         return True
 
 async def plugin_enabled(ctx):
+    categories = ["Counting", "Fun", "Leveling", "Logs", "Minecraft", "Moderation", "Music", "Ping", "Search", 'Settings', "Text", "Ticket", "Utilities", "Voice", "Welcome", "Economy", "Games"]
     if ctx.cog is None:
         return True
     with open('./database/db.json') as f:
         data = json.load(f)
-    for i in data:
-        if i["guild_id"] == ctx.guild.id:
-            settings = i['settings']
+        settings = data[str(ctx.guild.id)]['settings']
     try:
       if settings["plugins"][ctx.cog.qualified_name] == False:
         await ctx.send("This command had been disabled", delete_after=5)

@@ -1,6 +1,5 @@
 import discord
 import json
-import os
 import random
 from discord.ext import commands
 import asyncio
@@ -49,13 +48,15 @@ class Fun(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def claim(self,ctx):
         em = discord.Embed(title="Claim 100k Why Coins", color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         await ctx.send(embed=em, view=MyView())
         
-    @commands.command()
+    @commands.command(help="This command gives you free coins. Click claim.", extras={"category":"Fun"}, usage="nitro", description="Free Coins")
     @commands.check(is_it_me)
     @commands.check(plugin_enabled)
     async def nitro(self,ctx):
         em = discord.Embed(title="Claim Free Nitro", color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         em.set_image(url="https://gudstory.s3.us-east-2.amazonaws.com/wp-content/uploads/2021/02/08150513/Discord-Nitro.png")
         await ctx.send(embed=em, view=MyView())
         
@@ -65,6 +66,7 @@ class Fun(commands.Cog):
         choices = ["rock", "paper", "scissors"]
         cpu_choice = random.choice(choices)
         em = discord.Embed(title="Rock Paper Scissors", color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         rps = rps.lower()
         if rps == 'rock':
             if cpu_choice == 'rock':
@@ -104,6 +106,7 @@ class Fun(commands.Cog):
         await ctx.message.delete()
         roast = await get_roast()
         em = discord.Embed(title=roast, color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         await ctx.send(embed=em)
     
 
@@ -112,6 +115,8 @@ class Fun(commands.Cog):
     async def dm(self, ctx, member: discord.Member, *, message):
         await ctx.message.delete()
         embeddm = discord.Embed(title=message, color=ctx.author.color)
+        embeddm.timestamp = datetime.datetime.utcnow()
+        embeddm.set_footer(text=f"Message sent by: {ctx.author}")
         await member.send(embed=embeddm)
     
 
@@ -122,6 +127,8 @@ class Fun(commands.Cog):
         message = await get_roast()
         embeddm = discord.Embed(
             title=message, description="Imagine being roasted by a bot", color=ctx.author.color)
+        embeddm.timestamp = datetime.datetime.utcnow()
+        embeddm.set_footer(text=f"Message sent by: {ctx.author}")
         await member.send(embed=embeddm)
 
 
@@ -150,8 +157,8 @@ class Fun(commands.Cog):
             "Outlook not so good",
             "Very doubtful"
         ]
-        em = discord.Embed(title="__8 Ball__",
-                           description=f"{question}\nAnswer: {random.choice(_8ballans)}")
+        em = discord.Embed(title="__8 Ball__",description=f"{question}\nAnswer: {random.choice(_8ballans)}")
+        em.timestamp = datetime.datetime.utcnow()                   
         await ctx.send(embed=em)
 
     @commands.command(aliases=['em'], extras={"category":"Fun"}, usage="embed --title test --desc test --channel 123456789 --color blue --timestamp yes --fields 2", help="This command is used to make an embeded message.\nThe bot will create a nice embed and then send it to the channel youre in or the channel you want.", description="Makes an embed")
@@ -202,6 +209,7 @@ class Fun(commands.Cog):
             return m.author == ctx.author and m.channel == ctx.message.channel
 
         em = discord.Embed()
+        em.timestamp = datetime.datetime.utcnow()
 
         kwargs = shlex.split(kwargs)
         args = {}
@@ -310,6 +318,7 @@ class Fun(commands.Cog):
         for x, option in enumerate(options):
             description += '\n{} = {}'.format(reactions[x], option)
         embed = discord.Embed(title=question, description=''.join(description), color=ctx.author.color)
+        embed.timestamp = datetime.datetime.utcnow()
         embed.set_footer(text="Please don't vote twice")
         react_message = await ctx.send(embed=embed)
         for reaction in reactions[:len(options)]:

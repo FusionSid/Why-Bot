@@ -1,4 +1,5 @@
 import discord
+import datetime
 import importlib
 import pyttsx3
 from utils.checks import plugin_enabled
@@ -434,6 +435,7 @@ class Music(commands.Cog):
                 description=f"🔎 Searching for `{video_search}`\n\n" +
                 f"""✅ [{video_title}]({video_url}) - successfully added to queue.""",
                 color=0x515596)
+            embed.timestamp = datetime.datetime.utcnow()
         else:
             embed = discord.Embed(
                 title="Now playing",
@@ -441,6 +443,7 @@ class Music(commands.Cog):
                 f"🔎 Searching for `{video_search}`\n\n" +
                 f"""▶️ Now playing - [{video_title}]({video_url})""",
                 color=0x515596)
+            embed.timestamp = datetime.datetime.utcnow()
 
         await ctx.send(embed=embed)
 
@@ -655,6 +658,7 @@ class Music(commands.Cog):
         else:
             return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description=f'Use {ctx.prefix}createplaylist [name] to create one', color=ctx.author.color))
         em = discord.Embed(title=f"Playlist: {pname}", description="Songs:")
+        em.timestamp = datetime.datetime.utcnow()
         if len(data[f"{ctx.author.id}"][pname]):
             c = 1
             for song in data[f"{ctx.author.id}"][pname]:
@@ -880,6 +884,7 @@ class Music(commands.Cog):
     @commands.check(plugin_enabled)
     async def music(self, ctx):
         em = discord.Embed(title="Music", color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         view= MusicView(ctx, self.client)
         message = await ctx.send(embed=em, view=view)
         res = await view.wait()
