@@ -92,7 +92,6 @@ async def update_activity():
     await client.change_presence(activity=discord.Game(f"On {len(client.guilds)} servers! | ?help"))
     # print("Updated presence")
 
-
 # On ready
 @client.event
 async def on_ready():

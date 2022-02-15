@@ -69,7 +69,6 @@ class Log():
         return data
     
 
-    @property
     def get_date(self, date):
         data = []
 

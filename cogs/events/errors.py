@@ -21,7 +21,7 @@ class Errors(commands.Cog):
             if cog._get_overridden_method(cog.cog_command_error) is not None:
                 return
 
-        ignored = (commands.CommandNotFound, )
+        ignored = (commands.CommandNotFound,)
         error = getattr(error, 'original', error)
 
         if isinstance(error, ignored):

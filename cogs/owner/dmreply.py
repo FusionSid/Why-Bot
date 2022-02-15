@@ -1,12 +1,41 @@
 import discord
+import asyncio
 import datetime
 from discord.ext import commands
 from utils import is_it_me
+
+async def put_on_cooldown(self, member):
+    self.users_on_cooldown.append(member.id)
+    await asyncio.sleep(2)
+    self.users_on_cooldown.remove(member.id)
 
 class DMReply(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.dm_channel = 926232260166975508
+
+        self.users_on_cooldown = []
+        self.banned = []
+
+        self.user_message_count = {}
+
+
+    @commands.command()
+    @commands.check(is_it_me)
+    async def dm_ban(self, ctx, id:int):
+        self.banned.append(id)
+        await ctx.send("User Banned")
+    
+
+    @commands.command()
+    @commands.check(is_it_me)
+    async def dm_unban(self, ctx, id:int):
+        try:
+            self.banned.remove(id)
+            await ctx.send("User Unbanned")
+        except Exception:
+            return
+
 
     @commands.command(aliases=['dmr'])
     @commands.check(is_it_me)
@@ -38,11 +67,17 @@ class DMReply(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
+
         if message.author.bot:
             return
 
         if isinstance(message.channel, discord.DMChannel):
-        
+            if message.author.id in self.banned:
+                return await message.author.send('You have been dm banned')
+            if message.author.id in self.users_on_cooldown:
+                return await message.author.send("Youre on cooldown")
+            await put_on_cooldown(self,message.author)
+
             cha = await self.client.fetch_channel(self.dm_channel)
             em = discord.Embed(title="New DM", description=f"From {message.author.name}", color=message.author.color)
             em.timestamp = datetime.datetime.utcnow()
@@ -59,6 +94,8 @@ class DMReply(commands.Cog):
                     em.timestamp = datetime.datetime.utcnow()
                     em.set_image(url=attachment.url)
                     await cha.send(embed=em)
+
+        # reply
         try:
             if message.channel.id == self.dm_channel and message.author.id == self.client.owner_id:
                 if message.reference is None:
@@ -84,8 +121,9 @@ class DMReply(commands.Cog):
                         em.timestamp = datetime.datetime.utcnow()
                         em.set_image(url=i.url)
                         await person.send(embed=em)
-        except Exception as e:
-            print(e)
+
+        except Exception:
+            return
 
 def setup(client):
     client.add_cog(DMReply(client))
