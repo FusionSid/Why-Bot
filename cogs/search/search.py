@@ -6,6 +6,7 @@ import aiohttp
 import aiofiles
 from googleapiclient.discovery import build
 import re
+import datetime
 import urllib.request
 import os
 import praw
@@ -57,6 +58,7 @@ async def get_wiki(query):
     summary = page.summary
 
     embed = discord.Embed(title="Wikipedia:", description=summary, color=0x00ff00)
+    embed.timestamp = datetime.datetime.utcnow()
     embed.set_author(name=f"Searching for {query}")
     embed.set_thumbnail(url=random.choice(page.images))
     embed.add_field(name="Link", value=f"[Wikipedia Link]({page.url})")
@@ -85,6 +87,7 @@ class Search(commands.Cog):
         ).execute()
         url = result["items"][ran]["link"]
         embed1 = discord.Embed(title=f"Search:({search.title()})", color=ctx.author.color)
+        embed1.timestamp = datetime.datetime.utcnow()
         embed1.set_image(url=url)
         await ctx.send(embed=embed1)
 
@@ -98,6 +101,7 @@ class Search(commands.Cog):
         base_url = "https://www.youtube.com/watch?v="
         em = discord.Embed(title="Youtube Search",
                            description="Showing first 5 urls", color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         videos = [ids[0], ids[1], ids[2], ids[3], ids[4]]
         for video in videos:
             em.add_field(name=f"{base_url}{video}", value="** **")
@@ -110,6 +114,7 @@ class Search(commands.Cog):
         urls = await get_img_url(client=rclient, sub_name=subreddit, limit=50)
         url = random.choice(urls)
         em = discord.Embed(title="Reddit Image Search:", color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         em.set_image(url=url)
         await ctx.send(embed=em)
 
@@ -129,6 +134,8 @@ class Search(commands.Cog):
         downs = ran_sub.downs
         author = ran_sub.author
         em = discord.Embed(title=name, color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
+        em.timestamp = datetime.datetime.utcnow()
         em.set_image(url=url)
         em.set_footer(text=f"{author} | 👍 : {ups}")
         await ctx.send(embed=em)
@@ -140,6 +147,7 @@ class Search(commands.Cog):
         urls = await get_url(client=rclient, sub_name=subreddit, limit=50)
         url = random.choice(urls)
         em = discord.Embed(title="Reddit Search:", description=url, color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         await ctx.send(embed=em)
     
     @commands.command(help="This command returns a random rock image", extras={"category":"Search"}, usage="rock", description="Rock Image")
@@ -155,6 +163,7 @@ class Search(commands.Cog):
                     else:
                         break
         em = discord.Embed(title=response['name'], description=response['desc'], color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         rating = response["rating"]
         em.add_field(name="Rating", value=f"{rating}/5")
         em.set_image(url=response["image"])
@@ -170,6 +179,7 @@ class Search(commands.Cog):
                 async with session.get(url) as resp:
                     r = await resp.json()
         em = discord.Embed(title="Dog!", description=r['fact'], color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         em.set_image(url=r['image'])
 
         await ctx.send(embed=em)
@@ -182,6 +192,7 @@ class Search(commands.Cog):
                 async with session.get(url) as resp:
                     r = await resp.json()
         em = discord.Embed(title="Cat!", description=r['fact'], color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         em.set_image(url=r['image'])
 
         await ctx.send(embed=em)
@@ -194,6 +205,7 @@ class Search(commands.Cog):
                 async with session.get(url) as resp:
                     r = await resp.json()
         em = discord.Embed(title="Panda!", description=r['fact'], color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         em.set_image(url=r['image'])
 
         await ctx.send(embed=em)
@@ -206,6 +218,7 @@ class Search(commands.Cog):
                 async with session.get(url) as resp:
                     r = await resp.json()
         em = discord.Embed(title="Fox!", description=r['fact'], color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         em.set_image(url=r['image'])
 
         await ctx.send(embed=em)
@@ -218,6 +231,7 @@ class Search(commands.Cog):
                 async with session.get(url) as resp:
                     r = await resp.json()
         em = discord.Embed(title="Bird!", description=r['fact'], color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         em.set_image(url=r['image'])
 
         await ctx.send(embed=em)
@@ -333,6 +347,7 @@ class Search(commands.Cog):
                 async with session.get(url) as resp:
                     r = await resp.json()
         em=discord.Embed(title=r['joke'], color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
 
         await ctx.send(embed=em)
 
@@ -358,12 +373,14 @@ class Search(commands.Cog):
         em.set_author(name=r['author'])
         em.set_thumbnail(url=r['thumbnail']['genius'])
         em.color = ctx.author.color
+        em.timestamp = datetime.datetime.utcnow()
 
         await ctx.send(embed=em)
     
     @commands.command(aliases=['wkp', 'wikipedia'], help="This command looks through wikipedia and finds you a page based on your search query", usage='wiki [search]', description="Wikipedia Search", extras={"category":"Search"})
     async def wiki(self, ctx, *, query):
         embed = await get_wiki(query)
+        embed.timestamp = datetime.datetime.utcnow()
         await ctx.send(embed=embed)
 
 def setup(client):

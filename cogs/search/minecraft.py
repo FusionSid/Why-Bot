@@ -3,6 +3,7 @@ import random
 import os
 import json
 from discord.ext import commands
+import datetime
 import dotenv
 from utils.checks import plugin_enabled
 import aiohttp
@@ -163,6 +164,7 @@ class Minecraft(commands.Cog):
 
         em = discord.Embed(title="Bedwars Stats:",
                            description="For {}".format(full_ign), color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         stats_values = [bw_level, bw_wins, bw_losses, bw_winstreak, bw_coins, bw_gold,
                         bw_iron, bw_dias, bw_ems, bw_resources, bw_kills, bw_deaths, bw_beds, bw_finals]
         stat_keys = ["Bedwars Level", "Wins", "Losses", "Current Winstreak", "Coins",

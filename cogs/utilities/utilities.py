@@ -1,4 +1,5 @@
 import discord
+import datetime
 import json
 from utils.checks import plugin_enabled
 import os
@@ -178,6 +179,7 @@ class Utilities(commands.Cog):
         roles = [role for role in member.roles]
         em = discord.Embed(title="Person Info",
                            description=f"For: {member.name}", color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         if str(member.status) == "online":
             status = "🟢 Online"
         elif str(member.status) == "offline":
@@ -233,6 +235,7 @@ class Utilities(commands.Cog):
     async def serverinfo(self, ctx):
         em = discord.Embed(
             title="Server Info:", description=f"For: {ctx.guild.name}", color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         em.set_thumbnail(url=ctx.guild.icon.url)
         em.set_author(
             name=f"Guild Owner: {ctx.guild.owner.name}", icon_url=ctx.guild.owner.avatar.url)
@@ -260,6 +263,7 @@ class Utilities(commands.Cog):
             data = json.load(f)
         active = len(data)
         em = discord.Embed(title='Why Bot', description='Just Why?', color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         em.add_field(inline=True, name="Server Count",
                      value=f"{len(self.client.guilds)}")
         mlist = []
@@ -378,6 +382,7 @@ class Utilities(commands.Cog):
 
             em = discord.Embed(
                 description=msg, colour=discord.Colour(value=0x36393e))
+            em.timestamp = datetime.datetime.utcnow()
             await ctx.send(embed=em)
 
 
@@ -412,6 +417,7 @@ class Utilities(commands.Cog):
 
             em = discord.Embed(
                 description=msg, colour=discord.Colour(value=0x36393e))
+            em.timestamp = datetime.datetime.utcnow()
             for i in range(max_games):
                 game, freq = sorted_list[i]
                 if int(freq_list[game]) < 2:

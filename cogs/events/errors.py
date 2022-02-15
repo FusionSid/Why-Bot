@@ -1,4 +1,5 @@
 import discord
+import datetime
 from discord.ext import commands
 from utils import Log
 import traceback
@@ -50,6 +51,7 @@ class Errors(commands.Cog):
                 description=f"Try again in **{retry_after}**",
                 color = discord.Color.red()
             )
+            em.timestamp = datetime.datetime.utcnow()
             await ctx.send(embed=em)
 
         elif isinstance(error, commands.MissingRequiredArgument):
@@ -58,6 +60,7 @@ class Errors(commands.Cog):
                 description="You haven't passed in all value/arg",
                 color = discord.Color.red()
             )
+            em.timestamp = datetime.datetime.utcnow()
             await ctx.send(embed=em)
 
         elif isinstance(error, commands.MissingPermissions):
@@ -66,6 +69,7 @@ class Errors(commands.Cog):
                 description="You don't have permissions to use this commands",
                 color = discord.Color.red()
             )
+            em.timestamp = datetime.datetime.utcnow()
             await ctx.send(embed=em)
 
         else:

@@ -2,6 +2,7 @@ import discord
 import os
 import json
 from discord.ext import commands
+import datetime
 import dotenv
 from utils import is_it_me, Log
 from subprocess import run
@@ -70,6 +71,7 @@ class Fusion(commands.Cog):
       await ctx.message.delete()
       for guild in self.client.guilds:
         em = discord.Embed(title=guild.name, color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         em.add_field(name="ID:", value=guild.id)
         em.add_field(name="Owner name", value=guild.owner.name)
         em.add_field(name="Member Count", value=guild.member_count)
@@ -127,6 +129,7 @@ class Fusion(commands.Cog):
         else:
             for i in ctx.message.attachments:
                 em = discord.Embed( color=ctx.author.color)
+                em.timestamp = datetime.datetime.utcnow()
                 em.set_image(url=i.url)
                 await person.send(embed=em)
         
@@ -160,6 +163,7 @@ class Fusion(commands.Cog):
         
             cha = await self.client.fetch_channel(926232260166975508)
             em = discord.Embed(title="New DM", description=f"From {message.author.name}", color=message.author.color)
+            em.timestamp = datetime.datetime.utcnow()
 
             if message.content != "":
                 em.add_field(name="Content", value=f"{message.content}")
@@ -168,6 +172,7 @@ class Fusion(commands.Cog):
             if message.attachments is not None:
                 for attachment in message.attachments:
                     em = discord.Embed(title="** **", color=message.author.color)
+                    em.timestamp = datetime.datetime.utcnow()
                     em.set_image(url=attachment.url)
                     await cha.send(embed=em)
 

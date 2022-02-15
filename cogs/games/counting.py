@@ -2,6 +2,7 @@ import discord
 import discord
 from discord.ext import commands
 import json
+import datetime
 from utils.checks import plugin_enabled
 import numexpr as ne
 
@@ -51,6 +52,7 @@ async def counting(msg, guild, channel, m):
             data2[str(guild.id)]['lastcounter'] = None
             await m.add_reaction("❌")
             em = discord.Embed(title=f"{m.author.name}, You ruined it!", description="Only one person at a time\nCount reset to zero", color=discord.Color.blue())
+            em.timestamp = datetime.datetime.utcnow()
             with open("./database/counting.json", 'w') as f:
                 json.dump(data, f, indent=4)
             with open("./database/db.json", 'w') as f:
@@ -70,6 +72,7 @@ async def counting(msg, guild, channel, m):
         else:
             await m.add_reaction("❌")
             em = discord.Embed(title=f"{m.author.name}, You ruined it!", description=f"You were supposed to type `{(data[f'{guild.id}']+1)}`\nCount reset to zero", color=discord.Color.blue())
+            em.timestamp = datetime.datetime.utcnow()
             i['lastcounter'] = None
             data[f"{guild.id}"] = 0
             await channel.send(embed=em)
@@ -91,7 +94,9 @@ class Counting(commands.Cog):
             data = json.load(f)
         guildid = f'{guild.id}'
         numrn = data[guildid]
-        await ctx.send(embed=discord.Embed(title=f"Current number is {numrn}", description=f"So the next number to count is: {numrn+1}", color=discord.Color.green()))
+        em = discord.Embed(title=f"Current number is {numrn}", description=f"So the next number to count is: {numrn+1}", color=discord.Color.green())
+        em.timestamp = datetime.datetime.utcnow()
+        await ctx.send(embed=em)
 
     @commands.Cog.listener()
     async def on_message(self, message):

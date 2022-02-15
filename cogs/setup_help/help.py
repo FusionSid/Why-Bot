@@ -1,4 +1,5 @@
 import discord
+import datetime
 from discord.ext import commands
 from discord.ui import Button, View
 
@@ -61,16 +62,20 @@ class Dropdown(discord.ui.Select):
         for category in categories:
                 if cat.lower() == "logs":
                     em = discord.Embed(title="Logs", description=f"`help [command]` for more info on command", color=discord.Color.blue())
+                    em.timestamp = datetime.datetime.utcnow()
                     em.add_field(name="Use the /set command to set the mod/log channel", value="This category doesn't have any commands because it works on events.\nIf you use the `/set Mod/Log Channel #channel` command properly and set the right channel the bot will log things like Bans, Unbans, Messages being deleted/edited, Nick changes and more")
                     await interaction.response.edit_message(embed=em)
 
                 elif cat.lower() == "welcome":
                     em = discord.Embed(title="Welcome", description=f"`help [command]` for more info on command", color=discord.Color.blue())
+                    em.timestamp = datetime.datetime.utcnow()
                     em.add_field(name="This system is used to send welcome messages to a user/into a channel when a member joins", value="Use the `/set Welcome Channel #channel` to set the welcome channel")
+                    em.add_field(name=f"Using `welcome` without a subcommand will display the welcome image",value=f"Configure your welcome message:\n`welcome textcolor`\n`welcome image`\n`welcome bgcolor`\n`welcome text`")
                     await interaction.response.edit_message(embed=em)
 
                 elif cat.lower() == "economy":
                     em = discord.Embed(title="Economy", description=f"`help [command]` for more info on command", color=discord.Color.blue())
+                    em.timestamp = datetime.datetime.utcnow()
                     em.add_field(name="This plugin/category is still under construction", value="** **")
                     await interaction.response.edit_message(embed=em)
 
@@ -115,17 +120,20 @@ class Help(commands.Cog):
         
         elif cat.lower() == "logs":
             em = discord.Embed(title="Logs", description=f"`{ctx.prefix}help [command]` for more info on command", color=ctx.author.color)
+            em.timestamp = datetime.datetime.utcnow()
             em.add_field(name="Use the /set command to set the mod/log channel", value="This category doesn't have any commands because it works on events.\nIf you use the `/set Mod/Log Channel #channel` command properly and set the right channel the bot will log things like Bans, Unbans, Messages being deleted/edited, Nick changes and more")
             return await ctx.send(embed=em)
 
         elif cat.lower() == "welcome":
             em = discord.Embed(title="Welcome", description=f"`{ctx.prefix}help [command]` for more info on command", color=ctx.author.color)
+            em.timestamp = datetime.datetime.utcnow()
             em.add_field(name="This system is used to send welcome messages to a user/into a channel when a member joins", value="Use the `/set Welcome Channel #channel` to set the welcome channel")
             em.add_field(name=f"Using `{ctx.prefix}welcome` without a subcommand will display the welcome image",value=f"Configure your welcome message:\n`{ctx.prefix}welcome textcolor`\n`{ctx.prefix}welcome image`\n`{ctx.prefix}welcome bgcolor`\n`{ctx.prefix}welcome text`")
             return await ctx.send(embed=em)
 
         elif cat.lower() == "economy":
             em = discord.Embed(title="Economy", description=f"`{ctx.prefix}help [command]` for more info on command", color=ctx.author.color)
+            em.timestamp = datetime.datetime.utcnow()
             em.add_field(name="This plugin/category is still under construction", value="** **")
             return await ctx.send(embed=em)
 
@@ -133,6 +141,7 @@ class Help(commands.Cog):
 
         if cat is None:
             em = discord.Embed(title="Why Help", color=ctx.author.color)
+            em.timestamp = datetime.datetime.utcnow()
             em.add_field(inline=False, name=f"Use `{ctx.prefix}help all`", value="For all commands")
             em.add_field(inline=False, name=f"`{ctx.prefix}help [command]`", value="Give information about a specific command")
             em.add_field(inline=False, name=f"`{ctx.prefix}help [category]`", value="Give information about a specific category")
@@ -173,6 +182,7 @@ class Help(commands.Cog):
         for cmd in self.client.commands:
             if cmd.name.lower() == cat.lower():
                 em = discord.Embed(title="Why Help", description=f"`{ctx.prefix}help [command]` for more info on command", color=ctx.author.color)
+                em.timestamp = datetime.datetime.utcnow()
                 em.add_field(name=f"Name", value=f"`{cmd.name}`", inline=False)
                 if len(cmd.aliases) == 0:
                     em.add_field(name="Aliases:", value='None', inline=False)

@@ -10,6 +10,7 @@ from urllib.request import urlopen
 import requests
 import asyncio
 dotenv.load_dotenv()
+import datetime
 
 
 async def create_voice(guild, name, cat, limit=None):
@@ -40,6 +41,7 @@ class Moderation(commands.Cog):
             return await ctx.send("You dont have a log channel set on your server")
 
         em = discord.Embed(title="REPORT", color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
 
         if type_.lower() == "member":
 
@@ -196,6 +198,7 @@ class Moderation(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def reactrole(self, ctx, emoji, role: discord.Role, *, message):
         embedVar = discord.Embed(description=message, color=ctx.author.color)
+        embedVar.timestamp = datetime.datetime.utcnow()
         msg = await ctx.channel.send(embed=embedVar)
         await msg.add_reaction(emoji)
         with open("./database/react.json") as json_file:
@@ -309,6 +312,7 @@ class Moderation(commands.Cog):
             return await ctx.send("This person has no warnings")
 
         em = discord.Embed(title="WARNINGS:", color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         for i in warnings:
             t = i["time"]
             r = i["reason"]

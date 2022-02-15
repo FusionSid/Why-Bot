@@ -1,14 +1,14 @@
 import discord
 from discord.ext import commands
-import json
 from utils import Paginator
-
+import datetime
 
 async def enabled_cogs(client, ctx):
     data = await client.get_db()
     plugins = data[str(ctx.guild.id)]['settings']['plugins']
     em = discord.Embed(
         title="Plugins:", description="These are all the plugins that have been enabled on your server", color=ctx.author.color)
+    em.timestamp = datetime.datetime.utcnow()
     for key, value in plugins.items():
         if value == True:
             emoji = "Enabled ✅"
@@ -22,6 +22,7 @@ async def enabled_cogs(client, ctx):
 async def get_channels(self, ctx):
     data = await self.client.get_db()
     em = discord.Embed(title="Channels", color=ctx.author.color)
+    em.timestamp = datetime.datetime.utcnow()
     em.set_footer(text="Use /set to set these")
     if data[str(ctx.guild.id)]['counting_channel'] == None:
         counting = "Not Set"
@@ -47,6 +48,7 @@ async def get_channels(self, ctx):
 async def autorole(self, ctx):
     data = await self.client.get_db()
     em = discord.Embed(title="Autorole", color=ctx.author.color)
+    em.timestamp = datetime.datetime.utcnow()
     em.set_footer(text="Use ?autorole [@role] [all/bot] to set the autorole")
     autorole = data[str(ctx.guild.id)]['autorole']
     if autorole['all'] == None:
@@ -65,6 +67,7 @@ async def autorole(self, ctx):
 async def welcome_text(self, ctx):
     data = await self.client.get_db()
     em = discord.Embed(title="Welcome Text", color=ctx.author.color)
+    em.timestamp = datetime.datetime.utcnow()
     em.set_footer(text="Use ?welcome text [text] to set the text")
     wt = data[str(ctx.guild.id)]['welcome']['text_footer']
     em.add_field(name="Text:", value=wt)
@@ -81,6 +84,7 @@ async def autocalc(self, ctx):
         status = "Disabled ❌"
 
     em = discord.Embed(title='Auto Calculator',description=status, color=ctx.author.color)
+    em.timestamp = datetime.datetime.utcnow()
 
     return em
 
@@ -95,8 +99,10 @@ class Settings(commands.Cog):
 
         em = discord.Embed(
             title="Settings", description="Use the arrows to look throught the settings", color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
 
         prefix = discord.Embed(title= "Prefix", description=f"The prefix is `{ctx.prefix}`", color=ctx.author.color)
+        prefix.timestamp = datetime.datetime.utcnow()
         prefix.set_footer(
             text=f"You can use {ctx.prefix}setprefix [prefix] to set the prefix")
 
@@ -121,6 +127,7 @@ class Settings(commands.Cog):
         if ctx.invoked_subcommand is None:
             em = discord.Embed(
                 title="Plugins", description=f"Use `{ctx.prefix}plugins [enable/disable] [plugin name]`", color=ctx.author.color)
+            em.timestamp = datetime.datetime.utcnow()
             em.add_field(
                 name="Plugin List:", value="Counting\nModeration\nEconomy\nTextConvert\nSearch\nWelcome\nLeveling\nMusic\nOnping\nTicket\nMinecraft\nUtilities")
             em.set_footer(

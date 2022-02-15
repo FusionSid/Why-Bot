@@ -1,6 +1,7 @@
 import discord
 from utils.checks import plugin_enabled
 from discord.ext import commands
+import datetime
 import json
 
 
@@ -26,6 +27,7 @@ class Onping(commands.Cog):
                 return
             on_pinged_message = user['on_pinged']
             em = discord.Embed()
+            em.timestamp = datetime.datetime.utcnow()
 
             if on_pinged_message["title"] == None and on_pinged_message["description"] == None:
                 return await ctx.send(embed=discord.Embed(title="You have no on pinged message set.", description=f"Use `{ctx.prefix}onpinged set` to set one"))
@@ -136,33 +138,28 @@ class Onping(commands.Cog):
                 return
             if i['user_id'] == message.author.id:
                 pass
-
-            elif f"<@!{i['user_id']}>" in message.content:
-                em = discord.Embed()
-                em.title = i["on_pinged"]["title"]
-                em.description = i["on_pinged"]["description"]
-                if em.title and em.description is None:
+            
+            em = discord.Embed()
+            em.timestamp = datetime.datetime.utcnow()
+            em.title = i["on_pinged"]["title"]
+            em.description = i["on_pinged"]["description"]
+            if em.title and em.description is None:
                     return
-                if i["on_pinged"]["color"] == None:
-                    pass
-                else:
-                    em.color = i["on_pinged"]["color"]
+            if i["on_pinged"]["color"] == None:
+                pass
+            else:
+                em.color = i["on_pinged"]["color"]
+                
+            if f"<@!{i['user_id']}>" in message.content:
                 try:
                     return await message.reply(embed=em)
-                except:
+                except Exception:
                     return await message.channel.send(embed=em)
 
             elif f"<@{i['user_id']}>" in message.content:
-                em = discord.Embed()
-                em.title = i["on_pinged"]["title"]
-                em.description = i["on_pinged"]["description"]
-                if i["on_pinged"]["color"] == None:
-                    pass
-                else:
-                    em.color = i["on_pinged"]["color"]
                 try:
                     return await message.reply(embed=em)
-                except:
+                except Exception:
                     return await message.channel.send(embed=em)
 
 

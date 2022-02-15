@@ -1,4 +1,5 @@
 import discord
+import datetime
 from discord.ext import commands
 
 
@@ -28,6 +29,7 @@ class Log(commands.Cog):
             if channel == None:
                 return
             else:
+                em.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=em)
         except:
             pass
@@ -45,6 +47,7 @@ class Log(commands.Cog):
             if channel == None:
                 return
             else:
+                em.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=em)
         except:
             pass
@@ -58,6 +61,7 @@ class Log(commands.Cog):
             if channel == None:
                 return
             else:
+                em.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=em)
         except:
             pass
@@ -68,6 +72,7 @@ class Log(commands.Cog):
             em = discord.Embed(color=discord.Color.blue(), 
                 title="Member Unbanned!", description=f"{user.name} Has been unbanned from the server")
             channel = await get_log_channel(self, guild)
+            em.timestamp = datetime.datetime.utcnow()
             if channel == None:
                 return
             else:
@@ -100,6 +105,7 @@ class Log(commands.Cog):
             if channel == None:
                 return
             else:
+                em.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=em)
         except:
             pass
@@ -113,6 +119,7 @@ class Log(commands.Cog):
             if channel == None:
                 return
             else:
+                em.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=em)
         except:
             pass
@@ -126,6 +133,7 @@ class Log(commands.Cog):
             if channel == None:
                 return
             else:
+                em.timestamp = datetime.datetime.utcnow()
                 await channel.send(embed=em)
         except:
             pass

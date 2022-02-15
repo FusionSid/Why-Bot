@@ -1,4 +1,5 @@
 # Slash commands
+import datetime
 import discord
 from discord.commands import slash_command
 from discord.ext import commands
@@ -56,6 +57,7 @@ class Slash(commands.Cog):
         choices = ["rock", "paper", "scissors"]
         cpu_choice = random.choice(choices)
         em = discord.Embed(title="Rock Paper Scissors", color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         rps = rps.lower()
         if rps == 'rock':
             if cpu_choice == 'rock':
@@ -92,11 +94,13 @@ class Slash(commands.Cog):
     async def roast(self, ctx):
         roast = await get_roast()
         em = discord.Embed(title=roast, color=ctx.author.color)
+        em.timestamp = datetime.datetime.utcnow()
         await ctx.respond(embed=em)
 
     @slash_command(name="dm", description="The bot dms someone for you")
     async def dm(self, ctx, member: Option(discord.Member, "The person you want to dm", required=True), message: Option(str, 'The message', required=True)):
         embeddm = discord.Embed(title=message, color=ctx.author.color)
+        embeddm.timestamp = datetime.datetime.utcnow()
         await member.send(embed=embeddm)
         await ctx.respond("Done")
 
@@ -105,6 +109,7 @@ class Slash(commands.Cog):
         message = await get_roast()
         embeddm = discord.Embed(
             title=message, description="Imagine being roasted by a bot", color=ctx.author.color)
+        embeddm.timestamp = datetime.datetime.utcnow()
         await member.send(embed=embeddm)
         await ctx.respond("Done")
 
@@ -136,6 +141,7 @@ class Slash(commands.Cog):
     async def reload(self, ctx, extension:Option(str, "Cog Name", required=True)):
         self.client.reload_extension(await get_cog(self.client, extension))
         embed = discord.Embed(title='Reload', description=f'{extension} successfully reloaded',color=ctx.author.color)
+        embed.timestamp = datetime.datetime.utcnow()
         await ctx.respond(embed=embed)
 
     @slash_command(name="setprefix", description="Sets the server prefix for Why Bot")

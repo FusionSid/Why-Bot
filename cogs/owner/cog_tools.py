@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from utils import is_it_me
+import datetime
 
 async def get_cog(client, ext):
     for cog in client.cogs_list:
@@ -17,6 +18,7 @@ class CogTools(commands.Cog):
     async def reload(self, ctx, extension):
         self.client.reload_extension(await get_cog(self.client, extension))
         embed = discord.Embed(title='Reload', description=f'{extension} successfully reloaded', color=ctx.author.color)
+        embed.timestamp = datetime.datetime.utcnow()
         await ctx.send(embed=embed)
         
 
@@ -25,6 +27,7 @@ class CogTools(commands.Cog):
     async def load(self, ctx, extension):
         self.client.load_extension(await get_cog(self.client, extension))
         embed = discord.Embed(title='Load', description=f'{extension} successfully loaded', color=ctx.author.color)
+        embed.timestamp = datetime.datetime.utcnow()
         await ctx.send(embed=embed)
 
     
@@ -33,6 +36,7 @@ class CogTools(commands.Cog):
     async def unload(self, ctx, extension):
         self.client.unload_extension(await get_cog(self.client, extension))
         embed = discord.Embed(title='Unload', description=f'{extension} successfully unloaded', color=ctx.author.color)
+        embed.timestamp = datetime.datetime.utcnow()
         await ctx.send(embed=embed)
 
     @commands.command()

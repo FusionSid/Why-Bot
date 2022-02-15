@@ -1,4 +1,5 @@
 import discord
+import datetime
 from discord.ext import commands
 import json
 from utils import Log
@@ -77,8 +78,10 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
+        chaem = discord.Embed(title="Join", description=f"Joined: {guild.name}", color=discord.Color.green())
+        chaem.timestamp = datetime.datetime.utcnow()
         cha = self.client.get_channel(925513395883606129)
-        await cha.send(embed=discord.Embed(title="Join", description=f"Joined: {guild.name}", color=discord.Color.green()))
+        await cha.send(embed=chaem)
         await update_activity(self.client)
         await startguildsetup(self.client, guild.id)
         embed = discord.Embed(color=discord.Color.blue())
@@ -91,6 +94,7 @@ class Events(commands.Cog):
             name="Settings", value="You can use `?settings` to change some bot settings")
         embed.set_footer(
             text=f"Thank You - Why bot is now on {len(self.client.guilds)} servers!")
+        embed.timestamp = datetime.datetime.utcnow()
         try:
             await guild.system_channel.send(content="**Thanks for inviting me! :wave: **", embed=embed)
         except Exception as e:
@@ -100,7 +104,9 @@ class Events(commands.Cog):
     async def on_guild_remove(self,guild):
         await update_activity(self.client)
         cha = self.client.get_channel(925513395883606129)
-        await cha.send(embed=discord.Embed(title="Leave", description=f"Left: {guild.name}", color=discord.Color.red()))
+        em = discord.Embed(title="Leave", description=f"Left: {guild.name}", color=discord.Color.red())
+        em.timestamp = datetime.datetime.utcnow()
+        await cha.send(embed=em)
 
 def setup(client):
     client.add_cog(Events(client))
