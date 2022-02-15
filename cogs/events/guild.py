@@ -1,13 +1,12 @@
 import discord
-import random
 from discord.ext import commands
 import json
-from datetime import datetime
 from utils import Log
+from utils import update_activity
 
-log = Log("./database/log.txt", timestamp=True)
+log = Log()
 
-async def startguildsetup(id):
+async def startguildsetup(client, id):
     file = {
         "guild_id": id,
         "prefix": "?",
@@ -47,8 +46,7 @@ async def startguildsetup(id):
             "bg_image" : None
         }
     }
-    with open("./database/db.json") as f:
-        data = json.load(f)
+    data = await client.get_db()
     
     alr_in = False
     
@@ -60,8 +58,8 @@ async def startguildsetup(id):
     
     if alr_in == False:
         data.append(file)
-        with open("./database/db.json", 'w') as f:
-            json.dump(data, f, indent=4)
+        await client.update_db(data)
+
     newtickettemplate = {"ticket-counter": 0, "valid-roles": [],"pinged-roles": [], "ticket-channel-ids": [], "verified-roles": []}
     with open(f"./tickets/ticket{id}.json", 'w') as f:
         json.dump(newtickettemplate, f, indent=4)
@@ -71,9 +69,7 @@ async def startguildsetup(id):
     with open(f"./database/counting.json", 'w') as f:
         json.dump(dataa, f, indent=4)
 
-async def update_activity(client):
-    await client.change_presence(activity=discord.Game(f"On {len(client.guilds)} servers! | ?help"))
-    print("Updated presence")
+
 
 class Events(commands.Cog):
     def __init__(self, client):
@@ -84,7 +80,7 @@ class Events(commands.Cog):
         cha = self.client.get_channel(925513395883606129)
         await cha.send(embed=discord.Embed(title="Join", description=f"Joined: {guild.name}", color=discord.Color.green()))
         await update_activity(self.client)
-        await startguildsetup(guild.id)
+        await startguildsetup(self.client, guild.id)
         embed = discord.Embed(color=discord.Color.blue())
         embed.set_author(name="Here's some stuff to get you started:")
         embed.add_field(name="Default Prefix: `?`",
@@ -105,52 +101,6 @@ class Events(commands.Cog):
         await update_activity(self.client)
         cha = self.client.get_channel(925513395883606129)
         await cha.send(embed=discord.Embed(title="Leave", description=f"Left: {guild.name}", color=discord.Color.red()))
-
-    @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
-        log.log_error(error)
-
-        if isinstance(error, commands.CommandOnCooldown):
-            async def better_time(cd: int):
-                time = f"{cd}s"
-                if cd > 60:
-                    minutes = cd - (cd % 60)
-                    seconds = cd - minutes
-                    minutes = int(minutes / 60)
-                    time = f"{minutes}min {seconds}s"
-                    if minutes > 60:
-                        hoursglad = minutes - (minutes % 60)
-                        hours = int(hoursglad / 60)
-                        minutes = minutes - (hours*60)
-                        time = f"{hours}h {minutes}min {seconds}s"
-                return time
-                
-            cd = round(error.retry_after)
-            if cd == 0:
-                cd = 1
-            retry_after = await better_time(cd)
-            em = discord.Embed(
-                title="Wow buddy, Slow it down\nThis command is on cooldown",
-                description=f"Try again in **{retry_after}**",
-                color = discord.Color.red()
-            )
-            await ctx.send(embed=em)
-
-        elif isinstance(error, commands.MissingRequiredArgument):
-            em = discord.Embed(
-                title="Missing a requred value/arg",
-                description="You haven't passed in all value/arg",
-                color = discord.Color.red()
-            )
-            await ctx.send(embed=em)
-
-        elif isinstance(error, commands.MissingPermissions):
-            em = discord.Embed(
-                title="Missing permissions",
-                description="You don't have permissions to use this commands",
-                color = discord.Color.red()
-            )
-            await ctx.send(embed=em)
 
 def setup(client):
     client.add_cog(Events(client))

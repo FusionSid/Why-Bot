@@ -140,8 +140,9 @@ def get_lines():
         if i.endswith(".py"):
             files.append(i)
     for i in os.listdir("cogs/"):
-        if i.endswith(".py"):
-            files.append(f"cogs/{i}")
+        for file in os.listdir('cogs/'+i):
+            if file.endswith(".py"):
+                files.append(f"cogs/{i}/{file}")
     for i in os.listdir("utils/"):
         if i.endswith(".py"):
             files.append(f"utils/{i}")

@@ -14,9 +14,7 @@ async def plugin_enabled(ctx):
         return True
     with open('./database/db.json') as f:
         data = json.load(f)
-    for i in data:
-        if i["guild_id"] == ctx.guild.id:
-            settings = i['settings']
+        settings = data[str(ctx.guild.id)]['settings']
     try:
       if settings["plugins"][ctx.cog.qualified_name] == False:
         await ctx.send("This command had been disabled", delete_after=5)

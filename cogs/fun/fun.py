@@ -1,6 +1,5 @@
 import discord
 import json
-import os
 import random
 from discord.ext import commands
 import asyncio

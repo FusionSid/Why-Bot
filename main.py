@@ -1,16 +1,19 @@
 import json
+import traceback
+import time
 from datetime import datetime
 import os
 from os import listdir
-from os.path import isfile, join
+from os.path import isfile, isdir
 import discord
 from discord.ext import commands, tasks
 from discord.ui import Button, View
-from embed_gen import keep_alive
 import dotenv
 from discord.ui import Button, View
 from datetime import datetime
 from utils import Log
+import pyfiglet
+import sidspackage
 
 dotenv.load_dotenv()
 
@@ -18,20 +21,57 @@ log = Log("./database/log.txt", timestamp=True)
 
 async def get_prefix(client, message):
     try:
-        with open('database/db.json') as f:
-            data = json.load(f)
-        for i in data:
-            if i['guild_id'] == message.guild.id:
-                return i['prefix']
-    except:
+        data = await WhyBot.get_guild_data(message.guild.id)
+        return data['prefix']
+    except Exception as err:
+        print(err)
         return "?"
 
 
 intents = discord.Intents.all()
-am = discord.AllowedMentions(everyone=False)
-client = commands.Bot(command_prefix=get_prefix, intents=intents, help_command=None, owner_id=624076054969188363,case_insensitive=True,allowed_mentions=am, debug_guilds=[763348615233667082]) 
-client.connections = {}
+allowed_mentions = discord.AllowedMentions(everyone=False)
 
+class WhyBot(commands.Bot):
+    def __init__(self):
+        super().__init__(command_prefix=get_prefix, intents=intents, help_command=None, owner_id=624076054969188363, case_insensitive=True,allowed_mentions=allowed_mentions, debug_guilds=[763348615233667082])
+        
+        self.cp = sidspackage.ColorPrint()
+        
+        self.art = pyfiglet.figlet_format("Why Bot")
+        self.cp.print(self.art, color="blue")
+
+        self.cogs_list = None
+
+    async def get_db(self):
+        with open("database/db.json") as f:
+            data = json.load(f)
+        return data
+
+    async def update_db(self, data):
+        with open("database/db.json", 'w') as f:
+            json.dump(data, f, indent=4)
+
+    async def get_guild_data(guild_id):
+        with open("database/db.json") as f:
+            data = json.load(f)
+        return data[str(guild_id)]
+
+client = WhyBot()
+
+def print_percent_done(index, total, bar_len=50, title='Loading Cogs:'):
+    percent_done = (index+1)/total*100
+    percent_done = round(percent_done, 1)
+
+    done = round(percent_done/(100/bar_len))
+    togo = bar_len-done
+
+    done_str = '█'*int(done)
+    togo_str = '░'*int(togo)
+
+    print(f'{title} [{done_str}{togo_str}] {percent_done}% done', end='\r')
+
+    if round(percent_done) == 100:
+        print('Loaded All: ✅ ')
 
 async def update_activity():
     await client.change_presence(activity=discord.Game(f"On {len(client.guilds)} servers! | ?help"))
@@ -41,9 +81,10 @@ async def update_activity():
 # On ready
 @client.event
 async def on_ready():
-    print("=======================\nConnected\n=========")
     await update_activity()
     channel = client.get_channel(925513395883606129)
+    art = pyfiglet.figlet_format("CONNECTED")
+    client.cp.print(art, "green")
     await channel.send("Online")
     log.log_message("Bot is online")
 
@@ -93,7 +134,7 @@ async def on_message(message):
             if prefix in message.content:
                 await update_user_db(message.author.id)
             await client.process_commands(message)
-    except:
+    except Exception as e:
         await client.process_commands(message)
 
 
@@ -102,34 +143,44 @@ async def clear_stuff():
     dir = 'tempstorage/'
     for f in os.listdir(dir):
       os.remove(os.path.join(dir, f))
-    #with open("other/log.txt", 'w') as f:
-    #  f.truncate(0)
+      
 
 
 def start_bot(client):
     log.log_message("Starting up bot")
-    client.remove_command("help")
-    keep_alive()
-    
-    lst = [f for f in listdir("cogs/") if isfile(join("cogs/", f))]
-    no_py = [s.replace('.py', '') for s in lst]
-    startup_extensions = ["cogs." + no_py for no_py in no_py]
-    try:
-        for cogs in startup_extensions:
-            client.load_extension(cogs)  # Startup all cogs
 
-            print(f"Loaded {cogs}")
+    cogs = []
+
+    all_categories = list(os.listdir("cogs"))
+    for category in all_categories:
+        for filename in os.listdir(f"cogs/{category}"):
+            if filename.endswith(".py"):
+                cogs.append(f"cogs.{category}.{filename[:-3]}")
+            else:
+                continue 
+    
+    try:
+        # Loading all cogs with a progress Bar
+        i = 0
+        for cog in cogs:
+            client.cogs_list = cogs
+            client.load_extension(cog)
+            print_percent_done(i, len(cogs))
+            i+=1
+
+        time.sleep(1)
 
         print("\nAll Cogs Loaded\n===============\nLogging into Discord...")
         log.log_message("All cogs loaded")
+        print(len(client.cogs_list))
+
         clear_stuff.start()
+
         client.run(os.environ['TOKEN'])
 
     except Exception as e:
-        print(
-            f"\n###################\nPOSSIBLE FATAL ERROR:\n{e}\nTHIS MEANS THE BOT HAS NOT STARTED CORRECTLY!")
-        log.log_error(
-            f"\n###################\nPOSSIBLE FATAL ERROR:\n{e}\nTHIS MEANS THE BOT HAS NOT STARTED CORRECTLY!")
+        print(f"\n###################\nPOSSIBLE FATAL ERROR:\n{e}\nTHIS MEANS THE BOT HAS NOT STARTED CORRECTLY!")
+        log.log_error(f"\n###################\nPOSSIBLE FATAL ERROR:\n{e}\nTHIS MEANS THE BOT HAS NOT STARTED CORRECTLY!")
 
 
 if __name__ == '__main__':

@@ -6,17 +6,15 @@ import dotenv
 from utils import is_it_me, Log
 from subprocess import run
 import time
-from os import listdir
-from os.path import isfile, join
 
-log = Log("./database/log.txt", timestamp=True)
+log = Log()
 
 dotenv.load_dotenv()
 
 class Fusion(commands.Cog):
-
     def __init__(self, client):
         self.client = client
+
 
     @commands.command(aliases=['bl'])
     @commands.check(is_it_me)
@@ -33,6 +31,7 @@ class Fusion(commands.Cog):
         with open('./database/blacklisted.json', 'w') as f:
             json.dump(blacklisted, f, indent=4)
 
+
     @commands.command(aliases=['wl'])
     @commands.check(is_it_me)
     async def whitelist(self, ctx, userid: int):
@@ -48,6 +47,7 @@ class Fusion(commands.Cog):
         with open('./database/blacklisted.json', 'w') as f:
             json.dump(blacklisted, f, indent=4)
 
+
     @commands.command(aliases=['blacklisted'])
     @commands.check(is_it_me)
     async def listblack(self, ctx):
@@ -56,76 +56,6 @@ class Fusion(commands.Cog):
 
         await ctx.send(blacklisted)
 
-    @commands.command()
-    @commands.check(is_it_me)
-    async def reload(self, ctx, extension):
-        self.client.reload_extension(f"cogs.{extension}")
-        embed = discord.Embed(
-            title='Reload', description=f'{extension} successfully reloaded', color=ctx.author.color)
-        await ctx.send(embed=embed)
-  
-    @commands.group()
-    @commands.check(is_it_me)
-    async def git(self, ctx):
-        if ctx.invoked_subcommand is not None:
-            return
-        else:
-            return await ctx.send(embed=discord.Embed(title=f"Git Commands", description="?git pull\n?git status\n?git add\n?git commit\n?git push", color=ctx.author.color))
-
-    @git.command()
-    @commands.check(is_it_me)
-    async def pull(self, ctx):
-        output = run(["git", "pull"], capture_output=True).stdout
-
-        await ctx.send(output.decode())
-
-
-    @git.command()
-    @commands.check(is_it_me)
-    async def status(self, ctx):
-        output = run(["git", "status"], capture_output=True).stdout
-
-        await ctx.send(output.decode())
-
-
-    @git.command()
-    @commands.check(is_it_me)
-    async def add(self, ctx):
-        output = run(["git", "add", "."], capture_output=True).stdout
-
-        await ctx.send(output.decode())
-
-
-    @git.command()
-    @commands.check(is_it_me)
-    async def commit(self, ctx):
-        output = run(["git", "commit", "-m", "'Updated File'"], capture_output=True).stdout
-
-        await ctx.send(output.decode())
-
-
-    @git.command()
-    @commands.check(is_it_me)
-    async def push(self, ctx):
-        output = run(["git", "push"], capture_output=True).stdout
-
-        await ctx.send(output.decode())
-
-    @commands.command()
-    @commands.check(is_it_me)
-    async def load(self, ctx, extension):
-        self.client.load_extension(f"cogs.{extension}")
-        embed = discord.Embed(
-            title='Load', description=f'{extension} successfully loaded', color=ctx.author.color)
-        await ctx.send(embed=embed)
-    
-    @commands.command()
-    @commands.check(is_it_me)
-    async def unload(self, ctx, extension):
-        self.client.unload_extension(f"cogs.{extension}")
-        embed = discord.Embed(
-            title='Unload', description=f'{extension} successfully unloaded', color=ctx.author.color)
-        await ctx.send(embed=embed)
 
     @commands.command()
     @commands.check(is_it_me)
@@ -150,24 +80,20 @@ class Fusion(commands.Cog):
     @commands.command()
     @commands.check(is_it_me)
     async def message_servers(self, ctx, *, message):
-        with open("./database/db.json") as f:
-                data = json.load(f)
+        data = await self.client.get_db()
         for guild in self.client.guilds:
-            for i in data:
-                if i['guild_id'] == guild.id:
-                    if i["announcement_channel"] is None:
-                        try:
-                            await guild.system_channel.send(message)
-                            break
-                        except:
-                            break
-                    else:
-                        try:
-                            channel = await self.client.fetch_channel(int(i["announcement_channel"]))
-                            await channel.send(message)
-                        except:
-                            break
-           
+            if data[str(guild.id)]["announcement_channel"] is None:
+                try:
+                    await guild.system_channel.send(message)
+                except Exception:
+                    continue
+            else:
+                try:
+                    channel = await self.client.fetch_channel(int(data[str(guild.id)]["announcement_channel"]))
+                    await channel.send(message)
+                except Exception:
+                    continue
+    
 
     @commands.command()
     @commands.check(is_it_me)
@@ -176,6 +102,7 @@ class Fusion(commands.Cog):
             if guild.id == id:
                 return await guild.text_channels[0].send(message)
         await ctx.send("guild not found")
+
 
     @commands.command(aliases=['dmr'])
     @commands.check(is_it_me)
@@ -210,6 +137,7 @@ class Fusion(commands.Cog):
       file = discord.File("./database/log.txt")
       await ctx.author.send(file=file)
 
+
     @commands.command()
     @commands.check(is_it_me)
     async def ssinfo(self, ctx, g:int):
@@ -222,23 +150,6 @@ class Fusion(commands.Cog):
         em.add_field(name="Created: ", value=f"<t:{int(time.mktime(guild.created_at.timetuple()))}>")
         em.add_field(name="ID:", value=guild.id)
         await ctx.send(embed=em)
-
-    @commands.command()
-    @commands.check(is_it_me)
-    async def reloadall(self, ctx):
-        lst = [f for f in listdir("cogs/") if isfile(join("cogs/", f))]
-        no_py = [s.replace('.py', '') for s in lst]
-        startup_extensions = ["cogs." + no_py for no_py in no_py]
-        startup_extensions.remove("cogs.Leveling")
-
-        try:
-            for cogs in startup_extensions:
-                self.client.reload_extension(cogs)
-
-            await ctx.send("All Reloaded")
-
-        except Exception as e:
-            print(e)
 
 
     @commands.Cog.listener()
@@ -273,6 +184,7 @@ class Fusion(commands.Cog):
                     needhelp.append(f"{i.name} | {i.cog_name}")
         await ctx.send("\n".join(needhelp))
 
+
     @commands.command()
     @commands.check(is_it_me)
     async def cmdtojson(self, ctx):
@@ -298,5 +210,6 @@ class Fusion(commands.Cog):
         with open("./commands.json", 'w') as f:
             json.dump(commandlist, f, indent=4)
     
+
 def setup(client):
     client.add_cog(Fusion(client))

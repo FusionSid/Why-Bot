@@ -18,28 +18,18 @@ lvl.connect_to_database_file('database/DiscordLevelingSystem.db')
 async def lb(self, ctx):
     data = await lvl.each_member_data(ctx.guild, sort_by='rank')
 
-    # em = discord.Embed(title="Leaderboard")
-    # n = 0
-    # for i in data:
-    #     e = em.add_field(name=f'{n+1}: {i.name}', value=f'Level: {i.level}, Total XP: {i.total_xp}', inline=False)
-    #     n += 1
-    #     if n == 10:
-    #         break 
-    # await ctx.send(embed=em)
-
     leaderboard_image = Editor(Canvas((680, 800)))
     bg = await load_image_async("https://i.imgur.com/FRJXi4k.png")
     bg_img = Editor(bg).rotate(90.0)
     leaderboard_image.rectangle((0, 0), width=680, height=800, fill="#23272A")
     leaderboard_image.paste(bg_img, (-600, 0))
     
-    
     n = 0
     yp = 5
 
     for i in data:
         try:
-            member = ctx.guild.get_member(i.id_number)
+            member = await ctx.guild.get_member(i.id_number)
 
             person = Editor(Canvas((670, 75), color="#5663F7"))
 
@@ -65,10 +55,6 @@ async def lb(self, ctx):
             print(e)
         if n == 10:
             break 
-    
-    # if n != 10:
-    #     crop = 80 + (75 * (11-n))
-    #     leaderboard_image.resize((680, 800-crop), crop=True)
     
     leaderboard_image.save(f"./tempstorage/leveling{ctx.author.id}.png")
 
@@ -200,18 +186,13 @@ class Leveling(commands.Cog):
     async def on_message(self, message):
         if message.guild is None:
           return
-        with open("./database/db.json") as f:
-          data = json.load(f)
-        for i in data:
-          if i["guild_id"] == message.guild.id:
-            if i['settings']['plugins']['Welcome'] == False:
-              return
-            else:
-              pass
+        data = await self.client.get_db()
+        if data[str(message.guild.id)]['settings']['plugins']['Leveling'] == False:
+            return
         try:
           await lvl.award_xp(amount=[15, 25], message=message)
-        except:
-          pass
+        except Exception:
+          return
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):

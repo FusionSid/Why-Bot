@@ -1,17 +1,13 @@
 import discord
 from discord.ext import commands
-import json
 
 
 async def get_log_channel(self, guild):
-    with open("./database/db.json") as f:
-        data = json.load(f)
-    for i in data:
-        if i["guild_id"] == guild.id:
-            channel = i['log_channel']
-            if channel == None:
-                return None
-            return await self.client.fetch_channel(channel)
+    data = await self.client.get_guild_data(guild.id)
+    channel = data['log_channel']
+    if channel == None:
+        return None
+    return await self.client.fetch_channel(channel)
 
 
 class Log(commands.Cog):
