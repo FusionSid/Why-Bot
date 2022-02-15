@@ -1,18 +1,11 @@
 import discord
-import datetime
 import json
 from utils.checks import plugin_enabled
-import os
-import time
-import platform
-from discord import role
 from discord.ext import commands
-import psutil
 import qrcode
 from simpcalc import simpcalc
 from discord.ui import Button, View
 import numexpr as ne
-import random, operator
 
 
 class InteractiveView(discord.ui.View):
@@ -133,29 +126,6 @@ class InteractiveView(discord.ui.View):
         else:
             return True
 
-
-def get_lines():
-    lines = 0
-    files = []
-    for i in os.listdir():
-        if i.endswith(".py"):
-            files.append(i)
-    for i in os.listdir("cogs/"):
-        for file in os.listdir('cogs/'+i):
-            if file.endswith(".py"):
-                files.append(f"cogs/{i}/{file}")
-    for i in os.listdir("utils/"):
-        if i.endswith(".py"):
-            files.append(f"utils/{i}")
-    for i in files:
-        count = 0
-        with open(i, 'r') as f:
-            for line in f:
-                count += 1
-        lines += count
-    return lines
-
-
 class Utilities(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -171,52 +141,7 @@ class Utilities(commands.Cog):
     async def botinvite(self, ctx):
         await ctx.send(embed=discord.Embed(title="Invite **Why?** to your server:", description="[Why Invite Link](https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands)", color=ctx.author.color))
 
-    @commands.command(extras={"category": "Utilities"}, usage="info [@user]", help="This command shows a message with info on a user.", description="Returns info on a user")
-    @commands.check(plugin_enabled)
-    async def info(self, ctx, member: discord.Member = None):
-        if member == None:
-            return await ctx.send(f"{ctx.prefix}info person <@person>\nYou didnt @ the member")
-        roles = [role for role in member.roles]
-        em = discord.Embed(title="Person Info",
-                           description=f"For: {member.name}", color=ctx.author.color)
-        em.timestamp = datetime.datetime.utcnow()
-        if str(member.status) == "online":
-            status = "🟢 Online"
-        elif str(member.status) == "offline":
-            status = "🔴 Offline"
-        elif str(member.status) == "dnd":
-            status = '⛔ Do not disturb'
-        elif str(member.status) == "invisible":
-            status = "🔴 Invisible"
-        elif str(member.status) == "idle":
-            status = "🌙 Idle"
-        elif str(member.status) == "streaming":
-            status = "📷 Streaming"
-        else:
-            status = member.status
-        em.add_field(name="Status:", value=status, inline=False)
-
-        em.add_field(name="ID:", value=member.id, inline=False)
-        em.set_thumbnail(url=member.avatar.url)
-        em.add_field(name="Created Account:",
-                     value=f"<t:{int(time.mktime(member.created_at.timetuple()))}>", inline=False)
-        em.add_field(name="Joined Server:",
-                     value=f"<t:{int(time.mktime(member.joined_at.timetuple()))}>", inline=False)
-        em.add_field(name="Highest Role:",
-                     value=member.top_role.mention, inline=False)
-
-        data = await self.client.get_db()
-        warnings = data[str(ctx.guild.id)]['warnings']
-        if str(member.id) not in warnings:
-            em.add_field(name="Warnings", value="This user has no warnings")
-        else:
-            em.add_field(name="Warnings", value=len(warnings[str(member.id)]))
-        if len(roles) > 15:
-            em.add_field(name="Roles:", value=f"{len(roles)}", inline=False)
-        else:
-            em.add_field(name=f"Roles ({len(roles)}):", value=" ".join(
-                role.mention for role in roles), inline=False)
-        await ctx.send(embed=em)
+   
 
     @commands.command(aliases=['sug'], extras={"category": "Utilities"}, usage="suggest [suggestion]", help="This command is used to suggest new features/commands to us", description="Suggest something for Why")
     @commands.check(plugin_enabled)
@@ -225,69 +150,7 @@ class Utilities(commands.Cog):
         await sid.send(f"Suggestion:\n{suggestion}\n\nBy: {ctx.author.name}\nID: {ctx.author.id}")
         await ctx.send("Thank you for you suggestion!")
 
-    @commands.command(extras={"category": "Utilities"}, usage="ping", help="Shows the bots ping", description="Shows bot ping")
-    @commands.check(plugin_enabled)
-    async def ping(self, ctx):
-        await ctx.send(f"Pong! jk\n{round(self.client.latency * 1000)}ms")
-
-    @commands.command(extras={"category": "Utilities"}, usage="serverinfo", help="Returns info on this server.", description="shows server info")
-    @commands.check(plugin_enabled)
-    async def serverinfo(self, ctx):
-        em = discord.Embed(
-            title="Server Info:", description=f"For: {ctx.guild.name}", color=ctx.author.color)
-        em.timestamp = datetime.datetime.utcnow()
-        em.set_thumbnail(url=ctx.guild.icon.url)
-        em.set_author(
-            name=f"Guild Owner: {ctx.guild.owner.name}", icon_url=ctx.guild.owner.avatar.url)
-        em.add_field(
-            name="Channels:", value=f"**Text:** {len(ctx.guild.text_channels)}\n**Voice:** {len(ctx.guild.voice_channels)}")
-        em.add_field(name="Roles:", value=len(ctx.guild.roles))
-        bots = 0
-        members = 0
-        for i in ctx.guild.members:
-            if i.bot:
-                bots += 1
-            else:
-                members += 1
-        em.add_field(
-            name="Members:", value=f"**Total:** {ctx.guild.member_count}\n**Humans:** {members}\n**Bots:** {bots}")
-        em.add_field(
-            name="Created: ", value=f"<t:{int(time.mktime(ctx.guild.created_at.timetuple()))}>")
-        em.add_field(name="ID:", value=ctx.guild.id)
-        await ctx.send(embed=em)
-
-    @commands.command(extras={"category": "Utilities"}, usage="botinfo", help="This command shows info on the bot", description="Info about Why bot")
-    @commands.check(plugin_enabled)
-    async def botinfo(self, ctx):
-        with open("./database/userdb.json") as f:
-            data = json.load(f)
-        active = len(data)
-        em = discord.Embed(title='Why Bot', description='Just Why?', color=ctx.author.color)
-        em.timestamp = datetime.datetime.utcnow()
-        em.add_field(inline=True, name="Server Count",
-                     value=f"{len(self.client.guilds)}")
-        mlist = []
-        for i in list(self.client.get_all_members()):
-            mlist.append(i.name)
-        em.add_field(inline=True, name="User Count", value=len(mlist))
-        em.add_field(inline=True, name="Command Count",
-                     value=f"{len(self.client.commands)} commands")
-        em.add_field(inline=True, name="Active User Count", value=active)
-        em.add_field(inline=True, name="Ping",
-                     value=f"{round(self.client.latency * 1000)}ms")
-        em.set_footer(text="Made by FusionSid#3645")
-        em.add_field(name='CPU Usage',
-                     value=f'{psutil.cpu_percent()}%', inline=True)
-        em.add_field(name='Memory Usage',
-                     value=f'{psutil.virtual_memory().percent}% of ({round((psutil.virtual_memory().total/1073741824), 2)}GB)', inline=True)
-        em.add_field(name='Available Memory',
-                     value=f'{round(psutil.virtual_memory().available * 100 / psutil.virtual_memory().total)}%', inline=True)
-        em.add_field(inline=True, name="Python version",
-                     value=f"{platform.python_version()}")
-        em.add_field(inline=True, name="Running on",
-                     value=f"{platform.system()} {platform.release()}")
-        em.add_field(name="Python code", value=f"{get_lines()} of code")
-        await ctx.send(embed=em)
+    
 
     @commands.command(aliases=['qr'], extras={"category": "Utilities"}, usage="qrcode [url]", help="This command takes in a url and makes a qrcode.", description="Creates a qrcode")
     @commands.check(plugin_enabled)
@@ -346,90 +209,7 @@ class Utilities(commands.Cog):
                     cuse = i["command_count"]
         await ctx.send(embed=discord.Embed(title=f"You have used Why Bot {cuse} times", color=ctx.author.color))
 
-    @commands.command(no_pm=True, help="This command is used to check whos playing a certain game/activity", extras={"category":"Utilities"}, usage="whosplaying [game/activity]", description="Check whosplaying activity")
-    async def whosplaying(self, ctx, *, game):
-        if len(game) <= 1:
-            await ctx.send("```The game should be at least 2 characters long...```", delete_after=5.0)
-            return
-
-        guild = ctx.message.guild
-        members = guild.members
-        playing_game = ""
-        count_playing = 0
-
-        for member in members:
-            if not member:
-                continue
-            if not member.activity or not member.activity.name:
-                continue
-            if member.bot:
-                continue
-            if game.lower() in member.activity.name.lower():
-                count_playing += 1
-                if count_playing <= 15:
-                    emote = random.choice(
-                        [":trident:", ":high_brightness:", ":low_brightness:", ":beginner:", ":diamond_shape_with_a_dot_inside:"])
-                    playing_game += f"{emote} {member.name} ({member.activity.name})\n"
-
-        if playing_game == "":
-            await ctx.send("```Search results:\nNo users are currently playing that game.```")
-        else:
-            msg = playing_game
-            if count_playing > 15:
-                showing = "(Showing 15/{})".format(count_playing)
-            else:
-                showing = "({})".format(count_playing)
-
-            em = discord.Embed(
-                description=msg, colour=discord.Colour(value=0x36393e))
-            em.timestamp = datetime.datetime.utcnow()
-            await ctx.send(embed=em)
-
-
-    @commands.command(no_pm=True, help="This command is used to show the most played games right now", extras={"category":"Utilities"}, usage="currentgames", description="Show current games being played")
-    async def currentgames(self, ctx):
-        """Shows the most played games right now"""
-        guild = ctx.message.guild
-        members = guild.members
-
-        freq_list = {}
-        for member in members:
-            if not member:
-                continue
-            if not member.activity or not member.activity.name:
-                continue
-            if member.bot:
-                continue
-            if member.activity.name not in freq_list:
-                freq_list[member.activity.name] = 0
-            freq_list[member.activity.name] += 1
-
-        sorted_list = sorted(freq_list.items(),
-                             key=operator.itemgetter(1),
-                             reverse=True)
-
-        if not freq_list:
-            await ctx.send("```Search results:\nNo users are currently playing any games. Odd...```")
-        else:
-            # Create display and embed
-            msg = ""
-            max_games = min(len(sorted_list), 10)
-
-            em = discord.Embed(
-                description=msg, colour=discord.Colour(value=0x36393e))
-            em.timestamp = datetime.datetime.utcnow()
-            for i in range(max_games):
-                game, freq = sorted_list[i]
-                if int(freq_list[game]) < 2:
-                    amount = "1 person"
-                else:
-                    amount = f"{int(freq_list[game])} people"
-                em.add_field(name=game, value=amount)
-            em.set_thumbnail(url=guild.icon.url)
-            em.set_footer(
-                text=f"Do {ctx.prefix}whosplaying <game> to see whos playing a specific game")
-            await ctx.send(embed=em)
-
+    
 
 def setup(client):
     client.add_cog(Utilities(client))

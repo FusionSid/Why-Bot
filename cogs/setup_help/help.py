@@ -148,7 +148,7 @@ class Help(commands.Cog):
             em.add_field(inline=False, name="Useful Commands:",value=f"`/set`, `{ctx.prefix}settings`, `{ctx.prefix}setprefix`, `{ctx.prefix}report`")
             em.add_field(inline=False, name="Why Support Server",value="[Link](https://discord.gg/ryEmgnpKND)")
             em.add_field(inline=False, name="Contribute/Source Code",value="[Link](https://github.com/FusionSid/Why-Bot)")
-            em.add_field(inline=False, name="Email Why:", value="[Link](mailto:whybot@fusionsid.xyz)")
+            em.add_field(inline=False, name="Email Why:", value="whybot@fusionsid.xyz")
             em.add_field(inline=False, name="Dm Bot",value="You can always just dm the bot for help, suggestions, bugreports or if you just want to talk.\nWhy bot will always reply (unless its spam)")
             em.add_field(inline=False, name="Categories", value=', '.join(categories))
             

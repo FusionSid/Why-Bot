@@ -1,7 +1,7 @@
 import json
 import traceback
 import time
-from datetime import datetime
+import datetime
 import os
 from os import listdir
 from os.path import isfile, isdir
@@ -10,7 +10,6 @@ from discord.ext import commands, tasks
 from discord.ui import Button, View
 import dotenv
 from discord.ui import Button, View
-from datetime import datetime
 from utils import Log
 import pyfiglet
 import sidspackage
@@ -21,8 +20,8 @@ log = Log("./database/log.txt", timestamp=True)
 
 async def get_prefix(client, message):
     try:
-        data = await WhyBot.get_guild_data(message.guild.id)
-        return data['prefix']
+        data = await client.get_db()
+        return data[str(message.guild.id)]['prefix']
     except Exception as err:
         print(err)
         return "?"
@@ -41,20 +40,36 @@ class WhyBot(commands.Bot):
         self.cp.print(self.art, color="blue")
 
         self.cogs_list = None
+        self.last_login_time = None
 
     async def get_db(self):
         with open("database/db.json") as f:
             data = json.load(f)
         return data
 
+
     async def update_db(self, data):
         with open("database/db.json", 'w') as f:
             json.dump(data, f, indent=4)
 
-    async def get_guild_data(guild_id):
-        with open("database/db.json") as f:
-            data = json.load(f)
-        return data[str(guild_id)]
+
+    @property
+    async def uptime(self):
+        time_right_now = datetime.datetime.now()
+        seconds = int((time_right_now - self.last_login_time).total_seconds())
+        time = f"{seconds}s"
+        if seconds > 60:
+            minutes = seconds - (seconds % 60)
+            seconds = seconds - minutes
+            minutes = int(minutes / 60)
+            time = f"{minutes}min {seconds}s"
+            if minutes > 60:
+                hoursglad = minutes - (minutes % 60)
+                hours = int(hoursglad / 60)
+                minutes = minutes - (hours*60)
+                time = f"{hours}h {minutes}min {seconds}s"
+        return time
+
 
 client = WhyBot()
 
@@ -83,6 +98,7 @@ async def update_activity():
 async def on_ready():
     await update_activity()
     channel = client.get_channel(925513395883606129)
+    client.last_login_time = datetime.datetime.now()
     art = pyfiglet.figlet_format("CONNECTED")
     client.cp.print(art, "green")
     await channel.send("Online")
@@ -135,7 +151,7 @@ async def on_message(message):
                 await update_user_db(message.author.id)
             await client.process_commands(message)
 
-    except Exception as e:
+    except Exception:
         await client.process_commands(message)
 
     if f"<@!{client.user.id}>" in message.content or f"<@{client.user.id}>" in message.content:
@@ -178,10 +194,6 @@ def start_bot(client):
 
         time.sleep(1)
         print("\n")
-        
-        # print("\nAll Cogs Loaded\n===============\nLogging into Discord...")
-        # log.log_message("All cogs loaded")
-        # print(len(client.cogs_list))
 
         clear_stuff.start()
 
