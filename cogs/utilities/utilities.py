@@ -142,6 +142,14 @@ class Utilities(commands.Cog):
         await ctx.send(embed=discord.Embed(title="Invite **Why?** to your server:", description="[Why Invite Link](https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands)", color=ctx.author.color))
 
    
+    @commands.command()
+    async def avatar(self, ctx, member:discord.Member=None):
+        if member is None:
+            member = ctx.author
+        em = discord.Embed(title=f"{member.name}'s Avatar:")
+        em.set_image(url=member.avatar.url)
+        await ctx.send(embed=em)
+
 
     @commands.command(aliases=['sug'], extras={"category": "Utilities"}, usage="suggest [suggestion]", help="This command is used to suggest new features/commands to us", description="Suggest something for Why")
     @commands.check(plugin_enabled)

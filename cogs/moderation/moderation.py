@@ -98,7 +98,7 @@ class Moderation(commands.Cog):
             em.add_field(name="Report By:", value=reporter)
 
             cha = await self.client.fetch_channel(940469380054126633)
-            await cha.send(content=ctx.author.id, embed=em)
+            await cha.send(content=ctx.author.id, embed=em) 
 
     @commands.command()
     async def bug(self, ctx, *, bug):
