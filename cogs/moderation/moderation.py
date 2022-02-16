@@ -98,7 +98,18 @@ class Moderation(commands.Cog):
             em.add_field(name="Report By:", value=reporter)
 
             cha = await self.client.fetch_channel(940469380054126633)
-            await cha.send(embed=em)
+            await cha.send(content=ctx.author.id, embed=em)
+
+    @commands.command()
+    async def bug(self, ctx, *, bug):
+        em = discord.Embed(title="REPORT", color=ctx.author.color)
+        em.timestamp = datetime.utcnow()
+        em.description = "Bug Report"
+        em.add_field(name="Bug", value=bug)
+        em.add_field(name="Report By:", value=ctx.author.name)
+
+        cha = await self.client.fetch_channel(940469380054126633)
+        await cha.send(content=ctx.author.id, embed=em)
 
     
     @commands.command(help="This command is used to ban a member", extras={"category":"Moderation"}, usage="ban [@user]", description="Ban a member")
