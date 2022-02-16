@@ -129,7 +129,12 @@ class Slash(commands.Cog):
     @slash_command(name="suggest", description="Suggest something for why bot")
     async def suggest(self, ctx, suggestion: Option(str, "The suggestion", required=True)):
         sid = await self.client.fetch_channel(925157029092413460)
-        await sid.send(f"Suggestion:\n{suggestion}\n\nBy: {ctx.author.name}\nID: {ctx.author.id}")
+        em = discord.Embed(
+            title= "Suggestion:",
+            description=f"By: {ctx.author.name}\n\n{suggestion}",
+            color=discord.Color.random()
+        )
+        await sid.send(embed=em, content=ctx.author.id)
         await ctx.respond("Thank you for you suggestion!")
 
     @slash_command(name="ping", description="shows you the bots ping")

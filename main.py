@@ -164,7 +164,7 @@ async def on_message(message):
 @tasks.loop(hours=2.0)
 async def clear_stuff():
     _dir = 'tempstorage/'
-    for f in os.listdir(_dir):
+    for f in os.listdir(_dir):  
       os.remove(os.path.join(_dir, f))
       
 

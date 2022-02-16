@@ -110,6 +110,10 @@ class DMReply(commands.Cog):
                     pass
                 else:
                     await person.send(message.content)
+                    try:
+                        await message.add_reaction("✅")
+                    except Exception as e:
+                        print(e)
 
                 if message.attachments is None:
                     return

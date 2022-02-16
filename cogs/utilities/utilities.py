@@ -147,7 +147,12 @@ class Utilities(commands.Cog):
     @commands.check(plugin_enabled)
     async def suggest(self, ctx, *, suggestion):
         sid = await self.client.fetch_channel(925157029092413460)
-        await sid.send(f"Suggestion:\n{suggestion}\n\nBy: {ctx.author.name}\nID: {ctx.author.id}")
+        em = discord.Embed(
+            title= "Suggestion:",
+            description=f"By: {ctx.author.name}\n\n{suggestion}",
+            color=discord.Color.random()
+        )
+        await sid.send(embed=em, content=ctx.author.id)
         await ctx.send("Thank you for you suggestion!")
 
     
