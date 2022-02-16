@@ -2,7 +2,7 @@ import discord
 import datetime
 from discord.ext import commands
 import json
-from utils import Log
+from utils import Log, is_it_me
 from utils import update_activity
 
 log = Log()
@@ -51,14 +51,13 @@ async def startguildsetup(client, id):
     
     alr_in = False
     
-    for i in data:
-        if i["guild_id"] == id:
-            alr_in = True
-        else:
-            alr_in = False
+    if str(id) in data:
+        alr_in = True
+    else:
+        alr_in = False
     
     if alr_in == False:
-        data.append(file)
+        data[str(id)] = file
         await client.update_db(data)
 
     newtickettemplate = {"ticket-counter": 0, "valid-roles": [],"pinged-roles": [], "ticket-channel-ids": [], "verified-roles": []}
@@ -75,6 +74,56 @@ async def startguildsetup(client, id):
 class Events(commands.Cog):
     def __init__(self, client):
         self.client = client
+
+    @commands.command()
+    @commands.check(is_it_me)
+    async def check_not_made_dbs(self, ctx):
+        
+        data = await self.client.get_db()
+        for guild in self.client.guilds:
+            file = {
+        "guild_id": guild.id,
+        "prefix": "?",
+        "counting_channel": None,
+        "lastcounter": None,
+        "log_channel": None,
+        "welcome_channel": None,
+        "announcement_channel" : None,
+        "warnings": {
+        },
+        "settings": {
+            "autocalc":True,
+        "plugins": {
+            "Counting": True,
+            "Moderation": True,
+            "Economy": True,
+            "TextConvert": True,
+            "Search": True,
+            "Welcome": True,
+            "Leveling": True,
+            "Music": True,
+            "Onping": True,
+            "Ticket": True,
+            "Minecraft": True,
+            "Utilities": True,
+            "Fun": True
+        }
+        },
+        "autorole": {
+            "all": None,
+            "bot": None
+        },
+        "welcome" : {
+            "bg_color" : None,
+            "text_color" : None,
+            "text_footer" : None,
+            "bg_image" : None
+        }
+    }
+            if str(guild.id) not in data:
+                data[str(guild.id)] = file
+
+        await self.client.update_db(data)
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
