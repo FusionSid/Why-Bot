@@ -1,4 +1,5 @@
 import discord
+import json
 from discord.ext import commands
 from utils import Paginator
 import datetime
@@ -159,6 +160,27 @@ class Settings(commands.Cog):
         await self.client.update_db(data)
 
         await ctx.send(f"{plugin} has been disabled")
+
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def goose_mode(self, ctx):
+        with open("./database/goose_mode.json") as f:
+            data = json.load(f)
+        if str(ctx.guild.id) not in data:
+            data[str(ctx.guild.id)] = False
+            await ctx.send("goose mode off")
+
+        elif data[str(ctx.guild.id)] == False:
+            data[str(ctx.guild.id)] = True
+            await ctx.send("goose mode on")
+
+        elif data[str(ctx.guild.id)] == True:
+            data[str(ctx.guild.id)] = False
+            await ctx.send("goose mode off")
+        
+        with open("./database/goose_mode.json", "w") as f:
+            json.dump(data, f, indent=4)
+
 
 
     @commands.command(help="This command is used to set the prefix for the server. Default prefix is ?", extras={"category": "Settings"}, usage="setprefix [prefix]", description="Sets the server prefix")

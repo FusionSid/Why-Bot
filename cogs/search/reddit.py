@@ -48,6 +48,7 @@ class Reddit(commands.Cog):
 
 
     @commands.command(aliases=['rimg'], help="This command looks through a reddit subreddit of your choice and finds an image from that subreddit", extras={"category":"Search"}, usage="redditimg [subreddit]", description="Find a image from a subreddit")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.check(plugin_enabled)
     async def redditimg(self, ctx, subreddit: str):
         rclient = reddit_client()
@@ -61,6 +62,7 @@ class Reddit(commands.Cog):
 
 
     @commands.command(aliases=['getmeme'], help="This command looks in r/memes to find a meme", extras={"category":"Search"}, usage="meme", description="Gets a meme")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.check(plugin_enabled)
     async def meme(self, ctx):
         reddit = reddit_client()
@@ -84,6 +86,7 @@ class Reddit(commands.Cog):
 
 
     @commands.command(aliases=['redditsearch'], help="This command looks though a reddit subreddit of your choice and finds a random post.", extras={"category":"Search"}, usage="reddit [subreddit]", description="Find a random reddit post")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.check(plugin_enabled)
     async def reddit(self, ctx, subreddit: str):
         rclient = reddit_client()
