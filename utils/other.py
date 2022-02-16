@@ -2,7 +2,6 @@ import discord
 
 async def update_activity(client):
     await client.change_presence(activity=discord.Game(f"On {len(client.guilds)} servers! | ?help"))
-    print("Updated presence")
 
 async def get_log_channel(self, ctx):
     data = await self.client.get_db()
