@@ -2,29 +2,20 @@ import discord
 from utils.checks import plugin_enabled
 from discord.ext import commands
 import datetime
-import json
-
-
-async def get_data(user_id):
-    with open('./database/userdb.json') as f:
-        data = json.load(f)
-    for user in data:
-        if user["user_id"] == user_id:
-            return user
-    return None
 
 
 class Onping(commands.Cog):
     def __init__(self, client):
         self.client = client
 
+
     @commands.group(aliases=["on_pinged", 'pinged', 'onping'], help="This command is used to set the Onping message when you get pinged\nYou can use: onpinged set - to set your onpinged message\nYou can use: onpinged clear to clear your onping message\nYou can use this command without a subcommand and it will display the message", extras={"category": "Ping"}, usage="onpinged [set/clear(optional)]", description="Sets your Onpinged message")
     @commands.check(plugin_enabled)
     async def onpinged(self, ctx):
         if ctx.invoked_subcommand is None:
-            user = await get_data(ctx.author.id)
-            if user == None:
-                return
+            user = await self.client.get_user_db()
+            user = user[str(ctx.author.id)]
+
             on_pinged_message = user['on_pinged']
             em = discord.Embed()
             em.timestamp = datetime.datetime.utcnow()
@@ -49,26 +40,51 @@ class Onping(commands.Cog):
 
             await ctx.send(embed=em)
 
+
     @onpinged.command()
     @commands.check(plugin_enabled)
     async def set(self, ctx):
-        user = await get_data(ctx.author.id)
-        if user == None:
-            return
 
         def check(m):
             return m.channel == ctx.channel and m.author == ctx.author
+
         colors = {
-            "red": 0xFF0000,
-            "orange": 0xFFA500,
-            "yellow": 0xFFFF00,
-            "green": 0x00FF00,
-            "blue": 0x0000FF,
-            "purple": 0x800080,
-            "pink": 0xFFC0CB,
-            "white": 0xFFFFFF,
-            "black": 0x000000,
+        "none": None,
+        "blue": 0x3498db,
+        "blurple": 0x5865f2,
+        "brand_green": 0x57f287,
+        "brand_red": 0xed4245,
+        "dark_blue": 0x206694,
+        "dark_gold": 0xc27c0e,
+        "dark_gray": 0x607d8b,
+        "dark_green": 0x1f8b4c,
+        "dark_grey": 0x607d8b,
+        "dark_magenta": 0xad1457,
+        "dark_orange": 0xa84300,
+        "dark_purple": 0x71368a,
+        "dark_red": 0x992d22,
+        "dark_teal": 0x11806a,
+        "dark_theme": 0x36393f,
+        "darker_gray": 0x546e7a,
+        "darker_grey": 0x546e7a,
+        "fuchsia": 0xeb459e,
+        "gold": 0xf1c40f,
+        "green": 0x2ecc71,
+        "greyple": 0x99aab5,
+        "light_gray": 0x979c9f,
+        "light_grey": 0x979c9f,
+        "lighter_gray": 0x95a5a6,
+        "lighter_grey": 0x95a5a6,
+        "magenta": 0xe91e63,
+        "nitro_pink": 0xf47fff,
+        "og_blurple": 0x7289da,
+        "orange": 0xe67e22,
+        "purple": 0x9b59b6,
+        "random": 0x00d1ff,
+        "red": 0xe74c3c,
+        "teal": 0x1abc9
         }
+
         await ctx.send("Type the title for the embed (or type none if you dont want one)")
         title = await self.client.wait_for("message", check=check, timeout=300)
         title = title.content
@@ -81,7 +97,7 @@ class Onping(commands.Cog):
         if description.lower() == 'none':
             description = None
 
-        await ctx.send("Choose color from this list:\n[red, orange, yellow, green. blue, purple, pink, white, black]\nEnter the color you want (or type none if you want the default:)")
+        await ctx.send("Choose color from this list:\nEnter the color you want (or type none if you want the default:)")
         color = await self.client.wait_for("message", check=check, timeout=300)
         color = color.content
         color = color.lower()
@@ -91,31 +107,39 @@ class Onping(commands.Cog):
         else:
             color = None
 
-        with open('./database/userdb.json') as f:
-            data = json.load(f)
+        data = await self.client.get_user_db()
 
-        for i in data:
-            if i['user_id'] == ctx.author.id:
-                i['on_pinged']['title'] = title
-                i['on_pinged']['description'] = description
-                i['on_pinged']['color'] = color
+        data[str(ctx.author.id)]['on_pinged']['title'] = title
+        data[str(ctx.author.id)]['on_pinged']['description'] = description
+        data[str(ctx.author.id)]['on_pinged']['color'] = color
 
-        with open("./database/userdb.json", 'w') as f:
-            json.dump(data, f, indent=4)
+        await self.client.update_user_db(data)
+
 
     @onpinged.command(aliases=['reset'])
     @commands.check(plugin_enabled)
     async def clear(self, ctx):
-        with open("./database/userdb.json") as f:
-            data = json.load(f)
-        for i in data:
-            if i["user_id"] == ctx.author.id:
-                i["on_pinged"]["title"] = None
-                i["on_pinged"]["description"] = None
-                i["on_pinged"]["color"] = None
-        with open("./database/userdb.json", 'w') as f:
-            json.dump(data, f, indent=4)
+        data = await self.client.get_user_db()
+        data[str(ctx.author.id)]["on_pinged"]["title"] = None
+        data[str(ctx.author.id)]["on_pinged"]["description"] = None
+        data[str(ctx.author.id)]["on_pinged"]["color"] = None
+        await self.client.update_user_db(data)
         await ctx.send("On Pinged Reset")
+
+
+    @onpinged.command()
+    @commands.check(plugin_enabled)
+    async def toggle(self, ctx):
+        data = await self.client.get_user_db()
+        if data[str(ctx.author.id)]["on_pinged_toggled"] == True:
+            data[str(ctx.author.id)]["on_pinged_toggled"] = False
+            await ctx.send("Onping Off")
+
+        elif data[str(ctx.author.id)]["on_pinged_toggled"] == False:
+            data[str(ctx.author.id)]["on_pinged_toggled"] = True
+            await ctx.send("Onping On")
+
+        await self.client.update_user_db(data)
 
 
     @commands.Cog.listener()
@@ -128,46 +152,35 @@ class Onping(commands.Cog):
         data = await self.client.get_db()
         if data[str(message.guild.id)]['settings']['plugins']['Onping'] == False:
             return
-        else:
-            pass
 
-        with open("./database/userdb.json") as f:
-            user_data = json.load(f)
-        for i in user_data:
+        user_data = await self.client.get_user_db()
+
+        for key, value in user_data.items():
             if message.reference != None:
                 return
-            if i['user_id'] == message.author.id:
+
+            if value['user_id'] == message.author.id:
                 pass
-            
+
             em = discord.Embed()
             em.timestamp = datetime.datetime.utcnow()
-            em.title = i["on_pinged"]["title"]
-            em.description = i["on_pinged"]["description"]
+            em.title = value["on_pinged"]["title"]
+            em.description = value["on_pinged"]["description"]
+
             if em.title and em.description is None:
                     return
-            if i["on_pinged"]["color"] == None:
+            if value["on_pinged"]["color"] == None:
                 pass
             else:
-                em.color = i["on_pinged"]["color"]
+                em.color = value["on_pinged"]["color"]
                 
-            if f"<@!{i['user_id']}>" in message.content:
+            if f"<@!{value['user_id']}>" in message.content or f"<@{value['user_id']}>" in message.content:
+                if value['user_id'] == message.author.id:
+                    return
                 try:
                     return await message.reply(embed=em)
                 except Exception:
-                    try:
-                        return await message.channel.send(embed=em)
-                    except Exception:
-                        pass
-
-            elif f"<@{i['user_id']}>" in message.content:
-                try:
-                    return await message.reply(embed=em)
-                except Exception:
-                    try:
-                        return await message.channel.send(embed=em)
-                    except Exception:
-                        pass
-                    
+                    return
 
 
 def setup(client):

@@ -1,16 +1,11 @@
+import discord
+from discord.ext import commands, tasks
 import json
-import traceback
 import time
 import datetime
 import os
-from os import listdir
-from os.path import isfile, isdir
-import discord
-from discord.ext import commands, tasks
-from discord.ui import Button, View
 import dotenv
-from discord.ui import Button, View
-from utils import Log
+from utils import Log, update_activity
 import pyfiglet
 import sidspackage
 
@@ -30,17 +25,19 @@ async def get_prefix(client, message):
 intents = discord.Intents.all()
 allowed_mentions = discord.AllowedMentions(everyone=False)
 
+
 class WhyBot(commands.Bot):
     def __init__(self):
         super().__init__(command_prefix=get_prefix, intents=intents, help_command=None, owner_id=624076054969188363, case_insensitive=True,allowed_mentions=allowed_mentions)
         
         self.cp = sidspackage.ColorPrint()
         
-        self.art = pyfiglet.figlet_format("Why Bot")
-        self.cp.print(self.art, color="blue")
+        self.why_ascii_art = pyfiglet.figlet_format("Why Bot")
+        self.cp.print(self.why_ascii_art, color="blue")
 
-        self.cogs_list = None
-        self.last_login_time = None
+        self.cogs_list = None # Cogs
+        self.last_login_time = None # Uptime
+
 
     async def get_db(self):
         with open("database/db.json") as f:
@@ -53,6 +50,17 @@ class WhyBot(commands.Bot):
             json.dump(data, f, indent=4)
 
 
+    async def get_user_db(self):
+        with open("database/userdb.json") as f:
+            data = json.load(f)
+        return data
+
+
+    async def update_user_db(self, data):
+        with open("database/userdb.json", 'w') as f:
+            json.dump(data, f, indent=4)
+
+        
     @property
     async def uptime(self):
         time_right_now = datetime.datetime.now()
@@ -73,6 +81,7 @@ class WhyBot(commands.Bot):
 
 client = WhyBot()
 
+
 def print_percent_done(index, total, bar_len=50, title='Loading Cogs:'):
     percent_done = (index+1)/total*100
     percent_done = round(percent_done, 1)
@@ -88,14 +97,11 @@ def print_percent_done(index, total, bar_len=50, title='Loading Cogs:'):
     if round(percent_done) == 100:
         print('Loaded All: ✅ ')
 
-async def update_activity():
-    await client.change_presence(activity=discord.Game(f"On {len(client.guilds)} servers! | ?help"))
-    # print("Updated presence")
 
 # On ready
 @client.event
 async def on_ready():
-    await update_activity()
+    await update_activity(client)
     channel = client.get_channel(925513395883606129)
     client.last_login_time = datetime.datetime.now()
     art = pyfiglet.figlet_format("CONNECTED")
@@ -117,25 +123,23 @@ async def notblacklisted(message):
 async def update_user_db(user):
     with open("database/userdb.json") as f:
         data = json.load(f)
-    found = False
-    for i in data:
-        if i['user_id'] == user:
-            found = True
-            i["command_count"] = i["command_count"] + 1
-    if found == False:
+    try:
+        data[str(user)]['command_count'] += 1
+    except KeyError:
         user_data = {
             "user_id": user,
             "command_count": 1,
             "settings": {},
-            "on_pinged": {"title": None, "description": None, "color": None}
+            "on_pinged": {"title": None, "description": None, "color": None},
+            "on_pinged_toggled" : True
         }
-        data.append(user_data)
+        data[str(user)] = user_data
     with open("database/userdb.json", 'w') as f:
         json.dump(data, f, indent=4)
 
+
+
 # On Message
-
-
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -144,7 +148,7 @@ async def on_message(message):
     # if blacklisted dont let them use bot
     try:
         notbl = await notblacklisted(message)
-        if notbl == True:
+        if notbl:
             prefix = await get_prefix(client, message)
             if prefix in message.content:
                 await update_user_db(message.author.id)
