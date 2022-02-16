@@ -1,4 +1,6 @@
 import discord
+from discord.commands import slash_command
+from discord import Option
 import json
 import random
 from discord.ext import commands
@@ -7,10 +9,12 @@ from discord.utils import get
 import dotenv
 from utils.checks import plugin_enabled
 import datetime
+from utils import post_get_json
 import shlex
 from discord.ui import View
 
 dotenv.load_dotenv()
+languages = ['awk', 'bash', 'befunge93', 'brachylog', 'brainfuck', 'c', 'c++', 'cjam', 'clojure', 'cobol', 'coffeescript', 'cow', 'crystal', 'csharp', 'csharp.net', 'd', 'dart', 'dash', 'dragon', 'elixir', 'emacs', 'erlang', 'file', 'forte', 'fortran', 'freebasic', 'fsharp.net', 'fsi', 'go', 'golfscript', 'groovy', 'haskell', 'husk', 'iverilog', 'japt', 'java', 'javascript', 'jelly', 'julia', 'kotlin', 'lisp', 'llvm_ir', 'lolcode', 'lua', 'matl', 'nasm', 'nasm64', 'nim', 'ocaml', 'octave', 'osabie', 'paradoc', 'pascal', 'perl', 'php', 'ponylang', 'powershell', 'prolog', 'pure', 'pyth', 'python', 'python2', 'racket', 'raku', 'retina', 'rockstar', 'rscript', 'ruby', 'rust', 'scala', 'sqlite3', 'swift', 'typescript', 'basic', 'basic.net', 'vlang', 'vyxal', 'yeethon', 'zig,']
 
 async def get_roast():
     with open('./database/roastlist.json') as f:
@@ -267,6 +271,44 @@ class Fun(commands.Cog):
 
         await channel.send(embed=em)
 
+    @commands.command()
+    async def runcode(self, ctx, lang:str, *, code):
+        lang = lang.lower()
+        if lang not in languages:
+            return await ctx.send("Invalid Language")
+        code = code.replace("`", "")
+        data = {
+            "language": lang,
+            "source" : f"""{code}"""
+        }
+        url = "https://emkc.org/api/v1/piston/execute"
+
+        data = await post_get_json(url, data)
+        if data['ran'] == True:
+            await ctx.send(f"```py\n{data['output']}```")
+        if data['stderr'] != "":
+            await ctx.send(f"```Errors\n{data['stderr']}```")
+
+
+    @slash_command(name="runcode", description="Runs code")
+    async def runcode(self, ctx, lang:Option(str, "Language to run the code"), *, code):
+        lang = lang.lower()
+        if lang not in languages:
+            return await ctx.respond("Invalid Language")
+        code = code.replace("`", "")
+        data = {
+            "language": lang,
+            "source" : f"""{code}"""
+        }
+        url = "https://emkc.org/api/v1/piston/execute"
+
+        data = await post_get_json(url, data)
+        if data['ran'] == True:
+            await ctx.respond(f"```py\n{data['output']}```")
+        if data['stderr'] != "":
+            await ctx.respond(f"```Errors\n{data['stderr']}```")
+    
+
     @commands.command(aliases=['noembed'], extras={"category":"Fun"}, usage="say [text]", help="The bot speaks text that you want", description="Bot sends text")
     @commands.check(plugin_enabled)
     async def say(self, ctx, *, text):
@@ -359,6 +401,22 @@ class Fun(commands.Cog):
                 await message.add_reaction(emoji)
             except Exception as e:
                 print(e)
+
+    
+    @commands.command()
+    @commands.check(plugin_enabled)
+    async def screenshot(self, ctx, *, url):
+        if "http://" not in url or "https://" not in url:
+            url = f"https://{url}"
+        em = discord.Embed(
+            title = f"Screenshot",
+            description = f"[Link]({url.replace('https://image.thum.io/get/', '')})",
+            color = ctx.author.color
+        )
+        em.set_image(url=f"https://image.thum.io/get/{url}")
+
+        await ctx.send(embed=em)
+
 
 def setup(client):
     client.add_cog(Fun(client))

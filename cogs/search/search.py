@@ -38,8 +38,6 @@ class Search(commands.Cog):
             "bird" : "https://some-random-api.ml/animal/bird",
         }
 
-    
-
  
     @commands.command(help="This command returns a random rock image", extras={"category":"Search"}, usage="rock", description="Rock Image")
     @commands.check(plugin_enabled)
