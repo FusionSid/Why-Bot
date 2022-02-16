@@ -100,26 +100,7 @@ class Moderation(commands.Cog):
             cha = await self.client.fetch_channel(940469380054126633)
             await cha.send(embed=em)
 
-    @commands.command(aliases=['grole'], help="This command is used to give a role to a user.", extras={"category":"Moderation"}, usage="giverole [@role] [@member]", description="Give role to a member")
-    @commands.check(plugin_enabled)
-    @commands.has_permissions(administrator=True)
-    async def giverole(self, ctx, role: discord.Role, user: discord.Member):
-        await user.add_roles(role)
-        channel = await get_log_channel(self, ctx)
-        if channel != None:
-            return await channel.send(embed=discord.Embed(title="Give Role", description=f"***{user.mention}*** has been given the ***{role.mention}*** role", color=ctx.author.color))
-        await ctx.send(f"{user} has been given the {role} role")
-
-    @commands.command(aliases=['trole'], help="This commmand is used to remove a role from a member", extras={"category":"Moderation"}, usage="takerole [@role] [@member]", description="Remove roles form member")
-    @commands.check(plugin_enabled)
-    @commands.has_permissions(administrator=True)
-    async def takerole(self, ctx, role: discord.Role, user: discord.Member):
-        await user.remove_roles(role)
-        channel = await get_log_channel(self, ctx)
-        if channel != None:
-            return await channel.send(embed=discord.Embed(title="Remove Role", description=f"***{role.mention}*** has been removed from ***{user.mention}***", color=ctx.author.color))
-        await ctx.send(f"{role} has been removed from {user}")
-
+    
     @commands.command(help="This command is used to ban a member", extras={"category":"Moderation"}, usage="ban [@user]", description="Ban a member")
     @commands.check(plugin_enabled)
     @commands.has_permissions(ban_members=True)
@@ -192,61 +173,7 @@ class Moderation(commands.Cog):
         if channel != None:
             return await channel.send(embed=discord.Embed(title="Message Clear", description=f"***{amount}*** messages have been cleared from ***{ctx.channel.name}***"))
 
-    @commands.command(help="This command creates a simple react role that users can react to to get a role. ", extras={"category":"Moderation"}, usage="reactrole [:emoji:] [@role] [message text]", description="Creates a reactrole")
-    @commands.check(plugin_enabled)
-    @commands.has_permissions(administrator=True)
-    async def reactrole(self, ctx, emoji, role: discord.Role, *, message):
-        embedVar = discord.Embed(description=message, color=ctx.author.color)
-        embedVar.timestamp = datetime.utcnow()
-        msg = await ctx.channel.send(embed=embedVar)
-        await msg.add_reaction(emoji)
-        with open("./database/react.json") as json_file:
-            data = json.load(json_file)
-
-            new_react_role = {
-                "role_name": role.name,
-                "role_id": role.id,
-                "emoji": emoji,
-                "message_id": msg.id,
-            }
-
-            data.append(new_react_role)
-
-        with open("./database/react.json", "w") as f:
-            json.dump(data, f, indent=4)
-
-    @commands.Cog.listener()
-    @commands.check(plugin_enabled)
-    async def on_raw_reaction_add(self, payload):
-        if not payload.guild_id:
-          return
-        if payload.member.bot:
-            return
-        with open("./database/react.json") as f:
-            data = json.load(f)
-        for x in data:
-            if x['emoji'] == payload.emoji.name and x["message_id"] == payload.message_id:
-                guild = await self.client.fetch_guild(payload.guild_id)
-                role = guild.get_role(x['role_id'])
-                await payload.member.add_roles(role)
-            else:
-                pass
     
-    @commands.Cog.listener()
-    @commands.check(plugin_enabled)
-    async def on_raw_reaction_remove(self, payload):
-        if not payload.guild_id:
-          return
-        with open("./database/react.json") as f:
-            data = json.load(f)
-        for x in data:
-            if x['emoji'] == payload.emoji.name and x["message_id"] == payload.message_id:
-                guild = await self.client.fetch_guild(payload.guild_id)
-                role = guild.get_role(x['role_id'])
-                member = await guild.fetch_member(payload.user_id)
-                await member.remove_roles(role)
-            else:
-                pass
 
     @commands.command(help="This command creates a discord Text Channel", extras={"category":"Moderation"}, usage="make_channel [name]", description="Create a text channel")
     @commands.check(plugin_enabled)
@@ -271,54 +198,7 @@ class Moderation(commands.Cog):
         if channel != None:
             return await channel.send(embed=discord.Embed(title="Create Voice Channel", description=f"***{name}*** voice channel has been created", color=ctx.author.color))
 
-    @commands.command(help="This command is used to warn a user\nThe warning gets added and you can use the warnings command to check the users warnings", extras={"category":"Moderation"}, usage="warn [@user] [reason]", description="Warns a user")
-    @commands.check(plugin_enabled)
-    @commands.has_permissions(administrator=True)
-    async def warn(self, ctx, member: discord.Member, *, reason=None):
-        if member.id in [ctx.author.id, self.client.user.id]:
-            return await ctx.send("You cant warn yourself/me LMAO")
-
-        now = datetime.utcnow()
-
-        time = now.strftime("%Y-%m-%d %H:%M:%S")
-        if reason == None:
-            reason = "None"
-
-        data = await self.client.get_db()
-
-        warn = {'time': time, 'reason': reason}
-        try:
-            data[str(ctx.guild.id)]['warnings'][f"{member.id}"].append(warn)
-        except Exception:
-            data[str(ctx.guild.id)]['warnings'][f"{member.id}"] = []
-            data[str(ctx.guild.id)]['warnings'][f"{member.id}"].append(warn)
-
-        await self.client.update_db(data)
-        channel = await get_log_channel(self, ctx)
-        if channel != None:
-            return await channel.send(embed=discord.Embed(title="Warn", description=f"***{member.mention}*** has been warned", color=ctx.author.color))
-        await ctx.send(embed=discord.Embed(title="Warn", description=f"***{member.mention}*** has been warned", color=ctx.author.color))
-
-    @commands.command(help="This commands shows all the warnings that a user has", extras={"category":"Moderation"}, usage="warnings [@user]", description="Displays a users warnings")
-    @commands.check(plugin_enabled)
-    @commands.has_permissions(administrator=True)
-    async def warnings(self, ctx, member: discord.Member):
-        data = await self.client.get_db()
-        warns = data[str(ctx.guild.id)]['warnings']
-        try:
-            warnings = warns[f'{member.id}']
-        except Exception:
-            return await ctx.send("This person has no warnings")
-
-        em = discord.Embed(title="WARNINGS:", color=ctx.author.color)
-        em.timestamp = datetime.utcnow()
-        for i in warnings:
-            t = i["time"]
-            r = i["reason"]
-            em.add_field(name=t, value=f"Reason: {r}")
-
-        await ctx.send(embed=em)
-
+   
     @commands.command(aliases=['nick'],help="This command is used to change the nick of a user", extras={"category":"Moderation"}, usage="nick [@user] [nickname]", description="Change a users nick")
     @commands.check(plugin_enabled)
     @commands.has_permissions(manage_nicknames=True)
@@ -377,88 +257,8 @@ class Moderation(commands.Cog):
         await message.clear_reactions()
         await ctx.send("Removed")
 
-    @commands.command(help="This command is used to set the autorole for your server. It has 2 types: all and bot\nThe all type sets the autorole for all members who join the server and the bot type sets the autorole for all bots that join the server.", extras={"category":"Moderation"}, usage="autorole [@role] [all/bot]", description="Sets the autorole role for the server")
-    @commands.check(plugin_enabled)
-    @commands.has_permissions(administrator=True)
-    async def autorole(self, ctx, role: discord.Role, role_type: str):
-        data = await self.client.get_db()
-        if role_type.lower() == 'all':
-            data[str(ctx.guild.id)]['autorole']['all'] = role.id
-        elif role_type.lower() == 'bot':
-            data[str(ctx.guild.id)]['autorole']['bot'] = role.id
-        else:
-            return await ctx.send(f"{ctx.prefix}autorole @role [all/bot]\nYou must specify if roles if for all or for bots")
-        await self.client.update_db(data)
-        await ctx.send(f"{role.mention} set as autorole for this server")
+    
 
-    @commands.Cog.listener()
-    async def on_member_join(self, member):
-        data = await self.client.get_db()
-        if data[str(member.guild.id)]['settings']['plugins']['Moderation'] == False:
-            return
-        await self.client.update_db(data)
-        role = False
-        if not member.bot:
-            role = data[str(member.guild.id)]['autorole']['all']
-        else:
-            role = data[str(member.guild.id)]['autorole']['bot']
-        if role == False:
-            return
-        if role == None:
-            return
-        else:
-            role = member.guild.get_role(role)
-            await member.add_roles(role)
-
-    # @commands.command(aliases=["createwebhook", 'cwh'], help="This command is used to create a webhook.\nA webhook is sorta like a bot.Once the webhook is made it will be asigned to your name and whenever you type the id that you specify the webhook will send the message what you want.\nWebhooks only work in one channel at a time so if you want to use a webhook in another channel you will need to make another webhook", extras={"category":"Moderation"}, usage="createhook [name] [channel(optional)]", description="Creates a webhook")
-    # @commands.check(plugin_enabled)
-    # @commands.has_permissions(manage_webhooks=True)
-    # async def createhook(self, ctx, name, channel:discord.TextChannel=None,):
-    #     def check(m):
-    #         return m.channel == ctx.channel and m.author == ctx.author
-    #     if channel == None:
-    #         channel = ctx.channel
-    #     await ctx.send("Enter the url for the image you want to use as the profile pic (or type none for default)")
-    #     avatarurl = await self.client.wait_for("message", timeout=300, check=check)
-    #     avatarurl = avatarurl.content
-    #     if avatarurl.lower() == "none":
-    #         e = await channel.create_webhook(name=name,reason=None)
-    #     else:
-    #         aimg = requests.get(avatarurl)
-    #         aimg = aimg.content
-    #         e = await channel.create_webhook(name=name, avatar=bytes(aimg), reason=None)
-    #     webhook = await self.client.fetch_webhook(e.id)
-    #     await ctx.send(f"Enter the id for the bot (What youll use in the `{ctx.prefix}webhook` command)")
-    #     id = await self.client.wait_for("message", timeout=300, check=check)
-    #     id = id.content
-    #     with open("./database/userdb.json") as f:
-    #       data = json.load(f)
-    #     for i in data:
-    #       if i['user_id'] == ctx.author.id:
-    #         i['webhooks'][id] = webhook.url
-    #     with open('./database/userdb.json', 'w') as f:
-    #       json.dump(data, f, indent=4)
-    #     await ctx.message.delete()
-    #     await ctx.send(embed=discord.Embed(title="Webhook Created", description=f"Use `{ctx.prefix}webhook {id} [message]` to send messages using that webhook", color=ctx.author.color))
-
-    # @commands.command(aliases=['webhook', 'swh'],help="This command uses a webhook that you previously made using the createhook command to send a message", extras={"category":"Moderation"}, usage="webhook [id] [text]", description="Send message through a webhook")
-    # @commands.check(plugin_enabled)
-    # async def wh(self, ctx, id, *, text):
-    #     with open("./database/userdb.json") as f:
-    #       data = json.load(f)
-    #     found = False
-    #     for i in data:
-    #       if i['user_id'] == ctx.author.id:
-    #         try:
-    #           url = i['webhooks'][id]
-    #         except:
-    #           pass
-    #         found = True
-    #     if found == False:
-    #       return await ctx.send("Id not found")
-    #     await ctx.message.delete()
-    #     webhook = DiscordWebhook(url=url, content=text)
-    #     response = webhook.execute()
 
 
 
