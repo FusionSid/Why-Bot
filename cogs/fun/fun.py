@@ -1,6 +1,4 @@
 import discord
-from discord.commands import slash_command
-from discord import Option
 import json
 import random
 from discord.ext import commands
@@ -281,27 +279,11 @@ class Fun(commands.Cog):
         url = "https://emkc.org/api/v1/piston/execute"
 
         data = await post_get_json(url, data)
+        print(data)
         if data['ran'] == True:
             await ctx.send(f"```py\n{data['output']}```")
         if data['stderr'] != "":
             await ctx.send(f"```Errors\n{data['stderr']}```")
-
-
-    @slash_command(name="runcode", description="Runs code")
-    async def runcode(self, ctx, lang:Option(str, "Language to run the code"), *, code):
-        code = code.replace("`", "")
-        data = {
-            "language": lang,
-            "source" : f"""{code}"""
-        }
-        url = "https://emkc.org/api/v1/piston/execute"
-
-        data = await post_get_json(url, data)
-        if data['ran'] == True:
-            await ctx.respond(f"```py\n{data['output']}```")
-        if data['stderr'] != "":
-            await ctx.respond(f"```Errors\n{data['stderr']}```")
-    
 
     @commands.command(aliases=['noembed'], extras={"category":"Fun"}, usage="say [text]", help="The bot speaks text that you want", description="Bot sends text")
     @commands.check(plugin_enabled)
