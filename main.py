@@ -32,7 +32,7 @@ allowed_mentions = discord.AllowedMentions(everyone=False)
 
 class WhyBot(commands.Bot):
     def __init__(self):
-        super().__init__(command_prefix=get_prefix, intents=intents, help_command=None, owner_id=624076054969188363, case_insensitive=True,allowed_mentions=allowed_mentions, debug_guilds=[763348615233667082])
+        super().__init__(command_prefix=get_prefix, intents=intents, help_command=None, owner_id=624076054969188363, case_insensitive=True,allowed_mentions=allowed_mentions)
         
         self.cp = sidspackage.ColorPrint()
         
