@@ -273,7 +273,7 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def runcode(self, ctx, lang:str, *, code):
-        lang = lang.lower()
+        # lang = lang.lower()
         if lang not in languages:
             return await ctx.send("Invalid Language")
         code = code.replace("`", "")
@@ -292,7 +292,7 @@ class Fun(commands.Cog):
 
     @slash_command(name="runcode", description="Runs code")
     async def runcode(self, ctx, lang:Option(str, "Language to run the code"), *, code):
-        lang = lang.lower()
+        # lang = lang.lower()
         if lang not in languages:
             return await ctx.respond("Invalid Language")
         code = code.replace("`", "")
