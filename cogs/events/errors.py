@@ -4,6 +4,7 @@ from discord.ext import commands
 from utils import Log
 import traceback
 import sys
+from discord.errors import InteractionResponded
 
 log = Log()
 
@@ -56,6 +57,9 @@ class Errors(commands.Cog):
             error_msg = await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
+        
+        elif isinstance(error, InteractionResponded):
+            pass
 
         elif isinstance(error, commands.MissingRequiredArgument):
             em = discord.Embed(
