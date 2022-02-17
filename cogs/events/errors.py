@@ -26,6 +26,10 @@ class Errors(commands.Cog):
         ignored = (commands.CommandNotFound,)
         error = getattr(error, 'original', error)
 
+        err = [('Ignoring exception in command {}:'.format(ctx.command)),
+                   traceback.format_exception(type(error), error, error.__traceback__)]
+        log.log_command_error(err)
+
         if isinstance(error, ignored):
             return
 
@@ -273,9 +277,6 @@ class Errors(commands.Cog):
                 ctx.command), file=sys.stderr)
             traceback.print_exception(
                 type(error), error, error.__traceback__, file=sys.stderr)
-            err = [('Ignoring exception in command {}:'.format(ctx.command)),
-                   traceback.format_exception(type(error), error, error.__traceback__)]
-            log.log_command_error(err)
 
 
 def setup(client):
