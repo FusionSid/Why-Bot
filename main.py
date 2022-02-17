@@ -290,6 +290,10 @@ async def on_message(message):
 
     # Check if why is mentioned in message
     if client.user.mentioned_in(message) and message.mention_everyone == False:
+        if message.reference is not None:
+            msg = await message.channel.fetch_message(message.reference.message_id)
+            if msg.author.id == client.user.id:
+                return
         em = discord.Embed(
             title=f"Hi, my prefix is `{prefix}`", 
             color=message.author.color
