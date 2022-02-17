@@ -282,7 +282,8 @@ class Fun(commands.Cog):
                 em.timestamp = datetime.datetime.now()
             else:
                 pass
-
+        if ctx.author.id != self.client.owner_id:
+            em.set_footer(text=f"Message sent by {ctx.author.name}")
         await channel.send(embed=em)
 
     @commands.command()
@@ -305,7 +306,7 @@ class Fun(commands.Cog):
     @commands.check(plugin_enabled)
     async def say(self, ctx, *, text):
         await ctx.message.delete()
-        await ctx.send(text)
+        await ctx.send(f"{text}\n\n|| On behalf of {ctx.author.name} ||")
 
     @commands.command()
     @commands.check(plugin_enabled)

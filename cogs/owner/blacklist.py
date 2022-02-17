@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 from utils import is_it_me
-import json
 
 class Blacklisted(commands.Cog):
     def __init__(self, client):
@@ -9,43 +8,38 @@ class Blacklisted(commands.Cog):
 
     @commands.command(aliases=['bl'])
     @commands.check(is_it_me)
-    async def blacklist(self, ctx, userid: int):
-        with open('./database/blacklisted.json') as f:
-            blacklisted = json.load(f)
+    async def blacklist(self, ctx, user_id: int):
+        user = await self.client.fetch_user(user_id)
+        await self.client.blacklist_user(user_id)
 
-        if userid in blacklisted:
-            await ctx.send("User is already blacklisted")
-        else:
-            blacklisted.append(userid)
-            await ctx.send("User has been blacklisted")
-
-        with open('./database/blacklisted.json', 'w') as f:
-            json.dump(blacklisted, f, indent=4)
+        await ctx.send(f"User ({user.name}) has been blacklisted")
 
 
     @commands.command(aliases=['wl'])
     @commands.check(is_it_me)
-    async def whitelist(self, ctx, userid: int):
-        with open('./database/blacklisted.json') as f:
-            blacklisted = json.load(f)
+    async def whitelist(self, ctx, user_id: int):
+        user = await self.client.fetch_user(user_id)
+        await self.client.whitelist_user(user_id)
 
-        if userid in blacklisted:
-            blacklisted.remove(userid)
-            await ctx.send("User is no longer blacklisted")
-        else:
-            await ctx.send("User isnt blacklisted")
-
-        with open('./database/blacklisted.json', 'w') as f:
-            json.dump(blacklisted, f, indent=4)
+        await ctx.send(f"User ({user.name}) has been whitelisted")
 
 
     @commands.command(aliases=['blacklisted'])
     @commands.check(is_it_me)
     async def listblack(self, ctx):
-        with open('./database/blacklisted.json') as f:
-            blacklisted = json.load(f)
-
-        await ctx.send(blacklisted)
+        blacklisted = await self.client.blacklisted_users
+        blacklisted_users = []
+        for user in blacklisted:
+            try:
+                await self.client.fetch_user(user)
+                blacklisted_users.append(user.name)
+            except:
+                blacklisted_users.append(user)
+                continue
+        await ctx.send(embed=discord.Embed(
+            title="Blacklisted Users:",
+            description=", ".join(blacklisted_users)
+        ))
 
 def setup(client):
     client.add_cog(Blacklisted(client))
