@@ -289,7 +289,7 @@ async def on_message(message):
         await client.process_commands(message)
 
     # Check if why is mentioned in message
-    if client.user.mentioned_in(message) and message.mention_everyone == False and message.role_mentions == False:
+    if client.user.mentioned_in(message) and message.mention_everyone == False:
         em = discord.Embed(
             title=f"Hi, my prefix is `{prefix}`", 
             color=message.author.color
