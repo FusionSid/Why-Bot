@@ -2,6 +2,10 @@ import discord
 import datetime
 from discord.ext import commands
 from discord.ui import Button, View
+from discord_colorize import colorize
+
+colors = colorize.Colors()
+
 
 class Dropdown(discord.ui.Select):
     def __init__(self, client):
@@ -142,15 +146,14 @@ class Help(commands.Cog):
         if cat is None:
             em = discord.Embed(title="Why Help", color=ctx.author.color)
             em.timestamp = datetime.datetime.utcnow()
-            em.add_field(inline=False, name=f"Use `{ctx.prefix}help all`", value="For all commands")
-            em.add_field(inline=False, name=f"`{ctx.prefix}help [command]`", value="Give information about a specific command")
-            em.add_field(inline=False, name=f"`{ctx.prefix}help [category]`", value="Give information about a specific category")
-            em.add_field(inline=False, name="Useful Commands:",value=f"`/set`, `{ctx.prefix}settings`, `{ctx.prefix}setprefix`, `{ctx.prefix}report`")
-            em.add_field(inline=False, name="Why Support Server",value="[Link](https://discord.gg/ryEmgnpKND)")
-            em.add_field(inline=False, name="Contribute/Source Code",value="[Link](https://github.com/FusionSid/Why-Bot)")
-            em.add_field(inline=False, name="Email Why:", value="whybot@fusionsid.xyz")
-            em.add_field(inline=False, name="Dm Bot",value="You can always just dm the bot for help, suggestions, bugreports or if you just want to talk.\nWhy bot will always reply (unless its spam)")
-            em.add_field(inline=False, name="Categories", value=', '.join(categories))
+            em.add_field(inline=False, name=f"Use `{ctx.prefix}help all`", value=f"""```diff\n-For all commands```""")
+            em.add_field(inline=False, name=f"`{ctx.prefix}help [command]`", value=f"""```diff\n- Give information about a specific command```""")
+            em.add_field(inline=False, name=f"`{ctx.prefix}help [category]`", value=f"""```diff\n- Give information about a specific category```""")
+            em.add_field(inline=False, name="Useful Commands:",value=f"""```diff\n- /set, {ctx.prefix}settings, {ctx.prefix}setprefix, {ctx.prefix}report```""")
+            em.add_field(inline=False, name="Email Why:", value=f"""```diff\n- whybot@fusionsid.xyz```""")
+            em.add_field(inline=False, name="Dm Bot",value=f"""```diff\n- You can always just dm the bot for help, suggestions, bugreports or if you just want to talk.Why bot will always reply (unless its spam)```""")
+            em.add_field(inline=False, name="Categories", value=f"""```diff\n- {", ".join(categories)}```""")
+            em.add_field(inline=False, name="Links",value="[Why Bot Support Server](https://discord.gg/ryEmgnpKND) • [Contribute/Source Code](https://github.com/FusionSid/Why-Bot)")
             
             view= HelpView(self.client)
             message = await ctx.send(embed=em, view=view)
@@ -179,18 +182,18 @@ class Help(commands.Cog):
         for category in categories:
             if cat.lower() == category.title.lower():
                 return await ctx.send(embed=category)
-                
+
         for cmd in self.client.commands:
             if cmd.name.lower() == cat.lower():
-                em = discord.Embed(title="Why Help", description=f"`{ctx.prefix}help [command]` for more info on command", color=ctx.author.color)
+                em = discord.Embed(title="Why Help", description=f"""```diff\n- {ctx.prefix}help [command] for more info on command```""", color=ctx.author.color)
                 em.timestamp = datetime.datetime.utcnow()
-                em.add_field(name=f"Name", value=f"`{cmd.name}`", inline=False)
+                em.add_field(name=f"Name", value=f"""```diff\n- {cmd.name}```""", inline=False)
                 if len(cmd.aliases) == 0:
-                    em.add_field(name="Aliases:", value='None', inline=False)
+                    em.add_field(name="Aliases:", value=f"""```diff\n- None"```""", inline=False)
                 else:
-                    em.add_field(name="Aliases:", value=', '.join(cmd.aliases), inline=False)
-                em.add_field(name="Usage: ", value=f"`{ctx.prefix}{cmd.usage}`", inline=False)
-                em.add_field(name="Description:", value=f"""```{cmd.help}```""", inline=False)
+                    em.add_field(name="Aliases:", value=f"""```diff\n- {', '.join(cmd.aliases)}```""", inline=False)
+                em.add_field(name="Usage: ", value=f"""```diff\n- {ctx.prefix+cmd.usage}```""", inline=False)
+                em.add_field(name="Description:", value=f"""```diff\n- {cmd.help}```""", inline=False)
                 return await ctx.send(embed=em)
         await ctx.send(embed=discord.Embed(title="Command/Category Not Found", color=ctx.author.color))
 
