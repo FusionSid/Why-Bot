@@ -17,7 +17,7 @@ class Log(commands.Cog):
         em.add_field(name="Before", value=before.content)
         em.add_field(name="After", value=after.content)
 
-        channel = await get_log_channel(self, before.guild)
+        channel = await get_log_channel(self.client, before.guild)
         if channel == None:
             return
         else:
@@ -33,7 +33,7 @@ class Log(commands.Cog):
             title="Message Delete", description=f"{message.author} has deleted the message")
         em.add_field(name="Content:", value=f"{message.content}")
 
-        channel = await get_log_channel(self, message.guild)
+        channel = await get_log_channel(self.client, message.guild)
         if channel == None:
             return
         else:
@@ -44,7 +44,7 @@ class Log(commands.Cog):
     async def on_member_ban(self, guild, user):
         em = discord.Embed(color=discord.Color.blue(), 
             title="Member Banned!", description=f"{user.name} Has been banned from the server")
-        channel = await get_log_channel(self, guild)
+        channel = await get_log_channel(self.client, guild)
         if channel == None:
             return
         else:
@@ -55,7 +55,7 @@ class Log(commands.Cog):
     async def on_member_unban(self, guild, user):
         em = discord.Embed(color=discord.Color.blue(), 
             title="Member Unbanned!", description=f"{user.name} Has been unbanned from the server")
-        channel = await get_log_channel(self, guild)
+        channel = await get_log_channel(self.client, guild)
         em.timestamp = datetime.datetime.utcnow()
         if channel == None:
             return
@@ -82,7 +82,7 @@ class Log(commands.Cog):
             em.add_field(name="Before:", value=before.nick)
             em.add_field(name="After:", value=after.nick)
 
-        channel = await get_log_channel(self, after.guild)
+        channel = await get_log_channel(self.client, after.guild)
         if channel == None:
             return
         else:
@@ -93,7 +93,7 @@ class Log(commands.Cog):
     async def on_guild_channel_create(self, channel):
         em = discord.Embed(color=discord.Color.blue(), title="Channel Created",
                             description=f"`{channel.name}` Has been created")
-        channel = await get_log_channel(self, channel.guild)
+        channel = await get_log_channel(self.client, channel.guild)
         if channel == None:
             return
         else:
@@ -104,7 +104,7 @@ class Log(commands.Cog):
     async def on_guild_channel_delete(self, channel):
         em = discord.Embed(color=discord.Color.blue(), title="Channel Delete",
                             description=f"`{channel.name}` Has been deleted")
-        channel = await get_log_channel(self, channel.guild)
+        channel = await get_log_channel(self.client, channel.guild)
         if channel == None:
             return
         else:
