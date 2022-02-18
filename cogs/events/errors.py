@@ -1,4 +1,5 @@
 import discord
+from discord.ext.commands import CheckFailure
 import datetime
 from discord.ext import commands
 from utils import Log
@@ -63,6 +64,9 @@ class Errors(commands.Cog):
             await ctx.message.add_reaction("⚠️")
         
         elif isinstance(error, InteractionResponded):
+            pass
+
+        elif isinstance(error, CheckFailure):
             pass
 
         elif isinstance(error, commands.MissingRequiredArgument):

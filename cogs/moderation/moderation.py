@@ -1,28 +1,15 @@
 import discord
-from utils.checks import plugin_enabled
+from utils import plugin_enabled
 from datetime import datetime
 from discord.ext import commands
-import json
 import dotenv
-from discord_webhook import DiscordWebhook
-from io import BytesIO
-from urllib.request import urlopen
-import requests
-import asyncio
-dotenv.load_dotenv()
+from utils import get_log_channel
 
+dotenv.load_dotenv()
 
 async def create_voice(guild, name, cat, limit=None):
     category = await guild.get_category_by_name(guild, cat)
     await guild.create_voice_channel(name, category=category, user_limit=limit)
-
-
-async def get_log_channel(self, ctx):
-    data = await self.client.get_db()
-    if data[str(ctx.guild.id)]['log_channel'] is None:
-        return None
-    channel = data[str(ctx.guild.id)]['log_channel']
-    return await self.client.fetch_channel(channel)
 
 
 class Moderation(commands.Cog):
@@ -101,6 +88,7 @@ class Moderation(commands.Cog):
             await cha.send(content=ctx.author.id, embed=em) 
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def bug(self, ctx, *, bug):
         em = discord.Embed(title="REPORT", color=ctx.author.color)
         em.timestamp = datetime.utcnow()
@@ -267,10 +255,6 @@ class Moderation(commands.Cog):
         message = await ctx.channel.fetch_message(_id)
         await message.clear_reactions()
         await ctx.send("Removed")
-
-    
-
-
 
 
 def setup(client):
