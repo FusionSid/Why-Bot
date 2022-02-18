@@ -116,6 +116,10 @@ class HelpView(View):
     @discord.ui.button(label="Back To Home", emoji="⬅️", style=discord.ButtonStyle.danger, row=2)
     async def back_home(self, button, interaction):
         await interaction.response.edit_message(embed=self.embed)
+    
+    @discord.ui.button(label="Delete", emoji="⛔", style=discord.ButtonStyle.danger, row=2)
+    async def delete(self, button, interaction):
+        await interaction.message.delete()
 
 
 
@@ -168,7 +172,10 @@ class Help(commands.Cog):
             if res:
                 for i in view.children:
                     i.disabled = True
-            return await message.edit(view=view)
+            try:
+                return await message.edit(view=view)
+            except Exception:
+                return
 
         for category in categories:
             index = categories.index(category)
@@ -200,7 +207,8 @@ class Help(commands.Cog):
                 else:
                     em.add_field(name="Aliases:", value=f"""```diff\n- {', '.join(cmd.aliases)}```""", inline=False)
                 em.add_field(name="Usage: ", value=f"""```diff\n- {ctx.prefix+cmd.usage}```""", inline=False)
-                em.add_field(name="Description:", value=f"""```diff\n- {cmd.help}```""", inline=False)
+                help_message = (cmd.help).replace('\n', ' ')
+                em.add_field(name="Description:", value=f"""```diff\n- {help_message}```""", inline=False)
                 return await ctx.send(embed=em)
         await ctx.send(embed=discord.Embed(title="Command/Category Not Found", color=ctx.author.color))
 
