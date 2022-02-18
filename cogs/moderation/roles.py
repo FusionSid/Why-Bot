@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from utils import plugin_enabled, get_log_channel
+from utils import plugin_enabled, get_log_channel, kwarg_to_embed
 import datetime
 import json
 
@@ -32,9 +32,15 @@ class Roles(commands.Cog):
     @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def reactrole(self, ctx, emoji, role: discord.Role, *, message):
-        embedVar = discord.Embed(description=message, color=ctx.author.color)
-        embedVar.timestamp = datetime.utcnow()
-        msg = await ctx.channel.send(embed=embedVar)
+        if message.startswith("--embed"):
+            kwargs = message.replace("--embed ", "")
+            data = await kwarg_to_embed(self.client, ctx, kwargs)
+            em = data[0]
+        else:
+            em = discord.Embed(description=message, color=ctx.author.color)
+            em.timestamp = datetime.datetime.utcnow()
+
+        msg = await ctx.channel.send(embed=em)
         await msg.add_reaction(emoji)
         with open("./database/react.json") as json_file:
             data = json.load(json_file)

@@ -2,6 +2,7 @@ import discord
 import asyncio
 from discord.ext import commands
 import sqlite3
+from utils import plugin_enabled
 
 
 class Voice(commands.Cog):
@@ -74,6 +75,7 @@ class Voice(commands.Cog):
         conn.close()
 
     @commands.group( help="These commands are used to set the custom VC for your server. The custom vc is a voice channel which upon joining creates a new temporary discord Voice Channel and deletes said channel when all members leave the channel.\nYou can use voice set to set the channel and voice setlimit to set the limit. ", extras={"category":"Voice"}, usage="voice [set/setlimit]", description="Sets the custom vc for you voice channel")
+    @commands.check(plugin_enabled)
     @commands.has_permissions(administrator  = True)
     async def voice(self, ctx):
         if ctx.invoked_subcommand is not None:
@@ -82,6 +84,7 @@ class Voice(commands.Cog):
             await ctx.send(f"`{ctx.prefix}voice set` To set the channel\n`{ctx.prefix}voice setlimit` To set the limit")
 
     @voice.command(extras={"category":"Voice"}, usage="voice setup", help="This command is used to set up the Custom Vc for your server.\nThis channel, upon joining will create a temporary vc with your name on it and once everyone leave that channel, it will be deleted", description="Sets the custom vc for the channel")
+    @commands.check(plugin_enabled)
     @commands.has_permissions(administrator = True)
     async def setup(self, ctx):
         conn = sqlite3.connect('./database/voice.db')
@@ -119,6 +122,7 @@ class Voice(commands.Cog):
         conn.close()
 
     @voice.command(extras={"category":"Voice"}, usage="voice setlimit", help="This command sets the limit for the custom vc.", description="Sets limit for custom vc")
+    @commands.check(plugin_enabled)
     @commands.has_permissions(administrator = True)
     async def setlimit(self, ctx, num):
         conn = sqlite3.connect('./database/voice.db')

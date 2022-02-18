@@ -267,6 +267,7 @@ class Search(commands.Cog):
         await ctx.send(embed=em)
     
     @commands.command(aliases=['wkp', 'wikipedia'], help="This command looks through wikipedia and finds you a page based on your search query", usage='wiki [search]', description="Wikipedia Search", extras={"category":"Search"})
+    @commands.check(plugin_enabled)
     async def wiki(self, ctx, *, query):
         embed = await get_wiki(query)
         embed.timestamp = datetime.datetime.utcnow()

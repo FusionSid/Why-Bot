@@ -146,6 +146,7 @@ class Info(commands.Cog):
         await ctx.send(embed=em)
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def uptime(self, ctx):
         await ctx.send(embed=discord.Embed(title="Uptime:", description=f"I have been up for: **{(await self.client.uptime)}**"))
 
