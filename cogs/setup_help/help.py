@@ -3,6 +3,7 @@ import datetime
 from discord.ext import commands
 from discord.ui import Button, View
 from discord_colorize import colorize
+from utils import LinkView
 
 colors = colorize.Colors()
 
@@ -115,6 +116,10 @@ class HelpView(View):
     @discord.ui.button(label="Back To Home", emoji="⬅️", style=discord.ButtonStyle.danger, row=2)
     async def back_home(self, button, interaction):
         await interaction.response.edit_message(embed=self.embed)
+    
+    @discord.ui.button(label="Delete", emoji="⛔", style=discord.ButtonStyle.danger, row=2)
+    async def delete(self, button, interaction):
+        await interaction.message.delete()
 
 
 
@@ -167,7 +172,10 @@ class Help(commands.Cog):
             if res:
                 for i in view.children:
                     i.disabled = True
-            return await message.edit(view=view)
+            try:
+                return await message.edit(view=view)
+            except Exception:
+                return
 
         for category in categories:
             index = categories.index(category)
@@ -199,31 +207,23 @@ class Help(commands.Cog):
                 else:
                     em.add_field(name="Aliases:", value=f"""```diff\n- {', '.join(cmd.aliases)}```""", inline=False)
                 em.add_field(name="Usage: ", value=f"""```diff\n- {ctx.prefix+cmd.usage}```""", inline=False)
-                em.add_field(name="Description:", value=f"""```diff\n- {cmd.help}```""", inline=False)
+                help_message = (cmd.help).replace('\n', ' ')
+                em.add_field(name="Description:", value=f"""```diff\n- {help_message}```""", inline=False)
                 return await ctx.send(embed=em)
         await ctx.send(embed=discord.Embed(title="Command/Category Not Found", color=ctx.author.color))
 
 
     @commands.command(aliases=['contribute', 'src'])
     async def source(self, ctx):
-        link = "https://github.com/FusionSid/Why-Bot"
-
-        button = Button(style=discord.ButtonStyle.grey, label="Code", url=link)
-        view = View(timeout=30)
-
-        view.add_item(button)
+        view = LinkView("https://github.com/FusionSid/Why-Bot", "Code")
 
         await ctx.send(embed=discord.Embed(title="**Why Bot** Source Code:", color=ctx.author.color), view=view)
 
 
     @commands.command(aliases=["support", "discord_server", "server", "discord"])
     async def discordserver(self, ctx):
-        link = "https://discord.gg/ryEmgnpKND"
-
-        button = Button(style=discord.ButtonStyle.grey, label="Discord Server", url=link)
-        view = View(timeout=30)
-
-        view.add_item(button)
+        
+        view = LinkView("https://discord.gg/ryEmgnpKND", "Discord Server")
 
         await ctx.send(embed=discord.Embed(title="**Why Bot** Discord Server:", color=ctx.author.color), view=view)
 

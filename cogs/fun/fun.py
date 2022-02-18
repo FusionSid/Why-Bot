@@ -280,8 +280,6 @@ class Fun(commands.Cog):
                         em.add_field(name=name.content, value=value.content)
             elif key.lower() in ["timestamp", "time"] and value.lower() in ["true", "yes"]:
                 em.timestamp = datetime.datetime.now()
-            else:
-                pass
         if ctx.author.id != self.client.owner_id:
             em.set_footer(text=f"Message sent by {ctx.author.name}")
         await channel.send(embed=em)

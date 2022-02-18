@@ -15,7 +15,7 @@ class Warnings(commands.Cog):
         if member.id in [ctx.author.id, self.client.user.id]:
             return await ctx.send("You cant warn yourself/me LMAO")
 
-        now = datetime.utcnow()
+        now = datetime.datetime.utcnow()
 
         time = now.strftime("%Y-%m-%d %H:%M:%S")
         if reason == None:
@@ -48,7 +48,7 @@ class Warnings(commands.Cog):
             return await ctx.send("This person has no warnings")
 
         em = discord.Embed(title="WARNINGS:", color=ctx.author.color)
-        em.timestamp = datetime.utcnow()
+        em.timestamp = datetime.datetime.utcnow()
         for i in warnings:
             t = i["time"]
             r = i["reason"]
