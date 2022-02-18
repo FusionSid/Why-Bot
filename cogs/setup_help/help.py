@@ -3,6 +3,7 @@ import datetime
 from discord.ext import commands
 from discord.ui import Button, View
 from discord_colorize import colorize
+from utils import LinkView
 
 colors = colorize.Colors()
 
@@ -206,24 +207,15 @@ class Help(commands.Cog):
 
     @commands.command(aliases=['contribute', 'src'])
     async def source(self, ctx):
-        link = "https://github.com/FusionSid/Why-Bot"
-
-        button = Button(style=discord.ButtonStyle.grey, label="Code", url=link)
-        view = View(timeout=30)
-
-        view.add_item(button)
+        view = LinkView("https://github.com/FusionSid/Why-Bot", "Code")
 
         await ctx.send(embed=discord.Embed(title="**Why Bot** Source Code:", color=ctx.author.color), view=view)
 
 
     @commands.command(aliases=["support", "discord_server", "server", "discord"])
     async def discordserver(self, ctx):
-        link = "https://discord.gg/ryEmgnpKND"
-
-        button = Button(style=discord.ButtonStyle.grey, label="Discord Server", url=link)
-        view = View(timeout=30)
-
-        view.add_item(button)
+        
+        view = LinkView("https://discord.gg/ryEmgnpKND", "Discord Server")
 
         await ctx.send(embed=discord.Embed(title="**Why Bot** Discord Server:", color=ctx.author.color), view=view)
 
