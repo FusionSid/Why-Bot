@@ -3,6 +3,7 @@ import asyncio
 import datetime
 from discord.ext import commands
 from utils import is_it_me
+import json
 
 async def put_on_cooldown(self, member):
     self.users_on_cooldown.append(member.id)
@@ -15,54 +16,31 @@ class DMReply(commands.Cog):
         self.dm_channel = 926232260166975508
 
         self.users_on_cooldown = []
-        self.banned = []
 
         self.user_message_count = {}
-
 
     @commands.command()
     @commands.check(is_it_me)
     async def dm_ban(self, ctx, id:int):
-        self.banned.append(id)
-        await ctx.send("User Banned")
+        with open("./database/dm_banned.json") as f:
+            banned = json.load(f)
+        if id not in banned:
+            banned.append(id)
+            await ctx.send("User Banned")
+        with open("./database/dm_banned.json", 'w') as f:
+            json.dump(banned, f, indent=4)
     
 
     @commands.command()
     @commands.check(is_it_me)
     async def dm_unban(self, ctx, id:int):
-        try:
-            self.banned.remove(id)
+        with open("./database/dm_banned.json") as f:
+            banned = json.load(f)
+        if id in banned:
+            banned.remove(id)
             await ctx.send("User Unbanned")
-        except Exception:
-            return
-
-
-    @commands.command(aliases=['dmr'])
-    @commands.check(is_it_me)
-    async def dmreply(self, ctx, *, msg=None):
-        if ctx.message.reference is None:
-          return
-        else:
-            await ctx.message.delete()
-            id = ctx.message.reference.message_id
-            id = await ctx.channel.fetch_message(id)
-            await id.reply(msg)
-            id = int(id.content)
-        person = await self.client.fetch_user(id)
-
-        if msg is None:
-            pass
-        else:
-            await person.send(msg)
-
-        if ctx.message.attachments is None:
-            return
-        else:
-            for i in ctx.message.attachments:
-                em = discord.Embed( color=ctx.author.color)
-                em.timestamp = datetime.datetime.utcnow()
-                em.set_image(url=i.url)
-                await person.send(embed=em)
+        with open("./database/dm_banned.json", 'w') as f:
+            json.dump(banned, f, indent=4)
 
 
     @commands.Cog.listener()
@@ -72,7 +50,9 @@ class DMReply(commands.Cog):
             return
 
         if isinstance(message.channel, discord.DMChannel):
-            if message.author.id in self.banned:
+            with open("./database/dm_banned.json") as f:
+                banned = json.load(f)
+            if message.author.id in banned:
                 return await message.author.send('You have been dm banned')
             if message.author.id in self.users_on_cooldown:
                 return await message.author.send("Youre on cooldown")
@@ -109,7 +89,7 @@ class DMReply(commands.Cog):
                 if message.content is None:
                     pass
                 else:
-                    await person.send(message.content)
+                    sent_message = await person.send(message.content)
                     try:
                         await message.add_reaction("✅")
                     except Exception as e:
@@ -128,6 +108,14 @@ class DMReply(commands.Cog):
 
         except Exception:
             return
+
+    @commands.command()
+    async def dm_delete(self, ctx, channel_id : int, message_id:int):
+        channel = await self.client.fetch_channel(channel_id)
+        message = await channel.fetch_message(message_id)
+
+        await message.delete()
+        await ctx.message.add_reaction("✅")
 
 def setup(client):
     client.add_cog(DMReply(client))

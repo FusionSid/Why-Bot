@@ -89,6 +89,30 @@ class Fusion(commands.Cog):
 
     @commands.command()
     @commands.check(is_it_me)
+    async def finduser(self, ctx, id:int):
+        user = await self.client.fetch_user(id)
+        em = discord.Embed(title="User Info:", description=f"For: {user.name}", color=user.color)
+        em.add_field(name="ID:", value=user.id, inline=False)
+        em.set_thumbnail(url=user.avatar.url)
+        em.add_field(name="Created Account:",value=f"<t:{int(time.mktime(user.created_at.timetuple()))}>", inline=False)
+        shared_guilds = []
+        for guild in self.client.guilds:
+            if user in guild.members:
+                shared_guilds.append(guild.name)
+        em.add_field(name=f"Shared Guilds: ({len(shared_guilds)})", value=", ".join(shared_guilds))
+
+        with open('./database/userdb.json') as f:
+            data = json.load(f)
+        cuse = data[str(user.id)]["command_count"]
+
+        em.add_field(name="Command Use:", value=f"User has used Why Bot: {cuse} times")
+        
+        em.timestamp = datetime.datetime.now()
+        await ctx.send(embed=em)
+
+
+    @commands.command()
+    @commands.check(is_it_me)
     async def needhelp(self, ctx):
         needhelp = []
         for i in self.client.commands:
