@@ -142,7 +142,8 @@ class Utilities(commands.Cog):
         await ctx.send(embed=discord.Embed(title="Invite **Why?** to your server:", description="[Why Invite Link](https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands)", color=ctx.author.color))
 
    
-    @commands.command()
+    @commands.command(usage = "avatar [member]", description = "User avatar", help = "Gets a members avatar and shows it", extras={"category": "Utilities"})
+    @commands.check(plugin_enabled)
     async def avatar(self, ctx, member:discord.Member=None):
         if member is None:
             member = ctx.author
@@ -212,14 +213,13 @@ class Utilities(commands.Cog):
         await ctx.send(embed=discord.Embed(title="Vote for Why Bot here:", color=ctx.author.color), view=view)
 
     @commands.command(extras={"category": "Utilities"}, usage="cuse [@user(optional)]", help="Shows how many times you have used Why bot", description="How many times have you used Why?")
+    @commands.check(plugin_enabled)
     async def cuse(self, ctx, member: discord.Member = None):
         if member is None:
             member = ctx.author
         with open('./database/userdb.json') as f:
             data = json.load(f)
-            for i in data:
-                if i["user_id"] == member.id:
-                    cuse = i["command_count"]
+        cuse = data[str(member.id)]["command_count"]
         await ctx.send(embed=discord.Embed(title=f"You have used Why Bot {cuse} times", color=ctx.author.color))
 
     

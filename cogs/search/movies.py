@@ -1,4 +1,5 @@
 import discord
+from utils import plugin_enabled
 from discord.ext import commands
 from imdb import Cinemagoer
 
@@ -9,6 +10,7 @@ class Movies(commands.Cog):
         self.client = client
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def top_movies(self, ctx):
         top = ia.get_popular100_movies()
 
@@ -16,6 +18,7 @@ class Movies(commands.Cog):
 
     
     @commands.command()
+    @commands.check(plugin_enabled)
     async def imdb_find_person(self, ctx, *, query):
         people = ia.search_person(query)
         person = people[0]
@@ -31,6 +34,7 @@ class Movies(commands.Cog):
 
 
     @commands.command()
+    @commands.check(plugin_enabled)
     async def imdb_find_movie(self, ctx, *, movie):
         movies = ia.search_movie(movie)
         movie = movies[0]

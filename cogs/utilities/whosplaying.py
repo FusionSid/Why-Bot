@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import random
 import datetime
+from utils import plugin_enabled
 import operator
 
 class WhoPlay(commands.Cog):
@@ -9,6 +10,7 @@ class WhoPlay(commands.Cog):
         self.client = client
 
     @commands.command(no_pm=True, help="This command is used to check whos playing a certain game/activity", extras={"category":"Utilities"}, usage="whosplaying [game/activity]", description="Check whosplaying activity")
+    @commands.check(plugin_enabled)
     async def whosplaying(self, ctx, *, game):
         if len(game) <= 1:
             await ctx.send("```The game should be at least 2 characters long...```", delete_after=5.0)
@@ -49,6 +51,7 @@ class WhoPlay(commands.Cog):
 
 
     @commands.command(no_pm=True, help="This command is used to show the most played games right now", extras={"category":"Utilities"}, usage="currentgames", description="Show current games being played")
+    @commands.check(plugin_enabled)
     async def currentgames(self, ctx):
         """Shows the most played games right now"""
         guild = ctx.message.guild

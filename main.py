@@ -253,7 +253,7 @@ async def clear_stuff():
     """
     _dir = 'tempstorage/'
     for f in os.listdir(_dir):  
-      os.remove(os.path.join(_dir, f))
+        os.remove(os.path.join(_dir, f))
 
 
 # On Message

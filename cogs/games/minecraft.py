@@ -8,6 +8,7 @@ import dotenv
 from utils.checks import plugin_enabled
 import aiohttp
 import aiofiles
+from mcstatus import MinecraftServer, MinecraftBedrockServer
 
 dotenv.load_dotenv()
 
@@ -177,6 +178,53 @@ class Minecraft(commands.Cog):
             value_ = dictionary[key]
             em.add_field(name=key, value=value_)
         await ctx.send(embed=em)
+
+
+    @commands.command()
+    async def mcstatus(self, ctx, type_:str, server_ip:str):
+        if type_.lower() == "bedrock":
+            server = MinecraftBedrockServer.lookup(server_ip)
+
+            status = server.status()
+
+            em = discord.Embed(
+                title = "Minecraft Server Status:",
+                description = f"Looking for a bedrock server: {server_ip}",
+                color = discord.Color.random()
+            )
+
+            em.add_field(
+                name = "Ping",
+                value = f"{round(status.latency, 2)}ms"
+            )
+            em.add_field(
+                name = "Players Online:",
+                value = status.players_online
+            )
+            
+            await ctx.send(embed=em)
+        if type_.lower() == "java":
+            server = MinecraftServer.lookup(server_ip)
+
+            status = server.status()
+
+            em = discord.Embed(
+                title = "Minecraft Server Status:",
+                description = f"Looking for a java server: {server_ip}",
+                color = discord.Color.random()
+            )
+
+            em.add_field(
+                name = "Ping",
+                value = f"{round(status.latency, 2)}ms"
+            )
+            em.add_field(
+                name = "Players Online:",
+                value = status.players.online
+            )
+            
+            await ctx.send(embed=em)
+
 
 
 def setup(client):

@@ -3,7 +3,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import os
 import datetime
-from utils import get_url_json
+from utils import get_url_json, plugin_enabled
 
 load_dotenv()
 
@@ -138,7 +138,8 @@ class Weather(commands.Cog):
         self.client = client
         
 
-    @commands.command()
+    @commands.command(usage = "weather [city]", description = "Get weather", help = "Gets the weather for a city", extras={"category": "Search"})
+    @commands.check(plugin_enabled)
     async def weather(self, ctx, *, city):
         data = await get_weather_data(city)
         embeds = await format_weather_data(data)

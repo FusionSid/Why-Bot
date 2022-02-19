@@ -4,7 +4,7 @@ import urllib.request
 from discord.ext import commands
 from dotenv import load_dotenv
 import os
-from utils import get_url_json, get_url_image
+from utils import get_url_json, get_url_image, plugin_enabled
 import json
 
 load_dotenv()
@@ -15,7 +15,8 @@ class Nasa(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(usage = "apod", description = "Astronomy Picture of the day", help = "This command shows the  NASA astronomy picture of the day", extras={"category": ""})
+    @commands.check(plugin_enabled)
     async def apod(self, ctx):
         url = f"https://api.nasa.gov/planetary/apod?api_key={API_KEY}"
         data = await get_url_json(url)

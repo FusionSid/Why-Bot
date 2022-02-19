@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from typing import List
+from utils import plugin_enabled
 
 class TicTacToeButton(discord.ui.Button["TicTacToe"]):
     def __init__(self, x: int, y: int, p1, p2):
@@ -113,6 +114,7 @@ class Games(commands.Cog):
         self.client = client
 
     @commands.command(help="This command plays a game of tic tac toe", description="Tic Tac Toe", aliases=['ttt'], usage="tictactoe", extras={"category":"Games"})
+    @commands.check(plugin_enabled)
     async def tictactoe(self, ctx, person:discord.Member):
         await ctx.send(content="Tic Tac Toe: X goes first", view=TicTacToe(ctx.author, person))
 

@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from easy_pil import Editor, Canvas, Font, load_image, Text
 import os
+from utils import plugin_enabled
 
 async def generate_welcome_message(client, member, guild):
     data = await client.get_db()
@@ -104,6 +105,7 @@ class Welcome(commands.Cog):
             cha.send(f"Goodbye: {member.name}")
 
     @commands.group()
+    @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def welcome(self, ctx):
         if ctx.invoked_subcommand is not None:
@@ -113,6 +115,7 @@ class Welcome(commands.Cog):
         os.remove(file_path)
 
     @welcome.command()
+    @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def textcolor(self, ctx, color: str):
         if color.lower() == "none":
@@ -125,6 +128,7 @@ class Welcome(commands.Cog):
         await ctx.send(embed=discord.Embed(title="Welcome", description=f"Welcome text color set!\nUse `{ctx.prefix}welcome` with no subcommand to see the welcome message that will display", color=ctx.author.color))
 
     @welcome.command()
+    @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def bgcolor(self, ctx, color: str):
         if color.lower() == "none":
@@ -137,6 +141,7 @@ class Welcome(commands.Cog):
         await ctx.send(embed=discord.Embed(title="Welcome", description=f"Welcome background color set!\nUse `{ctx.prefix}welcome` with no subcommand to see the welcome message that will display", color=ctx.author.color))
 
     @welcome.command()
+    @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def text(self, ctx, *, text):
         if len(text) > 55:
@@ -150,6 +155,7 @@ class Welcome(commands.Cog):
         await ctx.send(embed=discord.Embed(title="Welcome", description=f"Welcome test set!\nUse `{ctx.prefix}welcome` with no subcommand to see the welcome message that will display", color=ctx.author.color))
 
     @welcome.command()
+    @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def image(self, ctx, url: str):
         if url.lower() == "none":
