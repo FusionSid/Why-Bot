@@ -219,9 +219,7 @@ class Utilities(commands.Cog):
             member = ctx.author
         with open('./database/userdb.json') as f:
             data = json.load(f)
-            for i in data:
-                if i["user_id"] == member.id:
-                    cuse = i["command_count"]
+        cuse = data[str(member.id)]["command_count"]
         await ctx.send(embed=discord.Embed(title=f"You have used Why Bot {cuse} times", color=ctx.author.color))
 
     
