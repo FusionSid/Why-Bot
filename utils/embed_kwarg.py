@@ -1,6 +1,7 @@
 import discord
 import datetime
 import shlex
+import aiohttp
 
 colors = {
     "none" : None,
@@ -60,6 +61,10 @@ async def kwarg_to_embed(client, ctx, kwargs):
             index += 0
 
         channel = ctx.message.channel
+        webhook_dict = {
+                    "name" : None,
+                    "avatar" : None,
+                }
 
         for key, value in args.items():
             if key.lower() == "title":
@@ -103,7 +108,27 @@ async def kwarg_to_embed(client, ctx, kwargs):
             elif key.lower() in ["timestamp", "time"] and value.lower() in ["true", "yes"]:
                 em.timestamp = datetime.datetime.now()
 
+            elif key.lower() == "webhook_name":
+                webhook_dict['name'] = value
+            
+            elif key.lower() == "webhook_avatar":
+                webhook_dict['avatar'] = value
+
         if ctx.author.id != client.owner_id:
             em.set_footer(text=f"Message sent by {ctx.author.name}")
+        
+        name, avatar = None, None
+        if webhook_dict["name"] is not None:
+            name = webhook_dict["name"]
+            
+            if webhook_dict["avatar"] is not None:
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(webhook_dict["avatar"]) as resp:
+                        avatar = bytes(await resp.read())
+
+            webhook = await channel.create_webhook(name=name, avatar=avatar)
+            await webhook.send(embed=em)
+            await webhook.delete()
+            return None
         
         return [em, channel]

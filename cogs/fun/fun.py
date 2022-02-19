@@ -183,6 +183,8 @@ class Fun(commands.Cog):
     @commands.check(plugin_enabled)
     async def embed(self, ctx, *, kwargs):
         data = await kwarg_to_embed(self.client, ctx, kwargs)
+        if data is None:
+            return
         em = data[0]
         channel = data[1]
 
