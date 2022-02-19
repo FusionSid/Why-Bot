@@ -105,15 +105,11 @@ Don't forget to give the project a star :)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
-<!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 ## Contact
@@ -133,7 +129,9 @@ Even though I take take credit for most of the code, I would like to thank every
 
 These are the ones I remember:
 
-*  [lol](get good)
+*  [Knedme's Beat](https://github.com/Knedme/Beat)
+*  [Auroris Ticketing Bot](https://github.com/ifisq/discord-ticket-system)
+*  [Voice Master - Custom VC](https://github.com/SamSanai/VoiceMaster-Discord-Bot/blob/master/cogs/voice.py)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
