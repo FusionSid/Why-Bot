@@ -98,7 +98,7 @@ async def kwarg_to_embed(client, ctx, kwargs):
                         await entervalue.delete()
                         await value.delete()
 
-                        em.add_field(name=name.content, value=value.content)
+                        em.add_field(name=name.content, value=value.content, inline=False)
                         
             elif key.lower() in ["timestamp", "time"] and value.lower() in ["true", "yes"]:
                 em.timestamp = datetime.datetime.now()

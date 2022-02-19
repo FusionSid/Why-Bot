@@ -1,4 +1,5 @@
 import discord
+from discord.ui import Button, View
 import json
 from discord.ext import commands
 import datetime
@@ -9,6 +10,21 @@ import time
 log = Log()
 
 dotenv.load_dotenv()
+
+class BotInfoView(View):
+    def __init__(self):
+        super().__init__(timeout=None)
+
+        button1 = Button(style=discord.ButtonStyle.grey, label="Vote:",url="https://discordbotlist.com/bots/why")
+        button2 = Button(style=discord.ButtonStyle.grey, label="Source:",url="https://github.com/FusionSid/Why-Bot")
+        button3 = Button(style=discord.ButtonStyle.grey,label="Discord:", url="https://discord.gg/ryEmgnpKND")
+        button4 = Button(style=discord.ButtonStyle.grey,label="Website:", url="https://fusionsid.xyz/whybot")
+
+        self.add_item(button1)
+        self.add_item(button2)
+        self.add_item(button3)
+        self.add_item(button4)
+
 
 class Fusion(commands.Cog):
     def __init__(self, client):
@@ -146,6 +162,52 @@ class Fusion(commands.Cog):
         with open("./commands.json", 'w') as f:
             json.dump(commandlist, f, indent=4)
     
+
+    @commands.command()
+    async def show_bot_info_message(self, ctx):
+        em = discord.Embed(
+            title = "🔗 Why Bot - Info and Links",
+            description = "Why bot is an open source multi-purpose discord bot",
+            color = discord.Color.red(),
+            timestamp = datetime.datetime.now()
+        )
+        em.add_field(
+            inline=False,
+            name = "**Help Command**", 
+            value = "```diff\n- If you need help with Why Bot you can use the command: ?help```"
+        )
+        em.add_field(
+            inline=False,
+            name = "**Bugs:**", 
+            value = "```diff\n- If you find a bug and want to report it, Use the command: ?bug <bug>```"
+        )
+        em.add_field(
+            inline=False,
+            name = "**Suggestions:**", 
+            value = "```diff\n- If you have a suggestion for Why bot, Use the command ?suggest <suggestion> or the slash command: /suggest to make a suggestion.```"
+        )
+        em.add_field(
+            inline=False,
+            name = "**Dev:**", 
+            value = "```diff\n- Why bot is open-source so if you would like to contribute to Why Bot - Checkout the github. You can also contact FusionSid: (@FusionSid#3645)```"
+        )
+        em.add_field(
+            inline=False,
+            name = "**DM The Bot**", 
+            value = "```diff\n- If you want you can always DM the bot. You can do this if you need help, want to report something, want to suggest something or if you just want to talk. ```"
+        )
+        em.add_field(
+            inline=False,
+            name = "Mostly made by: FusionSid",
+            value = "`Twitter (Which I don't really use):` [@Fusion_Sid](https://twitter.com/Fusion_Sid)\n`My Github profile:` [FusionSid](https://github.com/FusionSid)"
+        )
+        
+        em.set_thumbnail(url=self.client.user.avatar.url)
+        em.set_footer(text="To invite Why, Click the bot and hit add to server or user ?botinvite")
+
+        await ctx.send(embed=em, view=BotInfoView())
+
+        
 
 def setup(client):
     client.add_cog(Fusion(client))

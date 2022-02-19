@@ -85,10 +85,9 @@ async def counting(msg, guild, channel, m):
             await m.add_reaction("✅")
         else:
             await m.add_reaction("❌")
-            em = discord.Embed(title=f"{m.author.name}, You ruined it!",
-                               description=f"You were supposed to type `{(data[f'{guild.id}']+1)}`\nCount reset to zero", color=discord.Color.blue())
+            em = discord.Embed(title=f"{m.author.name}, You ruined it!", description=f"You were supposed to type `{(data[f'{guild.id}']+1)}`\nCount reset to zero", color=discord.Color.blue())
             em.timestamp = datetime.datetime.utcnow()
-            i['lastcounter'] = None
+            data2[f"{guild.id}"]['lastcounter'] = None
             data[f"{guild.id}"] = 0
             await channel.send(embed=em)
         with open("./database/counting.json", 'w') as f:
