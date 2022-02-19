@@ -191,7 +191,7 @@ class Fun(commands.Cog):
         await ctx.message.delete()
         await channel.send(embed=em)
 
-    @commands.command()
+    @commands.command(usage = "runcode [language] [code]", description = "Runs code", help = "This command is used to run code. It supports many languages.", extras={"category": "Fun"})
     @commands.check(plugin_enabled)
     async def runcode(self, ctx, lang:str, *, code):
         code = code.replace("`", "")
@@ -302,7 +302,7 @@ class Fun(commands.Cog):
                 print(e)
 
     
-    @commands.command()
+    @commands.command(usage = "screenshot [url]", description = "Screenshot a url", help = "This command finds a url and screenshots it", extras={"category": "Fun"})
     @commands.check(plugin_enabled)
     async def screenshot(self, ctx, *, url):
         if "http://" not in url or "https://" not in url:
@@ -317,7 +317,7 @@ class Fun(commands.Cog):
         await ctx.send(embed=em)
 
 
-    @commands.command()
+    @commands.command(usage = "hack [@user]", description = "Hack someone", help = "This command totally 'hacks' someone :)", extras={"category": "Fun"})
     async def hack(self, ctx, member: discord.Member):
 
         email_ext = ["gmail.com","yahoo.com","hotmail.com","aol.com","hotmail.co.uk","hotmail.fr","msn.com","yahoo.fr","wanadoo.fr","orange.fr","comcast.net","yahoo.co.uk","yahoo.com.br","yahoo.co.in","live.com","rediffmail.com","free.fr","gmx.de","web.de","yandex.ru","ymail.com","libero.it","outlook.com","uol.com.br","bol.com.br","mail.ru","cox.net","hotmail.it","sbcglobal.net","sfr.fr","live.fr","verizon.net","live.co.uk",]

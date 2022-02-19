@@ -138,7 +138,7 @@ class Weather(commands.Cog):
         self.client = client
         
 
-    @commands.command()
+    @commands.command(usage = "weather [city]", description = "Get weather", help = "Gets the weather for a city", extras={"category": "Search"})
     @commands.check(plugin_enabled)
     async def weather(self, ctx, *, city):
         data = await get_weather_data(city)
