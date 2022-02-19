@@ -87,7 +87,7 @@ class Moderation(commands.Cog):
             cha = await self.client.fetch_channel(940469380054126633)
             await cha.send(content=ctx.author.id, embed=em) 
 
-    @commands.command()
+    @commands.command(usage = "bug [bug]", description = "Report a bug", help = "This command lets you report a bug to the Why bot dev/s", extras={"category": "Moderation"})
     @commands.check(plugin_enabled)
     async def bug(self, ctx, *, bug):
         em = discord.Embed(title="REPORT", color=ctx.author.color)

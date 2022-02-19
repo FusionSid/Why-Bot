@@ -142,7 +142,7 @@ class Utilities(commands.Cog):
         await ctx.send(embed=discord.Embed(title="Invite **Why?** to your server:", description="[Why Invite Link](https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands)", color=ctx.author.color))
 
    
-    @commands.command()
+    @commands.command(usage = "avatar [member]", description = "User avatar", help = "Gets a members avatar and shows it", extras={"category": "Utilities"})
     @commands.check(plugin_enabled)
     async def avatar(self, ctx, member:discord.Member=None):
         if member is None:

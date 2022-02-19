@@ -161,7 +161,7 @@ class Settings(commands.Cog):
 
         await ctx.send(f"{plugin} has been disabled")
 
-    @commands.command()
+    @commands.command(usage = "goose_mode", description = "This command toggles goose_mode", help = "This command toggles goose mode which changed autocalc to 9 + 10 = 19 (which is wrong) to the correct answer 21 - Named after my friend who requested this", extras={"category": "Settings"})
     @commands.has_permissions(administrator=True)
     async def goose_mode(self, ctx):
         with open("./database/goose_mode.json") as f:

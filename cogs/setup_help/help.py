@@ -99,11 +99,11 @@ class HelpView(View):
         self.embed=embed
         super().__init__(timeout=30)
 
-        button1 = Button(style=discord.ButtonStyle.grey, label="Vote:",url="https://discordbotlist.com/bots/why")
-        button2 = Button(style=discord.ButtonStyle.grey, label="Source:",url="https://github.com/FusionSid/Why-Bot")
-        button3 = Button(style=discord.ButtonStyle.grey,label="Discord:", url="https://discord.gg/ryEmgnpKND")
-        button4 = Button(style=discord.ButtonStyle.grey, label="Todo:",url="https://github.com/users/FusionSid/projects/1")
-        button5 = Button(style=discord.ButtonStyle.grey,label="Website:", url="https://fusionsid.xyz/whybot")
+        button1 = Button(style=discord.ButtonStyle.grey, label="Vote:",url="https://discordbotlist.com/bots/why", row=1)
+        button2 = Button(style=discord.ButtonStyle.grey, label="Source:",url="https://github.com/FusionSid/Why-Bot", row=1)
+        button3 = Button(style=discord.ButtonStyle.grey,label="Discord:", url="https://discord.gg/ryEmgnpKND", row=1)
+        button4 = Button(style=discord.ButtonStyle.grey, label="Todo:",url="https://github.com/FusionSid/Why-Bot/issues/13", row=1)
+        button5 = Button(style=discord.ButtonStyle.grey,label="Website:", url="https://fusionsid.xyz/whybot", row=1)
 
         self.add_item(button1)
         self.add_item(button2)
