@@ -27,7 +27,7 @@ class CogTools(commands.Cog):
     @commands.check(is_it_me)
     async def load(self, ctx, extension):
         # self.client.load_extension(await get_cog(self.client, extension))
-        self.client.reload_extension(f"cogs.{extension}")
+        self.client.load_extension(f"cogs.{extension}")
         embed = discord.Embed(title='Load', description=f'{extension} successfully loaded', color=ctx.author.color)
         embed.timestamp = datetime.datetime.utcnow()
         await ctx.send(embed=embed)
@@ -37,7 +37,7 @@ class CogTools(commands.Cog):
     @commands.check(is_it_me)
     async def unload(self, ctx, extension):
         # self.client.unload_extension(await get_cog(self.client, extension))
-        self.client.reload_extension(f"cogs.{extension}")
+        self.client.unload_extension(f"cogs.{extension}")
         embed = discord.Embed(title='Unload', description=f'{extension} successfully unloaded', color=ctx.author.color)
         embed.timestamp = datetime.datetime.utcnow()
         await ctx.send(embed=embed)
