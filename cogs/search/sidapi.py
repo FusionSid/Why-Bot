@@ -48,7 +48,7 @@ class SidAPI(commands.Cog):
         await ctx.send(file=discord.File(file, "wanted.png"))
 
     @commands.command(help = "This function generates a Trash meme of someone", description="Trash Meme", extras={"category", "Search"}, usage="trash [@member]")
-    async def wanted(self, ctx, member: discord.Member = None):
+    async def trash(self, ctx, member: discord.Member = None):
         if member is None:
             member = ctx.author
         url = f"{self.url}trash?image_url={member.avatar.url}"
