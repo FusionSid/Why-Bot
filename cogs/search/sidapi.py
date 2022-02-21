@@ -37,8 +37,8 @@ class SidAPI(commands.Cog):
         file.seek(0)
         await ctx.send(file=discord.File(file, "affect.png"))
 
-    @commands.command(help = "This function generates a meme", description="Wanted image", extras={"category", "Search"}, usage="wanted [@member]")
-    async def affect(self, ctx, member: discord.Member = None):
+    @commands.command(help = "This function generates an image", description="Wanted image", extras={"category", "Search"}, usage="wanted [@member]")
+    async def wanted(self, ctx, member: discord.Member = None):
         if member is None:
             member = ctx.author
         url = f"{self.url}wanted?image_url={member.avatar.url}"
