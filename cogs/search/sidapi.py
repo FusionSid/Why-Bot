@@ -37,6 +37,16 @@ class SidAPI(commands.Cog):
         file.seek(0)
         await ctx.send(file=discord.File(file, "affect.png"))
 
+    @commands.command(help = "This function generates a meme", description="Wanted image", extras={"category", "Search"}, usage="wanted [@member]")
+    async def affect(self, ctx, member: discord.Member = None):
+        if member is None:
+            member = ctx.author
+        url = f"{self.url}wanted?image_url={member.avatar.url}"
+        image = await return_url_image(url=url)
+        file = BytesIO(image)
+        file.seek(0)
+        await ctx.send(file=discord.File(file, "wanted.png"))
+
     @commands.command(help = "This function generates a meme", description="Abandon meme", extras={"category", "Search"}, usage="abandon [text]")
     async def abandon(self, ctx, *, text):
         url = f"{self.url}abandon?text={text.replace(' ', '+')}"
