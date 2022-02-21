@@ -63,3 +63,19 @@ async def post_get_json(url, data=None):
                 print(e)
                 response = resp
     return response
+
+
+async def return_url_image(url, data = None):
+    """
+    This function makes a get request to a url and returns the image
+
+    Args:
+        url (str) : The url to make a request to
+        data (Dict, optional) : This is a dictionary of any extra params to send the request
+    
+    """
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url=url, data=data) as resp:
+                response = await resp.read()
+
+    return response
