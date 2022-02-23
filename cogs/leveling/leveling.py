@@ -29,7 +29,7 @@ async def lb(self, ctx):
 
     for i in data:
         try:
-            member = await ctx.guild.get_member(i.id_number)
+            member = ctx.guild.get_member(i.id_number)
 
             person = Editor(Canvas((670, 75), color="#5663F7"))
 
