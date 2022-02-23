@@ -9,7 +9,7 @@ class Onping(commands.Cog):
         self.client = client
 
 
-    @commands.group(aliases=["on_pinged", 'pinged', 'onping'], help="This command is used to set the Onping message when you get pinged\nYou can use: onpinged set - to set your onpinged message\nYou can use: onpinged clear to clear your onping message\nYou can use this command without a subcommand and it will display the message", extras={"category": "Ping"}, usage="onpinged [set/clear(optional)]", description="Sets your Onpinged message")
+    @commands.group(aliases=["on_pinged", 'pinged', 'onping'], help="This command is used to set the Onping message when you get pinged\nYou can use: onpinged set - to set your onpinged message\nYou can use: onpinged clear to clear your onping message\nYou can use this command without a subcommand and it will display the message", extras={"category": "Onping"}, usage="onpinged [set/clear(optional)]", description="Sets your Onpinged message")
     @commands.check(plugin_enabled)
     async def onpinged(self, ctx):
         if ctx.invoked_subcommand is None:
