@@ -179,8 +179,8 @@ class Onping(commands.Cog):
                     return
                 try:
                     return await message.reply(embed=em)
-                except Exception:
-                    return
+                except Exception as err:
+                    print(err)
 
 
 def setup(client):
