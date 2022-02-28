@@ -31,7 +31,7 @@ class Warnings(commands.Cog):
             data[str(ctx.guild.id)]['warnings'][f"{member.id}"].append(warn)
 
         await self.client.update_db(data)
-        channel = await get_log_channel(self, ctx)
+        channel = await get_log_channel(self, ctx.guild)
         if channel != None:
             return await channel.send(embed=discord.Embed(title="Warn", description=f"***{member.mention}*** has been warned", color=ctx.author.color))
         await ctx.send(embed=discord.Embed(title="Warn", description=f"***{member.mention}*** has been warned", color=ctx.author.color))
