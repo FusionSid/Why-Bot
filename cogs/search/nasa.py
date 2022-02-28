@@ -18,7 +18,7 @@ class Nasa(commands.Cog):
     @commands.command(usage = "apod", description = "Astronomy Picture of the day", help = "This command shows the  NASA astronomy picture of the day", extras={"category": ""})
     @commands.check(plugin_enabled)
     async def apod(self, ctx):
-        url = f"https://api.nasa.gov/planetary/apod?api_key={API_KEY}"
+        url = f"https://api.nasa.gov/planetary/apod?api_key={API_KEY}&thumbs=True"
         data = await get_url_json(url)
 
         em = discord.Embed(
@@ -29,12 +29,7 @@ class Nasa(commands.Cog):
         if data["media_type"] == "image":
             em.set_image(url=data["hdurl"])
         elif data["media_type"] == "video":
-            em.add_field(name="Video:", value=f"[Video Link]({data['url']})")
-            video_id = data['url']
-            video_id = video_id.lstrip("https://www.youtube.com/embed/")
-            video_id = video_id.rstrip("?rel=0")
-            thum_url = f"https://img.youtube.com/vi/{video_id}/3.jpg"
-            em.set_image(url=thum_url)
+            em.set_image(url=data['thumbnail'])
         em.timestamp = datetime.datetime.now()
         em.set_footer(text=data['copyright'])
         await ctx.send(embed=em)
