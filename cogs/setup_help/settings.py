@@ -50,18 +50,25 @@ async def autorole(self, ctx):
     data = await self.client.get_db()
     em = discord.Embed(title="Autorole", color=ctx.author.color)
     em.timestamp = datetime.datetime.utcnow()
-    em.set_footer(text="Use ?autorole [@role] [all/bot] to set the autorole")
+    em.set_footer(text="Use ?autorole  [all/bot] [@roles (you can do more than one)] to set the autorole")
     autorole = data[str(ctx.guild.id)]['autorole']
-    if autorole['all'] == None:
+    all_roles = []
+    bot_roles = []
+    if len(autorole['all']) == 0:
         em.add_field(name="All", value="Not set")
     else:
-        role = ctx.guild.get_role(autorole['all'])
-        em.add_field(name="All", value=role.mention)
-    if autorole['bot'] == None:
+        for role in autorole['all']:
+            role = ctx.guild.get_role(role)
+            all_roles.append(role)
+        em.add_field(name="All", value=f"{[role.mention for role in all_roles]}")
+
+    if len(autorole['bot']) == 0:
         em.add_field(name="Bot", value="Not set")
     else:
-        role = ctx.guild.get_role(autorole['bot'])
-        em.add_field(name="Bot", value=role.mention)
+        for role in autorole['bot']:
+            role = ctx.guild.get_role(role)
+            all_roles.append(role)
+        em.add_field(name="Bot", value=f"{[role.mention for role in all_roles]}")
     return em
 
 
@@ -130,7 +137,7 @@ class Settings(commands.Cog):
                 title="Plugins", description=f"Use `{ctx.prefix}plugins [enable/disable] [plugin name]`", color=ctx.author.color)
             em.timestamp = datetime.datetime.utcnow()
             em.add_field(
-                name="Plugin List:", value="Counting\nModeration\nEconomy\nTextConvert\nSearch\nWelcome\nLeveling\nMusic\nOnping\nTicket\nMinecraft\nUtilities")
+                name="Plugin List:", value="Counting\nModeration\nEconomy\nTextConvert\nSearch\nWelcome\nLeveling\nMusic\nOnping\nTicket\nMinecraft\nUtilities\nLogging")
             em.set_footer(
                 text="This command is case sensitive so please use capital letters")
             await ctx.send(embed=em)
@@ -138,7 +145,7 @@ class Settings(commands.Cog):
     @plugins.group()
     @commands.has_permissions(administrator=True)
     async def enable(self, ctx, plugin: str):
-        plist = ["Counting", "Moderation","Economy","TextConvert","Search","Welcome","Leveling","Music","Onping","Ticket","Minecraft","Utilities", "Fun"]
+        plist = ["Counting", "Moderation","Economy","TextConvert","Search","Welcome","Leveling","Music","Onping","Ticket","Minecraft","Utilities", "Fun", "Logging"]
         if plugin not in plist:
             return await ctx.send(f"Plugin not found, use `{ctx.prefix}plugins` for a list of them")
         data = await self.client.get_db()
@@ -151,7 +158,7 @@ class Settings(commands.Cog):
     @plugins.group()
     @commands.has_permissions(administrator=True)
     async def disable(self, ctx, plugin: str):
-        plist = ["Counting", "Moderation","Economy","TextConvert","Search","Welcome","Leveling","Music","Onping","Ticket","Minecraft","Utilities"]
+        plist = ["Counting", "Moderation","Economy","TextConvert","Search","Welcome","Leveling","Music","Onping","Ticket","Minecraft","Utilities", "Fun", "Logging"]
         if plugin not in plist:
             return await ctx.send(f"Plugin not found, use `{ctx.prefix}plugins` for a list of them")
         data = await self.client.get_db()

@@ -1,6 +1,7 @@
 import discord
+from io import BytesIO
 from discord.ext import commands
-from easy_pil import Editor, Canvas, Font, load_image, Text
+from easy_pil import Editor, Canvas, Font, load_image_async, Text
 import os
 from utils import plugin_enabled
 
@@ -32,9 +33,8 @@ async def generate_welcome_message(client, member, guild):
     # Background
     if welcome_bg_image is not None:
         try:
-            bg_img_url = load_image(str(welcome_bg_image))
-            bg_img = Editor(bg_img_url).resize(
-                (970, 270)).blur(amount=3)
+            bg_img_url = await load_image_async(str(welcome_bg_image))
+            bg_img = Editor(bg_img_url).resize((970, 270)).blur(amount=3)
             welcome_image.paste(bg_img, (0, 0))
         except Exception as err:
             print(err)
@@ -44,9 +44,9 @@ async def generate_welcome_message(client, member, guild):
     welcome_image.polygon(card_left_shape, "#2C2F33")
     # Profile Picture
     if member.avatar is not None:
-        profile_image = load_image(str(member.avatar.url))
+        profile_image = await load_image_async(str(member.avatar.url))
     else:
-        profile_image = load_image(str(welcome_profile_url))
+        profile_image = await load_image_async(str(welcome_profile_url))
     profile = Editor(profile_image).resize((200, 200)).circle_image()
     welcome_image.paste(profile, (40, 35))
 
@@ -66,9 +66,11 @@ async def generate_welcome_message(client, member, guild):
     welcome_image.text((620, 237), str(welcome_text_footer), font=poppins_thin, color=str(
         welcome_text_color), align="center",)
 
-    file_path = f"./tempstorage/welcome{member.id}.png"
-    welcome_image.save(file_path)
-    return file_path
+    d = BytesIO()
+    d.seek(0)
+    welcome_image.save(d, "PNG")
+    d.seek(0)
+    return d
 
 
 class Welcome(commands.Cog):
@@ -87,9 +89,7 @@ class Welcome(commands.Cog):
         if cha is not None:
             channel = await self.client.fetch_channel(int(cha))
             # Send welcome message in server welcome channel
-            await channel.send(content=member.mention, file=discord.File(file_path))
-
-        os.remove(file_path)
+            await channel.send(content=member.mention, file=discord.File(file_path, "welcome.png"))
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
@@ -111,8 +111,7 @@ class Welcome(commands.Cog):
         if ctx.invoked_subcommand is not None:
             return
         file_path = await generate_welcome_message(self.client, ctx.author, ctx.guild)
-        await ctx.send(file=discord.File(file_path), embed=discord.Embed(title="This is the image that will show as the welcome message", description=f"`{ctx.prefix}welcome textcolor`\n`{ctx.prefix}welcome image`\n`{ctx.prefix}welcome bgcolor`\n`{ctx.prefix}welcome text\n`", color=ctx.author.color))
-        os.remove(file_path)
+        await ctx.send(file=discord.File(file_path, "welcome.png"), embed=discord.Embed(title="This is the image that will show as the welcome message", description=f"`{ctx.prefix}welcome textcolor`\n`{ctx.prefix}welcome image`\n`{ctx.prefix}welcome bgcolor`\n`{ctx.prefix}welcome text\n`", color=ctx.author.color))
 
     @welcome.command()
     @commands.check(plugin_enabled)

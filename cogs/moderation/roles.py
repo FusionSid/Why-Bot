@@ -93,16 +93,28 @@ class Roles(commands.Cog):
     @commands.command(help="This command is used to set the autorole for your server. It has 2 types: all and bot\nThe all type sets the autorole for all members who join the server and the bot type sets the autorole for all bots that join the server.", extras={"category":"Moderation"}, usage="autorole [@role] [all/bot]", description="Sets the autorole role for the server")
     @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
-    async def autorole(self, ctx, role: discord.Role, role_type: str):
+    async def autorole(self, ctx, role_type: str, roles: commands.Greedy[discord.Role]):
         data = await self.client.get_db()
-        if role_type.lower() == 'all':
-            data[str(ctx.guild.id)]['autorole']['all'] = role.id
-        elif role_type.lower() == 'bot':
-            data[str(ctx.guild.id)]['autorole']['bot'] = role.id
-        else:
-            return await ctx.send(f"{ctx.prefix}autorole @role [all/bot]\nYou must specify if roles if for all or for bots")
+        for role in roles: 
+            if role_type.lower() == 'all':
+                if role.id in data[str(ctx.guild.id)]['autorole']['all']:
+                    roles.remove(role)
+                    continue
+                data[str(ctx.guild.id)]['autorole']['all'].append(role.id)
+            elif role_type.lower() == 'bot':
+                if role.id in data[str(ctx.guild.id)]['autorole']['bot']:
+                    roles.remove(role)
+                    continue
+                data[str(ctx.guild.id)]['autorole']['bot'].append(role.id)
+            else:
+                return await ctx.send(f"{ctx.prefix}autorole [all/bot] @role\nYou must specify if roles if for all or for bots")
         await self.client.update_db(data)
-        await ctx.send(f"{role.mention} set as autorole for this server")
+        if len (roles) == 0:
+            return
+        await ctx.send(f"{[role.mention for role in roles]} set as autorole for this server")
+
+    
+    #remove react role commands:
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
@@ -110,18 +122,28 @@ class Roles(commands.Cog):
         if data[str(member.guild.id)]['settings']['plugins']['Moderation'] == False:
             return
         await self.client.update_db(data)
-        role = False
-        if not member.bot:
-            role = data[str(member.guild.id)]['autorole']['all']
-        else:
-            role = data[str(member.guild.id)]['autorole']['bot']
-        if role == False:
+
+        if member.bot:
+            if len(data[str(member.guild.id)]['autorole']['bot']) != 0:
+                for role in data[str(member.guild.id)]['autorole']['bot']:
+                    try:
+                        role = member.guild.get_role(role)
+                        await member.add_roles(role)
+                    except Exception as e:
+                        continue
             return
-        if role == None:
-            return
-        else:
-            role = member.guild.get_role(role)
-            await member.add_roles(role)
+
+        if len(data[str(member.guild.id)]['autorole']['all']) != 0:
+            for role in data[str(member.guild.id)]['autorole']['all']:
+                try:
+                    role = member.guild.get_role(role)
+                    await member.add_roles(role)
+                except:
+                    return
+
+        
+        
+    
             
 def setup(client):
     client.add_cog(Roles(client))

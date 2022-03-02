@@ -2,6 +2,17 @@ import discord
 import datetime
 from discord.ext import commands
 from utils import get_log_channel
+import json
+
+async def plugin_enabled(guild):
+    with open("./database/db.json") as f:
+        data = json.load(f)
+
+    data = data[str(guild.id)]
+    
+    if data["settings"]['plugins']["Logging"]:
+        return True
+    return False
 
 
 class Log(commands.Cog):
@@ -10,6 +21,8 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
+        if await plugin_enabled(before.guild) == False:
+            return
         if after.author.id == self.client.user.id:
             return
         em = discord.Embed(color=discord.Color.blue(), 
@@ -26,6 +39,8 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_delete(self, message):
+        if await plugin_enabled(message.guild) == False:
+            return
         if message.author.id == self.client.user.id:
             return
 
@@ -42,6 +57,8 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_ban(self, guild, user):
+        if await plugin_enabled(guild) == False:
+            return
         em = discord.Embed(color=discord.Color.blue(), 
             title="Member Banned!", description=f"{user.name} Has been banned from the server", timestamp = datetime.datetime.utcnow())
         channel = await get_log_channel(self.client, guild)
@@ -53,6 +70,8 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_unban(self, guild, user):
+        if await plugin_enabled(guild) == False:
+            return
         em = discord.Embed(color=discord.Color.blue(), 
             title="Member Unbanned!", description=f"{user.name} Has been unbanned from the server", timestamp = datetime.datetime.utcnow())
         channel = await get_log_channel(self.client, guild)
@@ -64,6 +83,8 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_update(self, before, after):
+        if await plugin_enabled(before.guild) == False:
+            return
         if before.nick is not None and after.nick is None:
             em = discord.Embed(color=discord.Color.blue(), title="Nick Change",
                                 description=f"{before.name} has unicked", timestamp = datetime.datetime.utcnow())
@@ -91,6 +112,8 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_channel_create(self, channel):
+        if await plugin_enabled(channel.guild) == False:
+            return
         em = discord.Embed(color=discord.Color.blue(), title="Channel Created",
                             description=f"`{channel.name}` Has been created", timestamp = datetime.datetime.utcnow())
         channel = await get_log_channel(self.client, channel.guild)
@@ -102,6 +125,8 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_channel_delete(self, channel):
+        if await plugin_enabled(channel.guild) == False:
+            return
         em = discord.Embed(color=discord.Color.blue(), title="Channel Delete",
                             description=f"`{channel.name}` Has been deleted", timestamp = datetime.datetime.utcnow())
         channel = await get_log_channel(self.client, channel.guild)

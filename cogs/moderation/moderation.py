@@ -4,6 +4,7 @@ from datetime import datetime
 from discord.ext import commands
 import dotenv
 from utils import get_log_channel
+import humanfriendly
 
 dotenv.load_dotenv()
 
@@ -255,6 +256,19 @@ class Moderation(commands.Cog):
         message = await ctx.channel.fetch_message(_id)
         await message.clear_reactions()
         await ctx.send("Removed")
+
+
+    @commands.command(aliases=["mute"])
+    @commands.has_guild_permissions(moderate_members=True)
+    async def timeout(self, ctx, member: discord.Member, time, *, reason=None):
+        if reason is None:
+            reason = "No reason"
+        time = humanfriendly.parse_timespan(time)
+        await member.timeout(until=discord.utils.utcnow() + datetime.timedelta(seconds=time), reason=reason)
+        channel = await get_log_channel(self, ctx)
+        if channel != None:
+            return await channel.send(embed=discord.Embed(title="Timeout", description=f"***{member.mention}*** has been muted", color=ctx.author.color))
+        await ctx.send(f"{member.mention} has been muted for {time} seconds.\nReason: {reason}")
 
 
 def setup(client):

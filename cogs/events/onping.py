@@ -124,7 +124,7 @@ class Onping(commands.Cog):
         data[str(ctx.author.id)]["on_pinged"]["description"] = None
         data[str(ctx.author.id)]["on_pinged"]["color"] = None
         await self.client.update_user_db(data)
-        await ctx.send("On Pinged Reset")
+        await ctx.send(embed=discord.Embed(title="On-Ping", description="RESET", color=ctx.author.color))
 
 
     @onpinged.command()
@@ -133,11 +133,11 @@ class Onping(commands.Cog):
         data = await self.client.get_user_db()
         if data[str(ctx.author.id)]["on_pinged_toggled"] == True:
             data[str(ctx.author.id)]["on_pinged_toggled"] = False
-            await ctx.send("Onping Off")
+            await ctx.send(embed=discord.Embed(title="On-Ping", description="Toggled Off", color=ctx.author.color))
 
         elif data[str(ctx.author.id)]["on_pinged_toggled"] == False:
             data[str(ctx.author.id)]["on_pinged_toggled"] = True
-            await ctx.send("Onping On")
+            await ctx.send(embed=discord.Embed(title="On-Ping", description="Toggled On", color=ctx.author.color))
 
         await self.client.update_user_db(data)
 
@@ -158,9 +158,6 @@ class Onping(commands.Cog):
         for key, value in user_data.items():
             if message.reference != None:
                 return
-
-            if value['user_id'] == message.author.id:
-                pass
 
             em = discord.Embed()
             em.timestamp = datetime.datetime.utcnow()
