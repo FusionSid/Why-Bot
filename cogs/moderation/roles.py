@@ -90,7 +90,7 @@ class Roles(commands.Cog):
             else:
                 pass
     
-    @commands.command(help="This command is used to set the autorole for your server. It has 2 types: all and bot\nThe all type sets the autorole for all members who join the server and the bot type sets the autorole for all bots that join the server.", extras={"category":"Moderation"}, usage="autorole [@role] [all/bot]", description="Sets the autorole role for the server")
+    @commands.command(aliases=['sar'],help="This command is used to set the autorole for your server. It has 2 types: all and bot\nThe all type sets the autorole for all members who join the server and the bot type sets the autorole for all bots that join the server.", extras={"category":"Moderation"}, usage="autorole [all/bot] [@role]", description="Sets the autorole role for the server")
     @commands.check(plugin_enabled)
     @commands.has_permissions(administrator=True)
     async def autorole(self, ctx, role_type: str, roles: commands.Greedy[discord.Role]):
@@ -115,6 +115,16 @@ class Roles(commands.Cog):
 
     
     #remove react role commands:
+    @commands.command(aliases=['rar'], help="This command is used to remove the autorole for your server. It has 2 types: all and bot\nThe all type sets the autorole for all members who join the server and the bot type sets the autorole for all bots that join the server.", extras={"category":"Moderation"}, usage="remove_autorole [all/bot] [@role]", description="Sets the autorole role for the server")
+    @commands.check(plugin_enabled)
+    @commands.has_permissions(administrator=True)
+    async def remove_autorole(self, ctx, role : discord.Role):
+        data = await self.client.get_db()
+
+        return
+
+        await self.client.update_db(data)
+
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
