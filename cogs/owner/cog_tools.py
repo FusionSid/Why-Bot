@@ -56,8 +56,10 @@ class CogTools(commands.Cog):
         cogs.remove("cogs.leveling.leveling")
         try:
             for cogs in cogs:
-                self.client.reload_extension(cogs)
-
+                try:
+                    self.client.reload_extension(cogs)
+                except:
+                    continue
             await ctx.send("All Reloaded")
 
         except Exception as e:
