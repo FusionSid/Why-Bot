@@ -1,5 +1,6 @@
 import discord
 from utils import plugin_enabled
+import datetime as datetim
 from datetime import datetime
 from discord.ext import commands
 import dotenv
@@ -23,7 +24,7 @@ class Moderation(commands.Cog):
         def wfcheck(m):
             return m.channel == ctx.channel and m.author == ctx.author
 
-        channel = await get_log_channel(self, ctx)
+        channel = await get_log_channel(self.client, ctx.guild)
         if channel is None and type_.lower() != "bug":
             return await ctx.send("You dont have a log channel set on your server")
 
@@ -113,7 +114,7 @@ class Moderation(commands.Cog):
             await ctx.send(f"Banned {member} successfully.")
         else:
             await ctx.reply("Sorry, you cannot perform that action due to role hierarchy")
-        channel = await get_log_channel(self, ctx)
+        channel = await get_log_channel(self.client, ctx.guild)
         if channel != None:
             return await channel.send(embed=discord.Embed(title="Ban", description=f"***{member.mention}*** has been banned", color=ctx.author.color))
         await ctx.send(f"User {member} has been banned")
@@ -130,7 +131,7 @@ class Moderation(commands.Cog):
             await ctx.send(f"Kicked {member} successfully.")
         else:
             await ctx.reply("Sorry, you cannot perform that action due to role hierarchy")
-        channel = await get_log_channel(self, ctx)
+        channel = await get_log_channel(self.client, ctx.guild)
         if channel != None:
             return await channel.send(embed=discord.Embed(title="Kick", description=f"***{member.mention}*** has been kicked", color=ctx.author.color))
         await ctx.send(f"User {member} has been kicked")
@@ -169,7 +170,7 @@ class Moderation(commands.Cog):
             await ctx.channel.purge(limit=amount+1)
         else:
             await ctx.channel.purge(limit=amount+1)
-        channel = await get_log_channel(self, ctx)
+        channel = await get_log_channel(self.client, ctx.guild)
         if channel != None:
             return await channel.send(embed=discord.Embed(title="Message Clear", description=f"***{amount}*** messages have been cleared from ***{ctx.channel.name}***"))
 
@@ -181,7 +182,7 @@ class Moderation(commands.Cog):
     async def make_channel(self, ctx, *, name):
         guild = ctx.guild
         channel = await guild.create_text_channel(name)
-        channel = await get_log_channel(self, ctx)
+        channel = await get_log_channel(self.client, ctx.guild)
         if channel != None:
             return await channel.send(embed=discord.Embed(title="Create Channel", description=f"***{name}*** text channel has been created", color=ctx.author.color))
 
@@ -194,7 +195,7 @@ class Moderation(commands.Cog):
             channel = await guild.create_voice_channel(name)
         else:
             channel = await guild.create_voice_channel(name, user_limit=limit)
-            channel = await get_log_channel(self, ctx)
+            channel = await get_log_channel(self.client, ctx.guild)
         if channel != None:
             return await channel.send(embed=discord.Embed(title="Create Voice Channel", description=f"***{name}*** voice channel has been created", color=ctx.author.color))
 
@@ -264,11 +265,14 @@ class Moderation(commands.Cog):
         if reason is None:
             reason = "No reason"
         time = humanfriendly.parse_timespan(time)
-        await member.timeout(until=discord.utils.utcnow() + datetime.timedelta(seconds=time), reason=reason)
-        channel = await get_log_channel(self, ctx)
+        await member.timeout(until=discord.utils.utcnow() + datetim.timedelta(seconds=time), reason=reason)
+        channel = await get_log_channel(self.client, ctx.guild)
         if channel != None:
             return await channel.send(embed=discord.Embed(title="Timeout", description=f"***{member.mention}*** has been muted", color=ctx.author.color))
-        await ctx.send(f"{member.mention} has been muted for {time} seconds.\nReason: {reason}")
+        await ctx.send(embed=discord.Embed(
+            title= "Timeout",
+            description=f"{member.mention} has been muted for {time} seconds.\nReason: {reason}",
+            color = ctx.author.color))
 
 
 def setup(client):
