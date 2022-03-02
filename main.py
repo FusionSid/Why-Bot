@@ -1,3 +1,23 @@
+"""
+Our program, who art in memory,
+    called by thy name;
+  thy operating system run;
+thy function be done at runtime
+  as it was on development.
+Give us this day our daily output.
+And forgive us our code duplication,
+    as we forgive those who
+  duplicate code against us.
+And lead us not into frustration;
+  but deliver us from GOTOs.
+    For thine is algorithm,
+the computation, and the solution,
+    looping forever and ever.
+          Return;
+"""
+
+# Amen 
+
 import os
 import json
 import datetime
