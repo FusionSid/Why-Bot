@@ -16,7 +16,7 @@ the computation, and the solution,
           Return;
 """
 
-# Amen 
+# If you are reading this code - I'm sorry
 
 import os
 import json
