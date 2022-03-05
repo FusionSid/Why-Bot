@@ -6,7 +6,8 @@ from io import BytesIO
 class SidAPI(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.url = "https://memegenapi.herokuapp.com/api/"
+        self.url = "https://fusionsidapi.herokuapp.com/api/"
+
 
 
     @commands.command(help = "This function generates a meme", description="Aborted meme", extras={"category", "Search"}, usage="aborted [@member]")
