@@ -95,8 +95,9 @@ class Dropdown(discord.ui.Select):
           return True
 
 class HelpView(View):
-    def __init__(self, client, embed):
+    def __init__(self, client, embed, ctx):
         self.embed=embed
+        self.ctx = ctx
         super().__init__(timeout=30)
 
         button1 = Button(style=discord.ButtonStyle.grey, label="Vote:",url="https://discordbotlist.com/bots/why", row=1)
@@ -173,7 +174,7 @@ class Help(commands.Cog):
             em.add_field(inline=False, name="Categories", value=f"""```diff\n- {", ".join(categories)}```""")
             em.add_field(inline=False, name="Links",value="[Why Bot Support Server](https://discord.gg/ryEmgnpKND) • [Contribute/Source Code](https://github.com/FusionSid/Why-Bot)")
             
-            view= HelpView(self.client, em)
+            view= HelpView(self.client, em, ctx)
             message = await ctx.send(embed=em, view=view)
             res = await view.wait()
             if res:
