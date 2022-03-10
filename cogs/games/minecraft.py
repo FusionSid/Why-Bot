@@ -180,7 +180,7 @@ class Minecraft(commands.Cog):
         await ctx.send(embed=em)
 
 
-    @commands.command()
+    @commands.command(help="Gets the status of a minecraft server", usage="mcstatus [bedrock/java] [server_ip]", description="Gets mc status", extras={"category" : "Search"})
     async def mcstatus(self, ctx, type_:str, server_ip:str):
         if type_.lower() == "bedrock":
             server = MinecraftBedrockServer.lookup(server_ip)
