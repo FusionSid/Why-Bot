@@ -345,8 +345,46 @@ class Fun(commands.Cog):
         await asyncio.sleep(1.420)
         await hack_message.edit(content=f"Finished hacking {member.mention}")
         
-        await ctx.send("The *totally* real and dangerous hack is complete!")
+        await ctx.send("The *totally* real and dangerous hack is complete!")    @commands.command(help = "It shows Tea photo") 
+    async def tea(self, ctx):
+        async with aiohttp.ClientSession() as session:
+            request = await session.get('https://hotbeverage.herokuapp.com/json/tea')
+            teajason = await request.json()
+        
+        embed = discord.Embed(title="TEA!", color=discord.Color.purple())
+        embed.set_image(url=teajason['img_url'])
+        await ctx.send(embed=embed)
+
+    @commands.command(help = "It shows coffee photo") 
+    async def coffee(self, ctx):
+        async with aiohttp.ClientSession() as session:
+            request = await session.get('https://hotbeverage.herokuapp.com/json/coffee')
+            teajason = await request.json()
+        
+        embed = discord.Embed(title="coffee!", color=discord.Color.purple())
+        embed.set_image(url=teajason['img_url'])
+        await ctx.send(embed=embed)
         # "[▖] [▘] [▝] [▗]"
+        
+    @commands.command(help = "It shows Tea photo") 
+    async def tea(self, ctx):
+        async with aiohttp.ClientSession() as session:
+            request = await session.get('https://hotbeverage.herokuapp.com/json/tea')
+            teajason = await request.json()
+        
+        embed = discord.Embed(title="TEA!", color=discord.Color.purple())
+        embed.set_image(url=teajason['img_url'])
+        await ctx.send(embed=embed)
+
+    @commands.command(help = "It shows coffee photo") 
+    async def coffee(self, ctx):
+        async with aiohttp.ClientSession() as session:
+            request = await session.get('https://hotbeverage.herokuapp.com/json/coffee')
+            teajason = await request.json()
+        
+        embed = discord.Embed(title="coffee!", color=discord.Color.purple())
+        embed.set_image(url=teajason['img_url'])
+        await ctx.send(embed=embed)
 
 def setup(client):
     client.add_cog(Fun(client))
