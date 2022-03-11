@@ -5,8 +5,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-
-[![CodeFactor](https://www.codefactor.io/repository/github/fusionsid/why-bot/badge)](https://www.codefactor.io/repository/github/fusionsid/why-bot)
+[![CodeFactor](https://img.shields.io/codefactor/grade/github/FusionSid/Why-Bot?style=for-the-badge)](https://www.codefactor.io/repository/github/fusionsid/why-bot)
 
 <br />
 <div align="center">
