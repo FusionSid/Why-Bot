@@ -149,6 +149,8 @@ These are the ones I remember:
 [product-screenshot]: images/screenshot.png
 
 
+[![Discord Card](https://discordimage.herokuapp.com/api/image?user_id=896932646846885898)](https://discord.gg/ryEmgnpKND)
+
 ---- 
 
 ## Commands:
