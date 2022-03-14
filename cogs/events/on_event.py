@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 from main import get_prefix
+from log import log_errors
+from utils import update_activity
 
 class OnEvent(commands.Cog):
     def __init__(self, client):
@@ -19,6 +21,13 @@ class OnEvent(commands.Cog):
                 color=message.author.color
             )
             return await message.channel.send(embed=em)
+
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print("Bot is ready")
+        await update_activity(self.client)
+
 
 def setup(client):
     client.add_cog(OnEvent(client))

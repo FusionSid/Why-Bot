@@ -31,7 +31,7 @@ async def get_prefix(client, message):
         str : The command prefix for the guild
     """
 
-    async with aiosqlite.connect("database/prefixs.db") as db:
+    async with aiosqlite.connect("database/prefix.db") as db:
         cur = await db.execute("SELECT * FROM Prefix WHERE guild_id={}".format(message.guild.id))
         prefix = await cur.fetchall()
 
@@ -40,7 +40,7 @@ async def get_prefix(client, message):
             await db.execute("INSERT INTO Prefix (guild_id, prefix) VALUES ({}, '{}')".format(message.guild.id, prefix))
             await db.commit()
 
-    return prefix
+    return prefix[0][1]
     
 
 class WhyBot(commands.Bot):
@@ -151,7 +151,6 @@ class WhyBot(commands.Bot):
 
         return data
 
-
 # Startup Bot:
 def loading_bar(length, index, title, end):
     percent_done = (index+1)/length*100
@@ -177,25 +176,21 @@ def start_bot(client):
         for filename in os.listdir(f"cogs/{category}"):
             if filename.endswith(".py"):
                 cogs.append(f"cogs.{category}.{filename[:-3]}")
-            else:
-                continue 
     
-    try:
-        print("\n")
-        for cog, index in enumerate(cogs):
-            client.cogs_list = cogs
-            client.load_extension(cog)
-            loading_bar(len(cogs), index, "Loading Cogs:", "Loaded All Cogs ✅")
-
+    print("\n")
+    for index, cog in enumerate(cogs):
+        client.cogs_list = cogs
+        client.load_extension(cog)
+        loading_bar(len(cogs), index, "Loading Cogs:", "Loaded All Cogs ✅")
         time.sleep(1)
 
-        client.run(os.environ['TOKEN'])
 
-    except Exception as e:
-        print(f"\n###################\nPOSSIBLE FATAL ERROR:\n{e}\nTHIS MEANS THE BOT HAS NOT STARTED CORRECTLY!")
+    time.sleep(1)
+
+    client.run(os.environ['TOKEN'])
 
 
-def main():
+if __name__ == '__main__':
     with open("config.json") as f:
         data = json.load(f)
 
@@ -204,7 +199,3 @@ def main():
     client = WhyBot(config)
 
     start_bot(client)
-
-
-if __name__ == '__main__':
-    main()
