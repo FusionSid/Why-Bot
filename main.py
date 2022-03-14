@@ -1,15 +1,23 @@
-import discord
-from discord.ext import commands
-import datetime
-import json
-import aiosqlite
+"""
+This is the main file for the bot
+It contains the client (subclass of discord.ext.commands.Bot)
+and the functions to start up the bot
+"""
+
+__version__ = 2.0
+__author__ = "Siddhesh Zantye"
+
 import os
 import time
+import json
+import datetime
+
+import discord
+import aiosqlite
 from dotenv import load_dotenv
+from discord.ext import commands
+
 from log import log_errors
-
-load_dotenv()
-
 
 class Config():
     def __init__(self, data):
@@ -48,6 +56,11 @@ class WhyBot(commands.Bot):
             self,
             config
         ):
+
+        self.config = config
+        self.version = __version__
+        self.last_login_time = datetime.datetime.now()
+
         intents = discord.Intents.all()
         allowed_mentions = discord.AllowedMentions(everyone=False)
 
@@ -58,8 +71,6 @@ class WhyBot(commands.Bot):
             owner_id=config.owner_id, 
             case_insensitive=True,
             allowed_mentions=allowed_mentions)
-
-        self.last_login_time = datetime.datetime.now()
 
     
     @property
@@ -141,18 +152,12 @@ class WhyBot(commands.Bot):
             json.dump(data, f, indent=4)
 
 
-    @property
-    async def config(self):
-        """
-        Returns a dict of config for the bot
-        """
-        with open("config.json") as f:
-            data = json.load(f)
-
-        return data
-
 # Startup Bot:
+
 def loading_bar(length, index, title, end):
+    """
+    Makes a loading bar when starting up the bot
+    """
     percent_done = (index+1)/length*100
     done = round(percent_done/(100/50))
     togo = 50-done
@@ -168,7 +173,9 @@ def loading_bar(length, index, title, end):
 
 
 def start_bot(client):
-
+    """
+    Starts up the amazing Why Bot
+    """
     cogs = []
 
     all_categories = list(os.listdir("cogs"))
@@ -187,14 +194,15 @@ def start_bot(client):
 
     time.sleep(1)
 
+    # Run
     client.run(os.environ['TOKEN'])
 
 
 if __name__ == '__main__':
-    with open("config.json") as f:
-        data = json.load(f)
+    load_dotenv()
 
-    config = Config(data)
+    with open("config.json") as f:
+        config = Config(json.load(f))
 
     client = WhyBot(config)
 

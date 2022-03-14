@@ -1,11 +1,10 @@
 *.db
-*.pyc
+*.DS_Store
 *.env
-*.png
-*.jpg
 *.jpeg
+*.jpg
 *.json
+*.png
+*.pyc
 *.txt
 *__pycache__
-db_exe.py
-*.DS_Store

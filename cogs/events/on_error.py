@@ -1,10 +1,12 @@
-import discord
 import sys
 import datetime
 import traceback
-from log import log_errors
-from discord import InteractionResponded, CheckFailure
+
+import discord
 from discord.ext import commands
+from discord import InteractionResponded, CheckFailure
+
+from log import log_errors
 
 class OnError(commands.Cog):
     def __init__(self, client):
@@ -12,20 +14,9 @@ class OnError(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        if hasattr(ctx.command, 'on_error'):
-            return
-
-        cog = ctx.cog
-        if cog:
-            if cog._get_overridden_method(cog.cog_command_error) is not None:
-                return
 
         ignored = (commands.CommandNotFound,)
-        error = getattr(error, 'original', error)
 
-        err = [('Ignoring exception in command {}:'.format(ctx.command)),
-                   traceback.format_exception(type(error), error, error.__traceback__)]
-        print(err)
 
         if isinstance(error, ignored):
             return
@@ -55,7 +46,7 @@ class OnError(commands.Cog):
                 color=discord.Color.red()
             )
             em.timestamp = datetime.datetime.utcnow()
-            error_msg = await ctx.send(embed=em)
+            await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
         
@@ -74,7 +65,7 @@ class OnError(commands.Cog):
             em.add_field(name=f"You have not passed in:",
                          value=f"`{error.param}`")
             em.timestamp = datetime.datetime.utcnow()
-            error_msg = await ctx.send(embed=em)
+            await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
 
@@ -87,7 +78,7 @@ class OnError(commands.Cog):
             em.add_field(name="Permissions you need:",
                          value=f"`{', '.join(error.missing_permissions)}`")
             em.timestamp = datetime.datetime.utcnow()
-            error_msg = await ctx.send(embed=em)
+            await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
 
@@ -99,7 +90,7 @@ class OnError(commands.Cog):
             )
             
             em.timestamp = datetime.datetime.utcnow()
-            error_msg = await ctx.send(embed=em)
+            await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
 
@@ -111,7 +102,7 @@ class OnError(commands.Cog):
             )
             
             em.timestamp = datetime.datetime.utcnow()
-            error_msg = await ctx.send(embed=em)
+            await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
 
@@ -123,7 +114,7 @@ class OnError(commands.Cog):
             )
             
             em.timestamp = datetime.datetime.utcnow()
-            error_msg = await ctx.send(embed=em)
+            await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
 
@@ -135,7 +126,7 @@ class OnError(commands.Cog):
             )
             
             em.timestamp = datetime.datetime.utcnow()
-            error_msg = await ctx.send(embed=em)
+            await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
 
@@ -147,7 +138,7 @@ class OnError(commands.Cog):
             )
             
             em.timestamp = datetime.datetime.utcnow()
-            error_msg = await ctx.send(embed=em)
+            await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
 
@@ -159,7 +150,7 @@ class OnError(commands.Cog):
             )
             
             em.timestamp = datetime.datetime.utcnow()
-            error_msg = await ctx.send(embed=em)
+            await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
 
@@ -171,7 +162,7 @@ class OnError(commands.Cog):
             )
             
             em.timestamp = datetime.datetime.utcnow()
-            error_msg = await ctx.send(embed=em)
+            await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
 
@@ -183,7 +174,7 @@ class OnError(commands.Cog):
             )
             
             em.timestamp = datetime.datetime.utcnow()
-            error_msg = await ctx.send(embed=em)
+            await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
 
@@ -195,7 +186,7 @@ class OnError(commands.Cog):
             )
             
             em.timestamp = datetime.datetime.utcnow()
-            error_msg = await ctx.send(embed=em)
+            await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
 
@@ -207,7 +198,7 @@ class OnError(commands.Cog):
             )
             
             em.timestamp = datetime.datetime.utcnow()
-            error_msg = await ctx.send(embed=em)
+            await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
 
@@ -219,7 +210,7 @@ class OnError(commands.Cog):
             )
             
             em.timestamp = datetime.datetime.utcnow()
-            error_msg = await ctx.send(embed=em)
+            await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
 
@@ -231,7 +222,7 @@ class OnError(commands.Cog):
             )
             
             em.timestamp = datetime.datetime.utcnow()
-            error_msg = await ctx.send(embed=em)
+            await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
 
@@ -243,7 +234,7 @@ class OnError(commands.Cog):
             )
             
             em.timestamp = datetime.datetime.utcnow()
-            error_msg = await ctx.send(embed=em)
+            await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
 
@@ -255,7 +246,7 @@ class OnError(commands.Cog):
             )
             
             em.timestamp = datetime.datetime.utcnow()
-            error_msg = await ctx.send(embed=em)
+            await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
 
@@ -267,7 +258,7 @@ class OnError(commands.Cog):
             )
             
             em.timestamp = datetime.datetime.utcnow()
-            error_msg = await ctx.send(embed=em)
+            await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
 

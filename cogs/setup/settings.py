@@ -1,7 +1,8 @@
 import discord
-from log import log_errors
 from discord.ext import commands
+
 from main import get_prefix
+from log import log_errors
 
 class Settings(commands.Cog):
     def __init__(self, client):

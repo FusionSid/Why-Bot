@@ -1,7 +1,8 @@
 import discord
 from discord.ext import commands
-from main import get_prefix
+
 from log import log_errors
+from main import get_prefix
 from utils import update_activity
 
 class OnEvent(commands.Cog):

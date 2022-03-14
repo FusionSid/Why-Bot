@@ -1,5 +1,11 @@
-import logging
+"""
+This is for logging errors and exceptions
+Importing the log_errors function will make all errors go to the file instead of terminal
+I have added the option to print to terminal
+"""
+
 import sys
+import logging
 import traceback
 
 def log_errors(type, value, tb):
