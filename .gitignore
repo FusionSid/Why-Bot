@@ -8,3 +8,4 @@
 *.txt
 *__pycache__
 db_exe.py
+*.DS_Store
