@@ -1,3 +1,7 @@
+# This bots been dead for a couple weeks now but 
+# I am gonna be rewriting this bot from scratch so checkout the rewrite branch
+# I have other projects im working on so this rewrite will take a while
+
 <div id="top"></div>
 
 [![Contributors][contributors-shield]][contributors-url]
