@@ -32,8 +32,8 @@ async def get_prefix(client, message):
     This function gets the command_prefix for the server
     
     Parameters:
-        client (discord.ext.commands.Bot) : The bot
-        message (discord.Message) : The discord message sent
+        :param: client (discord.ext.commands.Bot) : The bot
+        :param: message (discord.Message) : The discord message sent
 
     Returns:
         str : The command prefix for the guild
@@ -70,13 +70,15 @@ class WhyBot(commands.Bot):
             help_command=None, 
             owner_id=config.owner_id, 
             case_insensitive=True,
-            allowed_mentions=allowed_mentions)
+            allowed_mentions=allowed_mentions
+        )
 
     
     @property
     async def uptime(self):
         """
         This function returns the uptime for the bot. 
+
         Returns:
             str : Formated string with the uptime
         """
@@ -100,6 +102,7 @@ class WhyBot(commands.Bot):
     def get_why_emojies(self):
         """
         This function returns the emojis for the bot
+
         Returns:
             Dict : A dictionary of emojis
         """
@@ -112,6 +115,7 @@ class WhyBot(commands.Bot):
     def blacklisted_users(self):
         """
         This function returns all the blacklisted users
+
         Returns:
             List : List of blacklisted users
         """
@@ -123,8 +127,9 @@ class WhyBot(commands.Bot):
     async def blacklist_user(self, user_id : int):
         """
         This function is used to blacklist a user so they cant use why bot anymore
-        Parameters:
-            user_id (int) : The id for the user. This will be appended to the List of blacklisted users
+
+        Parameters
+            :param: user_id (int) : The id for the user. This will be appended to the List of blacklisted users
         """
         with open("database/blacklisted.json") as f:
             data = json.load(f)
@@ -139,8 +144,9 @@ class WhyBot(commands.Bot):
     async def whitelist_user(self, user_id : int):
         """
         This function is used to whitelist a user so they can use why bot
-        Parameters:
-            user_id (int) : The id for the user. This will be appended to the List of blacklisted users
+        
+        Parameters
+            :param: user_id (int) : The id for the user. This will be appended to the List of blacklisted users
         """
         with open('database/blacklisted.json') as f:
             data = json.load(f)
@@ -157,6 +163,12 @@ class WhyBot(commands.Bot):
 def loading_bar(length, index, title, end):
     """
     Makes a loading bar when starting up the bot
+
+    Parameters
+        :param: length (int): The length of the list
+        :param: index (int): Index of the list
+        :param: title (str): The title of the loading bar
+        :param: end (str): The message to say once the bar is done
     """
     percent_done = (index+1)/length*100
     done = round(percent_done/(100/50))
