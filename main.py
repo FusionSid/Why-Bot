@@ -1,6 +1,6 @@
 """
 This is the main file for the bot
-It contains the client (subclass of discord.ext.commands.Bot)
+It contains the client (subclass of: `discord.ext.commands.Bot`)
 and the functions to start up the bot
 """
 
@@ -17,14 +17,8 @@ import aiosqlite
 from dotenv import load_dotenv
 from discord.ext import commands
 
-from log import log_errors
-
-class Config():
-    def __init__(self, data):
-        self.join_alert_channel = data["join_alert_channel"]
-        self.leave_alert_channel = data["leave_alert_channel"]
-        self.online_alert_channel = data["online_alert_channel"]
-        self.owner_id = data["owner_id"]
+import log
+from utils import Config
 
 
 async def get_prefix(client, message):
@@ -52,11 +46,18 @@ async def get_prefix(client, message):
     
 
 class WhyBot(commands.Bot):
+    """
+    The Why Bot Class (subclass of: `discord.ext.commands.Bot`)
+
+    Parameters
+        :param: config (Config): Config for the bot
+    """
     def __init__(
             self,
-            config
+            config : Config
         ):
 
+        self.cogs_list = []
         self.config = config
         self.version = __version__
         self.last_login_time = datetime.datetime.now()
@@ -65,11 +66,11 @@ class WhyBot(commands.Bot):
         allowed_mentions = discord.AllowedMentions(everyone=False)
 
         super().__init__(
-            command_prefix=get_prefix, 
             intents=intents, 
             help_command=None, 
-            owner_id=config.owner_id, 
             case_insensitive=True,
+            command_prefix=get_prefix, 
+            owner_id=624076054969188363, # The bot owner's ID
             allowed_mentions=allowed_mentions
         )
 
@@ -158,9 +159,9 @@ class WhyBot(commands.Bot):
             json.dump(data, f, indent=4)
 
 
-# Startup Bot:
-
-def loading_bar(length, index, title, end):
+def loading_bar(
+        length : int, index : int, title : str, end : str
+    ):
     """
     Makes a loading bar when starting up the bot
 
@@ -184,7 +185,7 @@ def loading_bar(length, index, title, end):
         print(f"\n\n{end}\n")
 
 
-def start_bot(client):
+def start_bot(client : WhyBot):
     """
     Starts up the amazing Why Bot
     """
@@ -206,7 +207,6 @@ def start_bot(client):
 
     time.sleep(1)
 
-    # Run
     client.run(os.environ['TOKEN'])
 
 
