@@ -17,7 +17,7 @@ import aiosqlite
 from dotenv import load_dotenv
 from discord.ext import commands
 
-import log
+from log import log_normal
 from utils import Config
 
 

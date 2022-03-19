@@ -1,12 +1,14 @@
 import discord
 from discord.ext import commands
 
+from main import WhyBot
 from log import log_errors
 from main import get_prefix
 from utils import update_activity
 
+
 class OnEvent(commands.Cog):
-    def __init__(self, client):
+    def __init__(self, client : WhyBot):
         self.client = client
 
     @commands.Cog.listener()
@@ -30,5 +32,5 @@ class OnEvent(commands.Cog):
         await update_activity(self.client)
 
 
-def setup(client):
+def setup(client : WhyBot):
     client.add_cog(OnEvent(client))

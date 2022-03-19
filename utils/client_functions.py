@@ -1,6 +1,12 @@
-import discord
+""" (module) client_functions
 
-async def update_activity(client):
+Useful 
+"""
+
+import discord
+from discord.ext import commands
+
+async def update_activity(client : commands.Bot):
     await client.change_presence(
         activity=discord.Game(
             f"On {len(client.guilds)} servers! | ?help"

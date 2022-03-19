@@ -1,25 +1,25 @@
-import sys
 import datetime
-import traceback
 
 import discord
 from discord.ext import commands
 from discord import InteractionResponded, CheckFailure
 
+from main import WhyBot
 from log import log_errors
 
+
 class OnError(commands.Cog):
-    def __init__(self, client):
+    def __init__(self, client : WhyBot):
         self.client = client
 
     @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
+    async def on_command_error(self, ctx : commands.Context, error):
 
-        ignored = (commands.CommandNotFound,)
-
+        ignored = (commands.CommandNotFound)
 
         if isinstance(error, ignored):
             return
+
 
         elif isinstance(error, commands.CommandOnCooldown):
             async def better_time(cd: int):
@@ -50,11 +50,14 @@ class OnError(commands.Cog):
             
             await ctx.message.add_reaction("⚠️")
         
+
         elif isinstance(error, InteractionResponded):
             pass
 
+
         elif isinstance(error, CheckFailure):
             pass
+
 
         elif isinstance(error, commands.MissingRequiredArgument):
             em = discord.Embed(
@@ -69,6 +72,7 @@ class OnError(commands.Cog):
             
             await ctx.message.add_reaction("⚠️")
 
+
         elif isinstance(error, commands.MissingPermissions):
             em = discord.Embed(
                 title="Missing permissions",
@@ -82,6 +86,7 @@ class OnError(commands.Cog):
             
             await ctx.message.add_reaction("⚠️")
 
+
         elif isinstance(error, commands.MessageNotFound):
             em = discord.Embed(
                 title="Message not found",
@@ -93,6 +98,7 @@ class OnError(commands.Cog):
             await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
+
 
         elif isinstance(error, commands.MemberNotFound):
             em = discord.Embed(
@@ -106,6 +112,7 @@ class OnError(commands.Cog):
             
             await ctx.message.add_reaction("⚠️")
 
+
         elif isinstance(error, commands.GuildNotFound):
             em = discord.Embed(
                 title="Guild not found",
@@ -117,6 +124,7 @@ class OnError(commands.Cog):
             await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
+
 
         elif isinstance(error, commands.UserNotFound):
             em = discord.Embed(
@@ -130,6 +138,7 @@ class OnError(commands.Cog):
             
             await ctx.message.add_reaction("⚠️")
 
+
         elif isinstance(error, commands.ChannelNotFound):
             em = discord.Embed(
                 title="Channel not found",
@@ -141,6 +150,7 @@ class OnError(commands.Cog):
             await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
+
 
         elif isinstance(error, commands.ChannelNotReadable):
             em = discord.Embed(
@@ -154,6 +164,7 @@ class OnError(commands.Cog):
             
             await ctx.message.add_reaction("⚠️")
 
+
         elif isinstance(error, commands.RoleNotFound):
             em = discord.Embed(
                 title="Role not found",
@@ -165,6 +176,7 @@ class OnError(commands.Cog):
             await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
+
 
         elif isinstance(error, commands.ThreadNotFound):
             em = discord.Embed(
@@ -178,6 +190,7 @@ class OnError(commands.Cog):
             
             await ctx.message.add_reaction("⚠️")
 
+
         elif isinstance(error, commands.BotMissingPermissions):
             em = discord.Embed(
                 title="Bot missing permissions",
@@ -189,6 +202,7 @@ class OnError(commands.Cog):
             await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
+
 
         elif isinstance(error, commands.MissingRole):
             em = discord.Embed(
@@ -202,6 +216,7 @@ class OnError(commands.Cog):
             
             await ctx.message.add_reaction("⚠️")
 
+
         elif isinstance(error, commands.BotMissingRole):
             em = discord.Embed(
                 title="Bot Missing Role",
@@ -213,6 +228,7 @@ class OnError(commands.Cog):
             await ctx.send(embed=em)
             
             await ctx.message.add_reaction("⚠️")
+
 
         elif isinstance(error, commands.NSFWChannelRequired):
             em = discord.Embed(
@@ -226,6 +242,7 @@ class OnError(commands.Cog):
             
             await ctx.message.add_reaction("⚠️")
 
+
         elif isinstance(error, commands.DisabledCommand):
             em = discord.Embed(
                 title="Command Disabled",
@@ -238,17 +255,6 @@ class OnError(commands.Cog):
             
             await ctx.message.add_reaction("⚠️")
 
-        elif isinstance(error, commands.CommandInvokeError):
-            em = discord.Embed(
-                title="Command failed to run",
-                description=f"```fix\nThis is not good, please use `{ctx.prefix}bug <bug>` to report this if you think its a bug ```",
-                color=discord.Color.red()
-            )
-            
-            em.timestamp = datetime.datetime.utcnow()
-            await ctx.send(embed=em)
-            
-            await ctx.message.add_reaction("⚠️")
 
         elif isinstance(error, discord.HTTPException):
             em = discord.Embed(
@@ -264,13 +270,10 @@ class OnError(commands.Cog):
 
 
         else:
-            print('Ignoring exception in command {}:'.format(
-                ctx.command), file=sys.stderr)
-            traceback.print_exception(
-                type(error), error, error.__traceback__, file=sys.stderr)
+            log_errors(type(error), error, error.__traceback__)
 
 
-def setup(client):
+def setup(client : WhyBot):
     client.add_cog(OnError(client))
 
     

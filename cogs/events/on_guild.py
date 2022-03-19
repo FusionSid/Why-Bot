@@ -3,11 +3,13 @@ import datetime
 import discord
 from discord.ext import commands
 
+from main import WhyBot
 from log import log_errors
 from utils import update_activity
 
+
 class OnGuild(commands.Cog):
-    def __init__(self, client):
+    def __init__(self, client : WhyBot):
         self.client = client
     
     @commands.Cog.listener()
@@ -31,5 +33,6 @@ class OnGuild(commands.Cog):
         await channel.send(embed=em)
         await update_activity(self.client)
 
-def setup(client):
+
+def setup(client : WhyBot):
     client.add_cog(OnGuild(client))
