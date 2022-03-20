@@ -34,15 +34,17 @@ async def get_prefix(client, message):
     """
 
     async with aiosqlite.connect("database/prefix.db") as db:
-        cur = await db.execute("SELECT * FROM Prefix WHERE guild_id={}".format(message.guild.id))
+        cur = await db.execute("SELECT * FROM Prefix WHERE guild_id=?", (message.guild.id,))
         prefix = await cur.fetchall()
 
-        if len(prefix) != 1:
+        if len(prefix) == 0:
             prefix = "?"
-            await db.execute("INSERT INTO Prefix (guild_id, prefix) VALUES ({}, '{}')".format(message.guild.id, prefix))
+            await db.execute("INSERT INTO Prefix (guild_id, prefix) VALUES (?, ?)", (message.guild.id, prefix))
             await db.commit()
-
-    return prefix[0][1]
+        else:
+            prefix = prefix[0][1]
+            
+    return prefix
     
 
 class WhyBot(commands.Bot):

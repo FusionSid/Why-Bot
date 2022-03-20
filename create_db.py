@@ -14,11 +14,4 @@ async def main():
             )""")
         await db.commit()
 
-    async with aiosqlite.connect("database/plugins.db") as db:
-        return
-        await db.execute("""CREATE TABLE Plugins (
-            
-            )""")
-        await db.commit()
-
 asyncio.new_event_loop().run_until_complete(main())

@@ -25,7 +25,7 @@ class Prefix(commands.Cog):
     @commands.command(name="setprefix", description="Sets the guild prefix for the bot")
     async def setprefix(self, ctx : commands.Context, prefix : str):
         async with aiosqlite.connect("database/prefix.db") as db:
-            await db.execute("""UPDATE Prefix SET prefix='{}' WHERE guild_id={}""".format(prefix, ctx.guild.id))
+            await db.execute("""UPDATE Prefix SET prefix=? WHERE guild_id=?""", (prefix, ctx.guild.id))
         
             await db.commit()
 
