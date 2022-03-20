@@ -13,13 +13,13 @@ import traceback
 logging.basicConfig(filename="log/logs.txt", format='[%(levelname)s] (%(asctime)s) - %(message)s', datefmt='%d-%b-%y %H:%M:%S')
 
 
-def log_errors(type, value, tb):
+def log_errors(etype, value, tb):
 
-    error = f"{type.__name__}:\n\tTraceback (most recent call last):\n\t{'    '.join(traceback.format_tb(tb))}\n\t{value}"
+    error = f"{etype.__name__}:\n\tTraceback (most recent call last):\n\t{'    '.join(traceback.format_tb(tb))}\n\t{value}"
     logging.error(error)
 
     # Commenting out this line will stop errors being printed to console
-    sys.__excepthook__(type, value, tb)
+    sys.__excepthook__(etype, value, tb)
 
 
 sys.excepthook = log_errors

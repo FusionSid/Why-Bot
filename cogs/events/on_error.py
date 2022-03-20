@@ -15,9 +15,7 @@ class OnError(commands.Cog):
     @commands.Cog.listener()
     async def on_command_error(self, ctx : commands.Context, error):
 
-        ignored = (commands.CommandNotFound)
-
-        if isinstance(error, ignored):
+        if isinstance(error, commands.CommandNotFound):
             return
 
 
@@ -275,5 +273,3 @@ class OnError(commands.Cog):
 
 def setup(client : WhyBot):
     client.add_cog(OnError(client))
-
-    
