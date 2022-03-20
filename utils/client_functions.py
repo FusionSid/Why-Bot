@@ -1,6 +1,6 @@
 """ (module) client_functions
 
-Useful 
+Useful functions for the WhyBot client
 """
 
 import discord

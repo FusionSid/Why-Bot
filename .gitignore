@@ -8,3 +8,5 @@
 *.pyc
 *.txt
 *__pycache__
+
+tests.py
