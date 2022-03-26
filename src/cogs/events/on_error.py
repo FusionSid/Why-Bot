@@ -40,7 +40,7 @@ class OnError(commands.Cog):
             retry_after = await better_time(cd)
             em = discord.Embed(
                 title="Wow buddy, Slow it down\nThis command is on cooldown",
-                description=f"```fix\nTry again in **{retry_after}** ```",
+                description=f"Try again in **{retry_after}** ",
                 color=discord.Color.red()
             )
             em.timestamp = datetime.datetime.utcnow()
@@ -60,7 +60,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.MissingRequiredArgument):
             em = discord.Embed(
                 title="Missing a requred value / argument",
-                description=f"```fix\nYou haven't passed in all the required values for this command ```",
+                description=f"You haven't passed in all the required values for this command",
                 color=discord.Color.red()
             )
             em.add_field(name=f"You have not passed in:",
@@ -74,7 +74,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.MissingPermissions):
             em = discord.Embed(
                 title="Missing permissions",
-                description="```fix\nYou don't have permissions to use this commands ```",
+                description="You don't have permissions to use this commands ",
                 color=discord.Color.red()
             )
             em.add_field(name="Permissions you need:",
@@ -88,7 +88,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.MessageNotFound):
             em = discord.Embed(
                 title="Message not found",
-                description="```fix\nThe bot failed to find the message ```",
+                description="The bot failed to find the message ",
                 color=discord.Color.red()
             )
             
@@ -101,7 +101,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.MemberNotFound):
             em = discord.Embed(
                 title="Member not found",
-                description="```fix\nThe bot failed to find the member ```",
+                description="The bot failed to find the member ",
                 color=discord.Color.red()
             )
             
@@ -114,7 +114,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.GuildNotFound):
             em = discord.Embed(
                 title="Guild not found",
-                description="```fix\nThe bot faield to find the guild ```",
+                description="The bot faield to find the guild ",
                 color=discord.Color.red()
             )
             
@@ -127,7 +127,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.UserNotFound):
             em = discord.Embed(
                 title="User not found",
-                description="```fix\nThe bot failed to find the user ```",
+                description="The bot failed to find the user ",
                 color=discord.Color.red()
             )
             
@@ -140,7 +140,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.ChannelNotFound):
             em = discord.Embed(
                 title="Channel not found",
-                description="```fix\nThe bot failed to find the channel``` ```",
+                description="The bot failed to find the channel ",
                 color=discord.Color.red()
             )
             
@@ -153,7 +153,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.ChannelNotReadable):
             em = discord.Embed(
                 title="Channel not readable",
-                description="```fix\nThe bot is unable to read this channel ```",
+                description="The bot is unable to read this channel ",
                 color=discord.Color.red()
             )
             
@@ -166,7 +166,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.RoleNotFound):
             em = discord.Embed(
                 title="Role not found",
-                description="```fix\nThe bot was unable to find the role ```",
+                description="The bot was unable to find the role ",
                 color=discord.Color.red()
             )
             
@@ -179,7 +179,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.ThreadNotFound):
             em = discord.Embed(
                 title="Thread not found",
-                description="```fix\nThe bot was unable to fund the thread ```",
+                description="The bot was unable to fund the thread ",
                 color=discord.Color.red()
             )
             
@@ -192,7 +192,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.BotMissingPermissions):
             em = discord.Embed(
                 title="Bot missing permissions",
-                description="```fix\nWhy bot does not have the permissions do execute this command. Please gimme them perms ```",
+                description="Why bot does not have the permissions do execute this command. Please gimme them perms ",
                 color=discord.Color.red()
             )
             
@@ -205,7 +205,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.MissingRole):
             em = discord.Embed(
                 title="Missing Role",
-                description="```fix\nUser does not have the role to run this command ```",
+                description="User does not have the role to run this command ",
                 color=discord.Color.red()
             )
             
@@ -218,7 +218,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.BotMissingRole):
             em = discord.Embed(
                 title="Bot Missing Role",
-                description="```fix\nWhy bot does not have the role to run this command, Gimme them roles ```",
+                description="Why bot does not have the role to run this command, Gimme them roles ",
                 color=discord.Color.red()
             )
             
@@ -231,7 +231,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.NSFWChannelRequired):
             em = discord.Embed(
                 title="NSFW Only",
-                description="```fix\nThis command can only be used in an nsfw channel ```",
+                description="This command can only be used in an nsfw channel ",
                 color=discord.Color.red()
             )
             
@@ -244,7 +244,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.DisabledCommand):
             em = discord.Embed(
                 title="Command Disabled",
-                description="```fix\nThis command has been disabled ```",
+                description="This command has been disabled ",
                 color=discord.Color.red()
             )
             
@@ -257,7 +257,7 @@ class OnError(commands.Cog):
         elif isinstance(error, discord.HTTPException):
             em = discord.Embed(
                 title="Error 404 Not Found",
-                description=f"```fix\n{error.code} {error.text} ```",
+                description=f"{error.code} {error.text} ",
                 color=discord.Color.red()
             )
             

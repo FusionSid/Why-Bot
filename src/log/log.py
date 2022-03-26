@@ -14,6 +14,7 @@ logging.basicConfig(filename="log/logs.txt", format='[%(levelname)s] (%(asctime)
 
 
 def log_errors(etype, value, tb):
+    """Logs errors to the file instead of terminal"""
 
     error = f"{etype.__name__}:\n\tTraceback (most recent call last):\n\t{'    '.join(traceback.format_tb(tb))}\n\t{value}"
     logging.error(error)

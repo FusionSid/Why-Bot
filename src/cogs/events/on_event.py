@@ -11,8 +11,14 @@ class OnEvent(commands.Cog):
     def __init__(self, client : WhyBot):
         self.client = client
 
+
     @commands.Cog.listener()
     async def on_message(self, message):
+        """
+        This is the event that is called when a message is sent in a channel
+        It will check if the bot has been mentioned in the message and if so 
+            it will reply with a message containing the guild prefix
+        """
 
         if message.author.bot:
             return
@@ -28,8 +34,13 @@ class OnEvent(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        """
+        Runs when the bot is ready
+        Prints a message to console and updates the bot's activity
+        """
         print("Bot is ready")
         await update_activity(self.client)
+        
 
 
 def setup(client : WhyBot):

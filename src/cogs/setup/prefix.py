@@ -14,6 +14,7 @@ class Prefix(commands.Cog):
 
     @commands.command(name="prefix", description="Shows the bots prefix")
     async def prefix(self, ctx : commands.Context):
+        """Displays the bots prefix"""
         prefix = await get_prefix(self.client, ctx.message)
         em = discord.Embed(
             title=f"Hi, my prefix is `{prefix}`", 
@@ -24,6 +25,7 @@ class Prefix(commands.Cog):
 
     @commands.command(name="setprefix", description="Sets the guild prefix for the bot")
     async def setprefix(self, ctx : commands.Context, prefix : str):
+        """Sets the guild prefix for the bot"""
         async with aiosqlite.connect("database/prefix.db") as db:
             await db.execute("""UPDATE Prefix SET prefix=? WHERE guild_id=?""", (prefix, ctx.guild.id))
         

@@ -11,9 +11,12 @@ import os
 import time
 import json
 import datetime
+import asyncio
 
 import discord
+import uvicorn
 import aiosqlite
+from fastapi import FastAPI
 from dotenv import load_dotenv
 from discord.ext import commands
 
@@ -187,7 +190,7 @@ def loading_bar(
         print(f"\n\n{end}\n")
 
 
-def start_bot(client : WhyBot):
+async def start_bot(client : WhyBot):
     """
     Starts up the amazing Why Bot
     """
@@ -209,15 +212,33 @@ def start_bot(client : WhyBot):
 
     time.sleep(1)
 
-    client.run(os.environ['TOKEN'])
+    await client.start(os.environ['TOKEN'])
 
 
-if __name__ == '__main__':
+# API
+app = FastAPI()
+
+@app.get("/")
+async def root():
+    return {"detail" : "Hello World"}
+
+
+@app.on_event("startup")
+async def startup_event():
     load_dotenv()
 
     with open("config.json") as f:
         config = Config(json.load(f))
 
     client = WhyBot(config)
+    client.debug_guilds=[763348615233667082]
 
-    start_bot(client)
+    asyncio.create_task(start_bot(client))
+
+
+if __name__ == '__main__':
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=6969
+        )
