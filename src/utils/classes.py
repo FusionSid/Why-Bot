@@ -18,3 +18,4 @@ class Config():
         self.join_alert_channel = data["join_alert_channel"]
         self.leave_alert_channel = data["leave_alert_channel"]
         self.online_alert_channel = data["online_alert_channel"]
+        self.suggestion_channel = data["suggestion_channel"]

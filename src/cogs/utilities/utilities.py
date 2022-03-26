@@ -1,3 +1,6 @@
+import inspect
+import datetime
+
 import discord
 from simpcalc import simpcalc
 from discord.ext import commands
@@ -146,6 +149,32 @@ class Utilities(commands.Cog):
                 i.disabled = True
         return await message.edit(view=view)
 
+
+    @commands.command()
+    async def suggest(self, ctx, *, suggestion):
+        """Makes a suggestion"""
+        channel = await self.client.fetch_channel(self.client.config.suggestion_channel)
+        em = discord.Embed(
+            title = f"Suggestion",
+            description = suggestion,
+            color = ctx.author.color,
+            timestamp=datetime.datetime.utcnow()
+        )
+        em.add_field(name=f"by: {ctx.author.name}", value=f"{ctx.author.id}")
+        message = await channel.send(embed=em)
+        await message.add_reaction("✅")
+        await message.add_reaction("❌")
+
+
+    @commands.command()
+    async def getcode(self, ctx, name):
+        """Gets the code for a function"""
+        for command in self.client.commands:
+            if command.name.lower() == name.lower():
+                func = command.callback
+                filename = inspect.getsourcefile(func).split("/Why-Bot/src")[1]
+                await ctx.send(f"""```py\n\t# Code for the: {func.__name__} function\n\t# Code written by FusionSid#3645\n\n{inspect.getsource(func)}\n```\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}>""")
+                
 
 def setup(client : WhyBot):
     client.add_cog(Utilities(client))
