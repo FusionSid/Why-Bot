@@ -190,7 +190,8 @@ def loading_bar(
         print(f"\n\n{end}\n")
 
 
-async def start_bot(client : WhyBot):
+# async def start_bot(client : WhyBot):
+def start_bot(client : WhyBot):
     """
     Starts up the amazing Why Bot
     """
@@ -212,19 +213,39 @@ async def start_bot(client : WhyBot):
 
     time.sleep(1)
 
-    await client.start(os.environ['TOKEN'])
+    client.run(os.environ["TOKEN"])
+    # await client.start(os.environ['TOKEN'])
 
 
-# API
-app = FastAPI()
+# # API
+# app = FastAPI()
 
-@app.get("/")
-async def root():
-    return {"detail" : "Hello World"}
+# @app.get("/")
+# async def root():
+#     return {"detail" : "Hello World"}
 
 
-@app.on_event("startup")
-async def startup_event():
+# @app.on_event("startup")
+# async def startup_event():
+#     load_dotenv()
+
+#     with open("config.json") as f:
+#         config = Config(json.load(f))
+
+#     client = WhyBot(config)
+#     client.debug_guilds=[763348615233667082]
+
+#     asyncio.create_task(start_bot(client))
+
+
+# if __name__ == '__main__':
+#     uvicorn.run(
+#         app,
+#         host="0.0.0.0",
+#         port=6969
+#         )
+
+if __name__ == "__main__":
     load_dotenv()
 
     with open("config.json") as f:
@@ -233,12 +254,4 @@ async def startup_event():
     client = WhyBot(config)
     client.debug_guilds=[763348615233667082]
 
-    asyncio.create_task(start_bot(client))
-
-
-if __name__ == '__main__':
-    uvicorn.run(
-        app,
-        host="0.0.0.0",
-        port=6969
-        )
+    start_bot(client)

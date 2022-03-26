@@ -173,7 +173,8 @@ class Utilities(commands.Cog):
             if command.name.lower() == name.lower():
                 func = command.callback
                 filename = inspect.getsourcefile(func).split("/Why-Bot/src")[1]
-                await ctx.send(f"""```py\n\t# Code for the: {func.__name__} function\n\t# Code written by FusionSid#3645\n\n{inspect.getsource(func)}\n```\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}>""")
+                function_code = inspect.getsource(func).replace("```", "'")
+                await ctx.send(f"""```py\n\t# Code for the: {func.__name__} function\n\t# Code written by FusionSid#3645\n\n{function_code}\n```\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}>""")
                 
 
 def setup(client : WhyBot):
