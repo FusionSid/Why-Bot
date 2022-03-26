@@ -167,14 +167,21 @@ class Utilities(commands.Cog):
 
 
     @commands.command()
-    async def getcode(self, ctx, name):
+    async def getcode(self, ctx, name : str):
         """Gets the code for a function"""
         for command in self.client.commands:
             if command.name.lower() == name.lower():
                 func = command.callback
                 filename = inspect.getsourcefile(func).split("/Why-Bot/src")[1]
                 function_code = inspect.getsource(func).replace("```", "'")
-                await ctx.send(f"""```py\n\t# Code for the: {func.__name__} function\n\t# Code written by FusionSid#3645\n\n{function_code}\n```\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}>""")
+
+                first_line = func.__code__.co_firstlineno
+
+                function_length = len(function_code.replace("\\n", "").split("\n")[:-1])
+
+                last_line = function_length + first_line - 1
+
+                await ctx.send(f"""```py\n\t# Code for the: {func.__name__} function / {command.name} command\n\t# Code written by FusionSid#3645\n\n{function_code}\n```\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}#L{first_line}-L{last_line}>""")
                 
 
 def setup(client : WhyBot):
