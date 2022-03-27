@@ -18,7 +18,7 @@ from log import log_normal
 from utils import Config, WhyBot, loading_bar
 
 
-def start_bot(client : WhyBot):
+def start_bot(client: WhyBot):
     """
     Starts up the amazing Why Bot
     """
@@ -29,14 +29,13 @@ def start_bot(client : WhyBot):
         for filename in os.listdir(f"cogs/{category}"):
             if filename.endswith(".py"):
                 cogs.append(f"cogs.{category}.{filename[:-3]}")
-    
+
     print("\n")
     for index, cog in enumerate(cogs):
         client.cogs_list = cogs
         client.load_extension(cog)
         loading_bar(len(cogs), index, "Loading Cogs:", "Loaded All Cogs ✅")
         time.sleep(1)
-
 
     time.sleep(1)
 
@@ -50,6 +49,6 @@ if __name__ == "__main__":
         config = Config(json.load(f))
 
     client = WhyBot(config)
-    client.debug_guilds=[763348615233667082]
+    client.debug_guilds = [763348615233667082]
 
     start_bot(client)

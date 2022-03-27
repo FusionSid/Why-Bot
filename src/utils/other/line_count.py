@@ -7,6 +7,7 @@ Used to get the amount of lines in the current project
 import os
 from typing import List
 
+
 async def get_files() -> List[str]:
     """
     Gets a list of all the files in a python project
@@ -18,8 +19,8 @@ async def get_files() -> List[str]:
             continue
 
         for file in files:
-            file_name = os.path.join(root,file)
-            
+            file_name = os.path.join(root, file)
+
             if file_name.endswith(".py"):
                 file_list.append(file_name)
 

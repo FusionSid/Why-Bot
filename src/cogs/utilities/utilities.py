@@ -11,6 +11,7 @@ from utils import WhyBot
 
 class CalculatorView(discord.ui.View):
     """This is a view for the calculator"""
+
     def __init__(self, ctx):
         self.expr = ""
         self.ctx = ctx
@@ -73,7 +74,9 @@ class CalculatorView(discord.ui.View):
         await interaction.message.edit(content=f"```\n{self.expr}\n```")
 
     @discord.ui.button(style=discord.ButtonStyle.green, label="*", row=2)
-    async def multiply(self, button: discord.ui.Button, interaction: discord.Interaction):
+    async def multiply(
+        self, button: discord.ui.Button, interaction: discord.Interaction
+    ):
         self.expr += "*"
         await interaction.message.edit(content=f"```\n{self.expr}\n```")
 
@@ -92,7 +95,9 @@ class CalculatorView(discord.ui.View):
         try:
             self.expr = await self.calc.calculate(self.expr)
         except:  # if you are function only, change this to BadArgument
-            return await interaction.response.send_message("Um, looks like you provided a wrong expression....")
+            return await interaction.response.send_message(
+                "Um, looks like you provided a wrong expression...."
+            )
         await interaction.message.edit(content=f"```\n{self.expr}\n```")
 
     @discord.ui.button(style=discord.ButtonStyle.green, label="-", row=3)
@@ -101,12 +106,16 @@ class CalculatorView(discord.ui.View):
         await interaction.message.edit(content=f"```\n{self.expr}\n```")
 
     @discord.ui.button(style=discord.ButtonStyle.green, label="(", row=4)
-    async def left_bracket(self, button: discord.ui.Button, interaction: discord.Interaction):
+    async def left_bracket(
+        self, button: discord.ui.Button, interaction: discord.Interaction
+    ):
         self.expr += "("
         await interaction.message.edit(content=f"```\n{self.expr}\n```")
 
     @discord.ui.button(style=discord.ButtonStyle.green, label=")", row=4)
-    async def right_bracket(self, button: discord.ui.Button, interaction: discord.Interaction):
+    async def right_bracket(
+        self, button: discord.ui.Button, interaction: discord.Interaction
+    ):
         self.expr += ")"
         await interaction.message.edit(content=f"```\n{self.expr}\n```")
 
@@ -127,8 +136,9 @@ class CalculatorView(discord.ui.View):
         else:
             return True
 
+
 class Utilities(commands.Cog):
-    def __init__(self, client : WhyBot):
+    def __init__(self, client: WhyBot):
         self.client = client
 
     @slash_command(name="calculate", description="Interactive button calculator")
@@ -149,25 +159,23 @@ class Utilities(commands.Cog):
                 i.disabled = True
         return await message.edit(view=view)
 
-
     @commands.command()
     async def suggest(self, ctx, *, suggestion):
         """Makes a suggestion"""
         channel = await self.client.fetch_channel(self.client.config.suggestion_channel)
         em = discord.Embed(
-            title = f"Suggestion",
-            description = suggestion,
-            color = ctx.author.color,
-            timestamp=datetime.datetime.utcnow()
+            title=f"Suggestion",
+            description=suggestion,
+            color=ctx.author.color,
+            timestamp=datetime.datetime.utcnow(),
         )
         em.add_field(name=f"by: {ctx.author.name}", value=f"{ctx.author.id}")
         message = await channel.send(embed=em)
         await message.add_reaction("✅")
         await message.add_reaction("❌")
 
-
     @commands.command()
-    async def getcode(self, ctx, name : str):
+    async def getcode(self, ctx, name: str):
         """Gets the code for a function"""
         for command in self.client.commands:
             if command.name.lower() == name.lower():
@@ -181,8 +189,10 @@ class Utilities(commands.Cog):
 
                 last_line = function_length + first_line - 1
 
-                await ctx.send(f"""```py\n\t# Code for the: {func.__name__} function / {command.name} command\n\t# Code written by FusionSid#3645\n\n{function_code}\n```\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}#L{first_line}-L{last_line}>""")
-                
+                await ctx.send(
+                    f"""```py\n\t# Code for the: {func.__name__} function / {command.name} command\n\t# Code written by FusionSid#3645\n\n{function_code}\n```\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}#L{first_line}-L{last_line}>"""
+                )
 
-def setup(client : WhyBot):
+
+def setup(client: WhyBot):
     client.add_cog(Utilities(client))

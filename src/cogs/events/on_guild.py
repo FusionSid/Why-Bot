@@ -8,12 +8,11 @@ from utils import update_activity, WhyBot
 
 
 class OnGuild(commands.Cog):
-    def __init__(self, client : WhyBot):
+    def __init__(self, client: WhyBot):
         self.client = client
-    
 
     @commands.Cog.listener()
-    async def on_guild_remove(self,guild):
+    async def on_guild_remove(self, guild):
         """
         Called when the bot is removed from a guild
         It will update the bots activity
@@ -25,11 +24,12 @@ class OnGuild(commands.Cog):
         except Exception as err:
             return
 
-        em = discord.Embed(title="Leave", description=f"Left: {guild.name}", color=discord.Color.red())
+        em = discord.Embed(
+            title="Leave", description=f"Left: {guild.name}", color=discord.Color.red()
+        )
         em.timestamp = datetime.datetime.utcnow()
         await channel.send(embed=em)
-    
-    
+
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
         """
@@ -39,11 +39,15 @@ class OnGuild(commands.Cog):
         """
         channel = self.client.get_channel(self.client.config.join_alert_channel)
 
-        em = discord.Embed(title="Join", description=f"Joined: {guild.name}", color=discord.Color.green())
+        em = discord.Embed(
+            title="Join",
+            description=f"Joined: {guild.name}",
+            color=discord.Color.green(),
+        )
         em.timestamp = datetime.datetime.utcnow()
         await channel.send(embed=em)
         await update_activity(self.client)
 
 
-def setup(client : WhyBot):
+def setup(client: WhyBot):
     client.add_cog(OnGuild(client))

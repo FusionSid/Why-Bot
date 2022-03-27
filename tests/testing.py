@@ -31,7 +31,9 @@ for line in doc:
 print(f"Help: {help_str}\nCategory: {category}\nUsage: {usage}")
 
 first_line = test_function.__code__.co_firstlineno
-function_length = len(inspect.getsource(test_function).replace("\\n", "").split("\n")[:-1])
+function_length = len(
+    inspect.getsource(test_function).replace("\\n", "").split("\n")[:-1]
+)
 lines_count = function_length + first_line
 last_line = function_length + first_line - 1
 print(f"{first_line}-{last_line}")

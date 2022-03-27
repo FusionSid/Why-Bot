@@ -10,7 +10,11 @@ import logging
 import traceback
 
 
-logging.basicConfig(filename="log/logs.txt", format='[%(levelname)s] (%(asctime)s) - %(message)s', datefmt='%d-%b-%y %H:%M:%S')
+logging.basicConfig(
+    filename="log/logs.txt",
+    format="[%(levelname)s] (%(asctime)s) - %(message)s",
+    datefmt="%d-%b-%y %H:%M:%S",
+)
 
 
 def log_errors(etype, value, tb):
@@ -26,9 +30,9 @@ def log_errors(etype, value, tb):
 sys.excepthook = log_errors
 
 
-async def log_normal(message : str):
+async def log_normal(message: str):
     """
-    Logs an error 
+    Logs an error
 
     Parameters
         :param: message (str): The message you want to log
@@ -55,7 +59,7 @@ async def convert_to_dict() -> dict:
     return logs
 
 
-async def get_last_errors(count : int = 1):
+async def get_last_errors(count: int = 1):
     """
     Gets the last x amount of errors from the logs file
 
@@ -65,7 +69,7 @@ async def get_last_errors(count : int = 1):
     logs: dict = convert_to_dict()
     last_errors = {}
 
-    last_keys = [list(logs.keys())[-(i+1)] for i in range(count)]
+    last_keys = [list(logs.keys())[-(i + 1)] for i in range(count)]
 
     for key in last_keys:
         last_errors[key] = logs[key]
