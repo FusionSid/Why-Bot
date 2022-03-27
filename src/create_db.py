@@ -18,4 +18,8 @@ async def main():
         await db.commit()
 
 
+    async with aiosqlite.connect("") as db:
+        pass
+
+
 asyncio.new_event_loop().run_until_complete(main())
