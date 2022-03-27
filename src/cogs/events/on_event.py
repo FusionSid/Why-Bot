@@ -1,10 +1,8 @@
 import discord
 from discord.ext import commands
 
-from main import WhyBot
 from log import log_errors
-from main import get_prefix
-from utils import update_activity
+from utils import update_activity, get_prefix, WhyBot
 
 
 class OnEvent(commands.Cog):

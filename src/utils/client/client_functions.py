@@ -2,7 +2,6 @@
 
 Useful functions for the WhyBot client
 """
-
 import discord
 from discord.ext import commands
 
@@ -13,3 +12,4 @@ async def update_activity(client : commands.Bot):
             f"On {len(client.guilds)} servers! | ?help"
             )
         )
+

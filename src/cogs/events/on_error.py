@@ -4,7 +4,7 @@ import discord
 from discord.ext import commands
 from discord import InteractionResponded, CheckFailure
 
-from main import WhyBot
+from utils import WhyBot
 from log import log_errors
 
 

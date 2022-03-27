@@ -3,9 +3,8 @@ import datetime
 import discord
 from discord.ext import commands
 
-from main import WhyBot
 from log import log_errors
-from utils import update_activity
+from utils import update_activity, WhyBot
 
 
 class OnGuild(commands.Cog):

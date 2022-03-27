@@ -6,7 +6,7 @@ from simpcalc import simpcalc
 from discord.ext import commands
 from discord.commands import slash_command
 
-from main import WhyBot
+from utils import WhyBot
 
 
 class CalculatorView(discord.ui.View):

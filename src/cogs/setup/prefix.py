@@ -4,7 +4,7 @@ from discord.ext import commands
 from discord.commands import slash_command
 
 from log import log_normal
-from main import get_prefix, WhyBot
+from utils import get_prefix, WhyBot
 
 
 class Prefix(commands.Cog):

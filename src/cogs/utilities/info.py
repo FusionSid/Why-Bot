@@ -1,4 +1,3 @@
-import os
 import time
 import datetime
 
@@ -7,8 +6,7 @@ import discord
 import platform
 from discord.ext import commands
 
-from main import WhyBot
-from utils import get_lines
+from utils import get_lines, WhyBot
 
 class Info(commands.Cog):
     def __init__(self, client : WhyBot):
