@@ -1,11 +1,12 @@
 """
 This is the main file for the bot
-It contains the client (subclass of: `discord.ext.commands.Bot`)
-and the functions to start up the bot
+It contains functions to startup the bot
 """
 
-__version__ = 2.0
-__author__ = "Siddhesh Zantye"
+__version__ = "2.0.0"
+__author__ = "FusionSid"
+__licence__ = "GPL-3.0 License"
+
 
 import os
 import time
@@ -17,7 +18,6 @@ from log import log_normal
 from utils import Config, WhyBot, loading_bar
 
 
-# async def start_bot(client : WhyBot):
 def start_bot(client : WhyBot):
     """
     Starts up the amazing Why Bot

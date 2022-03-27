@@ -1,5 +1,11 @@
-__version__ = 2.0
-__author__ = "Siddhesh Zantye"
+""" (module) whybot
+
+This contains the WhyBot commands.Bot client Class and the get_prefix function
+"""
+
+__version__ = "2.0.0"
+__author__ = "FusionSid"
+__licence__ = "GPL-3.0 License"
 
 import json
 import datetime
