@@ -37,7 +37,7 @@ async def log_normal(message: str):
     Parameters
         :param: message (str): The message you want to log
     """
-    logging.error(message)
+    logging.info(message)
 
 
 async def convert_to_dict() -> dict:
@@ -66,7 +66,11 @@ async def get_last_errors(count: int = 1):
     Parameters
         :param: count (int): The amount of errors you want, defaults to 1
     """
-    logs: dict = convert_to_dict()
+    logs: dict = await convert_to_dict()
+    
+    if len(logs) == 0:
+        return None
+        
     last_errors = {}
 
     last_keys = [list(logs.keys())[-(i + 1)] for i in range(count)]

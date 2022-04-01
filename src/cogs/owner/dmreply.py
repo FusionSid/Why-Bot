@@ -22,6 +22,7 @@ class DMReply(commands.Cog):
     The bot owner will have the option to reply to the message
     You can send images, videos messages etc
     """
+
     def __init__(self, client: WhyBot):
         self.client = client
         self.dm_channel = client.config.dm_reply_channel
@@ -99,34 +100,33 @@ class DMReply(commands.Cog):
                     em.set_image(url=attachment.url)
                     await cha.send("** **", embed=em)
 
+
+
         if (
             message.channel.id == self.dm_channel
             and message.author.id == self.client.owner_id
         ):
             if message.reference is None:
                 return
-            else:
-                id = message.reference.message_id
-                id = await message.channel.fetch_message(id)
-                id = int(id.content)
-            person = await self.client.fetch_user(id)
+                
+            _id = message.reference.message_id
+            _id = await message.channel.fetch_message(_id)
+            _id = int(_id.content)
+            person = await self.client.fetch_user(_id)
 
-            if message.content is None or message.content == "":
-                pass
-            else:
+            if message.content is not None and message.content != "":
                 await person.send(message.content)
                 await message.add_reaction("✅")
 
-            if message.attachments is None:
-                return
-            else:
-                for i in message.attachments:
-                    if "image/" not in str(i.content_type):
-                        return await person.send("** **", i.url)
+            if message.attachments is not None:
+                for attachment in message.attachments:
+                    if "image/" not in str(attachment.content_type):
+                        return await person.send("** **", attachment.url)
                     em = discord.Embed(color=message.author.color)
                     em.timestamp = datetime.datetime.utcnow()
-                    em.set_image(url=i.url)
+                    em.set_image(url=attachment.url)
                     await person.send("** **", embed=em)
+
 
     @commands.command()
     @commands.is_owner()
