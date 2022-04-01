@@ -2,7 +2,8 @@ from .other import (
     get_lines, 
     get_files,
     loading_bar,
-    blacklisted
+    blacklisted,
+    kwarg_to_embed
 )
 
 from .models import (
