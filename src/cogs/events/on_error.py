@@ -18,6 +18,9 @@ class OnError(commands.Cog):
         if isinstance(error, commands.CommandNotFound):
             return
 
+        if isinstance(error, discord.ext.commands.errors.CheckFailure):
+            return
+
         elif isinstance(error, commands.CommandOnCooldown):
 
             async def better_time(cd: int):
@@ -49,10 +52,7 @@ class OnError(commands.Cog):
             await ctx.message.add_reaction("⚠️")
 
         elif isinstance(error, InteractionResponded):
-            pass
-
-        elif isinstance(error, CheckFailure):
-            pass
+            return
 
         elif isinstance(error, commands.MissingRequiredArgument):
             em = discord.Embed(

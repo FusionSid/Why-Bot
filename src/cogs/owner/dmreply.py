@@ -5,7 +5,7 @@ import discord
 import asyncio
 from discord.ext import commands
 
-from utils import WhyBot
+from utils import WhyBot, blacklisted
 
 
 async def put_on_cooldown(self, member):
@@ -15,6 +15,13 @@ async def put_on_cooldown(self, member):
 
 
 class DMReply(commands.Cog):
+    """
+    This is the dmreply cog
+    It is used to provide support to the users of the bot
+    When a dm is sent to the bot it will be copied and sent to the dm reply channel
+    The bot owner will have the option to reply to the message
+    You can send images, videos messages etc
+    """
     def __init__(self, client: WhyBot):
         self.client = client
         self.dm_channel = client.config.dm_reply_channel
@@ -25,28 +32,36 @@ class DMReply(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def dm_ban(self, ctx, id: int):
+    async def dm_ban(self, ctx, _id: int):
+        """
+        Bans a user from sending dm's to the bot
+        """
         with open("./database/dm_banned.json") as f:
             banned = json.load(f)
-        if id not in banned:
-            banned.append(id)
+        if _id not in banned:
+            banned.append(_id)
             await ctx.send("User Banned")
         with open("./database/dm_banned.json", "w") as f:
             json.dump(banned, f, indent=4)
 
     @commands.command()
     @commands.is_owner()
-    async def dm_unban(self, ctx, id: int):
+    async def dm_unban(self, ctx, _id: int):
+        """
+        Unbans a banned user
+        """
         with open("./database/dm_banned.json") as f:
             banned = json.load(f)
-        if id in banned:
-            banned.remove(id)
+        if _id in banned:
+            banned.remove(_id)
             await ctx.send("User Unbanned")
         with open("./database/dm_banned.json", "w") as f:
             json.dump(banned, f, indent=4)
 
     @commands.Cog.listener()
+    @commands.check(blacklisted)
     async def on_message(self, message):
+        """The on message event that handles the dm's"""
 
         if message.author.bot:
             return
@@ -114,6 +129,7 @@ class DMReply(commands.Cog):
                     await person.send("** **", embed=em)
 
     @commands.command()
+    @commands.is_owner()
     async def dmcontext(self, ctx, channel_id: int, limit: int = 10):
         channel = await self.client.fetch_channel(channel_id)
         description = ""

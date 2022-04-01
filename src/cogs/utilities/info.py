@@ -6,7 +6,7 @@ import discord
 import platform
 from discord.ext import commands
 
-from utils import get_lines, WhyBot
+from utils import get_lines, WhyBot, blacklisted
 
 
 class Info(commands.Cog):
@@ -14,6 +14,7 @@ class Info(commands.Cog):
         self.client = client
 
     @commands.command(name="info", description="Gets info on a member")
+    @commands.check(blacklisted)
     async def info(self, ctx: commands.Context, member: discord.Member = None):
         """Info on a member"""
 
