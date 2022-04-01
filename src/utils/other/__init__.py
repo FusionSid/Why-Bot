@@ -6,3 +6,5 @@ from .line_count import (
 )
 
 from .checks import blacklisted
+
+from .embed import kwarg_to_embed
