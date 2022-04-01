@@ -4,6 +4,7 @@ import discord
 from discord.ext import commands
 
 from utils import WhyBot
+from log import log_normal
 
 
 class CogTools(commands.Cog):

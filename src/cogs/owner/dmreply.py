@@ -5,6 +5,7 @@ import discord
 import asyncio
 from discord.ext import commands
 
+from log import log_normal
 from utils import WhyBot, blacklisted
 
 
@@ -100,15 +101,13 @@ class DMReply(commands.Cog):
                     em.set_image(url=attachment.url)
                     await cha.send("** **", embed=em)
 
-
-
         if (
             message.channel.id == self.dm_channel
             and message.author.id == self.client.owner_id
         ):
             if message.reference is None:
                 return
-                
+
             _id = message.reference.message_id
             _id = await message.channel.fetch_message(_id)
             _id = int(_id.content)
@@ -127,7 +126,6 @@ class DMReply(commands.Cog):
                     em.set_image(url=attachment.url)
                     await person.send("** **", embed=em)
 
-
     @commands.command()
     @commands.is_owner()
     async def dmcontext(self, ctx, channel_id: int, limit: int = 10):
@@ -144,5 +142,5 @@ class DMReply(commands.Cog):
         await ctx.send(description)
 
 
-def setup(client):
+def setup(client: WhyBot):
     client.add_cog(DMReply(client))
