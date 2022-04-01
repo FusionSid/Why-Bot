@@ -28,6 +28,8 @@ async def get_prefix(client, message):
     Returns:
         str : The command prefix for the guild
     """
+    if message.channel is None or message.guild is None:
+        return "?"
 
     async with aiosqlite.connect("database/prefix.db") as db:
         cur = await db.execute(
