@@ -4,7 +4,7 @@ from discord.ext import commands
 from discord.commands import slash_command
 
 from log import log_normal
-from utils import get_prefix, WhyBot
+from utils import get_prefix, WhyBot, blacklisted
 
 
 class Prefix(commands.Cog):
@@ -12,6 +12,7 @@ class Prefix(commands.Cog):
         self.client = client
 
     @commands.command(name="prefix", description="Shows the bots prefix")
+    @commands.check(blacklisted)
     async def prefix(self, ctx: commands.Context):
         """Displays the bots prefix"""
         prefix = await get_prefix(self.client, ctx.message)
@@ -19,6 +20,7 @@ class Prefix(commands.Cog):
         return await ctx.send(embed=em)
 
     @commands.command(name="setprefix", description="Sets the guild prefix for the bot")
+    @commands.check(blacklisted)
     async def setprefix(self, ctx: commands.Context, prefix: str):
         """Sets the guild prefix for the bot"""
         async with aiosqlite.connect("database/prefix.db") as db:

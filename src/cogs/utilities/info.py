@@ -72,6 +72,7 @@ class Info(commands.Cog):
         await ctx.send(embed=em)
 
     @commands.command(name="serverinfo", description="shows server info")
+    @commands.check(blacklisted)
     async def serverinfo(self, ctx: commands.Context):
         """Gets info on a the server"""
 
@@ -117,6 +118,7 @@ class Info(commands.Cog):
         await ctx.send(embed=em)
 
     @commands.command(name="botinfo", description="Gets info on Why Bot")
+    @commands.check(blacklisted)
     async def botinfo(self, ctx: commands.Context):
         """Gets info on the bot"""
 
@@ -173,6 +175,7 @@ class Info(commands.Cog):
         await ctx.send(embed=em)
 
     @commands.command()
+    @commands.check(blacklisted)
     async def uptime(self, ctx: commands.Context):
         """Gets the bots uptime"""
 
@@ -184,6 +187,7 @@ class Info(commands.Cog):
         )
 
     @commands.command(name="ping", description="Shows the bot's ping")
+    @commands.check(blacklisted)
     async def ping(self, ctx: commands.Context):
         """Gets the bots ping"""
 

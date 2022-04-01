@@ -6,7 +6,7 @@ from simpcalc import simpcalc
 from discord.ext import commands
 from discord.commands import slash_command
 
-from utils import WhyBot
+from utils import WhyBot, blacklisted
 
 
 class CalculatorView(discord.ui.View):
@@ -142,6 +142,7 @@ class Utilities(commands.Cog):
         self.client = client
 
     @slash_command(name="calculate", description="Interactive button calculator")
+    @commands.check(blacklisted)
     async def calculate(self, ctx):
         """
         This is an interactive calculator which uses buttons. It is simple to use and can calculate expressions
@@ -160,6 +161,7 @@ class Utilities(commands.Cog):
         return await message.edit(view=view)
 
     @commands.command()
+    @commands.check(blacklisted)
     async def suggest(self, ctx, *, suggestion):
         """Makes a suggestion"""
         channel = await self.client.fetch_channel(self.client.config.suggestion_channel)
@@ -175,6 +177,7 @@ class Utilities(commands.Cog):
         await message.add_reaction("❌")
 
     @commands.command()
+    @commands.check(blacklisted)
     async def getcode(self, ctx, name: str):
         """Gets the code for a function"""
         for command in self.client.commands:
