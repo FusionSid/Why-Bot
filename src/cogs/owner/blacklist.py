@@ -1,3 +1,5 @@
+from typing import Union
+
 import discord
 from discord.ext import commands
 
@@ -11,17 +13,27 @@ class Blacklisted(commands.Cog):
 
     @commands.command(aliases=["bl"])
     @commands.is_owner()
-    async def blacklist(self, ctx, user_id: int):
-        user = await self.client.fetch_user(user_id)
-        await self.client.blacklist_user(user_id)
+    async def blacklist(self, ctx, user_id: Union[int, discord.Member]):
+        if isinstance(user_id, discord.Member):
+            user = user_id
+
+        elif isinstance(user_id, int):
+            user = await self.client.fetch_user(user_id)
+
+        await self.client.blacklist_user(user.id)
 
         await ctx.send(f"User ({user.name}) has been blacklisted")
 
     @commands.command(aliases=["wl"])
     @commands.is_owner()
-    async def whitelist(self, ctx, user_id: int):
-        user = await self.client.fetch_user(user_id)
-        await self.client.whitelist_user(user_id)
+    async def whitelist(self, ctx, user_id: Union[int, discord.Member]):
+        if isinstance(user_id, discord.Member):
+            user = user_id
+
+        elif isinstance(user_id, int):
+            user = await self.client.fetch_user(user_id)
+
+        await self.client.whitelist_user(user.id)
 
         await ctx.send(f"User ({user.name}) has been whitelisted")
 
