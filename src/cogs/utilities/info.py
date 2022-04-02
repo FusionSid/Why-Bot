@@ -16,7 +16,15 @@ class Info(commands.Cog):
     @commands.command(name="info", description="Gets info on a member")
     @commands.check(blacklisted)
     async def info(self, ctx: commands.Context, member: discord.Member = None):
-        """Info on a member"""
+        """
+        This command is used to get info on a member
+
+        Help Info:
+        ----------
+        Category: Utilities
+
+        Usage: info [member: discord.Member (default=You)]
+        """
 
         if member == None:
             member = ctx.author
@@ -74,7 +82,15 @@ class Info(commands.Cog):
     @commands.command(name="serverinfo", description="shows server info")
     @commands.check(blacklisted)
     async def serverinfo(self, ctx: commands.Context):
-        """Gets info on a the server"""
+        """
+        This command is used to get info on the server
+
+        Help Info:
+        ----------
+        Category: Utilities
+
+        Usage: serverinfo
+        """
 
         em = discord.Embed(
             title="Server Info:",
@@ -120,7 +136,15 @@ class Info(commands.Cog):
     @commands.command(name="botinfo", description="Gets info on Why Bot")
     @commands.check(blacklisted)
     async def botinfo(self, ctx: commands.Context):
-        """Gets info on the bot"""
+        """
+        This command is used to get info on the bot
+
+        Help Info:
+        ----------
+        Category: Utilities
+
+        Usage: botinfo
+        """
 
         em = discord.Embed(
             title="Why Bot", description="Just Why?", color=ctx.author.color
@@ -177,21 +201,38 @@ class Info(commands.Cog):
     @commands.command()
     @commands.check(blacklisted)
     async def uptime(self, ctx: commands.Context):
-        """Gets the bots uptime"""
+        """
+        This command is used to get the uptime for the bot
+
+        Help Info:
+        ----------
+        Category: Utilities
+
+        Usage: uptime
+        """
 
         await ctx.send(
             embed=discord.Embed(
                 title="Uptime:",
                 description=f"I have been up for: **{(await self.client.uptime)}**",
+                color=ctx.author.color
             )
         )
 
     @commands.command(name="ping", description="Shows the bot's ping")
     @commands.check(blacklisted)
     async def ping(self, ctx: commands.Context):
-        """Gets the bots ping"""
+        """
+        This command is used to get the ping for the bot
 
-        await ctx.send(f"Pong! jk\n{round(self.client.latency * 1000)}ms")
+        Help Info:
+        ----------
+        Category: Utilities
+
+        Usage: ping
+        """
+
+        await ctx.send(f"Pong!\n{round(self.client.latency * 1000)}ms")
 
 
 def setup(client: WhyBot):

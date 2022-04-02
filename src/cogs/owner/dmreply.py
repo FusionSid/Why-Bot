@@ -36,7 +36,14 @@ class DMReply(commands.Cog):
     @commands.is_owner()
     async def dm_ban(self, ctx, _id: int):
         """
-        Bans a user from sending dm's to the bot
+        This command is used to ban a user from sending dm's to the bot
+        They can still send dm's but they wont be processed by the dmreply event
+
+        Help Info:
+        ----------
+        Category: Owner
+
+        Usage: dm_ban <id: int>
         """
         with open("./database/dm_banned.json") as f:
             banned = json.load(f)
@@ -50,7 +57,13 @@ class DMReply(commands.Cog):
     @commands.is_owner()
     async def dm_unban(self, ctx, _id: int):
         """
-        Unbans a banned user
+        This command is used to unban a user who was banned from sending dm's to the bot
+
+        Help Info:
+        ----------
+        Category: Owner
+
+        Usage: dm_unban <id: int>
         """
         with open("./database/dm_banned.json") as f:
             banned = json.load(f)

@@ -14,6 +14,16 @@ class Server(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def server_list(self, ctx):
+        """
+        This command is used to list the servers the bots in
+        It makes an embed with a list of the servers
+
+        Help Info:
+        ----------
+        Category: Owner
+
+        Usage: server_list
+        """
         em = discord.Embed(
             title = f"Connected on {str(len(self.client.guilds))} servers:",
             color=ctx.author.color,
@@ -52,6 +62,15 @@ class Server(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def server_fetch_info(self, ctx, server_id : int):
+        """
+        This command is used to get info on a server that the bot is in
+
+        Help Info:
+        ----------
+        Category: Owner
+
+        Usage: server_fetch_info <server_id: int>
+        """
         guild = self.client.get_guild(server_id)
         
         em = discord.Embed(title="Server Info:", description=f"For: {guild.name}", color=ctx.author.color)
@@ -68,6 +87,16 @@ class Server(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def message_server(self, ctx, server_id : int, *, message):
+        """
+        This command is used to message a specific server the bot is in
+        It send the message to the announcement channel and if there is none it wont send the message
+
+        Help Info:
+        ----------
+        Category: Owner
+
+        Usage: message_server <server_id: int> <message: str>
+        """
         data = await kwarg_to_embed(self.client, ctx, message)
         em = data[0]
 
@@ -78,6 +107,16 @@ class Server(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def message_all_servers(self, ctx, *, message):
+        """
+        This command is used to brodcast a message to all the channels a bot is in
+        It tries to send them to the announcment channel and if none it wont send the message
+
+        Help Info:
+        ----------
+        Category: Owner
+
+        Usage: message_all_servers <message: str>
+        """
         data = await kwarg_to_embed(self.client, ctx, message)
         em = data[0]
 
@@ -87,7 +126,16 @@ class Server(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def fetch_user_info(self, ctx, user_id : Union[int, discord.Member]):
+    async def fetch_user_info(self, ctx, user : Union[int, discord.Member]):
+        """
+        This command is used to fetch info a specific user. It is useful if you are messaging someone in dmreply and want to know who you are messaging
+
+        Help Info:
+        ----------
+        Category: Owner
+
+        Usage: fetch_user_info <user: discord.Member | int>
+        """
         pass
 
 

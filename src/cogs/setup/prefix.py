@@ -14,7 +14,15 @@ class Prefix(commands.Cog):
     @commands.command(name="prefix", description="Shows the bots prefix")
     @commands.check(blacklisted)
     async def prefix(self, ctx: commands.Context):
-        """Displays the bots prefix"""
+        """
+        This command is used to show the prefix for the bot
+
+        Help Info:
+        ----------
+        Category: Settings
+
+        Usage: prefix
+        """
         prefix = await get_prefix(self.client, ctx.message)
         em = discord.Embed(title=f"Hi, my prefix is `{prefix}`", color=ctx.author.color)
         return await ctx.send(embed=em)
@@ -22,7 +30,15 @@ class Prefix(commands.Cog):
     @commands.command(name="setprefix", description="Sets the guild prefix for the bot")
     @commands.check(blacklisted)
     async def setprefix(self, ctx: commands.Context, prefix: str):
-        """Sets the guild prefix for the bot"""
+        """
+        This command is used to set the guild prefix for the bot
+
+        Help Info:
+        ----------
+        Category: Owner
+
+        Usage: setprefix <prefix: str>
+        """
         async with aiosqlite.connect("database/prefix.db") as db:
             await db.execute(
                 """UPDATE Prefix SET prefix=? WHERE guild_id=?""",

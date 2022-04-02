@@ -13,12 +13,21 @@ class Blacklisted(commands.Cog):
 
     @commands.command(aliases=["bl"])
     @commands.is_owner()
-    async def blacklist(self, ctx, user_id: Union[int, discord.Member]):
-        if isinstance(user_id, discord.Member):
-            user = user_id
+    async def blacklist(self, ctx, user: Union[int, discord.Member]):
+        """
+        This command is for blacklisting users from using the bot
 
-        elif isinstance(user_id, int):
-            user = await self.client.fetch_user(user_id)
+        Help Info:
+        ----------
+        Category: Owner
+
+        Usage: blacklist <user: discord.Member | int>
+        """
+        if isinstance(user, discord.Member):
+            user = user
+
+        elif isinstance(user, int):
+            user = await self.client.fetch_user(user)
 
         await self.client.blacklist_user(user.id)
 
@@ -26,12 +35,21 @@ class Blacklisted(commands.Cog):
 
     @commands.command(aliases=["wl"])
     @commands.is_owner()
-    async def whitelist(self, ctx, user_id: Union[int, discord.Member]):
-        if isinstance(user_id, discord.Member):
-            user = user_id
+    async def whitelist(self, ctx, user: Union[int, discord.Member]):
+        """
+        This command is for whitelisting users who were blacklisted from using the bot
 
-        elif isinstance(user_id, int):
-            user = await self.client.fetch_user(user_id)
+        Help Info:
+        ----------
+        Category: Owner
+
+        Usage: whitelist <user: discord.Member | int>
+        """
+        if isinstance(user, discord.Member):
+            pass
+
+        elif isinstance(user, int):
+            user = await self.client.fetch_user(user)
 
         await self.client.whitelist_user(user.id)
 
@@ -40,12 +58,21 @@ class Blacklisted(commands.Cog):
     @commands.command(aliases=["blacklisted"])
     @commands.is_owner()
     async def listblack(self, ctx):
+        """
+        This command is for listing users who have been blacklisted
+
+        Help Info:
+        ----------
+        Category: Owner
+
+        Usage: listblack
+        """
         blacklisted = self.client.blacklisted_users
         blacklisted_users = []
         for user in blacklisted:
             try:
                 await self.client.fetch_user(user)
-                blacklisted_users.append(user.name)
+                blacklisted_users.append(f"{user.name} ({user.id})")
             except:
                 blacklisted_users.append(user)
                 continue

@@ -1,7 +1,9 @@
+import datetime
+
 import discord
 from discord.ext import commands
 
-from log import log_errors
+from log import log_errors, log_normal
 from utils import update_activity, get_prefix, WhyBot
 
 
@@ -38,7 +40,15 @@ class OnEvent(commands.Cog):
         Prints a message to console and updates the bot's activity
         """
         print("Bot is ready")
+
         await update_activity(self.client)
+
+        channel = await self.client.fetch_channel(self.client.config.online_alert_channel)
+        if channel is not None:
+            em = discord.Embed(title="Bot is online", color=discord.Color.green(), timestamp=datetime.datetime.now())
+            await channel.send(embed=em)
+
+        await log_normal("Bot is Online")
 
 
 def setup(client: WhyBot):

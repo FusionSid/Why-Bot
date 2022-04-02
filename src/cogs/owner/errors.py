@@ -26,6 +26,15 @@ class ErrorLog(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def get_last_error(self, ctx, limit: int = 1):
+        """
+        This command is used to get the most recent errors/error that the bot logged to the log file
+
+        Help Info:
+        ----------
+        Category: Owner
+
+        Usage: get_last_error [limit: int (default = 1)]
+        """
         errors = await get_last_errors(count=limit)
 
         if errors is None:

@@ -12,6 +12,16 @@ class Git(commands.Cog):
     @commands.group()
     @commands.is_owner()
     async def git(self, ctx):
+        """
+        This is a group of git commands
+        List: pull, status, add, commit push
+
+        Help Info:
+        ----------
+        Category: Owner
+
+        Usage: git <command>
+        """
         if ctx.invoked_subcommand is not None:
             return
         else:
@@ -49,7 +59,7 @@ class Git(commands.Cog):
     @commands.is_owner()
     async def commit(self, ctx):
         output = run(
-            [f"{self.cwd}git", "commit", "-m", "'Updated File'"], capture_output=True
+            [f"{self.cwd}git", "commit", "-m", "'Updated File/s'"], capture_output=True
         ).stdout
 
         await ctx.send(output.decode())

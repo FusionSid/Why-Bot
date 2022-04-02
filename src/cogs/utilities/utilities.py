@@ -17,12 +17,13 @@ class Utilities(commands.Cog):
     @commands.check(blacklisted)
     async def calculate(self, ctx):
         """
-        This is an interactive calculator which uses buttons. It is simple to use and can calculate expressions
+        This command is used to show an interactive button calculator
 
-        HELP_INFO
-        ---------
-            Category: Utilities
-            Usage: /calculate
+        Help Info:
+        ----------
+        Category: Utilities
+
+        Usage: calculate
         """
         view = CalculatorView(ctx)
         message = await ctx.send("```\n```", view=view)
@@ -35,7 +36,15 @@ class Utilities(commands.Cog):
     @commands.command()
     @commands.check(blacklisted)
     async def suggest(self, ctx, *, suggestion):
-        """Makes a suggestion"""
+        """
+        This command is used to make a suggestion for the bot
+
+        Help Info:
+        ----------
+        Category: Utilities
+
+        Usage: suggest <suggestion: str>
+        """
         channel = await self.client.fetch_channel(self.client.config.suggestion_channel)
         em = discord.Embed(
             title=f"Suggestion",
@@ -51,7 +60,17 @@ class Utilities(commands.Cog):
     @commands.command()
     @commands.check(blacklisted)
     async def getcode(self, ctx, name: str):
-        """Gets the code for a function"""
+        """
+        This command is used to get the code for a specific command
+        It is useful if you want to quickly check the code for a command without opening the github
+        It also provides a link to the github link with the code highlighted
+
+        Help Info:
+        ----------
+        Category: Programming
+
+        Usage: getcode <name: str>
+        """
         for command in self.client.commands:
             if command.name.lower() == name.lower():
                 func = command.callback
@@ -64,9 +83,93 @@ class Utilities(commands.Cog):
 
                 last_line = function_length + first_line - 1
 
-                await ctx.send(
+                return await ctx.send(
                     f"""```py\n\t# Code for the: {func.__name__} function / {command.name} command\n\t# Code written by FusionSid#3645\n\n{function_code}\n```\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}#L{first_line}-L{last_line}>"""
                 )
+
+    @commands.command()
+    async def get_command_doc(self, ctx, name: str):
+        """
+        This command is used to get the doc string for a function
+        Its kinda like a raw help command
+
+        Help Info:
+        ----------
+        Category: Programming
+
+        Usage: get_command_doc <name: str>
+        """
+        func, cmd = None, None
+        for command in self.client.commands:
+            if command.name.lower() == name.lower():
+                func = command.callback
+                cmd = command
+                break
+
+        if func is None:
+            return await ctx.send("Command not found")
+
+        doc_string = func.__doc__.split("\n")
+        doc_string = [i.strip() for i in doc_string]
+        doc_string = "\n".join(doc_string)
+        em = discord.Embed(
+            title=f"Doc String for {cmd}",
+            color=ctx.author.color,
+            timestamp=datetime.datetime.now(),
+            description=f'```py\n"""\n{doc_string}\n"""\n```',
+        )
+
+        await ctx.send(embed=em)
+
+    @commands.command()
+    async def invite(self, ctx):
+        """
+        This command is used to make a 10 day invite for the server
+
+        Help Info:
+        ----------
+        Category: Utilities
+
+        Usage: invite
+        """
+        link = await ctx.channel.create_invite(max_age=10)
+        await ctx.send(link)
+
+    @commands.command()
+    async def botinvite(self, ctx):
+        """
+        This command is used to get the invite link for the bot
+
+        Help Info:
+        ----------
+        Category: Utilities
+
+        Usage: botinvite
+        """
+        await ctx.send(
+            embed=discord.Embed(
+                title="Invite **Why?** to your server:",
+                description="[Why Invite Link](https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands)",
+                color=ctx.author.color,
+            )
+        )
+
+    @commands.command()
+    async def avatar(self, ctx, member: discord.Member = None):
+        """
+        This command is used to get the avatar for a member
+
+        Help Info:
+        ----------
+        Category: Utilities
+
+        Usage: avatar [member: discord.Member (default=You)]
+        """
+        if member is None:
+            member = ctx.author
+        em = discord.Embed(title=f"{member.name}'s Avatar:", color=member.color)
+        em.set_image(url=member.avatar.url)
+        await ctx.send(embed=em)
 
 
 def setup(client: WhyBot):
