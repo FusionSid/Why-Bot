@@ -24,6 +24,15 @@ class Leveling(commands.Cog):
 
     @commands.command()
     async def rank(self, ctx, member: discord.Member = None):
+        """
+        This command displays your rank image in a card
+
+        Help Info:
+        ----------
+        Category: Leveling
+
+        Usage: rank [member: discord.Member(default=You)]
+        """
         if member == None:
             data = await lvl.get_data_for(ctx.author)
         else:
