@@ -1,0 +1,5 @@
+aiosqlite==0.17.0
+py-cord==2.0.0b3
+psutil==5.9.0
+python-dotenv==0.19.2
+simpcalci==0.0.2

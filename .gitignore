@@ -6,6 +6,6 @@
 *.json
 *.png
 *.pyc
-*.txt
+src/log/logs.txt
 *__pycache__
 *why-bot-venv
