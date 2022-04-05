@@ -47,12 +47,12 @@ print(f"{first_line}-{last_line}")
 print(first_line, function_length, lines_count)
 
 
-        """
+"""
 
 
-        Help Info:
-        ----------
-        Category: 
+Help Info:
+----------
+Category: 
 
-        Usage: 
-        """
+Usage: 
+"""
