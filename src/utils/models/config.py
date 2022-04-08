@@ -16,8 +16,26 @@ class Config:
     """
 
     def __init__(self, data):
-        self.dm_reply_channel = data["dm_reply_channel"]
-        self.join_alert_channel = data["join_alert_channel"]
-        self.leave_alert_channel = data["leave_alert_channel"]
-        self.online_alert_channel = data["online_alert_channel"]
-        self.suggestion_channel = data["suggestion_channel"]
+        self.dm_reply_channel = (
+            data["dm_reply_channel"] if data["dm_reply_channel"] is not None else 0
+        )
+
+        self.join_alert_channel = (
+            data["join_alert_channel"] if data["join_alert_channel"] is not None else 0
+        )
+
+        self.leave_alert_channel = (
+            data["leave_alert_channel"]
+            if data["leave_alert_channel"] is not None
+            else 0
+        )
+
+        self.online_alert_channel = (
+            data["online_alert_channel"]
+            if data["online_alert_channel"] is not None
+            else 0
+        )
+
+        self.suggestion_channel = (
+            data["suggestion_channel"] if data["suggestion_channel"] is not None else 0
+        )

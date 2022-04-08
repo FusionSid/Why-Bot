@@ -19,9 +19,10 @@ class OnGuild(commands.Cog):
         It will also send a message to the the leave_alert_channel which is set in the config
         """
         await update_activity(self.client)
+        if self.client.config.leave_alert_channel == 0 or self.client.config.leave_alert_channel == None: return 
         try:
             channel = self.client.get_channel(self.client.config.leave_alert_channel)
-        except Exception as err:
+        except discord.errors.NotFound:
             return
 
         em = discord.Embed(
@@ -37,7 +38,11 @@ class OnGuild(commands.Cog):
         It will update the bots activity
         It will also send a message to the the join_alert_channel which is set in the config
         """
-        channel = self.client.get_channel(self.client.config.join_alert_channel)
+        if self.client.config.join_alert_channel == 0 or self.client.config.join_alert_channel == None: return 
+        try:
+            channel = self.client.get_channel(self.client.config.join_alert_channel)
+        except discord.errors.NotFound:
+            return
 
         em = discord.Embed(
             title="Join",

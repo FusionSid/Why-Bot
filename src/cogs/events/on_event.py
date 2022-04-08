@@ -43,10 +43,14 @@ class OnEvent(commands.Cog):
 
         await update_activity(self.client)
 
-        channel = await self.client.fetch_channel(self.client.config.online_alert_channel)
-        if channel is not None:
-            em = discord.Embed(title="Bot is online", color=discord.Color.green(), timestamp=datetime.datetime.now())
-            await channel.send(embed=em)
+        if self.client.config.online_alert_channel == 0 or self.client.config.online_alert_channel == None: return 
+        try:
+            channel = await self.client.fetch_channel(self.client.config.online_alert_channel)
+        except discord.errors.NotFound:
+            return
+    
+        em = discord.Embed(title="Bot is online", color=discord.Color.green(), timestamp=datetime.datetime.now())
+        await channel.send(embed=em)
 
         await log_normal("Bot is Online")
 

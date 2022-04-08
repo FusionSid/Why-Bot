@@ -45,7 +45,13 @@ class Utilities(commands.Cog):
 
         Usage: suggest <suggestion: str>
         """
-        channel = await self.client.fetch_channel(self.client.config.suggestion_channel)
+        if self.client.config.suggestion_channel == 0 or self.client.config.suggestion_channel == None: return await ctx.send("Bot owner has disabled suggestions")
+
+        try:
+            channel = await self.client.fetch_channel(self.client.config.suggestion_channel)
+        except discord.errors.NotFound:
+            return await ctx.send("Bot owner has disabled suggestions")
+
         em = discord.Embed(
             title=f"Suggestion",
             description=suggestion,

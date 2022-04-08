@@ -78,8 +78,9 @@ class DMReply(commands.Cog):
     async def on_message(self, message):
         """The on message event that handles the dm's"""
 
-        if message.author.bot:
-            return
+        if message.author.bot: return
+
+        if self.dm_channel == 0 or self.dm_channel == None: return 
 
         if isinstance(message.channel, discord.DMChannel):
             with open("./database/dm_banned.json") as f:
@@ -93,7 +94,10 @@ class DMReply(commands.Cog):
 
             await put_on_cooldown(self, message.author)
 
-            cha = await self.client.fetch_channel(self.dm_channel)
+            try:
+                cha = await self.client.fetch_channel(self.dm_channel)
+            except discord.errors.NotFound:
+                return
 
             em = discord.Embed(
                 title=f"New DM from {message.author.name}",
