@@ -6,6 +6,7 @@ import discord
 import platform
 from discord.ext import commands
 
+import log.log
 from utils import get_lines, WhyBot, blacklisted
 
 

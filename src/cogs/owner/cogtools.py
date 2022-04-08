@@ -3,8 +3,8 @@ import datetime
 import discord
 from discord.ext import commands
 
+import log.log
 from utils import WhyBot
-from log import log_normal
 
 
 class CogTools(commands.Cog):

@@ -5,6 +5,7 @@ from typing import Union
 import discord
 from discord.ext import commands
 
+import log.log
 from utils import WhyBot, kwarg_to_embed
 
 class Server(commands.Cog):

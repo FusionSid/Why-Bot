@@ -3,6 +3,7 @@ from subprocess import run
 import discord
 from discord.ext import commands
 
+import log.log
 
 class Git(commands.Cog):
     def __init__(self, client):

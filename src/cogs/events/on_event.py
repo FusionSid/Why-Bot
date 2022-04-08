@@ -3,7 +3,7 @@ import datetime
 import discord
 from discord.ext import commands
 
-from log import log_errors, log_normal
+from log import log_normal
 from utils import update_activity, get_prefix, WhyBot
 
 

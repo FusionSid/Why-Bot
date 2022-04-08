@@ -5,6 +5,7 @@ import discord
 from discord.ext import commands
 from discord.commands import slash_command
 
+import log.log
 from utils import WhyBot, blacklisted
 from utils.views import CalculatorView
 

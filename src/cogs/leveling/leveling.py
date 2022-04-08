@@ -1,10 +1,11 @@
-import os
 from io import BytesIO
 
 import discord
 from discord.ext import commands
 from easy_pil import Editor, Canvas, Font, load_image_async, Text
 from discordLevelingSystem import DiscordLevelingSystem, LevelUpAnnouncement
+
+import log.log
 
 announcement_embed = discord.Embed(
     color=discord.Color.green(),

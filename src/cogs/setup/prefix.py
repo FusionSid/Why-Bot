@@ -3,7 +3,7 @@ import aiosqlite
 from discord.ext import commands
 from discord.commands import slash_command
 
-from log import log_normal
+import log.log
 from utils import get_prefix, WhyBot, blacklisted
 
 

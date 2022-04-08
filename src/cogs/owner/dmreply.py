@@ -5,7 +5,7 @@ import discord
 import asyncio
 from discord.ext import commands
 
-from log import log_normal
+import log.log
 from utils import WhyBot, blacklisted
 
 
