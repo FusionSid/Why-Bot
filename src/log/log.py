@@ -9,6 +9,11 @@ import sys
 import logging
 import traceback
 
+from rich.panel import Panel
+from rich.console import Console
+
+rich_console = Console()
+
 
 logging.basicConfig(
     filename="log/logs.txt",
@@ -24,7 +29,15 @@ def log_errors(etype, value, tb):
     logging.error(error)
 
     # Commenting out this line will stop errors being printed to console
-    sys.__excepthook__(etype, value, tb)
+    # sys.__excepthook__(etype, value, tb)
+    
+    rich_console.print(
+        Panel(
+            f"Traceback (most recent call last):\n\t{''.join(traceback.format_tb(tb))}\n{value}",
+            title=etype.__name__,
+            border_style="red",
+        )
+    )
 
 
 sys.excepthook = log_errors
@@ -67,10 +80,10 @@ async def get_last_errors(count: int = 1):
         :param: count (int): The amount of errors you want, defaults to 1
     """
     logs: dict = await convert_to_dict()
-    
+
     if len(logs) == 0:
         return None
-        
+
     last_errors = {}
 
     last_keys = [list(logs.keys())[-(i + 1)] for i in range(count)]

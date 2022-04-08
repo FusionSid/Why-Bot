@@ -39,7 +39,7 @@ class OnEvent(commands.Cog):
         Runs when the bot is ready
         Prints a message to console and updates the bot's activity
         """
-        print("Bot is ready")
+        self.client.console.print("\n[bold green]Bot is ready")
 
         await update_activity(self.client)
 

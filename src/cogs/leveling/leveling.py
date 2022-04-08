@@ -31,7 +31,7 @@ class Leveling(commands.Cog):
         ----------
         Category: Leveling
 
-        Usage: rank [member: discord.Member(default=You)]
+        Usage: rank [member: discord.Member (default = You)]
         """
         if member == None:
             data = await lvl.get_data_for(ctx.author)

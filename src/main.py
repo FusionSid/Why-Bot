@@ -12,11 +12,15 @@ import os
 import time
 import json
 
+from rich.progress import Progress
 from dotenv import load_dotenv
+from rich.traceback import install
+
 
 from log import log_normal
-from utils import Config, WhyBot, loading_bar
+from utils import Config, WhyBot
 
+install()
 
 def start_bot(client: WhyBot):
     """
@@ -31,11 +35,16 @@ def start_bot(client: WhyBot):
                 cogs.append(f"cogs.{category}.{filename[:-3]}")
 
     print("\n")
-    for index, cog in enumerate(cogs):
-        client.cogs_list = cogs
-        client.load_extension(cog)
-        loading_bar(len(cogs), index, "Loading Cogs:", "Loaded All Cogs ✅")
-        time.sleep(1)
+    client.cogs_list = cogs
+
+    with Progress() as progress:
+        loading_cogs = progress.add_task("[bold green]Loading Cogs", total=len(cogs))
+        while not progress.finished:
+            for cog in cogs:
+                client.load_extension(cog)
+                time.sleep(0.1)
+                progress.update(loading_cogs, advance=1, description=f"[bold green]Loaded[/] [blue]{cog}[/]")
+        progress.update(loading_cogs, description="[bold green]Loaded all cogs")
 
     time.sleep(1)
 

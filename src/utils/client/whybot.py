@@ -12,6 +12,7 @@ import datetime
 
 import discord
 import aiosqlite
+from rich.console import Console
 from discord.ext import commands
 
 from utils import Config
@@ -63,6 +64,7 @@ class WhyBot(commands.Bot):
         self.cogs_list = []
         self.config = config
         self.version = __version__
+        self.console = Console()
         self.last_login_time = datetime.datetime.now()
 
         intents = discord.Intents.all()
