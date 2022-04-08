@@ -90,9 +90,13 @@ class Utilities(commands.Cog):
 
                 last_line = function_length + first_line - 1
 
+                if len(function_code) > 1990:
+                    return await ctx.send(embed=discord.Embed(title="Code to large lmao", description=f"Link to code:\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}#L{first_line}-L{last_line}>", color=ctx.author.color))
+
                 return await ctx.send(
                     f"""```py\n\t# Code for the: {func.__name__} function / {command.name} command\n\t# Code written by FusionSid#3645\n\n{function_code}\n```\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}#L{first_line}-L{last_line}>"""
                 )
+
 
     @commands.command()
     async def get_command_doc(self, ctx, name: str):
