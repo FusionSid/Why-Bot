@@ -65,24 +65,7 @@ also check out the todo issue for other things im gonna do
 	connect 4 
 
 
-## Events:
-###	Errors:
-		On command error
-		Handlers for errors
-		Custom exceptions
 
-###	Guild:
-		On guild join
-		On guild leave
-
-
-###	On ready:
-		Startup stuff
-		Send alert
-
-
-###	On message:
-		Check if bot is mentioned in the message		
 
 
 ## OnPing / AFK:
@@ -114,53 +97,6 @@ also check out the todo issue for other things im gonna do
 		New Tag
 		Show Tag
 		Delete Tag
-
-
-## Owner:
-###	Cog Tools:
-		Load cog
-		Reload cog
-		Unload cog
-		Reload all cogs
-
-
-###	DM Reply:
-		Reply
-		Context
-		Dm ban
-		Dm unban
-		
-	
-###	Git:
-		Status
-		Pull code
-
-
-###	Blacklist:
-		Mass blacklist
-		Blacklist user
-		Whitelist user
-		Blacklist server
-		Whitelist server
-		List blacklisted users
-		List blacklisted servers
-
-
-###	Servers:
-		Server list
-		Server info
-		Message server
-		Message all servers / Broadcast
-		
-
-###	User info:
-		Find user
-
-
-###	Logging:
-		Get log file
-		Get last x amount of errors
-		Log message
 
 
 ## Auto-mod

@@ -10,3 +10,4 @@ src/log/logs.txt
 *__pycache__
 *why-bot-venv
 docsrc/
+src/create_db.py

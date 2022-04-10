@@ -1,11 +1,11 @@
 import datetime
+from typing import Union
 
 import discord
 from discord.ext import commands
 
-
 class Roles(commands.Cog):
-    def __init__(self, client):
+    def __init__(self,  client):
         self.client = client
         self.edit_role_mentions = discord.AllowedMentions(
             users=False, everyone=False, roles=False, replied_user=False

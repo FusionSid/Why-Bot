@@ -50,7 +50,6 @@ import asyncio
 
 import aiosqlite
 
-
 async def main():
     async with aiosqlite.connect("database/prefix.db") as db:
         await db.execute(
@@ -58,6 +57,18 @@ async def main():
             guild_id INTEGER PRIMARY KEY NOT NULL, 
             prefix TEXT NOT NULL
             )"""
+        )
+        await db.commit()
+
+
+    async with aiosqlite.connect("database/warnings.db") as db:
+        await db.execute(
+            """CREATE TABLE IF NOT EXISTS Warnings (
+                guild_id INTEGER,
+                member_id INTEGER, 
+                time INTEGER,
+                reason TEXT
+                )"""
         )
         await db.commit()
 

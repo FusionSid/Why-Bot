@@ -1,5 +1,9 @@
+aiohttp==3.8.1
 aiosqlite==0.17.0
 py-cord==2.0.0b3
+discordLevelingSystem==1.1.0
+easy_pil==0.1.0
 psutil==5.9.0
-python-dotenv==0.19.2
+python-dotenv==0.20.0
+rich==12.2.0
 simpcalci==0.0.2
