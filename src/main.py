@@ -22,6 +22,7 @@ from utils import Config, WhyBot
 
 install()
 
+
 def start_bot(client: WhyBot):
     """
     Starts up the amazing Why Bot
@@ -43,7 +44,11 @@ def start_bot(client: WhyBot):
             for cog in cogs:
                 client.load_extension(cog)
                 time.sleep(0.1)
-                progress.update(loading_cogs, advance=1, description=f"[bold green]Loaded[/] [blue]{cog}[/]")
+                progress.update(
+                    loading_cogs,
+                    advance=1,
+                    description=f"[bold green]Loaded[/] [blue]{cog}[/]",
+                )
         progress.update(loading_cogs, description="[bold green]Loaded all cogs")
 
     time.sleep(1)
