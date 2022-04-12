@@ -30,7 +30,7 @@ def log_errors(etype, value, tb):
 
     # Commenting out this line will stop errors being printed to console
     # sys.__excepthook__(etype, value, tb)
-    
+
     rich_console.print(
         Panel(
             f"Traceback (most recent call last):\n\t{''.join(traceback.format_tb(tb))}\n{value}",
