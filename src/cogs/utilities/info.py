@@ -216,7 +216,7 @@ class Info(commands.Cog):
             embed=discord.Embed(
                 title="Uptime:",
                 description=f"I have been up for: **{(await self.client.uptime)}**",
-                color=ctx.author.color
+                color=ctx.author.color,
             )
         )
 

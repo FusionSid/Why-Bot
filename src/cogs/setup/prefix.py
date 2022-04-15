@@ -29,6 +29,7 @@ class Prefix(commands.Cog):
 
     @commands.command(name="setprefix", description="Sets the guild prefix for the bot")
     @commands.check(blacklisted)
+    @commands.has_permissions(administrator=True)
     async def setprefix(self, ctx: commands.Context, prefix: str):
         """
         This command is used to set the guild prefix for the bot

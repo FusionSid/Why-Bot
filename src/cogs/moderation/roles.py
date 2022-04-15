@@ -4,6 +4,8 @@ from typing import Union
 import discord
 from discord.ext import commands
 
+from utils import blacklisted
+
 class Roles(commands.Cog):
     def __init__(self,  client):
         self.client = client
@@ -14,6 +16,7 @@ class Roles(commands.Cog):
     @commands.command(name="giverole", description="gives role / roles to a member")
     @commands.has_permissions(manage_roles=True)
     @commands.bot_has_permissions(manage_roles=True)
+    @commands.check(blacklisted)
     async def giverole(
         self,
         ctx: commands.Context,
@@ -85,6 +88,7 @@ class Roles(commands.Cog):
     @commands.command(name="takerole", description="removes role / roles from a member")
     @commands.has_permissions(manage_roles=True)
     @commands.bot_has_permissions(manage_roles=True)
+    @commands.check(blacklisted)
     async def takerole(
         self,
         ctx: commands.Context,

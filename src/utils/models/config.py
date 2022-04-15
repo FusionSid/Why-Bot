@@ -39,3 +39,7 @@ class Config:
         self.suggestion_channel = (
             data["suggestion_channel"] if data["suggestion_channel"] is not None else 0
         )
+
+        self.bug_report_channel = (
+            data["bug_report_channel"] if data["bug_report_channel"] is not None else 0
+        )

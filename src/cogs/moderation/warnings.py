@@ -5,6 +5,8 @@ import discord
 import aiosqlite
 from discord.ext import commands
 
+from utils import blacklisted
+
 
 async def warn_member(guild_id: int, member: discord.Member, reason: str):
     time_right_now = int(time.time())
@@ -33,6 +35,8 @@ class Warnings(commands.Cog):
         self.client = client
 
     @commands.command()
+    @commands.check(blacklisted)
+    @commands.has_permissions(administrator=True)
     async def warn(self, ctx, member: discord.Member, *, reason):
         await warn_member(ctx.guild.id, member, reason)
         em = discord.Embed(
@@ -44,6 +48,8 @@ class Warnings(commands.Cog):
         await ctx.send(embed=em)
 
     @commands.command()
+    @commands.check(blacklisted)
+    @commands.has_permissions(administrator=True)
     async def warnings(self, ctx, member: discord.Member):
         warnings = await get_warnings(ctx.guild.id, member.id)
         if warnings is None:
@@ -62,6 +68,8 @@ class Warnings(commands.Cog):
         await ctx.send(embed=em)
 
     @commands.command()
+    @commands.check(blacklisted)
+    @commands.has_permissions(administrator=True)
     async def clear_warnings(self, ctx, member: discord.Member):
         async with aiosqlite.connect("database/warnings.db") as db:
             await db.execute(

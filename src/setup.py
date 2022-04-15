@@ -1,6 +1,10 @@
 import json
+import asyncio
+
+import aiosqlite
 from rich.prompt import Prompt
 from rich.console import Console
+from discordLevelingSystem import DiscordLevelingSystem
 
 console = Console()
 
@@ -21,6 +25,11 @@ leave_alert_channel = (
     int(leave_alert_channel) if leave_alert_channel is not None else leave_alert_channel
 )
 
+bug_report_channel = Prompt.ask("Enter the ID for the bug_report_channel", default=None)
+bug_report_channel = (
+    int(bug_report_channel) if bug_report_channel is not None else bug_report_channel
+)
+
 online_alert_channel = Prompt.ask(
     "Enter the ID for the online_alert_channel", default=None
 )
@@ -36,19 +45,13 @@ config = {
     "join_alert_channel": join_alert_channel,
     "leave_alert_channel": leave_alert_channel,
     "online_alert_channel": online_alert_channel,
+    "bug_report_channel": bug_report_channel,
 }
 
 
 with open("config.json", "w") as f:
     json.dump(config, f, indent=4)
 
-
-print("Setup Complete :)")
-
-# Create prefix database
-import asyncio
-
-import aiosqlite
 
 async def main():
     async with aiosqlite.connect("database/prefix.db") as db:
@@ -59,7 +62,6 @@ async def main():
             )"""
         )
         await db.commit()
-
 
     async with aiosqlite.connect("database/warnings.db") as db:
         await db.execute(
@@ -74,3 +76,12 @@ async def main():
 
 
 asyncio.new_event_loop().run_until_complete(main())
+
+
+data = []
+with open("database/dm_banned.json", "w") as f:
+    json.dump(data, f, indent=4)
+with open("database/blacklisted.json", "w") as f:
+    json.dump(data, f, indent=4)
+
+DiscordLevelingSystem.create_database_file("database")
