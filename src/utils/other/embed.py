@@ -41,7 +41,7 @@ colors = {
 }
 
 async def kwarg_to_embed(client, ctx, kwargs):
-
+        send_dm, content = False, None
         colorlist = []
         for color in colors:
             colorlist.append(color)
@@ -114,9 +114,19 @@ async def kwarg_to_embed(client, ctx, kwargs):
             elif key.lower() == "webhook_avatar":
                 webhook_dict['avatar'] = value
 
+            elif key.lower() == "send_dm":
+                send_dm = int(value)
+
+            elif key.lower() == "content":
+                content = value
+
         if ctx.author.id != client.owner_id:
             em.set_footer(text=f"Message sent by {ctx.author.name}")
         
+        if send_dm != False:
+            person = await client.fetch_user(send_dm)
+            return await person.send(embed=em, content=content)
+
         name, avatar = None, None
         if webhook_dict["name"] is not None:
             name = webhook_dict["name"]
@@ -127,8 +137,9 @@ async def kwarg_to_embed(client, ctx, kwargs):
                         avatar = bytes(await resp.read())
 
             webhook = await channel.create_webhook(name=name, avatar=avatar)
-            await webhook.send(embed=em)
+            await webhook.send(embed=em, content=content)
             await webhook.delete()
             return None
+
         
-        return [em, channel]
+        return [em, channel, content]
