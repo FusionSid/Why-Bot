@@ -1,4 +1,5 @@
 import json
+import sys
 import asyncio
 
 import aiosqlite
@@ -52,9 +53,11 @@ config = {
 with open("config.json", "w") as f:
     json.dump(config, f, indent=4)
 
+DiscordLevelingSystem.create_database_file("database")
+console.print("[blue]Created leveling db")    
 
 async def main():
-    async with aiosqlite.connect("database/prefix.db") as db:
+    async with aiosqlite.connect("database/main.db") as db:
         await db.execute(
             """CREATE TABLE IF NOT EXISTS Prefix (
             guild_id INTEGER PRIMARY KEY NOT NULL, 
@@ -62,8 +65,7 @@ async def main():
             )"""
         )
         await db.commit()
-
-    async with aiosqlite.connect("database/warnings.db") as db:
+        console.print("[blue]Created Prefix Db")
         await db.execute(
             """CREATE TABLE IF NOT EXISTS Warnings (
                 guild_id INTEGER,
@@ -73,15 +75,29 @@ async def main():
                 )"""
         )
         await db.commit()
+        console.print("[blue]Created Warnings Db")
+        await db.execute(
+            """CREATE TABLE IF NOT EXISTS ServerCounting (
+                guild_id INTEGER,
+                current_number INTEGER, 
+                last_counter INTEGER,
+                counting_channel INTEGER
+                )"""
+        )
+        await db.commit()
+        console.print("[blue]Created ServerCounting Db")
+        return console.print("[green]finished main.db")
 
-
-asyncio.new_event_loop().run_until_complete(main())
+asyncio.run(main())
 
 
 data = []
 with open("database/dm_banned.json", "w") as f:
     json.dump(data, f, indent=4)
+    console.print("[blue]Created dm_banned json file")
+
 with open("database/blacklisted.json", "w") as f:
     json.dump(data, f, indent=4)
+    console.print("[blue]Created blacklisted json file")
 
-DiscordLevelingSystem.create_database_file("database")
+console.print("[green]Setup complete :) Use ^C to exit")

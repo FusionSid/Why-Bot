@@ -40,7 +40,7 @@ class Prefix(commands.Cog):
 
         Usage: setprefix <prefix: str>
         """
-        async with aiosqlite.connect("database/prefix.db") as db:
+        async with aiosqlite.connect("database/main.db") as db:
             await db.execute(
                 """UPDATE Prefix SET prefix=? WHERE guild_id=?""",
                 (prefix, ctx.guild.id),

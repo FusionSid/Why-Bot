@@ -32,7 +32,7 @@ async def get_prefix(client, message):
     if message.channel is None or message.guild is None:
         return "?"
 
-    async with aiosqlite.connect("database/prefix.db") as db:
+    async with aiosqlite.connect("database/main.db") as db:
         cur = await db.execute(
             "SELECT * FROM Prefix WHERE guild_id=?", (message.guild.id,)
         )

@@ -4,16 +4,16 @@ import aiosqlite
 from discord.ext import commands
 
 async def setup_count_db(guild_id:int):
-    async with aiosqlite.connect("database/counting.db") as db:
+    async with aiosqlite.connect("database/main.db") as db:
         await db.execute("INSERT INTO ServerCounting (guild_id, current_number, last_counter, counting_channel) VALUES (?, 0, 0, 0)", (guild_id,))
         await db.commit()
 
 async def reset_count(guild_id:int):
-    async with aiosqlite.connect("database/counting.db") as db:
+    async with aiosqlite.connect("database/main.db") as db:
         await db.execute()
 
 async def get_count_data(guild_id:int):
-    async with aiosqlite.connect("database/counting.db") as db:
+    async with aiosqlite.connect("database/main.db") as db:
         data = await db.execute("SELECT * FROM ServerCounting WHERE guild_id=?", (guild_id,))
         data = data.fetchall()
     if len(data) == 0:

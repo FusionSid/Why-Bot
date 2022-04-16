@@ -10,7 +10,7 @@ from utils import blacklisted
 
 async def warn_member(guild_id: int, member: discord.Member, reason: str):
     time_right_now = int(time.time())
-    async with aiosqlite.connect("database/warnings.db") as db:
+    async with aiosqlite.connect("database/main.db") as db:
         await db.execute(
             "INSERT INTO Warnings (guild_id, member_id, time, reason) VALUES (?, ?, ?, ?)",
             (guild_id, member.id, time_right_now, reason),
@@ -19,7 +19,7 @@ async def warn_member(guild_id: int, member: discord.Member, reason: str):
 
 
 async def get_warnings(guild_id: int, member_id: int):
-    async with aiosqlite.connect("database/warnings.db") as db:
+    async with aiosqlite.connect("database/main.db") as db:
         data = await db.execute(
             "SELECT * FROM Warnings WHERE member_id=? AND guild_id=?",
             (member_id, guild_id),
@@ -71,7 +71,7 @@ class Warnings(commands.Cog):
     @commands.check(blacklisted)
     @commands.has_permissions(administrator=True)
     async def clear_warnings(self, ctx, member: discord.Member):
-        async with aiosqlite.connect("database/warnings.db") as db:
+        async with aiosqlite.connect("database/main.db") as db:
             await db.execute(
                 "DELETE FROM Warnings WHERE member_id=? AND guild_id=?",
                 (member.id, ctx.guild.id),
