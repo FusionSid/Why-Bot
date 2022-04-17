@@ -1,0 +1,462 @@
+### Master branch commands:
+
+- [ ] play  
+- [ ] binarytotext  
+- [ ] wh  
+- [ ] settings  
+- [ ] numrn  
+- [ ] skip  
+- [ ] leave  
+- [ ] report  
+- [ ] rank  
+- [ ] pause  
+- [ ] youtube  
+- [ ] resume  
+- [ ] queue  
+- [ ] leaderboard  
+- [ ] loop  
+- [ ] createplaylist  
+- [ ] currentgames  
+- [ ] info  
+- [ ] getuuid  
+- [ ] setign  
+- [ ] plugins  
+- [ ] hystats  
+- [ ] plist  
+- [ ] serverinfo  
+- [ ] ping  
+- [ ] playlist  
+- [ ] botinfo  
+- [ ] padd  
+- [ ] bwstats  
+- [ ] warnings  
+- [ ] createhook  
+- [ ] shuffleplaylist  
+- [ ] goose_mode  
+- [ ] pdel  
+- [ ] mp3  
+- [ ] tts  
+- [ ] music  
+- [ ] claim  
+- [ ] tictactoe  
+- [ ] hextotext  
+- [ ] texttobinary  
+- [ ] whosplaying  
+- [ ] setprefix  
+- [ ] reddit  
+- [ ] warn  
+- [ ] weather  
+- [ ] autocalc  
+- [ ] texttohex  
+- [ ] reverse  
+- [ ] rock  
+- [ ] dog  
+- [ ] meme  
+- [ ] cat  
+- [ ] panda  
+- [ ] imagesearch  
+- [ ] expand  
+- [ ] fox  
+- [ ] join  
+- [ ] bird  
+- [ ] tweet  
+- [ ] ban  
+- [ ] bug  
+- [ ] giverole  
+- [ ] ytcomment  
+- [ ] kick  
+- [ ] apod  
+- [ ] make_vc  
+- [ ] simp  
+- [ ] lockdown  
+- [ ] horny  
+- [ ] unlock  
+- [ ] make_channel  
+- [ ] joke  
+- [ ] overlay  
+- [ ] avatar  
+- [ ] clear  
+- [ ] lyrics  
+- [ ] nickname  
+- [ ] wiki  
+- [ ] newticket  
+- [ ] drunkify  
+- [ ] botinvite  
+- [ ] slowmode  
+- [ ] unban  
+- [ ] pin  
+- [ ] closeticket  
+- [ ] addaccess  
+- [ ] redditimg  
+- [ ] qrcode  
+- [ ] suggest  
+- [ ] rslowmode  
+- [ ] calculate  
+- [ ] delaccess  
+- [ ] nitro  
+- [ ] calc  
+- [ ] addadminrole  
+- [ ] unpin  
+- [ ] vote  
+- [ ] deladminrole  
+- [ ] removereactions  
+- [ ] cuse  
+- [ ] rps  
+- [ ] dm  
+- [ ] roast  
+- [ ] onpinged  
+- [ ] sendroast  
+- [ ] takerole  
+- [ ] embed  
+- [ ] 8 ball  
+- [ ] runcode  
+- [ ] reactrole  
+- [ ] invite  
+- [ ] say  
+- [ ] yesorno  
+- [ ] poll  
+- [ ] autorole  
+- [ ] reactemoji  
+- [ ] voice  
+- [ ] hack  
+- [ ] screenshot  
+- [ ] emojify  
+
+- [ ] Comments + Doc strings
+- [ ] Make a released/self hostable version 
+- [ ] Use (aio)sqlite
+
+- [ ] rick roll detector/creator/link finder
+- [ ] rick roll 
+- [ ] yt video search better	
+- [ ] db backup
+- [ ] security cog 
+- [ ] suspicious member check
+- [ ] phishing links
+- [ ] better settings 
+- [ ] why bot api/dashboard
+- [ ] blackjack
+- [ ] trivia
+- [ ] captcha
+- [ ] better suggestions 
+- [ ] remove/add
+- [ ] time convert
+- [ ] discord time stamps 
+- [ ] reply
+- [ ] embeds
+- [ ] custom commands
+- [ ] tags
+- [ ] typing tag will show an embed
+- [ ] web-interface
+- [ ] logging library 
+- [ ] rtfm 
+- [ ] todo list maker
+- [ ] daily web hooks
+- [ ] qotd 
+- [ ] webhooks?
+- [ ] pil mc
+- [ ] coin flip - dice rolls etc random numbers 
+- [ ] random choice from list
+- [ ] giveaways
+- [ ] catch command
+- [ ] more games
+- [ ] counting leaderboard
+- [ ] automod
+- [ ] Vc recording
+- [ ] Better music
+- [ ] Remake economy from scratch
+- [ ] Timeout/mute command
+- [ ] Server data
+- [ ] Channel stats
+- [ ] user purge
+- [ ] mass kick/ban
+- [ ] Better buttons/slash command integration
+- [ ] Invite tracker
+
+- [ ] screenshot
+- [ ] Nasa 
+- [ ] bitcoin/crypto price
+- [ ] currency converter
+- [ ] movies  + netflix
+- [ ] Translator
+- [ ] news
+- [ ] sports 
+- [ ] youtube
+- [ ] genius lyrics
+- [ ] weather
+- [ ] stocks
+- [ ] image manupliation 
+- [ ] pytrends(google trends)
+- [ ] steam 
+- [ ] github search
+- [ ] url shortener
+- [ ] nether games
+- [ ] gify
+- [ ] marvel, dc info, search
+- [ ] youtube videos
+- [ ] dagpi xyz?
+- [ ] imgur
+- [ ] dictionaries
+- [ ] sheet music api - musescore
+- [ ] urban dictionary 
+- [ ] ebay and amazon
+- [ ] more images for animals
+- [ ] food search
+- [ ] recipe api
+
+### New/Other (some duplicates to above)
+
+- [ ] Tic tac toe
+- [ ] rps
+- [ ] Catch the pie
+- [ ] Reaction test
+- [ ] Chess
+- [ ] Whose playing
+- [ ] black jack
+- [ ] uno?
+- [ ] connect 4 
+- [ ] 
+- [ ] 
+- [ ] Auto role
+- [ ] Give / Take role
+- [ ] React role
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] Make channels / VCs
+- [ ] Delete channels / VCs
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] Mute
+- [ ] Timeout
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] Ban
+- [ ] Mass ban
+- [ ] Kick
+- [ ] Mass Kick
+- [ ] Temp ban
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] lock
+- [ ] unlock
+- [ ] temp lock
+- [ ] 
+- [ ] 
+- [ ] poll
+- [ ] yes or no
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] Pin
+- [ ] Unpin
+- [ ] Remove reactions
+- [ ] Slow mode
+- [ ] clear
+- [ ] Nickname
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] Tic tac toe
+- [ ] rps
+- [ ] Catch the pie
+- [ ] Reaction test
+- [ ] Chess
+- [ ] Whose playing
+- [ ] black jack
+- [ ] uno?
+- [ ] connect 4 
+- [ ] On command error
+- [ ] Handlers for errors
+- [ ] Custom exceptions
+- [ ] On guild join
+- [ ] On guild leave
+- [ ] Startup stuff
+- [ ] Send alert
+- [ ] Check if bot is mentioned in the message		
+- [ ] All are global or guild
+- [ ] set 
+- [ ] display 
+- [ ] delete
+- [ ] pause / toggle
+- [ ] All are global or guild
+- [ ] set 
+- [ ] display 
+- [ ] delete
+- [ ] pause / toggle		
+- [ ] Set text
+- [ ] Set bg-color
+- [ ] Set text-color
+- [ ] Toggle welcome
+- [ ] Set background image
+- [ ] New Tag
+- [ ] Show Tag
+- [ ] Delete Tag
+- [ ] Load cog
+- [ ] Reload cog
+- [ ] Unload cog
+- [ ] Reload all cogs
+- [ ] Reply
+- [ ] Context
+- [ ] Dm ban
+- [ ] Dm unban
+- [ ] Status
+- [ ] Pull code
+- [ ] Mass blacklist
+- [ ] Blacklist user
+- [ ] Whitelist user
+- [ ] Blacklist server
+- [ ] Whitelist server
+- [ ] List blacklisted users
+- [ ] List blacklisted servers
+- [ ] Server list
+- [ ] Server info
+- [ ] Message server
+- [ ] Message all servers / Broadcast
+- [ ] Find user
+- [ ] Get log file
+- [ ] Get last x amount of errors
+- [ ] Log message
+- [ ] Auto-mod
+- [ ] Logging
+- [ ] rank
+- [ ] leaderboard
+- [ ] Report message
+- [ ] Report person
+- [ ] getuuid
+- [ ] setign
+- [ ] bwstats
+- [ ] hystats
+- [ ] warnings
+- [ ] warn
+- [ ] roast
+- [ ] dm
+- [ ] sendroast
+- [ ] hack
+- [ ] react word
+- [ ] 8 ball
+- [ ] embed
+- [ ] Filter
+- [ ] Economy
+- [ ] tweet
+- [ ] horny
+- [ ] simp	
+- [ ] ytcomment	
+- [ ] youtube
+- [ ] reddit
+- [ ] joke
+- [ ] weather
+- [ ] rock
+- [ ] bird
+- [ ] screenshot
+- [ ] dog
+- [ ] meme
+- [ ] cat
+- [ ] Fox
+- [ ] redditimg	
+- [ ] wiki
+- [ ] lyrics
+- [ ] panda
+- [ ] pod
+- [ ] imagesearch
+- [ ] person info
+- [ ] avatar
+- [ ] person id	
+- [ ] Suggestions
+- [ ] qrcode
+- [ ] calculate
+- [ ] server invite
+- [ ] quickcalc
+- [ ] Downloaders
+- [ ] play
+- [ ] tts
+- [ ] skip
+- [ ] pdel
+- [ ] leave
+- [ ] shuffleplaylist
+- [ ] join
+- [ ] music dashboard
+- [ ] pause
+- [ ] createplaylist
+- [ ] mp3
+- [ ] resume
+- [ ] padd
+- [ ] playlist
+- [ ] loop	
+- [ ] queue
+- [ ] plist
+- [ ] custom vc
+- [ ] custom vc set limit
+- [ ] delete custom vc
+- [ ] make channel custom vc
+- [ ] binarytotext
+- [ ] hextotext
+- [ ] texttobinary
+- [ ] texttohex
+- [ ] reverse
+- [ ] expand
+- [ ] emojify
+- [ ] Command help
+- [ ] Application command help
+- [ ] Discord server
+- [ ] Bot help
+- [ ] Verified role
+- [ ] Make button
+- [ ] Auto send to new members
+- [ ] Mod log channel
+- [ ] Counting channel
+- [ ] Announcements channel
+- [ ] Bot update channel
+- [ ] Dm announcements 
+- [ ] Disable plugin
+- [ ] Enable Plugin
+- [ ] Plugins list
+- [ ] Allow bot dms
+- [ ] Show settings
+- [ ] setprefix
+- [ ] prefix
+- [ ] autocalc
+- [ ] RTFM
+- [ ] Get code (why bot)
+- [ ] Help for programmers
+- [ ] runcode	
+- [ ] Current number
+- [ ] Leaderboard (server / global)
+- [ ] Birthdays
+- [ ] Embed command
+- [ ] Custom webhooks
+- [ ] Translator
+- [ ] Currency converter
+- [ ] NFT info
+- [ ] Bitcoin info
+- [ ] Currency info
+- [ ] Ethereum Info
+- [ ] Crypto info/find
+- [ ] New ticket
+- [ ] Close ticket
+- [ ] Allow access
+- [ ] Remove access
+- [ ] Links
+- [ ] BotInfo
+- [ ] Suggest
+- [ ] invite
+- [ ] vote
+- [ ] cuse
+- [ ] Contribute
+- [ ] Bug reports
+- [ ] Source code
+- [ ] Info message
+- [ ] ping
+- [ ] Card
+- [ ] Coin filp
+- [ ] Dice roll
+- [ ] Random number
+- [ ] Random Choice from list
+- [ ] Claim / Nitro
+- [ ] Random rick roll link
+- [ ] Rick roll link generator
+- [ ] Detect facial recognition
+- [ ] Scan urls for know rick rolls

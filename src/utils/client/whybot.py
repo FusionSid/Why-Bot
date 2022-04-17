@@ -77,6 +77,7 @@ class WhyBot(commands.Bot):
             command_prefix=get_prefix,
             owner_id=624076054969188363,  # The bot owner's ID
             allowed_mentions=allowed_mentions,
+            debug_guilds=[763348615233667082],
         )
 
     @property

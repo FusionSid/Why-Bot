@@ -63,6 +63,5 @@ if __name__ == "__main__":
         config = Config(json.load(f))
 
     client = WhyBot(config)
-    client.debug_guilds = [763348615233667082]
 
     start_bot(client)
