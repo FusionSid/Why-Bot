@@ -10,35 +10,22 @@ from discordLevelingSystem import DiscordLevelingSystem
 console = Console()
 
 dm_reply_channel = Prompt.ask("Enter the ID for the dm_reply_channel", default=None)
-dm_reply_channel = (
-    int(dm_reply_channel) if dm_reply_channel is not None else dm_reply_channel
-)
+dm_reply_channel = (int(dm_reply_channel) if dm_reply_channel is not None else dm_reply_channel)
+
+suggestion_channel = Prompt.ask("Enter the ID for the suggestion_channel", default=None)
+suggestion_channel = (int(suggestion_channel) if suggestion_channel is not None else suggestion_channel)
 
 join_alert_channel = Prompt.ask("Enter the ID for the join_alert_channel", default=None)
-join_alert_channel = (
-    int(join_alert_channel) if join_alert_channel is not None else join_alert_channel
-)
+join_alert_channel = (int(join_alert_channel) if join_alert_channel is not None else join_alert_channel)
 
-leave_alert_channel = Prompt.ask(
-    "Enter the ID for the leave_alert_channel", default=None
-)
-leave_alert_channel = (
-    int(leave_alert_channel) if leave_alert_channel is not None else leave_alert_channel
-)
+leave_alert_channel = Prompt.ask("Enter the ID for the leave_alert_channel", default=None)
+leave_alert_channel = (int(leave_alert_channel) if leave_alert_channel is not None else leave_alert_channel)
 
 bug_report_channel = Prompt.ask("Enter the ID for the bug_report_channel", default=None)
-bug_report_channel = (
-    int(bug_report_channel) if bug_report_channel is not None else bug_report_channel
-)
+bug_report_channel = (int(bug_report_channel) if bug_report_channel is not None else bug_report_channel)
 
-online_alert_channel = Prompt.ask(
-    "Enter the ID for the online_alert_channel", default=None
-)
-online_alert_channel = (
-    int(online_alert_channel)
-    if online_alert_channel is not None
-    else online_alert_channel
-)
+online_alert_channel = Prompt.ask("Enter the ID for the online_alert_channel", default=None)
+online_alert_channel = (int(online_alert_channel) if online_alert_channel is not None else online_alert_channel)
 
 
 config = {
@@ -47,6 +34,7 @@ config = {
     "leave_alert_channel": leave_alert_channel,
     "online_alert_channel": online_alert_channel,
     "bug_report_channel": bug_report_channel,
+    "suggestion_channel": suggestion_channel
 }
 
 
@@ -99,5 +87,9 @@ with open("database/dm_banned.json", "w") as f:
 with open("database/blacklisted.json", "w") as f:
     json.dump(data, f, indent=4)
     console.print("[blue]Created blacklisted json file")
+
+token = Prompt.ask("Enter the bot token")
+with open("../.env", 'w') as f:
+    f.write(f"TOKEN = {token}")
 
 console.print("[green]Setup complete :) Use ^C to exit")

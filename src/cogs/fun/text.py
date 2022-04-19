@@ -13,159 +13,79 @@ class TextConvert(commands.Cog):
 
     @commands.command()
     @commands.check(blacklisted)
-    async def drunkify(self, ctx, *, s):
-        lst = [str.upper, str.lower]
-        newText = await commands.clean_content().convert(
-            ctx, "".join(random.choice(lst)(c) for c in s)
-        )
-        if len(newText) <= 380:
-            await ctx.send(newText)
-        else:
-            try:
-                await ctx.author.send(newText)
-                await ctx.send(
-                    f"**{ctx.author.mention} The output too was too large, so I sent it to your DMs! :mailbox_with_mail:**"
-                )
-            except Exception:
-                await ctx.send(
-                    f"**{ctx.author.mention} There was a problem, and I could not send the output. It may be too large or malformed**"
-                )
+    async def drunkify(self, ctx, *, text: clean_content):
+        functions = [str.upper, str.lower]
+        drunkified_text = "".join(random.choice(functions)(char) for char in text)
+        if len(drunkified_text) <= 1999:
+            return await ctx.send(drunkified_text)
+        await ctx.send("Too long to send :(")
 
     @commands.command()
     @commands.check(blacklisted)
-    async def expand(self, ctx, num: int, *, s: clean_content):
-        spacing = ""
-        if num > 0 and num <= 10:
-            for _ in range(num):
-                spacing += " "
-            result = spacing.join(s)
-            if len(result) <= 200:
-                await ctx.send(result)
-            else:
-                try:
-                    await ctx.author.send(result)
-                    await ctx.send(
-                        f"**{ctx.author.mention} The output too was too large, so I sent it to your DMs! :mailbox_with_mail:**"
-                    )
-                except Exception:
-                    await ctx.send(
-                        f"**{ctx.author.mention} There was a problem, and I could not send the output. It may be too large or malformed**"
-                    )
-        else:
-            await ctx.send("```fix\nError: The number can only be from 1 to 5```")
+    async def expand(self, ctx, space: int, *, text: clean_content):
+        spacing = " " * space
+        result = spacing.join(text)
+        if len(result) <= 1999:
+            return await ctx.send(result)
+        await ctx.send("Too long to send :(")
 
     @commands.command()
     @commands.check(blacklisted)
-    async def reverse(self, ctx, *, s: clean_content):
-        result = await commands.clean_content().convert(ctx, s[::-1])
-        if len(result) <= 350:
-            await ctx.send(f"{result}")
-        else:
-            try:
-                await ctx.author.send(f"{result}")
-                await ctx.send(
-                    f"**{ctx.author.mention} The output too was too large, so I sent it to your DMs! :mailbox_with_mail:**"
-                )
-            except Exception:
-                await ctx.send(
-                    f"**{ctx.author.mention} There was a problem, and I could not send the output. It may be too large or malformed**"
-                )
+    async def reverse(self, ctx, *, text: clean_content):
+        result = text[::-1]
+        if len(result) <= 1999:
+            return await ctx.send(result)
+        await ctx.send("Too long to send :(")
 
     @commands.command()
     @commands.check(blacklisted)
-    async def texttohex(self, ctx, *, s):
+    async def texttohex(self, ctx, *, text):
         try:
-            hexoutput = await commands.clean_content().convert(
-                ctx, (" ".join("{:02x}".format(ord(c)) for c in s))
-            )
+            hex_output = " ".join("{:02x}".format(ord(char)) for char in text)
         except Exception as e:
-            await ctx.send(
-                f"**Error: `{e}`. This probably means the text is malformed. Sorry, you can always try here: http://www.unit-conversion.info/texttools/hexadecimal/#data**"
+            return await ctx.send(
+                f"Error: `{e}`. This probably means the text is malformed"
             )
-        if len(hexoutput) <= 479:
-            await ctx.send(f"```fix\n{hexoutput}```")
-        else:
-            try:
-                await ctx.author.send(f"```fix\n{hexoutput}```")
-                await ctx.send(
-                    f"**{ctx.author.mention} The output too was too large, so I sent it to your DMs! :mailbox_with_mail:**"
-                )
-            except Exception:
-                await ctx.send(
-                    f"**{ctx.author.mention} There was a problem, and I could not send the output. It may be too large or malformed**"
-                )
+        if len(hex_output) <= 1999:
+            return await ctx.send(f"```fix\n{hex_output}```")
+        await ctx.send("Too long to send :(")
 
     @commands.command()
     @commands.check(blacklisted)
-    async def hextotext(self, ctx, *, s):
+    async def hextotext(self, ctx, *, text: clean_content):
         try:
-            cleanS = await commands.clean_content().convert(
-                ctx, bytearray.fromhex(s).decode()
-            )
+            text_output = bytearray.fromhex(text).decode()
         except Exception as e:
-            await ctx.send(
-                f"**Error: `{e}`. This probably means the text is malformed. Sorry, you can always try here: http://www.unit-conversion.info/texttools/hexadecimal/#data**"
+            return await ctx.send(
+                f"**Error: `{e}`. This probably means the text is malformed**"
             )
-        if len(cleanS) <= 479:
-            await ctx.send(f"```{cleanS}```")
-        else:
-            try:
-                await ctx.author.send(f"```{cleanS}```")
-                await ctx.send(
-                    f"**{ctx.author.mention} The output too was too large, so I sent it to your DMs! :mailbox_with_mail:**"
-                )
-            except Exception:
-                await ctx.send(
-                    f"**{ctx.author.mention} There was a problem, and I could not send the output. It may be too large or malformed**"
-                )
+        if len(text_output) <= 1999:
+            return await ctx.send(f"```fix\n{text_output}```")
+        await ctx.send("Too long to send :(")
 
     @commands.command()
     @commands.check(blacklisted)
-    async def texttobinary(self, ctx, *, s):
+    async def texttobinary(self, ctx, *, text):
         try:
-            cleanS = await commands.clean_content().convert(
-                ctx, " ".join(format(ord(x), "b") for x in s)
-            )
+            binary_output = " ".join(format(ord(char), "b") for char in text)
         except Exception as e:
-            await ctx.send(
-                f"**Error: `{e}`. This probably means the text is malformed. Sorry, you can always try here: http://www.unit-conversion.info/texttools/convert-text-to-binary/#data**"
+            return await ctx.send(
+                f"**Error: `{e}`. This probably means the text is malformed."
             )
-        if len(cleanS) <= 479:
-            await ctx.send(f"```fix\n{cleanS}```")
-        else:
-            try:
-                await ctx.author.send(f"```fix\n{cleanS}```")
-                await ctx.send(
-                    f"**{ctx.author.mention} The output too was too large, so I sent it to your DMs! :mailbox_with_mail:**"
-                )
-            except Exception:
-                await ctx.send(
-                    f"**{ctx.author.mention} There was a problem, and I could not send the output. It may be too large or malformed**"
-                )
+        if len(binary_output) <= 1999:
+            return await ctx.send(f"```fix\n{binary_output}```")
+        await ctx.send("Too long to send :(")
 
     @commands.command()
     @commands.check(blacklisted)
-    async def binarytotext(self, ctx, *, s):
+    async def binarytotext(self, ctx, *, text):
         try:
-            cleanS = await commands.clean_content().convert(
-                ctx, "".join([chr(int(s, 2)) for s in s.split()])
-            )
+            text_output = "".join([chr(int(char, 2)) for char in text.split()])
         except Exception as e:
-            await ctx.send(
-                f"**Error: `{e}`. This probably means the text is malformed. Sorry, you can always try here: http://www.unit-conversion.info/texttools/convert-text-to-binary/#data**"
-            )
-        if len(cleanS) <= 479:
-            await ctx.send(f"```{cleanS}```")
-        else:
-            try:
-                await ctx.author.send(f"```{cleanS}```")
-                await ctx.send(
-                    f"**{ctx.author.mention} The output too was too large, so I sent it to your DMs! :mailbox_with_mail:**"
-                )
-            except Exception:
-                await ctx.send(
-                    f"**{ctx.author.mention} There was a problem, and I could not send the output. It may be too large or malformed**"
-                )
+            await ctx.send(f"**Error: `{e}`. This probably means the text is malformed")
+        if len(text_output) <= 1999:
+            return await ctx.send(f"```fix\n{text_output}```")
+        await ctx.send("Too long to send :(")
 
     @commands.command()
     @commands.check(blacklisted)

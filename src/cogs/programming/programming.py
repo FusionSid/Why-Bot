@@ -27,7 +27,7 @@ class Programming(commands.Cog):
         for command in self.client.commands:
             if command.name.lower() == name.lower():
                 func = command.callback
-                filename = inspect.getsourcefile(func).split("/Why-Bot/src")[1]
+                filename = inspect.getsourcefile(func).split("/src")[1]
                 function_code = inspect.getsource(func).replace("```", "'")
 
                 first_line = func.__code__.co_firstlineno

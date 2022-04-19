@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 import discord
 from discord.ext import commands
@@ -45,7 +45,7 @@ class Why(commands.Cog):
     @commands.check(blacklisted)
     async def bug(self, ctx, *, bug):
         em = discord.Embed(title="REPORT", color=ctx.author.color)
-        em.timestamp = datetime.utcnow()
+        em.timestamp = datetime.datetime.now()
         em.description = "Bug Report"
         em.add_field(name="Bug", value=bug)
         em.add_field(name="Report By:", value=ctx.author.name)
