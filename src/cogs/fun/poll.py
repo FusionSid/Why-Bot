@@ -1,8 +1,10 @@
-import discord
-from discord.ext import commands
-import datetime
+import time as py_time
 import asyncio
+import datetime
+
+import discord
 from discord.utils import get
+from discord.ext import commands
 
 
 from utils import blacklisted
@@ -43,7 +45,11 @@ class Poll(commands.Cog):
         embed = discord.Embed(title=question, description=''.join(description), color=ctx.author.color)
         embed.timestamp = datetime.datetime.utcnow()
         embed.set_footer(text="Please don't vote twice")
+        timern = py_time.time()
+        t = int(timern) + time
+        embed.add_field(name="Voting ends in:", value=f"<t:{t}:R>")
         react_message = await ctx.send(embed=embed)
+
         for reaction in reactions[:len(options)]:
             await react_message.add_reaction(reaction)
             reacting.append(reaction)
@@ -58,6 +64,7 @@ class Poll(commands.Cog):
         results = "\n".join([f"{key} got {value}" for key, value in results.items()])
         results_message = await message.reply(embed=discord.Embed(title=f"Poll Results For {question}:", description=f"**Votes:**\n {results}", color=ctx.author.color))
         embed.set_footer(text="Voting is closed")
+        embed.fields = []
         embed.add_field(name="Voting is now closed", value=f"[Vote Results]({results_message.jump_url})")
         return await message.edit(embed=embed)
 

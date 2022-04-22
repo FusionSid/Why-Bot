@@ -239,7 +239,11 @@ class Leveling(commands.Cog):
         if message.guild is None:
             return
 
-        await lvl.award_xp(amount=[15, 25], message=message)
+        try:
+            await lvl.award_xp(amount=[15, 25], message=message)
+        except Exception:
+            pass # discordLevelingSystem still uses avatar_url, but with pycord its avatar.url 
+                 # so i have to add this try/except to ignore those fucking annoying error messages
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
