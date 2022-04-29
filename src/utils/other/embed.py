@@ -46,8 +46,10 @@ async def kwarg_to_embed(client, ctx, kwargs):
         for color in colors:
             colorlist.append(color)
             
-        def wait_for_check(m):
-            return m.author == ctx.author and m.channel == ctx.message.channel
+        # def wait_for_check(m):
+        #     return m.author == ctx.author and m.channel == ctx.message.channel
+
+        wait_for_check = lambda m: m.author == ctx.author and m.channel == ctx.message.channel
 
         em = discord.Embed()
         em.timestamp = datetime.datetime.utcnow()

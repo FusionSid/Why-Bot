@@ -5,6 +5,7 @@ import discord
 import aiosqlite
 from discord.ext import commands
 
+import log.log
 from utils import blacklisted
 
 

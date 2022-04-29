@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 
+import log.log
 from utils import blacklisted
 
 class Banning(commands.Cog):

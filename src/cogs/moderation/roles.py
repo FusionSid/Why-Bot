@@ -4,6 +4,7 @@ from typing import Union
 import discord
 from discord.ext import commands
 
+import log.log
 from utils import blacklisted
 
 class Roles(commands.Cog):

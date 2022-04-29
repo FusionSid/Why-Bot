@@ -42,7 +42,7 @@ class Poll(commands.Cog):
         for x, option in enumerate(options):
             description += '\n{} = {}'.format(reactions[x], option)
 
-        embed = discord.Embed(title=question, description=''.join(description), color=ctx.author.color)
+        embed = discord.Embed(title=f"{ctx.author.name} asks: {question}", description=''.join(description), color=ctx.author.color)
         embed.timestamp = datetime.datetime.utcnow()
         embed.set_footer(text="Please don't vote twice")
         timern = py_time.time()
@@ -53,7 +53,6 @@ class Poll(commands.Cog):
         for reaction in reactions[:len(options)]:
             await react_message.add_reaction(reaction)
             reacting.append(reaction)
-            
         await asyncio.sleep(time)
         message = await ctx.channel.fetch_message(react_message.id)
         results = {}

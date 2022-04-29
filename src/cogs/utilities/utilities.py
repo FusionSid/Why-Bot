@@ -1,3 +1,5 @@
+import datetime
+
 import discord
 from discord.ext import commands
 from discord.commands import slash_command
@@ -30,7 +32,6 @@ class Utilities(commands.Cog):
             for i in view.children:
                 i.disabled = True
         return await message.edit(view=view)
-
 
     @commands.command()
     @commands.check(blacklisted)
@@ -83,6 +84,68 @@ class Utilities(commands.Cog):
             member = ctx.author
         em = discord.Embed(title=f"{member.name}'s Avatar:", color=member.color)
         em.set_image(url=member.avatar.url)
+        await ctx.send(embed=em)
+        
+    @commands.command()
+    @commands.check(blacklisted)
+    async def invites(self, ctx, member: discord.Member = None):
+        """
+        This command is used to get the amount of people that a member has invited to the server
+
+        Help Info:
+        ----------
+        Category: Utilities
+
+        Usage: invites [member: discord.Member (default=You)]
+        """
+        if member is None:
+            member = ctx.author
+
+        total_invites = 0
+        for invite in await ctx.guild.invites():
+            if invite.inviter == member:
+                total_invites += invite.uses
+
+        em = discord.Embed(
+            title="Invites",
+            # This line has been stolen from simplex bot
+            description=f"{member.mention} has invited {total_invites} member{'' if total_invites == 1 else 's'} to the server!",
+            color=ctx.author.color,
+            timestamp=datetime.datetime.now(),
+        )
+        await ctx.send(embed=em)
+
+    @commands.command()
+    async def inviteslb(self, ctx):
+        """
+        This command is used to get a leaderboard of the invited in the server
+
+        Help Info:
+        ----------
+        Category: Utilities
+
+        Usage: inviteslb
+        """
+        
+        em = discord.Embed(
+            title="Leaderboard",
+            color=ctx.author.color,
+            timestamp=datetime.datetime.now(),
+        )
+        total_invites = {}
+        for invite in await ctx.guild.invites():
+            try:
+                total_invites[invite.inviter.name] += invite.uses
+            except KeyError:
+                total_invites[invite.inviter.name] = invite.uses
+        total_invites = dict(
+            sorted(total_invites.items(), reverse=True, key=lambda item: item[1])
+        )
+
+        for key, value in total_invites.items():
+            if value != 0:
+                em.add_field(name=key, value=value, inline=False)
+
         await ctx.send(embed=em)
 
 
