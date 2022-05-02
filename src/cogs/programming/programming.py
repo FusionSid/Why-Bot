@@ -4,13 +4,15 @@ import datetime
 import discord
 from discord.ext import commands
 
+import log.log
 from utils import blacklisted
 
 class Programming(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+
+    @commands.command(name="getcode", description="Get the code for a specific Why-Bot command")
     @commands.check(blacklisted)
     async def getcode(self, ctx, name: str):
         """
@@ -44,7 +46,7 @@ class Programming(commands.Cog):
                 )
 
 
-    @commands.command()
+    @commands.command(name="get_command_doc", description="Get the doc string for a command")
     @commands.check(blacklisted)
     async def get_command_doc(self, ctx, name: str):
         """
@@ -78,6 +80,7 @@ class Programming(commands.Cog):
         )
 
         await ctx.send(embed=em)
+
 
 def setup(client):
     client.add_cog(Programming(client))

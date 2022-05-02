@@ -14,6 +14,7 @@ class Info(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
 
+
     @commands.command(name="info", description="Gets info on a member")
     @commands.check(blacklisted)
     async def info(self, ctx: commands.Context, member: discord.Member = None):
@@ -24,7 +25,7 @@ class Info(commands.Cog):
         ----------
         Category: Utilities
 
-        Usage: info [member: discord.Member (default=You)]
+        Usage: info [member: discord.Member]
         """
 
         if member == None:
@@ -80,7 +81,8 @@ class Info(commands.Cog):
 
         await ctx.send(embed=em)
 
-    @commands.command(name="serverinfo", description="shows server info")
+
+    @commands.command(name="serverinfo", description="Shows server info")
     @commands.check(blacklisted)
     async def serverinfo(self, ctx: commands.Context):
         """
@@ -133,6 +135,7 @@ class Info(commands.Cog):
         em.timestamp = datetime.datetime.utcnow()
 
         await ctx.send(embed=em)
+
 
     @commands.command(name="botinfo", description="Gets info on Why Bot")
     @commands.check(blacklisted)
@@ -199,7 +202,8 @@ class Info(commands.Cog):
         em.set_footer(text="Made by FusionSid#3645")
         await ctx.send(embed=em)
 
-    @commands.command()
+
+    @commands.command(name="uptime", description="Get the uptime for the bot")
     @commands.check(blacklisted)
     async def uptime(self, ctx: commands.Context):
         """
@@ -219,6 +223,7 @@ class Info(commands.Cog):
                 color=ctx.author.color,
             )
         )
+
 
     @commands.command(name="ping", description="Shows the bot's ping")
     @commands.check(blacklisted)

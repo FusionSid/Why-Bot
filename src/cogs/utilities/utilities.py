@@ -2,7 +2,7 @@ import datetime
 
 import discord
 from discord.ext import commands
-from discord.commands import slash_command
+from discord.commands import CommandPermission, SlashCommandGroup
 
 import log.log
 from utils import WhyBot, blacklisted
@@ -12,8 +12,12 @@ from utils.views import CalculatorView
 class Utilities(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
+    
+    
+    utilities = SlashCommandGroup("utilities", "Utility Commands")
 
-    @commands.command(name="calculate", description="Interactive button calculator")
+
+    @utilities.command(name="calculate", description="Interactive button calculator")
     @commands.check(blacklisted)
     async def calculate(self, ctx):
         """
@@ -25,15 +29,18 @@ class Utilities(commands.Cog):
 
         Usage: calculate
         """
+        await ctx.defer()
         view = CalculatorView(ctx)
-        message = await ctx.send("```\n```", view=view)
+        message = await ctx.respond("```\n```", view=view)
+        message = await message.original_message()
         res = await view.wait()
         if res:
             for i in view.children:
                 i.disabled = True
         return await message.edit(view=view)
 
-    @commands.command()
+
+    @utilities.command(name="invite", description="Create 10 day invite for the server")
     @commands.check(blacklisted)
     async def invite(self, ctx):
         """
@@ -46,9 +53,10 @@ class Utilities(commands.Cog):
         Usage: invite
         """
         link = await ctx.channel.create_invite(max_age=10)
-        await ctx.send(link)
+        await ctx.respond(link)
 
-    @commands.command()
+
+    @utilities.command(name="botinvite", description="Get a link to invite Why-Bot to the server")
     @commands.check(blacklisted)
     async def botinvite(self, ctx):
         """
@@ -60,15 +68,21 @@ class Utilities(commands.Cog):
 
         Usage: botinvite
         """
-        await ctx.send(
+        interaction = await ctx.respond(
             embed=discord.Embed(
                 title="Invite **Why?** to your server:",
                 description="[Why Invite Link](https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands)",
-                color=ctx.author.color,
+                color=  ctx.author.color,
             )
         )
+        message = await interaction.original_message()
+        await message.add_reaction("🔗")
+        react_check = lambda reaction, user: user.id == ctx.author.id and reaction.emoji == "🔗" and reaction.message.id == message.id
+        await self.client.wait_for("reaction_add", check=react_check, timeout=30.0)
+        await ctx.respond("https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands")
 
-    @commands.command()
+
+    @utilities.command(name="avatar", description="Get the avatar for a member")
     @commands.check(blacklisted)
     async def avatar(self, ctx, member: discord.Member = None):
         """
@@ -78,15 +92,16 @@ class Utilities(commands.Cog):
         ----------
         Category: Utilities
 
-        Usage: avatar [member: discord.Member (default=You)]
+        Usage: avatar [member: discord.Member]
         """
         if member is None:
             member = ctx.author
         em = discord.Embed(title=f"{member.name}'s Avatar:", color=member.color)
         em.set_image(url=member.avatar.url)
-        await ctx.send(embed=em)
+        await ctx.respond(embed=em)
         
-    @commands.command()
+
+    @utilities.command(name="invites", description="Get the amount of people that a member has invited to the server")
     @commands.check(blacklisted)
     async def invites(self, ctx, member: discord.Member = None):
         """
@@ -96,7 +111,7 @@ class Utilities(commands.Cog):
         ----------
         Category: Utilities
 
-        Usage: invites [member: discord.Member (default=You)]
+        Usage: invites [member: discord.Member]
         """
         if member is None:
             member = ctx.author
@@ -113,12 +128,14 @@ class Utilities(commands.Cog):
             color=ctx.author.color,
             timestamp=datetime.datetime.now(),
         )
-        await ctx.send(embed=em)
+        await ctx.respond(embed=em)
 
-    @commands.command()
+
+    @utilities.command(name="inviteslb", description="Get a leaderboard of the invites in the server")
+    @commands.check(blacklisted)
     async def inviteslb(self, ctx):
         """
-        This command is used to get a leaderboard of the invited in the server
+        This command is used to get a leaderboard of the invites in the server
 
         Help Info:
         ----------
@@ -146,7 +163,7 @@ class Utilities(commands.Cog):
             if value != 0:
                 em.add_field(name=key, value=value, inline=False)
 
-        await ctx.send(embed=em)
+        await ctx.respond(embed=em)
 
 
 def setup(client: WhyBot):
