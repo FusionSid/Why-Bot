@@ -12,7 +12,7 @@ class Programming(commands.Cog):
         self.client = client
 
 
-    @commands.command(name="getcode", description="Get the code for a specific Why-Bot command")
+    @commands.slash_command(name="getcode", description="Get the code for a specific Why-Bot command")
     @commands.check(blacklisted)
     async def getcode(self, ctx, name: str):
         """
@@ -41,12 +41,12 @@ class Programming(commands.Cog):
                 if len(function_code) > 1990:
                     return await ctx.send(embed=discord.Embed(title="Code to large lmao", description=f"Link to code:\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}#L{first_line}-L{last_line}>", color=ctx.author.color))
 
-                return await ctx.send(
+                return await ctx.respond(
                     f"""```py\n\t# Code for the: {func.__name__} function / {command.name} command\n\t# Code written by FusionSid#3645\n\n{function_code}\n```\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}#L{first_line}-L{last_line}>"""
                 )
 
 
-    @commands.command(name="get_command_doc", description="Get the doc string for a command")
+    @commands.slash_command(name="get_command_doc", description="Get the doc string for a command")
     @commands.check(blacklisted)
     async def get_command_doc(self, ctx, name: str):
         """
@@ -79,7 +79,7 @@ class Programming(commands.Cog):
             description=f'```py\n"""\n{doc_string}\n"""\n```',
         )
 
-        await ctx.send(embed=em)
+        await ctx.respond(embed=em)
 
 
 def setup(client):

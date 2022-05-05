@@ -11,19 +11,19 @@ class ErrorLog(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
 
-    @commands.command()
+    @commands.slash_command()
     @commands.is_owner()
     async def logs_file(self, ctx):
         file = discord.File("./log/logs.txt")
         await ctx.author.send(file=file)
 
-    @commands.command()
+    @commands.slash_command()
     @commands.is_owner()
     async def clear_logs_file(self, ctx):
         with open("./log/logs.txt", "r+") as f:
             f.truncate(0)
 
-    @commands.command()
+    @commands.slash_command()
     @commands.is_owner()
     async def get_last_error(self, ctx, limit: int = 1):
         """
@@ -38,7 +38,7 @@ class ErrorLog(commands.Cog):
         errors = await get_last_errors(count=limit)
 
         if errors is None:
-            return await ctx.send(
+            return await ctx.respond(
                 "No recent error (you probably cleaned the file recently)"
             )
 
@@ -50,7 +50,7 @@ class ErrorLog(commands.Cog):
         for key, value in errors.items():
             em.add_field(name=key, value=value, inline=False)
 
-        await ctx.send(embed=em)
+        await ctx.respond(embed=em)
 
 
 def setup(client: WhyBot):

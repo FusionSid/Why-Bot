@@ -32,7 +32,7 @@ class DMReply(commands.Cog):
 
         self.user_message_count = {}
 
-    @commands.command()
+    @commands.slash_command()
     @commands.is_owner()
     async def dm_ban(self, ctx, _id: int):
         """
@@ -49,11 +49,11 @@ class DMReply(commands.Cog):
             banned = json.load(f)
         if _id not in banned:
             banned.append(_id)
-            await ctx.send("User Banned")
+            await ctx.respond("User Banned")
         with open("./database/dm_banned.json", "w") as f:
             json.dump(banned, f, indent=4)
 
-    @commands.command()
+    @commands.slash_command()
     @commands.is_owner()
     async def dm_unban(self, ctx, _id: int):
         """
@@ -69,7 +69,7 @@ class DMReply(commands.Cog):
             banned = json.load(f)
         if _id in banned:
             banned.remove(_id)
-            await ctx.send("User Unbanned")
+            await ctx.respond("User Unbanned")
         with open("./database/dm_banned.json", "w") as f:
             json.dump(banned, f, indent=4)
 
@@ -143,7 +143,7 @@ class DMReply(commands.Cog):
                     em.set_image(url=attachment.url)
                     await person.send("** **", embed=em)
 
-    @commands.command()
+    @commands.slash_command()
     @commands.is_owner()
     async def dmcontext(self, ctx, channel_id: int, limit: int = 10):
         channel = await self.client.fetch_channel(channel_id)
@@ -156,7 +156,7 @@ class DMReply(commands.Cog):
                 continue
             description += f"\n**{message.author.name}** ({message.created_at.strftime('%m/%d/%Y-%H:%M')}): {message.content}"
 
-        await ctx.send(description)
+        await ctx.respond(description)
 
 
 def setup(client: WhyBot):

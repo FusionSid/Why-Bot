@@ -38,11 +38,12 @@ def start_bot(client: WhyBot):
     print("\n")
     client.cogs_list = cogs
 
+    client.load_extension("tests.test")
     with Progress() as progress:
         loading_cogs = progress.add_task("[bold green]Loading Cogs", total=len(cogs))
         while not progress.finished:
             for cog in cogs:
-                client.load_extension(cog)
+                client.load_extension(cog)  
                 time.sleep(0.1)
                 progress.update(
                     loading_cogs,

@@ -12,7 +12,7 @@ class Server(commands.Cog):
     def __init__(self, client : WhyBot):
         self.client = client
 
-    @commands.command()
+    @commands.slash_command()
     @commands.is_owner()
     async def server_list(self, ctx):
         """
@@ -48,7 +48,7 @@ class Server(commands.Cog):
             timestamp=datetime.datetime.utcnow()
         )
 
-        await ctx.send(embed=em)
+        await ctx.respond(embed=em)
         for chunk in chunked_list:
             em = discord.Embed(
                 title = "** **",

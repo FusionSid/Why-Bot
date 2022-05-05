@@ -15,7 +15,7 @@ class Info(commands.Cog):
         self.client = client
 
 
-    @commands.command(name="info", description="Gets info on a member")
+    @commands.slash_command(name="info", description="Gets info on a member")
     @commands.check(blacklisted)
     async def info(self, ctx: commands.Context, member: discord.Member = None):
         """
@@ -79,10 +79,10 @@ class Info(commands.Cog):
 
         em.set_thumbnail(url=member.avatar.url)
 
-        await ctx.send(embed=em)
+        await ctx.respond(embed=em)
 
 
-    @commands.command(name="serverinfo", description="Shows server info")
+    @commands.slash_command(name="serverinfo", description="Shows server info")
     @commands.check(blacklisted)
     async def serverinfo(self, ctx: commands.Context):
         """
@@ -134,10 +134,10 @@ class Info(commands.Cog):
 
         em.timestamp = datetime.datetime.utcnow()
 
-        await ctx.send(embed=em)
+        await ctx.respond(embed=em)
 
 
-    @commands.command(name="botinfo", description="Gets info on Why Bot")
+    @commands.slash_command(name="botinfo", description="Gets info on Why Bot")
     @commands.check(blacklisted)
     async def botinfo(self, ctx: commands.Context):
         """
@@ -200,10 +200,10 @@ class Info(commands.Cog):
         )
 
         em.set_footer(text="Made by FusionSid#3645")
-        await ctx.send(embed=em)
+        await ctx.respond(embed=em)
 
 
-    @commands.command(name="uptime", description="Get the uptime for the bot")
+    @commands.slash_command(name="uptime", description="Get the uptime for the bot")
     @commands.check(blacklisted)
     async def uptime(self, ctx: commands.Context):
         """
@@ -216,7 +216,7 @@ class Info(commands.Cog):
         Usage: uptime
         """
 
-        await ctx.send(
+        await ctx.respond(
             embed=discord.Embed(
                 title="Uptime:",
                 description=f"I have been up for: **{(await self.client.uptime)}**",
@@ -225,7 +225,7 @@ class Info(commands.Cog):
         )
 
 
-    @commands.command(name="ping", description="Shows the bot's ping")
+    @commands.slash_command(name="ping", description="Shows the bot's ping")
     @commands.check(blacklisted)
     async def ping(self, ctx: commands.Context):
         """
@@ -238,7 +238,7 @@ class Info(commands.Cog):
         Usage: ping
         """
 
-        await ctx.send(f"Pong!\n{round(self.client.latency * 1000)}ms")
+        await ctx.respond(f"Pong!\n{round(self.client.latency * 1000)}ms")
 
 
 def setup(client: WhyBot):
