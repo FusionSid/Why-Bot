@@ -12,7 +12,7 @@ class Server(commands.Cog):
     def __init__(self, client : WhyBot):
         self.client = client
 
-    @commands.slash_command()
+    @commands.command()
     @commands.is_owner()
     async def server_list(self, ctx):
         """
@@ -48,7 +48,7 @@ class Server(commands.Cog):
             timestamp=datetime.datetime.utcnow()
         )
 
-        await ctx.respond(embed=em)
+        await ctx.send(embed=em)
         for chunk in chunked_list:
             em = discord.Embed(
                 title = "** **",
@@ -137,7 +137,23 @@ class Server(commands.Cog):
 
         Usage: fetch_user_info <user: discord.Member | int>
         """
-        pass
+        user = await self.client.fetch_user(user)
+
+        em.set_thumbnail(url=user.avatar.url)
+        em = discord.Embed(title="User Info:", description=f"For: {user.name}", color=user.color)
+        em.add_field(name="ID:", value=user.id, inline=False)
+        em.add_field(name="Created Account:",value=f"<t:{int(time.mktime(user.created_at.timetuple()))}>", inline=False)
+
+        shared_guilds = []
+        for guild in self.client.guilds:
+            if user in guild.members:
+                shared_guilds.append(guild.name)
+                
+        em.add_field(name=f"Shared Guilds: ({len(shared_guilds)})", value=", ".join(shared_guilds))
+        
+        em.timestamp = datetime.datetime.now()
+        await ctx.send(embed=em)
+
 
 
 def setup(client):

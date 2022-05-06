@@ -5,10 +5,10 @@ import discord
 from discord.ext import commands
 
 import log.log
-from utils import blacklisted
+from utils import blacklisted, WhyBot
 
 class Programming(commands.Cog):
-    def __init__(self, client):
+    def __init__(self, client: WhyBot):
         self.client = client
 
 
@@ -26,7 +26,8 @@ class Programming(commands.Cog):
 
         Usage: getcode <name: str>
         """
-        for command in self.client.commands:
+        commands_list = list(self.client.application_commands) + list(self.client.commands)
+        for command in commands_list:
             if command.name.lower() == name.lower():
                 func = command.callback
                 filename = inspect.getsourcefile(func).split("/src")[1]
@@ -44,6 +45,7 @@ class Programming(commands.Cog):
                 return await ctx.respond(
                     f"""```py\n\t# Code for the: {func.__name__} function / {command.name} command\n\t# Code written by FusionSid#3645\n\n{function_code}\n```\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}#L{first_line}-L{last_line}>"""
                 )
+        await ctx.respond(embed=discord.Embed(title="Get Code", description="Command not found!", color=ctx.author.color), ephemeral=True)
 
 
     @commands.slash_command(name="get_command_doc", description="Get the doc string for a command")
@@ -60,14 +62,14 @@ class Programming(commands.Cog):
         Usage: get_command_doc <name: str>
         """
         func, cmd = None, None
-        for command in self.client.commands:
+        commands_list = list(self.client.application_commands) + list(self.client.commands)
+        for command in commands_list:
             if command.name.lower() == name.lower():
                 func = command.callback
                 cmd = command
                 break
-
         if func is None:
-            return await ctx.send("Command not found")
+            return await ctx.respond(embed=discord.Embed(title="Get Command Doc", description="Command not found!", color=ctx.author.color), ephemeral=True)
 
         doc_string = func.__doc__.split("\n")
         doc_string = [i.strip() for i in doc_string]

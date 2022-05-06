@@ -9,17 +9,17 @@ class FusionSid(commands.Cog):
         self.client = client
 
 
-    @commands.slash_command()
+    @commands.command()
     @commands.is_owner()
     async def reload_config(self, ctx):
         with open("./config.json") as f:
             config = Config(json.load(f))
         
         self.client.config = config
-        await ctx.respond(embed=discord.Embed(title="Reloaded Config", color=ctx.author.color))
+        await ctx.send(embed=discord.Embed(title="Reloaded Config", color=ctx.author.color))
 
 
-    @commands.slash_command()
+    @commands.command()
     @commands.is_owner()
     async def get_config(self, ctx):
         with open("./config.json") as f:
@@ -39,7 +39,7 @@ class FusionSid(commands.Cog):
 
             em.add_field(name=key, value=val)
 
-        await ctx.respond(embed=em)
+        await ctx.send(embed=em)
 
 def setup(client):
     client.add_cog(FusionSid(client))

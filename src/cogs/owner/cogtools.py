@@ -11,7 +11,7 @@ class CogTools(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
 
-    @commands.slash_command()
+    @commands.command()
     @commands.is_owner()
     async def reload(self, ctx, extension):
         """
@@ -30,9 +30,9 @@ class CogTools(commands.Cog):
             color=ctx.author.color,
         )
         embed.timestamp = datetime.datetime.utcnow()
-        await ctx.respond(embed=embed)
+        await ctx.send(embed=embed)
 
-    @commands.slash_command()
+    @commands.command()
     @commands.is_owner()
     async def load(self, ctx, extension):
         """
@@ -52,9 +52,9 @@ class CogTools(commands.Cog):
             color=ctx.author.color,
         )
         embed.timestamp = datetime.datetime.utcnow()
-        await ctx.respond(embed=embed)
+        await ctx.send(embed=embed)
 
-    @commands.slash_command()
+    @commands.command()
     @commands.is_owner()
     async def unload(self, ctx, extension):
         """
@@ -75,9 +75,9 @@ class CogTools(commands.Cog):
             color=ctx.author.color,
         )
         embed.timestamp = datetime.datetime.utcnow()
-        await ctx.respond(embed=embed)
+        await ctx.send(embed=embed)
 
-    @commands.slash_command()
+    @commands.command()
     @commands.is_owner()
     async def listcogs(self, ctx):
         """
@@ -89,9 +89,9 @@ class CogTools(commands.Cog):
 
         Usage: listcogs
         """
-        return await ctx.respond("\n".join(self.client.cogs_list))
+        return await ctx.send("\n".join(self.client.cogs_list))
 
-    @commands.slash_command(aliases=["rall"])
+    @commands.command(aliases=["rall"])
     async def reloadall(self, ctx):
         """
         This command is used to reload all the cogs
@@ -113,7 +113,7 @@ class CogTools(commands.Cog):
                 self.client.reload_extension(cogs)
             except:
                 continue
-        await ctx.respond("All Reloaded")
+        await ctx.send("All Reloaded")
 
 
 def setup(client: WhyBot):

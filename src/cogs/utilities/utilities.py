@@ -32,7 +32,6 @@ class Utilities(commands.Cog):
         await ctx.defer()
         view = CalculatorView(ctx)
         message = await ctx.respond("```\n```", view=view)
-        message = await message.original_message()
         res = await view.wait()
         if res:
             for i in view.children:

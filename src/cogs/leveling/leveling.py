@@ -23,7 +23,7 @@ class Leveling(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.slash_command()
     async def rank(self, ctx, member: discord.Member = None):
         """
         This command displays your rank image in a card
@@ -205,7 +205,7 @@ class Leveling(commands.Cog):
         background.save(return_image, "PNG")
         return_image.seek(0)
 
-        await ctx.send(file=discord.File(return_image, "rank_card.png"))
+        await ctx.respond(file=discord.File(return_image, "rank_card.png"))
 
     @commands.command()
     @commands.is_owner()

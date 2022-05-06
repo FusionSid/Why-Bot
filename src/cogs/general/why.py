@@ -39,9 +39,10 @@ class Why(commands.Cog):
         message = await channel.send(embed=em)
         await message.add_reaction("✅")
         await message.add_reaction("❌")
+        await ctx.respond("Thank you for the suggestion :)")
 
 
-    @commands.command(description = "Report a bug")
+    @commands.slash_command(description = "Report a bug")
     @commands.check(blacklisted)
     async def bug(self, ctx, *, bug):
         em = discord.Embed(title="REPORT", color=ctx.author.color)
@@ -53,9 +54,10 @@ class Why(commands.Cog):
         try:
             channel = await self.client.fetch_channel(self.client.config.bug_report_channel)
         except discord.errors.NotFound:
-            return await ctx.send("Bot owner has bug reports")
+            return await ctx.respond("Bot owner has bug reports")
 
         await channel.send(content=ctx.author.id, embed=em)
+        await ctx.respond("Thank you for the bug report :)")
 
 def setup(client):
     client.add_cog(Why(client))

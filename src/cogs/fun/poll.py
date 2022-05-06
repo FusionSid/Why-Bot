@@ -13,22 +13,23 @@ class Poll(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(description="Makes a Yah or Nah poll")
+    @commands.slash_command(description="Makes a Yah or Nah poll")
     @commands.check(blacklisted)
     async def yesorno(self, ctx, *, message):
-        msg = await ctx.send(embed=discord.Embed(title="Yah or Nah?", description=message, color=ctx.author.color))
+        msg = await ctx.respond(embed=discord.Embed(title="Yah or Nah?", description=message, color=ctx.author.color))
+        msg = await msg.original_message()
         await msg.add_reaction('👍')
         await msg.add_reaction('👎')
 
 
-    @commands.command()
+    @commands.slash_command()
     @commands.check(blacklisted)
     async def poll(self, ctx, time: int, question, *options: str):
         if len(options) <= 1:
-            await ctx.send('You need more than one option to make a poll!')
+            await ctx.respond('You need more than one option to make a poll!')
             return
         if len(options) > 10:
-            await ctx.send('You cannot make a poll for more than 10 things!')
+            await ctx.respond('You cannot make a poll for more than 10 things!')
             return
 
         if len(options) == 2 and options[0] == 'yes' and options[1] == 'no':
@@ -48,7 +49,8 @@ class Poll(commands.Cog):
         timern = py_time.time()
         t = int(timern) + time
         embed.add_field(name="Voting ends in:", value=f"<t:{t}:R>")
-        react_message = await ctx.send(embed=embed)
+        react_message = await ctx.respond(embed=embed)
+        react_message = await react_message.orignal_message()
 
         for reaction in reactions[:len(options)]:
             await react_message.add_reaction(reaction)

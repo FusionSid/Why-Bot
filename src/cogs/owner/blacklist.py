@@ -11,7 +11,7 @@ class Blacklisted(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
 
-    @commands.slash_command(aliases=["bl"])
+    @commands.command(aliases=["bl"])
     @commands.is_owner()
     async def blacklist(self, ctx, user: discord.Member):
         """
@@ -31,9 +31,9 @@ class Blacklisted(commands.Cog):
 
         await self.client.blacklist_user(user.id)
 
-        await ctx.respond(f"User ({user.name}) has been blacklisted")
+        await ctx.send(f"User ({user.name}) has been blacklisted")
 
-    @commands.slash_command(aliases=["wl"])
+    @commands.command(aliases=["wl"])
     @commands.is_owner()
     async def whitelist(self, ctx, user: discord.Member):
         """
@@ -53,9 +53,9 @@ class Blacklisted(commands.Cog):
 
         await self.client.whitelist_user(user.id)
 
-        await ctx.respond(f"User ({user.name}) has been whitelisted")
+        await ctx.send(f"User ({user.name}) has been whitelisted")
 
-    @commands.slash_command(aliases=["blacklisted"])
+    @commands.command(aliases=["blacklisted"])
     @commands.is_owner()
     async def listblack(self, ctx):
         """
@@ -76,7 +76,7 @@ class Blacklisted(commands.Cog):
             except:
                 blacklisted_users.append(user)
                 continue
-        await ctx.respond(
+        await ctx.send(
             embed=discord.Embed(
                 title="Blacklisted Users:", description=", ".join(blacklisted_users)
             )

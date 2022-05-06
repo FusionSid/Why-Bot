@@ -11,83 +11,83 @@ class TextConvert(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.slash_command()
     @commands.check(blacklisted)
     async def drunkify(self, ctx, *, text: clean_content):
         functions = [str.upper, str.lower]
         drunkified_text = "".join(random.choice(functions)(char) for char in text)
         if len(drunkified_text) <= 1999:
-            return await ctx.send(drunkified_text)
-        await ctx.send("Too long to send :(")
+            return await ctx.respond(drunkified_text)
+        await ctx.respond("Too long to send :(")
 
-    @commands.command()
+    @commands.slash_command()
     @commands.check(blacklisted)
     async def expand(self, ctx, space: int, *, text: clean_content):
         spacing = " " * space
         result = spacing.join(text)
         if len(result) <= 1999:
-            return await ctx.send(result)
-        await ctx.send("Too long to send :(")
+            return await ctx.respond(result)
+        await ctx.respond("Too long to send :(")
 
-    @commands.command()
+    @commands.slash_command()
     @commands.check(blacklisted)
     async def reverse(self, ctx, *, text: clean_content):
         result = text[::-1]
         if len(result) <= 1999:
-            return await ctx.send(result)
-        await ctx.send("Too long to send :(")
+            return await ctx.respond(result)
+        await ctx.respond("Too long to send :(")
 
-    @commands.command()
+    @commands.slash_command()
     @commands.check(blacklisted)
     async def texttohex(self, ctx, *, text):
         try:
             hex_output = " ".join("{:02x}".format(ord(char)) for char in text)
         except Exception as e:
-            return await ctx.send(
+            return await ctx.respond(
                 f"Error: `{e}`. This probably means the text is malformed"
             )
         if len(hex_output) <= 1999:
-            return await ctx.send(f"```fix\n{hex_output}```")
-        await ctx.send("Too long to send :(")
+            return await ctx.respond(f"```fix\n{hex_output}```")
+        await ctx.respond("Too long to send :(")
 
-    @commands.command()
+    @commands.slash_command()
     @commands.check(blacklisted)
     async def hextotext(self, ctx, *, text: clean_content):
         try:
             text_output = bytearray.fromhex(text).decode()
         except Exception as e:
-            return await ctx.send(
+            return await ctx.respond(
                 f"**Error: `{e}`. This probably means the text is malformed**"
             )
         if len(text_output) <= 1999:
-            return await ctx.send(f"```fix\n{text_output}```")
-        await ctx.send("Too long to send :(")
+            return await ctx.respond(f"```fix\n{text_output}```")
+        await ctx.respond("Too long to send :(")
 
-    @commands.command()
+    @commands.slash_command()
     @commands.check(blacklisted)
     async def texttobinary(self, ctx, *, text):
         try:
             binary_output = " ".join(format(ord(char), "b") for char in text)
         except Exception as e:
-            return await ctx.send(
+            return await ctx.respond(
                 f"**Error: `{e}`. This probably means the text is malformed."
             )
         if len(binary_output) <= 1999:
-            return await ctx.send(f"```fix\n{binary_output}```")
-        await ctx.send("Too long to send :(")
+            return await ctx.respond(f"```fix\n{binary_output}```")
+        await ctx.respond("Too long to send :(")
 
-    @commands.command()
+    @commands.slash_command()
     @commands.check(blacklisted)
     async def binarytotext(self, ctx, *, text):
         try:
             text_output = "".join([chr(int(char, 2)) for char in text.split()])
         except Exception as e:
-            await ctx.send(f"**Error: `{e}`. This probably means the text is malformed")
+            await ctx.respond(f"**Error: `{e}`. This probably means the text is malformed")
         if len(text_output) <= 1999:
-            return await ctx.send(f"```fix\n{text_output}```")
-        await ctx.send("Too long to send :(")
+            return await ctx.respond(f"```fix\n{text_output}```")
+        await ctx.respond("Too long to send :(")
 
-    @commands.command()
+    @commands.slash_command()
     @commands.check(blacklisted)
     async def emojify(self, ctx, *, text):
         emojis = []
@@ -110,7 +110,7 @@ class TextConvert(commands.Cog):
                 emojis.append(f":regional_indicator_{s}:")
             else:
                 emojis.append(s)
-        await ctx.send(" ".join(emojis))
+        await ctx.respond(" ".join(emojis))
 
 
 def setup(client):
