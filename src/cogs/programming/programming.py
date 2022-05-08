@@ -2,6 +2,8 @@ import inspect
 import datetime
 
 import discord
+import aiohttp
+from bs4 import BeautifulSoup
 from discord.ext import commands
 
 import log.log
@@ -82,6 +84,56 @@ class Programming(commands.Cog):
         )
 
         await ctx.respond(embed=em)
+
+
+
+    @commands.slash_command(name="pydoc", description="Search the python3 documentation")
+    @commands.check(blacklisted)
+    async def pydoc(self, ctx, *, query):
+        """
+        This command is used to search the python docs
+
+        Help Info:
+        ----------
+        Category: Programming
+
+        Usage: pydoc <query>
+        """
+        text = query.strip('`')
+
+        url = "https://docs.python.org/3/genindex-all.html"
+
+        em = discord.Embed(title="Python3 docs search", color=ctx.author.color)
+        em.set_thumbnail(url='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/242px-Python-logo-notext.svg.png')
+
+        async with aiohttp.ClientSession() as client_session:
+            async with client_session.get(url) as response:
+                if response.status != 200:
+                    em.description = 'An error occurred (status code: {response.status}). Retry later.'
+                    return await ctx.respond(embed=em)
+    
+
+                soup = BeautifulSoup(str(await response.text()), 'lxml')
+
+                def soup_match(tag):
+                    return all(string in tag.text for string in text.strip().split()) and tag.name == 'li'
+
+                elements = soup.find_all(soup_match, limit=10)
+                links = [tag.select_one("li > a") for tag in elements]
+                links = [link for link in links if link is not None]
+    
+
+                if not links:
+                    em.description = "No results found :("
+                    return await ctx.respond(embed=em)
+
+                content = [f"[`{a.string}`](https://docs.python.org/3/{a.get('href')})" for a in links]
+                if len(content) > 10:
+                    content = content[:3]
+                content = '\n'.join(content)
+                # content = '\n'.join([f"{index+1}: {item}" for index, item in enumerate(content)])
+                em.description = f"Results for `{text}` :\n {content}"
+                return await ctx.respond(embed=em)
 
 
 def setup(client):
