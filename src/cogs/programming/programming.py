@@ -41,7 +41,7 @@ class Programming(commands.Cog):
 
                 last_line = function_length + first_line - 1
 
-                if len(function_code) > 1990:
+                if len(function_code) > 1500:
                     return await ctx.send(embed=discord.Embed(title="Code to large lmao", description=f"Link to code:\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}#L{first_line}-L{last_line}>", color=ctx.author.color))
 
                 return await ctx.respond(

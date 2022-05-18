@@ -8,3 +8,6 @@ psutil
 python-dotenv
 rich
 simpcalci
+torch
+transformers
+beautifulsoup4
