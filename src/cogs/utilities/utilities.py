@@ -2,7 +2,7 @@ import datetime
 
 import discord
 from discord.ext import commands
-from discord.commands import CommandPermission, SlashCommandGroup
+from discord.commands import SlashCommandGroup
 
 import log.log
 from utils import WhyBot, blacklisted
