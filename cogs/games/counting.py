@@ -5,7 +5,7 @@ import json
 import datetime
 from utils.checks import plugin_enabled
 import numexpr as ne
-
+from simpcalc import simpcalc
 
 async def get_counting_channel(guild):
     with open("./database/db.json") as f:
@@ -26,9 +26,10 @@ async def counting(msg, guild, channel, m):
         calcm = False
     except:
         try:
-            calc = ne.evaluate(msg)
+            calc = simpcalc.Calculate()
+            ans = await calc.calculate(msg)
+            msg = int(ans)
             _msg = msg
-            msg = int(calc)
             calcm = True
             with open("./database/db.json") as f:
                 data = json.load(f)
