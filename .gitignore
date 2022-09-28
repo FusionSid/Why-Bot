@@ -1,9 +1,6 @@
 *.db
 *.DS_Store
 *.env
-*.jpeg
-*.jpg
-*.png
 *.pyc
 *__pycache__/
 *venv/
