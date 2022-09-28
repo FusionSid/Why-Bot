@@ -5,14 +5,8 @@
 *.jpg
 *.png
 *.pyc
-src/log/logs.txt
-*__pycache__
-*why-bot-venv
-docsrc/
-src/create_db.py
-__pycache__/
-*.py[cod]
-*$py.class
+*__pycache__/
+*venv/
 .Python
 build/
 develop-eggs/
@@ -33,8 +27,3 @@ share/python-wheels/
 MANIFEST
 .cache
 .env
-venv/
-
-src/database/dm_banned.json
-src/database/blacklisted.json
-src/config.json
