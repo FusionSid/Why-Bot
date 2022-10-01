@@ -19,9 +19,7 @@ logfile_path = os.path.join(os.path.dirname(__file__), "main.log")
 # setup discord logger
 logger = logging.getLogger("discord")
 logger.setLevel(logging.INFO)
-discord_logfile_path = os.path.join(
-    os.path.dirname(__file__), "core/helpers/logger/discord.log"
-)
+discord_logfile_path = os.path.join(os.path.dirname(__file__), "discord.log")
 handler = logging.FileHandler(filename=discord_logfile_path, encoding="utf-8", mode="w")
 handler.setFormatter(
     logging.Formatter(
