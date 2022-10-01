@@ -7,20 +7,18 @@ __version__ = "2.0.0"
 __author__ = "FusionSid"
 __licence__ = "MIT License"
 
-import json
 import datetime
 
 import discord
 from rich.console import Console
 from discord.ext import commands
 
+from core.utils import format_seconds
+
 
 class WhyBot(commands.Bot):
     """
     The Why Bot Class (subclass of: `discord.ext.commands.Bot`)
-
-    Parameters
-        void
     """
 
     def __init__(self):
@@ -37,7 +35,8 @@ class WhyBot(commands.Bot):
             intents=intents,
             help_command=None,
             case_insensitive=True,
-            owner_id=624076054969188363,  # The bot owner's ID
+            command_prefix="?",  # gonna use slash commands anyways
+            owner_id=624076054969188363,
             allowed_mentions=allowed_mentions,
         )
 
@@ -50,18 +49,9 @@ class WhyBot(commands.Bot):
             str : Formated string with the uptime
         """
         time_right_now = datetime.datetime.now()
-        seconds = int((time_right_now - self.last_login_time).total_seconds())
-        time = f"{seconds}s"
-        if seconds > 60:
-            minutes = seconds - (seconds % 60)
-            seconds = seconds - minutes
-            minutes = int(minutes / 60)
-            time = f"{minutes}min {seconds}s"
-            if minutes > 60:
-                hoursglad = minutes - (minutes % 60)
-                hours = int(hoursglad / 60)
-                minutes = minutes - (hours * 60)
-                time = f"{hours}h {minutes}min {seconds}s"
+        seconds = (time_right_now - self.last_login_time).total_seconds()
+
+        time = await format_seconds(seconds)
         return time
 
     @property
@@ -72,48 +62,9 @@ class WhyBot(commands.Bot):
         Returns:
             Dict : A dictionary of emojis
         """
-        return {"why": "<:why:932912321544728576>"}
+        emojis_dict = {}
 
-    @property
-    def blacklisted_users(self):
-        """
-        This function returns all the blacklisted users
+        for emoji in self.get_guild(763348615233667082).emojis:
+            emojis_dict[emoji.name] = str(emoji)
 
-        Returns:
-            List : List of blacklisted users
-        """
-        with open("database/blacklisted.json") as f:
-            data = json.load(f)
-        return data
-
-    async def blacklist_user(self, user_id: int):
-        """
-        This function is used to blacklist a user so they cant use why bot anymore
-
-        Parameters
-            :param: user_id (int) : The id for the user. This will be appended to the List of blacklisted users
-        """
-        with open("database/blacklisted.json") as f:
-            data = json.load(f)
-
-        if user_id not in data:
-            data.append(user_id)
-
-        with open("database/blacklisted.json", "w") as f:
-            json.dump(data, f, indent=4)
-
-    async def whitelist_user(self, user_id: int):
-        """
-        This function is used to whitelist a user so they can use why bot
-
-        Parameters
-            :param: user_id (int) : The id for the user. This will be appended to the List of blacklisted users
-        """
-        with open("database/blacklisted.json") as f:
-            data = json.load(f)
-
-        if user_id in data:
-            data.remove(user_id)
-
-        with open("database/blacklisted.json", "w") as f:
-            json.dump(data, f, indent=4)
+        return emojis_dict
