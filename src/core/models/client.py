@@ -21,9 +21,10 @@ class WhyBot(commands.Bot):
     The Why Bot Class (subclass of: `discord.ext.commands.Bot`)
     """
 
-    def __init__(self):
+    def __init__(self, config: dict):
 
         self.cogs_list = []
+        self.config = config
         self.version = __version__
         self.console = Console()
         self.last_login_time = datetime.datetime.now()
@@ -36,7 +37,7 @@ class WhyBot(commands.Bot):
             help_command=None,
             case_insensitive=True,
             command_prefix="?",  # gonna use slash commands anyways
-            owner_id=624076054969188363,
+            owner_id=config["BOT_OWNER_ID"],
             allowed_mentions=allowed_mentions,
         )
 

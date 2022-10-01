@@ -9,17 +9,18 @@ __licence__ = "GPL-3.0 License"
 
 
 import os
+import sys
 import time
+import logging
 
 import yaml
 from yaml import Loader
-from dotenv import load_dotenv
 from rich.progress import Progress
 from rich.traceback import install
 
 from core.models.client import WhyBot
-from core.models.config import Config
 from core.helpers.exception import ConfigNotFound
+from core.helpers.logger import log_errors, on_error
 
 
 def start_bot(client: WhyBot):
@@ -30,11 +31,15 @@ def start_bot(client: WhyBot):
     path = os.path.join(os.path.dirname(__file__), "cogs")
 
     for category in os.listdir(path):
-        if not os.path.isdir(category):  # if its not a folder continue
+        if not os.path.isdir(
+            os.path.join(path, category)
+        ):  # if its not a folder continue
             continue
 
-        for filename in os.listdir(f"{path}/{category}"):
-            if os.path.isfile(filename) and filename.endswith(".py"):
+        for filename in os.listdir(os.path.join(path, category)):
+            if os.path.isfile(
+                os.path.join(path, category, filename)
+            ) and filename.endswith(".py"):
                 cog_name = filename[:-3]  # remove .py from name
                 cogs[cog_name] = f"cogs.{category}.{cog_name}"
 
@@ -55,11 +60,13 @@ def start_bot(client: WhyBot):
         progress.update(loading_cogs, description="[bold green]Loaded all cogs")
 
     time.sleep(1)
-    client.run(os.environ["TOKEN"])
+
+    client.event(on_error)
+    client.run(client.config["BOT_TOKEN"])
 
 
 def get_why_config():
-    path = os.path.join(os.path.dirname(__file__), "config/config.yaml")
+    path = os.path.join(os.path.dirname(__file__), "config.yaml")
 
     if not os.path.exists(path):
         raise ConfigNotFound
@@ -67,15 +74,15 @@ def get_why_config():
     with open(path) as f:
         data = yaml.load(f, Loader=Loader)
 
-    return Config(data)
+    return data
 
 
 if __name__ == "__main__":
-    load_dotenv()  # load enviroment variables
     install(show_locals=True)
+    sys.excepthook = log_errors
 
-    client = WhyBot()
     config = get_why_config()
+    client = WhyBot(config)
 
     # Start
     start_bot(client)
