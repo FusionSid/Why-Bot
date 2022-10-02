@@ -13,6 +13,7 @@ class Blacklist(commands.Cog):
     blacklisted = SlashCommandGroup("blacklist", "Blacklist Commands")
 
     @blacklisted.command(name="blacklist", description="ban a user from using whybot")
+    @commands.is_owner()
     async def blacklist(
         self, ctx, user_id: discord.Option(str, description="User id of user to ban")
     ):
@@ -45,6 +46,7 @@ class Blacklist(commands.Cog):
         )
 
     @blacklisted.command(name="whitelist", description="unban a user from using whybot")
+    @commands.is_owner()
     async def whitelist(
         self, ctx, user_id: discord.Option(str, description="User id of user to unban")
     ):

@@ -11,8 +11,8 @@ from core.helpers.checks import run_bot_checks
 
 
 class Poll(commands.Cog):
-    def __init__(self, client):
-        self.client: WhyBot = client
+    def __init__(self, client: WhyBot):
+        self.client = client
 
     @commands.slash_command(description="Makes a Yah or Nah poll")
     @commands.check(run_bot_checks)
