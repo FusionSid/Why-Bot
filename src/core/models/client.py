@@ -28,7 +28,7 @@ class WhyBot(commands.Bot):
 
     def __init__(self, config: dict):
 
-        self.cogs_list = []
+        self.cogs_list = {}
         self.db: asyncpg.Pool = None
         self.redis: aioredis.Redis = None
 
