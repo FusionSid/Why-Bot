@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS blacklist
 command_stats_query = """
 CREATE TABLE IF NOT EXISTS command_stats
 (
+    id SERIAL PRIMARY KEY,
     user_id bigint NOT NULL,
     command_name text NOT NULL,
     usage_count integer NOT NULL DEFAULT 0,

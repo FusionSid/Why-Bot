@@ -53,11 +53,10 @@ async def update_stats(ctx: ApplicationContext):
             ctx.author.id,
             ctx.command.name,
         )
-        print(data)
         if len(data):
             await conn.execute(
                 "UPDATE command_stats SET usage_count=$1 WHERE user_id=$2 AND command_name=$3",
-                data[0][2] + 1,
+                data[0][3] + 1,
                 ctx.author.id,
                 ctx.command.name,
             )
