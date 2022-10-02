@@ -6,7 +6,11 @@ from discord.ext import commands
 from core.models.client import WhyBot
 from core.helpers.logger import log_normal
 from core.helpers.exception import InvalidDatabaseUrl
-from core.utils.client_functions import update_activity, create_connection_pool
+from core.utils.client_functions import (
+    update_activity,
+    create_connection_pool,
+    create_redis_connection,
+)
 
 
 class OnEvent(commands.Cog):
@@ -41,8 +45,6 @@ class OnEvent(commands.Cog):
         Runs when the bot is ready
         Prints a message to console and updates the bot's activity
         """
-        self.client.console.print("\n[bold green]Bot is ready")
-
         await update_activity(self.client)
 
         online_alert_channel = self.client.config["online_alert_channel"]
@@ -67,8 +69,12 @@ class OnEvent(commands.Cog):
         except ValueError:
             raise InvalidDatabaseUrl
 
+        self.client.redis = await create_redis_connection()
+
         if self.client.config["LOGGING"]:
             await log_normal("Bot is Online")
+
+        self.client.console.print("\n[bold green]Bot is ready")
 
 
 def setup(client: WhyBot):

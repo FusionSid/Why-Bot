@@ -3,6 +3,7 @@
 Useful functions for the WhyBot client
 """
 import os
+import aioredis
 
 import yaml
 import discord
@@ -40,3 +41,16 @@ async def create_connection_pool() -> asyncpg.Pool:
     pool = await asyncpg.create_pool(dsn=config["DATABASE_URL"])
 
     return pool
+
+
+async def create_redis_connection() -> aioredis.Redis:
+    config = get_why_config()
+
+    redis = aioredis.from_url(
+        config["REDIS_URI"],
+        decode_responses=True,
+        password=config["REDIS_PASSWORD"],
+        port=6379,
+    )
+
+    return redis

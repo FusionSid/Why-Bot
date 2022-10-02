@@ -8,12 +8,17 @@ __author__ = "FusionSid"
 __licence__ = "MIT License"
 
 import datetime
+from typing import Optional
 
 import discord
+import aioredis
+import asyncpg
 from rich.console import Console
 from discord.ext import commands
 
+from core.helpers.checks import blacklist_check
 from core.utils.formatters import format_seconds
+from core.helpers.exception import UserAlreadyBlacklisted, UserAlreadyWhitelisted
 
 
 class WhyBot(commands.Bot):
@@ -24,7 +29,8 @@ class WhyBot(commands.Bot):
     def __init__(self, config: dict):
 
         self.cogs_list = []
-        self.db = None
+        self.db: asyncpg.Pool = None
+        self.redis: aioredis.Redis = None
 
         self.config = config
         self.version = __version__
@@ -71,3 +77,50 @@ class WhyBot(commands.Bot):
             emojis_dict[emoji.name] = str(emoji)
 
         return emojis_dict
+
+    async def get_blacklisted_users(self, reasons=False):
+        users = await self.db.fetch("SELECT * FROM blacklist;")
+
+        if reasons:
+            return users
+
+        return [int(user[0]) for user in users]
+
+    async def reset_redis_blacklisted_cache(self):
+        await self.redis.delete("blacklisted")
+        users = [int(user) for user in await self.get_blacklisted_users()]
+        if len(users):
+            await self.redis.lpush("blacklisted", *users)
+            await self.redis.expire("blacklisted", datetime.timedelta(days=5))
+
+        await self.redis.lpush("blacklisted", 0)
+        await self.redis.expire("blacklisted", datetime.timedelta(days=5))
+
+    async def blacklist_user(self, user_id: int, reason: Optional[str] = None):
+        is_user_blacklisted = user_id in await self.get_blacklisted_users()
+        if is_user_blacklisted:  # check if they are already blacklisted
+            raise UserAlreadyBlacklisted
+
+        if reason is not None:
+            await self.db.execute(
+                "INSERT INTO public.blacklist (user_id) VALUES ($1)", user_id
+            )
+        else:
+            await self.db.execute(
+                "INSERT INTO public.blacklist (user_id, reason) VALUES ($1, $2)",
+                user_id,
+                reason,
+            )
+
+        # Reset cache
+        await self.reset_redis_blacklisted_cache()
+
+    async def whitelist_user(self, user_id: int):
+        is_user_blacklisted = user_id in await self.get_blacklisted_users()
+        if not is_user_blacklisted:  # check if they are already whitelisted
+            raise UserAlreadyWhitelisted
+
+        await self.db.execute("DELETE FROM public.blacklist WHERE user_id=$1", user_id)
+
+        # Reset cache
+        await self.reset_redis_blacklisted_cache()

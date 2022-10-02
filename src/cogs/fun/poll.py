@@ -6,12 +6,16 @@ import discord
 from discord.utils import get
 from discord.ext import commands
 
+from core.models.client import WhyBot
+from core.helpers.checks import run_bot_checks
+
 
 class Poll(commands.Cog):
     def __init__(self, client):
-        self.client = client
+        self.client: WhyBot = client
 
     @commands.slash_command(description="Makes a Yah or Nah poll")
+    @commands.check(run_bot_checks)
     async def yesorno(self, ctx, *, message):
         msg = await ctx.respond(
             embed=discord.Embed(
