@@ -23,6 +23,7 @@ class OnGuild(commands.Cog):
         leave_alert_channel = self.client.config["leave_alert_channel"]
         if leave_alert_channel == 0 or leave_alert_channel == None:
             return
+
         try:
             channel = self.client.get_channel(leave_alert_channel)
         except discord.errors.NotFound:
@@ -33,7 +34,9 @@ class OnGuild(commands.Cog):
         )
         em.timestamp = datetime.datetime.utcnow()
         await channel.send(embed=em)
-        await log_normal(f"Left Guild: '{guild.name}'")
+
+        if self.client.config["LOGGING"]:
+            await log_normal(f"Left Guild: '{guild.name}'")
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
@@ -42,9 +45,12 @@ class OnGuild(commands.Cog):
         It will update the bots activity
         It will also send a message to the the join_alert_channel which is set in the config
         """
+        await update_activity(self.client)
+
         join_alert_channel = self.client.config["join_alert_channel"]
         if join_alert_channel == 0 or join_alert_channel == None:
             return
+
         try:
             channel = self.client.get_channel(join_alert_channel)
         except discord.errors.NotFound:
@@ -57,8 +63,9 @@ class OnGuild(commands.Cog):
         )
         em.timestamp = datetime.datetime.utcnow()
         await channel.send(embed=em)
-        await update_activity(self.client)
-        await log_normal(f"Joined Guild: '{guild.name}'")
+
+        if self.client.config["LOGGING"]:
+            await log_normal(f"Joined Guild: '{guild.name}'")
 
 
 def setup(client: WhyBot):

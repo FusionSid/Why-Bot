@@ -13,6 +13,8 @@ from datetime import datetime
 from rich.panel import Panel
 from rich.console import Console
 
+from core.utils.client_functions import get_why_config
+
 rich_console = Console()
 logfile_path = os.path.join(os.path.dirname(__file__), "main.log")
 
@@ -35,10 +37,12 @@ def log_errors(etype, value, tb):
     error = f"{etype.__name__}:\n\tTraceback (most recent call last):\n\t{'    '.join(traceback.format_tb(tb))}\n\t{value}"
 
     # Pythons core module "logging" doesnt wanna work me very sad so me make this workaround:
-    with open(logfile_path, "a") as f:
-        f.write(f"[ERROR] ({datetime.now().strftime('%d-%b-%Y %H:%M:%S')}) - {error}\n")
-
-    # sys.__excepthook__(etype, value, tb)
+    config = get_why_config()
+    if config["LOGGING"]:
+        with open(logfile_path, "a") as f:
+            f.write(
+                f"[ERROR] ({datetime.now().strftime('%d-%b-%Y %H:%M:%S')}) - {error}\n"
+            )
 
     rich_console.print(
         Panel(
@@ -75,8 +79,8 @@ async def convert_to_dict() -> dict:
         for line in logs_data:
             if line.startswith("[ERROR]"):
                 logs[line] = ""
-            else:
-                logs[(list(logs.keys())[-1])] += line
+                continue
+            logs[(list(logs.keys())[-1])] += line
 
     return logs
 

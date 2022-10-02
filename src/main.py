@@ -11,16 +11,13 @@ __licence__ = "GPL-3.0 License"
 import os
 import sys
 import time
-import logging
 
-import yaml
-from yaml import Loader
 from rich.progress import Progress
 from rich.traceback import install
 
 from core.models.client import WhyBot
-from core.helpers.exception import ConfigNotFound
 from core.helpers.logger import log_errors, on_error
+from core.utils.client_functions import get_why_config
 
 
 def start_bot(client: WhyBot):
@@ -63,18 +60,6 @@ def start_bot(client: WhyBot):
 
     client.event(on_error)
     client.run(client.config["BOT_TOKEN"])
-
-
-def get_why_config():
-    path = os.path.join(os.path.dirname(__file__), "config.yaml")
-
-    if not os.path.exists(path):
-        raise ConfigNotFound
-
-    with open(path) as f:
-        data = yaml.load(f, Loader=Loader)
-
-    return data
 
 
 if __name__ == "__main__":

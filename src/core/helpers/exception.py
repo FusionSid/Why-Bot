@@ -10,18 +10,27 @@ class BaseException(Exception):
     Base class for other exceptions to inherit form
     """
 
-    pass
-
-
-class ConfigNotFound(BaseException):
-    def __init__(self) -> None:
-        # print error message
+    def __init__(self, title: str, message: str) -> None:
         error_message = Panel(
-            Text.from_markup(
-                "[yellow] Config file (config.yaml) was not found. Please run setup.py to create config files"
-            ),
-            title="CONFIG FILE NOT FOUND!!!",
+            Text.from_markup(f"[yellow]{message}"),
+            title=title,
             border_style="red",
         )
         Console().print(error_message, justify="left")
         sys.exit(1)
+
+
+class ConfigNotFound(BaseException):
+    def __init__(self) -> None:
+        super().__init__(
+            "CONFIG FILE NOT FOUND!!!",
+            "Config file (config.yaml) was not found.\nPlease run setup.py to create config files",
+        )
+
+
+class InvalidDatabaseUrl(BaseException):
+    def __init__(self) -> None:
+        super().__init__(
+            "INVALID DATABASE URL!!!",
+            "Invalid postgresql connection string was provided.\nPlease provide the correct string in config",
+        )

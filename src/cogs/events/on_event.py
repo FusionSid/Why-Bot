@@ -5,7 +5,8 @@ from discord.ext import commands
 
 from core.models.client import WhyBot
 from core.helpers.logger import log_normal
-from core.utils.client_functions import update_activity
+from core.helpers.exception import InvalidDatabaseUrl
+from core.utils.client_functions import update_activity, create_connection_pool
 
 
 class OnEvent(commands.Cog):
@@ -61,7 +62,13 @@ class OnEvent(commands.Cog):
         )
         await channel.send(embed=em)
 
-        await log_normal("Bot is Online")
+        try:
+            self.client.db = await create_connection_pool()
+        except ValueError:
+            raise InvalidDatabaseUrl
+
+        if self.client.config["LOGGING"]:
+            await log_normal("Bot is Online")
 
 
 def setup(client: WhyBot):

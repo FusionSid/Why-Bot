@@ -13,7 +13,7 @@ import discord
 from rich.console import Console
 from discord.ext import commands
 
-from core.utils import format_seconds
+from core.utils.formatters import format_seconds
 
 
 class WhyBot(commands.Bot):
@@ -24,6 +24,8 @@ class WhyBot(commands.Bot):
     def __init__(self, config: dict):
 
         self.cogs_list = []
+        self.db = None
+
         self.config = config
         self.version = __version__
         self.console = Console()
@@ -36,7 +38,7 @@ class WhyBot(commands.Bot):
             intents=intents,
             help_command=None,
             case_insensitive=True,
-            command_prefix="?",  # gonna use slash commands anyways
+            command_prefix="?",  # gonna use slash commands anyways so this only for owner cmds
             owner_id=config["BOT_OWNER_ID"],
             allowed_mentions=allowed_mentions,
         )
