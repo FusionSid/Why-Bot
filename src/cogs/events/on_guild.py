@@ -4,6 +4,7 @@ import discord
 from discord.ext import commands
 
 from core.models.client import WhyBot
+from core.helpers.logger import log_normal
 from core.utils.client_functions import update_activity
 
 
@@ -32,6 +33,7 @@ class OnGuild(commands.Cog):
         )
         em.timestamp = datetime.datetime.utcnow()
         await channel.send(embed=em)
+        await log_normal(f"Left Guild: '{guild.name}'")
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
@@ -56,6 +58,7 @@ class OnGuild(commands.Cog):
         em.timestamp = datetime.datetime.utcnow()
         await channel.send(embed=em)
         await update_activity(self.client)
+        await log_normal(f"Joined Guild: '{guild.name}'")
 
 
 def setup(client: WhyBot):
