@@ -25,3 +25,4 @@ MANIFEST
 .env
 *.yaml
 *.log
+*.so
