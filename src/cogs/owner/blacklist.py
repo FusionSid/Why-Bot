@@ -20,13 +20,24 @@ class Blacklist(commands.Cog):
         if not user_id.isnumeric():
             return await ctx.respond(
                 embed=discord.Embed(
-                    title="Invalid discord userid",
-                    description="Please provide an INTEGER",
+                    title="Invalid discord user id",
+                    description="Please provide an integer",
                     color=ctx.author.color,
                 )
             )
 
         user_id = int(user_id)
+
+        try:
+            await self.client.fetch_user(user_id)
+        except discord.ApplicationCommandInvokeError:
+            return await ctx.respond(
+                embed=discord.Embed(
+                    title="Invalid discord user id",
+                    description="Please provide a real user",
+                    color=ctx.author.color,
+                )
+            )
 
         try:
             await self.client.blacklist_user(user_id)
@@ -60,6 +71,17 @@ class Blacklist(commands.Cog):
             )
 
         user_id = int(user_id)
+
+        try:
+            await self.client.fetch_user(user_id)
+        except discord.ApplicationCommandInvokeError:
+            return await ctx.respond(
+                embed=discord.Embed(
+                    title="Invalid discord user id",
+                    description="Please provide a real user",
+                    color=ctx.author.color,
+                )
+            )
 
         try:
             await self.client.whitelist_user(user_id)
