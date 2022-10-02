@@ -1,12 +1,15 @@
-from datetime import timedelta
+import asyncio
+import datetime
 
 import aioredis
+from discord.ext import commands
+from discord import ApplicationContext  # for the autocomplete
 
 from core.utils.asyncpg_context import asyncpg_connect
 from core.utils.client_functions import get_why_config
 
 
-async def blacklist_check(user_id):
+async def blacklist_check(user_id: int) -> bool:
     """
     returns true if the user is not blacklisted
     """
@@ -30,12 +33,49 @@ async def blacklist_check(user_id):
         users = [int(user) for user in data]
         if len(users):
             await redis.lpush("blacklisted", *users)
-            await redis.expire("blacklisted", timedelta(hours=12))
+            await redis.expire("blacklisted", datetime.timedelta(hours=12))
         return not str(user_id) in users
 
 
-async def run_bot_checks(ctx):
+async def plugin_enabled(cog: commands.Cog) -> bool:
+    cog_name = cog.__cog_name__
+
+    return True
+
+
+async def update_stats(ctx: ApplicationContext):
+    config = get_why_config()
+    database_url = config["DATABASE_URL"]
+
+    async with asyncpg_connect(database_url) as conn:
+        data = await conn.fetch(
+            "SELECT * FROM command_stats WHERE user_id=$1 AND command_name=$2",
+            ctx.author.id,
+            ctx.command.name,
+        )
+        print(data)
+        if len(data):
+            await conn.execute(
+                "UPDATE command_stats SET usage_count=$1 WHERE user_id=$2 AND command_name=$3",
+                data[0][2] + 1,
+                ctx.author.id,
+                ctx.command.name,
+            )
+        else:
+            await conn.execute(
+                "INSERT INTO command_stats (user_id, command_name, usage_count) VALUES ($1, $2, $3)",
+                ctx.author.id,
+                ctx.command.name,
+                1,
+            )
+
+
+async def run_bot_checks(ctx: ApplicationContext):
+
     blacklisted_check = await blacklist_check(ctx.author.id)
-    all_checks_successful = all([blacklisted_check])
+    plugin_enabled_check = await plugin_enabled(ctx.cog)
+    all_checks_successful = all([blacklisted_check, plugin_enabled_check])
+
+    asyncio.get_event_loop().create_task(update_stats(ctx))
 
     return all_checks_successful
