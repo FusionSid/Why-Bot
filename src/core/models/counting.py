@@ -12,7 +12,7 @@ class CountingData:
     high_score: int = 0
     plugin_enabled: bool = True
     auto_calculate: bool = False
-    banned_counters: list[int] = []
+    banned_counters: list[int] = None
 
     @property
     def next_number(self):

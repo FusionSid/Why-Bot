@@ -30,7 +30,7 @@ async def blacklist_check(user_id: int) -> bool:
 
     async with asyncpg_connect(database_url) as conn:
         data = await conn.fetch("SELECT * FROM blacklist;")
-        users = [int(user) for user in data]
+        users = [int(user[0]) for user in data]
         if len(users):
             await redis.lpush("blacklisted", *users)
             await redis.expire("blacklisted", datetime.timedelta(hours=12))
