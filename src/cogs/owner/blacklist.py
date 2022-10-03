@@ -40,11 +40,15 @@ class Blacklist(commands.Cog):
 
         try:
             await self.client.fetch_user(user_id)
-        except discord.ApplicationCommandInvokeError:
+        except (
+            discord.NotFound,
+            discord.HTTPException,
+            discord.ApplicationCommandInvokeError,
+        ):
             return await ctx.respond(
                 embed=discord.Embed(
-                    title="Invalid discord user id",
-                    description="Please provide a real user",
+                    title="Something went wrong fetching the user",
+                    description="Most likely an invalid discord user id.\nPlease provide a real user",
                     color=ctx.author.color,
                 ),
                 ephemeral=True,
@@ -97,11 +101,15 @@ class Blacklist(commands.Cog):
 
         try:
             await self.client.fetch_user(user_id)
-        except discord.ApplicationCommandInvokeError:
+        except (
+            discord.NotFound,
+            discord.HTTPException,
+            discord.ApplicationCommandInvokeError,
+        ):
             return await ctx.respond(
                 embed=discord.Embed(
-                    title="Invalid discord user id",
-                    description="Please provide a real user",
+                    title="Something went wrong fetching the user",
+                    description="Most likely an invalid discord user id.\nPlease provide a real user",
                     color=ctx.author.color,
                 ),
                 ephemeral=True,
@@ -124,6 +132,64 @@ class Blacklist(commands.Cog):
                 description="User whitelisted successfuly!", color=ctx.author.color
             ),
             ephemeral=True,
+        )
+
+    @blacklisted.command()
+    @commands.is_owner()
+    async def isblacklisted(
+        self,
+        ctx,
+        user_id: discord.Option(str, description="User id of user to check") = None,
+    ):
+        users = await self.client.get_blacklisted_users(reasons=True)
+        if user_id is not None:
+            if not user_id.isnumeric():
+                return await ctx.respond(
+                    embed=discord.Embed(
+                        title="Invalid discord user id",
+                        description="Please provide an integer",
+                        color=ctx.author.color,
+                    ),
+                    ephemeral=True,
+                )
+
+            user_id = int(user_id)
+            for userid, reason in users:
+                if userid == user_id:
+                    try:
+                        user = await self.client.fetch_user(user_id)
+                    except (
+                        discord.NotFound,
+                        discord.HTTPException,
+                        discord.ApplicationCommandInvokeError,
+                    ):
+                        return await ctx.respond(
+                            embed=discord.Embed(
+                                title="Something went wrong fetching the user",
+                                description="Most likely an invalid discord user id.\nPlease provide a real user",
+                                color=ctx.author.color,
+                            ),
+                            ephemeral=True,
+                        )
+
+                    return await ctx.respond(
+                        embed=discord.Embed(
+                            title=f"User: {user.name}#{user.discriminator} ({user.id}) is blacklisted",
+                            description=f"Reason Provided: {reason}",
+                            color=ctx.author.color,
+                        )
+                    )
+            embed = discord.Embed(
+                title=f"User with id {user_id} is NOT blacklisted",
+                color=ctx.author.color,
+            )
+            return await ctx.respond(embed=embed)
+
+        await ctx.respond(
+            embed=discord.Embed(
+                title="Blacklisted User IDs",
+                description="\n".join(str(i[0]) for i in users),
+            )
         )
 
 

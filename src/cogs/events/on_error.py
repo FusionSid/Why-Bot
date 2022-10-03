@@ -167,7 +167,7 @@ class OnError(commands.Cog):
         elif isinstance(error, discord.CheckFailure):
             em = discord.Embed(
                 title="You cannot use this command!",
-                description="You are most likely blacklisted from the bot",
+                description="Reasons why it may not be working for you:\n- You are blacklisted\n- The plugin where the command belongs to is disabled",
                 color=discord.Color.red(),
             )
             await ctx.respond(embed=em, ephemeral=True)
