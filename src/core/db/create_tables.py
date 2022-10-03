@@ -23,12 +23,15 @@ CREATE TABLE IF NOT EXISTS command_stats
 """
 
 counting_query = """
-CREATE TABLE IF NOT EXISTS public.counting
+CREATE TABLE IF NOT EXISTS counting
 (
     guild_id bigint NOT NULL PRIMARY KEY,
-    last_counter bigint NOT NULL DEFAULT 0,
-    current_number integer NOT NULL DEFAULT 0,
-    counting_channel bigint NOT NULL DEFAULT 0,
+    last_counter bigint,
+    current_number integer,
+    counting_channel bigint,
+    high_score integer,
+    auto_calculate boolean,
+    plugin_enabled boolean
 );
 """
 

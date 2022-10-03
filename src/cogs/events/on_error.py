@@ -156,6 +156,14 @@ class OnError(commands.Cog):
             )
             await ctx.respond(embed=em, ephemeral=True)
 
+        elif isinstance(error, commands.NoPrivateMessage):
+            em = discord.Embed(
+                title="Command not allowed in private message",
+                description="This command has been disabled in private messages/dms and can be only used in a server/guild",
+                color=discord.Color.red(),
+            )
+            await ctx.respond(embed=em, ephemeral=True)
+
         elif isinstance(error, discord.HTTPException):
             em = discord.Embed(
                 title="Error 404 Not Found",

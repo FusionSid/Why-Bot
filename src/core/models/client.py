@@ -46,6 +46,9 @@ class WhyBot(commands.Bot):
             case_insensitive=True,
             command_prefix="?",  # gonna use slash commands anyways so this only for owner cmds
             owner_id=config["BOT_OWNER_ID"],
+            debug_guilds=[938913935774605442, 763348615233667082]
+            if config["DEBUG_GUILD_MODE"]
+            else None,
             allowed_mentions=allowed_mentions,
         )
 

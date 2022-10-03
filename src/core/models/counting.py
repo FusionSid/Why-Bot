@@ -4,16 +4,17 @@ from dataclasses import dataclass
 @dataclass
 class CountingData:
     guild_id: int
-    last_counter: int
-    current_number: int
-    counting_channel: int
+    last_counter: int | None
+    current_number: int | None
+    counting_channel: int | None
+
+    high_score: int | None
+    plugin_enabled: bool | None
+    auto_calculate: bool | None
 
     # will do later
-    high_score: int = 0
-    plugin_enabled: bool = True
-    auto_calculate: bool = False
-    banned_counters: list[int] = None
+    # banned_counters: list[int] = None
 
     @property
     def next_number(self):
-        return self.counting_channel + 1
+        return self.current_number + 1

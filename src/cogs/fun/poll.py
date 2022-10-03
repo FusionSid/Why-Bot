@@ -15,6 +15,7 @@ class Poll(commands.Cog):
         self.client = client
 
     @commands.slash_command(description="Makes a Yah or Nah poll")
+    @commands.guild_only()
     @commands.check(run_bot_checks)
     async def yesorno(self, ctx, *, message):
         msg = await ctx.respond(

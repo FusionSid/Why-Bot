@@ -21,6 +21,7 @@ yaml_config = {
     "BOT_ID": 0,
     "MAIN_GUILD": 0,
     "LOGGING": True,
+    "DEBUG_GUILD_MODE": False,
     "join_alert_channel": 0,
     "leave_alert_channel": 0,
     "online_alert_channel": 0,
