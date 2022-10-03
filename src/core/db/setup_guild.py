@@ -4,7 +4,9 @@ import asyncio
 
 async def setup_counting(db: asyncpg.Pool, guild_id: int):
     try:
-        await db.execute("INSERT INTO counting (guild_id) VALUES ($1)", guild_id)
+        await db.execute(
+            "INSERT INTO counting (guild_id, high_score) VALUES ($1, 0)", guild_id
+        )
     except asyncpg.UniqueViolationError:
         print("Bruhh this should be running")
 

@@ -17,4 +17,6 @@ class CountingData:
 
     @property
     def next_number(self):
+        if self.current_number is None:
+            return 1
         return self.current_number + 1

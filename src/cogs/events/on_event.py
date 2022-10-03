@@ -70,6 +70,7 @@ class OnEvent(commands.Cog):
             raise InvalidDatabaseUrl
 
         self.client.redis = await create_redis_connection()
+        await self.client.redis.flushall()  # reset cache
 
         if self.client.config["LOGGING"]:
             await log_normal("Bot is Online")
