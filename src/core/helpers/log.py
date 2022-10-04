@@ -89,7 +89,10 @@ async def convert_to_dict() -> dict:
             if line.startswith("[ERROR]"):
                 logs[line] = ""
                 continue
-            logs[(list(logs.keys())[-1])] += line
+            try:
+                logs[(list(logs.keys())[-1:])] += line
+            except TypeError:
+                break
 
     return logs
 
@@ -115,7 +118,6 @@ async def get_last_errors(count: int = 1) -> dict | None:
 
     for key in last_keys:
         last_errors[key] = logs[key]
-
     return last_errors
 
 

@@ -9,7 +9,9 @@ class CogTools(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
 
-    cogtools = SlashCommandGroup("cogtools", "Cog Commands")
+    cogtools = SlashCommandGroup(
+        "cogtools", "Commands for why bot cogs management. OWNER ONLY"
+    )
 
     @cogtools.command()
     @commands.is_owner()

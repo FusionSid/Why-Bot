@@ -7,7 +7,7 @@ from discord.ext import commands
 from discord.commands import SlashCommandGroup
 
 from core.utils.calc import calculate
-from core.models.client import WhyBot
+from core.models import WhyBot
 from core.models.counting import CountingData
 from core.db.setup_guild import setup_counting
 from core.helpers.checks import run_bot_checks

@@ -6,7 +6,7 @@ import discord
 import platform
 from discord.ext import commands
 
-from core.models.client import WhyBot
+from core.models import WhyBot
 from core.utils.count_lines import get_lines
 from core.helpers.checks import blacklist_check
 

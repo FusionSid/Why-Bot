@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-from core.models.client import WhyBot
+from core.models import WhyBot
 from core.helpers.log import log_errors
 from core.utils.formatters import format_seconds
 

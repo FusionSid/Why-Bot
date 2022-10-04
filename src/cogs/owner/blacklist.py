@@ -10,7 +10,9 @@ class Blacklist(commands.Cog):
     def __init__(self, client):
         self.client: WhyBot = client
 
-    blacklisted = SlashCommandGroup("blacklist", "Blacklist Commands")
+    blacklisted = SlashCommandGroup(
+        "blacklist", "Commands for why bot blacklist management. OWNER ONLY"
+    )
 
     @blacklisted.command(name="blacklist", description="ban a user from using whybot")
     @commands.is_owner()

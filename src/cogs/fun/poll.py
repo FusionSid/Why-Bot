@@ -6,7 +6,7 @@ import discord
 from discord.utils import get
 from discord.ext import commands
 
-from core.models.client import WhyBot
+from core.models import WhyBot
 from core.helpers.checks import run_bot_checks
 
 
