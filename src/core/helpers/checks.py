@@ -1,3 +1,7 @@
+""" (module) checks
+This module contains checks that will be run before most commands in the @commands.check() decorator
+"""
+
 import asyncio
 import datetime
 

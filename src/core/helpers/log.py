@@ -1,9 +1,7 @@
 """ (module) log:
-
 This is for logging errors and exceptions
-Importing the log_errors function will make all errors go to the file instead of terminal
-I have added the option to print to terminal
 """
+
 import os
 import sys
 import logging
@@ -13,15 +11,23 @@ from datetime import datetime
 from rich.panel import Panel
 from rich.console import Console
 
+import __main__
 from core.utils.client_functions import get_why_config
 
 rich_console = Console()
-logfile_path = os.path.join(os.path.dirname(__file__), "main.log")
+
+path = os.path.join(os.path.dirname(__main__.__file__), "logfiles")
+
+# check if log files dir exists
+if not os.path.exists(path):
+    # and if not make it
+    os.makedirs(path)
+
 
 # setup discord logger
 logger = logging.getLogger("discord")
 logger.setLevel(logging.INFO)
-discord_logfile_path = os.path.join(os.path.dirname(__file__), "discord.log")
+discord_logfile_path = os.path.join(path, "discord.log")
 handler = logging.FileHandler(filename=discord_logfile_path, encoding="utf-8", mode="w")
 handler.setFormatter(
     logging.Formatter(
@@ -30,8 +36,11 @@ handler.setFormatter(
 )
 logger.addHandler(handler)
 
+
+LOGFILE_PATH = os.path.join(path, "main.log")
+
 # Custom exeption handler
-def log_errors(etype, value, tb):
+def log_errors(etype, value, tb) -> None:
     """Logs errors to the file instead of terminal"""
 
     error = f"{etype.__name__}:\n\tTraceback (most recent call last):\n\t{'    '.join(traceback.format_tb(tb))}\n\t{value}"
@@ -39,7 +48,7 @@ def log_errors(etype, value, tb):
     # Pythons core module "logging" doesnt wanna work me very sad so me make this workaround:
     config = get_why_config()
     if config["LOGGING"]:
-        with open(logfile_path, "a") as f:
+        with open(LOGFILE_PATH, "a") as f:
             f.write(
                 f"[ERROR] ({datetime.now().strftime('%d-%b-%Y %H:%M:%S')}) - {error}\n"
             )
@@ -53,14 +62,14 @@ def log_errors(etype, value, tb):
     )
 
 
-async def log_normal(message: str):
+async def log_normal(message: str) -> None:
     """
     Logs an error
 
     Parameters
         message (str): The message you want to log
     """
-    with open(logfile_path, "a") as f:
+    with open(LOGFILE_PATH, "a") as f:
         f.write(
             f"[INFO] ({datetime.now().strftime('%d-%b-%Y %H:%M:%S')}) - {message}\n"
         )
@@ -73,7 +82,7 @@ async def convert_to_dict() -> dict:
     Returns
         dict: The log file
     """
-    with open(logfile_path) as logs_data:
+    with open(LOGFILE_PATH) as logs_data:
         logs = {}
 
         for line in logs_data:
@@ -85,12 +94,12 @@ async def convert_to_dict() -> dict:
     return logs
 
 
-async def get_last_errors(count: int = 1):
+async def get_last_errors(count: int = 1) -> dict | None:
     """
     Gets the last x amount of errors from the logs file
 
     Parameters
-        count (int): The amount of errors you want, defaults to 1
+        count (Optional[int]): The amount of errors you want. (default = 1)
 
     Returns:
         dict: The last errors in a dictionary
@@ -110,8 +119,14 @@ async def get_last_errors(count: int = 1):
     return last_errors
 
 
-# event
+# client.event -> on_error
 async def on_error(event_method, *args, **kwargs):
+    """
+    This function is run when the client/bot encounters an error.
+    I will overwrite the default client.on_error method with this one
+    Basically it stops the bot from ignoring/printing error to terminal
+    instead logs the error to main.log and prints with rich
+    """
     # get error
     ex_type, ex_value, tb = sys.exc_info()
     log_errors(ex_type, ex_value, tb)

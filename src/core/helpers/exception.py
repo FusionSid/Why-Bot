@@ -1,3 +1,7 @@
+""" (module) exception
+This module contains exceptions to make development easier
+"""
+
 import sys
 
 from rich.text import Text

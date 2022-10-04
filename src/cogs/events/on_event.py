@@ -4,7 +4,7 @@ import discord
 from discord.ext import commands
 
 from core.models.client import WhyBot
-from core.helpers.logger import log_normal
+from core.helpers.log import log_normal
 from core.helpers.exception import InvalidDatabaseUrl
 from core.utils.client_functions import (
     update_activity,

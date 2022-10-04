@@ -1,3 +1,7 @@
+""" (module) formatters
+This module contains formatting functions
+"""
+
 from enum import Enum
 
 

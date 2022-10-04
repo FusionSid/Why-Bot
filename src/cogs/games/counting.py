@@ -16,7 +16,7 @@ from core.helpers.checks import run_bot_checks
 class Counting(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
-        self.guilds = []
+        self.guilds: list[int] = []
 
     counting = SlashCommandGroup("counting", "Commmands related to the counting game")
 

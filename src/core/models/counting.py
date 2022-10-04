@@ -1,3 +1,7 @@
+""" (module) counting
+Model for making counting management easier
+"""
+
 from dataclasses import dataclass
 
 
@@ -12,7 +16,7 @@ class CountingData:
     plugin_enabled: bool | None
     auto_calculate: bool | None
 
-    # will do later
+    # TODO later:
     # banned_counters: list[int] = None
 
     @property

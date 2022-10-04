@@ -1,6 +1,7 @@
 """ (module) whybot
 
-This contains the WhyBot commands.Bot client Class and the get_prefix function
+This contains the WhyBot commands.Bot client class and its class methods
+Its also where most init tasks are done
 """
 
 __version__ = "2.0.0"
@@ -16,7 +17,6 @@ import asyncpg
 from rich.console import Console
 from discord.ext import commands
 
-from core.helpers.checks import blacklist_check
 from core.utils.formatters import format_seconds
 from core.helpers.exception import UserAlreadyBlacklisted, UserAlreadyWhitelisted
 
@@ -61,7 +61,7 @@ class WhyBot(commands.Bot):
             str : Formated string with the uptime
         """
         time_right_now = datetime.datetime.now()
-        seconds = (time_right_now - self.last_login_time).total_seconds()
+        seconds = int((time_right_now - self.last_login_time).total_seconds())
 
         time = await format_seconds(seconds)
         return time

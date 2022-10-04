@@ -1,7 +1,7 @@
 """ (module) client_functions
-
 Useful functions for the WhyBot client
 """
+
 import os
 import aioredis
 

@@ -1,3 +1,7 @@
+""" (module) asyncpg_context
+Context manager for asyncpg
+"""
+
 from contextlib import asynccontextmanager
 
 import asyncpg

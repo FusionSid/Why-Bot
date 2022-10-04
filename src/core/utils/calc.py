@@ -1,9 +1,13 @@
+""" (module) calc
+Used to calculate an expression using the mathjs api
+"""
+
 import urllib
 
 import aiohttp
 
 
-async def calculate(expr: str, only_int: bool = False) -> str | int:
+async def calculate(expr: str, only_int: bool = False) -> str | int | None:
     expression = urllib.parse.quote(expr.replace("**", "^"))
     async with aiohttp.ClientSession() as session:
         async with session.get(f"http://api.mathjs.org/v4/?expr={expression}") as r:

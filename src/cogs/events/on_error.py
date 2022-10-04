@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 from core.models.client import WhyBot
-from core.helpers.logger import log_errors
+from core.helpers.log import log_errors
 from core.utils.formatters import format_seconds
 
 
@@ -15,10 +15,10 @@ class OnError(commands.Cog):
 
         if isinstance(error, commands.CommandOnCooldown):
 
-            retry_after = await format_seconds(error.retry_after)
+            retry_after = await format_seconds(int(error.retry_after))
             em = discord.Embed(
                 title="Wow buddy, Slow it down\nThis command is on cooldown",
-                description=f"Try again in **{retry_after}** ()",
+                description=f"Try again in **{retry_after}**",
                 color=discord.Color.red(),
             )
             await ctx.respond(embed=em, ephemeral=True)
