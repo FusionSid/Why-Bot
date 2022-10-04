@@ -2,3 +2,8 @@ black
 git+https://github.com/Pycord-Development/pycord
 rich
 pre-commit
+aiohttp
+aioredis
+asyncpg
+psutil
+PyYAML

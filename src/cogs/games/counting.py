@@ -266,7 +266,7 @@ class Counting(commands.Cog):
                 await message.add_reaction("🇦")
                 await message.add_reaction("🇲")
                 return await message.add_reaction("🛑")
-            except Exception:
+            except (discord.NotFound, discord.Forbidden):
                 pass  # probably deleted their message
 
         counting_data = await self.get_counting_data(message.guild.id)
