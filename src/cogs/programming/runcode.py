@@ -2,6 +2,8 @@ import discord
 import aiohttp
 from discord.ext import commands
 
+from core.helpers.http import post_request
+
 
 class CodeInput(discord.ui.Modal):
     def __init__(self, *args, **kwargs) -> None:
@@ -35,19 +37,24 @@ class RunCode(commands.Cog):
         if modal.code is None:
             return await ctx.respond("Invalid Input", ephemeral=True)
 
-        async with aiohttp.ClientSession() as session:
-            async with session.post(
-                "https://api.fusionsid.xyz/api/runcode",
-                json={"code": modal.code, "language": "rickroll_lang"},
-            ) as resp:
-                response = await resp.json()
-            if resp.status != 200:
-                em = discord.Embed(
-                    title="Rickroll-Lang",
-                    description="Something went wrong!\n(API probably had a skill issue)",
-                    color=discord.Color.blue(),
-                )
-                await ctx.respond(embed=em)
+        response = await post_request(
+            "https://api.fusionsid.xyz/api/runcode",
+            body={"code": modal.code, "language": "rickroll_lang"},
+        )
+        if response is None:
+            em = discord.Embed(
+                title="Rickroll-Lang",
+                description="Something went wrong!\n(API probably had a skill issue)",
+                color=discord.Color.blue(),
+            )
+            return await ctx.respond(embed=em)
+        # async with aiohttp.ClientSession() as session:
+        #     async with session.post(
+        #         "https://api.fusionsid.xyz/api/runcode",
+        #         json={"code": modal.code, "language": "rickroll_lang"},
+        #     ) as resp:
+        #         response = await resp.json()
+        #     if resp.status != 200:
 
         em = discord.Embed(
             title="Output",
