@@ -1,9 +1,4 @@
-import asyncio
-import datetime
-import time as py_time
-
 import discord
-from discord.utils import get
 from discord.ext import commands
 
 from core.models import WhyBot

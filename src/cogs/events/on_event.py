@@ -46,7 +46,20 @@ class OnEvent(commands.Cog):
         Prints a message to console and updates the bot's activity
         """
         await update_activity(self.client)
+        try:
+            self.client.db = await create_connection_pool()
+        except ValueError:
+            raise InvalidDatabaseUrl
 
+        self.client.redis = await create_redis_connection()
+        await self.client.redis.flushall()  # reset cache
+
+        if self.client.config["LOGGING"]:
+            await log_normal("Bot is Online")
+
+        self.client.console.print("\n[bold green]Bot is ready")
+
+        # Send online alert
         online_alert_channel = self.client.config["online_alert_channel"]
 
         if online_alert_channel == 0 or online_alert_channel == None:
@@ -63,19 +76,6 @@ class OnEvent(commands.Cog):
             timestamp=datetime.datetime.now(),
         )
         await channel.send(embed=em)
-
-        try:
-            self.client.db = await create_connection_pool()
-        except ValueError:
-            raise InvalidDatabaseUrl
-
-        self.client.redis = await create_redis_connection()
-        await self.client.redis.flushall()  # reset cache
-
-        if self.client.config["LOGGING"]:
-            await log_normal("Bot is Online")
-
-        self.client.console.print("\n[bold green]Bot is ready")
 
 
 def setup(client: WhyBot):

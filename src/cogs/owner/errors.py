@@ -49,12 +49,21 @@ class ErrorLog(commands.Cog):
             )
 
         em = discord.Embed(
-            title="Last Error/s",
+            title=f"Last {str(limit)+' Errors' if limit > 1 else 'Error'}",
             color=ctx.author.color,
             timestamp=datetime.datetime.utcnow(),
         )
+
         for key, value in errors.items():
-            em.add_field(name=key[:250], value=value[:1000], inline=False)
+            em.add_field(
+                name=f"{key[:220]} **(read logfile for full)**"
+                if len(key) >= 220
+                else key,
+                value=f"{value[:995]} **(read logfile for full)**"
+                if len(value) >= 995
+                else value,
+                inline=False,
+            )
 
         await ctx.respond(embed=em, ephemeral=True)
 

@@ -90,7 +90,7 @@ async def convert_to_dict() -> dict:
                 logs[line] = ""
                 continue
             try:
-                logs[(list(logs.keys())[-1:])] += line
+                logs[(list(logs.keys())[-1])] += line
             except TypeError:
                 break
 

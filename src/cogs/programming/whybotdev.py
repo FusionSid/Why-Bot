@@ -1,5 +1,4 @@
-import io
-import inspect
+import datetime
 
 import discord
 from discord.commands import SlashCommandGroup
@@ -63,6 +62,7 @@ class WhyBotDev(commands.Cog):
     #     await ctx.respond(file=discord.File(file, "commands.txt"))
 
     @why_dev.command()
+    @commands.check(run_bot_checks)
     async def uptime(self, ctx):
         """
         This command is used to get the uptime for the bot
@@ -83,6 +83,80 @@ class WhyBotDev(commands.Cog):
         """
 
         await ctx.respond(f"Pong!\n{round(self.client.latency * 1000)}ms")
+
+    @why_dev.command()
+    @commands.check(run_bot_checks)
+    async def suggest(self, ctx, *, suggestion):
+        """
+        This command is used to make a suggestion for the bot
+
+        Help Info:
+        ----------
+        Category: Utilities
+
+        Usage: suggest <suggestion: str>
+        """
+
+        suggestion_channel = self.client.config["suggestion_channel"]
+
+        error_embed = discord.Embed(
+            title="Error getting suggestion channel",
+            description="Most likely cause: Bot owner has disabled suggestions",
+        )
+
+        try:
+            channel = await self.client.fetch_channel(suggestion_channel)
+        except discord.errors.NotFound:
+            return await ctx.respond(embed=error_embed)
+
+        if suggestion_channel == 0 or suggestion_channel is None:
+            return await ctx.respond(embed=error_embed)
+
+        em = discord.Embed(
+            title=f"Suggestion",
+            description=suggestion,
+            color=ctx.author.color,
+            timestamp=datetime.datetime.now(),
+        )
+
+        em.add_field(name="Suggested By:", value=ctx.author.name, inline=False)
+
+        message = await channel.send(content=ctx.author.id, embed=em)
+
+        await message.add_reaction("✅")
+        await message.add_reaction("❌")
+
+        await ctx.respond("Thank you for the suggestion :)")
+
+    @why_dev.command()
+    @commands.check(run_bot_checks)
+    async def bug(self, ctx, *, bug):
+        em = discord.Embed(
+            title="Bug Report",
+            color=ctx.author.color,
+            timestamp=datetime.datetime.now(),
+            description=bug,
+        )
+
+        em.add_field(name="Report By:", value=ctx.author.name)
+
+        bug_channel = self.client.config["bug_report_channel"]
+
+        error_embed = discord.Embed(
+            title="Error getting suggestion channel",
+            description="Most likely cause: Bot owner has disabled bug reports",
+        )
+
+        try:
+            channel = await self.client.fetch_channel(bug_channel)
+        except discord.errors.NotFound:
+            return await ctx.respond(embed=error_embed)
+
+        if bug_channel == 0 or bug_channel is None:
+            return await ctx.respond(embed=error_embed)
+
+        await channel.send(content=ctx.author.id, embed=em)
+        await ctx.respond("Thank you for the bug report :)")
 
 
 def setup(client):
