@@ -35,6 +35,45 @@ CREATE TABLE IF NOT EXISTS counting
 );
 """
 
+leveling_member_query = """
+CREATE TABLE IF NOT EXISTS leveling_member
+(
+    guild_id bigint NOT NULL PRIMARY KEY,
+    member_id bigint,
+    member_name text,
+    member_xp integer,
+    member_level integer,
+    member_total_xp bigint
+);
+"""
+
+leveling_guild_query = """
+CREATE TABLE leveling_guild
+(
+    guild_id bigint NOT NULL PRIMARY KEY,
+    plugin_enabled boolean,
+    text_font text,
+    text_color text,
+    background_image text,
+    background_color text,
+    progress_bar_color text,
+    no_xp_roles json,
+    no_xp_channels json,
+    level_up_text text,
+    level_up_enabled boolean,
+    per_minute text
+);
+"""
+
+leveling_rewards_query = """
+CREATE TABLE leveling_rewards
+(
+    guild_id bigint NOT NULL PRIMARY KEY,
+    level integer,
+    role bigint
+);
+"""
+
 # If you wish not to create one of these tables in the setup process
 # Simply just remove that item from this list:
 tables_to_create = [blacklist_query, command_stats_query, counting_query]
