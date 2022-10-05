@@ -316,8 +316,27 @@ class Counting(commands.Cog):
             return
 
         if counting_data.auto_calculate and not message.content.isnumeric():
+
+            def check(reaction: discord.reaction.Reaction, user):
+                return (
+                    reaction.message.id == msg.id
+                    and reaction.emoji == "🗑️"
+                    and user.id == message.author.id
+                )
+
             try:
-                await message.reply(potential_number)
+                msg = await message.reply(potential_number)
+                # wait 15 seconds to see if they react with a bin
+                # if so delete the message
+                # if not remove the reaction from the message
+                try:
+                    await msg.add_reaction("🗑️")
+                    await self.client.wait_for(
+                        "reaction_add", timeout=15.0, check=check
+                    )
+                    await msg.delete()
+                except asyncio.TimeoutError:
+                    await msg.remove_reaction("🗑️", member=self.client.user)
             except discord.Forbidden:
                 pass  # message failed to send (probably due to perms)
 
