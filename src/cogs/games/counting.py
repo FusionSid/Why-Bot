@@ -137,6 +137,37 @@ class Counting(commands.Cog):
     @commands.guild_only()
     @commands.check(run_bot_checks)
     @commands.has_guild_permissions(administrator=True)
+    async def toggle_auto_calc(
+        self,
+        ctx,
+    ):
+        counting_data = await self.get_counting_data(ctx.guild.id, skip_cache=True)
+        if counting_data is None:
+            return await setup_counting(self.client.db, ctx.guild.id)
+
+        on_or_off = not counting_data.auto_calculate
+
+        await self.client.db.execute(
+            "UPDATE counting SET auto_calculate=$1 WHERE guild_id=$2",
+            on_or_off,
+            ctx.guild.id,
+        )
+
+        await ctx.respond(
+            embed=discord.Embed(
+                title="Auto calculate toggled!",
+                description=f"Auto calculate is now {'on ✅' if on_or_off else 'off ❌'}\nIf you wish to toggle it back {'off' if on_or_off else 'on'} run this command again",
+                color=ctx.author.color,
+            )
+        )
+
+        counting_data.auto_calculate = on_or_off
+        await self.update_cache(counting_data)
+
+    @counting.command()
+    @commands.guild_only()
+    @commands.check(run_bot_checks)
+    @commands.has_guild_permissions(administrator=True)
     async def disable(
         self,
         ctx,
@@ -274,16 +305,26 @@ class Counting(commands.Cog):
             return await setup_counting(self.client.db, message.guild.id)
 
         if (
-            counting_data.plugin_enabled == False
-            or counting_data.plugin_enabled is None
+            counting_data.plugin_enabled is None
             or counting_data.counting_channel == 0
             or counting_data.counting_channel is None
-            or counting_data.counting_channel != message.channel.id
         ):
             return
 
         potential_number = await calculate(message.content, only_int=True)
         if potential_number is None:
+            return
+
+        if counting_data.auto_calculate and not message.content.isnumeric():
+            try:
+                await message.reply(potential_number)
+            except discord.Forbidden:
+                pass  # message failed to send (probably due to perms)
+
+        if (
+            counting_data.counting_channel != message.channel.id
+            or counting_data.plugin_enabled == False
+        ):
             return
 
         if potential_number != counting_data.next_number:
