@@ -2,6 +2,7 @@
 Useful functions for the WhyBot client
 """
 import os
+import json
 import aioredis
 
 import yaml
@@ -36,8 +37,14 @@ def get_why_config() -> dict:
 
 
 async def create_connection_pool() -> asyncpg.Pool:
+    async def init(conn):
+        # Set up auto json encoder/decoder:
+        await conn.set_type_codec(
+            "json", encoder=json.dumps, decoder=json.loads, schema="pg_catalog"
+        )
+
     config = get_why_config()
-    pool = await asyncpg.create_pool(dsn=config["DATABASE_URL"])
+    pool = await asyncpg.create_pool(dsn=config["DATABASE_URL"], init=init)
 
     return pool
 
