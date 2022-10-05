@@ -40,6 +40,9 @@ def start_bot(client: WhyBot):
                 cog_name = filename[:-3]  # remove .py from name
                 cogs[cog_name] = f"cogs.{category}.{cog_name}"
 
+    if os.path.exists(os.path.join(path, "testing_cog.py")):
+        cogs["testing"] = "cogs.testing_cog"
+
     print("\n")
     client.cogs_list = cogs  # for cog functions later like reload, load, unload
 
