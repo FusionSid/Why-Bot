@@ -39,8 +39,14 @@ class ErrorLog(commands.Cog):
         """
         This command is used to get the most recent errors/error that the bot logged to the log file
         """
-        errors = await get_last_errors(count=limit)
         await ctx.defer()
+        if limit >= 24:
+            return await ctx.respond(
+                "To big of a number",
+                ephemeral=True,
+            )
+
+        errors = await get_last_errors(count=limit)
 
         if errors is None:
             return await ctx.respond(

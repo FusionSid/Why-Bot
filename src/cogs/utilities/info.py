@@ -148,7 +148,7 @@ class Info(commands.Cog):
         em.add_field(
             inline=True,
             name="Command Count",
-            value=f"{len(self.client.commands)} commands",
+            value=f"{len(self.client.application_commands)} commands",
         )
         em.add_field(inline=True, name="Active User Count", value="e")
         em.add_field(
