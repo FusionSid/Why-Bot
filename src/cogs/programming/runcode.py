@@ -28,6 +28,7 @@ class RunCode(commands.Cog):
         self.client = client
 
     @commands.slash_command()
+    @commands.cooldown(1, 30, commands.BucketType.user)
     async def zprol(self, ctx):
         modal = CodeInput(title="Code Input")
         await ctx.send_modal(modal)
@@ -85,19 +86,6 @@ class RunCode(commands.Cog):
                 color=discord.Color.blue(),
             )
             return await ctx.respond(embed=em)
-        async with aiohttp.ClientSession() as session:
-            async with session.post(
-                "https://api.fusionsid.xyz/api/runcode",
-                json={"code": modal.code, "language": "rickroll_lang"},
-            ) as resp:
-                response = await resp.json()
-            if resp.status != 200:
-                em = discord.Embed(
-                    title="Rickroll-Lang",
-                    description="Something went wrong!\n(API probably had a skill issue)",
-                    color=discord.Color.blue(),
-                )
-                await ctx.respond(embed=em)
 
         em = discord.Embed(
             title="Output",
