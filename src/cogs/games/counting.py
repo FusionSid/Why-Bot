@@ -260,7 +260,7 @@ class Counting(commands.Cog):
         counting_data = await self.client.db.fetch(
             "SELECT * FROM counting ORDER BY high_score"
         )
-        counting_data = counting_data[:10]  # crop to 10 guilds only
+        counting_data = reversed(counting_data[:10])  # crop to 10 guilds only
 
         embed = discord.Embed(title="Counting Leaderboard", color=ctx.author.color)
 
