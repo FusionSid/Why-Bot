@@ -38,8 +38,8 @@ CREATE TABLE IF NOT EXISTS counting
 leveling_member_query = """
 CREATE TABLE IF NOT EXISTS leveling_member
 (
-    guild_id bigint NOT NULL PRIMARY KEY,
-    member_id bigint,
+    guild_id bigint NOT NULL,
+    member_id bigint NOT NULL,
     member_name text,
     member_xp integer,
     member_level integer,
