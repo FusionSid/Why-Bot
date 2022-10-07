@@ -1,5 +1,5 @@
-import discord
 import aiohttp
+import discord
 from discord.ext import commands
 
 from core.helpers.http import post_request
@@ -37,11 +37,17 @@ class RunCode(commands.Cog):
         if modal.code is None:
             return await ctx.respond("Invalid Input", ephemeral=True)
 
-        response = await post_request(
-            "https://zprol.epicpix.ga/api/v1/run",
-            body={"code": modal.code},
-        )
-        if response is None:
+        async with aiohttp.ClientSession() as session:
+            async with session.post(
+                "https://zprol.epicpix.ga/api/v1/run",
+                json={"code": modal.code},
+            ) as resp:
+                try:
+                    response = await resp.json()
+                except aiohttp.ContentTypeError:
+                    response = None
+
+        if response is None or response.get("compilation") is None:
             em = discord.Embed(
                 title="zProl",
                 description="Something went wrong!\n(API probably had a skill issue)",
@@ -49,19 +55,24 @@ class RunCode(commands.Cog):
             )
             return await ctx.respond(embed=em)
 
-        desc = "```\n"
-        if response["compilation"]["stdout"] != "":
-            desc += "stdout:\n" + response["compilation"]["stdout"]
-        if response["compilation"]["stderr"] != "":
-            desc += "\n\nstderr:\n" + response["compilation"]["stdout"]
-
         em = discord.Embed(
-            title="Output",
+            title="zProl Code Output",
             color=discord.Color.blue(),
-            description=desc + "\n```",
         )
-        if response["run"] is not None or response["run"] != "":
-            em.add_field(name="Run:", value=response["run"])
+
+        if response["compilation"]["stderr"] != "":
+            em.description = (
+                f"**Compilation result:**```{response['compilation']['stderr']}```"
+            )
+            em.color = discord.Color.red()
+        elif response["compilation"]["stdout"] != "":
+            em.description = (
+                f"**Compilation result:**```{response['compilation']['stdout']}```"
+            )
+
+        # If the program produced output
+        if response.get("run") is not None and response.get("run") != "":
+            em.add_field(name="Program Output:", value=f"```\n{response['run']}\n```")
 
         await ctx.respond(embed=em)
 

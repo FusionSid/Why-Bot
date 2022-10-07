@@ -71,7 +71,6 @@ async def post_request(
                 return resp
 
             if resp.ok == False:
-                print(await resp.text())
                 return None
 
             try:
@@ -97,7 +96,6 @@ async def get_request_bytes(
 
     if data is not None:
         url = f"{url}?{urlencode(data)}"
-        print(url)
 
     kwargs = {
         "headers": headers,
