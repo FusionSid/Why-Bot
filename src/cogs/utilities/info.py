@@ -32,21 +32,19 @@ class Info(commands.Cog):
             color=ctx.author.color,
         )
         em.timestamp = datetime.datetime.utcnow()
-
+        emojis = self.client.get_why_emojies
         if str(member.status) == "online":
-            status = "🟢 Online"
+            status = f"{emojis['online']} Online"
         elif str(member.status) == "offline":
-            status = "🔴 Offline"
+            status = f"{emojis['offline']} Offline"
         elif str(member.status) == "dnd":
-            status = "⛔ Do not disturb"
+            status = f"{emojis['dnd']} Do not disturb"
         elif str(member.status) == "invisible":
-            status = "🔴 Invisible"
+            status = f"{emojis['offline']} Invisible"
         elif str(member.status) == "idle":
-            status = "🌙 Idle"
-        elif str(member.status) == "streaming":
-            status = "📷 Streaming"
+            status = f"{emojis['idle']} Idle"
         else:
-            status = member.status
+            status = f"{emojis['online']} Online"
 
         em.add_field(name="Status:", value=status, inline=False)
         em.add_field(name="ID:", value=member.id, inline=False)
