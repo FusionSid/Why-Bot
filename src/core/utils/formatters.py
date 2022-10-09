@@ -113,3 +113,9 @@ async def format_seconds(seconds: int, short: bool = False) -> str:
 
     # if none
     return ""
+
+
+async def number_suffix(number: int):
+    return str(number) + {1: "st", 2: "nd", 3: "rd"}.get(
+        4 if 10 <= number % 100 < 20 else number % 10, "th"
+    )
