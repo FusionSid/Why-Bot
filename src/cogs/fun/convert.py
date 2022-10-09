@@ -1,17 +1,25 @@
 import random
 
 import discord
+import pyfiglet
+import discord_colorize
 from discord.commands import SlashCommandGroup
 from discord.ext import commands
 
 from core.helpers.checks import run_bot_checks
+
+colors = discord_colorize.Colors()
+fonts = pyfiglet.FigletFont.getFonts()
+for idx, font in enumerate(fonts):
+    fonts[idx] = font.replace("_", "")
+fonts = dict(zip(fonts, pyfiglet.FigletFont.getFonts()))
 
 
 class TextConvert(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    textconvert = SlashCommandGroup("textconvert", "Convert text to something else")
+    textconvert = SlashCommandGroup("text", "Convert text to something else")
 
     @textconvert.command()
     @commands.check(run_bot_checks)
@@ -132,6 +140,40 @@ class TextConvert(commands.Cog):
                 emojis.append(char)
 
         await ctx.respond(" ".join(emojis))
+
+    @textconvert.command()
+    @commands.check(run_bot_checks)
+    async def ascii(
+        self,
+        ctx,
+        message: str,
+        color: discord.Option(
+            str,
+            default="nocolor",
+            choices=["red", "yellow", "blue", "green", "gray", "pink", "cyan", "white"],
+        ),
+        font: discord.Option(str, "The font to do the ascii art with") = "big",
+    ):
+        if fonts.get(font) is None:
+            return await ctx.respond(
+                embed=discord.Embed(
+                    title="Invalid Font!",
+                    description=f'Available Fonts:\n{", ".join(fonts.keys())}',
+                    color=discord.Color.red(),
+                ),
+                ephemeral=True,
+            )
+
+        if color == "nocolor":
+            message = f"```\n{pyfiglet.figlet_format(message, font=fonts[font])}\n```"
+        else:
+            message = f"```ansi\n{colors.colorize(pyfiglet.figlet_format(message, font=fonts[font]), fg=color)}\n```"
+
+        if len(message) > 4000:
+            return await ctx.respond("Text to long to send :(", ephemeral=True)
+        await ctx.respond(
+            embed=discord.Embed(title="Ascii Art Output:", description=message)
+        )
 
 
 def setup(client):
