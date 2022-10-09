@@ -7,6 +7,7 @@ from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
 
 import __main__
 from core.helpers.checks import run_bot_checks
+from core.helpers.views import RickRollView
 
 
 class Fun(commands.Cog):
@@ -49,6 +50,13 @@ class Fun(commands.Cog):
         video = await self.gen_crab(text1, text2)
         await ctx.respond(file=discord.File(video.name, "crab.mp4"))
         video.close()
+
+    @commands.slash_command()
+    @commands.check(run_bot_checks)
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def claim(self, ctx):
+        em = discord.Embed(title="Claim 100k Why Coins", color=discord.Color.blue())
+        await ctx.respond(embed=em, view=RickRollView())
 
 
 def setup(client):
