@@ -18,7 +18,7 @@ class OnError(commands.Cog):
             retry_after = await format_seconds(int(error.retry_after))
             em = discord.Embed(
                 title="Wow buddy, Slow it down\nThis command is on cooldown",
-                description=f"Try again in **{retry_after}**",
+                description=f"Try again {f'in **{retry_after}' if retry_after != '' else 'now'}**",
                 color=discord.Color.red(),
             )
             await ctx.respond(embed=em, ephemeral=True)
