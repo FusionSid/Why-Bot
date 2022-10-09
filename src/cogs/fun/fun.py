@@ -56,7 +56,7 @@ class Fun(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def claim(self, ctx):
         em = discord.Embed(title="Claim 100k Why Coins", color=discord.Color.blue())
-        await ctx.respond(embed=em, view=RickRollView())
+        await ctx.respond(embed=em, view=RickRollView(self.client.db))
 
 
 def setup(client):

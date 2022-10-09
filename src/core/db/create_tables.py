@@ -74,9 +74,25 @@ CREATE TABLE leveling_rewards
 );
 """
 
+counters_query = """
+CREATE TABLE counters
+(
+    key text NOT NULL PRIMARY KEY,
+    value integer NOT NULL DEFAULT 0,
+);
+"""
+
 # If you wish not to create one of these tables in the setup process
 # Simply just remove that item from this list:
-tables_to_create = [blacklist_query, command_stats_query, counting_query]
+tables_to_create = [
+    blacklist_query,
+    command_stats_query,
+    counting_query,
+    leveling_member_query,
+    leveling_guild_query,
+    leveling_rewards_query,
+    counters_query,
+]
 
 
 async def create_tables():
