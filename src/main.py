@@ -5,7 +5,7 @@ It contains functions to startup the bot
 
 __version__ = "2.0.0"
 __author__ = "FusionSid"
-__licence__ = "GPL-3.0 License"
+__licence__ = "MIT License"
 
 
 import os
