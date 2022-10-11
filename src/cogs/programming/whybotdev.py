@@ -1,3 +1,5 @@
+import io
+import inspect
 import datetime
 
 import discord
@@ -11,58 +13,69 @@ from core.helpers.checks import run_bot_checks
 class WhyBotDev(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
+        self.cog_check = run_bot_checks
 
     why_dev = SlashCommandGroup(
         "whydev", "Why bot development info and programming commands"
     )
 
-    # @why_dev.command(name="getcode", description="Get the code for a specific Why-Bot command")
-    # @commands.check(run_bot_checks)
-    # async def getcode(self, ctx, name: str):
-    #     """
-    #     This command is used to get the code for a specific command
-    #     It is useful if you want to quickly check the code for a command without opening the github
-    #     It also provides a link to the github link with the code highlighted
+    @why_dev.command(
+        name="getcode", description="Get the code for a specific Why-Bot command"
+    )
+    async def getcode(self, ctx, name: str):
+        """
+        This command is used to get the code for a specific command
+        It is useful if you want to quickly check the code for a command without opening the github
+        It also provides a link to the github link with the code highlighted
 
-    #     Help Info:
-    #     ----------
-    #     Category: Programming
+        Help Info:
+        ----------
+        Category: Programming
 
-    #     Usage: getcode <name: str>
-    #     """
-    #     commands_list = []
-    #     for cmd in self.client.application_commands:
-    #         if isinstance(cmd, discord.SlashCommandGroup):
-    #             continue
-    #         commands_list.append(cmd)
+        Usage: getcode <name: str>
+        """
+        commands_list = []
+        for cmd in self.client.application_commands:
+            if isinstance(cmd, discord.SlashCommandGroup):
+                continue
+            commands_list.append(cmd)
 
-    #     for command in commands_list:
-    #         if command.name.lower() == name.lower():
-    #             func = command.callback
-    #             filename = inspect.getsourcefile(func).split("/src")[1]
-    #             function_code = inspect.getsource(func).replace("```", "'")
+        for command in commands_list:
+            if command.name.lower() == name.lower():
+                func = command.callback
+                filename = inspect.getsourcefile(func).split("/src")[1]
+                function_code = inspect.getsource(func).replace("```", "'")
+                first_line = func.__code__.co_firstlineno
 
-    #             first_line = func.__code__.co_firstlineno
+                function_length = len(function_code.replace("\\n", "").split("\n")[:-1])
 
-    #             function_length = len(function_code.replace("\\n", "").split("\n")[:-1])
+                last_line = function_length + first_line - 1
 
-    #             last_line = function_length + first_line - 1
+                if len(function_code) > 1750:
+                    file = io.BytesIO(function_code.encode())
 
-    #             if len(function_code) > 1500:
-    #                 return await ctx.send(embed=discord.Embed(title="Code to large lmao", description=f"Link to code:\n<https://github.com/FusionSid/Why-Bot/blob/rewrite-the-rewrite/src{filename}#L{first_line}-L{last_line}>", color=ctx.author.color))
+                    return await ctx.respond(
+                        embed=discord.Embed(
+                            title="Code to large to fit in a message",
+                            description=f"<https://github.com/FusionSid/Why-Bot/blob/rewrite-the-rewrite/src{filename}#L{first_line}-L{last_line}>",
+                            color=ctx.author.color,
+                        ),
+                        file=discord.File(file, "command.py"),
+                    )
 
-    #             return await ctx.respond(
-    #                 f"""```py\n\t# Code for the: {func.__name__} function/command\n\t# Written by FusionSid#3645 :)\n\n{function_code}\n```\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}#L{first_line}-L{last_line}>"""
-    #             )
-    #     await ctx.respond(embed=discord.Embed(title="Get Code", description="Command not found!", color=ctx.author.color), ephemeral=True)
-
-    # @why_dev.command()
-    # async def get_all_commands(self, ctx):
-    #     file = io.BytesIO("\n".join(i.name for i in self.client.application_commands).encode())
-    #     await ctx.respond(file=discord.File(file, "commands.txt"))
+                return await ctx.respond(
+                    f"""```py\n\t# Code for the: {func.__name__} function/command\n\n{function_code}\n```\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}#L{first_line}-L{last_line}>"""
+                )
+        await ctx.respond(
+            embed=discord.Embed(
+                title="Get Code",
+                description="Command not found!",
+                color=ctx.author.color,
+            ),
+            ephemeral=True,
+        )
 
     @why_dev.command()
-    @commands.check(run_bot_checks)
     async def uptime(self, ctx):
         """
         This command is used to get the uptime for the bot
@@ -76,7 +89,6 @@ class WhyBotDev(commands.Cog):
         await ctx.respond(embed=em)
 
     @why_dev.command(name="ping", description="Shows the bot's ping")
-    @commands.check(run_bot_checks)
     async def ping(self, ctx):
         """
         This command is used to get the ping for the bot
@@ -85,16 +97,10 @@ class WhyBotDev(commands.Cog):
         await ctx.respond(f"Pong!\n{round(self.client.latency * 1000)}ms")
 
     @why_dev.command()
-    @commands.check(run_bot_checks)
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def suggest(self, ctx, *, suggestion):
         """
         This command is used to make a suggestion for the bot
-
-        Help Info:
-        ----------
-        Category: Utilities
-
-        Usage: suggest <suggestion: str>
         """
 
         suggestion_channel = self.client.config["suggestion_channel"]
@@ -129,7 +135,7 @@ class WhyBotDev(commands.Cog):
         await ctx.respond("Thank you for the suggestion :)")
 
     @why_dev.command()
-    @commands.check(run_bot_checks)
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def bug(self, ctx, *, bug):
         em = discord.Embed(
             title="Bug Report",
