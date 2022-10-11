@@ -8,10 +8,10 @@ from core.helpers.checks import run_bot_checks
 class Poll(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
+        self.cog_check = run_bot_checks
 
     @commands.slash_command(description="Makes a Yah or Nah poll")
     @commands.guild_only()
-    @commands.check(run_bot_checks)
     async def yesorno(self, ctx, *, message):
         msg = await ctx.respond(
             embed=discord.Embed(

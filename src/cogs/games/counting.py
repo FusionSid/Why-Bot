@@ -6,23 +6,24 @@ import discord
 from discord.ext import commands
 from discord.commands import SlashCommandGroup
 
-from core.utils.calc import calculate
 from core.models import WhyBot
 from core.models.counting import CountingData
 from core.db.setup_guild import setup_counting
 from core.helpers.checks import run_bot_checks
+from core.utils.calc import slow_safe_calculate
 
 
 class Counting(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
         self.guilds: list[int] = []
+        self.cog_check = run_bot_checks
 
     counting = SlashCommandGroup("counting", "Commmands related to the counting game")
 
     async def put_on_cooldown(self, guild):
         self.guilds.append(guild)
-        await asyncio.sleep(0.5)
+        await asyncio.sleep(0.1)
 
         try:
             self.guilds.remove(guild)
@@ -51,7 +52,6 @@ class Counting(commands.Cog):
 
     @counting.command()
     @commands.guild_only()
-    @commands.check(run_bot_checks)
     @commands.has_guild_permissions(administrator=True)
     async def setchannel(
         self,
@@ -82,7 +82,6 @@ class Counting(commands.Cog):
 
     @counting.command()
     @commands.guild_only()
-    @commands.check(run_bot_checks)
     @commands.has_guild_permissions(administrator=True)
     async def enable(
         self,
@@ -135,7 +134,6 @@ class Counting(commands.Cog):
 
     @counting.command()
     @commands.guild_only()
-    @commands.check(run_bot_checks)
     @commands.has_guild_permissions(administrator=True)
     async def toggle_auto_calc(
         self,
@@ -166,7 +164,6 @@ class Counting(commands.Cog):
 
     @counting.command()
     @commands.guild_only()
-    @commands.check(run_bot_checks)
     @commands.has_guild_permissions(administrator=True)
     async def disable(
         self,
@@ -194,7 +191,6 @@ class Counting(commands.Cog):
 
     @counting.command()
     @commands.guild_only()
-    @commands.check(run_bot_checks)
     async def current_number(self, ctx):
         counting_data = await self.get_counting_data(ctx.guild.id, skip_cache=True)
         if counting_data is None:
@@ -224,7 +220,6 @@ class Counting(commands.Cog):
 
     @counting.command()
     @commands.guild_only()
-    @commands.check(run_bot_checks)
     async def high_score(self, ctx):
         counting_data = await self.get_counting_data(ctx.guild.id, skip_cache=True)
         if counting_data is None:
@@ -254,7 +249,6 @@ class Counting(commands.Cog):
 
     @counting.command()
     @commands.guild_only()
-    @commands.check(run_bot_checks)
     async def leaderboard(self, ctx):
         await ctx.defer()
         counting_data = await self.client.db.fetch(
@@ -292,10 +286,6 @@ class Counting(commands.Cog):
 
         if message.guild.id in self.guilds:
             try:
-                await message.add_reaction("🇸")
-                await message.add_reaction("🇵")
-                await message.add_reaction("🇦")
-                await message.add_reaction("🇲")
                 return await message.add_reaction("🛑")
             except (discord.NotFound, discord.Forbidden):
                 pass  # probably deleted their message
@@ -311,7 +301,7 @@ class Counting(commands.Cog):
         ):
             return
 
-        potential_number = await calculate(message.content, only_int=True)
+        potential_number = await slow_safe_calculate(message.content, only_int=True)
         if potential_number is None:
             return
 
@@ -369,6 +359,12 @@ class Counting(commands.Cog):
         await self.update_count(counting_data, message.author.id)
         await self.put_on_cooldown(message.guild.id)
         await message.add_reaction("✅")
+
+        if counting_data.current_number == 69:
+            await message.add_reaction("🇳")
+            await message.add_reaction("🇮")
+            await message.add_reaction("🇨")
+            await message.add_reaction("🇪")
 
     async def reset_count(self, data: CountingData):
         data.last_counter = 0

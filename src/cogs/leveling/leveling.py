@@ -24,6 +24,7 @@ class Leveling(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
         self.guild_cooldowns: dict[int, commands.CooldownMapping] = {}
+        self.cog_check = run_bot_checks
 
     leveling = SlashCommandGroup("leveling", "Leveling system related commands")
 
@@ -129,7 +130,6 @@ class Leveling(commands.Cog):
 
     @leveling.command()
     @commands.guild_only()
-    @commands.check(run_bot_checks)
     @commands.has_guild_permissions(administrator=True)
     async def toggle_leveling(
         self,
@@ -157,7 +157,6 @@ class Leveling(commands.Cog):
 
     @leveling.command()
     @commands.guild_only()
-    @commands.check(run_bot_checks)
     @commands.has_guild_permissions(administrator=True)
     async def toggle_level_up(
         self,
@@ -185,7 +184,6 @@ class Leveling(commands.Cog):
 
     @leveling.command()
     @commands.guild_only()
-    @commands.check(run_bot_checks)
     @commands.has_guild_permissions(administrator=True)
     async def set_level_text(
         self,
@@ -233,7 +231,6 @@ class Leveling(commands.Cog):
 
     @leveling.command()
     @commands.guild_only()
-    @commands.check(run_bot_checks)
     async def rank(self, ctx):
         await ctx.defer()
         data = await get_all_member_data(self.client.db, ctx.guild.id)
@@ -254,7 +251,6 @@ class Leveling(commands.Cog):
 
     @leveling.command()
     @commands.guild_only()
-    @commands.check(run_bot_checks)
     async def leaderboard(self, ctx):
         await ctx.defer()
         data = await get_all_member_data(self.client.db, ctx.guild.id)
