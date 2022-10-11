@@ -8,15 +8,16 @@ from discord.ext import commands
 
 from core.models import WhyBot
 from core.utils.count_lines import get_lines
-from core.helpers.checks import blacklist_check
+from core.helpers.checks import run_bot_checks
+from core.utils.formatters import discord_timestamp
 
 
 class Info(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
+        self.cog_check = run_bot_checks
 
     @commands.slash_command(name="info", description="Gets info on a member")
-    @commands.check(blacklist_check)
     async def info(self, ctx, member: discord.Member = None):
         """
         This command is used to get info on a member
@@ -75,55 +76,73 @@ class Info(commands.Cog):
 
     @commands.slash_command(name="serverinfo", description="Shows server info")
     @commands.guild_only()
-    @commands.check(blacklist_check)
-    async def serverinfo(self, ctx):
+    async def serverinfo(self, ctx: commands.Context):
         """
         This command is used to get info on the server
         """
+        GUILD = ctx.guild
+
+        text = len(GUILD.text_channels)
+        voice = len(GUILD.voice_channels)
+        total = len(GUILD.channels)
+        other = total - (text + voice)
+        categories = len(GUILD.categories)
+        channel_text = f"""**Channels:**
+            **{text}** Text channels
+            **{voice}** Voice channels
+            **{other}** Other channel types
+            **{total}** Total Channels
+            **{categories}** Total Categories"""
+
+        members = GUILD.members
+        humans = len([m for m in members if not m.bot])
+        bots = len(members) - humans
+        member_text = f"""**Members:**
+            **{humans}** Humans
+            **{bots}** Bots
+            **{len(members)}** Total Members"""
+
+        emojis_text = f"**Emoji Count:**\n{len(GUILD.emojis)}"
+        role_text = f"**Role Count:**\n{len(GUILD.roles)}"
+
+        created_at = int(time.mktime(GUILD.created_at.timetuple()))
+        created_text = f'**Server Created:**\n{await discord_timestamp(created_at, "md_yt")} ({await discord_timestamp(created_at, "ts")})'
+
+        server_id_text = f"**Server ID:** {GUILD.id}"
+        level_text = f"""\
+        **Verification Level:** {GUILD.verification_level.name}
+        **2FA:** {'on' if bool(GUILD.mfa_level) else 'off'}
+        **NSFW Level:** {GUILD.nsfw_level.name}"""
+
+        feature_text = "**Features:**\n" + ", ".join(GUILD.features)
+
+        things = "\n\n".join(
+            [
+                channel_text,
+                member_text,
+                emojis_text,
+                role_text,
+                created_text,
+                level_text,
+                feature_text,
+            ]
+        )
+        description = f"{server_id_text}\n\n{things}"
 
         em = discord.Embed(
-            title="Server Info:",
-            description=f"For: {ctx.guild.name}",
+            title=f"Server Info for {ctx.guild.name}",
+            description=description,
             color=ctx.author.color,
         )
-
-        em.add_field(
-            name="Channels:",
-            value=f"**Text:** {len(ctx.guild.text_channels)}\n**Voice:** {len(ctx.guild.voice_channels)}",
-        )
-        em.add_field(name="Roles:", value=len(ctx.guild.roles))
-
-        bots = 0
-        members = 0
-
-        for member in ctx.guild.members:
-            if member.bot:
-                bots += 1
-            else:
-                members += 1
-
-        em.add_field(
-            name="Members:",
-            value=f"**Total:** {ctx.guild.member_count}\n**Humans:** {members}\n**Bots:** {bots}",
-        )
-        em.add_field(
-            name="Created: ",
-            value=f"<t:{int(time.mktime(ctx.guild.created_at.timetuple()))}>",
-        )
-        em.add_field(name="ID:", value=ctx.guild.id)
-
         em.set_author(
             name=f"Server Owner: {ctx.guild.owner.name}",
             icon_url=ctx.guild.owner.avatar.url,
         )
         em.set_thumbnail(url=ctx.guild.icon.url)
 
-        em.timestamp = datetime.datetime.utcnow()
-
         await ctx.respond(embed=em)
 
     @commands.slash_command(name="botinfo", description="Gets info on Why Bot")
-    @commands.check(blacklist_check)
     async def botinfo(self, ctx):
         """
         This command is used to get info on the bot
