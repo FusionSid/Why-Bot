@@ -1,4 +1,5 @@
 import os
+import random
 import tempfile
 
 import discord
@@ -13,6 +14,7 @@ from core.helpers.views import RickRollView
 class Fun(commands.Cog):
     def __init__(self, client):
         self.client = client
+        self.cog_check = run_bot_checks
 
     async def gen_crab(self, t1, t2):
         path = os.path.join(
@@ -44,7 +46,7 @@ class Fun(commands.Cog):
         return file
 
     @commands.slash_command()
-    @commands.check(run_bot_checks)
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def crab(self, ctx, text1, text2):
         await ctx.defer()
         video = await self.gen_crab(text1, text2)
@@ -52,11 +54,51 @@ class Fun(commands.Cog):
         video.close()
 
     @commands.slash_command()
-    @commands.check(run_bot_checks)
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def claim(self, ctx):
         em = discord.Embed(title="Claim 100k Why Coins", color=discord.Color.blue())
         await ctx.respond(embed=em, view=RickRollView(self.client.db))
+
+    @commands.slash_command()
+    async def spongebob(self, ctx, time: int, unit: str):
+        path = os.path.join(
+            os.path.dirname(__main__.__file__), "assets/images/spongebob"
+        )
+        images = {}
+        for image in os.listdir(path):
+            key = image[:-4]
+            images[key] = image
+
+    @commands.slash_command(name="8ball")
+    async def _8ball(self, ctx, question: str):
+        responses = [
+            "As I see it, yes",
+            "It is certain",
+            "It is decidedly so",
+            "Most likely",
+            "Outlook good",
+            "Signs point to yes",
+            "Without a doubt",
+            "Yes",
+            "Yes - definitely",
+            "You may rely on it",
+            "Reply hazy, try again",
+            "Ask again later",
+            "Better not tell you now",
+            "Cannot predict now",
+            "Concentrate and ask again",
+            "Don't count on it",
+            "My reply is no",
+            "My sources say no",
+            "Outlook not so good",
+            "Very doubtful",
+        ]
+        em = discord.Embed(
+            title="8 Ball",
+            description=f"{question}\nAnswer: {random.choice(responses)}",
+            color=ctx.author.color,
+        )
+        await ctx.respond(embed=em)
 
 
 def setup(client):
