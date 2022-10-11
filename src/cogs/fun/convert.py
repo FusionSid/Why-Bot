@@ -1,3 +1,4 @@
+import io
 import random
 
 import discord
@@ -7,6 +8,7 @@ from discord.commands import SlashCommandGroup
 from discord.ext import commands
 
 from core.helpers.checks import run_bot_checks
+from core.helpers.http import get_request_bytes
 
 colors = discord_colorize.Colors()
 fonts = pyfiglet.FigletFont.getFonts()
@@ -18,11 +20,11 @@ fonts = dict(zip(fonts, pyfiglet.FigletFont.getFonts()))
 class TextConvert(commands.Cog):
     def __init__(self, client):
         self.client = client
+        self.cog_check = run_bot_checks
 
     textconvert = SlashCommandGroup("text", "Convert text to something else")
 
     @textconvert.command()
-    @commands.check(run_bot_checks)
     async def stickycaps(
         self, ctx, *, text: discord.Option(str, "The text to convert")
     ):
@@ -33,7 +35,6 @@ class TextConvert(commands.Cog):
         await ctx.respond("Too long to send :(")
 
     @textconvert.command()
-    @commands.check(run_bot_checks)
     async def expand(
         self, ctx, space: int, *, text: discord.Option(str, "The text to convert")
     ):
@@ -44,7 +45,6 @@ class TextConvert(commands.Cog):
         await ctx.respond("Too long to send :(")
 
     @textconvert.command()
-    @commands.check(run_bot_checks)
     async def reverse(self, ctx, *, text: discord.Option(str, "The text to convert")):
         result = text[::-1]
         if len(result) <= 1999:
@@ -52,7 +52,6 @@ class TextConvert(commands.Cog):
         await ctx.respond("Too long to send :(")
 
     @textconvert.command()
-    @commands.check(run_bot_checks)
     async def texttohex(self, ctx, *, text: discord.Option(str, "The text to convert")):
         try:
             hex_output = " ".join("{:02x}".format(ord(char)) for char in text)
@@ -65,7 +64,6 @@ class TextConvert(commands.Cog):
         await ctx.respond("Too long to send :(")
 
     @textconvert.command()
-    @commands.check(run_bot_checks)
     async def hextotext(self, ctx, *, text: discord.Option(str, "The text to convert")):
         try:
             text_output = bytearray.fromhex(text).decode()
@@ -78,7 +76,6 @@ class TextConvert(commands.Cog):
         await ctx.respond("Too long to send :(")
 
     @textconvert.command()
-    @commands.check(run_bot_checks)
     async def texttobinary(
         self, ctx, *, text: discord.Option(str, "The text to convert")
     ):
@@ -93,7 +90,6 @@ class TextConvert(commands.Cog):
         await ctx.respond("Too long to send :(")
 
     @textconvert.command()
-    @commands.check(run_bot_checks)
     async def binarytotext(
         self, ctx, *, text: discord.Option(str, "The text to convert")
     ):
@@ -108,7 +104,6 @@ class TextConvert(commands.Cog):
         await ctx.respond("Too long to send :(")
 
     @textconvert.command()
-    @commands.check(run_bot_checks)
     async def emojify(self, ctx, *, text: discord.Option(str, "The text to convert")):
         emojis = []
 
@@ -142,7 +137,6 @@ class TextConvert(commands.Cog):
         await ctx.respond(" ".join(emojis))
 
     @textconvert.command()
-    @commands.check(run_bot_checks)
     async def ascii(
         self,
         ctx,
@@ -174,6 +168,40 @@ class TextConvert(commands.Cog):
         await ctx.respond(
             embed=discord.Embed(title="Ascii Art Output:", description=message)
         )
+
+    @textconvert.command()
+    async def fontconvert(
+        self, ctx, message: str, font: str = None, color: str = "black"
+    ):
+        if font is None:
+            return await ctx.respond(
+                embed=discord.Embed(
+                    title="You must specify a font",
+                    description="[Click this to get a list of fonts you can use](https://api.fusionsid.xyz/api/font/list)",
+                    color=discord.Colour.red(),
+                ),
+                ephemeral=True,
+            )
+        URL = "https://api.fusionsid.xyz/api/font/convert"
+
+        text_image = await get_request_bytes(
+            URL,
+            data={"font": font, "text": message, "text_color": color},
+            bytes_io=True,
+        )
+
+        if not isinstance(text_image, io.BytesIO):
+            return await ctx.respond(
+                embed=discord.Embed(
+                    title="An error occured while trying to get the image",
+                    description="This is most likely because you used an invalid font\n\
+                        [Click this to get a list of fonts you can use](https://api.fusionsid.xyz/api/font/list)",
+                    color=discord.Colour.red(),
+                ),
+                ephemeral=True,
+            )
+
+        await ctx.respond(file=discord.File(text_image, "text.png"))
 
 
 def setup(client):
