@@ -3,6 +3,7 @@ This module contains formatting functions
 """
 
 from enum import Enum
+from typing import Literal
 
 
 class SecondIntervals(Enum):
@@ -119,3 +120,20 @@ async def number_suffix(number: int):
     return str(number) + {1: "st", 2: "nd", 3: "rd"}.get(
         4 if 10 <= number % 100 < 20 else number % 10, "th"
     )
+
+
+async def discord_timestamp(
+    time: int,
+    format_type: Literal["mdy", "md_yt", "t", "md_y", "w_md_yt", "ts", "h_m_s"],
+):
+    formated_times = {
+        "mdy": f"<t:{time}:d>",
+        "md_yt": f"<t:{time}:f>",
+        "t": f"<t:{time}:t>",
+        "md_y": f"<t:{time}:D>",
+        "w_md_yt": f"<t:{time}:F>",
+        "ts": f"<t:{time}:R>",
+        "h_m_s": f"<t:{time}:T>",
+    }
+
+    return formated_times.get(format_type)
