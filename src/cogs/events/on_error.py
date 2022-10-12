@@ -179,6 +179,8 @@ class OnError(commands.Cog):
                 color=discord.Color.red(),
             )
             await ctx.respond(embed=em, ephemeral=True)
+        elif isinstance(error, commands.CommandNotFound):
+            return
         else:
             log_errors(type(error), error, error.__traceback__)
 
