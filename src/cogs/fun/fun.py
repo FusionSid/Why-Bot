@@ -94,8 +94,8 @@ class Fun(commands.Cog):
             "Very doubtful",
         ]
         em = discord.Embed(
-            title="8 Ball",
-            description=f"{question}\nAnswer: {random.choice(responses)}",
+            title="8 Ball 🎱",
+            description=f"**Question:** {question}\n**Answer:** {random.choice(responses)}",
             color=ctx.author.color,
         )
         await ctx.respond(embed=em)
