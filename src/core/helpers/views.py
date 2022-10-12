@@ -55,3 +55,29 @@ class RickRollView(discord.ui.View):
         await self.message.edit(view=self)
 
         return await super().on_timeout()
+
+
+class BotInfoView(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=None)
+        self.add_item(
+            discord.ui.Button(
+                style=discord.ButtonStyle.grey,
+                label="Website / Dashboard",
+                url="https://why.fusionsid.xyz/",
+            )
+        )
+        self.add_item(
+            discord.ui.Button(
+                style=discord.ButtonStyle.grey,
+                label="Source Code",
+                url="https://github.com/FusionSid/Why-Bot",
+            )
+        )
+        self.add_item(
+            discord.ui.Button(
+                style=discord.ButtonStyle.grey,
+                label="Discord Server",
+                url="https://discord.gg/Jm8QPF6xbN",
+            )
+        )

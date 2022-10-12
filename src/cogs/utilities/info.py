@@ -7,6 +7,7 @@ import platform
 from discord.ext import commands
 
 from core.models import WhyBot
+from core.helpers.views import BotInfoView
 from core.utils.count_lines import get_lines
 from core.helpers.checks import run_bot_checks
 from core.utils.formatters import discord_timestamp
@@ -164,10 +165,16 @@ class Info(commands.Cog):
         )
         em.add_field(
             inline=True,
+            name="Active User Count",
+            value=len(
+                await self.client.db.fetch("SELECT DISTINCT user_id FROM command_stats")
+            ),
+        )
+        em.add_field(
+            inline=True,
             name="Command Count",
             value=f"{len(self.client.application_commands)} commands",
         )
-        em.add_field(inline=True, name="Active User Count", value="e")
         em.add_field(
             inline=True, name="Ping", value=f"{round(self.client.latency * 1000)}ms"
         )
@@ -179,11 +186,6 @@ class Info(commands.Cog):
             value=f"{psutil.virtual_memory().percent}% of ({round((psutil.virtual_memory().total/1073741824), 2)}GB)",
         )
         em.add_field(
-            inline=True,
-            name="Available Memory",
-            value=f"{round(psutil.virtual_memory().available * 100 / psutil.virtual_memory().total)}%",
-        )
-        em.add_field(
             inline=True, name="Python version", value=f"{platform.python_version()}"
         )
         em.add_field(
@@ -193,12 +195,17 @@ class Info(commands.Cog):
         )
         em.add_field(
             inline=True,
-            name="Python code",
+            name="User ID:",
+            value=self.client.user.id,
+        )
+        em.add_field(
+            inline=True,
+            name="Lines of python code",
             value=f"{(await get_lines(self.client.redis))} lines of code",
         )
-
+        em.set_thumbnail(url=self.client.user.avatar.url)
         em.set_footer(text="Made by FusionSid#3645")
-        await ctx.respond(embed=em)
+        await ctx.respond(embed=em, view=BotInfoView())
 
 
 def setup(client: WhyBot):
