@@ -1,3 +1,4 @@
+import io
 import time
 import datetime
 
@@ -109,13 +110,19 @@ class DMReply(commands.Cog):
         if not len(thread_id):
             thread_id = None
 
+        thread = None
+
         if thread_id is not None:
             try:
                 thread = channel.get_thread(thread_id[0][1])
             except discord.NotFound:
-                thread_id = None
+                thread = None
+            if thread is None:
+                await self.client.db.execute(
+                    "DELETE FROM dmreply WHERE user_id=$1", author.id
+                )
 
-        if thread_id is None:
+        if thread is None:
             emb = discord.Embed(
                 title=author.name,
                 color=discord.Color.random(),
@@ -146,7 +153,6 @@ class DMReply(commands.Cog):
                 author.id,
                 thread.id,
             )
-
         if message.content != "" and message.content is not None:
             await thread.send(message.content)
 
@@ -169,6 +175,40 @@ class DMReply(commands.Cog):
         TODO
         """
         pass
+
+    @commands.slash_command()
+    @commands.is_owner()
+    async def close_thread(self, ctx, author_id: str):
+        try:
+            author_id = int(author_id)
+        except ValueError:
+            return await ctx.respond("Not found")
+
+        thread_id = await self.client.db.fetch(
+            "SELECT * FROM dmreply WHERE user_id=$1", author_id
+        )
+
+        if not len(thread_id):
+            thread_id = None
+
+        if thread_id is not None:
+            try:
+                thread: discord.Thread = self.dm_reply_channel.get_thread(
+                    thread_id[0][1]
+                )
+            except discord.NotFound:
+                return await ctx.respond("Not found")
+
+        messages = "\n".join(
+            [
+                f"{message.author.name}: {message.content}\n---\n"
+                async for message in thread.history(oldest_first=True)
+                if message.content is not None or message.content != ""
+            ]
+        )
+        file = io.BytesIO(messages.encode())
+        await ctx.respond(file=discord.File(file, "messages.txt"), ephemeral=True)
+        await thread.delete()
 
 
 def setup(client: WhyBot):
