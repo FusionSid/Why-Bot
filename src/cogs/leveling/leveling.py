@@ -6,15 +6,14 @@ from discord.commands import SlashCommandGroup
 
 from core.helpers.why_leveling import (
     get_level_data,
-    setup_leveling_guild,
     get_member_data,
     xp_needed,
     update_member_data,
     get_all_member_data,
 )
-
 from core.models import WhyBot
 from core.helpers.checks import run_bot_checks
+from core.db.setup_guild import setup_leveling_guild
 
 RATE = 1
 PER = 60
