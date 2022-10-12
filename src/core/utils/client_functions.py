@@ -9,14 +9,13 @@ import yaml
 import discord
 import asyncpg
 import aioredis
-import aiofiles
+from discord.ext import commands
 
 import __main__
-from core.models import WhyBot
 from core.helpers.exception import ConfigNotFound
 
 
-async def update_activity(client: WhyBot):
+async def update_activity(client: commands.Bot):
     """
     Updates the bot's activity with the amount of servers
 

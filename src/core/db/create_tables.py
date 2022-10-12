@@ -82,6 +82,14 @@ CREATE TABLE counters
 );
 """
 
+dmreply_query = """
+CREATE TABLE dmreply
+(
+    user_id bigint NOT NULL PRIMARY KEY,
+    thread_id bigint NOT NULL
+);
+"""
+
 # If you wish not to create one of these tables in the setup process
 # Simply just remove that item from this list:
 tables_to_create = [
@@ -92,6 +100,7 @@ tables_to_create = [
     leveling_guild_query,
     leveling_rewards_query,
     counters_query,
+    dmreply_query,
 ]
 
 
