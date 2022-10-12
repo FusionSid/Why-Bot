@@ -4,6 +4,10 @@ from dataclasses import dataclass
 
 @dataclass
 class LevelingDataGuild:
+    """
+    Dataclass to help with using the leveling data guild table
+    """
+
     guild_id: int
     plugin_enabled: bool | None
 
@@ -35,6 +39,10 @@ class LevelingDataGuild:
 
 @dataclass
 class LevelingDataMember:
+    """
+    Dataclass to help with the leveling data member table
+    """
+
     guild_id: int
     member_id: int
     member_name: str

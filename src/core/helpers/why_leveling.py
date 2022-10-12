@@ -42,33 +42,6 @@ async def get_member_data(db: asyncpg.Pool, member: discord.Member, guild_id: in
     return LevelingDataMember(*data[0])
 
 
-async def setup_leveling_guild(db: asyncpg.Pool, guild_id: int):
-    default_data = [
-        guild_id,
-        False,
-        "default",
-        "black",
-        None,
-        "black",
-        "green",
-        [],
-        [],
-        "GG {member.mention} you just leveled up to {level}",
-        True,
-        "20",
-    ]
-    query = """
-    INSERT INTO leveling_guild (
-        guild_id, plugin_enabled, 
-        text_font, text_color,
-        background_image, background_color, progress_bar_color, 
-        no_xp_roles, no_xp_channels, 
-        level_up_text, level_up_enabled, per_minute
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-    """
-    await db.execute(query, *default_data)
-
-
 async def update_member_data(
     db: asyncpg.Pool, message: discord.Message, member_data: LevelingDataMember
 ):
@@ -89,6 +62,13 @@ async def update_member_data(
 
 
 async def get_all_member_data(db: asyncpg.Pool, guild_id: int):
+    """
+    Gets member data for all the members in a guild. This is used for leaderboards
+
+    Parameters:
+        db (asyncpg.Pool)
+    """
+
     data = await db.fetch(
         "SELECT * FROM leveling_member WHERE guild_id=$1 ORDER BY member_total_xp",
         guild_id,

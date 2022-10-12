@@ -1,13 +1,20 @@
+import asyncpg
 import discord
-
-KEY = "rickroll_counter"
-
 from core.utils.formatters import number_suffix
 
 
 class RickRollView(discord.ui.View):
-    def __init__(self, db):
+    """
+    View with a button that says claim but after clicking the button you get rickrolled
+    It also updates a counter with the amount of people rickrolled from the view
+
+    Parameter:
+        db (asyncpg.Pool): the connection to the psql database, used to update the counter
+    """
+
+    def __init__(self, db: asyncpg.Pool):
         self.db = db
+        self.key = "rickroll_counter"
         super().__init__(timeout=500)
 
     @discord.ui.button(style=discord.ButtonStyle.green, label="Claim")
@@ -19,13 +26,13 @@ class RickRollView(discord.ui.View):
         await interaction.response.edit_message(view=self)
         await interaction.followup.send("https://imgur.com/NQinKJB", ephemeral=True)
 
-        count = await self.db.fetch("SELECT value FROM counters WHERE key=$1", KEY)
+        count = await self.db.fetch("SELECT value FROM counters WHERE key=$1", self.key)
         count = count[0][0] + 1 if len(count) else None
 
         if count is None:
             await self.db.execute(
                 "INSERT INTO counters (key, value) VALUES ($1, 1)",
-                KEY,
+                self.key,
             )
             count = 1
 
@@ -34,7 +41,9 @@ class RickRollView(discord.ui.View):
             ephemeral=True,
         )
 
-        await self.db.execute("UPDATE counters SET value=$1 WHERE key=$2", count, KEY)
+        await self.db.execute(
+            "UPDATE counters SET value=$1 WHERE key=$2", count, self.key
+        )
 
     async def on_timeout(self) -> None:
         self.children[0].label = (

@@ -2,15 +2,20 @@
 Used to get the amount of lines in the current project
 """
 
-
 import os
-import __main__
+from datetime import timedelta
+
 from aioredis import Redis
+
+import __main__
 
 
 async def get_files() -> list[str]:
     """
     Gets a list of all the files in a python project
+
+    Returns:
+        list[str]: List of file paths for the python files in the project
     """
     file_list = []
     path = os.path.dirname(os.path.abspath(__main__.__file__))
@@ -30,6 +35,13 @@ async def get_files() -> list[str]:
 async def get_lines(redis: Redis) -> int:
     """
     Gets the amount of lines in a python project
+
+    Parameters:
+        redis (Redis): an instance of redis.Redis which is connection to the redis database
+            this will be used to cache the line count to speed up performance
+
+    Returns:
+        int: The amount of lines of code in the project
     """
     if await redis.exists("python_line_count"):
         # 6ms compute time, 0.3ms get from cache time
@@ -45,4 +57,5 @@ async def get_lines(redis: Redis) -> int:
             lines += len(list(f))
 
     await redis.set("python_line_count", lines)
+    await redis.expire("python_line_count", timedelta(hours=6))
     return lines

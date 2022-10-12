@@ -20,9 +20,13 @@ from core.helpers.log import log_errors, on_error
 from core.utils.client_functions import get_why_config
 
 
-def start_bot(client: WhyBot):
+def start_bot(client: WhyBot) -> None:
     """
     Starts up the amazing Why Bot
+
+    Parameters:
+        client (WhyBot): The instance of commands.Bot / subclasses.
+            This is the bot that will be started
     """
     cogs = {}
     path = os.path.join(os.path.dirname(__file__), "cogs")

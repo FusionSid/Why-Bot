@@ -24,6 +24,20 @@ from core.helpers.exception import UserAlreadyBlacklisted, UserAlreadyWhiteliste
 class WhyBot(commands.Bot):
     """
     The Why Bot Class (subclass of: `discord.ext.commands.Bot`)
+
+    Parameters:
+        config (dict): The parsed result of the config.yaml file
+            this is usualy obtained from the get_why_config function
+
+    Attributes:
+        db Optional[asyncpg.Pool]: The connection to the postgres db
+        redis Optional[aioredis.Redis]: The connection to the redis db
+        config (dict): The bots config
+        version (str): the bots version
+        console (rich.console.Console): a Console object useful for rich printing
+        last_login_time (datetime.datetime.now()): The last time the bot started, used for uptime
+
+        + all the ones inherited from `discord.ext.commands.Bot`
     """
 
     def __init__(self, config: dict):
@@ -53,9 +67,9 @@ class WhyBot(commands.Bot):
         )
 
     @property
-    async def uptime(self):
+    async def uptime(self) -> str:
         """
-        This function returns the uptime for the bot.
+        This property returns the uptime for the bot.
 
         Returns:
             str : Formated string with the uptime
@@ -67,21 +81,38 @@ class WhyBot(commands.Bot):
         return time
 
     @property
-    def get_why_emojies(self):
+    def get_why_emojies(self) -> dict:
         """
-        This function returns the emojis for the bot
+        This property returns the emojis for the bot
+            these emojis are the ones in the Why Bot guild
 
         Returns:
-            Dict : A dictionary of emojis
+            dict : A dictionary of emojis
         """
         emojis_dict = {}
 
+        # 763348615233667082 = the id for WhyBot guild
         for emoji in self.get_guild(763348615233667082).emojis:
             emojis_dict[emoji.name] = str(emoji)
 
         return emojis_dict
 
-    async def get_blacklisted_users(self, reasons=False):
+    async def get_blacklisted_users(
+        self, reasons=False
+    ) -> list[int] | list[asyncpg.Record]:
+        """
+        this function returns the blacklisted users for the bot from the db
+            this is used when the cache is empty or needs to be updated
+
+        Parameters:
+            reasons (Optional[bool]): If this is True it will return a list
+                blacklisted users with their userids and reason for being banned
+                This default to false
+
+        Returns:
+            list[int] | list[asyncpg.Record]: it will return a list with user ids of people blacklisted
+                but if reasons is True it will be a list of asyncpg.Records which will look like: list[list[int, str]]
+        """
         users = await self.db.fetch("SELECT * FROM blacklist;")
 
         if reasons:
@@ -90,6 +121,9 @@ class WhyBot(commands.Bot):
         return [int(user[0]) for user in users]
 
     async def reset_redis_blacklisted_cache(self):
+        """
+        This function resets the blacklisted cache for the bot
+        """
         await self.redis.delete("blacklisted")
         users = [int(user) for user in await self.get_blacklisted_users()]
         if len(users):
@@ -100,6 +134,16 @@ class WhyBot(commands.Bot):
         await self.redis.expire("blacklisted", datetime.timedelta(days=5))
 
     async def blacklist_user(self, user_id: int, reason: Optional[str] = None):
+        """
+        This function is used to black list a user from using the bot
+
+        Parameters:
+            user_id (int): the user id to ban
+            reason (Optional[str]): the optional reason why the user was blacklisted
+
+        Raises:
+            UserAlreadyBlacklisted: If the user is already blacklisted
+        """
         is_user_blacklisted = user_id in await self.get_blacklisted_users()
         if is_user_blacklisted:  # check if they are already blacklisted
             raise UserAlreadyBlacklisted
@@ -119,6 +163,15 @@ class WhyBot(commands.Bot):
         await self.reset_redis_blacklisted_cache()
 
     async def whitelist_user(self, user_id: int):
+        """
+        if a user was blacklisted from the bot it will whitelist them
+
+        Parameters:
+            user_id (int): The user_id to unban
+
+        Raises:
+            UserAlreadyWhitelisted: If the user is already whitelisted
+        """
         is_user_blacklisted = user_id in await self.get_blacklisted_users()
         if not is_user_blacklisted:  # check if they are already whitelisted
             raise UserAlreadyWhitelisted

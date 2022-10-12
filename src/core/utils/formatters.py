@@ -30,6 +30,7 @@ async def format_seconds(seconds: int, short: bool = False) -> str:
 
     Returns:
         str: The formmated output
+            if it fails to format is will return an empty string ("")
     """
 
     if not isinstance(seconds, int) or seconds == 0:
@@ -116,7 +117,16 @@ async def format_seconds(seconds: int, short: bool = False) -> str:
     return ""
 
 
-async def number_suffix(number: int):
+async def number_suffix(number: int) -> str:
+    """
+    This function adds the suffix / ordinal after a number provided
+
+    Parameters:
+        number (int): The number that will be formatted
+
+    Returns:
+        str: The formatted result
+    """
     return str(number) + {1: "st", 2: "nd", 3: "rd"}.get(
         4 if 10 <= number % 100 < 20 else number % 10, "th"
     )
@@ -125,7 +135,25 @@ async def number_suffix(number: int):
 async def discord_timestamp(
     time: int,
     format_type: Literal["mdy", "md_yt", "t", "md_y", "w_md_yt", "ts", "h_m_s"],
-):
+) -> str | None:
+    """
+    This function takes in a timestamp and formats it into a discord timestamp
+    Discord timestamps look something like this: <t:123456789:R>
+
+    Parameters:
+        time (int): The unix timestamp
+        format_type: (Literal[str]): The type of timestamp you want
+            mdy = Month/Day/Year
+            md_yt = Month Day, Year Time
+            t = Time
+            md_y = Month Day, Year
+            w_md_yt = Weekday, Month Day, Year Time
+            ts = Time since
+            h_m_s = Hour:Minute:Second
+
+    Returns:
+        Union[str, None]: str with the discord timestamp. If invalid code is provided it will return None
+    """
     formated_times = {
         "mdy": f"<t:{time}:d>",
         "md_yt": f"<t:{time}:f>",

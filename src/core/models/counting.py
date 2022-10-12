@@ -7,6 +7,10 @@ from dataclasses import dataclass
 
 @dataclass
 class CountingData:
+    """
+    dataclass to help with counting data information from the coutning table
+    """
+
     guild_id: int
     last_counter: int | None
     current_number: int | None
@@ -20,7 +24,14 @@ class CountingData:
     # banned_counters: list[int] = None
 
     @property
-    def next_number(self):
+    def next_number(self) -> int:
+        """
+        This property returns the next number which is just one
+            more then the previous number (self.current_number + 1)
+
+        Returns:
+            int: the next number
+        """
         if self.current_number is None:
             return 1
         return self.current_number + 1

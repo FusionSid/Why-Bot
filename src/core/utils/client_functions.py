@@ -1,30 +1,42 @@
 """ (module) client_functions
 Useful functions for the WhyBot client
 """
+
 import os
 import json
-import aioredis
 
 import yaml
 import discord
 import asyncpg
-from discord.ext import commands
+import aioredis
+import aiofiles
 
 import __main__
+from core.models import WhyBot
 from core.helpers.exception import ConfigNotFound
 
 
-async def update_activity(client: commands.Bot):
-    """Updates the bot's activity"""
+async def update_activity(client: WhyBot):
+    """
+    Updates the bot's activity with the amount of servers
+
+    Parameters:
+        client (WhyBot): The bot to update presence for
+    """
+
     await client.change_presence(
-        activity=discord.Game(f"On {len(client.guilds)} servers! | ?help")
+        activity=discord.Game(f"On {len(client.guilds)} servers! | /help")
     )
 
 
 def get_why_config() -> dict:
     """
-    Gets the why config
+    Gets the why bot config
+
+    Returns:
+        dict: The parsed result of config.yaml file
     """
+
     path = os.path.join(os.path.dirname(__main__.__file__), "config.yaml")
 
     if not os.path.exists(path):
@@ -37,6 +49,13 @@ def get_why_config() -> dict:
 
 
 async def create_connection_pool() -> asyncpg.Pool:
+    """
+    Creates a connection pool to the bots postgresql db
+
+    Returns:
+        asyncpg.Pool: an asyncpg connection pool.
+    """
+
     async def init(conn):
         # Set up auto json encoder/decoder:
         await conn.set_type_codec(
@@ -50,6 +69,12 @@ async def create_connection_pool() -> asyncpg.Pool:
 
 
 async def create_redis_connection() -> aioredis.Redis:
+    """
+    Creates a connection the the redis database
+
+    Returns:
+        aioredis.Redis: the connection to the db
+    """
     config = get_why_config()
 
     redis = aioredis.from_url(

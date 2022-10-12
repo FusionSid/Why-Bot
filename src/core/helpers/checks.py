@@ -42,8 +42,8 @@ async def blacklist_check(user_id: int) -> bool:
 
 
 async def plugin_enabled(cog: commands.Cog) -> bool:
+    # TODO 𐐘
     cog_name = cog.__cog_name__
-
     return True
 
 
