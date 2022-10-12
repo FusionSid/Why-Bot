@@ -52,6 +52,9 @@ class DMReply(commands.Cog):
     async def on_message(self, message: discord.Message):
         """The on message event that handles the dm's"""
 
+        if message.author.bot:
+            return
+
         # this should only run once
         if self.dm_reply_channel is not None and isinstance(self.dm_reply_channel, int):
             try:
@@ -61,7 +64,7 @@ class DMReply(commands.Cog):
             except discord.errors.NotFound:
                 self.dm_reply_channel = None
 
-        if message.author.bot or not await blacklist_check(message.author.id):
+        if not await blacklist_check(message.author.id):
             return
 
         # check if in dm / thread
@@ -86,8 +89,7 @@ class DMReply(commands.Cog):
 
             if message.attachments is not None:
                 for attachment in message.attachments:
-                    return await person.send("** **", attachment.url)
-
+                    return await person.send(attachment.url)
             return
 
         # If user is on cooldown
@@ -102,7 +104,6 @@ class DMReply(commands.Cog):
 
         channel = self.dm_reply_channel
         author = message.author
-
         thread_id = await self.client.db.fetch(
             "SELECT * FROM dmreply WHERE user_id=$1", author.id
         )
@@ -127,7 +128,6 @@ class DMReply(commands.Cog):
                 title=author.name,
                 color=discord.Color.random(),
                 timestamp=datetime.datetime.now(),
-                colour=author.color,
             )
             emb.set_thumbnail(url=author.avatar.url)
 
@@ -178,7 +178,7 @@ class DMReply(commands.Cog):
 
     @commands.slash_command()
     @commands.is_owner()
-    async def close_thread(self, ctx, author_id: str):
+    async def close_thread(self, ctx, author_id: str, archive: bool = False):
         try:
             author_id = int(author_id)
         except ValueError:
@@ -201,13 +201,17 @@ class DMReply(commands.Cog):
 
         messages = "\n".join(
             [
-                f"{message.author.name}: {message.content}\n---\n"
+                f"{message.author.name}: {message.content}\n---"
                 async for message in thread.history(oldest_first=True)
                 if message.content is not None or message.content != ""
             ]
         )
         file = io.BytesIO(messages.encode())
         await ctx.respond(file=discord.File(file, "messages.txt"), ephemeral=True)
+
+        if archive:
+            return await thread.archive()
+
         await thread.delete()
 
 
