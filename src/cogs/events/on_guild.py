@@ -5,6 +5,7 @@ from discord.ext import commands
 
 from core.models import WhyBot
 from core.helpers.log import log_normal
+from core.db.setup_guild import create_db_tables
 from core.utils.client_functions import update_activity
 
 
@@ -13,7 +14,7 @@ class OnGuild(commands.Cog):
         self.client = client
 
     @commands.Cog.listener()
-    async def on_guild_remove(self, guild):
+    async def on_guild_remove(self, guild: discord.Guild):
         """
         Called when the bot is removed from a guild
         It will update the bots activity
@@ -39,7 +40,7 @@ class OnGuild(commands.Cog):
             await log_normal(f"Left Guild: '{guild.name}'")
 
     @commands.Cog.listener()
-    async def on_guild_join(self, guild):
+    async def on_guild_join(self, guild: discord.Guild):
         """
         Called when the bot joins a guild
         It will update the bots activity
@@ -66,6 +67,8 @@ class OnGuild(commands.Cog):
 
         if self.client.config["LOGGING"]:
             await log_normal(f"Joined Guild: '{guild.name}'")
+
+        await create_db_tables(self.client.db, guild.id)
 
 
 def setup(client: WhyBot):
