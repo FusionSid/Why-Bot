@@ -13,6 +13,8 @@ class OnError(commands.Cog):
     @commands.Cog.listener()
     async def on_application_command_error(self, ctx, error):
 
+        IGNORE = (commands.CommandNotFound, commands.CommandInvokeError)
+
         if isinstance(error, commands.CommandOnCooldown):
 
             retry_after = await format_seconds(int(error.retry_after))
@@ -179,7 +181,7 @@ class OnError(commands.Cog):
                 color=discord.Color.red(),
             )
             await ctx.respond(embed=em, ephemeral=True)
-        elif isinstance(error, commands.CommandNotFound):
+        elif isinstance(error, IGNORE):
             return
         else:
             log_errors(type(error), error, error.__traceback__)
