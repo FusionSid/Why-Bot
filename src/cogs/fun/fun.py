@@ -1,5 +1,6 @@
 import os
 import random
+import asyncio
 import tempfile
 
 import discord
@@ -133,6 +134,143 @@ class Fun(commands.Cog):
             color=ctx.author.color,
         )
         await ctx.respond(embed=em)
+
+    @commands.slash_command()
+    async def hack(self, ctx, member: discord.Member):
+        await ctx.defer()
+        email_ext = [
+            "gmail.com",
+            "yahoo.com",
+            "hotmail.com",
+            "aol.com",
+            "hotmail.co.uk",
+            "hotmail.fr",
+            "msn.com",
+            "yahoo.fr",
+            "wanadoo.fr",
+            "orange.fr",
+            "comcast.net",
+            "yahoo.co.uk",
+            "yahoo.com.br",
+            "yahoo.co.in",
+            "live.com",
+            "rediffmail.com",
+            "free.fr",
+            "gmx.de",
+            "web.de",
+            "yandex.ru",
+            "ymail.com",
+            "libero.it",
+            "outlook.com",
+            "uol.com.br",
+            "bol.com.br",
+            "mail.ru",
+            "cox.net",
+            "hotmail.it",
+            "sbcglobal.net",
+            "sfr.fr",
+            "live.fr",
+            "verizon.net",
+            "live.co.uk",
+        ]
+        most_used_words = [
+            "TrASh",
+            "gEt gUd",
+            "waSsUp",
+            "noOb",
+            "LmAo",
+            "lol",
+            "lMfao",
+            "e",
+            "seNd nUkeS",
+            "f&Ck",
+            "sH#t",
+            "nub",
+            "b1T#h",
+        ]
+        passwords = [
+            "123456",
+            "password",
+            "12345",
+            "123456789",
+            "password1",
+            "abc123",
+            "12345678",
+            "qwerty",
+            "111111",
+            "1234567",
+            "1234",
+            "iloveyou",
+            "sunshine",
+            "monkey",
+            "1234567890",
+            "123123",
+            "princess",
+            "baseball",
+            "dragon",
+            "football",
+            "shadow",
+            "michael",
+            "soccer",
+            "unknown",
+            "maggie",
+            "000000.",
+            "ashley",
+            "myspace1",
+            "purple",
+            "fuckyou",
+            "charlie",
+            "jordan",
+            "hunter",
+            "superman",
+            "tigger",
+            "michelle",
+            "buster",
+            "pepper",
+            "justin",
+            "andrew",
+            "harley",
+            "matthew",
+            "bailey",
+            "jennifer",
+            "samantha",
+            "ginger",
+            "anthony",
+            "qwerty123",
+            "qwerty1",
+            "peanut",
+        ]
+
+        hack_message = await ctx.send(f"[▖] Hacking {member.name} now...")
+        await asyncio.sleep(1.420)
+        await hack_message.edit(content="[▘] Finding discord login... (2fa bypassed)")
+        await asyncio.sleep(1.69)
+        email = f"{member.name}.{random.randint(1, 100)}@{random.choice(email_ext)}"
+        await hack_message.edit(
+            content=f"[▝] `Email: {email}`\n    `Password: {random.choice(passwords)}`"
+        )
+        await asyncio.sleep(1.420)
+        await hack_message.edit(content="[▗] IP address: 127.0.0.1:50")
+        await asyncio.sleep(1.69)
+        await hack_message.edit(
+            content=f"[▖] Most used words: {random.choice(most_used_words)}"
+        )
+        await asyncio.sleep(1.420)
+        await hack_message.edit(
+            content=f"[▘] Injecting trojan virus into discriminator: {member.discriminator}"
+        )
+        await asyncio.sleep(1.69)
+        await hack_message.edit(content="[▝] Selling information to the government...")
+        await asyncio.sleep(1.420)
+        await hack_message.edit(
+            content=f"[▗] Reporting account to discord for breaking TOS..."
+        )
+        await asyncio.sleep(1.69)
+        await hack_message.edit(content="[▖] Hacking medical records...")
+        await asyncio.sleep(1.420)
+        await hack_message.edit(content=f"Finished hacking {member.mention}")
+
+        await ctx.respond("The *totally* real and dangerous hack is complete!")
 
 
 def setup(client):
