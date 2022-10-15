@@ -207,6 +207,14 @@ class Info(commands.Cog):
         em.set_footer(text="Made by FusionSid#3645")
         await ctx.respond(embed=em, view=BotInfoView())
 
+    @commands.slash_command()
+    async def avatar(self, ctx, member: discord.Member = None):
+        if member is None:
+            member = ctx.author
+        em = discord.Embed(title=f"{member.name}'s Avatar:")
+        em.set_image(url=member.avatar.url)
+        await ctx.respond(embed=em)
+
 
 def setup(client: WhyBot):
     client.add_cog(Info(client))
