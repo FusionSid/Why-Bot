@@ -123,6 +123,24 @@ class Server(commands.Cog):
         )
 
         emb.timestamp = datetime.datetime.now()
+
+        data = await self.client.db.fetch(
+            "SELECT * FROM command_stats WHERE user_id=$1", user.id
+        )
+        if len(data):
+            usage = sum(i[3] for i in data)
+            emb.add_field(
+                name="Command Usage",
+                value=f"This user has used the bot {usage} times",
+                inline=False,
+            )
+        else:
+            emb.add_field(
+                name="Why Bot Usage",
+                value=f"This user has not used any why bot commands",
+                inline=False,
+            )
+
         await ctx.send(embed=emb)
 
 
