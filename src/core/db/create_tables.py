@@ -90,6 +90,17 @@ CREATE TABLE dmreply
 );
 """
 
+tags_query = """
+CREATE TABLE tags
+(
+    guild_id bigint NOT NULL PRIMARY KEY,
+    tag_name TEXT NOT NULL,
+    tag_value TEXT NOT NULL,
+    tag_author TEXT NOT NULL,
+    time_created TIMESTAMP NOT NULL
+);
+"""
+
 # If you wish not to create one of these tables in the setup process
 # Simply just remove that item from this list:
 tables_to_create = [
@@ -101,6 +112,7 @@ tables_to_create = [
     leveling_rewards_query,
     counters_query,
     dmreply_query,
+    tags_query,
 ]
 
 
