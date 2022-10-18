@@ -29,11 +29,12 @@
 </div>
 <br />
 
-----
+<div align="center">
+  <a href="https://discord.gg/ryEmgnpKND"><img src="https://api.fusionsid.xyz/api/discord/image?user_id=896932646846885898"></img></a>
+</div>
 
-<p align="center">?help - For help</p>
+---
 
-----
 <br />
 <details>
   <summary>Table of Contents</summary>
@@ -83,7 +84,7 @@ Don't forget to give the project a star :)
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License. See [`LICENSE`](/LICENCE) for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -92,7 +93,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Siddhesh Zantye - [@Fusion_Sid](https://twitter.com/Fusion_Sid) - whybot@fusionsid.xyz
 
-Discord Account: `FusionSid#3645`
+Discord Account: [`FusionSid#3645`](https://discordapp.com/users/624076054969188363)
 
 Join the Why [Discord Server](https://discord.gg/ryEmgnpKND) For help.
 
@@ -104,10 +105,6 @@ Join the Why [Discord Server](https://discord.gg/ryEmgnpKND) For help.
 Even though I take take credit for most of the code, I would like to thank everyone who helped with this bot or any other open source projects which I used code from.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-[![Discord Card](https://api.fusionsid.xyz/api/discord/image?user_id=896932646846885898)](https://discord.gg/ryEmgnpKND)
-
----- 
 
 ## Commands:
 
