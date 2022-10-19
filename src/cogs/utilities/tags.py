@@ -20,7 +20,7 @@ class Tags(commands.Cog):
         self,
         ctx,
         name: str,
-        value: discord.Option(str, "The value of the tag", max_value=2000),
+        value: discord.Option(str, "The value of the tag"),
     ):
         pass
 
