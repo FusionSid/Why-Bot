@@ -18,22 +18,16 @@ class Info(commands.Cog):
         self.client = client
         self.cog_check = run_bot_checks
 
-    @commands.slash_command(name="info", description="Gets info on a member")
-    async def info(self, ctx, member: discord.Member = None):
-        """
-        This command is used to get info on a member
-        """
-
+    async def get_info(self, ctx, member: discord.Member = None):
         if member == None:
             member = ctx.author
 
         roles = [role for role in member.roles]
         em = discord.Embed(
-            title="Person Info",
-            description=f"For: {member.name}",
+            title="User Info",
+            description=f"For: {member.name}{' [BOT]' if member.bot else ''}",
             color=ctx.author.color,
         )
-        em.timestamp = datetime.datetime.utcnow()
         emojis = self.client.get_why_emojies
         if str(member.status) == "online":
             status = f"{emojis['online']} Online"
@@ -62,6 +56,12 @@ class Info(commands.Cog):
         )
         em.add_field(name="Highest Role:", value=member.top_role.mention, inline=False)
 
+        if member.bot:
+            em.add_field(
+                name="Bot Status",
+                value=f"Bot is {'' if member.public_flags.verified_bot else 'not '}a verified bot",
+            )
+
         if len(roles) > 15:
             em.add_field(name="Roles:", value=f"{len(roles)}", inline=False)
         else:
@@ -74,6 +74,17 @@ class Info(commands.Cog):
         em.set_thumbnail(url=member.avatar.url)
 
         await ctx.respond(embed=em)
+
+    @commands.slash_command(name="info", description="Gets info on a member")
+    async def info(self, ctx, member: discord.Member = None):
+        """
+        This command is used to get info on a member
+        """
+        await self.get_info(ctx, member)
+
+    @commands.user_command(name="Get User Info")
+    async def info_user_cmd(self, ctx, member: discord.Member):
+        await self.get_info(ctx, member)
 
     @commands.slash_command(name="serverinfo", description="Shows server info")
     @commands.guild_only()
