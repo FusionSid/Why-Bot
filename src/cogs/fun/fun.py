@@ -4,6 +4,7 @@ import asyncio
 import tempfile
 
 import discord
+import validators
 from discord.ext import commands
 from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
 
@@ -271,6 +272,17 @@ class Fun(commands.Cog):
         await hack_message.edit(content=f"Finished hacking {member.mention}")
 
         await ctx.respond("The *totally* real and dangerous hack is complete!")
+
+    @commands.slash_command()
+    async def screenshot(self, ctx, url: str):
+        if not validators.url(url):
+            return await ctx.respond("Not a url", ephemeral=True)
+
+        em = discord.Embed(
+            title=f"Screenshot", description=f"[Link]({url})", color=ctx.author.color
+        )
+        em.set_image(url=f"https://image.thum.io/get/{url}")
+        await ctx.respond(embed=em)
 
 
 def setup(client):
