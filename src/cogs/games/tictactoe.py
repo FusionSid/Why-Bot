@@ -1,5 +1,3 @@
-import math
-
 import discord
 from discord.ext import commands
 from discord.commands import SlashCommandGroup
@@ -15,7 +13,7 @@ class TicTacToeCog(commands.Cog):
 
     tictactoe_cmd = SlashCommandGroup("tictactoe", "Tic tac toe commands")
 
-    @tictactoe_cmd.command(name="2player")
+    @tictactoe_cmd.command(name="multiplayer")
     async def tictactoe_2player(self, ctx, opponent: discord.Member):
         if opponent == ctx.author:
             return await ctx.respond("You can't play against yourself", ephemeral=True)
@@ -24,7 +22,7 @@ class TicTacToeCog(commands.Cog):
         view = ConfirmView(target=opponent)
         em = discord.Embed(
             title="Confirm Or Deny",
-            description=f"{opponent.mention} would you like to play a game of tic tac toe with {ctx.author.mention}",
+            description=f"{ctx.author.mention} would like to play a game of tic tac toe with you\nDo you want to play?",
             color=discord.Color.random(),
         )
         await ctx.send(content=opponent.mention, embed=em, view=view)
@@ -36,14 +34,15 @@ class TicTacToeCog(commands.Cog):
                     title="Tic Tac Toe",
                     description=f"{opponent.mention} denied your request to play tic tac toe with them",
                     color=discord.Color.random(),
-                )
+                ),
+                ephemeral=True,
             )
 
         game = TicTacToe2PlayerView(ctx.author, opponent)
         await ctx.send(
             embed=discord.Embed(
                 title="Tic Tac Toe",
-                description=f"X = {opponent.display_name}\nO = {ctx.author.display_name}",
+                description=f"X = {opponent.display_name}\nO = {ctx.author.display_name}\n{opponent.display_name} starts!",
                 color=discord.Color.random(),
             ),
             view=game,
