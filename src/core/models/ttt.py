@@ -61,15 +61,15 @@ class TicTacToeGame:
 
         return False
 
-    def update_postion(self, letter, pos):
+    def update_postion(self, letter: str, pos: int):
         if not self.space_free(pos):
             return ["invalid"]
 
-        if pos <= 3:
+        if 0 < pos <= 3:
             self.board[0][pos - 1] = letter
-        elif pos <= 6:
+        elif 3 < pos <= 6:
             self.board[1][pos - 4] = letter
-        elif pos <= 9:
+        elif 6 < pos <= 9:
             self.board[2][pos - 7] = letter
 
         if self.check_draw():
@@ -263,11 +263,32 @@ class TicTacToe2PlayerView(discord.ui.View):
         self.stop()
 
 
-class TicTacToeAIButton(discord.ui.Button):
+class TicTacToeAIView(TicTacToe2PlayerView):
+    def __init__(self, player):
+        self.game = TicTacToeAI()
+        self.player = player
+
+        self.current_player = player
+
+        discord.ui.View.__init__(self, timeout=500)
+
+        for pos in range(1, 10):
+            self.add_item(TicTacToeAIButton(pos))
+
+    async def interaction_check(self, interaction) -> bool:
+        if interaction.user != self.current_player:
+            await interaction.response.send_message(
+                "You are not playing this game",
+                ephemeral=True,
+            )
+            return False
+
+        return True
+
+
+class TicTacToeAIButton(TicTacToe2PlayerButton):
     def __init__(self, pos):
-        self.pos = pos
-        row = math.ceil(pos / 3)
-        super().__init__(style=discord.ButtonStyle.secondary, label="\u200b", row=row)
+        super().__init__(pos)
 
     async def callback(self, interaction: discord.Interaction):
         await interaction.response.defer()
@@ -302,46 +323,3 @@ class TicTacToeAIButton(discord.ui.Button):
             self.view.current_player = self.view.player
 
         await self.view.redraw_buttons()
-
-
-class TicTacToeAIView(discord.ui.View):
-    def __init__(self, player):
-        self.game = TicTacToeAI()
-        self.player = player
-
-        self.current_player = player
-
-        super().__init__(timeout=500)
-
-        for pos in range(1, 10):
-            self.add_item(TicTacToeAIButton(pos))
-
-    async def redraw_buttons(self):
-        for idxa, row in enumerate(self.game.board):
-            for idxb, box in enumerate(row):
-                if box == " ":
-                    continue
-
-                index = (3 * idxa) + idxb
-                self.children[index].label = box
-
-        await self.message.edit(view=self)
-
-    async def interaction_check(self, interaction) -> bool:
-        if interaction.user != self.player:
-            await interaction.response.send_message(
-                "You are not playing this game",
-                ephemeral=True,
-            )
-            return False
-
-        return True
-
-    async def on_timeout(self) -> None:
-        for button in self.children:
-            button.disabled = True
-
-        await self.message.edit(view=self)
-        await super().on_timeout()
-
-        self.stop()
