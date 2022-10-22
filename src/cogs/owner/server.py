@@ -11,7 +11,7 @@ class Server(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
 
-    @commands.command()
+    @commands.slash_command()
     @commands.is_owner()
     async def server_list(self, ctx):
         """
@@ -60,7 +60,7 @@ class Server(commands.Cog):
                 )
             await ctx.send(embed=em)
 
-    @commands.command()
+    @commands.slash_command()
     @commands.is_owner()
     async def fetch_server_info(self, ctx, server_id: int):
         """
@@ -88,7 +88,7 @@ class Server(commands.Cog):
 
         await ctx.send(embed=em)
 
-    @commands.command()
+    @commands.slash_command(description="fetch user info")
     @commands.is_owner()
     async def fetch_user_info(self, ctx, user: str):
         """
