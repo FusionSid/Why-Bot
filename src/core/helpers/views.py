@@ -219,3 +219,50 @@ class CalculatorView(discord.ui.View):
 
         await self.message.edit(view=self)
         return await super().on_timeout()
+
+
+class ConfirmView(discord.ui.View):
+    def __init__(self, target: discord.Member):
+        self.target = target
+        self.accepted = False
+        super().__init__(timeout=10)
+
+    @discord.ui.button(label="Confirm", style=discord.ButtonStyle.green)
+    async def confirm_callback(self, button, interaction):
+        for button in self.children:
+            button.disabled = True
+
+        await self.message.edit(view=self)
+
+        await interaction.response.send_message("You accepted!", ephemeral=True)
+        self.accepted = True
+        self.stop()
+
+    @discord.ui.button(label="Deny", style=discord.ButtonStyle.red)
+    async def deny_callback(self, button, interaction):
+        for button in self.children:
+            button.disabled = True
+
+        await self.message.edit(view=self)
+
+        await interaction.response.send_message("You Denied!", ephemeral=True)
+        self.accepted = False
+        self.stop()
+
+    async def interaction_check(self, interaction) -> bool:
+        if interaction.user != self.target:
+            await interaction.response.send_message(
+                "This button is not for you!",
+                ephemeral=True,
+            )
+            return False
+        return True
+
+    async def on_timeout(self) -> None:
+        for button in self.children:
+            button.disabled = True
+
+        await self.message.edit(view=self)
+        await super().on_timeout()
+
+        self.stop()
