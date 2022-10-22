@@ -1,5 +1,5 @@
 format:
-	@python3 -m black ./
+	@python3 -m black ./ --preview 
 
 clean:
 	@find . | grep -E '(__pycache__|\.pyc|\.pyo$|\.DS_Store|\.mypy_cache|\.vscode)' | xargs rm -rf
