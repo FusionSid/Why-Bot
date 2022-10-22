@@ -13,8 +13,10 @@ class TicTacToeCog(commands.Cog):
 
     tictactoe_cmd = SlashCommandGroup("tictactoe", "Tic tac toe commands")
 
-    @tictactoe_cmd.command(name="multiplayer")
-    async def tictactoe_2player(self, ctx, opponent: discord.Member):
+    @tictactoe_cmd.command(
+        name="tictactoe", description="Play against someone on your server"
+    )
+    async def tictactoe_multiplayer(self, ctx, opponent: discord.Member):
         if opponent == ctx.author:
             return await ctx.respond("You can't play against yourself", ephemeral=True)
         await ctx.respond("Waiting for opponent to accept", ephemeral=True)
@@ -48,7 +50,7 @@ class TicTacToeCog(commands.Cog):
             view=game,
         )
 
-    @tictactoe_cmd.command(name="ai")
+    @tictactoe_cmd.command(name="ai", description="Play against the bot")
     async def tictactoe_ai(self, ctx):
 
         game = TicTacToeAIView(ctx.author)
