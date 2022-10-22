@@ -1,6 +1,7 @@
 import re
 import discord
 from discord.ext import commands
+from discord.commands import default_permissions
 
 from core.models import WhyBot
 from core.helpers.checks import run_bot_checks
@@ -12,6 +13,7 @@ class Banning(commands.Cog):
         self.cog_check = run_bot_checks
 
     @commands.slash_command()
+    @default_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -37,6 +39,7 @@ class Banning(commands.Cog):
             )
 
     @commands.slash_command()
+    @default_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -89,6 +92,7 @@ class Banning(commands.Cog):
         await ctx.respond(embed=em)
 
     @commands.slash_command()
+    @default_permissions(kick_members=True)
     @commands.has_permissions(kick_members=True)
     @commands.bot_has_permissions(kick_members=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -114,6 +118,7 @@ class Banning(commands.Cog):
             )
 
     @commands.slash_command()
+    @default_permissions(kick_members=True)
     @commands.bot_has_permissions(kick_members=True)
     @commands.has_permissions(kick_members=True)
     @commands.cooldown(1, 5, commands.BucketType.user)

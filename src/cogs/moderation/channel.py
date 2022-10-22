@@ -2,6 +2,7 @@ import asyncio
 
 import discord
 from discord.ext import commands
+from discord.commands import default_permissions
 
 from core.models import WhyBot
 from core.helpers.checks import run_bot_checks
@@ -13,6 +14,7 @@ class Channels(commands.Cog):
         self.cog_check = run_bot_checks
 
     @commands.slash_command()
+    @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
     async def create_channel(
@@ -39,6 +41,7 @@ class Channels(commands.Cog):
         )
 
     @commands.slash_command()
+    @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
     async def delete_channel(
@@ -58,6 +61,7 @@ class Channels(commands.Cog):
         )
 
     @commands.slash_command()
+    @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
     async def create_vc(
@@ -84,6 +88,7 @@ class Channels(commands.Cog):
         )
 
     @commands.slash_command()
+    @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
     async def delete_vc(self, ctx, channel: discord.VoiceChannel):
@@ -101,6 +106,7 @@ class Channels(commands.Cog):
         )
 
     @commands.slash_command()
+    @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -116,6 +122,7 @@ class Channels(commands.Cog):
         return await ctx.respond(embed=em)
 
     @commands.slash_command()
+    @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -131,6 +138,7 @@ class Channels(commands.Cog):
         return await ctx.respond(embed=em)
 
     @commands.slash_command()
+    @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -166,6 +174,7 @@ class Channels(commands.Cog):
         return await ctx.respond(embed=em)
 
     @commands.slash_command()
+    @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -181,6 +190,7 @@ class Channels(commands.Cog):
         return await ctx.respond(embed=em)
 
     @commands.slash_command()
+    @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_messages=True)
     @commands.bot_has_permissions(manage_messages=True)
     @commands.cooldown(1, 10, commands.BucketType.user)
@@ -202,6 +212,7 @@ class Channels(commands.Cog):
         await ctx.respond(embed=em, ephemeral=True)
 
     @commands.slash_command()
+    @default_permissions(manage_channels=True)
     @commands.has_guild_permissions(manage_messages=True)
     @commands.has_guild_permissions(manage_messages=True)
     async def purgeuser(self, ctx, member: discord.Member):
