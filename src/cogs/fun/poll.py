@@ -96,12 +96,16 @@ class Poll(commands.Cog):
                     time = int(end_poll_in[:-1]) * seconds_per_unit[end_poll_in[-1]]
                     if time > 604800:
                         return await ctx.respond(
-                            f"Poll failed to be created {self.client.get_why_emojies['redcross']}\nTime can not be longer than a week",
+                            "Poll failed to be created"
+                            f" {self.client.get_why_emojies['redcross']}\nTime can not"
+                            " be longer than a week",
                             ephemeral=True,
                         )
                 except ValueError:
                     return await ctx.respond(
-                        f"Poll failed to be created {self.client.get_why_emojies['redcross']}\nThe format code was not found",
+                        "Poll failed to be created"
+                        f" {self.client.get_why_emojies['redcross']}\nThe format code"
+                        " was not found",
                         ephemeral=True,
                     )
 

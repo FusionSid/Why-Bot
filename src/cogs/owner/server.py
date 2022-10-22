@@ -28,7 +28,10 @@ class Server(commands.Cog):
             for guild in self.client.guilds:
                 em.add_field(
                     name=guild.name,
-                    value=f"Owner: {guild.owner.name}\nMembers: {guild.member_count}\nID: {guild.id}",
+                    value=(
+                        f"Owner: {guild.owner.name}\nMembers: {guild.member_count}\nID:"
+                        f" {guild.id}"
+                    ),
                     inline=True,
                 )
             return await ctx.send(embed=em)
@@ -55,7 +58,10 @@ class Server(commands.Cog):
             for guild in chunk:
                 em.add_field(
                     name=guild.name,
-                    value=f"Owner: {guild.owner.name}\nMembers: {guild.member_count}\nID: {guild.id}",
+                    value=(
+                        f"Owner: {guild.owner.name}\nMembers: {guild.member_count}\nID:"
+                        f" {guild.id}"
+                    ),
                     inline=True,
                 )
             await ctx.send(embed=em)

@@ -131,7 +131,9 @@ class Fun(commands.Cog):
         ]
         em = discord.Embed(
             title="8 Ball 🎱",
-            description=f"**Question:** {question}\n**Answer:** {random.choice(responses)}",
+            description=(
+                f"**Question:** {question}\n**Answer:** {random.choice(responses)}"
+            ),
             color=ctx.author.color,
         )
         await ctx.respond(embed=em)
@@ -258,7 +260,9 @@ class Fun(commands.Cog):
         )
         await asyncio.sleep(1.420)
         await hack_message.edit(
-            content=f"[▘] Injecting trojan virus into discriminator: {member.discriminator}"
+            content=(
+                f"[▘] Injecting trojan virus into discriminator: {member.discriminator}"
+            )
         )
         await asyncio.sleep(1.69)
         await hack_message.edit(content="[▝] Selling information to the government...")

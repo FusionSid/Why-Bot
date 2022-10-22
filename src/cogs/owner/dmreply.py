@@ -41,7 +41,9 @@ class DMReply(commands.Cog):
         retry_after = await format_seconds(int(cooldown))
         em = discord.Embed(
             title="Wow buddy, Slow it down\nYou are on cooldown from sending dms",
-            description=f"Try again {f'in **{retry_after}' if retry_after != '' else 'now'}**",
+            description=(
+                f"Try again {f'in **{retry_after}' if retry_after != '' else 'now'}**"
+            ),
             color=discord.Color.red(),
         )
         await message.reply(embed=em)

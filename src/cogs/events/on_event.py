@@ -34,7 +34,10 @@ class OnEvent(commands.Cog):
             and message.reference is None
         ):
             em = discord.Embed(
-                title=f"Hi, my name is {self.client.user.display_name}. Use /help for help",
+                title=(
+                    f"Hi, my name is {self.client.user.display_name}. Use /help for"
+                    " help"
+                ),
                 color=message.author.color,
             )
             return await message.channel.send(embed=em)

@@ -59,14 +59,16 @@ async def update_stats(ctx: ApplicationContext):
         )
         if len(data):
             await conn.execute(
-                "UPDATE command_stats SET usage_count=$1 WHERE user_id=$2 AND command_name=$3",
+                "UPDATE command_stats SET usage_count=$1 WHERE user_id=$2 AND"
+                " command_name=$3",
                 data[0][3] + 1,
                 ctx.author.id,
                 ctx.command.name,
             )
         else:
             await conn.execute(
-                "INSERT INTO command_stats (user_id, command_name, usage_count) VALUES ($1, $2, $3)",
+                "INSERT INTO command_stats (user_id, command_name, usage_count) VALUES"
+                " ($1, $2, $3)",
                 ctx.author.id,
                 ctx.command.name,
                 1,

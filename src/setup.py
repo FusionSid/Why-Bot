@@ -10,7 +10,9 @@ from core.db.create_tables import create_tables
 console = Console()
 
 console.print(
-    "[red bold]Why Bot Setup[/]\n\n[red]If this is the first time running this file make sure you type 'y' for all the prompts\nIf its not the first time and you want to edit the config just type 'n' for the fields you dont want to edit"
+    "[red bold]Why Bot Setup[/]\n\n[red]If this is the first time running this file"
+    " make sure you type 'y' for all the prompts\nIf its not the first time and you"
+    " want to edit the config just type 'n' for the fields you dont want to edit"
 )
 
 yaml_config = {
@@ -43,7 +45,8 @@ yaml_config = {
 }
 
 yes_for_all = Confirm.ask(
-    "[bold blue]\nWould you like to say yes for all prompts?\nIf this is your first time runnning it you should choose y"
+    "[bold blue]\nWould you like to say yes for all prompts?\nIf this is your first"
+    " time runnning it you should choose y"
 )
 
 for key in yaml_config:
@@ -61,7 +64,8 @@ with open(path, "w") as file:
     data = yaml.dump(yaml_config, file)
 
 create_databases = Confirm.ask(
-    f"[bold blue]\nCreate databases?\nYou can choose which ones specificaly by editing the list named 'tables_to_create' in core/db/create_tables.py "
+    f"[bold blue]\nCreate databases?\nYou can choose which ones specificaly by editing"
+    f" the list named 'tables_to_create' in core/db/create_tables.py "
 )
 if create_databases:
     asyncio.run(create_tables())

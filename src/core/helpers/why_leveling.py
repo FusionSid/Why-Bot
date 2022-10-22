@@ -34,7 +34,8 @@ async def get_member_data(db: asyncpg.Pool, member: discord.Member, guild_id: in
             0,
         ]
         await db.execute(
-            "INSERT INTO leveling_member (guild_id, member_id, member_name, member_xp, member_level, member_total_xp) VALUES ($1, $2, $3, $4, $5, $6)",
+            "INSERT INTO leveling_member (guild_id, member_id, member_name, member_xp,"
+            " member_level, member_total_xp) VALUES ($1, $2, $3, $4, $5, $6)",
             *default_data,
         )
         return LevelingDataMember(*default_data)

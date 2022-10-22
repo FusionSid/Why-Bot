@@ -168,7 +168,9 @@ class Channels(commands.Cog):
         await channel.edit(slowmode_delay=seconds)
         em = discord.Embed(
             title="Slowmode",
-            description=f"Slowmode has been set to {seconds} seconds for {channel.mention}",
+            description=(
+                f"Slowmode has been set to {seconds} seconds for {channel.mention}"
+            ),
             color=ctx.author.color,
         )
         return await ctx.respond(embed=em)

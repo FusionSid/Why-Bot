@@ -36,7 +36,8 @@ class ConfigNotFound(RichBaseException):
     def __init__(self) -> None:
         super().__init__(
             "CONFIG FILE NOT FOUND!!!",
-            "Config file (config.yaml) was not found.\nPlease run setup.py to create config files",
+            "Config file (config.yaml) was not found.\nPlease run setup.py to create"
+            " config files",
         )
         sys.exit(1)
 
@@ -45,7 +46,8 @@ class InvalidDatabaseUrl(RichBaseException):
     def __init__(self) -> None:
         super().__init__(
             "INVALID DATABASE URL!!!",
-            "Invalid postgresql connection string was provided.\nPlease provide the correct string in config",
+            "Invalid postgresql connection string was provided.\nPlease provide the"
+            " correct string in config",
         )
         sys.exit(1)
 

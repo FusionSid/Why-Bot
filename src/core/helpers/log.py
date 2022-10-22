@@ -43,7 +43,10 @@ LOGFILE_PATH = os.path.join(path, "main.log")
 def log_errors(etype, value, tb) -> None:
     """Logs errors to the file instead of terminal"""
 
-    error = f"{etype.__name__}:\n\tTraceback (most recent call last):\n\t{'    '.join(traceback.format_tb(tb))}\n\t{value}"
+    error = (
+        f"{etype.__name__}:\n\tTraceback (most recent call"
+        f" last):\n\t{'    '.join(traceback.format_tb(tb))}\n\t{value}"
+    )
 
     # Pythons core module "logging" doesnt wanna work me very sad so me make this workaround:
     config = get_why_config()
@@ -55,7 +58,8 @@ def log_errors(etype, value, tb) -> None:
 
     rich_console.print(
         Panel(
-            f"Traceback (most recent call last):\n\t{''.join(traceback.format_tb(tb))}\n{value}",
+            "Traceback (most recent call"
+            f" last):\n\t{''.join(traceback.format_tb(tb))}\n{value}",
             title=etype.__name__,
             border_style="red",
         )

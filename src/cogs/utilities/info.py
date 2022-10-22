@@ -63,7 +63,10 @@ class Info(commands.Cog):
         if member.bot:
             em.add_field(
                 name="Bot Status",
-                value=f"Bot is {'' if member.public_flags.verified_bot else 'not '}a verified bot",
+                value=(
+                    f"Bot is {'' if member.public_flags.verified_bot else 'not '}a"
+                    " verified bot"
+                ),
             )
 
         if len(roles) > 15:
@@ -125,7 +128,10 @@ class Info(commands.Cog):
         role_text = f"**Role Count:**\n{len(GUILD.roles)}"
 
         created_at = int(time.mktime(GUILD.created_at.timetuple()))
-        created_text = f'**Server Created:**\n{await discord_timestamp(created_at, "md_yt")} ({await discord_timestamp(created_at, "ts")})'
+        created_text = (
+            "**Server"
+            f' Created:**\n{await discord_timestamp(created_at, "md_yt")} ({await discord_timestamp(created_at, "ts")})'
+        )
 
         server_id_text = f"**Server ID:** {GUILD.id}"
         level_text = f"""\
@@ -201,7 +207,10 @@ class Info(commands.Cog):
         em.add_field(
             inline=True,
             name="Memory Usage",
-            value=f"{psutil.virtual_memory().percent}% of ({round((psutil.virtual_memory().total/1073741824), 2)}GB)",
+            value=(
+                f"{psutil.virtual_memory().percent}% of"
+                f" ({round((psutil.virtual_memory().total/1073741824), 2)}GB)"
+            ),
         )
         em.add_field(
             inline=True, name="Python version", value=f"{platform.python_version()}"
@@ -287,7 +296,10 @@ class Info(commands.Cog):
         interaction = await ctx.respond(
             embed=discord.Embed(
                 title="Invite **Why?** to your server:",
-                description="[Why Invite Link](https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands)",
+                description=(
+                    "[Why Invite"
+                    " Link](https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands)"
+                ),
                 color=ctx.author.color,
             )
         )
@@ -322,7 +334,11 @@ class Info(commands.Cog):
         em = discord.Embed(
             title="Invites",
             # This line has been stolen from simplex bot
-            description=f"{member.mention} has invited {total_invites} member{'' if total_invites == 1 else 's'} to the server!",
+            description=(
+                f"{member.mention} has invited"
+                f" {total_invites} member{'' if total_invites == 1 else 's'} to the"
+                " server!"
+            ),
             color=ctx.author.color,
             timestamp=datetime.datetime.now(),
         )

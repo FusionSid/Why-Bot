@@ -177,7 +177,10 @@ class TextConvert(commands.Cog):
             return await ctx.respond(
                 embed=discord.Embed(
                     title="You must specify a font",
-                    description="[Click this to get a list of fonts you can use](https://api.fusionsid.xyz/api/font/list)",
+                    description=(
+                        "[Click this to get a list of fonts you can"
+                        " use](https://api.fusionsid.xyz/api/font/list)"
+                    ),
                     color=discord.Colour.red(),
                 ),
                 ephemeral=True,
@@ -194,8 +197,11 @@ class TextConvert(commands.Cog):
             return await ctx.respond(
                 embed=discord.Embed(
                     title="An error occured while trying to get the image",
-                    description="This is most likely because you used an invalid font\n\
-                        [Click this to get a list of fonts you can use](https://api.fusionsid.xyz/api/font/list)",
+                    description=(
+                        "This is most likely because you used an invalid font\n        "
+                        "                [Click this to get a list of fonts you can"
+                        " use](https://api.fusionsid.xyz/api/font/list)"
+                    ),
                     color=discord.Colour.red(),
                 ),
                 ephemeral=True,

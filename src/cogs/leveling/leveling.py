@@ -149,7 +149,11 @@ class Leveling(commands.Cog):
         await ctx.respond(
             embed=discord.Embed(
                 title="Leveling Toggled!",
-                description=f"Leveling system is now {'on ✅' if on_or_off else 'off ❌'}\nIf you wish to toggle it back {'off' if on_or_off else 'on'} run this command again",
+                description=(
+                    f"Leveling system is now {'on ✅' if on_or_off else 'off ❌'}\nIf you"
+                    f" wish to toggle it back {'off' if on_or_off else 'on'} run this"
+                    " command again"
+                ),
                 color=discord.Color.green(),
             )
         )
@@ -176,7 +180,11 @@ class Leveling(commands.Cog):
         await ctx.respond(
             embed=discord.Embed(
                 title="Level Up Message Toggled!",
-                description=f"Level Up Message system is now {'on ✅' if on_or_off else 'off ❌'}\nIf you wish to toggle it back {'off' if on_or_off else 'on'} run this command again",
+                description=(
+                    "Level Up Message system is now"
+                    f" {'on ✅' if on_or_off else 'off ❌'}\nIf you wish to toggle it"
+                    f" back {'off' if on_or_off else 'on'} run this command again"
+                ),
                 color=discord.Color.green(),
             )
         )
@@ -202,8 +210,12 @@ class Leveling(commands.Cog):
             ]
             embed = discord.Embed(
                 title="Level up text help page",
-                description="The message you set with this command will be shown when a user levels up.\nYou can also set placeholder \
-                    codes in this text which will be replaced with the relevant information later",
+                description=(
+                    "The message you set with this command will be shown when a user"
+                    " levels up.\nYou can also set placeholder                    "
+                    " codes in this text which will be replaced with the relevant"
+                    " information later"
+                ),
                 color=discord.Color.green(),
             )
             embed.add_field(name="Options:", value="\n".join(options), inline=False)
@@ -238,13 +250,17 @@ class Leveling(commands.Cog):
                 break
         else:
             return await ctx.respond(
-                "You were not found in the database\nMaybe send some messages or check if counting is enabled"
+                "You were not found in the database\nMaybe send some messages or check"
+                " if counting is enabled"
             )
 
         await ctx.respond(
             embed=discord.Embed(
                 title=f"{ctx.author.name} - Rank #{idx+1}",
-                description=f"XP: {member[3]}/{await xp_needed(member[4]+1)}. Total XP: {member[5]}\n\n**This embed is a placeholder for an image card**",
+                description=(
+                    f"XP: {member[3]}/{await xp_needed(member[4]+1)}. Total XP:"
+                    f" {member[5]}\n\n**This embed is a placeholder for an image card**"
+                ),
             )
         )
 
@@ -260,7 +276,10 @@ class Leveling(commands.Cog):
         for rank, member in enumerate(data[:10]):
             embed.add_field(
                 name=f"{member[2]} - Rank #{rank+1}",
-                value=f"XP: {member[3]}/{await xp_needed(member[4]+1)}. Total XP: {member[5]}",
+                value=(
+                    f"XP: {member[3]}/{await xp_needed(member[4]+1)}. Total XP:"
+                    f" {member[5]}"
+                ),
                 inline=False,
             )
         await ctx.respond(embed=embed)

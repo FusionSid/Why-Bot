@@ -38,7 +38,8 @@ class RickRollView(discord.ui.View):
             count = 1
 
         await interaction.followup.send(
-            f"You were the {await number_suffix(count)} person to get rickrolled\nLMAO imagine couldn't be me",
+            f"You were the {await number_suffix(count)} person to get rickrolled\nLMAO"
+            " imagine couldn't be me",
             ephemeral=True,
         )
 

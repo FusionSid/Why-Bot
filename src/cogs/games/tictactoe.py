@@ -24,7 +24,10 @@ class TicTacToeCog(commands.Cog):
         view = ConfirmView(target=opponent)
         em = discord.Embed(
             title="Confirm Or Deny",
-            description=f"{ctx.author.mention} would like to play a game of tic tac toe with you\nDo you want to play?",
+            description=(
+                f"{ctx.author.mention} would like to play a game of tic tac toe with"
+                " you\nDo you want to play?"
+            ),
             color=discord.Color.random(),
         )
         await ctx.send(content=opponent.mention, embed=em, view=view)
@@ -34,7 +37,10 @@ class TicTacToeCog(commands.Cog):
             return await ctx.send(
                 embed=discord.Embed(
                     title="Tic Tac Toe",
-                    description=f"{opponent.mention} denied your request to play tic tac toe with them",
+                    description=(
+                        f"{opponent.mention} denied your request to play tic tac toe"
+                        " with them"
+                    ),
                     color=discord.Color.random(),
                 ),
                 ephemeral=True,
@@ -44,7 +50,10 @@ class TicTacToeCog(commands.Cog):
         await ctx.send(
             embed=discord.Embed(
                 title="Tic Tac Toe",
-                description=f"X = {opponent.display_name}\nO = {ctx.author.display_name}\n{opponent.display_name} starts!",
+                description=(
+                    f"X = {opponent.display_name}\nO ="
+                    f" {ctx.author.display_name}\n{opponent.display_name} starts!"
+                ),
                 color=discord.Color.random(),
             ),
             view=game,

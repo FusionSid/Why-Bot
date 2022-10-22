@@ -58,7 +58,11 @@ class Random(commands.Cog):
         await ctx.respond(
             embed=discord.Embed(
                 title="Truth Or Dare",
-                description=f'**Truth:** {random.choice(data["truth"])}\n**Dare:** {random.choice(data["dares"])}\n\n**Computer Choice:** {random.choice(["truth", "dare"])}',
+                description=(
+                    f'**Truth:** {random.choice(data["truth"])}\n**Dare:**'
+                    f' {random.choice(data["dares"])}\n\n**Computer Choice:**'
+                    f' {random.choice(["truth", "dare"])}'
+                ),
                 color=ctx.author.color,
             )
         )

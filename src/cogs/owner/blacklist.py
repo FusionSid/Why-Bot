@@ -50,7 +50,10 @@ class Blacklist(commands.Cog):
             return await ctx.respond(
                 embed=discord.Embed(
                     title="Something went wrong fetching the user",
-                    description="Most likely an invalid discord user id.\nPlease provide a real user",
+                    description=(
+                        "Most likely an invalid discord user id.\nPlease provide a real"
+                        " user"
+                    ),
                     color=ctx.author.color,
                 ),
                 ephemeral=True,
@@ -62,7 +65,9 @@ class Blacklist(commands.Cog):
             return await ctx.respond(
                 embed=discord.Embed(
                     title="User Already Blacklisted",
-                    description="The user you tried to blacklist was already blacklisted.",
+                    description=(
+                        "The user you tried to blacklist was already blacklisted."
+                    ),
                     color=ctx.author.color,
                 ),
                 ephemeral=True,
@@ -111,7 +116,10 @@ class Blacklist(commands.Cog):
             return await ctx.respond(
                 embed=discord.Embed(
                     title="Something went wrong fetching the user",
-                    description="Most likely an invalid discord user id.\nPlease provide a real user",
+                    description=(
+                        "Most likely an invalid discord user id.\nPlease provide a real"
+                        " user"
+                    ),
                     color=ctx.author.color,
                 ),
                 ephemeral=True,
@@ -123,7 +131,9 @@ class Blacklist(commands.Cog):
             return await ctx.respond(
                 embed=discord.Embed(
                     title="User Already Whitelisted",
-                    description="The user you tried to whitelist was already whitelisted.",
+                    description=(
+                        "The user you tried to whitelist was already whitelisted."
+                    ),
                     color=ctx.author.color,
                 ),
                 ephemeral=True,
@@ -168,7 +178,10 @@ class Blacklist(commands.Cog):
                         return await ctx.respond(
                             embed=discord.Embed(
                                 title="Something went wrong fetching the user",
-                                description="Most likely an invalid discord user id.\nPlease provide a real user",
+                                description=(
+                                    "Most likely an invalid discord user id.\nPlease"
+                                    " provide a real user"
+                                ),
                                 color=ctx.author.color,
                             ),
                             ephemeral=True,
@@ -176,7 +189,10 @@ class Blacklist(commands.Cog):
 
                     return await ctx.respond(
                         embed=discord.Embed(
-                            title=f"User: {user.name}#{user.discriminator} ({user.id}) is blacklisted",
+                            title=(
+                                f"User: {user.name}#{user.discriminator} ({user.id}) is"
+                                " blacklisted"
+                            ),
                             description=f"Reason Provided: {reason}",
                             color=ctx.author.color,
                         )

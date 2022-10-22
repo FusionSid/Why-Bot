@@ -20,7 +20,10 @@ class OnError(commands.Cog):
             retry_after = await format_seconds(int(error.retry_after))
             em = discord.Embed(
                 title="Wow buddy, Slow it down\nThis command is on cooldown",
-                description=f"Try again {f'in **{retry_after}' if retry_after != '' else 'now'}**",
+                description=(
+                    "Try again"
+                    f" {f'in **{retry_after}' if retry_after != '' else 'now'}**"
+                ),
                 color=discord.Color.red(),
             )
             await ctx.respond(embed=em, ephemeral=True)
@@ -28,7 +31,9 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.MissingRequiredArgument):
             em = discord.Embed(
                 title="Missing a requred value / argument",
-                description=f"You haven't passed in all the required values for this command",
+                description=(
+                    f"You haven't passed in all the required values for this command"
+                ),
                 color=discord.Color.red(),
             )
             em.add_field(name=f"You have not passed in:", value=f"`{error.param}`")
@@ -113,7 +118,10 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.BotMissingPermissions):
             em = discord.Embed(
                 title="Bot missing permissions",
-                description="Why bot does not have the permissions do execute this command. Please gimme them perms ",
+                description=(
+                    "Why bot does not have the permissions do execute this command."
+                    " Please gimme them perms "
+                ),
                 color=discord.Color.red(),
             )
             await ctx.respond(embed=em, ephemeral=True)
@@ -129,7 +137,9 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.NotOwner):
             em = discord.Embed(
                 title="Not Owner",
-                description="You must be owner of Why Bot to be able to run this command",
+                description=(
+                    "You must be owner of Why Bot to be able to run this command"
+                ),
                 color=discord.Color.red(),
             )
             await ctx.respond(embed=em, ephemeral=True)
@@ -137,7 +147,10 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.BotMissingRole):
             em = discord.Embed(
                 title="Bot Missing Role",
-                description="Why bot does not have the role to run this command, Gimme them roles ",
+                description=(
+                    "Why bot does not have the role to run this command, Gimme them"
+                    " roles "
+                ),
                 color=discord.Color.red(),
             )
             await ctx.respond(embed=em, ephemeral=True)
@@ -161,7 +174,10 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.NoPrivateMessage):
             em = discord.Embed(
                 title="Command not allowed in private message",
-                description="This command has been disabled in private messages/dms and can be only used in a server/guild",
+                description=(
+                    "This command has been disabled in private messages/dms and can be"
+                    " only used in a server/guild"
+                ),
                 color=discord.Color.red(),
             )
             await ctx.respond(embed=em, ephemeral=True)
@@ -177,7 +193,11 @@ class OnError(commands.Cog):
         elif isinstance(error, discord.CheckFailure):
             em = discord.Embed(
                 title="You cannot use this command!",
-                description="Reasons why it may not be working for you:\n- You are blacklisted\n- The plugin where the command belongs to is disabled",
+                description=(
+                    "Reasons why it may not be working for you:\n- You are"
+                    " blacklisted\n- The plugin where the command belongs to is"
+                    " disabled"
+                ),
                 color=discord.Color.red(),
             )
             await ctx.respond(embed=em, ephemeral=True)

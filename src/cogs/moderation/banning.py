@@ -35,7 +35,8 @@ class Banning(commands.Cog):
             await ctx.respond(f"Banned {member} successfully.")
         else:
             await ctx.respond(
-                "Sorry, you cannot perform that action due to role hierarchy\nMake sure both you and the bot have higher perms then the target member"
+                "Sorry, you cannot perform that action due to role hierarchy\nMake sure"
+                " both you and the bot have higher perms then the target member"
             )
 
     @commands.slash_command()
@@ -114,7 +115,8 @@ class Banning(commands.Cog):
             await ctx.respond(f"Kicked {member} successfully.")
         else:
             await ctx.respond(
-                "Sorry, you cannot perform that action due to role hierarchy\nMake sure both you and the bot have higher perms then the target member"
+                "Sorry, you cannot perform that action due to role hierarchy\nMake sure"
+                " both you and the bot have higher perms then the target member"
             )
 
     @commands.slash_command()

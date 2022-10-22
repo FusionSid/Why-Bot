@@ -94,7 +94,10 @@ class Counting(commands.Cog):
             return await ctx.respond(
                 embed=discord.Embed(
                     title="Counting channel not set",
-                    description="Please set the counting channel first before enabling the game.\nUse `/counting setchannel` to set it",
+                    description=(
+                        "Please set the counting channel first before enabling the"
+                        " game.\nUse `/counting setchannel` to set it"
+                    ),
                     color=ctx.author.color,
                 ),
                 ephemeral=True,
@@ -110,7 +113,10 @@ class Counting(commands.Cog):
             return await ctx.respond(
                 embed=discord.Embed(
                     title="Something went wrong fetching the channel",
-                    description="Most likely because the counting channel set was deleted.\nReset it with `/counting setchannel`",
+                    description=(
+                        "Most likely because the counting channel set was"
+                        " deleted.\nReset it with `/counting setchannel`"
+                    ),
                     color=ctx.author.color,
                 ),
                 ephemeral=True,
@@ -124,7 +130,9 @@ class Counting(commands.Cog):
         await ctx.respond(
             embed=discord.Embed(
                 title="Counting Enabled!",
-                description=f"Counting game is now enabled and the channel is {channel.mention}",
+                description=(
+                    f"Counting game is now enabled and the channel is {channel.mention}"
+                ),
                 color=ctx.author.color,
             )
         )
@@ -154,7 +162,11 @@ class Counting(commands.Cog):
         await ctx.respond(
             embed=discord.Embed(
                 title="Auto calculate toggled!",
-                description=f"Auto calculate is now {'on ✅' if on_or_off else 'off ❌'}\nIf you wish to toggle it back {'off' if on_or_off else 'on'} run this command again",
+                description=(
+                    f"Auto calculate is now {'on ✅' if on_or_off else 'off ❌'}\nIf you"
+                    f" wish to toggle it back {'off' if on_or_off else 'on'} run this"
+                    " command again"
+                ),
                 color=ctx.author.color,
             )
         )
@@ -181,7 +193,10 @@ class Counting(commands.Cog):
         await ctx.respond(
             embed=discord.Embed(
                 title="Counting Disabled!",
-                description=f"Counting is now disabled, If you ever want to re-enable it use `/counting enable`",
+                description=(
+                    f"Counting is now disabled, If you ever want to re-enable it use"
+                    f" `/counting enable`"
+                ),
                 color=ctx.author.color,
             )
         )
@@ -203,7 +218,10 @@ class Counting(commands.Cog):
             return await ctx.respond(
                 embed=discord.Embed(
                     title="Counting not setup/enabled on this server",
-                    description="Use commands `/counting setchannel` and `/counting enable` to setup counting on this server",
+                    description=(
+                        "Use commands `/counting setchannel` and `/counting enable` to"
+                        " setup counting on this server"
+                    ),
                     color=ctx.author.color,
                 )
             )
@@ -211,7 +229,10 @@ class Counting(commands.Cog):
         await ctx.respond(
             embed=discord.Embed(
                 title=f"Current number is: {counting_data.current_number}",
-                description=f"That means the next number / the one you should type is: {counting_data.next_number}",
+                description=(
+                    "That means the next number / the one you should type is:"
+                    f" {counting_data.next_number}"
+                ),
                 color=ctx.author.color,
             )
         )
@@ -232,7 +253,10 @@ class Counting(commands.Cog):
             return await ctx.respond(
                 embed=discord.Embed(
                     title="Counting not setup/enabled on this server",
-                    description="Use commands `/counting setchannel` and `/counting enable` to setup counting on this server",
+                    description=(
+                        "Use commands `/counting setchannel` and `/counting enable` to"
+                        " setup counting on this server"
+                    ),
                     color=ctx.author.color,
                 )
             )
@@ -240,7 +264,10 @@ class Counting(commands.Cog):
         await ctx.respond(
             embed=discord.Embed(
                 title=f"Current high score is: {counting_data.high_score}",
-                description=f"Use `/counting leaderboard` to see your position across all why bot servers",
+                description=(
+                    f"Use `/counting leaderboard` to see your position across all why"
+                    f" bot servers"
+                ),
                 color=ctx.author.color,
             )
         )
@@ -339,7 +366,10 @@ class Counting(commands.Cog):
         if potential_number != counting_data.next_number:
             em = discord.Embed(
                 title=f"{message.author.name}, You ruined it!",
-                description=f"You were supposed to type `{counting_data.next_number}`\nCount reset to zero",
+                description=(
+                    f"You were supposed to type `{counting_data.next_number}`\nCount"
+                    " reset to zero"
+                ),
                 color=message.author.color,
             )
             await self.reset_count(counting_data)
@@ -349,7 +379,11 @@ class Counting(commands.Cog):
         elif counting_data.last_counter == message.author.id:
             em = discord.Embed(
                 title=f"{message.author.name}, You ruined it!",
-                description=f"You fool, only one person can count a time and since you did {counting_data.current_number} you cant do {counting_data.next_number}\nCount reset to zero",
+                description=(
+                    "You fool, only one person can count a time and since you did"
+                    f" {counting_data.current_number} you cant do"
+                    f" {counting_data.next_number}\nCount reset to zero"
+                ),
                 color=message.author.color,
             )
             await self.reset_count(counting_data)
@@ -374,7 +408,8 @@ class Counting(commands.Cog):
 
         self.client.loop.create_task(
             self.client.db.execute(
-                "UPDATE counting SET current_number=$1, last_counter=$2 WHERE guild_id=$3",
+                "UPDATE counting SET current_number=$1, last_counter=$2 WHERE"
+                " guild_id=$3",
                 0,
                 0,
                 data.guild_id,
@@ -389,7 +424,8 @@ class Counting(commands.Cog):
         await self.update_cache(data)
         self.client.loop.create_task(
             self.client.db.execute(
-                "UPDATE counting SET current_number=$1, last_counter=$2 WHERE guild_id=$3",
+                "UPDATE counting SET current_number=$1, last_counter=$2 WHERE"
+                " guild_id=$3",
                 data.current_number,
                 data.last_counter,
                 data.guild_id,
