@@ -162,7 +162,7 @@ class DMReply(commands.Cog):
             for attachment in message.attachments:
                 await thread.send(attachment.url)
 
-    @commands.slash_command()
+    @commands.slash_command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def dm_ban(self, ctx, _id: int):
         """
@@ -170,7 +170,7 @@ class DMReply(commands.Cog):
         """
         pass
 
-    @commands.slash_command()
+    @commands.slash_command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def dm_unban(self, ctx, _id: int):
         """
@@ -178,7 +178,7 @@ class DMReply(commands.Cog):
         """
         pass
 
-    @commands.slash_command()
+    @commands.slash_command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def close_thread(self, ctx, author_id: str, archive: bool = False):
         try:

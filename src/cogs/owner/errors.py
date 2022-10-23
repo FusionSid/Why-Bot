@@ -20,20 +20,20 @@ class ErrorLog(commands.Cog):
         "errors", "Commands for why bot error management. OWNER ONLY"
     )
 
-    @error.command()
+    @error.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def logs_file(self, ctx):
         file = discord.File(LOGFILE_PATH, "main.log")
         await ctx.respond(file=file, ephemeral=True)
 
-    @error.command()
+    @error.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def clear_logs_file(self, ctx):
         with open(LOGFILE_PATH, "r+") as f:
             f.truncate(0)
         await ctx.respond("Logfile Cleared", ephemeral=True)
 
-    @error.command()
+    @error.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def get_last_error(self, ctx, limit: int = 1):
         """

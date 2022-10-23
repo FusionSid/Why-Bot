@@ -13,7 +13,7 @@ class CogTools(commands.Cog):
         "cogtools", "Commands for why bot cogs management. OWNER ONLY"
     )
 
-    @cogtools.command()
+    @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def reload(self, ctx, extension):
         """
@@ -37,7 +37,7 @@ class CogTools(commands.Cog):
         )
         await ctx.respond(embed=embed, ephemeral=True)
 
-    @cogtools.command()
+    @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def load(self, ctx, extension, name):
         """
@@ -63,7 +63,7 @@ class CogTools(commands.Cog):
         )
         await ctx.respond(embed=embed, ephemeral=True)
 
-    @cogtools.command()
+    @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def unload(self, ctx, extension):
         """
@@ -90,7 +90,7 @@ class CogTools(commands.Cog):
         )
         await ctx.respond(embed=embed, ephemeral=True)
 
-    @cogtools.command()
+    @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def listcogs(self, ctx):
         """
@@ -105,7 +105,7 @@ class CogTools(commands.Cog):
             ephemeral=True,
         )
 
-    @cogtools.command()
+    @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def reloadall(self, ctx):
         """

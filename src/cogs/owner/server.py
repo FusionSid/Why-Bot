@@ -11,7 +11,7 @@ class Server(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
 
-    @commands.slash_command()
+    @commands.slash_command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def server_list(self, ctx):
         """
@@ -66,7 +66,7 @@ class Server(commands.Cog):
                 )
             await ctx.send(embed=em)
 
-    @commands.slash_command()
+    @commands.slash_command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def fetch_server_info(self, ctx, server_id: int):
         """
@@ -92,9 +92,12 @@ class Server(commands.Cog):
             name=f"Guild Owner: {guild.owner.name}", icon_url=guild.owner.avatar.url
         )
 
-        await ctx.send(embed=em)
+        await ctx.respond(embed=em)
 
-    @commands.slash_command(description="fetch user info")
+    @commands.slash_command(
+        description="fetch user info",
+        guild_ids=[763348615233667082, 938913935774605442],
+    )
     @commands.is_owner()
     async def fetch_user_info(self, ctx, user: str):
         """
@@ -147,7 +150,7 @@ class Server(commands.Cog):
                 inline=False,
             )
 
-        await ctx.send(embed=emb)
+        await ctx.respond(embed=emb)
 
 
 def setup(client):

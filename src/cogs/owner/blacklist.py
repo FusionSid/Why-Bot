@@ -14,7 +14,11 @@ class Blacklist(commands.Cog):
         "blacklist", "Commands for why bot blacklist management. OWNER ONLY"
     )
 
-    @blacklisted.command(name="blacklist", description="ban a user from using whybot")
+    @blacklisted.command(
+        name="blacklist",
+        description="ban a user from using whybot",
+        guild_ids=[763348615233667082, 938913935774605442],
+    )
     @commands.is_owner()
     async def blacklist(
         self, ctx, user_id: discord.Option(str, description="User id of user to ban")
@@ -80,7 +84,11 @@ class Blacklist(commands.Cog):
             ephemeral=True,
         )
 
-    @blacklisted.command(name="whitelist", description="unban a user from using whybot")
+    @blacklisted.command(
+        name="whitelist",
+        description="unban a user from using whybot",
+        guild_ids=[763348615233667082, 938913935774605442],
+    )
     @commands.is_owner()
     async def whitelist(
         self, ctx, user_id: discord.Option(str, description="User id of user to unban")
@@ -146,7 +154,7 @@ class Blacklist(commands.Cog):
             ephemeral=True,
         )
 
-    @blacklisted.command()
+    @blacklisted.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def isblacklisted(
         self,
