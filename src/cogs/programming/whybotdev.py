@@ -164,6 +164,35 @@ class WhyBotDev(commands.Cog):
         await channel.send(content=ctx.author.id, embed=em)
         await ctx.respond("Thank you for the bug report :)")
 
+    @why_dev.command(
+        name="botinvite", description="Get a link to invite Why-Bot to the server"
+    )
+    async def botinvite(self, ctx: discord.commands.ApplicationContext):
+        """
+        This command is used to get the invite link for the bot
+        """
+        interaction = await ctx.respond(
+            embed=discord.Embed(
+                title="Invite **Why?** to your server:",
+                description=(
+                    "[Why Invite"
+                    " Link](https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands)"
+                ),
+                color=ctx.author.color,
+            )
+        )
+        message = await (await interaction.original_message())
+        await message.add_reaction("🔗")
+        react_check = (
+            lambda reaction, user: user.id == ctx.author.id
+            and reaction.emoji == "🔗"
+            and reaction.message.id == message.id
+        )
+        await self.client.wait_for("reaction_add", check=react_check, timeout=30.0)
+        await ctx.respond(
+            "https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands"
+        )
+
 
 def setup(client):
     client.add_cog(WhyBotDev(client))
