@@ -1,6 +1,8 @@
 """
 This is the main file for the bot
 It contains functions to startup the bot
+
+If you are reading my code i'm sorry :moyai:
 """
 
 __version__ = "2.0.0"
