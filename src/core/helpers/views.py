@@ -226,7 +226,7 @@ class ConfirmView(discord.ui.View):
     def __init__(self, target: discord.Member):
         self.target = target
         self.accepted = False
-        super().__init__(timeout=10)
+        super().__init__(timeout=20)
 
     @discord.ui.button(label="Confirm", style=discord.ButtonStyle.green)
     async def confirm_callback(self, button, interaction):
