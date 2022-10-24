@@ -5,22 +5,18 @@ import psutil
 import discord
 import platform
 from discord.ext import commands
-from discord.commands import SlashCommandGroup
 
 from core.models import WhyBot
 from core.utils.count_lines import get_lines
 from core.helpers.checks import run_bot_checks
-from core.utils.calc import slow_safe_calculate
 from core.utils.formatters import discord_timestamp
-from core.helpers.views import BotInfoView, CalculatorView
+from core.helpers.views import BotInfoView
 
 
 class Info(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
         self.cog_check = run_bot_checks
-
-    utilities = SlashCommandGroup("utilities", "Utility Commands")
 
     async def get_info(self, ctx, member: discord.Member = None):
         if member == None:
@@ -248,74 +244,7 @@ class Info(commands.Cog):
         em.set_image(url=member.avatar.url)
         await ctx.respond(embed=em)
 
-    @utilities.command(name="calculator", description="Interactive button calculator")
-    async def calculator(self, ctx):
-        """
-        This command is used to show an interactive button calculator
-        """
-        await ctx.defer()
-
-        view = CalculatorView(ctx)
-        await ctx.respond("```\n```", view=view)
-
-    @utilities.command()
-    async def calculate(self, ctx, expression: str):
-        em = discord.Embed(
-            title="Calculation Result",
-            description=f"**Expression:**\n{expression}",
-            color=discord.Color.random(),
-        )
-
-        result = await slow_safe_calculate(expression)
-        em.add_field(name="Result", value=result)
-
-        await ctx.respond(embed=em)
-
-    @utilities.command(name="invite", description="Create an invite for the server")
-    @commands.has_permissions(create_instant_invite=True)
-    @commands.bot_has_permissions(create_instant_invite=True)
-    async def invite(
-        self, ctx: commands.Context, expire_in: str = None, max_uses: str = None
-    ):
-        """
-        This command is used to make an invite for the server
-        """
-        expire_in = 0 if expire_in is not None else expire_in
-        max_uses = 0 if max_uses is not None else max_uses
-
-        link = await ctx.channel.create_invite(max_age=expire_in, max_uses=max_uses)
-        await ctx.respond(link)
-
-    @utilities.command(
-        name="botinvite", description="Get a link to invite Why-Bot to the server"
-    )
-    async def botinvite(self, ctx: discord.commands.ApplicationContext):
-        """
-        This command is used to get the invite link for the bot
-        """
-        interaction = await ctx.respond(
-            embed=discord.Embed(
-                title="Invite **Why?** to your server:",
-                description=(
-                    "[Why Invite"
-                    " Link](https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands)"
-                ),
-                color=ctx.author.color,
-            )
-        )
-        message = await (await interaction.original_message())
-        await message.add_reaction("🔗")
-        react_check = (
-            lambda reaction, user: user.id == ctx.author.id
-            and reaction.emoji == "🔗"
-            and reaction.message.id == message.id
-        )
-        await self.client.wait_for("reaction_add", check=react_check, timeout=30.0)
-        await ctx.respond(
-            "https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands"
-        )
-
-    @utilities.command(
+    @commands.command(
         name="invites",
         description="Get the amount of people that a member has invited to the server",
     )
@@ -344,7 +273,7 @@ class Info(commands.Cog):
         )
         await ctx.respond(embed=em)
 
-    @utilities.command(
+    @commands.command(
         name="inviteslb", description="Get a leaderboard of the invites in the server"
     )
     async def inviteslb(self, ctx):
