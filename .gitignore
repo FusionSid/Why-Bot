@@ -30,3 +30,5 @@ MANIFEST
 *.vscode/
 *logfiles/
 *testing_cog.py
+src/scripts/backups
+src/scripts/b.sh
