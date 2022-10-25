@@ -145,7 +145,7 @@ class Poll(commands.Cog):
         embed.set_footer(text="Voting is closed")
         try:
             await message.clear_reactions()
-        except:
+        except discord.HTTPException:
             pass
         return await message.edit(embed=embed)
 

@@ -170,7 +170,7 @@ class CalculatorView(discord.ui.View):
     async def equal(self, button: discord.ui.Button, interaction: discord.Interaction):
         try:
             self.expr = await self.calc.calculate(self.expr)
-        except:  # if you are function only, change this to BadArgument
+        except simpcalc.BadArgument:  # if you are function only, change this to BadArgument
             return await interaction.response.send_message(
                 "Um, looks like you provided a wrong expression...."
             )
