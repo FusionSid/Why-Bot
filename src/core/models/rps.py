@@ -1,7 +1,13 @@
+from typing import Literal
+
 import discord
 
 
 class RockPaperScissorsView(discord.ui.View):
+    """
+    Rock paper scissors game view
+    """
+
     def __init__(self, player1: discord.Member, player2: discord.Member):
         self.results = {}
         self.p1 = player1
@@ -11,14 +17,14 @@ class RockPaperScissorsView(discord.ui.View):
     @discord.ui.button(
         style=discord.ButtonStyle.green, label="Rock", emoji="🗿", custom_id="rock"
     )
-    async def rock(self, button, interaction):
+    async def rock(self, button: discord.ui.Button, interaction: discord.Interaction):
         await interaction.response.send_message(f"You chose rock", ephemeral=True)
         await self.handle_input(interaction.user, button.custom_id)
 
     @discord.ui.button(
         style=discord.ButtonStyle.green, emoji="📄", label="Paper", custom_id="paper"
     )
-    async def paper(self, button, interaction):
+    async def paper(self, button: discord.ui.Button, interaction: discord.Interaction):
         await interaction.response.send_message(f"You chose paper", ephemeral=True)
         await self.handle_input(interaction.user, button.custom_id)
 
@@ -28,11 +34,15 @@ class RockPaperScissorsView(discord.ui.View):
         emoji="✂️",
         custom_id="scissors",
     )
-    async def scissor(self, button, interaction):
+    async def scissor(
+        self, button: discord.ui.Button, interaction: discord.Interaction
+    ):
         await interaction.response.send_message(f"You chose scissors", ephemeral=True)
         await self.handle_input(interaction.user, button.custom_id)
 
-    async def handle_input(self, user, input):
+    async def handle_input(
+        self, user: discord.Member, input: Literal["rock", "paper", "scissors"]
+    ):
         self.results[user.id] = input
 
         if self.results.get(self.p1.id) is None or self.results.get(self.p2.id) is None:
@@ -84,7 +94,7 @@ class RockPaperScissorsView(discord.ui.View):
             elif self.results[self.p2.id] == "rock":
                 await self.message.channel.send(embed=p2_win)
 
-    async def interaction_check(self, interaction) -> bool:
+    async def interaction_check(self, interaction: discord.Interaction) -> bool:
         if interaction.user not in [self.p1, self.p2]:
             await interaction.response.send_message(
                 "This button is not for you!",

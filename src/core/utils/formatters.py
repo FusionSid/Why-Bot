@@ -5,7 +5,7 @@ This module contains formatting functions
 from enum import Enum
 from typing import Literal
 
-
+# Enum for amount of seconds per time period
 class SecondIntervals(Enum):
     second = 1
     minute = 60

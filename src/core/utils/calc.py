@@ -47,7 +47,7 @@ async def calculate(expr: str) -> float | None:
         expr (str): the expression to evaluate
 
     Returns:
-        float | None: It will return the result of the expression and if it
+        Optional[float[]: It will return the result of the expression and if it
             fails then it will return None
     """
     try:

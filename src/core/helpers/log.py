@@ -6,6 +6,7 @@ import os
 import sys
 import logging
 import traceback
+from typing import Final
 from datetime import datetime
 
 from rich.panel import Panel
@@ -16,7 +17,7 @@ from core.utils.client_functions import get_why_config
 
 rich_console = Console()
 
-path = os.path.join(os.path.dirname(__main__.__file__), "logfiles")
+path: Final = os.path.join(os.path.dirname(__main__.__file__), "logfiles")
 
 # check if log files dir exists
 if not os.path.exists(path):
@@ -37,7 +38,7 @@ handler.setFormatter(
 logger.addHandler(handler)
 
 
-LOGFILE_PATH = os.path.join(path, "main.log")
+LOGFILE_PATH: Final = os.path.join(path, "main.log")
 
 # Custom exeption handler
 def log_errors(etype, value, tb) -> None:

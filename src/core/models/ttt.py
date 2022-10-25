@@ -1,15 +1,36 @@
+from typing import Final, Literal
+
 import math
 import discord
 
+# define what an empty space on the board will be
+FREE_SPACE: Final[str] = " "
+
 
 class TicTacToeGame:
+    """
+    The tic tac toe game class
+    The handles the game logic and what happens during the game
+    """
+
     def __init__(self):
         self.reset_board()
 
     def reset_board(self):
-        self.board = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]
+        self.board = [[FREE_SPACE for i in range(3)] for i in range(3)]
 
-    def space_free(self, pos: int):
+    def space_free(self, pos: int) -> bool:
+        """
+        This function checks to see if a position on the board is free
+
+        Parameters:
+            pos (int): The position to check for. Must be 1 - 9 or it will return False.
+                The first row is 0-3 second row 4-6 and third row is 7-9
+
+        Returns:
+            bool: True if the place is free if not it will return False
+                It will also return False if the position is not between (& inclduing) 1-9
+        """
         if 0 < pos <= 3:
             position = self.board[0][pos - 1]
         elif 3 < pos <= 6:
@@ -19,21 +40,33 @@ class TicTacToeGame:
         else:
             return False
 
-        if position == " ":
+        if position == FREE_SPACE:
             return True
 
         return False
 
-    def check_draw(self):
+    def check_draw(self) -> bool:
+        """
+        This checks to see if the game is over by a draw
+
+        Returns:
+            bool: if draw it returns True else False
+        """
         for row in self.board:
-            if " " in row:
+            if FREE_SPACE in row:
                 return False
         return True
 
-    def check_win(self):
+    def check_win(self) -> bool:
+        """
+        This function is used to check for a win
+
+        Returns:
+            bool: If its a win True if not False
+        """
         # Horizontal Wins
         for row in self.board:
-            if row[0] == row[1] and row[1] == row[2] and row[0] != " ":
+            if row[0] == row[1] and row[1] == row[2] and row[0] != FREE_SPACE:
                 return True
 
         # Vertical Wins
@@ -41,7 +74,7 @@ class TicTacToeGame:
             if (
                 self.board[0][i] == self.board[1][i]
                 and self.board[1][i] == self.board[2][i]
-                and self.board[0][i] != " "
+                and self.board[0][i] != FREE_SPACE
             ):
                 return True
 
@@ -49,19 +82,35 @@ class TicTacToeGame:
         if (
             self.board[0][0] == self.board[1][1]
             and self.board[1][1] == self.board[2][2]
-            and self.board[0][0] != " "
+            and self.board[0][0] != FREE_SPACE
         ):
             return True
         elif (
             self.board[0][2] == self.board[1][1]
             and self.board[1][1] == self.board[2][0]
-            and self.board[0][2] != " "
+            and self.board[0][2] != FREE_SPACE
         ):
             return True
 
         return False
 
-    def update_postion(self, letter: str, pos: int):
+    def update_postion(self, letter: Literal["X", "O"], pos: int) -> list[str]:
+        """
+        This function is used to update a players position on the board
+
+        Parameter:
+            letter (Literal[str]): The letter of the player usualy X or O.
+            pos (int): The position to move to
+
+        Returns:
+            list[str]: There are 4 different types of list that will be returned
+                (For the sake of consistency i chose to use a list instead of a string as on of the values needs a list)
+                1. ["invalid"]: this means the position is invalid
+                2. ["draw"]: This means the game has ended in a draw
+                3. ["win", letter: str]: This means that a player has won so it will return the player who won as well
+                    eg if X wins it will return ["win", "X"]
+                4. ["continue"]: This means that the move was played successfuly and nothing else happened so the game can continue
+        """
         if not self.space_free(pos):
             return ["invalid"]
 
@@ -82,6 +131,11 @@ class TicTacToeGame:
 
 
 class TicTacToeAI(TicTacToeGame):
+    """
+    Tic tac toe but with the minimax algorithm to always win or be a draw
+    The ai is just to smart cause why bot is massive brain
+    """
+
     def __init__(self):
         super().__init__()
 
@@ -122,10 +176,10 @@ class TicTacToeAI(TicTacToeGame):
 
         for row_id, row in enumerate(self.board):
             for index, key in enumerate(row):
-                if key == " ":
+                if key == FREE_SPACE:
                     self.board[row_id][index] = letter
                     score = self.minimax(letter, self.board, 0, False)
-                    self.board[row_id][index] = " "
+                    self.board[row_id][index] = FREE_SPACE
                     if score > best_score:
                         best_score = score
 
@@ -155,10 +209,10 @@ class TicTacToeAI(TicTacToeGame):
 
             for row_id, row in enumerate(board):
                 for index, key in enumerate(row):
-                    if key == " ":
+                    if key == FREE_SPACE:
                         board[row_id][index] = bot
                         score = self.minimax(bot, board, 0, False)
-                        board[row_id][index] = " "
+                        board[row_id][index] = FREE_SPACE
                         if score > best_score:
                             best_score = score
 
@@ -169,10 +223,10 @@ class TicTacToeAI(TicTacToeGame):
 
             for row_id, row in enumerate(board):
                 for index, key in enumerate(row):
-                    if key == " ":
+                    if key == FREE_SPACE:
                         board[row_id][index] = player
                         score = self.minimax(bot, board, 0, True)
-                        board[row_id][index] = " "
+                        board[row_id][index] = FREE_SPACE
                         if score < best_score:
                             best_score = score
 
@@ -180,6 +234,11 @@ class TicTacToeAI(TicTacToeGame):
 
 
 class TicTacToe2PlayerButton(discord.ui.Button):
+    """
+    Class for a single button (out of 9) on the member vs member mode for tic tac toe
+    This will be used by the TicTacToe2PlayerView
+    """
+
     def __init__(self, pos):
         self.pos = pos
         row = math.ceil(pos / 3)
@@ -220,6 +279,10 @@ class TicTacToe2PlayerButton(discord.ui.Button):
 
 
 class TicTacToe2PlayerView(discord.ui.View):
+    """
+    View for tic tac toe member vs member mode
+    """
+
     def __init__(self, player1: discord.Member, player2: discord.Member):
         self.game = TicTacToeGame()
         self.p1 = player1
@@ -235,7 +298,7 @@ class TicTacToe2PlayerView(discord.ui.View):
     async def redraw_buttons(self):
         for idxa, row in enumerate(self.game.board):
             for idxb, box in enumerate(row):
-                if box == " ":
+                if box == FREE_SPACE:
                     continue
 
                 index = (3 * idxa) + idxb
@@ -264,6 +327,10 @@ class TicTacToe2PlayerView(discord.ui.View):
 
 
 class TicTacToeAIView(TicTacToe2PlayerView):
+    """
+    View for tic tac toe member vs ai mode
+    """
+
     def __init__(self, player):
         self.game = TicTacToeAI()
         self.player = player
@@ -287,6 +354,11 @@ class TicTacToeAIView(TicTacToe2PlayerView):
 
 
 class TicTacToeAIButton(TicTacToe2PlayerButton):
+    """
+    Class for a single button (out of 9) on the member vs ai mode for tic tac toe
+    This will be used by the TicTacToeAIView
+    """
+
     def __init__(self, pos):
         super().__init__(pos)
 

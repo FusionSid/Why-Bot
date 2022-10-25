@@ -1,15 +1,39 @@
+from typing import Final
+
 import discord
 import asyncpg
 
 from core.models.level import LevelingDataGuild, LevelingDataMember
 
 
-async def xp_needed(level: int):
+async def xp_needed(level: int) -> int:
+    """
+    Calculate the xp needed for any level
+
+    Parameters:
+        level (int): The level to calculate xp needed
+
+    Returns:
+        int: The amount of xp to reach the level provided
+    """
+
     x, y = 0.125, 2
     return int((level / x) ** y)
 
 
 async def get_level_data(db: asyncpg.Pool, guild_id: int) -> LevelingDataGuild | None:
+    """
+    This function gets the leveling data for a guild
+
+    Parameters:
+        db (asyncpg.Pool): the connection pool to the database. This is found in client.db.
+        guild_id (int): The guild id of the guild to get leveling data for
+
+    Returns:
+        Optional[LevelingDataGuild]: If data for the guild is not found it returns None else
+            it returns a LevelingDataGuild object with the data in it
+    """
+
     data = await db.fetch("SELECT * FROM leveling_guild WHERE guild_id=$1", guild_id)
     if not len(data):
         return None
@@ -17,7 +41,22 @@ async def get_level_data(db: asyncpg.Pool, guild_id: int) -> LevelingDataGuild |
     return LevelingDataGuild(*data[0])
 
 
-async def get_member_data(db: asyncpg.Pool, member: discord.Member, guild_id: int):
+async def get_member_data(
+    db: asyncpg.Pool, member: discord.Member, guild_id: int
+) -> LevelingDataMember:
+    """
+    This function gets the leveling data for a single member
+
+    Parameters:
+        db (asyncpg.Pool): the connection pool to the database. This is found in client.db.
+        member (discord.Member): The member to get the data for
+        guild_id (int): The guild where to get the data for as members can be in multiple
+            guilds with different leveling data
+
+    Returns:
+        LevelingDataMember: it returns a LevelingDataMember object with the mmeber's data in it
+    """
+
     data = await db.fetch(
         "SELECT * FROM leveling_member WHERE member_id=$1 AND guild_id=$2",
         member.id,
@@ -25,7 +64,7 @@ async def get_member_data(db: asyncpg.Pool, member: discord.Member, guild_id: in
     )
 
     if not len(data):
-        default_data = [
+        DEFAULT_MEMBER_DATA: Final[int] = [
             guild_id,
             member.id,
             f"{member.name}#{member.discriminator}",
@@ -36,16 +75,26 @@ async def get_member_data(db: asyncpg.Pool, member: discord.Member, guild_id: in
         await db.execute(
             "INSERT INTO leveling_member (guild_id, member_id, member_name, member_xp,"
             " member_level, member_total_xp) VALUES ($1, $2, $3, $4, $5, $6)",
-            *default_data,
+            *DEFAULT_MEMBER_DATA,
         )
-        return LevelingDataMember(*default_data)
+        return LevelingDataMember(*DEFAULT_MEMBER_DATA)
 
     return LevelingDataMember(*data[0])
 
 
 async def update_member_data(
     db: asyncpg.Pool, message: discord.Message, member_data: LevelingDataMember
-):
+) -> None:
+    """
+    Updates the data for a member
+
+    Parameters:
+        db (asyncpg.Pool): the connection pool to the database. This is found in client.db.
+        message (discord.Message): The message that was sent. This is used to get things
+            like guild id and extra info
+        member_data (LevelingDataMember): The object with the new data
+    """
+
     member = message.author
     await db.execute(
         """UPDATE leveling_member 
@@ -59,7 +108,7 @@ async def update_member_data(
         message.author.id,
         message.guild.id,
     )
-    print(member_data)
+    print(member_data)  # for debuging purposes and also cause i like seing it
 
 
 async def get_all_member_data(db: asyncpg.Pool, guild_id: int):
