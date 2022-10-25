@@ -42,7 +42,7 @@ def get_why_config() -> dict:
         raise ConfigNotFound
 
     with open(path) as f:
-        data = yaml.load(f, Loader=yaml.Loader)
+        data = yaml.load(f, Loader=yaml.SafeLoader)
 
     return data
 
