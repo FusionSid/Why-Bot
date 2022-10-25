@@ -44,28 +44,30 @@ yaml_config = {
     "YOUTUBE_API_KEY": "",
 }
 
-yes_for_all = Confirm.ask(
-    "[bold blue]\nWould you like to say yes for all prompts?\nIf this is your first"
-    " time runnning it you should choose y"
+do_yaml = Confirm.ask(
+    "[bold blue]\nWould you like to create the setup.yaml file?\nIf this is your time runnning it you should choose: y"
 )
 
-for key in yaml_config:
-    if not yes_for_all:
-        do_this = Confirm.ask(
-            f"[bold blue]\nWould you like to edit the value of: '{key}'"
-        )
-        if not do_this:
-            continue
-    value = Prompt.ask(f"[bold yellow]Enter the value for: '{key}'", default=None)
-    yaml_config[key] = value
+if do_yaml:
+    yes_for_all = Confirm.ask(
+        "[bold blue]\nWould you like to say yes for all prompts?\nIf this is your first time runnning it you should choose y"
+    )
+    for key in yaml_config:
+        if not yes_for_all:
+            do_this = Confirm.ask(
+                f"[bold blue]\nWould you like to edit the value of: '{key}'"
+            )
+            if not do_this:
+                continue
+        value = Prompt.ask(f"[bold yellow]Enter the value for: '{key}'", default=None)
+        yaml_config[key] = value
 
-path = os.path.join(os.path.dirname(__file__), "config.yaml")
-with open(path, "w") as file:
-    data = yaml.dump(yaml_config, file)
+    path = os.path.join(os.path.dirname(__file__), "config.yaml")
+    with open(path, "w") as file:
+        data = yaml.dump(yaml_config, file)
 
 create_databases = Confirm.ask(
-    f"[bold blue]\nCreate databases?\nYou can choose which ones specificaly by editing"
-    f" the list named 'tables_to_create' in core/db/create_tables.py "
+    f"[bold blue]\nCreate databases?\nYou can choose which ones specificaly by editing the list named 'tables_to_create' in core/db/create_tables.py"
 )
 if create_databases:
     asyncio.run(create_tables())
