@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS leveling_member
 """
 
 leveling_guild_query = """
-CREATE TABLE leveling_guild
+CREATE TABLE IF NOT EXISTS leveling_guild
 (
     guild_id bigint NOT NULL PRIMARY KEY,
     plugin_enabled boolean,
@@ -66,7 +66,7 @@ CREATE TABLE leveling_guild
 """
 
 leveling_rewards_query = """
-CREATE TABLE leveling_rewards
+CREATE TABLE IF NOT EXISTS leveling_rewards
 (
     guild_id bigint NOT NULL PRIMARY KEY,
     level integer,
@@ -75,15 +75,15 @@ CREATE TABLE leveling_rewards
 """
 
 counters_query = """
-CREATE TABLE counters
+CREATE TABLE IF NOT EXISTS counters
 (
     key text NOT NULL PRIMARY KEY,
-    value integer NOT NULL DEFAULT 0,
+    value integer NOT NULL DEFAULT 0
 );
 """
 
 dmreply_query = """
-CREATE TABLE dmreply
+CREATE TABLE IF NOT EXISTS dmreply
 (
     user_id bigint NOT NULL PRIMARY KEY,
     thread_id bigint NOT NULL
@@ -91,7 +91,7 @@ CREATE TABLE dmreply
 """
 
 tags_query = """
-CREATE TABLE tags
+CREATE TABLE IF NOT EXISTS tags
 (
     guild_id bigint NOT NULL PRIMARY KEY,
     tag_name TEXT NOT NULL,
