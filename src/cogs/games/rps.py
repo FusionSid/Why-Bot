@@ -3,12 +3,14 @@ from discord.ext import commands
 
 from core.models import WhyBot
 from core.helpers.views import ConfirmView
+from core.helpers.checks import run_bot_checks
 from core.models.rps import RockPaperScissorsView
 
 
 class RockPaperScissors(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
+        self.cog_check = run_bot_checks
 
     @commands.slash_command(name="rps")
     async def rock_paper_scissors_command(self, ctx, opponent: discord.Member):
