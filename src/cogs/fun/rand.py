@@ -1,13 +1,19 @@
+import io
 import os
 import json
+import string
 import random
 
 import discord
+import aiofiles
+from PIL import Image
+import discord_colorize
 from discord.ext import commands
 from discord.commands import SlashCommandGroup
 
 import __main__
 from core.helpers.checks import run_bot_checks
+from core.helpers.http import get_request_bytes
 
 
 class Random(commands.Cog):
@@ -20,8 +26,9 @@ class Random(commands.Cog):
             os.path.dirname(__main__.__file__).replace("src", ""),
             "assets/json_files/fun_text.json",
         )
-        with open(path) as f:
-            data = json.load(f)
+        async with aiofiles.open(path, mode="r") as f:
+            contents = await f.read()
+        data = json.load(contents)
 
         return data
 
@@ -112,6 +119,115 @@ class Random(commands.Cog):
                 color=ctx.author.color,
             )
         )
+
+    @random.command()
+    async def card(self, ctx):
+        url = "https://api.fusionsid.xyz/api/image/random-card"
+        img = await get_request_bytes(
+            url,
+            bytes_io=True,
+        )
+
+        if not isinstance(img, io.BytesIO):
+            return await ctx.respond(
+                embed=discord.Embed(
+                    title="An error occured while trying to get the image",
+                    description=(
+                        "API basically had a skill issue.\nIf this persists and you are able to, report this as a bug with </bug:0> :)"
+                    ),
+                    color=discord.Colour.red(),
+                ),
+                ephemeral=True,
+            )
+
+        await ctx.respond(file=discord.File(img, "text.png"))
+
+    @random.command()
+    async def flipcoin(self, ctx):
+        h_or_t = random.choice(["heads", "tails"])
+        path = os.path.join(
+            os.path.dirname(__main__.__file__).replace("src", ""),
+            f"assets/images/{h_or_t}.png",
+        )
+        await ctx.respond(f"Its {h_or_t}!", file=discord.File(path))
+
+    @random.command()
+    async def color(self, ctx):
+        color = tuple([random.randint(0, 255) for i in range(3)])
+        img = Image.new("RGB", (500, 500), color)
+        send = io.BytesIO()
+        img.save(send, "PNG")
+        send.seek(0)
+        await ctx.respond(file=discord.File(send, "color.png"))
+
+    @random.command()
+    async def letter(self, ctx):
+        return await ctx.respond(
+            f"Your random letter is '{random.choice(string.ascii_lowercase)}'"
+        )
+
+    @random.command()
+    async def diceroll(self, ctx):
+        color = random.choice(
+            ["red", "yellow", "blue", "green", "gray", "pink", "cyan", "white"]
+        )
+
+        colors = discord_colorize.Colors()
+        dice = random.choice(self.dice)
+        message = f"```ansi\n{colors.colorize(dice, fg=color)}\n```"
+        await ctx.respond(
+            embed=discord.Embed(
+                title=f"Rolled a {self.dice.index(dice)+1}",
+                description=message,
+                color=discord.Color.random(),
+            )
+        )
+
+    # credit to micfun123 for the dice ascii art
+    dice = [
+        """\
+-----
+|   |
+| o |
+|   |
+-----
+""",
+        """\
+-----
+|o  |
+|   |
+|  o|
+-----
+""",
+        """\
+-----
+|o  |
+| o |
+|  o|
+-----
+""",
+        """\
+-----
+|o o|
+|   |
+|o o|
+-----
+""",
+        """\
+-----
+|o o|
+| o |
+|o o|
+-----
+""",
+        """\
+-----
+|o o|
+|o o|
+|o o|
+-----
+""",
+    ]
 
 
 def setup(client):
