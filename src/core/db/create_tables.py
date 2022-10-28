@@ -97,7 +97,27 @@ CREATE TABLE IF NOT EXISTS tags
     tag_name TEXT NOT NULL,
     tag_value TEXT NOT NULL,
     tag_author TEXT NOT NULL,
-    time_created TIMESTAMP NOT NULL
+    time_created date NOT NULL default current_timestamp
+);
+"""
+
+alerts_query = """
+CREATE TABLE IF NOT EXISTS alerts
+(
+    id serial NOT NULL PRIMARY KEY,
+    alert_title text NOT NULL,
+    alert_message text NOT NULL,
+    time_created date NOT NULL default current_timestamp,
+    viewed integer NOT NULL DEFAULT 1
+);
+"""
+
+alerts_user_query = """
+CREATE TABLE IF NOT EXISTS alerts_users
+(
+    user_id bigint NOT NULL PRIMARY KEY,
+    alert_viewed boolean NOT NULL DEFAULT false,
+    ignore_alerts boolean NOT NULL default false,
 );
 """
 
