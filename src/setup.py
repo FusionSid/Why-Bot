@@ -78,13 +78,16 @@ install_requirements = Confirm.ask(
     f"[bold blue]\nWould you like to install requirements?\nThis installs all the packages in requirements.txt"
 )
 if install_requirements:
-    subprocess.check_call(
-        [
-            sys.executable,
-            "-m",
-            "pip",
-            "install",
-            "-r",
-            os.path.join(os.path.dirname(__file__), "requirements.txt"),
-        ]
-    )
+    try:
+        subprocess.check_call(
+            [
+                sys.executable,
+                "-m",
+                "pip",
+                "install",
+                "-r",
+                os.path.join(os.path.dirname(__file__), "requirements.txt"),
+            ]
+        )
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        console.print("[red bold]Failed to install requirements :([/]")
