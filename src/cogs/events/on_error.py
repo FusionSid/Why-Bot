@@ -201,6 +201,10 @@ class OnError(commands.Cog):
                 color=discord.Color.red(),
             )
             await ctx.respond(embed=em, ephemeral=True)
+        elif isinstance(error, discord.ApplicationCommandInvokeError):
+            log_errors(
+                type(error.original), error.original, error.original.__traceback__
+            )
         elif isinstance(error, IGNORE):
             return
         else:
