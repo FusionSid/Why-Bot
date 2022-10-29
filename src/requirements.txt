@@ -1,3 +1,7 @@
+aiofiles
+Pillow
+qrcode
+simpcalci
 discord_colorize
 moviepy
 numexpr
