@@ -1,5 +1,7 @@
 import os
+import sys
 import asyncio
+import subprocess
 
 import yaml
 from rich.console import Console
@@ -71,3 +73,18 @@ create_databases = Confirm.ask(
 )
 if create_databases:
     asyncio.run(create_tables())
+
+install_requirements = Confirm.ask(
+    f"[bold blue]\nWould you like to install requirements?\nThis installs all the packages in requirements.txt"
+)
+if install_requirements:
+    subprocess.check_call(
+        [
+            sys.executable,
+            "-m",
+            "pip",
+            "install",
+            "-r",
+            os.path.join(os.path.dirname(__file__), "requirements.txt"),
+        ]
+    )
