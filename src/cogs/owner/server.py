@@ -5,6 +5,7 @@ import discord
 from discord.ext import commands
 
 from core.models import WhyBot
+from core.utils.other import chunkify
 
 
 class Server(commands.Cog):
@@ -34,13 +35,9 @@ class Server(commands.Cog):
                     ),
                     inline=True,
                 )
-            return await ctx.send(embed=em)
+            return await ctx.respond(embed=em)
 
-        chunk_size = 15
-        chunked_list = list()
-
-        for i in range(0, len(self.client.guilds), chunk_size):
-            chunked_list.append(self.client.guilds[i : i + chunk_size])
+        chunked_list = await chunkify(self.client.guilds)
 
         em = discord.Embed(
             title=f"Connected on {str(len(self.client.guilds))} servers:",
@@ -64,7 +61,7 @@ class Server(commands.Cog):
                     ),
                     inline=True,
                 )
-            await ctx.send(embed=em)
+            await ctx.respond(embed=em)
 
     @commands.slash_command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
