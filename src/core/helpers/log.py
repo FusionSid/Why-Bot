@@ -91,12 +91,14 @@ async def convert_to_dict() -> dict:
         logs = {}
 
         for line in logs_data:
+            if line.startswith("[INFO]"):
+                continue
             if line.startswith("[ERROR]"):
                 logs[line] = ""
                 continue
             try:
                 logs[(list(logs.keys())[-1])] += line
-            except TypeError:
+            except (IndexError, TypeError):
                 break
 
     return logs
