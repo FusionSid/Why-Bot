@@ -8,7 +8,6 @@ __author__ = "FusionSid"
 __licence__ = "MIT License"
 
 import datetime
-from typing import Optional
 
 import discord
 import aioredis
@@ -57,7 +56,7 @@ class WhyBot(commands.Bot):
             intents=intents,
             help_command=None,
             case_insensitive=True,
-            command_prefix="?",  # gonna use slash commands anyways so this only for owner cmds
+            command_prefix="?",
             owner_id=config["BOT_OWNER_ID"],
             debug_guilds=[938913935774605442, 763348615233667082]
             if config["DEBUG_GUILD_MODE"]
@@ -132,7 +131,7 @@ class WhyBot(commands.Bot):
         await self.redis.lpush("blacklisted", 0)
         await self.redis.expire("blacklisted", datetime.timedelta(days=5))
 
-    async def blacklist_user(self, user_id: int, reason: Optional[str] = None):
+    async def blacklist_user(self, user_id: int, reason: str = None):
         """
         This function is used to black list a user from using the bot
 
