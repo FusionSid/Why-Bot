@@ -73,7 +73,7 @@ def start_bot(client: WhyBot) -> None:
 
 if __name__ == "__main__":
     install(show_locals=True)
-    sys.excepthook = log_errors
+    sys.__excepthook__ = log_errors
 
     config = get_why_config()
     client = WhyBot(config, __version__)
