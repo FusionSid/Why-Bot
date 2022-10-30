@@ -7,10 +7,10 @@ import platform
 from discord.ext import commands
 
 from core.models import WhyBot
+from core.helpers.views import BotInfoView
 from core.utils.count_lines import get_lines
 from core.helpers.checks import run_bot_checks
 from core.utils.formatters import discord_timestamp
-from core.helpers.views import BotInfoView
 
 
 class Info(commands.Cog):
@@ -170,10 +170,10 @@ class Info(commands.Cog):
         """
 
         em = discord.Embed(
-            title="Why Bot", description="Just Why?", color=ctx.author.color
+            title=f"Why Bot v{self.client.version}",
+            description="Just Why?",
+            color=discord.Color.random(),
         )
-
-        em.timestamp = datetime.datetime.utcnow()
 
         em.add_field(
             inline=True, name="Server Count", value=f"{len(self.client.guilds)}"
@@ -198,7 +198,11 @@ class Info(commands.Cog):
         em.add_field(
             inline=True, name="Ping", value=f"{round(self.client.latency * 1000)}ms"
         )
-        em.add_field(inline=True, name="Uptime", value=(await self.client.uptime))
+        em.add_field(
+            inline=True,
+            name="Uptime",
+            value=f"{(await self.client.uptime)} (since {await discord_timestamp(int(self.client.last_login_time.timestamp()), 'md_yt')})",
+        )
         em.add_field(inline=True, name="CPU Usage", value=f"{psutil.cpu_percent()}%")
         em.add_field(
             inline=True,
@@ -218,16 +222,19 @@ class Info(commands.Cog):
         )
         em.add_field(
             inline=True,
-            name="User ID:",
-            value=self.client.user.id,
-        )
-        em.add_field(
-            inline=True,
             name="Lines of python code",
             value=f"{(await get_lines(self.client.redis))} lines of code",
         )
+        em.add_field(
+            inline=True,
+            name="User ID:",
+            value=self.client.user.id,
+        )
         em.set_thumbnail(url=self.client.user.avatar.url)
-        em.set_footer(text="Made by FusionSid#3645")
+        em.set_footer(
+            text="Made by FusionSid#3645",
+            icon_url=self.client.get_user(self.client.owner_id).avatar.url,
+        )
         await ctx.respond(embed=em, view=BotInfoView())
 
     @commands.slash_command()
