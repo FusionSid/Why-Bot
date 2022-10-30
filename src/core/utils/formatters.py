@@ -127,9 +127,12 @@ async def number_suffix(number: int) -> str:
     Returns:
         str: The formatted result
     """
-    return str(number) + {1: "st", 2: "nd", 3: "rd"}.get(
-        4 if 10 <= number % 100 < 20 else number % 10, "th"
-    )
+    SUFFIXES = {1: "st", 2: "nd", 3: "rd"}
+    if 10 <= number % 100 < 20:
+        suffix = "th"
+    else:
+        suffix = SUFFIXES.get(number % 10, "th")
+    return str(number) + suffix
 
 
 async def discord_timestamp(
