@@ -76,7 +76,7 @@ if __name__ == "__main__":
     sys.excepthook = log_errors
 
     config = get_why_config()
-    client = WhyBot(config)
+    client = WhyBot(config, __version__)
 
     # Start
     start_bot(client)

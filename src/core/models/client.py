@@ -4,7 +4,6 @@ This contains the WhyBot commands.Bot client class and its class methods
 Its also where most init tasks are done
 """
 
-__version__ = "2.0.0"
 __author__ = "FusionSid"
 __licence__ = "MIT License"
 
@@ -40,14 +39,14 @@ class WhyBot(commands.Bot):
         + all the ones inherited from `discord.ext.commands.Bot`
     """
 
-    def __init__(self, config: dict):
+    def __init__(self, config: dict, version: str):
 
         self.cogs_list = {}
         self.db: asyncpg.Pool
         self.redis: aioredis.Redis
 
         self.config = config
-        self.version = __version__
+        self.version = version
         self.console = Console()
         self.last_login_time = datetime.datetime.now()
 
