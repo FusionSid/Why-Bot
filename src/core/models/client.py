@@ -43,8 +43,8 @@ class WhyBot(commands.Bot):
     def __init__(self, config: dict):
 
         self.cogs_list = {}
-        self.db: asyncpg.Pool = None
-        self.redis: aioredis.Redis = None
+        self.db: asyncpg.Pool
+        self.redis: aioredis.Redis
 
         self.config = config
         self.version = __version__
