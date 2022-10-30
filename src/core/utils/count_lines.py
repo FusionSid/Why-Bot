@@ -5,6 +5,7 @@ Used to get the amount of lines in the current project
 import os
 from datetime import timedelta
 
+import aiofiles
 from aioredis import Redis
 
 import __main__
@@ -52,9 +53,8 @@ async def get_lines(redis: Redis) -> int:
     lines = 0
 
     for file in file_list:
-
-        with open(file) as f:
-            lines += len(list(f))
+        async with aiofiles.open(file) as f:
+            lines += len(list(await f.readlines()))
 
     await redis.set("python_line_count", lines)
     await redis.expire("python_line_count", timedelta(hours=6))

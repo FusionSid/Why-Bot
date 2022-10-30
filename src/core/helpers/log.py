@@ -9,6 +9,7 @@ import traceback
 from typing import Final
 from datetime import datetime
 
+import aiofiles
 from rich.panel import Panel
 from rich.console import Console
 
@@ -74,8 +75,8 @@ async def log_normal(message: str) -> None:
     Parameters
         message (str): The message you want to log
     """
-    with open(LOGFILE_PATH, "a") as f:
-        f.write(
+    async with aiofiles.open(LOGFILE_PATH, "a") as f:
+        await f.write(
             f"[INFO] ({datetime.now().strftime('%d-%b-%Y %H:%M:%S')}) - {message}\n"
         )
 
@@ -87,10 +88,10 @@ async def convert_to_dict() -> dict:
     Returns
         dict: The log file
     """
-    with open(LOGFILE_PATH) as logs_data:
+    async with aiofiles.open(LOGFILE_PATH) as logs_data:
         logs = {}
 
-        for line in logs_data:
+        async for line in logs_data:
             if line.startswith("[INFO]"):
                 continue
             if line.startswith("[ERROR]"):

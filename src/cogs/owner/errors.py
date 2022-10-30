@@ -2,6 +2,7 @@ import os
 import datetime
 
 import discord
+import aiofiles
 from discord.commands import SlashCommandGroup
 from discord.ext import commands
 
@@ -29,8 +30,8 @@ class ErrorLog(commands.Cog):
     @error.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def clear_logs_file(self, ctx):
-        with open(LOGFILE_PATH, "r+") as f:
-            f.truncate(0)
+        async with aiofiles.open(LOGFILE_PATH, "r+") as f:
+            await f.truncate(0)
         await ctx.respond("Logfile Cleared", ephemeral=True)
 
     @error.command(guild_ids=[763348615233667082, 938913935774605442])
