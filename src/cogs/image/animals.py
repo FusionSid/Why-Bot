@@ -5,22 +5,19 @@ from discord.ext import commands
 from discord.commands import SlashCommandGroup
 
 from core.helpers.http import get_request
+from core.helpers.exception import ImageAPIFail
 
 
 def animal_embed(response: dict | None, title: str):
     if response is None:
-        return discord.Embed(
-            title="An error occured while trying to get the image",
-            description=(
-                "API basically had a skill issue.\nIf this persists and you are able to, report this as a bug with </bug:0> :)"
-            ),
-            color=discord.Colour.red(),
-        )
+        raise ImageAPIFail
 
     em = discord.Embed(
         title=title, description=response["fact"], color=discord.Color.random()
     )
+
     em.set_image(url=response["image"])
+
     return em
 
 

@@ -58,3 +58,7 @@ class UserAlreadyBlacklisted(BaseException):
 
 class UserAlreadyWhitelisted(BaseException):
     pass
+
+
+class ImageAPIFail(BaseException):
+    pass

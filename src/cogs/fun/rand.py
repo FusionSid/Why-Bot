@@ -12,6 +12,7 @@ from discord.ext import commands
 from discord.commands import SlashCommandGroup
 
 import __main__
+from core.helpers.exception import ImageAPIFail
 from core.helpers.checks import run_bot_checks
 from core.helpers.http import get_request_bytes
 
@@ -129,16 +130,7 @@ class Random(commands.Cog):
         )
 
         if not isinstance(img, io.BytesIO):
-            return await ctx.respond(
-                embed=discord.Embed(
-                    title="An error occured while trying to get the image",
-                    description=(
-                        "API basically had a skill issue.\nIf this persists and you are able to, report this as a bug with </bug:0> :)"
-                    ),
-                    color=discord.Colour.red(),
-                ),
-                ephemeral=True,
-            )
+            raise ImageAPIFail
 
         await ctx.respond(file=discord.File(img, "text.png"))
 

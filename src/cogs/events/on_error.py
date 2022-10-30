@@ -3,6 +3,7 @@ from discord.ext import commands
 
 from core.models import WhyBot
 from core.helpers.log import log_errors
+from core.helpers.exception import ImageAPIFail
 from core.utils.formatters import format_seconds
 
 
@@ -202,6 +203,15 @@ class OnError(commands.Cog):
             )
             await ctx.respond(embed=em, ephemeral=True)
         elif isinstance(error, discord.ApplicationCommandInvokeError):
+            if isinstance(error.original, ImageAPIFail):
+                em = discord.Embed(
+                    title="An error occured while trying to get the image",
+                    description=(
+                        "API basically had a skill issue.\nIf this persists and you are able to, report this as a bug with </bug:0> :)"
+                    ),
+                    color=discord.Colour.red(),
+                )
+                return await ctx.respond(embed=em, ephemeral=True)
             log_errors(
                 type(error.original), error.original, error.original.__traceback__
             )
