@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS command_stats
     id SERIAL PRIMARY KEY,
     user_id bigint NOT NULL,
     command_name text NOT NULL,
-    usage_count integer NOT NULL DEFAULT 0,
+    usage_count integer NOT NULL DEFAULT 0
 );
 """
 
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS alerts_users
 (
     user_id bigint NOT NULL PRIMARY KEY,
     alert_viewed boolean NOT NULL DEFAULT false,
-    ignore_alerts boolean NOT NULL default false,
+    ignore_alerts boolean NOT NULL default false
 );
 """
 
