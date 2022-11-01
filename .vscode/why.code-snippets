@@ -1,0 +1,18 @@
+{
+	"newcog": {
+		"prefix": "newcog",
+		"body": [
+		  "import discord",
+		  "from discord.ext import commands\n",
+		  "from core.models import WhyBot",
+		  "from core.helpers.checks import run_bot_checks\n",
+		  "class $1(commands.Cog):",
+		  "\tdef __init__(self, client: WhyBot):",
+		  "\t\tself.client = client",
+		  "\t\tself.cog_check = run_bot_checks\n\n\n",
+		  "def setup(client):",
+		  "\tclient.add_cog($1(client))"
+		],
+		"description": "Creates a Cog"
+	  }
+}

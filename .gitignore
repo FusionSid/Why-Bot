@@ -27,7 +27,6 @@ MANIFEST
 *.log
 *.so
 *.mypy_cache
-*.vscode/
 *logfiles/
 *testing_cog.py
 src/scripts/backups
