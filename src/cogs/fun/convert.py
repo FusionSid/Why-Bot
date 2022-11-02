@@ -54,7 +54,7 @@ class TextConvert(commands.Cog):
     @textconvert.command()
     async def texttohex(self, ctx, *, text: discord.Option(str, "The text to convert")):
         try:
-            hex_output = " ".join("{:02x}".format(ord(char)) for char in text)
+            hex_output = " ".join(f"{ord(char):02x}" for char in text)
         except Exception as e:
             return await ctx.respond(
                 f"Error: `{e}`. This probably means the text is malformed"

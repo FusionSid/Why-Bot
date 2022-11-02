@@ -245,8 +245,10 @@ class Leveling(commands.Cog):
     async def rank(self, ctx):
         await ctx.defer()
         data = await get_all_member_data(self.client.db, ctx.guild.id)
-        for idx, member in enumerate(data):
-            if member[1] == ctx.author.id:
+        for _idx, _member in enumerate(data):
+            if _member[1] == ctx.author.id:
+                member = _member
+                idx = _idx
                 break
         else:
             return await ctx.respond(
