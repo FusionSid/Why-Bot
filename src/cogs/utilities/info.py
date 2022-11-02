@@ -22,7 +22,7 @@ class Info(commands.Cog):
         if member == None:
             member = ctx.author
 
-        roles = [role for role in member.roles]
+        roles = list(member.roles)
         em = discord.Embed(
             title="User Info",
             description=f"For: {member.name}{' [BOT]' if member.bot else ''}\nDisplay Name: {member.display_name}",
