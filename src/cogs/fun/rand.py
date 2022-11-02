@@ -29,7 +29,7 @@ class Random(commands.Cog):
         )
         async with aiofiles.open(path, mode="r") as f:
             contents = await f.read()
-        data = json.load(contents)
+        data = json.loads(contents)
 
         return data
 
