@@ -18,7 +18,7 @@ class Fun(commands.Cog):
         self.client = client
         self.cog_check = run_bot_checks
 
-    async def gen_crab(self, t1, t2):
+    async def gen_crab(self, t1, t2, ctx):
         path = os.path.join(
             os.path.dirname(__main__.__file__).replace("src", ""),
             "assets/videos/crab.mp4",
@@ -45,15 +45,14 @@ class Fun(commands.Cog):
         clip.close()
         video.close()
         file.seek(0)
-        return file
+        await ctx.respond(file=discord.File(file.name, "crab.mp4"))
+        file.close()
 
     @commands.slash_command()
     @commands.cooldown(1, 15, commands.BucketType.user)
     async def crab(self, ctx, text1, text2):
         await ctx.defer()
-        video = await self.gen_crab(text1, text2)
-        await ctx.respond(file=discord.File(video.name, "crab.mp4"))
-        video.close()
+        asyncio.create_task(self.gen_crab(text1, text2, ctx))
 
     @commands.slash_command()
     @commands.cooldown(1, 5, commands.BucketType.user)
