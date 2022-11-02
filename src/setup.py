@@ -44,8 +44,8 @@ yaml_config = {
     "WEATHER_API_KEY": "",
     "GENIUS_API_KEY": "",
     "YOUTUBE_API_KEY": "",
+    "GITHUB_ACCESS_TOKEN": "",
 }
-
 do_yaml = Confirm.ask(
     "[bold blue]\nWould you like to create the setup.yaml file?\nIf this is your time runnning it you should choose: y"
 )
