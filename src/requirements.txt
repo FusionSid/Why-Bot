@@ -17,3 +17,4 @@ asyncpg
 psutil
 PyYAML
 validators
+pycord.wavelink
