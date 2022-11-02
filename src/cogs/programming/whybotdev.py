@@ -1,4 +1,6 @@
 import io
+import json
+import time
 import inspect
 import datetime
 
@@ -7,8 +9,9 @@ from discord.commands import SlashCommandGroup
 from discord.ext import commands
 
 from core.models import WhyBot
+from core.helpers.views import LinkView
 from core.helpers.checks import run_bot_checks
-from core.helpers.http import get_request
+from core.helpers.http import get_request, post_request
 
 
 class WhyBotDev(commands.Cog):
@@ -28,12 +31,6 @@ class WhyBotDev(commands.Cog):
         This command is used to get the code for a specific command
         It is useful if you want to quickly check the code for a command without opening the github
         It also provides a link to the github link with the code highlighted
-
-        Help Info:
-        ----------
-        Category: Programming
-
-        Usage: getcode <name: str>
         """
         commands_list = []
         for cmd in self.client.application_commands:
@@ -54,18 +51,20 @@ class WhyBotDev(commands.Cog):
 
                 if len(function_code) > 1750:
                     file = io.BytesIO(function_code.encode())
-
+                    code_link = f"<https://github.com/FusionSid/Why-Bot/blob/rewrite-the-rewrite/src{filename}#L{first_line}-L{last_line}>"
                     return await ctx.respond(
                         embed=discord.Embed(
                             title="Code to large to fit in a message",
-                            description=f"<https://github.com/FusionSid/Why-Bot/blob/rewrite-the-rewrite/src{filename}#L{first_line}-L{last_line}>",
+                            description=code_link,
                             color=ctx.author.color,
                         ),
+                        view=LinkView(["Code on Github", code_link]),
                         file=discord.File(file, "command.py"),
                     )
 
                 return await ctx.respond(
-                    f"""```py\n\t# Code for the: {func.__name__} function/command\n\n{function_code}\n```\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}#L{first_line}-L{last_line}>"""
+                    f"""```py\n\t# Code for the: {func.__name__} function/command\n\n{function_code}\n```\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}#L{first_line}-L{last_line}>""",
+                    view=LinkView(["Code on Github", code_link]),
                 )
         await ctx.respond(
             embed=discord.Embed(
@@ -136,8 +135,8 @@ class WhyBotDev(commands.Cog):
         await ctx.respond("Thank you for the suggestion :)")
 
     @why_dev.command()
-    @commands.cooldown(1, 15, commands.BucketType.user)
-    async def bug(self, ctx, *, bug):
+    @commands.cooldown(3, 300, commands.BucketType.user)
+    async def bug(self, ctx: discord.ApplicationContext, *, bug):
         em = discord.Embed(
             title="Bug Report",
             color=ctx.author.color,
@@ -165,6 +164,36 @@ class WhyBotDev(commands.Cog):
         await channel.send(content=ctx.author.id, embed=em)
         await ctx.respond("Thank you for the bug report :)")
 
+        URL = "https://api.github.com/repos/FusionSid/Why-Bot/issues"
+        response = await post_request(
+            URL,
+            headers={
+                "Authorization": "token " + self.client.config["GITHUB_ACCESS_TOKEN"]
+            },
+            body=json.dumps(
+                {
+                    # time is so the issue names can be unique
+                    "title": f"Bug Report - {ctx.author.name} | {time.time()}",
+                    "body": bug,
+                }
+            ),
+            json=False,
+        )
+        if response is not None:
+            view = LinkView(
+                ["Github Issue Link", response.get("html_url")],
+                ["Why Bot Discord", "https://discord.gg/Jm8QPF6xbN"],
+            )
+            f"Github Link: <{response.get('html_url')}>"
+            await ctx.followup.send(
+                embed=discord.Embed(
+                    title="Github Issue URL",
+                    description="A github issue has been automatically made for this bug report.\nIf you would like you can discuss the issue there.\nAlternativly you can make a thread on the Why Bot discord server",
+                    color=discord.Color.random(),
+                ),
+                view=view,
+            )
+
     @why_dev.command(
         name="botinvite", description="Get a link to invite Why-Bot to the server"
     )
@@ -172,6 +201,12 @@ class WhyBotDev(commands.Cog):
         """
         This command is used to get the invite link for the bot
         """
+        view = LinkView(
+            [
+                "Invite Link",
+                "https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands",
+            ],
+        )
         interaction = await ctx.respond(
             embed=discord.Embed(
                 title="Invite **Why?** to your server:",
@@ -180,7 +215,8 @@ class WhyBotDev(commands.Cog):
                     " Link](https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands)"
                 ),
                 color=ctx.author.color,
-            )
+            ),
+            view=view,
         )
         message = await (await interaction.original_message())
         await message.add_reaction("🔗")
@@ -213,7 +249,7 @@ class WhyBotDev(commands.Cog):
 
         em = discord.Embed(
             title="Why Bot - Most Recent Commit",
-            description=f"Commit: [{response.get('sha')}]({response.get('html_url')})",
+            description=f"Commit Hash: {response.get('sha')}",
             color=discord.Color.random(),
         )
         if (commit_info := response.get("committer")) is not None:
@@ -224,7 +260,8 @@ class WhyBotDev(commands.Cog):
         if response.get("commit") is not None:
             em.add_field(name="Message:", value=response["commit"].get("message"))
 
-        await ctx.respond(embed=em)
+        view = LinkView(["Link to commit", response.get("html_url")])
+        await ctx.respond(embed=em, view=view)
 
 
 def setup(client):
