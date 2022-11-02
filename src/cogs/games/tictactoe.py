@@ -36,7 +36,7 @@ class TicTacToeCog(commands.Cog):
         await view.wait()
 
         if not view.accepted:
-            return await ctx.send(
+            return await ctx.respond(
                 embed=discord.Embed(
                     title="Tic Tac Toe",
                     description=(
