@@ -2,9 +2,11 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ "rewrite-the-rewrite" ]
+    paths:
+      - "src/**.py"
+    branches: ["master", "rewrite-the-rewrite"]
   pull_request:
-    branches: [ "rewrite-the-rewrite" ]
+    branches: ["master", "rewrite-the-rewrite" ]
   schedule:
     - cron: '38 17 * * 5'
 
