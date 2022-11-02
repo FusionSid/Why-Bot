@@ -29,7 +29,7 @@ async def get_request(
             if return_resp:
                 return resp
 
-            if resp.ok == False:
+            if resp.ok is False:
                 return None
 
             try:
@@ -65,12 +65,12 @@ async def post_request(
         kwargs["timeout"] = aiohttp.ClientTimeout(total=timeout)
     async with aiohttp.ClientSession(**kwargs) as session:
         # decide if to do json=body or data=body in session.post()
-        json_or_data = "json" if json == True else "data"
+        json_or_data = "json" if json is True else "data"
         async with session.post(url, **{json_or_data: body}) as resp:
             if return_resp:
                 return resp
 
-            if resp.ok == False:
+            if resp.ok is False:
                 return None
 
             try:
@@ -109,7 +109,7 @@ async def get_request_bytes(
             if return_resp:
                 return resp
 
-            if resp.ok == False:
+            if resp.ok is False:
                 return None
 
             if bytes_io:
@@ -146,12 +146,12 @@ async def post_request_bytes(
 
     async with aiohttp.ClientSession(**kwargs) as session:
         # decide if to do json=body or data=body in session.post()
-        json_or_data = "json" if json == True else "data"
+        json_or_data = "json" if json is True else "data"
         async with session.post(url, **{json_or_data: body}) as resp:
             if return_resp:
                 return resp
 
-            if resp.ok == False:
+            if resp.ok is False:
                 return None
 
             if bytes_io:

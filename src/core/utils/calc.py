@@ -30,7 +30,7 @@ async def slow_safe_calculate(expr: str, only_int: bool = False) -> int | str | 
         async with session.get(f"http://api.mathjs.org/v4/?expr={expression}") as r:
             result = await r.text()
 
-    if only_int and result.isnumeric() == False:
+    if only_int and result.isnumeric() is False:
         return None
 
     if only_int:

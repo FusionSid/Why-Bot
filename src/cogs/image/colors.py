@@ -22,7 +22,7 @@ class Colors(commands.Cog):
                 data={"image": file},
             ) as resp:
                 response = await resp.json()
-                if resp.ok == False:
+                if resp.ok is False:
                     return await ctx.respond(
                         embed=discord.Embed(
                             title="An error occured while trying to get the image",

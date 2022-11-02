@@ -212,7 +212,7 @@ class Counting(commands.Cog):
         elif (
             counting_data.counting_channel is None
             or counting_data.plugin_enabled is None
-            or counting_data.plugin_enabled == False
+            or counting_data.plugin_enabled is False
         ):
             return await ctx.respond(
                 embed=discord.Embed(
@@ -247,7 +247,7 @@ class Counting(commands.Cog):
         elif (
             counting_data.counting_channel is None
             or counting_data.plugin_enabled is None
-            or counting_data.plugin_enabled == False
+            or counting_data.plugin_enabled is False
         ):
             return await ctx.respond(
                 embed=discord.Embed(
@@ -358,7 +358,7 @@ class Counting(commands.Cog):
 
         if (
             counting_data.counting_channel != message.channel.id
-            or counting_data.plugin_enabled == False
+            or counting_data.plugin_enabled is False
         ):
             return
 

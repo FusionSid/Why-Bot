@@ -30,7 +30,7 @@ class OnEvent(commands.Cog):
 
         if (
             self.client.user.mentioned_in(message)
-            and message.mention_everyone == False
+            and message.mention_everyone is False
             and message.reference is None
         ):
             em = discord.Embed(

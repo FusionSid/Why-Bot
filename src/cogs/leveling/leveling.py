@@ -49,7 +49,7 @@ class Leveling(commands.Cog):
             )
 
         on_cooldown = await self.is_member_cooldown(message)
-        if on_cooldown == True:
+        if on_cooldown is True:
             return
 
         leveling_data = await get_level_data(self.client.db, message.guild.id)
@@ -57,7 +57,7 @@ class Leveling(commands.Cog):
             return await setup_leveling_guild(self.client.db, message.guild.id)
 
         if (
-            leveling_data.plugin_enabled == False
+            leveling_data.plugin_enabled is False
             or message.channel.id in leveling_data.no_xp_channels
             or bool(
                 set(leveling_data.no_xp_roles)
