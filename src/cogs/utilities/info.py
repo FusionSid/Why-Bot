@@ -25,7 +25,7 @@ class Info(commands.Cog):
         roles = [role for role in member.roles]
         em = discord.Embed(
             title="User Info",
-            description=f"For: {member.name}{' [BOT]' if member.bot else ''}",
+            description=f"For: {member.name}{' [BOT]' if member.bot else ''}\nDisplay Name: {member.display_name}",
             color=ctx.author.color,
         )
         emojis = self.client.get_why_emojies

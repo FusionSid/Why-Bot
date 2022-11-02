@@ -243,11 +243,13 @@ class Fun(commands.Cog):
             "peanut",
         ]
 
-        hack_message = await ctx.send(f"[▖] Hacking {member.name} now...")
+        hack_message = await ctx.send(f"[▖] Hacking {member.display_name} now...")
         await asyncio.sleep(1.420)
         await hack_message.edit(content="[▘] Finding discord login... (2fa bypassed)")
         await asyncio.sleep(1.69)
-        email = f"{member.name}.{random.randint(1, 100)}@{random.choice(email_ext)}"
+        email = (
+            f"{member.display_name}.{random.randint(1, 100)}@{random.choice(email_ext)}"
+        )
         await hack_message.edit(
             content=f"[▝] `Email: {email}`\n    `Password: {random.choice(passwords)}`"
         )

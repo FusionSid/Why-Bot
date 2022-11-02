@@ -364,7 +364,7 @@ class Counting(commands.Cog):
 
         if potential_number != counting_data.next_number:
             em = discord.Embed(
-                title=f"{message.author.name}, You ruined it!",
+                title=f"{message.author.display_name}, You ruined it!",
                 description=(
                     f"You were supposed to type `{counting_data.next_number}`\nCount"
                     " reset to zero"
@@ -377,7 +377,7 @@ class Counting(commands.Cog):
 
         elif counting_data.last_counter == message.author.id:
             em = discord.Embed(
-                title=f"{message.author.name}, You ruined it!",
+                title=f"{message.author.display_name}, You ruined it!",
                 description=(
                     "You fool, only one person can count a time and since you did"
                     f" {counting_data.current_number} you cant do"

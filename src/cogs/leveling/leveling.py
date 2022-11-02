@@ -256,7 +256,7 @@ class Leveling(commands.Cog):
 
         await ctx.respond(
             embed=discord.Embed(
-                title=f"{ctx.author.name} - Rank #{idx+1}",
+                title=f"{ctx.author.display_name} - Rank #{idx+1}",
                 description=(
                     f"XP: {member[3]}/{await xp_needed(member[4]+1)}. Total XP:"
                     f" {member[5]}\n\n**This embed is a placeholder for an image card**"

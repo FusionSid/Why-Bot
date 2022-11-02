@@ -82,7 +82,7 @@ class Poll(commands.Cog):
             reactions_todo.append(emoji)
 
         em = discord.Embed(
-            title=f'{ctx.author.name} asks: "{title}"',
+            title=f'{ctx.author.display_name} asks: "{title}"',
             description=desc,
             color=discord.Color.random(),
         )
