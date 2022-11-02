@@ -85,6 +85,25 @@ class BotInfoView(discord.ui.View):
         )
 
 
+class LinkView(discord.ui.View):
+    """
+    This is a view that contains a bunch of buttons.
+    There can be as many buttons as you want (obviously not more than the limit)
+    Each button is in this format: [title, link]
+    """
+
+    def __init__(self, *links: tuple[list[str]]):
+        super().__init__(timeout=None)
+        for link in links:
+            self.add_item(
+                discord.ui.Button(
+                    style=discord.ButtonStyle.grey,
+                    label=link[0],
+                    url=link[1],
+                )
+            )
+
+
 class CalculatorView(discord.ui.View):
     """This is a view for the calculator"""
 
