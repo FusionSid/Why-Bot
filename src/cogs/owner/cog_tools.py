@@ -106,8 +106,8 @@ class CogTools(commands.Cog):
 
         cogs = self.client.cogs_list.values()
 
-        for cogs in cogs:
-            self.client.reload_extension(cogs)
+        for cog in cogs:
+            self.client.reload_extension(cog)
 
         await ctx.respond(
             embed=discord.Embed(title="All Cogs Reloaded", color=ctx.author.color),

@@ -19,7 +19,7 @@ class Info(commands.Cog):
         self.cog_check = run_bot_checks
 
     async def get_info(self, ctx, member: discord.Member = None):
-        if member == None:
+        if member is None:
             member = ctx.author
 
         roles = list(member.roles)
