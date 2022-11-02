@@ -35,7 +35,7 @@ async def get_level_data(db: asyncpg.Pool, guild_id: int) -> LevelingDataGuild |
     """
 
     data = await db.fetch("SELECT * FROM leveling_guild WHERE guild_id=$1", guild_id)
-    if not len(data):
+    if not data:
         return None
 
     return LevelingDataGuild(*data[0])
@@ -63,7 +63,7 @@ async def get_member_data(
         guild_id,
     )
 
-    if not len(data):
+    if not data:
         DEFAULT_MEMBER_DATA: Final[int] = [
             guild_id,
             member.id,

@@ -23,7 +23,7 @@ class Alerts(commands.Cog):
         data = await self.client.db.fetch(
             "SELECT * FROM alerts_users WHERE user_id=$1", ctx.author.id
         )
-        if not len(data):
+        if not data:
             await self.setup_settings(ctx.author.id, self.client.db)
             data = [[ctx.author.id, False, False]]
         data = data[0]
@@ -76,7 +76,7 @@ class Alerts(commands.Cog):
         data = await self.client.db.fetch(
             "SELECT * FROM alerts_users WHERE user_id=$1", ctx.author.id
         )
-        if not len(data):
+        if not data:
             await self.setup_settings(ctx.author.id, self.client.db)
             data = [[ctx.author.id, False, False]]
         data = data[0]

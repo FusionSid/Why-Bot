@@ -80,7 +80,7 @@ class DMReply(commands.Cog):
             data = await self.client.db.fetch(
                 "SELECT * FROM dmreply WHERE thread_id=$1", message.channel.id
             )
-            if not len(data):
+            if not data:
                 return
 
             person = await self.client.fetch_user(data[0][0])
@@ -110,7 +110,7 @@ class DMReply(commands.Cog):
             "SELECT * FROM dmreply WHERE user_id=$1", author.id
         )
 
-        if not len(thread_id):
+        if not thread_id:
             thread_id = None
 
         thread = None
@@ -188,7 +188,7 @@ class DMReply(commands.Cog):
             "SELECT * FROM dmreply WHERE user_id=$1", author_id
         )
 
-        if not len(thread_id):
+        if not thread_id:
             thread_id = None
 
         if thread_id is not None:

@@ -43,7 +43,7 @@ class Counting(commands.Cog):
             "SELECT * FROM counting WHERE guild_id=$1", guild_id
         )
 
-        if not len(data):
+        if not data:
             return None
 
         await self.client.redis.set(key, json.dumps(list(data[0])))
