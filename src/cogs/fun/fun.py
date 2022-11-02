@@ -18,7 +18,8 @@ class Fun(commands.Cog):
         self.client = client
         self.cog_check = run_bot_checks
 
-    async def gen_crab(self, t1, t2, ctx):
+    @staticmethod
+    async def gen_crab(t1, t2, ctx):
         path = os.path.join(
             os.path.dirname(__main__.__file__).replace("src", ""),
             "assets/videos/crab.mp4",

@@ -13,8 +13,8 @@ class Alerts(commands.Cog):
         self.client = client
         self.cog_check = run_bot_checks
 
-    async def setup_settings(self, member_id: int, db):
-        return await db.execute(
+    async def setup_settings(self, member_id: int):
+        return await self.client.db.execute(
             "INSERT INTO alerts_users (user_id) VALUES ($1)", member_id
         )
 
@@ -24,7 +24,7 @@ class Alerts(commands.Cog):
             "SELECT * FROM alerts_users WHERE user_id=$1", ctx.author.id
         )
         if not data:
-            await self.setup_settings(ctx.author.id, self.client.db)
+            await self.setup_settings(ctx.author.id)
             data = [[ctx.author.id, False, False]]
         data = data[0]
 
@@ -77,7 +77,7 @@ class Alerts(commands.Cog):
             "SELECT * FROM alerts_users WHERE user_id=$1", ctx.author.id
         )
         if not data:
-            await self.setup_settings(ctx.author.id, self.client.db)
+            await self.setup_settings(ctx.author.id)
             data = [[ctx.author.id, False, False]]
         data = data[0]
 

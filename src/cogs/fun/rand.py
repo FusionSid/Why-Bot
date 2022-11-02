@@ -22,7 +22,8 @@ class Random(commands.Cog):
         self.client = client
         self.cog_check = run_bot_checks
 
-    async def open_json_fun(self):
+    @staticmethod
+    async def open_json_fun():
         path = os.path.join(
             os.path.dirname(__main__.__file__).replace("src", ""),
             "assets/json_files/fun_text.json",
