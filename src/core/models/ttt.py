@@ -52,10 +52,7 @@ class TicTacToeGame:
         Returns:
             bool: if draw it returns True else False
         """
-        for row in self.board:
-            if FREE_SPACE in row:
-                return False
-        return True
+        return all(FREE_SPACE not in row for row in self.board)
 
     def check_win(self) -> bool:
         """
