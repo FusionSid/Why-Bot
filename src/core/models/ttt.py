@@ -133,9 +133,6 @@ class TicTacToeAI(TicTacToeGame):
     The ai is just to smart cause why bot is massive brain
     """
 
-    def __init__(self):
-        super().__init__()
-
     def check_mark_win(self, mark):
         # Horizontal Wins
         for row in self.board:
@@ -355,9 +352,6 @@ class TicTacToeAIButton(TicTacToe2PlayerButton):
     Class for a single button (out of 9) on the member vs ai mode for tic tac toe
     This will be used by the TicTacToeAIView
     """
-
-    def __init__(self, pos):
-        super().__init__(pos)
 
     async def callback(self, interaction: discord.Interaction):
         await interaction.response.defer()
