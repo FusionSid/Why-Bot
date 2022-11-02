@@ -221,7 +221,7 @@ class Leveling(commands.Cog):
             embed.add_field(name="Options:", value="\n".join(options), inline=False)
             embed.add_field(
                 name="Example:",
-                value="GG {member.name}, you just reached level \**{level}**!",
+                value="GG {member.name}, you just reached level \\**{level}**!",
                 inline=False,
             )
             return await ctx.respond(embed=embed)

@@ -51,7 +51,7 @@ class Banning(commands.Cog):
         reason=None,
     ):
         try:
-            members = [int(i) for i in re.sub("\<|\>|@", "", members).split(" ")]
+            members = [int(i) for i in re.sub("\\<|\\>|@", "", members).split(" ")]
         except ValueError:
             return await ctx.respond("Invalid input was provided", ephemeral=True)
         banned_members = []
@@ -131,7 +131,7 @@ class Banning(commands.Cog):
         reason=None,
     ):
         try:
-            members = [int(i) for i in re.sub("\<|\>|@", "", members).split(" ")]
+            members = [int(i) for i in re.sub("\\<|\\>|@", "", members).split(" ")]
         except ValueError:
             return await ctx.respond("Invalid input was provided", ephemeral=True)
         kicked_members = []
