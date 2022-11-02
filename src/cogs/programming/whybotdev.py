@@ -8,6 +8,7 @@ from discord.ext import commands
 
 from core.models import WhyBot
 from core.helpers.checks import run_bot_checks
+from core.helpers.http import get_request
 
 
 class WhyBotDev(commands.Cog):
@@ -192,6 +193,38 @@ class WhyBotDev(commands.Cog):
         await ctx.respond(
             "https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands"
         )
+
+    @why_dev.command()
+    async def recent_commit(self, ctx):
+        # URL = "https://api.github.com/repos/FusionSid/Why-Bot/commits/master"
+        URL = (
+            "https://api.github.com/repos/FusionSid/Why-Bot/commits/rewrite-the-rewrite"
+        )
+        response = await get_request(URL)
+        if response is None:
+            em = discord.Embed(
+                title="An error occured while trying to get the commit",
+                description=(
+                    "API basically had a skill issue.\nIf this persists and you are able to, report this as a bug with </bug:0> :)"
+                ),
+                color=discord.Colour.red(),
+            )
+            return await ctx.respond(embed=em, ephemeral=True)
+
+        em = discord.Embed(
+            title="Why Bot - Most Recent Commit",
+            description=f"Commit: [{response.get('sha')}]({response.get('html_url')})",
+            color=discord.Color.random(),
+        )
+        if (commit_info := response.get("committer")) is not None:
+            em.set_author(
+                name=f"Author: {commit_info.get('login')}",
+                icon_url=commit_info.get("avatar_url"),
+            )
+        if response.get("commit") is not None:
+            em.add_field(name="Message:", value=response["commit"].get("message"))
+
+        await ctx.respond(embed=em)
 
 
 def setup(client):
