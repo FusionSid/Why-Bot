@@ -61,7 +61,7 @@ class Leveling(commands.Cog):
             or message.channel.id in leveling_data.no_xp_channels
             or bool(
                 set(leveling_data.no_xp_roles)
-                & set(role.id for role in message.author.roles)
+                & {role.id for role in message.author.roles}
             )
         ):
             return
