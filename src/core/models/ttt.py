@@ -275,17 +275,18 @@ class TicTacToe2PlayerButton(discord.ui.Button):
 class TicTacToe2PlayerView(discord.ui.View):
     """View for tic tac toe member vs member mode"""
 
-    def __init__(self, player1: discord.Member, player2: discord.Member):
-        self.game = TicTacToeGame()
-        self.p1 = player1
-        self.p2 = player2
+    def __init__(self, player1: discord.Member = None, player2: discord.Member = None):
+        if player1 is None is player2:
+            self.game = TicTacToeGame()
+            self.p1 = player1
+            self.p2 = player2
 
-        self.current_player = player2
+            self.current_player = player2
+
+            for pos in range(1, 10):
+                self.add_item(TicTacToe2PlayerButton(pos))
 
         super().__init__(timeout=500)
-
-        for pos in range(1, 10):
-            self.add_item(TicTacToe2PlayerButton(pos))
 
     async def redraw_buttons(self):
         for idxa, row in enumerate(self.game.board):
@@ -327,10 +328,10 @@ class TicTacToeAIView(TicTacToe2PlayerView):
 
         self.current_player = player
 
-        discord.ui.View.__init__(self, timeout=500)
-
         for pos in range(1, 10):
             self.add_item(TicTacToeAIButton(pos))
+
+        super().__init__()
 
     async def interaction_check(self, interaction) -> bool:
         if interaction.user != self.current_player:

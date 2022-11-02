@@ -28,6 +28,7 @@ class RichBaseException(BaseException):
             border_style="red",
         )
         Console().print(error_message, justify="left")
+        super().__init__()
 
 
 class ConfigNotFound(RichBaseException):
