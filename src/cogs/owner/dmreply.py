@@ -23,7 +23,7 @@ class DMReply(commands.Cog):
         self.client = client
 
         dm_channel = self.client.config["dm_reply_channel"]
-        if dm_channel == 0 or dm_channel == None:
+        if dm_channel in (0, None):
             self.dm_reply_channel = None
         self.dm_reply_channel = dm_channel
 

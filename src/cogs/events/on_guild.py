@@ -22,7 +22,7 @@ class OnGuild(commands.Cog):
         """
         await update_activity(self.client)
         leave_alert_channel = self.client.config["leave_alert_channel"]
-        if leave_alert_channel == 0 or leave_alert_channel == None:
+        if leave_alert_channel in (0, None):
             return
 
         try:
@@ -49,7 +49,7 @@ class OnGuild(commands.Cog):
         await update_activity(self.client)
 
         join_alert_channel = self.client.config["join_alert_channel"]
-        if join_alert_channel == 0 or join_alert_channel == None:
+        if join_alert_channel in (0, None):
             return
 
         try:

@@ -65,7 +65,7 @@ class OnEvent(commands.Cog):
         # Send online alert
         online_alert_channel = self.client.config["online_alert_channel"]
 
-        if online_alert_channel == 0 or online_alert_channel == None:
+        if online_alert_channel in (0, None):
             return
 
         try:
