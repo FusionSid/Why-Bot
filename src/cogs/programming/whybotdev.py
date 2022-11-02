@@ -182,7 +182,6 @@ class WhyBotDev(commands.Cog):
                 ["Github Issue Link", response.get("html_url")],
                 ["Why Bot Discord", "https://discord.gg/Jm8QPF6xbN"],
             )
-            f"Github Link: <{response.get('html_url')}>"
             await ctx.followup.send(
                 embed=discord.Embed(
                     title="Github Issue URL",

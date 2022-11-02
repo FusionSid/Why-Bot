@@ -146,7 +146,7 @@ class Random(commands.Cog):
 
     @random.command()
     async def color(self, ctx):
-        color = tuple([random.randint(0, 255) for i in range(3)])
+        color = tuple(random.randint(0, 255) for _ in range(3))
         img = Image.new("RGB", (500, 500), color)
         send = io.BytesIO()
         img.save(send, "PNG")
