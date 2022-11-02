@@ -77,9 +77,7 @@ class WhyBotDev(commands.Cog):
 
     @why_dev.command()
     async def uptime(self, ctx):
-        """
-        This command is used to get the uptime for the bot
-        """
+        """This command is used to get the uptime for the bot"""
 
         em = discord.Embed(
             title="Why bot uptime",
@@ -198,9 +196,8 @@ class WhyBotDev(commands.Cog):
         name="botinvite", description="Get a link to invite Why-Bot to the server"
     )
     async def botinvite(self, ctx: discord.commands.ApplicationContext):
-        """
-        This command is used to get the invite link for the bot
-        """
+        """This command is used to get the invite link for the bot"""
+
         view = LinkView(
             [
                 "Invite Link",
@@ -232,7 +229,7 @@ class WhyBotDev(commands.Cog):
 
     @why_dev.command()
     async def recent_commit(self, ctx):
-        # URL = "https://api.github.com/repos/FusionSid/Why-Bot/commits/master"
+        # "https://api.github.com/repos/FusionSid/Why-Bot/commits/master"
         URL = (
             "https://api.github.com/repos/FusionSid/Why-Bot/commits/rewrite-the-rewrite"
         )

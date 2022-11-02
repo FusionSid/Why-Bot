@@ -119,9 +119,8 @@ class WhyBot(commands.Bot):
         return [int(user[0]) for user in users]
 
     async def reset_redis_blacklisted_cache(self):
-        """
-        This function resets the blacklisted cache for the bot
-        """
+        """This function resets the blacklisted cache for the bot"""
+
         await self.redis.delete("blacklisted")
         users = [int(user) for user in await self.get_blacklisted_users()]
         if len(users):

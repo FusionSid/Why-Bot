@@ -3,9 +3,7 @@ from dataclasses import dataclass
 
 @dataclass
 class Tag:
-    """
-    Dataclass for tags
-    """
+    """Dataclass for tags"""
 
     guild_id: int
     tag_name: str

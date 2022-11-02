@@ -165,18 +165,16 @@ class DMReply(commands.Cog):
     @commands.slash_command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def dm_ban(self, ctx, _id: int):
-        """
-        TODO
-        """
-        pass
+        """TODO"""
+
+        raise NotImplementedError
 
     @commands.slash_command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def dm_unban(self, ctx, _id: int):
-        """
-        TODO
-        """
-        pass
+        """TODO"""
+
+        raise NotImplementedError
 
     @commands.slash_command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()

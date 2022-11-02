@@ -11,9 +11,8 @@ async def get_request(
     timeout: int = None,
     return_resp: bool = False,
 ):
-    """
-    Makes a get request and returns the json or text result
-    """
+    """Makes a get request and returns the json or text result"""
+
     if data is not None:
         url = f"{url}?{urlencode(data)}"
 
@@ -50,9 +49,7 @@ async def post_request(
     timeout: int = None,
     return_resp: bool = False,
 ):
-    """
-    Makes a post request and returns the json or text result
-    """
+    """Makes a post request and returns the json or text result"""
 
     if data is not None:
         url = f"{url}?{urlencode(data)}"
@@ -90,9 +87,7 @@ async def get_request_bytes(
     return_resp: bool = False,
     bytes_io: bool = False,
 ):
-    """
-    Makes a get request and returns the byte result. This is useful for something like a file/image
-    """
+    """Makes a get request and returns the byte result. This is useful for something like a file/image"""
 
     if data is not None:
         url = f"{url}?{urlencode(data)}"
@@ -130,9 +125,7 @@ async def post_request_bytes(
     return_resp: bool = False,
     bytes_io: bool = False,
 ):
-    """
-    Makes a post request and returns the byte result. This is useful for something like a file/image
-    """
+    """Makes a post request and returns the byte result. This is useful for something like a file/image"""
 
     if data is not None:
         url = f"{url}?{urlencode(data)}"

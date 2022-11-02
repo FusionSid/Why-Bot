@@ -7,9 +7,7 @@ from dataclasses import dataclass
 
 @dataclass
 class CountingData:
-    """
-    dataclass to help with counting data information from the coutning table
-    """
+    """dataclass to help with counting data information from the counting table"""
 
     guild_id: int
     last_counter: int | None

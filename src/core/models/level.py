@@ -39,9 +39,7 @@ class LevelingDataGuild:
 
 @dataclass
 class LevelingDataMember:
-    """
-    Dataclass to help with the leveling data member table
-    """
+    """Dataclass to help with the leveling data member table"""
 
     guild_id: int
     member_id: int

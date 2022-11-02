@@ -80,9 +80,8 @@ class Info(commands.Cog):
 
     @commands.slash_command(name="info", description="Gets info on a member")
     async def info(self, ctx, member: discord.Member = None):
-        """
-        This command is used to get info on a member
-        """
+        """This command is used to get info on a member"""
+
         await self.get_info(ctx, member)
 
     @commands.user_command(name="Get User Info")
@@ -95,9 +94,8 @@ class Info(commands.Cog):
     @commands.slash_command(name="serverinfo", description="Shows server info")
     @commands.guild_only()
     async def serverinfo(self, ctx: commands.Context):
-        """
-        This command is used to get info on the server
-        """
+        """This command is used to get info on the server"""
+
         GUILD = ctx.guild
 
         text = len(GUILD.text_channels)
@@ -165,9 +163,7 @@ class Info(commands.Cog):
 
     @commands.slash_command(name="botinfo", description="Gets info on Why Bot")
     async def botinfo(self, ctx):
-        """
-        This command is used to get info on the bot
-        """
+        """This command is used to get info on the bot"""
 
         em = discord.Embed(
             title=f"Why Bot v{self.client.version}",
@@ -256,9 +252,8 @@ class Info(commands.Cog):
         description="Get the amount of people that a member has invited to the server",
     )
     async def invites(self, ctx, member: discord.Member = None):
-        """
-        This command is used to get the amount of people that a member has invited to the server
-        """
+        """This command is used to get the amount of people that a member has invited to the server"""
+
         if member is None:
             member = ctx.author
 

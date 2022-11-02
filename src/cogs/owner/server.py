@@ -66,9 +66,8 @@ class Server(commands.Cog):
     @commands.slash_command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def fetch_server_info(self, ctx, server_id: int):
-        """
-        This command is used to get info on a server that the bot is in
-        """
+        """This command is used to get info on a server that the bot is in"""
+
         guild = self.client.get_guild(server_id)
 
         em = discord.Embed(
@@ -98,7 +97,8 @@ class Server(commands.Cog):
     @commands.is_owner()
     async def fetch_user_info(self, ctx, user: str):
         """
-        This command is used to fetch info a specific user. It is useful if you are messaging someone in dmreply and want to know who you are messaging
+        This command is used to fetch info a specific user.
+        It is useful if you are messaging someone in dmreply and want to know who you are messaging
         """
 
         try:

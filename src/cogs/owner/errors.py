@@ -37,9 +37,8 @@ class ErrorLog(commands.Cog):
     @error.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def get_last_error(self, ctx, limit: int = 1):
-        """
-        This command is used to get the most recent errors/error that the bot logged to the log file
-        """
+        """This command is used to get the most recent errors/error that the bot logged to the log file"""
+
         await ctx.defer()
         if limit >= 24:
             return await ctx.respond(

@@ -4,9 +4,7 @@ import discord
 
 
 class RockPaperScissorsView(discord.ui.View):
-    """
-    Rock paper scissors game view
-    """
+    """Rock paper scissors game view"""
 
     def __init__(self, player1: discord.Member, player2: discord.Member):
         self.results = {}

@@ -19,9 +19,8 @@ class Utilities(commands.Cog):
 
     @utilities.command(name="calculator", description="Interactive button calculator")
     async def calculator(self, ctx):
-        """
-        This command is used to show an interactive button calculator
-        """
+        """This command is used to show an interactive button calculator"""
+
         await ctx.defer()
 
         view = CalculatorView(ctx)
@@ -46,9 +45,8 @@ class Utilities(commands.Cog):
     async def invite(
         self, ctx: commands.Context, expire_in: str = None, max_uses: str = None
     ):
-        """
-        This command is used to make an invite for the server
-        """
+        """This command is used to make an invite for the server"""
+
         expire_in = 0 if expire_in is not None else expire_in
         max_uses = 0 if max_uses is not None else max_uses
 

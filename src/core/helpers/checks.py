@@ -14,9 +14,8 @@ from core.utils.client_functions import get_why_config
 
 
 async def blacklist_check(user_id: int) -> bool:
-    """
-    returns true if the user is not blacklisted
-    """
+    """returns true if the user is not blacklisted"""
+
     config = get_why_config()
 
     redis_url = config["REDIS_URI"]

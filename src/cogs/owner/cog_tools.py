@@ -16,9 +16,8 @@ class CogTools(commands.Cog):
     @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def reload(self, ctx, extension):
-        """
-        This command is used to reload a cog
-        """
+        """This command is used to reload a cog"""
+
         if extension not in self.client.cogs_list.keys():
             return await ctx.respond(
                 embed=discord.Embed(
@@ -40,9 +39,8 @@ class CogTools(commands.Cog):
     @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def load(self, ctx, extension, name):
-        """
-        This command is used to load a cog
-        """
+        """This command is used to load a cog"""
+
         try:
             self.client.load_extension(extension)
         except discord.ApplicationCommandInvokeError:
@@ -66,9 +64,7 @@ class CogTools(commands.Cog):
     @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def unload(self, ctx, extension):
-        """
-        This command is used to unload a cog
-        """
+        """This command is used to unload a cog"""
 
         if extension not in self.client.cogs_list.keys():
             await ctx.respond(
@@ -93,9 +89,7 @@ class CogTools(commands.Cog):
     @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def listcogs(self, ctx):
-        """
-        This command lists the cogs that the bot has
-        """
+        """This command lists the cogs that the bot has"""
         return await ctx.respond(
             embed=discord.Embed(
                 title="Why Bot Cogs List",
@@ -108,9 +102,8 @@ class CogTools(commands.Cog):
     @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
     async def reloadall(self, ctx):
-        """
-        This command is used to reload all the cogs
-        """
+        """This command is used to reload all the cogs"""
+
         cogs = self.client.cogs_list.values()
 
         for cogs in cogs:

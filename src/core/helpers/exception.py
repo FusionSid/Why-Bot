@@ -10,9 +10,7 @@ from rich.console import Console
 
 
 class BaseException(Exception):
-    """
-    Base class for other exceptions to inherit form
-    """
+    """Base class for other exceptions to inherit form"""
 
     pass
 

@@ -273,9 +273,7 @@ class TicTacToe2PlayerButton(discord.ui.Button):
 
 
 class TicTacToe2PlayerView(discord.ui.View):
-    """
-    View for tic tac toe member vs member mode
-    """
+    """View for tic tac toe member vs member mode"""
 
     def __init__(self, player1: discord.Member, player2: discord.Member):
         self.game = TicTacToeGame()
@@ -321,9 +319,7 @@ class TicTacToe2PlayerView(discord.ui.View):
 
 
 class TicTacToeAIView(TicTacToe2PlayerView):
-    """
-    View for tic tac toe member vs ai mode
-    """
+    """View for tic tac toe member vs ai mode"""
 
     def __init__(self, player):
         self.game = TicTacToeAI()
