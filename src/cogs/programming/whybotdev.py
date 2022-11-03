@@ -3,6 +3,7 @@ import json
 import time
 import inspect
 import datetime
+from dateutil import parser
 
 import discord
 from discord.commands import SlashCommandGroup
@@ -11,6 +12,7 @@ from discord.ext import commands
 from core.models import WhyBot
 from core.helpers.views import LinkView
 from core.helpers.checks import run_bot_checks
+from core.utils.formatters import discord_timestamp
 from core.helpers.http import get_request, post_request
 
 
@@ -254,7 +256,18 @@ class WhyBotDev(commands.Cog):
                 icon_url=commit_info.get("avatar_url"),
             )
         if response.get("commit") is not None:
-            em.add_field(name="Message:", value=response["commit"].get("message"))
+            em.add_field(
+                name="Message:", value=response["commit"].get("message"), inline=False
+            )
+
+            date = parser.parse(response["commit"]["committer"].get("date"))
+            date = int(date.timestamp())
+
+            em.add_field(
+                name="When:",
+                value=f"{await discord_timestamp(date, 'ts')} {await discord_timestamp(date, 'md_yt')}",
+                inline=False,
+            )
 
         view = LinkView(["Link to commit", response.get("html_url")])
         await ctx.respond(embed=em, view=view)
