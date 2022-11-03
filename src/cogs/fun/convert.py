@@ -26,7 +26,9 @@ class TextConvert(commands.Cog):
 
     @textconvert.command()
     async def stickycaps(
-        self, ctx, *, text: discord.Option(str, "The text to convert")
+        self,
+        ctx: discord.ApplicationContext,
+        text: discord.Option(str, "The text to convert"),
     ):
         functions = [str.upper, str.lower]
         result = "".join(random.choice(functions)(char) for char in text)
@@ -36,7 +38,10 @@ class TextConvert(commands.Cog):
 
     @textconvert.command()
     async def expand(
-        self, ctx, space: int, *, text: discord.Option(str, "The text to convert")
+        self,
+        ctx: discord.ApplicationContext,
+        space: int,
+        text: discord.Option(str, "The text to convert"),
     ):
         spacing = " " * space
         result = spacing.join(text)
@@ -45,14 +50,22 @@ class TextConvert(commands.Cog):
         await ctx.respond("Too long to send :(")
 
     @textconvert.command()
-    async def reverse(self, ctx, *, text: discord.Option(str, "The text to convert")):
+    async def reverse(
+        self,
+        ctx: discord.ApplicationContext,
+        text: discord.Option(str, "The text to convert"),
+    ):
         result = text[::-1]
         if len(result) <= 1999:
             return await ctx.respond(result)
         await ctx.respond("Too long to send :(")
 
     @textconvert.command()
-    async def texttohex(self, ctx, *, text: discord.Option(str, "The text to convert")):
+    async def texttohex(
+        self,
+        ctx: discord.ApplicationContext,
+        text: discord.Option(str, "The text to convert"),
+    ):
         try:
             hex_output = " ".join(f"{ord(char):02x}" for char in text)
         except Exception as e:
@@ -64,7 +77,11 @@ class TextConvert(commands.Cog):
         await ctx.respond("Too long to send :(")
 
     @textconvert.command()
-    async def hextotext(self, ctx, *, text: discord.Option(str, "The text to convert")):
+    async def hextotext(
+        self,
+        ctx: discord.ApplicationContext,
+        text: discord.Option(str, "The text to convert"),
+    ):
         try:
             text_output = bytearray.fromhex(text).decode()
         except Exception as e:
@@ -77,7 +94,9 @@ class TextConvert(commands.Cog):
 
     @textconvert.command()
     async def texttobinary(
-        self, ctx, *, text: discord.Option(str, "The text to convert")
+        self,
+        ctx: discord.ApplicationContext,
+        text: discord.Option(str, "The text to convert"),
     ):
         try:
             binary_output = " ".join(format(ord(char), "b") for char in text)
@@ -91,7 +110,9 @@ class TextConvert(commands.Cog):
 
     @textconvert.command()
     async def binarytotext(
-        self, ctx, *, text: discord.Option(str, "The text to convert")
+        self,
+        ctx: discord.ApplicationContext,
+        text: discord.Option(str, "The text to convert"),
     ):
         try:
             text_output = "".join([chr(int(char, 2)) for char in text.split()])
@@ -104,7 +125,11 @@ class TextConvert(commands.Cog):
         await ctx.respond("Too long to send :(")
 
     @textconvert.command()
-    async def emojify(self, ctx, *, text: discord.Option(str, "The text to convert")):
+    async def emojify(
+        self,
+        ctx: discord.ApplicationContext,
+        text: discord.Option(str, "The text to convert"),
+    ):
         emojis = []
 
         extra = {
@@ -139,7 +164,7 @@ class TextConvert(commands.Cog):
     @textconvert.command()
     async def ascii(
         self,
-        ctx,
+        ctx: discord.ApplicationContext,
         message: str,
         color: discord.Option(
             str,
@@ -171,7 +196,11 @@ class TextConvert(commands.Cog):
 
     @textconvert.command()
     async def fontconvert(
-        self, ctx, message: str, font: str = None, color: str = "black"
+        self,
+        ctx: discord.ApplicationContext,
+        message: str,
+        font: str = None,
+        color: str = "black",
     ):
         if font is None:
             return await ctx.respond(

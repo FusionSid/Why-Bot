@@ -54,7 +54,7 @@ class Counting(commands.Cog):
     @commands.has_guild_permissions(administrator=True)
     async def setchannel(
         self,
-        ctx,
+        ctx: discord.ApplicationContext,
         channel: discord.Option(
             discord.TextChannel, "The counting channel", required=True
         ),
@@ -84,7 +84,7 @@ class Counting(commands.Cog):
     @commands.has_guild_permissions(administrator=True)
     async def enable(
         self,
-        ctx,
+        ctx: discord.ApplicationContext,
     ):
         counting_data = await self.get_counting_data(ctx.guild.id, skip_cache=True)
         if counting_data is None:
@@ -144,7 +144,7 @@ class Counting(commands.Cog):
     @commands.has_guild_permissions(administrator=True)
     async def toggle_auto_calc(
         self,
-        ctx,
+        ctx: discord.ApplicationContext,
     ):
         counting_data = await self.get_counting_data(ctx.guild.id, skip_cache=True)
         if counting_data is None:
@@ -178,7 +178,7 @@ class Counting(commands.Cog):
     @commands.has_guild_permissions(administrator=True)
     async def disable(
         self,
-        ctx,
+        ctx: discord.ApplicationContext,
     ):
         counting_data = await self.get_counting_data(ctx.guild.id, skip_cache=True)
         if counting_data is None:
@@ -205,7 +205,7 @@ class Counting(commands.Cog):
 
     @counting.command()
     @commands.guild_only()
-    async def current_number(self, ctx):
+    async def current_number(self, ctx: discord.ApplicationContext):
         counting_data = await self.get_counting_data(ctx.guild.id, skip_cache=True)
         if counting_data is None:
             await setup_counting(self.client.db, ctx.guild.id)
@@ -240,7 +240,7 @@ class Counting(commands.Cog):
 
     @counting.command()
     @commands.guild_only()
-    async def high_score(self, ctx):
+    async def high_score(self, ctx: discord.ApplicationContext):
         counting_data = await self.get_counting_data(ctx.guild.id, skip_cache=True)
         if counting_data is None:
             await setup_counting(self.client.db, ctx.guild.id)
@@ -275,7 +275,7 @@ class Counting(commands.Cog):
 
     @counting.command()
     @commands.guild_only()
-    async def leaderboard(self, ctx):
+    async def leaderboard(self, ctx: discord.ApplicationContext):
         await ctx.defer()
         counting_data = await self.client.db.fetch(
             "SELECT * FROM counting ORDER BY high_score"

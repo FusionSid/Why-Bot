@@ -37,32 +37,32 @@ class Random(commands.Cog):
     random = SlashCommandGroup("random", "Random commands")
 
     @random.command()
-    async def compliment(self, ctx):
+    async def compliment(self, ctx: discord.ApplicationContext):
         data = await self.open_json_fun()
         await ctx.respond(random.choice(data["compliment"]))
 
     @random.command()
-    async def dare(self, ctx):
+    async def dare(self, ctx: discord.ApplicationContext):
         data = await self.open_json_fun()
         await ctx.respond(random.choice(data["dares"]))
 
     @random.command()
-    async def fact(self, ctx):
+    async def fact(self, ctx: discord.ApplicationContext):
         data = await self.open_json_fun()
         await ctx.respond(random.choice(data["facts"]))
 
     @random.command()
-    async def roast(self, ctx):
+    async def roast(self, ctx: discord.ApplicationContext):
         data = await self.open_json_fun()
         await ctx.respond(random.choice(data["roasts"]))
 
     @random.command()
-    async def truth(self, ctx):
+    async def truth(self, ctx: discord.ApplicationContext):
         data = await self.open_json_fun()
         await ctx.respond(random.choice(data["truth"]))
 
     @random.command()
-    async def truth_or_dare(self, ctx):
+    async def truth_or_dare(self, ctx: discord.ApplicationContext):
         data = await self.open_json_fun()
         await ctx.respond(
             embed=discord.Embed(
@@ -77,13 +77,13 @@ class Random(commands.Cog):
         )
 
     @random.command()
-    async def number(self, ctx, stop: int, start: int = 0):
+    async def number(self, ctx: discord.ApplicationContext, stop: int, start: int = 0):
         return await ctx.respond(random.randint(start, stop))
 
     @random.command()
     async def choice(
         self,
-        ctx,
+        ctx: discord.ApplicationContext,
         choice1: str,
         choice2: str,
         choice3: str = None,
@@ -123,7 +123,7 @@ class Random(commands.Cog):
         )
 
     @random.command()
-    async def card(self, ctx):
+    async def card(self, ctx: discord.ApplicationContext):
         url = "https://api.fusionsid.xyz/api/image/random-card"
         img = await get_request_bytes(
             url,
@@ -136,7 +136,7 @@ class Random(commands.Cog):
         await ctx.respond(file=discord.File(img, "text.png"))
 
     @random.command()
-    async def flipcoin(self, ctx):
+    async def flipcoin(self, ctx: discord.ApplicationContext):
         h_or_t = random.choice(["heads", "tails"])
         path = os.path.join(
             os.path.dirname(__main__.__file__).replace("src", ""),
@@ -145,7 +145,7 @@ class Random(commands.Cog):
         await ctx.respond(f"Its {h_or_t}!", file=discord.File(path))
 
     @random.command()
-    async def color(self, ctx):
+    async def color(self, ctx: discord.ApplicationContext):
         color = tuple(random.randint(0, 255) for _ in range(3))
         img = Image.new("RGB", (500, 500), color)
         send = io.BytesIO()
@@ -154,13 +154,13 @@ class Random(commands.Cog):
         await ctx.respond(file=discord.File(send, "color.png"))
 
     @random.command()
-    async def letter(self, ctx):
+    async def letter(self, ctx: discord.ApplicationContext):
         return await ctx.respond(
             f"Your random letter is '{random.choice(string.ascii_lowercase)}'"
         )
 
     @random.command()
-    async def diceroll(self, ctx):
+    async def diceroll(self, ctx: discord.ApplicationContext):
         color = random.choice(
             ["red", "yellow", "blue", "green", "gray", "pink", "cyan", "white"]
         )

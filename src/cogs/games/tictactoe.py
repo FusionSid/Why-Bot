@@ -18,7 +18,9 @@ class TicTacToeCog(commands.Cog):
     @tictactoe_cmd.command(
         name="tictactoe", description="Play against someone on your server"
     )
-    async def tictactoe_multiplayer(self, ctx, opponent: discord.Member):
+    async def tictactoe_multiplayer(
+        self, ctx: discord.ApplicationContext, opponent: discord.Member
+    ):
         if opponent == ctx.author:
             return await ctx.respond("You can't play against yourself", ephemeral=True)
         await ctx.respond("Waiting for opponent to accept", ephemeral=True)
@@ -62,7 +64,7 @@ class TicTacToeCog(commands.Cog):
         )
 
     @tictactoe_cmd.command(name="ai", description="Play against the bot")
-    async def tictactoe_ai(self, ctx):
+    async def tictactoe_ai(self, ctx: discord.ApplicationContext):
 
         game = TicTacToeAIView(ctx.author)
         await ctx.respond(

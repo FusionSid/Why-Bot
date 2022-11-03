@@ -21,7 +21,9 @@ class Blacklist(commands.Cog):
     )
     @commands.is_owner()
     async def blacklist(
-        self, ctx, user_id: discord.Option(str, description="User id of user to ban")
+        self,
+        ctx: discord.ApplicationContext,
+        user_id: discord.Option(str, description="User id of user to ban"),
     ):
         """
         This command is used to ban a user from using Why Bot
@@ -91,7 +93,9 @@ class Blacklist(commands.Cog):
     )
     @commands.is_owner()
     async def whitelist(
-        self, ctx, user_id: discord.Option(str, description="User id of user to unban")
+        self,
+        ctx: discord.ApplicationContext,
+        user_id: discord.Option(str, description="User id of user to unban"),
     ):
         """
         This command is used to unban a user from using Why Bot
@@ -158,7 +162,7 @@ class Blacklist(commands.Cog):
     @commands.is_owner()
     async def isblacklisted(
         self,
-        ctx,
+        ctx: discord.ApplicationContext,
         user_id: discord.Option(str, description="User id of user to check") = None,
     ):
         users = await self.client.get_blacklisted_users(reasons=True)

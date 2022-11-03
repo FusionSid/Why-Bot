@@ -18,7 +18,7 @@ class Utilities(commands.Cog):
     utilities = SlashCommandGroup("utilities", "Utility Commands")
 
     @utilities.command(name="calculator", description="Interactive button calculator")
-    async def calculator(self, ctx):
+    async def calculator(self, ctx: discord.ApplicationContext):
         """This command is used to show an interactive button calculator"""
 
         await ctx.defer()
@@ -27,7 +27,7 @@ class Utilities(commands.Cog):
         await ctx.respond("```\n```", view=view)
 
     @utilities.command()
-    async def calculate(self, ctx, expression: str):
+    async def calculate(self, ctx: discord.ApplicationContext, expression: str):
         em = discord.Embed(
             title="Calculation Result",
             description=f"**Expression:**\n{expression}",
@@ -43,7 +43,10 @@ class Utilities(commands.Cog):
     @commands.has_permissions(create_instant_invite=True)
     @commands.bot_has_permissions(create_instant_invite=True)
     async def invite(
-        self, ctx: commands.Context, expire_in: str = None, max_uses: str = None
+        self,
+        ctx: discord.ApplicationContext,
+        expire_in: str = None,
+        max_uses: str = None,
     ):
         """This command is used to make an invite for the server"""
 
@@ -55,7 +58,11 @@ class Utilities(commands.Cog):
 
     @utilities.command()
     async def qrcode(
-        self, ctx, url: str, color: str = "black", background_color: str = "white"
+        self,
+        ctx: discord.ApplicationContext,
+        url: str,
+        color: str = "black",
+        background_color: str = "white",
     ):
         qr = qrcode.QRCode(
             version=1,

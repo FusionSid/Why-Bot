@@ -8,6 +8,6 @@ class Player(wavelink.Player):
         super().__init__(*args, **kwargs)
 
 
-async def get_player(self, ctx):
+async def get_player(self, ctx: discord.ApplicationContext):
     if isinstance(ctx, (discord.ApplicationContext, commands.Context)):
         return

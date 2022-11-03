@@ -17,7 +17,7 @@ class Poll(commands.Cog):
 
     @commands.slash_command(description="Makes a Yah or Nah poll")
     @commands.guild_only()
-    async def yesorno(self, ctx, message: str):
+    async def yesorno(self, ctx: discord.ApplicationContext, message: str):
         msg = await ctx.respond(
             embed=discord.Embed(
                 title="Yah or Nah?", description=message, color=ctx.author.color
@@ -31,7 +31,7 @@ class Poll(commands.Cog):
     @commands.guild_only()
     async def poll(
         self,
-        ctx,
+        ctx: discord.ApplicationContext,
         title: str,
         choice1: str,
         choice2: str,

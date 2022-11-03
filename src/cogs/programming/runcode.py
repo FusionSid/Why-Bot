@@ -31,7 +31,7 @@ class RunCode(commands.Cog):
 
     @commands.slash_command()
     @commands.cooldown(1, 15, commands.BucketType.user)
-    async def zprol(self, ctx):
+    async def zprol(self, ctx: discord.ApplicationContext):
         modal = CodeInput(title="Code Input")
         await ctx.send_modal(modal)
         await modal.wait()
@@ -80,7 +80,7 @@ class RunCode(commands.Cog):
 
     @commands.slash_command()
     @commands.cooldown(1, 15, commands.BucketType.user)
-    async def ricklang(self, ctx):
+    async def ricklang(self, ctx: discord.ApplicationContext):
         modal = CodeInput(title="Code Input")
         await ctx.send_modal(modal)
         await modal.wait()

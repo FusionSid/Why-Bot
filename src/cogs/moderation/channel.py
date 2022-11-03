@@ -91,7 +91,9 @@ class Channels(commands.Cog):
     @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
-    async def delete_vc(self, ctx, channel: discord.VoiceChannel):
+    async def delete_vc(
+        self, ctx: discord.ApplicationContext, channel: discord.VoiceChannel
+    ):
         try:
             await channel.delete()
         except discord.HTTPException:
@@ -110,7 +112,9 @@ class Channels(commands.Cog):
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def lockdown(self, ctx, channel: discord.TextChannel = None):
+    async def lockdown(
+        self, ctx: discord.ApplicationContext, channel: discord.TextChannel = None
+    ):
         if channel is None:
             channel = ctx.channel
         await channel.set_permissions(ctx.guild.default_role, send_messages=False)
@@ -126,7 +130,9 @@ class Channels(commands.Cog):
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def unlock(self, ctx, channel: discord.TextChannel = None):
+    async def unlock(
+        self, ctx: discord.ApplicationContext, channel: discord.TextChannel = None
+    ):
         if channel is None:
             channel = ctx.channel
         await channel.set_permissions(ctx.guild.default_role, send_messages=True)
@@ -143,7 +149,10 @@ class Channels(commands.Cog):
     @commands.bot_has_permissions(manage_channels=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def slowmode(
-        self, ctx, seconds: int = 5, channel: discord.TextChannel = None
+        self,
+        ctx: discord.ApplicationContext,
+        seconds: int = 5,
+        channel: discord.TextChannel = None,
     ):
         if channel is None:
             channel = ctx.channel
@@ -180,7 +189,9 @@ class Channels(commands.Cog):
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def remove_slowmode(self, ctx, channel: discord.TextChannel = None):
+    async def remove_slowmode(
+        self, ctx: discord.ApplicationContext, channel: discord.TextChannel = None
+    ):
         if channel is None:
             channel = ctx.channel
         await channel.edit(slowmode_delay=0)
@@ -196,7 +207,7 @@ class Channels(commands.Cog):
     @commands.has_permissions(manage_messages=True)
     @commands.bot_has_permissions(manage_messages=True)
     @commands.cooldown(1, 10, commands.BucketType.user)
-    async def clear(self, ctx, amount: int = 10):
+    async def clear(self, ctx: discord.ApplicationContext, amount: int = 10):
         if amount < 50:
             await ctx.channel.purge(limit=amount + 1)
             em = discord.Embed(
@@ -217,7 +228,7 @@ class Channels(commands.Cog):
     @default_permissions(manage_channels=True)
     @commands.has_guild_permissions(manage_messages=True)
     @commands.has_guild_permissions(manage_messages=True)
-    async def purgeuser(self, ctx, member: discord.Member):
+    async def purgeuser(self, ctx: discord.ApplicationContext, member: discord.Member):
         check_func = lambda message: member == message.author
         tasks = [
             channel.purge(limit=1000, check=check_func)

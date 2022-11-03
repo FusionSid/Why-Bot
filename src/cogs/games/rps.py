@@ -13,7 +13,9 @@ class RockPaperScissors(commands.Cog):
         self.cog_check = run_bot_checks
 
     @commands.slash_command(name="rps")
-    async def rock_paper_scissors_command(self, ctx, opponent: discord.Member):
+    async def rock_paper_scissors_command(
+        self, ctx: discord.ApplicationContext, opponent: discord.Member
+    ):
 
         if opponent == ctx.author:
             return await ctx.respond("You can't play against yourself", ephemeral=True)

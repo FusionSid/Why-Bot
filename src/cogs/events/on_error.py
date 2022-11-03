@@ -12,7 +12,9 @@ class OnError(commands.Cog):
         self.client = client
 
     @commands.Cog.listener()
-    async def on_application_command_error(self, ctx, error):
+    async def on_application_command_error(
+        self, ctx: discord.ApplicationContext, error
+    ):
 
         IGNORE = (commands.CommandNotFound, commands.CommandInvokeError)
 

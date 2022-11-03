@@ -60,7 +60,9 @@ class Music(commands.Cog):
         await vc.play(search)
 
     @commands.slash_command()
-    async def join(self, ctx, channel: discord.VoiceChannel = None):
+    async def join(
+        self, ctx: discord.ApplicationContext, channel: discord.VoiceChannel = None
+    ):
         pass
 
 

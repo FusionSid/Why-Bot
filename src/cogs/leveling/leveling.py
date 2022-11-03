@@ -132,7 +132,7 @@ class Leveling(commands.Cog):
     @commands.has_guild_permissions(administrator=True)
     async def toggle_leveling(
         self,
-        ctx,
+        ctx: discord.ApplicationContext,
     ):
         leveling_data = await get_level_data(self.client.db, ctx.guild.id)
         if leveling_data is None:
@@ -163,7 +163,7 @@ class Leveling(commands.Cog):
     @commands.has_guild_permissions(administrator=True)
     async def toggle_level_up(
         self,
-        ctx,
+        ctx: discord.ApplicationContext,
     ):
         leveling_data = await get_level_data(self.client.db, ctx.guild.id)
         if leveling_data is None:
@@ -194,7 +194,7 @@ class Leveling(commands.Cog):
     @commands.has_guild_permissions(administrator=True)
     async def set_level_text(
         self,
-        ctx,
+        ctx: discord.ApplicationContext,
         text: discord.Option(
             str, "The text you want to be sent when a user levels up"
         ) = None,
@@ -242,7 +242,7 @@ class Leveling(commands.Cog):
 
     @leveling.command()
     @commands.guild_only()
-    async def rank(self, ctx):
+    async def rank(self, ctx: discord.ApplicationContext):
         await ctx.defer()
         data = await get_all_member_data(self.client.db, ctx.guild.id)
         for _idx, _member in enumerate(data):
@@ -268,7 +268,7 @@ class Leveling(commands.Cog):
 
     @leveling.command()
     @commands.guild_only()
-    async def leaderboard(self, ctx):
+    async def leaderboard(self, ctx: discord.ApplicationContext):
         await ctx.defer()
         data = await get_all_member_data(self.client.db, ctx.guild.id)
         embed = discord.Embed(

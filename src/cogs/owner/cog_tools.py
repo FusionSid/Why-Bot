@@ -15,7 +15,7 @@ class CogTools(commands.Cog):
 
     @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
-    async def reload(self, ctx, extension):
+    async def reload(self, ctx: discord.ApplicationContext, extension):
         """This command is used to reload a cog"""
 
         if extension not in self.client.cogs_list.keys():
@@ -38,7 +38,7 @@ class CogTools(commands.Cog):
 
     @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
-    async def load(self, ctx, extension, name):
+    async def load(self, ctx: discord.ApplicationContext, extension, name):
         """This command is used to load a cog"""
 
         try:
@@ -63,7 +63,7 @@ class CogTools(commands.Cog):
 
     @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
-    async def unload(self, ctx, extension):
+    async def unload(self, ctx: discord.ApplicationContext, extension):
         """This command is used to unload a cog"""
 
         if extension not in self.client.cogs_list.keys():
@@ -88,7 +88,7 @@ class CogTools(commands.Cog):
 
     @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
-    async def listcogs(self, ctx):
+    async def listcogs(self, ctx: discord.ApplicationContext):
         """This command lists the cogs that the bot has"""
         return await ctx.respond(
             embed=discord.Embed(
@@ -101,7 +101,7 @@ class CogTools(commands.Cog):
 
     @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
-    async def reloadall(self, ctx):
+    async def reloadall(self, ctx: discord.ApplicationContext):
         """This command is used to reload all the cogs"""
 
         cogs = self.client.cogs_list.values()

@@ -28,7 +28,7 @@ class WhyBotDev(commands.Cog):
     @why_dev.command(
         name="getcode", description="Get the code for a specific Why-Bot command"
     )
-    async def getcode(self, ctx, name: str):
+    async def getcode(self, ctx: discord.ApplicationContext, name: str):
         """
         This command is used to get the code for a specific command
         It is useful if you want to quickly check the code for a command without opening the github
@@ -78,7 +78,7 @@ class WhyBotDev(commands.Cog):
         )
 
     @why_dev.command()
-    async def uptime(self, ctx):
+    async def uptime(self, ctx: discord.ApplicationContext):
         """This command is used to get the uptime for the bot"""
 
         em = discord.Embed(
@@ -89,7 +89,7 @@ class WhyBotDev(commands.Cog):
         await ctx.respond(embed=em)
 
     @why_dev.command(name="ping", description="Shows the bot's ping")
-    async def ping(self, ctx):
+    async def ping(self, ctx: discord.ApplicationContext):
         """
         This command is used to get the ping for the bot
         """
@@ -98,7 +98,7 @@ class WhyBotDev(commands.Cog):
 
     @why_dev.command()
     @commands.cooldown(1, 15, commands.BucketType.user)
-    async def suggest(self, ctx, *, suggestion):
+    async def suggest(self, ctx: discord.ApplicationContext, suggestion):
         """
         This command is used to make a suggestion for the bot
         """
@@ -196,7 +196,7 @@ class WhyBotDev(commands.Cog):
     @why_dev.command(
         name="botinvite", description="Get a link to invite Why-Bot to the server"
     )
-    async def botinvite(self, ctx: discord.commands.ApplicationContext):
+    async def botinvite(self, ctx: discord.ApplicationContext):
         """This command is used to get the invite link for the bot"""
 
         view = LinkView(
@@ -229,7 +229,7 @@ class WhyBotDev(commands.Cog):
         )
 
     @why_dev.command()
-    async def recent_commit(self, ctx):
+    async def recent_commit(self, ctx: discord.ApplicationContext):
         # "https://api.github.com/repos/FusionSid/Why-Bot/commits/master"
         URL = (
             "https://api.github.com/repos/FusionSid/Why-Bot/commits/rewrite-the-rewrite"

@@ -44,70 +44,70 @@ class Animals(commands.Cog):
     animal = SlashCommandGroup("animal", "Get images and facts about animals")
 
     @animal.command()
-    async def dog(self, ctx):
+    async def dog(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.dog.value
         response = await get_request(url)
 
         await ctx.respond(embed=animal_embed(response, "Dog!"))
 
     @animal.command()
-    async def cat(self, ctx):
+    async def cat(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.cat.value
         response = await get_request(url)
 
         await ctx.respond(embed=animal_embed(response, "Cat!"))
 
     @animal.command()
-    async def fox(self, ctx):
+    async def fox(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.fox.value
         response = await get_request(url)
 
         await ctx.respond(embed=animal_embed(response, "Fox!"))
 
     @animal.command()
-    async def panda(self, ctx):
+    async def panda(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.panda.value
         response = await get_request(url)
 
         await ctx.respond(embed=animal_embed(response, "Panda!"))
 
     @animal.command()
-    async def bird(self, ctx):
+    async def bird(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.bird.value
         response = await get_request(url)
 
         await ctx.respond(embed=animal_embed(response, "Bird!"))
 
     @animal.command()
-    async def kangaroo(self, ctx):
+    async def kangaroo(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.kangaroo.value
         response = await get_request(url)
 
         await ctx.respond(embed=animal_embed(response, "Kangaroo!"))
 
     @animal.command()
-    async def koala(self, ctx):
+    async def koala(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.koala.value
         response = await get_request(url)
 
         await ctx.respond(embed=animal_embed(response, "Koala!"))
 
     @animal.command()
-    async def raccon(self, ctx):
+    async def raccon(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.raccoon.value
         response = await get_request(url)
 
         await ctx.respond(embed=animal_embed(response, "Racoon!"))
 
     @animal.command()
-    async def redpanda(self, ctx):
+    async def redpanda(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.red_panda.value
         response = await get_request(url)
 
         await ctx.respond(embed=animal_embed(response, "Red Panda!"))
 
     @animal.command()
-    async def capybara(self, ctx):
+    async def capybara(self, ctx: discord.ApplicationContext):
         image_url = AnimalURLS.capybara.value[0]
         image = await get_request(image_url)
 

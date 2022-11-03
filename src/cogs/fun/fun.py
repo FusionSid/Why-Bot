@@ -19,7 +19,7 @@ class Fun(commands.Cog):
         self.cog_check = run_bot_checks
 
     @staticmethod
-    async def gen_crab(t1, t2, ctx):
+    async def gen_crab(t1: str, t2: str, ctx: discord.ApplicationContext):
         path = os.path.join(
             os.path.dirname(__main__.__file__).replace("src", ""),
             "assets/videos/crab.mp4",
@@ -51,18 +51,18 @@ class Fun(commands.Cog):
 
     @commands.slash_command()
     @commands.cooldown(1, 15, commands.BucketType.user)
-    async def crab(self, ctx, text1, text2):
+    async def crab(self, ctx: discord.ApplicationContext, text1: str, text2: str):
         await ctx.defer()
         asyncio.create_task(self.gen_crab(text1, text2, ctx))
 
     @commands.slash_command()
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def claim(self, ctx):
+    async def claim(self, ctx: discord.ApplicationContext):
         em = discord.Embed(title="Claim 100k Why Coins", color=discord.Color.blue())
         await ctx.respond(embed=em, view=RickRollView(self.client.db))
 
     @commands.slash_command()
-    async def spongebob(self, ctx, time: int, unit: str):
+    async def spongebob(self, ctx: discord.ApplicationContext, time: int, unit: str):
         path = os.path.join(
             os.path.dirname(__main__.__file__), "assets/images/spongebob"
         )
@@ -72,7 +72,7 @@ class Fun(commands.Cog):
             images[key] = image
 
     @commands.slash_command(name="8ball")
-    async def _8ball(self, ctx, question: str):
+    async def _8ball(self, ctx: discord.ApplicationContext, question: str):
         responses = [
             "As I see it, yes",
             "It is certain",
@@ -139,7 +139,7 @@ class Fun(commands.Cog):
         await ctx.respond(embed=em)
 
     @commands.slash_command()
-    async def hack(self, ctx, member: discord.Member):
+    async def hack(self, ctx: discord.ApplicationContext, member: discord.Member):
         await ctx.defer()
         email_ext = [
             "gmail.com",
@@ -280,7 +280,7 @@ class Fun(commands.Cog):
         await ctx.respond("The *totally* real and dangerous hack is complete!")
 
     @commands.slash_command()
-    async def screenshot(self, ctx, url: str):
+    async def screenshot(self, ctx: discord.ApplicationContext, url: str):
         if not validators.url(url):
             return await ctx.respond("Not a url", ephemeral=True)
 

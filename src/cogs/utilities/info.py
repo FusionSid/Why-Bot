@@ -18,7 +18,9 @@ class Info(commands.Cog):
         self.client = client
         self.cog_check = run_bot_checks
 
-    async def get_info(self, ctx, member: discord.Member = None):
+    async def get_info(
+        self, ctx: discord.ApplicationContext, member: discord.Member = None
+    ):
         if member is None:
             member = ctx.author
 
@@ -79,13 +81,17 @@ class Info(commands.Cog):
         await ctx.respond(embed=em)
 
     @commands.slash_command(name="info", description="Gets info on a member")
-    async def info(self, ctx, member: discord.Member = None):
+    async def info(
+        self, ctx: discord.ApplicationContext, member: discord.Member = None
+    ):
         """This command is used to get info on a member"""
 
         await self.get_info(ctx, member)
 
     @commands.user_command(name="Get User Info")
-    async def info_user_cmd(self, ctx, member: discord.Member):
+    async def info_user_cmd(
+        self, ctx: discord.ApplicationContext, member: discord.Member
+    ):
         if member.id == self.client.user.id:
             return await self.botinfo(ctx)
 
@@ -93,7 +99,7 @@ class Info(commands.Cog):
 
     @commands.slash_command(name="serverinfo", description="Shows server info")
     @commands.guild_only()
-    async def serverinfo(self, ctx: commands.Context):
+    async def serverinfo(self, ctx: discord.ApplicationContext):
         """This command is used to get info on the server"""
 
         GUILD = ctx.guild
@@ -162,7 +168,7 @@ class Info(commands.Cog):
         await ctx.respond(embed=em)
 
     @commands.slash_command(name="botinfo", description="Gets info on Why Bot")
-    async def botinfo(self, ctx):
+    async def botinfo(self, ctx: discord.ApplicationContext):
         """This command is used to get info on the bot"""
 
         em = discord.Embed(
@@ -234,7 +240,9 @@ class Info(commands.Cog):
         await ctx.respond(embed=em, view=BotInfoView())
 
     @commands.slash_command()
-    async def avatar(self, ctx, member: discord.Member = None):
+    async def avatar(
+        self, ctx: discord.ApplicationContext, member: discord.Member = None
+    ):
         if member is None:
             member = ctx.author
         em = discord.Embed(title=f"{member.name}'s Avatar:")
@@ -242,7 +250,7 @@ class Info(commands.Cog):
         await ctx.respond(embed=em)
 
     @commands.user_command(name="Get user avatar")
-    async def avatar2(self, ctx, member: discord.Member):
+    async def avatar2(self, ctx: discord.ApplicationContext, member: discord.Member):
         em = discord.Embed(title=f"{member.name}'s Avatar:")
         em.set_image(url=member.avatar.url)
         await ctx.respond(embed=em)
@@ -251,7 +259,9 @@ class Info(commands.Cog):
         name="invites",
         description="Get the amount of people that a member has invited to the server",
     )
-    async def invites(self, ctx, member: discord.Member = None):
+    async def invites(
+        self, ctx: discord.ApplicationContext, member: discord.Member = None
+    ):
         """This command is used to get the amount of people that a member has invited to the server"""
 
         if member is None:
@@ -278,7 +288,7 @@ class Info(commands.Cog):
     @commands.command(
         name="inviteslb", description="Get a leaderboard of the invites in the server"
     )
-    async def inviteslb(self, ctx):
+    async def inviteslb(self, ctx: discord.ApplicationContext):
         """
         This command is used to get a leaderboard of the invites in the server
         """

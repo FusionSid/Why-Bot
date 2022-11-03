@@ -114,7 +114,7 @@ class LinkView(discord.ui.View):
 class CalculatorView(discord.ui.View):
     """This is a view for the calculator"""
 
-    def __init__(self, ctx):
+    def __init__(self, ctx: discord.ApplicationContext):
         self.expr = ""
         self.ctx = ctx
         super().__init__(timeout=100)

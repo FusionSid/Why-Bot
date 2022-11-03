@@ -14,7 +14,7 @@ class Server(commands.Cog):
 
     @commands.slash_command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
-    async def server_list(self, ctx):
+    async def server_list(self, ctx: discord.ApplicationContext):
         """
         This command is used to list the servers the bots in
         It makes an embed with a list of the servers
@@ -65,7 +65,7 @@ class Server(commands.Cog):
 
     @commands.slash_command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
-    async def fetch_server_info(self, ctx, server_id: int):
+    async def fetch_server_info(self, ctx: discord.ApplicationContext, server_id: int):
         """This command is used to get info on a server that the bot is in"""
 
         guild = self.client.get_guild(server_id)
@@ -95,7 +95,7 @@ class Server(commands.Cog):
         guild_ids=[763348615233667082, 938913935774605442],
     )
     @commands.is_owner()
-    async def fetch_user_info(self, ctx, user: str):
+    async def fetch_user_info(self, ctx: discord.ApplicationContext, user: str):
         """
         This command is used to fetch info a specific user.
         It is useful if you are messaging someone in dmreply and want to know who you are messaging

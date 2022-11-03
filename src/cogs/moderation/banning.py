@@ -17,7 +17,9 @@ class Banning(commands.Cog):
     @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def ban(self, ctx, member: discord.Member, reason=None):
+    async def ban(
+        self, ctx: discord.ApplicationContext, member: discord.Member, reason=None
+    ):
         if (
             ctx.author.top_role.position > member.top_role.position
             and (ctx.guild.get_member(self.client.user.id)).top_role.position
@@ -46,7 +48,7 @@ class Banning(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def massban(
         self,
-        ctx,
+        ctx: discord.ApplicationContext,
         members: discord.Option(str, "User ids or ping users seperated by a space"),
         reason=None,
     ):
@@ -97,7 +99,9 @@ class Banning(commands.Cog):
     @commands.has_permissions(kick_members=True)
     @commands.bot_has_permissions(kick_members=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def kick(self, ctx, member: discord.Member, reason=None):
+    async def kick(
+        self, ctx: discord.ApplicationContext, member: discord.Member, reason=None
+    ):
         if (
             ctx.author.top_role.position > member.top_role.position
             and (ctx.guild.get_member(self.client.user.id)).top_role.position
@@ -126,7 +130,7 @@ class Banning(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def masskick(
         self,
-        ctx,
+        ctx: discord.ApplicationContext,
         members: discord.Option(str, "User ids or ping users seperated by a space"),
         reason=None,
     ):

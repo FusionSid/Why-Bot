@@ -23,20 +23,20 @@ class ErrorLog(commands.Cog):
 
     @error.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
-    async def logs_file(self, ctx):
+    async def logs_file(self, ctx: discord.ApplicationContext):
         file = discord.File(LOGFILE_PATH, "main.log")
         await ctx.respond(file=file, ephemeral=True)
 
     @error.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
-    async def clear_logs_file(self, ctx):
+    async def clear_logs_file(self, ctx: discord.ApplicationContext):
         async with aiofiles.open(LOGFILE_PATH, "r+") as f:
             await f.truncate(0)
         await ctx.respond("Logfile Cleared", ephemeral=True)
 
     @error.command(guild_ids=[763348615233667082, 938913935774605442])
     @commands.is_owner()
-    async def get_last_error(self, ctx, limit: int = 1):
+    async def get_last_error(self, ctx: discord.ApplicationContext, limit: int = 1):
         """This command is used to get the most recent errors/error that the bot logged to the log file"""
 
         await ctx.defer()
