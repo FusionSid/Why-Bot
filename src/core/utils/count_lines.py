@@ -20,7 +20,7 @@ async def get_files() -> list[str]:
     """
     file_list = []
     path = os.path.dirname(os.path.abspath(__main__.__file__))
-    for root, dirs, files in os.walk(path):
+    for root, _dirs, files in os.walk(path):
         if "git" in root:
             continue
 
