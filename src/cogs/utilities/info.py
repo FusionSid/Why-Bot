@@ -197,7 +197,7 @@ class Info(commands.Cog):
         em.add_field(
             inline=True,
             name="Uptime",
-            value=f"{(await self.client.uptime)} (since {await discord_timestamp(int(self.client.last_login_time.timestamp()), 'md_yt')})",
+            value=await self.client.uptime,
         )
         em.add_field(inline=True, name="CPU Usage", value=f"{psutil.cpu_percent()}%")
         em.add_field(

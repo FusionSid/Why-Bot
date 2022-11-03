@@ -65,7 +65,7 @@ class BotInfoView(discord.ui.View):
         self.add_item(
             discord.ui.Button(
                 style=discord.ButtonStyle.grey,
-                label="Website / Dashboard",
+                label="Website",
                 url="https://why.fusionsid.xyz/",
             )
         )
@@ -81,6 +81,13 @@ class BotInfoView(discord.ui.View):
                 style=discord.ButtonStyle.grey,
                 label="Discord Server",
                 url="https://discord.gg/Jm8QPF6xbN",
+            )
+        )
+        self.add_item(
+            discord.ui.Button(
+                style=discord.ButtonStyle.grey,
+                label="Privacy",
+                url="https://github.com/FusionSid/Why-Bot/blob/rewrite-the-rewrite/PRIVACY.md",
             )
         )
 
