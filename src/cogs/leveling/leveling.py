@@ -163,6 +163,32 @@ class Leveling(commands.Cog):
 
     @leveling.command()
     @commands.guild_only()
+    async def xp_needed(self, ctx: discord.ApplicationContext, level: int = None):
+        member_data = await get_member_data(self.client.db, ctx.author, ctx.guild.id)
+        if level is None:
+            next_level = member_data.member_level + 1
+            next_level_xp = await xp_needed(next_level)
+            return await ctx.respond(
+                embed=discord.Embed(
+                    title=f"XP Calculator",
+                    description=f"Amount of XP required for level {next_level} = {next_level_xp}\
+                        \nAmount of XP you need to get to reach level {next_level} = {next_level_xp - member_data.member_total_xp}",
+                    color=discord.Color.random(),
+                )
+            )
+
+        level_xp = await xp_needed(level)
+        return await ctx.respond(
+            embed=discord.Embed(
+                title=f"XP Calculator",
+                description=f"Amount of XP required for level {level} = {level_xp}\
+                    \nAmount of XP you need to get to reach level {level_xp} = {level_xp - member_data.member_total_xp}",
+                color=discord.Color.random(),
+            )
+        )
+
+    @leveling.command()
+    @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     async def toggle_level_up(
         self,
