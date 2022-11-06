@@ -76,9 +76,10 @@ class Leveling(commands.Cog):
         member_data.member_total_xp += give_xp_amount
 
         next_level_xp = await xp_needed(member_data.member_level + 1)
-
         add_level, current_xp = divmod(member_data.member_total_xp, next_level_xp)
-        current_xp -= await xp_needed(member_data.member_level)
+
+        if not add_level:
+            current_xp -= await xp_needed(member_data.member_level)
 
         member_data.member_level += add_level
         member_data.member_xp = current_xp
@@ -307,11 +308,14 @@ class Leveling(commands.Cog):
                 " if counting is enabled"
             )
 
+        current_level_xp = await xp_needed(member[4])
+        next_level_xp = await xp_needed(member[4] + 1)
+
         await ctx.respond(
             embed=discord.Embed(
                 title=f"{ctx.author.display_name} - Rank #{idx+1}",
                 description=(
-                    f"XP: {member[3]}/{await xp_needed(member[4]+1)}. Total XP:"
+                    f"Level: {member[4]}. XP: {member[3]}/{next_level_xp-current_level_xp}. Total XP:"
                     f" {member[5]}\n\n**This embed is a placeholder for an image card**"
                 ),
             )
@@ -327,10 +331,13 @@ class Leveling(commands.Cog):
             description="**This embed is a placeholder for an image lb coming soon**",
         )
         for rank, member in enumerate(data[:10]):
+            current_level_xp = await xp_needed(member[4])
+            next_level_xp = await xp_needed(member[4] + 1)
+
             embed.add_field(
                 name=f"{member[2]} - Rank #{rank+1}",
                 value=(
-                    f"XP: {member[3]}/{await xp_needed(member[4]+1)}. Total XP:"
+                    f"Level: {member[4]}. XP: {member[3]}/{next_level_xp-current_level_xp}. Total XP:"
                     f" {member[5]}"
                 ),
                 inline=False,
