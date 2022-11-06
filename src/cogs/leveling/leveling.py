@@ -1,3 +1,4 @@
+import re
 import asyncio
 
 import discord
@@ -14,6 +15,7 @@ from core.helpers.why_leveling import (
 from core.models import WhyBot
 from core.helpers.checks import run_bot_checks
 from core.db.setup_guild import setup_leveling_guild
+
 
 RATE = 1
 PER = 60
@@ -83,7 +85,7 @@ class Leveling(commands.Cog):
 
         await update_member_data(self.client.db, message, member_data)
 
-        # Level up
+        # Handle level up message:
         if add_level:
             # if its disabled
             if not leveling_data.level_up_enabled:
@@ -188,6 +190,55 @@ class Leveling(commands.Cog):
                 color=discord.Color.green(),
             )
         )
+
+    @leveling.command()
+    @commands.guild_only()
+    @commands.has_guild_permissions(administrator=True)
+    async def set_xp(
+        self,
+        ctx: discord.ApplicationContext,
+        xp: discord.Option(
+            str,
+            description="XP given per minute. Type a number like '5' or a range like '15-30'",
+        ),
+    ):
+        if not re.match("[0-9-]", xp):
+            return await ctx.respond("Invalid Input!")
+
+        if xp.isnumeric():
+            await self.client.db.execute(
+                "UPDATE leveling_guild SET per_minute=$1 WHERE guild_id=$2",
+                xp,
+                ctx.guild.id,
+            )
+            return await ctx.respond(
+                embed=discord.Embed(
+                    title="Per minute XP updated!",
+                    description=f"Per minute xp set to: {xp}",
+                    color=discord.Color.random(),
+                )
+            )
+
+        split_range = xp.split("-")
+
+        if (
+            len(split_range) == 2
+            and split_range[0].isnumeric()
+            and split_range[1].isnumeric()
+        ):
+            await self.client.db.execute(
+                "UPDATE leveling_guild SET per_minute=$1 WHERE guild_id=$2",
+                xp,
+                ctx.guild.id,
+            )
+            return await ctx.respond(
+                embed=discord.Embed(
+                    title="Per minute XP updated!",
+                    description=f"Per minute xp set to a range from {split_range[0]} to {split_range[1]}",
+                    color=discord.Color.random(),
+                )
+            )
+        return await ctx.respond("Invalid Input!")
 
     @leveling.command()
     @commands.guild_only()
