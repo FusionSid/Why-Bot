@@ -31,6 +31,8 @@ def start_bot(client: WhyBot) -> None:
             This is the bot that will be started
     """
     cogs = {}
+
+    # get path of cogs directory
     path = os.path.join(os.path.dirname(__file__), "cogs")
 
     for category in os.listdir(path):
@@ -39,19 +41,24 @@ def start_bot(client: WhyBot) -> None:
         ):  # if its not a folder continue
             continue
 
+        # loop through the files in cogs/<category>
         for filename in os.listdir(os.path.join(path, category)):
             if os.path.isfile(
                 os.path.join(path, category, filename)
-            ) and filename.endswith(".py"):
+            ) and filename.endswith(
+                ".py"
+            ):  # check if the item is a python file
                 cog_name = filename[:-3]  # remove .py from name
                 cogs[cog_name] = f"cogs.{category}.{cog_name}"
 
+    # load the testing_cog (if it exists)
     if os.path.exists(os.path.join(path, "testing_cog.py")):
         cogs["testing"] = "cogs.testing_cog"
 
     print("\n")
     client.cogs_list = cogs  # for cog functions later like reload, load, unload
 
+    # start all cogs with a spicy progress bar
     with Progress() as progress:
         loading_cogs = progress.add_task("[bold green]Loading Cogs", total=len(cogs))
         while not progress.finished:
@@ -67,8 +74,8 @@ def start_bot(client: WhyBot) -> None:
 
     time.sleep(1)
 
-    client.event(on_error)
-    client.run(client.config["BOT_TOKEN"])
+    client.event(on_error)  # set event handler
+    client.run(client.config.get["BOT_TOKEN"])
 
 
 if __name__ == "__main__":
