@@ -19,8 +19,8 @@ RUN sed -i '/<policy domain="path" rights="none" pattern="@\*"/d' /etc/ImageMagi
 RUN cat /etc/ImageMagick-6/policy.xml | sed 's/none/read,write/g'> /etc/ImageMagick-6/policy.xml
 RUN sed -i_bak 's/rights="none" pattern="PDF"/rights="read | write" pattern="PDF"/' /etc/ImageMagick-6/policy.xml
 
-# install verdana font
-RUN wget "https://www.dafontfree.io/download/verdana/?wpdmdl=71901&refresh=6362eb8bd1a9e1667427211&ind=1612703173429&filename=verdana-font-family.zip" -O font.zip
+# install verdana font for crab command
+RUN wget --progress=dot:giga "https://www.dafontfree.io/download/verdana/?wpdmdl=71901&refresh=6362eb8bd1a9e1667427211&ind=1612703173429&filename=verdana-font-family.zip" -O font.zip
 RUN unzip font.zip -d font
 RUN cp -r font/* /usr/local/share/fonts
 
