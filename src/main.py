@@ -75,7 +75,7 @@ def start_bot(client: WhyBot) -> None:
     time.sleep(1)
 
     client.event(on_error)  # set event handler
-    client.run(client.config.get["BOT_TOKEN"])
+    client.run(client.config.get("BOT_TOKEN"))
 
 
 if __name__ == "__main__":
