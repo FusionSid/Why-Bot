@@ -19,7 +19,9 @@ class RickRollView(discord.ui.View):
         super().__init__(timeout=500)
 
     @discord.ui.button(style=discord.ButtonStyle.green, label="Claim")
-    async def claim_button(self, button, interaction):
+    async def claim_button(
+        self, button: discord.ui.Button, interaction: discord.Interaction
+    ):
         button.style = discord.ButtonStyle.red
         button.label = "Claimed"
         button.disabled = True

@@ -1,12 +1,14 @@
-from typing import Any
+from typing import Any, Optional
 
 
-async def chunkify(big_list: int, chunk_size: int = 10) -> list[list[Any]]:
+async def chunkify(
+    big_list: list[Any], chunk_size: Optional[int] = 10
+) -> list[list[Any]]:
     """
     This function splits up a list into chunks of specified size
 
     Parameters:
-        big_list (int): The list that will be split into chunks
+        big_list (list[Any]): The list that will be split into chunks
         chunk_size (Optional[int]): The size of each chunk. The default size is 10
 
     Returns:

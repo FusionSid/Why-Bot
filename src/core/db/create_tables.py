@@ -1,9 +1,10 @@
+from typing import Final
 import asyncio
 
 from core.utils.client_functions import create_connection_pool
 
 
-blacklist_query = """
+blacklist_query: Final = """
 CREATE TABLE IF NOT EXISTS blacklist
 (
     user_id integer NOT NULL,
@@ -12,7 +13,7 @@ CREATE TABLE IF NOT EXISTS blacklist
 );
 """
 
-command_stats_query = """
+command_stats_query: Final = """
 CREATE TABLE IF NOT EXISTS command_stats
 (
     id SERIAL PRIMARY KEY,
@@ -22,7 +23,7 @@ CREATE TABLE IF NOT EXISTS command_stats
 );
 """
 
-counting_query = """
+counting_query: Final = """
 CREATE TABLE IF NOT EXISTS counting
 (
     guild_id bigint NOT NULL PRIMARY KEY,
@@ -35,7 +36,7 @@ CREATE TABLE IF NOT EXISTS counting
 );
 """
 
-leveling_member_query = """
+leveling_member_query: Final = """
 CREATE TABLE IF NOT EXISTS leveling_member
 (
     guild_id bigint NOT NULL,
@@ -47,7 +48,7 @@ CREATE TABLE IF NOT EXISTS leveling_member
 );
 """
 
-leveling_guild_query = """
+leveling_guild_query: Final = """
 CREATE TABLE IF NOT EXISTS leveling_guild
 (
     guild_id bigint NOT NULL PRIMARY KEY,
@@ -65,7 +66,7 @@ CREATE TABLE IF NOT EXISTS leveling_guild
 );
 """
 
-leveling_rewards_query = """
+leveling_rewards_query: Final = """
 CREATE TABLE IF NOT EXISTS leveling_rewards
 (
     guild_id bigint NOT NULL PRIMARY KEY,
@@ -74,7 +75,7 @@ CREATE TABLE IF NOT EXISTS leveling_rewards
 );
 """
 
-counters_query = """
+counters_query: Final = """
 CREATE TABLE IF NOT EXISTS counters
 (
     key text NOT NULL PRIMARY KEY,
@@ -82,7 +83,7 @@ CREATE TABLE IF NOT EXISTS counters
 );
 """
 
-dmreply_query = """
+dmreply_query: Final = """
 CREATE TABLE IF NOT EXISTS dmreply
 (
     user_id bigint NOT NULL PRIMARY KEY,
@@ -90,7 +91,7 @@ CREATE TABLE IF NOT EXISTS dmreply
 );
 """
 
-tags_query = """
+tags_query: Final = """
 CREATE TABLE IF NOT EXISTS tags
 (
     guild_id bigint NOT NULL PRIMARY KEY,
@@ -101,7 +102,7 @@ CREATE TABLE IF NOT EXISTS tags
 );
 """
 
-alerts_query = """
+alerts_query: Final = """
 CREATE TABLE IF NOT EXISTS alerts
 (
     id serial NOT NULL PRIMARY KEY,
@@ -112,7 +113,7 @@ CREATE TABLE IF NOT EXISTS alerts
 );
 """
 
-alerts_user_query = """
+alerts_user_query: Final = """
 CREATE TABLE IF NOT EXISTS alerts_users
 (
     user_id bigint NOT NULL PRIMARY KEY,

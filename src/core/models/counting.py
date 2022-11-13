@@ -2,6 +2,7 @@
 Model for making counting management easier
 """
 
+from typing import Optional
 from dataclasses import dataclass
 
 
@@ -10,16 +11,16 @@ class CountingData:
     """dataclass to help with counting data information from the counting table"""
 
     guild_id: int
-    last_counter: int | None
-    current_number: int | None
-    counting_channel: int | None
+    last_counter: Optional[int]
+    current_number: Optional[int]
+    counting_channel: Optional[int]
 
-    high_score: int | None
-    plugin_enabled: bool | None
-    auto_calculate: bool | None
+    high_score: Optional[int]
+    plugin_enabled: Optional[bool]
+    auto_calculate: Optional[bool]
 
     # TODO later:
-    # banned_counters: list[int] = None
+    # banned_counters: Optional[list[int]] = None
 
     @property
     def next_number(self) -> int:
@@ -32,4 +33,5 @@ class CountingData:
         """
         if self.current_number is None:
             return 1
+
         return self.current_number + 1

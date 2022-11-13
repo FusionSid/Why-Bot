@@ -3,12 +3,15 @@ Used to calculate an expression using the mathjs api
 """
 
 import urllib
+from typing import Optional
 
-import aiohttp
 import numexpr
+import aiohttp
 
 
-async def slow_safe_calculate(expr: str, only_int: bool = False) -> int | str | None:
+async def slow_safe_calculate(
+    expr: str, only_int: Optional[bool] = False
+) -> Optional[int | str]:
     """
     Calculates a math expression using the mathjs API
 
@@ -39,7 +42,7 @@ async def slow_safe_calculate(expr: str, only_int: bool = False) -> int | str | 
     return result
 
 
-async def calculate(expr: str) -> float | None:
+async def calculate(expr: str) -> Optional[float]:
     """
     Evaluates a math expression with numexpr
 

@@ -1,4 +1,5 @@
 from io import BytesIO
+from typing import Optional, Any
 from urllib.parse import urlencode
 
 import aiohttp
@@ -6,11 +7,11 @@ import aiohttp
 
 async def get_request(
     url: str,
-    data: dict = None,
-    headers: dict = None,
-    timeout: int = None,
-    return_resp: bool = False,
-):
+    data: Optional[dict] = None,
+    headers: Optional[dict] = None,
+    timeout: Optional[int] = None,
+    return_resp: Optional[bool] = False,
+) -> Optional[aiohttp.ClientResponse | str | dict]:
     """Makes a get request and returns the json or text result"""
 
     if data is not None:
@@ -42,13 +43,13 @@ async def get_request(
 
 async def post_request(
     url: str,
-    data: dict = None,
-    body=None,
-    json=True,
-    headers: dict = None,
-    timeout: int = None,
-    return_resp: bool = False,
-):
+    data: Optional[dict] = None,
+    body: Optional[Any] = None,
+    json: Optional[bool] = True,
+    headers: Optional[dict] = None,
+    timeout: Optional[int] = None,
+    return_resp: Optional[bool] = False,
+) -> Optional[aiohttp.ClientResponse | str | dict]:
     """Makes a post request and returns the json or text result"""
 
     if data is not None:
@@ -81,12 +82,12 @@ async def post_request(
 
 async def get_request_bytes(
     url: str,
-    data: dict = None,
-    headers: dict = None,
-    timeout: int = None,
-    return_resp: bool = False,
-    bytes_io: bool = False,
-):
+    data: Optional[dict] = None,
+    headers: Optional[dict] = None,
+    timeout: Optional[int] = None,
+    return_resp: Optional[bool] = False,
+    bytes_io: Optional[bool] = False,
+) -> Optional[aiohttp.ClientResponse | bytes | BytesIO]:
     """Makes a get request and returns the byte result. This is useful for something like a file/image"""
 
     if data is not None:
@@ -117,14 +118,14 @@ async def get_request_bytes(
 
 async def post_request_bytes(
     url: str,
-    data: dict = None,
-    body=None,
-    json=True,
-    headers: dict = None,
-    timeout: int = None,
-    return_resp: bool = False,
-    bytes_io: bool = False,
-):
+    data: Optional[dict] = None,
+    body: Optional[Any] = None,
+    json: Optional[bool] = True,
+    headers: Optional[dict] = None,
+    timeout: Optional[int] = None,
+    return_resp: Optional[bool] = False,
+    bytes_io: Optional[bool] = False,
+) -> Optional[aiohttp.ClientResponse | bytes | BytesIO]:
     """Makes a post request and returns the byte result. This is useful for something like a file/image"""
 
     if data is not None:

@@ -6,8 +6,8 @@ import os
 import sys
 import logging
 import traceback
-from typing import Final
 from datetime import datetime
+from typing import Final, Optional
 
 import aiofiles
 from rich.panel import Panel
@@ -105,7 +105,7 @@ async def convert_to_dict() -> dict:
     return logs
 
 
-async def get_last_errors(count: int = 1) -> dict | None:
+async def get_last_errors(count: int = 1) -> Optional[dict]:
     """
     Gets the last x amount of errors from the logs file
 

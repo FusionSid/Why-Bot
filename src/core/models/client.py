@@ -8,6 +8,7 @@ __author__ = "FusionSid"
 __licence__ = "MIT License"
 
 import datetime
+from typing import Optional
 
 import discord
 import aioredis
@@ -96,8 +97,8 @@ class WhyBot(commands.Bot):
         return emojis_dict
 
     async def get_blacklisted_users(
-        self, reasons=False
-    ) -> list[int] | list[asyncpg.Record]:
+        self, reasons: Optional[bool] = False
+    ) -> list[int] | list[asyncpg.protocol.Record]:
         """
         this function returns the blacklisted users for the bot from the db
             this is used when the cache is empty or needs to be updated
@@ -130,7 +131,7 @@ class WhyBot(commands.Bot):
         await self.redis.lpush("blacklisted", 0)
         await self.redis.expire("blacklisted", datetime.timedelta(days=5))
 
-    async def blacklist_user(self, user_id: int, reason: str = None):
+    async def blacklist_user(self, user_id: int, reason: Optional[str] = None):
         """
         This function is used to black list a user from using the bot
 

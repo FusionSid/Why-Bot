@@ -3,7 +3,7 @@ This module contains formatting functions
 """
 
 from enum import Enum
-from typing import Literal
+from typing import Literal, Optional, Final
 
 # Enum for amount of seconds per time period
 class SecondIntervals(Enum):
@@ -18,7 +18,7 @@ class SecondIntervals(Enum):
     millennium = 31536000000
 
 
-async def format_seconds(seconds: int, short: bool = False) -> str:
+async def format_seconds(seconds: int, short: Optional[bool] = False) -> str:
     """
     Takes in seconds and formats it into a more human readable format
 
@@ -138,7 +138,7 @@ async def number_suffix(number: int) -> str:
 async def discord_timestamp(
     time: int,
     format_type: Literal["mdy", "md_yt", "t", "md_y", "w_md_yt", "ts", "h_m_s"],
-) -> str | None:
+) -> Optional[str]:
     """
     This function takes in a timestamp and formats it into a discord timestamp
     Discord timestamps look something like this: <t:123456789:R>
@@ -157,7 +157,7 @@ async def discord_timestamp(
     Returns:
         Union[str, None]: str with the discord timestamp. If invalid code is provided it will return None
     """
-    formated_times = {
+    formated_times: Final = {
         "mdy": f"<t:{time}:d>",
         "md_yt": f"<t:{time}:f>",
         "t": f"<t:{time}:t>",

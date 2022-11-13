@@ -1,4 +1,4 @@
-from typing import Final
+from typing import Final, Optional
 
 import discord
 import asyncpg
@@ -21,7 +21,9 @@ async def xp_needed(level: int) -> int:
     return int((level / x) ** y)
 
 
-async def get_level_data(db: asyncpg.Pool, guild_id: int) -> LevelingDataGuild | None:
+async def get_level_data(
+    db: asyncpg.Pool, guild_id: int
+) -> Optional[LevelingDataGuild]:
     """
     This function gets the leveling data for a guild
 

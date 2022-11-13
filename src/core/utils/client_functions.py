@@ -34,6 +34,9 @@ def get_why_config() -> dict:
 
     Returns:
         dict: The parsed result of config.yaml file
+
+    Raises:
+        ConfigNotFound: If the config was not found
     """
 
     path = os.path.join(os.path.dirname(__main__.__file__), "config.yaml")

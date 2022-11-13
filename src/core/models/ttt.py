@@ -17,7 +17,7 @@ class TicTacToeGame:
         self.reset_board()
 
     def reset_board(self):
-        self.board = [[FREE_SPACE for i in range(3)] for i in range(3)]
+        self.board = [[FREE_SPACE for _ in range(3)] for _ in range(3)]
 
     def space_free(self, pos: int) -> bool:
         """
