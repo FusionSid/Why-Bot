@@ -99,8 +99,8 @@ async def update_member_data(
 
     member = message.author
     await db.execute(
-        """UPDATE leveling_member 
-        SET member_name=$1, member_xp=$2, member_level=$3, member_total_xp=$4 
+        """UPDATE leveling_member
+        SET member_name=$1, member_xp=$2, member_level=$3, member_total_xp=$4
         WHERE member_id=$5 AND guild_id=$6
         """,
         f"{member.name}#{member.discriminator}",
