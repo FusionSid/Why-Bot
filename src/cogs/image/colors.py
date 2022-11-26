@@ -27,7 +27,9 @@ class Colors(commands.Cog):
                         embed=discord.Embed(
                             title="An error occured while trying to get the image",
                             description=(
-                                "This could be because you didnt upload an image\nIf not the API basically had a skill issue.\nIf this persists and you are able to, report this as a bug with </bug:0> :)"
+                                "This could be because you didnt upload an image\n"
+                                "If not the API basically had a skill issue.\n"
+                                "If this persists and you are able to, report this as a bug with </bug:0> :)"
                             ),
                             color=discord.Colour.red(),
                         ),
