@@ -270,7 +270,7 @@ class Fun(commands.Cog):
         await hack_message.edit(content="[▝] Selling information to the government...")
         await asyncio.sleep(1.420)
         await hack_message.edit(
-            content=f"[▗] Reporting account to discord for breaking TOS..."
+            content="[▗] Reporting account to discord for breaking TOS..."
         )
         await asyncio.sleep(1.69)
         await hack_message.edit(content="[▖] Hacking medical records...")
@@ -285,7 +285,7 @@ class Fun(commands.Cog):
             return await ctx.respond("Not a url", ephemeral=True)
 
         em = discord.Embed(
-            title=f"Screenshot", description=f"[Link]({url})", color=ctx.author.color
+            title="Screenshot", description=f"[Link]({url})", color=ctx.author.color
         )
         em.set_image(url=f"https://image.thum.io/get/{url}")
         await ctx.respond(embed=em)
