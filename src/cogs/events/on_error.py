@@ -35,11 +35,11 @@ class OnError(commands.Cog):
             em = discord.Embed(
                 title="Missing a requred value / argument",
                 description=(
-                    f"You haven't passed in all the required values for this command"
+                    "You haven't passed in all the required values for this command"
                 ),
                 color=discord.Color.red(),
             )
-            em.add_field(name=f"You have not passed in:", value=f"`{error.param}`")
+            em.add_field(name="You have not passed in:", value=f"`{error.param}`")
             await ctx.respond(embed=em, ephemeral=True)
 
         elif isinstance(error, commands.MissingPermissions):
@@ -209,7 +209,8 @@ class OnError(commands.Cog):
                 em = discord.Embed(
                     title="An error occured while trying to get the image",
                     description=(
-                        "API basically had a skill issue.\nIf this persists and you are able to, report this as a bug with </bug:0> :)"
+                        "API basically had a skill issue.\nIf this persists and you are able to, "
+                        "please report this as a bug with </bug:0> :)"
                     ),
                     color=discord.Colour.red(),
                 )
