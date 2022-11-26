@@ -56,7 +56,7 @@ class Counting(commands.Cog):
         self,
         ctx: discord.ApplicationContext,
         channel: discord.Option(
-            discord.TextChannel, "The counting channel", required=True
+            discord.TextChannel, "The counting channel", required=True  # noqa
         ),
     ):
         counting_data = await self.get_counting_data(ctx.guild.id, skip_cache=True)
@@ -193,8 +193,8 @@ class Counting(commands.Cog):
             embed=discord.Embed(
                 title="Counting Disabled!",
                 description=(
-                    f"Counting is now disabled, If you ever want to re-enable it use"
-                    f" `/counting enable`"
+                    "Counting is now disabled, If you ever want to re-enable it use"
+                    " `/counting enable`"
                 ),
                 color=ctx.author.color,
             )
@@ -264,8 +264,8 @@ class Counting(commands.Cog):
             embed=discord.Embed(
                 title=f"Current high score is: {counting_data.high_score}",
                 description=(
-                    f"Use `/counting leaderboard` to see your position across all why"
-                    f" bot servers"
+                    "Use `/counting leaderboard` to see your position across all why"
+                    " bot servers"
                 ),
                 color=ctx.author.color,
             )
