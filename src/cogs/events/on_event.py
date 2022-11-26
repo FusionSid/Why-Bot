@@ -18,7 +18,7 @@ class OnEvent(commands.Cog):
         self.client = client
 
     @commands.Cog.listener()
-    async def on_message(self, message):
+    async def on_message(self, message: discord.Message):
         """
         This is the event that is called when a message is sent in a channel
         It will check if the bot has been mentioned in the message and if so
@@ -34,10 +34,7 @@ class OnEvent(commands.Cog):
             and message.reference is None
         ):
             em = discord.Embed(
-                title=(
-                    f"Hi, my name is {self.client.user.display_name}. Use /help for"
-                    " help"
-                ),
+                title=f"Hi, my name is {self.client.user.display_name}. Use </help:0> for help",
                 color=message.author.color,
             )
             return await message.channel.send(embed=em)
@@ -48,23 +45,21 @@ class OnEvent(commands.Cog):
         Runs when the bot is ready
         Prints a message to console and updates the bot's activity
         """
+        # update the bots activity
         await update_activity(self.client)
+
+        # (try to) connect to the postgresql database
         try:
             self.client.db = await create_connection_pool()
         except ValueError:
             raise InvalidDatabaseUrl
 
+        # connect to redis db and reset the cache
         self.client.redis = await create_redis_connection()
         await self.client.redis.flushall()  # reset cache
 
-        if self.client.config["LOGGING"]:
-            await log_normal("Bot is Online")
-
-        self.client.console.print("\n[bold green]Bot is ready")
-
         # Send online alert
-        online_alert_channel = self.client.config["online_alert_channel"]
-
+        online_alert_channel = self.client.config.get("online_alert_channel")
         if online_alert_channel in (0, None):
             return
 
@@ -73,12 +68,19 @@ class OnEvent(commands.Cog):
         except discord.errors.NotFound:
             return
 
-        em = discord.Embed(
-            title="Bot is online",
-            color=discord.Color.green(),
-            timestamp=datetime.datetime.now(),
+        await channel.send(
+            embed=discord.Embed(
+                title="Bot is online",
+                color=discord.Color.green(),
+                timestamp=datetime.datetime.now(),
+            )
         )
-        await channel.send(embed=em)
+
+        if self.client.config.get("LOGGING"):
+            await log_normal("Bot is Online")
+
+        # print to console that its ready
+        self.client.console.print("\n[bold green]Bot is ready")
 
 
 def setup(client: WhyBot):
