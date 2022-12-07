@@ -49,7 +49,7 @@ class AnimalURLS(Enum):
     red_panda = "https://some-random-api.ml/animal/red_panda"
 
     # other
-    capybara = "https://api.capy.lol/v1/capybarabru?json=true"
+    capybara = "https://api.capy.lol/v1/capybara?json=true"
     shibe = "https://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true"
     duck = "https://random-d.uk/api/v2/quack"
     whale = "https://some-random-api.ml/img/whale"
