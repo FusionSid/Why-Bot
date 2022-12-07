@@ -172,7 +172,7 @@ class Leveling(commands.Cog):
                 embed=discord.Embed(
                     title="XP Calculator",
                     description=f"Amount of XP required for level {next_level} = {next_level_xp}\nAmount of XP"
-                    " you need to get to reach level {next_level} = {next_level_xp - member_data.member_total_xp}",
+                    f" you need to get to reach level {next_level} = {next_level_xp - member_data.member_total_xp}",
                     color=discord.Color.random(),
                 )
             )
@@ -181,7 +181,7 @@ class Leveling(commands.Cog):
         return await ctx.respond(
             embed=discord.Embed(
                 title="XP Calculator",
-                description=f"Amount of XP required for level {level} = {level_xp}\nAmount of"
+                description=f"Amount of XP required for level {level} = {level_xp}\nAmount of "
                 f"XP you need to get to reach level {level_xp} = {level_xp - member_data.member_total_xp}",
                 color=discord.Color.random(),
             )
