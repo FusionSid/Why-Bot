@@ -8,7 +8,22 @@ from core.helpers.http import get_request
 from core.helpers.exception import ImageAPIFail
 
 
-def animal_embed(response: dict | None, title: str):
+def animal_embed(response: dict = None):
+    if response is None:
+        raise ImageAPIFail
+
+    em = discord.Embed(
+        title=response["title"],
+        description=response["desc"],
+        color=discord.Color.random(),
+    )
+
+    em.set_image(url=response["image"])
+
+    return em
+
+
+def animal_embed_randomapi(response: dict | None, title: str):
     if response is None:
         raise ImageAPIFail
 
@@ -31,10 +46,10 @@ class AnimalURLS(Enum):
     koala = "https://some-random-api.ml/animal/koala"
     raccoon = "https://some-random-api.ml/animal/raccoon"
     red_panda = "https://some-random-api.ml/animal/red_panda"
-    capybara = [
-        "https://api.capybara-api.xyz/v1/image/random",
-        "https://api.capybara-api.xyz/v1/facts/random",
-    ]
+
+    capybara = "https://api.capy.lol/v1/capybara?json=true"
+    shibe = "https://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true"
+    duck = "https://random-d.uk/api/v2/quack"
 
 
 class Animals(commands.Cog):
@@ -48,77 +63,108 @@ class Animals(commands.Cog):
         url = AnimalURLS.dog.value
         response = await get_request(url)
 
-        await ctx.respond(embed=animal_embed(response, "Dog!"))
+        await ctx.respond(embed=animal_embed_randomapi(response, "Dog!"))
 
     @animal.command()
     async def cat(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.cat.value
         response = await get_request(url)
 
-        await ctx.respond(embed=animal_embed(response, "Cat!"))
+        await ctx.respond(embed=animal_embed_randomapi(response, "Cat!"))
 
     @animal.command()
     async def fox(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.fox.value
         response = await get_request(url)
 
-        await ctx.respond(embed=animal_embed(response, "Fox!"))
+        await ctx.respond(embed=animal_embed_randomapi(response, "Fox!"))
 
     @animal.command()
     async def panda(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.panda.value
         response = await get_request(url)
 
-        await ctx.respond(embed=animal_embed(response, "Panda!"))
+        await ctx.respond(embed=animal_embed_randomapi(response, "Panda!"))
 
     @animal.command()
     async def bird(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.bird.value
         response = await get_request(url)
 
-        await ctx.respond(embed=animal_embed(response, "Bird!"))
+        await ctx.respond(embed=animal_embed_randomapi(response, "Bird!"))
 
     @animal.command()
     async def kangaroo(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.kangaroo.value
         response = await get_request(url)
 
-        await ctx.respond(embed=animal_embed(response, "Kangaroo!"))
+        await ctx.respond(embed=animal_embed_randomapi(response, "Kangaroo!"))
 
     @animal.command()
     async def koala(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.koala.value
         response = await get_request(url)
 
-        await ctx.respond(embed=animal_embed(response, "Koala!"))
+        await ctx.respond(embed=animal_embed_randomapi(response, "Koala!"))
 
     @animal.command()
     async def raccon(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.raccoon.value
         response = await get_request(url)
 
-        await ctx.respond(embed=animal_embed(response, "Racoon!"))
+        await ctx.respond(embed=animal_embed_randomapi(response, "Racoon!"))
 
     @animal.command()
     async def redpanda(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.red_panda.value
         response = await get_request(url)
 
-        await ctx.respond(embed=animal_embed(response, "Red Panda!"))
+        await ctx.respond(embed=animal_embed_randomapi(response, "Red Panda!"))
 
     @animal.command()
     async def capybara(self, ctx: discord.ApplicationContext):
-        image_url = AnimalURLS.capybara.value[0]
-        image = await get_request(image_url)
+        url = AnimalURLS.capybara.value
+        image = await get_request(url)
 
-        fact_url = AnimalURLS.capybara.value[1]
-        fact = await get_request(fact_url)
+        if image.get("data") is None or image["data"].get("url") is None:
+            await ctx.respond(embed=animal_embed(None))
 
-        if image is None or fact is None:
-            return await ctx.respond(embed=animal_embed(None, "Ok I pull up!"))
+        response = {
+            "desc": "Ok I Pull Up!",
+            "image": image["data"]["url"],
+            "title": "Capybara!",
+        }
+        await ctx.respond(embed=animal_embed(response))
 
-        response = {"fact": fact["fact"], "image": image["storage_url"]}
-        await ctx.respond(embed=animal_embed(response, "Ok I pull up!"))
+    @animal.command()
+    async def duck(self, ctx: discord.ApplicationContext):
+        url = AnimalURLS.duck.value
+        image = await get_request(url)
+
+        if image.get("url") is None:
+            await ctx.respond(embed=animal_embed(None))
+
+        response = {
+            "desc": "Quack!",
+            "image": image["url"],
+            "title": "Duck!",
+        }
+        await ctx.respond(embed=animal_embed(response))
+
+    @animal.command()
+    async def shibe(self, ctx: discord.ApplicationContext):
+        url = AnimalURLS.shibe.value
+        image = await get_request(url)
+
+        if image is None or not len(image):
+            await ctx.respond(embed=animal_embed(None))
+
+        response = {
+            "desc": "Certified good boi!",
+            "image": image[0],
+            "title": "Shiba Inu!",
+        }
+        await ctx.respond(embed=animal_embed(response))
 
 
 def setup(client):
