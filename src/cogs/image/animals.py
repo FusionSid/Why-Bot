@@ -37,6 +37,7 @@ def animal_embed_randomapi(response: dict | None, title: str):
 
 
 class AnimalURLS(Enum):
+    # some random api
     dog = "https://some-random-api.ml/animal/dog"
     cat = "https://some-random-api.ml/animal/cat"
     fox = "https://some-random-api.ml/animal/fox"
@@ -47,7 +48,8 @@ class AnimalURLS(Enum):
     raccoon = "https://some-random-api.ml/animal/raccoon"
     red_panda = "https://some-random-api.ml/animal/red_panda"
 
-    capybara = "https://api.capy.lol/v1/capybara?json=true"
+    # other
+    capybara = "https://api.capy.lol/v1/capybar?json=true"
     shibe = "https://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true"
     duck = "https://random-d.uk/api/v2/quack"
 
@@ -126,7 +128,11 @@ class Animals(commands.Cog):
         url = AnimalURLS.capybara.value
         image = await get_request(url)
 
-        if image.get("data") is None or image["data"].get("url") is None:
+        if (
+            image is None
+            or image.get("data") is None
+            or image["data"].get("url") is None
+        ):
             await ctx.respond(embed=animal_embed(None))
 
         response = {
@@ -141,7 +147,7 @@ class Animals(commands.Cog):
         url = AnimalURLS.duck.value
         image = await get_request(url)
 
-        if image.get("url") is None:
+        if image is None or image.get("url") is None:
             await ctx.respond(embed=animal_embed(None))
 
         response = {
