@@ -56,6 +56,18 @@ class OtherImage(commands.Cog):
         self.client = client
         self.cog_check = run_bot_checks
 
+    @commands.slash_command()
+    async def unsplash(self, ctx: discord.ApplicationContext, search_terms: str = None):
+        url = ImageURLS.unsplash.value
+        if search_terms is not None:
+            url += f"?{search_terms}"
+
+        response = await get_request_bytes(url, bytes_io=True)
+        if response is None:
+            raise ImageAPIFail
+
+        await ctx.respond(file=discord.File(response, "image.png"))
+
 
 def setup(client):
     client.add_cog(OtherImage(client))
