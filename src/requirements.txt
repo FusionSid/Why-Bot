@@ -18,3 +18,4 @@ psutil
 PyYAML
 validators
 pycord.wavelink
+python-dateutil
