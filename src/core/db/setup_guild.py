@@ -49,7 +49,10 @@ async def setup_leveling_guild(db: asyncpg.Pool, guild_id: int):
         level_up_text, level_up_enabled, per_minute
     ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
     """
-    await db.execute(query, *default_data)
+    try:
+        await db.execute(query, *default_data)
+    except asyncpg.UniqueViolationError:
+        return
 
 
 async def create_db_tables(db: asyncpg.Pool, guild_id: int):
