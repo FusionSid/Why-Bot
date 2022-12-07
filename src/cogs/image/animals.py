@@ -52,6 +52,7 @@ class AnimalURLS(Enum):
     capybara = "https://api.capy.lol/v1/capybar?json=true"
     shibe = "https://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true"
     duck = "https://random-d.uk/api/v2/quack"
+    whale = "https://some-random-api.ml/img/whale"
 
 
 class Animals(commands.Cog):
@@ -169,6 +170,21 @@ class Animals(commands.Cog):
             "desc": "Certified good boi!",
             "image": image[0],
             "title": "Shiba Inu!",
+        }
+        await ctx.respond(embed=animal_embed(response))
+
+    @animal.command()
+    async def whale(self, ctx: discord.ApplicationContext):
+        url = AnimalURLS.whale.value
+        image = await get_request(url)
+
+        if image is None or not len(image):
+            await ctx.respond(embed=animal_embed(None))
+
+        response = {
+            "desc": "Big boi!",
+            "image": image["link"],
+            "title": "Whale!",
         }
         await ctx.respond(embed=animal_embed(response))
 
