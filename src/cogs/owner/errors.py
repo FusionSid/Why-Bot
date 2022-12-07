@@ -59,15 +59,18 @@ class ErrorLog(commands.Cog):
             color=ctx.author.color,
             timestamp=datetime.datetime.utcnow(),
         )
+        if limit == 1:
+            em.description = f"**{list(errors.keys())[0][:220]}**```py\n{list(errors.values())[0][:1900]}```"
+            return await ctx.respond(embed=em, ephemeral=True)
 
         for key, value in errors.items():
             em.add_field(
                 name=f"{key[:220]} **(read logfile for full)**"
                 if len(key) >= 220
                 else key,
-                value=f"{value[:995]} **(read logfile for full)**"
-                if len(value) >= 995
-                else value,
+                value=f"```py\n{value[:980]}```\n**(read logfile for full)**"
+                if len(value) >= 980
+                else f"```py\n{value}```",
                 inline=False,
             )
 
