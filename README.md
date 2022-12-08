@@ -2,23 +2,27 @@
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
+[![Stargazers][stars-shield]][stars-url]
 [![MIT License][license-shield]][license-url]
 [![CodeFactor](https://img.shields.io/codefactor/grade/github/FusionSid/Why-Bot?style=for-the-badge)](https://www.codefactor.io/repository/github/fusionsid/why-bot)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
 <br />
 <div align="center">
-  <a href="https://github.com/FusionSid/Why-Bot">
+  <a href="https://discord.gg/ryEmgnpKND">
     <img src="assets/images/logo.png" alt="Logo" width="300" height="225">
   </a>
+  <!-- <a href="https://discord.gg/ryEmgnpKND">
+    <img src="https://api.fusionsid.xyz/api/discord/image?user_id=896932646846885898"></img>
+  </a> -->
 
 ----
 
   <h1 align="center">Why Bot</h1>
 
   <p align="center">
-    <h3>An open source, multi-purpose discord bot made to enhance your discord experience :)</h3>
+    <h3>An open source, multi-purpose discord bot made to enhance your discord experience</h3>
     <a href="https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands"><strong>[Add to your server]</strong></a>
     <br />
     <br />
@@ -26,11 +30,6 @@
     ·
     <a href="https://github.com/FusionSid/Why-Bot/issues">Report Bug</a>
   </p>
-</div>
-<br />
-
-<div align="center">
-  <a href="https://discord.gg/ryEmgnpKND"><img src="https://api.fusionsid.xyz/api/discord/image?user_id=896932646846885898"></img></a>
 </div>
 
 ---
@@ -76,7 +75,7 @@ Don't forget to give the project a star :)
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b newfeature`)
-3. Commit your Changes (`git commit -m 'Add some newfeature'`)
+3. Commit your Changes (`git commit -m 'feat: Add newfeature'`) Please try to follow [conventional commit names](https://www.conventionalcommits.org/en/v1.0.0/)
 4. Push to the Branch (`git push origin newfeature`)
 5. Open a Pull Request
 
@@ -91,12 +90,13 @@ Distributed under the MIT License. See [`LICENSE`](/LICENCE) for more informatio
 
 ## Contact
 
-Siddhesh Zantye - [@Fusion_Sid](https://twitter.com/Fusion_Sid) - whybot@fusionsid.xyz
+Siddhesh Zantye - whybot@fusionsid.xyz
 
 Discord Account: [`FusionSid#3645`](https://discordapp.com/users/624076054969188363)
 
 Join the Why [Discord Server](https://discord.gg/ryEmgnpKND) For help.
 
+You can also directly DM the bot to contact the Why Bot devs
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
