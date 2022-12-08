@@ -209,7 +209,7 @@ class Channels(commands.Cog):
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def clear(self, ctx: discord.ApplicationContext, amount: int = 10):
         if amount < 50:
-            await ctx.channel.purge(limit=amount + 1)
+            await ctx.channel.purge(limit=amount)
             em = discord.Embed(
                 color=ctx.author.color,
                 title="Channel Message Purge",
