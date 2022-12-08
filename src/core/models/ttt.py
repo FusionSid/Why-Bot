@@ -255,12 +255,22 @@ class TicTacToe2PlayerButton(discord.ui.Button):
 
         elif result[0] == "win":
             await interaction.followup.send(
-                f"Yay {self.view.current_player.mention} wins"
+                embed=discord.Embed(
+                    title="Game Over!",
+                    description=f"Yay {self.view.current_player.mention} wins",
+                    color=discord.Color.random(),
+                )
             )
             await self.view.on_timeout()
 
         elif result[0] == "draw":
-            await interaction.followup.send(f"Its a draw gg")
+            await interaction.followup.send(
+                embed=discord.Embed(
+                    title="Game Over!",
+                    description=f"Its a draw gg",
+                    color=discord.Color.random(),
+                )
+            )
             await self.view.on_timeout()
 
         elif result[0] == "continue":
@@ -353,6 +363,15 @@ class TicTacToeAIView(discord.ui.View):
 
         return True
 
+    async def on_timeout(self) -> None:
+        for button in self.children:
+            button.disabled = True
+
+        await self.message.edit(view=self)
+        await super().on_timeout()
+
+        self.stop()
+
 
 class TicTacToeAIButton(TicTacToe2PlayerButton):
     """
@@ -382,11 +401,23 @@ class TicTacToeAIButton(TicTacToe2PlayerButton):
                 result = self.view.game.bot_move("O")
 
         if result[0] == "win":
-            await interaction.followup.send(f"Yay {self.view.current_player} wins")
+            await interaction.followup.send(
+                embed=discord.Embed(
+                    title="Game Over!",
+                    description=f"Yay {self.view.current_player} wins",
+                    color=discord.Color.random(),
+                )
+            )
             await self.view.on_timeout()
 
         elif result[0] == "draw":
-            await interaction.followup.send(f"Its a draw gg")
+            await interaction.followup.send(
+                embed=discord.Embed(
+                    title="Game Over!",
+                    description=f"Its a draw gg",
+                    color=discord.Color.random(),
+                )
+            )
             await self.view.on_timeout()
 
         if self.view.current_player == "bot":
