@@ -121,6 +121,8 @@ class Alerts(commands.Cog):
             int(time.time()),
         )
 
+        await self.client.db.execute("UPDATE alerts_users SET alert_viewed=false")
+
         await ctx.respond(
             "Alert Created! It will look like this:",
             embed=discord.Embed(
