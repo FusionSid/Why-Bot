@@ -6,7 +6,6 @@
 [![Stargazers][stars-shield]][stars-url]
 [![MIT License][license-shield]][license-url]
 [![CodeFactor](https://img.shields.io/codefactor/grade/github/FusionSid/Why-Bot?style=for-the-badge)](https://www.codefactor.io/repository/github/fusionsid/why-bot)
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
 <br />
 <div align="center">
