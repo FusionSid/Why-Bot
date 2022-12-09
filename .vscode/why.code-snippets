@@ -14,5 +14,14 @@
 		  "\tclient.add_cog($1(client))"
 		],
 		"description": "Creates a Cog"
-	  }
+	  },
+	"slash": {
+		"prefix": "slash",
+		"body": [
+			"@commands.slash_command()",
+			"async def $1(self, ctx: discord.ApplicationContext):",
+			"\tpass"
+		],
+		"description": "Create a new slash command"
+	}
 }
