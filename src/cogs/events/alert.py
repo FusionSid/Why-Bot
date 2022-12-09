@@ -1,10 +1,11 @@
-import datetime
+import time
 
 import discord
 from discord.ext import commands
 
 from core.models.client import WhyBot
 from core.helpers.checks import run_bot_checks
+from core.helpers.views import TagInput
 from core.utils.formatters import discord_timestamp
 
 
@@ -50,10 +51,7 @@ class Alerts(commands.Cog):
         data = data[::-1][0]
 
         description = data[2]
-        date = datetime.datetime(
-            year=data[3].year, month=data[3].month, day=data[3].day
-        )
-        date = await discord_timestamp(int(date.timestamp()), format_type="ts")
+        date = await discord_timestamp(data[3], format_type="ts")
         description += f"\n\nThis alert was made {date}"
 
         em = discord.Embed(
@@ -99,6 +97,35 @@ class Alerts(commands.Cog):
                 ),
                 color=discord.Color.green() if on_or_off else discord.Color.red(),
             )
+        )
+
+    @commands.slash_command()
+    @commands.is_owner()
+    async def newalert(self, ctx, name):
+        input = TagInput(title="Alert Value")  # reuse code from tags lol
+        await ctx.send_modal(input)
+        await input.wait()
+
+        if input.value is None:
+            return await ctx.respond(
+                "Not creating alert as input was either None or invalid", ephemeral=True
+            )
+
+        # create tag
+        await self.client.db.execute(
+            """INSERT INTO alerts (
+                alert_title, alert_message, time_created
+            ) VALUES ($1, $2, $3)""",
+            name,
+            input.value,
+            int(time.time()),
+        )
+
+        await ctx.respond(
+            "Alert Created! It will look like this:",
+            embed=discord.Embed(
+                title=name, description=input.value, color=discord.Color.random()
+            ),
         )
 
 
