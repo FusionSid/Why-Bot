@@ -5,7 +5,7 @@ from core.utils.client_functions import create_connection_pool
 
 
 blacklist_query: Final = """
-CREATE TABLE IF NOT EXISTS blacklist
+DROP TABLE IF EXISTS blacklist; CREATE TABLE blacklist
 (
     user_id integer NOT NULL,
     reason text,
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS blacklist
 """
 
 command_stats_query: Final = """
-CREATE TABLE IF NOT EXISTS command_stats
+DROP TABLE IF EXISTS command_stats; CREATE TABLE command_stats
 (
     id SERIAL PRIMARY KEY,
     user_id bigint NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS command_stats
 """
 
 counting_query: Final = """
-CREATE TABLE IF NOT EXISTS counting
+DROP TABLE IF EXISTS counting; CREATE TABLE counting
 (
     guild_id bigint NOT NULL PRIMARY KEY,
     last_counter bigint,
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS counting
 """
 
 leveling_member_query: Final = """
-CREATE TABLE IF NOT EXISTS leveling_member
+DROP TABLE IF EXISTS leveling_member; CREATE TABLE leveling_member
 (
     guild_id bigint NOT NULL,
     member_id bigint NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS leveling_member
 """
 
 leveling_guild_query: Final = """
-CREATE TABLE IF NOT EXISTS leveling_guild
+DROP TABLE IF EXISTS leveling_guild; CREATE TABLE leveling_guild
 (
     guild_id bigint NOT NULL PRIMARY KEY,
     plugin_enabled boolean,
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS leveling_guild
 """
 
 leveling_rewards_query: Final = """
-CREATE TABLE IF NOT EXISTS leveling_rewards
+DROP TABLE IF EXISTS leveling_rewards; CREATE TABLE leveling_rewards
 (
     guild_id bigint NOT NULL PRIMARY KEY,
     level integer,
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS leveling_rewards
 """
 
 counters_query: Final = """
-CREATE TABLE IF NOT EXISTS counters
+DROP TABLE IF EXISTS counters; CREATE TABLE counters
 (
     key text NOT NULL PRIMARY KEY,
     value integer NOT NULL DEFAULT 0
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS counters
 """
 
 dmreply_query: Final = """
-CREATE TABLE IF NOT EXISTS dmreply
+DROP TABLE IF EXISTS dmreply; CREATE TABLE dmreply
 (
     user_id bigint NOT NULL PRIMARY KEY,
     thread_id bigint NOT NULL
@@ -92,29 +92,30 @@ CREATE TABLE IF NOT EXISTS dmreply
 """
 
 tags_query: Final = """
-CREATE TABLE IF NOT EXISTS tags
+DROP TABLE IF EXISTS tags; CREATE TABLE tags
 (
-    guild_id bigint NOT NULL PRIMARY KEY,
+    id SERIAL NOT NULL PRIMARY KEY,
+    guild_id bigint NOT NULL,
     tag_name TEXT NOT NULL,
     tag_value TEXT NOT NULL,
     tag_author TEXT NOT NULL,
-    time_created date NOT NULL default current_timestamp
+    time_created INTEGER NOT NULL
 );
 """
 
 alerts_query: Final = """
-CREATE TABLE IF NOT EXISTS alerts
+DROP TABLE IF EXISTS alerts; CREATE TABLE alerts
 (
     id serial NOT NULL PRIMARY KEY,
     alert_title text NOT NULL,
     alert_message text NOT NULL,
-    time_created date NOT NULL default current_timestamp,
+    time_created INTEGER NOT NULL,
     viewed integer NOT NULL DEFAULT 1
 );
 """
 
 alerts_user_query: Final = """
-CREATE TABLE IF NOT EXISTS alerts_users
+DROP TABLE IF EXISTS alerts_users; CREATE TABLE alerts_users
 (
     user_id bigint NOT NULL PRIMARY KEY,
     alert_viewed boolean NOT NULL DEFAULT false,
@@ -123,7 +124,7 @@ CREATE TABLE IF NOT EXISTS alerts_users
 """
 
 # If you wish not to create one of these tables in the setup process
-# Simply just remove that item from this list:
+# Simply just remove/comment that item from this list:
 tables_to_create = [
     blacklist_query,
     command_stats_query,
@@ -134,6 +135,8 @@ tables_to_create = [
     counters_query,
     dmreply_query,
     tags_query,
+    alerts_query,
+    alerts_user_query,
 ]
 
 
