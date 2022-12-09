@@ -295,3 +295,21 @@ class ConfirmView(discord.ui.View):
         await super().on_timeout()
 
         self.stop()
+
+
+class TagInput(discord.ui.Modal):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.value = None
+
+        self.add_item(
+            discord.ui.InputText(
+                label="Please enter the value of the tag",
+                style=discord.InputTextStyle.long,
+                max_length=3999,
+            )
+        )
+
+    async def callback(self, interaction: discord.Interaction):
+        self.value = self.children[0].value
+        await interaction.response.send_message("Processing input...", ephemeral=True)
