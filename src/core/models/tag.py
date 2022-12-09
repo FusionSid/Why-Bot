@@ -9,4 +9,4 @@ class Tag:
     tag_name: str
     tag_value: str
     tag_author: str
-    time_created: str
+    time_created: int
