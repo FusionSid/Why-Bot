@@ -110,7 +110,6 @@ async def update_member_data(
         message.author.id,
         message.guild.id,
     )
-    print(member_data)  # for debuging purposes and also cause i like seing it
 
 
 async def get_all_member_data(db: asyncpg.Pool, guild_id: int):
