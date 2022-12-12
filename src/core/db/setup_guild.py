@@ -1,5 +1,6 @@
-import asyncpg
 import asyncio
+
+import asyncpg
 
 
 async def setup_counting(db: asyncpg.Pool, guild_id: int):
@@ -55,6 +56,26 @@ async def setup_leveling_guild(db: asyncpg.Pool, guild_id: int):
         return
 
 
+async def setup_tickets(db: asyncpg.Pool, guild_id: int):
+    """
+    Setup ticketing for the guild.
+
+    Parameters:
+        db (asyncpg.Pool): The database connection pool
+        guild_id (int): the id of the guild to create a row for
+    """
+    default_data = [guild_id, [], [], False, None, []]
+    try:
+        await db.execute(
+            """INSERT INTO ticket_guild (
+                guild_id, users_allowed, ping_roles, create_button, category, banned_users
+            ) VALUES ($1, $2, $3, $4, $5, $6)""",
+            *default_data,
+        )
+    except asyncpg.UniqueViolationError:
+        return
+
+
 async def create_db_tables(db: asyncpg.Pool, guild_id: int):
     """
     Function for running all the setup functions at once
@@ -65,6 +86,6 @@ async def create_db_tables(db: asyncpg.Pool, guild_id: int):
         guild_id (int): the id of the guild to setup
     """
 
-    things_to_setup = [setup_counting, setup_leveling_guild]
+    things_to_setup = [setup_counting, setup_leveling_guild, setup_tickets]
     tasks = [setup_function(db, guild_id) for setup_function in things_to_setup]
     await asyncio.gather(*tasks)
