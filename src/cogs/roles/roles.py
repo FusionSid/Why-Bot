@@ -30,7 +30,7 @@ class Roles(commands.Cog):
     ):
 
         try:
-            roles = list(map(int, re.findall("\d+", roles)))
+            roles = list(map(int, re.findall("\\d+", roles)))
         except ValueError:
             return await ctx.respond("Invalid input was provided", ephemeral=True)
 
@@ -88,7 +88,7 @@ class Roles(commands.Cog):
         roles: str,
     ):
         try:
-            roles = list(map(int, re.findall("\d+", roles)))
+            roles = list(map(int, re.findall("\\d+", roles)))
         except ValueError:
             return await ctx.respond("Invalid input was provided", ephemeral=True)
 
