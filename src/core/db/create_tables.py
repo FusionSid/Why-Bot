@@ -123,6 +123,29 @@ DROP TABLE IF EXISTS alerts_users; CREATE TABLE alerts_users
 );
 """
 
+ticket_guild_query: Final = """
+DROP TABLE IF EXISTS ticket_guild; CREATE TABLE ticket_guild
+(
+    guild_id bigint NOT NULL PRIMARY KEY,
+    roles_allowed bigint[],
+    ping_roles bigint[],
+    create_button boolean DEFAULT false,
+    category bigint,
+    banned_users bigint[]
+);
+"""
+
+tickets_query: Final = """
+DROP TABLE IF EXISTS tickets; CREATE TABLE tickets
+(
+    id serial NOT NULL PRIMARY KEY,
+    guild_id bigint NOT NULL,
+    channel_id bigint NOT NULL,
+    ticket_creator bigint NOT NULL,
+    time_created INTEGER NOT NULL
+);
+"""
+
 # If you wish not to create one of these tables in the setup process
 # Simply just remove/comment that item from this list:
 tables_to_create = [
@@ -137,6 +160,8 @@ tables_to_create = [
     tags_query,
     alerts_query,
     alerts_user_query,
+    ticket_guild_query,
+    tickets_query,
 ]
 
 
