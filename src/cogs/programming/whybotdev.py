@@ -22,7 +22,7 @@ class WhyBotDev(commands.Cog):
         self.cog_check = run_bot_checks
 
     why_dev = SlashCommandGroup(
-        "whydev", "Why bot development info and programming commands"
+        "why", "Why bot development info and programming commands"
     )
 
     @why_dev.command(
