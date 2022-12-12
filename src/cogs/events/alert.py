@@ -5,7 +5,7 @@ from discord.ext import commands
 
 from core.models.client import WhyBot
 from core.helpers.checks import run_bot_checks
-from core.helpers.views import TagInput
+from core.helpers.views import InputModalView
 from core.utils.formatters import discord_timestamp
 
 
@@ -102,7 +102,9 @@ class Alerts(commands.Cog):
     @commands.slash_command()
     @commands.is_owner()
     async def newalert(self, ctx, name):
-        input = TagInput(title="Alert Value")  # reuse code from tags lol
+        input = InputModalView(
+            title="Alert Value", label="Enter the value of the alert:"
+        )
         await ctx.send_modal(input)
         await input.wait()
 

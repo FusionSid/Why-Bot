@@ -7,7 +7,7 @@ from discord.commands import SlashCommandGroup
 
 from core.models import WhyBot
 from core.models.tag import Tag
-from core.helpers.views import TagInput
+from core.helpers.views import InputModalView
 from core.helpers.checks import run_bot_checks
 from core.utils.formatters import discord_timestamp
 
@@ -51,7 +51,9 @@ class Tags(commands.Cog):
             )
 
         # get tags value
-        input = TagInput(title="Tag Value")
+        input = InputModalView(
+            title="Tag Value", label="Please enter the value of the tag:"
+        )
         await ctx.send_modal(input)
         await input.wait()
 
@@ -144,7 +146,9 @@ class Tags(commands.Cog):
             )
 
         # get tags value
-        input = TagInput(title="Tag New Value")
+        input = InputModalView(
+            title="Tag New Value", label="Please enter the new value of the tag:"
+        )
         await ctx.send_modal(input)
         await input.wait()
 
