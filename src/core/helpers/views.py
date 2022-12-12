@@ -297,14 +297,14 @@ class ConfirmView(discord.ui.View):
         self.stop()
 
 
-class TagInput(discord.ui.Modal):
-    def __init__(self, *args, **kwargs) -> None:
+class InputModalView(discord.ui.Modal):
+    def __init__(self, label: str, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.value = None
 
         self.add_item(
             discord.ui.InputText(
-                label="Please enter the value of the tag",
+                label=label,
                 style=discord.InputTextStyle.long,
                 max_length=3999,
             )
