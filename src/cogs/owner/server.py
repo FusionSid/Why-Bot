@@ -133,7 +133,7 @@ class Server(commands.Cog):
         data = await self.client.db.fetch(
             "SELECT * FROM command_stats WHERE user_id=$1", user.id
         )
-        if len(data):
+        if data:
             usage = sum(i[3] for i in data)
             emb.add_field(
                 name="Command Usage",

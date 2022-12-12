@@ -163,7 +163,7 @@ class Animals(commands.Cog):
         url = AnimalURLS.shibe.value
         image = await get_request(url)
 
-        if image is None or not len(image):
+        if image is None or not image:
             await ctx.respond(embed=animal_embed(None))
 
         response = {
@@ -178,7 +178,7 @@ class Animals(commands.Cog):
         url = AnimalURLS.whale.value
         image = await get_request(url)
 
-        if image is None or not len(image):
+        if image is None or not image:
             await ctx.respond(embed=animal_embed(None))
 
         response = {

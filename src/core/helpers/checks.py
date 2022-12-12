@@ -34,7 +34,7 @@ async def blacklist_check(user_id: int) -> bool:
     async with asyncpg_connect(database_url) as conn:
         data = await conn.fetch("SELECT * FROM blacklist;")
         users = [int(user[0]) for user in data]
-        if len(users):
+        if users:
             await redis.lpush("blacklisted", *users)
             await redis.expire("blacklisted", datetime.timedelta(hours=12))
         return not str(user_id) in users
@@ -56,7 +56,7 @@ async def update_stats(ctx: ApplicationContext):
             ctx.author.id,
             ctx.command.name,
         )
-        if len(data):
+        if data:
             await conn.execute(
                 "UPDATE command_stats SET usage_count=$1 WHERE user_id=$2 AND"
                 " command_name=$3",

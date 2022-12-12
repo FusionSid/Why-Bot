@@ -124,7 +124,7 @@ class WhyBot(commands.Bot):
 
         await self.redis.delete("blacklisted")
         users = [int(user) for user in await self.get_blacklisted_users()]
-        if len(users):
+        if users:
             await self.redis.lpush("blacklisted", *users)
             await self.redis.expire("blacklisted", datetime.timedelta(days=5))
 

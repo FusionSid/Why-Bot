@@ -25,7 +25,7 @@ class Tags(commands.Cog):
             guild_id,
             tag_name,
         )
-        if not len(tag):
+        if not tag:
             return None
 
         return Tag(*tag[0][1:])
@@ -111,7 +111,7 @@ class Tags(commands.Cog):
         tags = await self.client.db.fetch(
             "SELECT * FROM tags WHERE guild_id=$1", ctx.guild.id
         )
-        if not len(tags):
+        if not tags:
             return await ctx.respond(
                 embed=discord.Embed(
                     title="Tags",
