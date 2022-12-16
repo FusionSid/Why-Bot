@@ -15,39 +15,9 @@ from core.utils.calc import slow_safe_calculate
 class Counting(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
-        self.guilds: list[int] = []
         self.cog_check = run_bot_checks
 
     counting = SlashCommandGroup("counting", "Commmands related to the counting game")
-
-    async def put_on_cooldown(self, guild):
-        self.guilds.append(guild)
-        await asyncio.sleep(0.1)
-
-        try:
-            self.guilds.remove(guild)
-        except ValueError:
-            return
-
-    async def get_counting_data(
-        self, guild_id: int, skip_cache: bool = False
-    ) -> CountingData:
-        key = f"{guild_id}_counting"
-
-        if not skip_cache:
-            if await self.client.redis.exists(key):
-                data = json.loads(await self.client.redis.get(key))
-                return CountingData(*data)
-
-        data = await self.client.db.fetch(
-            "SELECT * FROM counting WHERE guild_id=$1", guild_id
-        )
-
-        if not data:
-            return None
-
-        await self.client.redis.set(key, json.dumps(list(data[0])))
-        return CountingData(*data[0])
 
     @counting.command()
     @commands.guild_only()
@@ -59,7 +29,7 @@ class Counting(commands.Cog):
             discord.TextChannel, "The counting channel", required=True  # noqa
         ),
     ):
-        counting_data = await self.get_counting_data(ctx.guild.id, skip_cache=True)
+        counting_data = await self.__get_counting_data(ctx.guild.id, skip_cache=True)
         if counting_data is None:
             return await setup_counting(self.client.db, ctx.guild.id)
 
@@ -77,7 +47,7 @@ class Counting(commands.Cog):
         )
 
         counting_data.counting_channel = channel.id
-        await self.update_cache(counting_data)
+        await self.__update_cache(counting_data)
 
     @counting.command()
     @commands.guild_only()
@@ -86,7 +56,7 @@ class Counting(commands.Cog):
         self,
         ctx: discord.ApplicationContext,
     ):
-        counting_data = await self.get_counting_data(ctx.guild.id, skip_cache=True)
+        counting_data = await self.__get_counting_data(ctx.guild.id, skip_cache=True)
         if counting_data is None:
             return await setup_counting(self.client.db, ctx.guild.id)
         elif counting_data.counting_channel is None:
@@ -137,7 +107,7 @@ class Counting(commands.Cog):
         )
 
         counting_data.plugin_enabled = True
-        await self.update_cache(counting_data)
+        await self.__update_cache(counting_data)
 
     @counting.command()
     @commands.guild_only()
@@ -146,7 +116,7 @@ class Counting(commands.Cog):
         self,
         ctx: discord.ApplicationContext,
     ):
-        counting_data = await self.get_counting_data(ctx.guild.id, skip_cache=True)
+        counting_data = await self.__get_counting_data(ctx.guild.id, skip_cache=True)
         if counting_data is None:
             return await setup_counting(self.client.db, ctx.guild.id)
 
@@ -171,7 +141,7 @@ class Counting(commands.Cog):
         )
 
         counting_data.auto_calculate = on_or_off
-        await self.update_cache(counting_data)
+        await self.__update_cache(counting_data)
 
     @counting.command()
     @commands.guild_only()
@@ -180,7 +150,7 @@ class Counting(commands.Cog):
         self,
         ctx: discord.ApplicationContext,
     ):
-        counting_data = await self.get_counting_data(ctx.guild.id, skip_cache=True)
+        counting_data = await self.__get_counting_data(ctx.guild.id, skip_cache=True)
         if counting_data is None:
             return await setup_counting(self.client.db, ctx.guild.id)
 
@@ -201,12 +171,12 @@ class Counting(commands.Cog):
         )
 
         counting_data.plugin_enabled = False
-        await self.update_cache(counting_data)
+        await self.__update_cache(counting_data)
 
     @counting.command()
     @commands.guild_only()
     async def current_number(self, ctx: discord.ApplicationContext):
-        counting_data = await self.get_counting_data(ctx.guild.id, skip_cache=True)
+        counting_data = await self.__get_counting_data(ctx.guild.id, skip_cache=True)
         if counting_data is None:
             await setup_counting(self.client.db, ctx.guild.id)
         elif (
@@ -236,12 +206,12 @@ class Counting(commands.Cog):
             )
         )
 
-        await self.update_cache(counting_data)
+        await self.__update_cache(counting_data)
 
     @counting.command()
     @commands.guild_only()
     async def high_score(self, ctx: discord.ApplicationContext):
-        counting_data = await self.get_counting_data(ctx.guild.id, skip_cache=True)
+        counting_data = await self.__get_counting_data(ctx.guild.id, skip_cache=True)
         if counting_data is None:
             await setup_counting(self.client.db, ctx.guild.id)
         elif (
@@ -271,7 +241,7 @@ class Counting(commands.Cog):
             )
         )
 
-        await self.update_cache(counting_data)
+        await self.__update_cache(counting_data)
 
     @counting.command()
     @commands.guild_only()
@@ -310,13 +280,7 @@ class Counting(commands.Cog):
         if message.guild is None or message.author.bot:
             return
 
-        if message.guild.id in self.guilds:
-            try:
-                return await message.add_reaction("🛑")
-            except (discord.NotFound, discord.Forbidden):
-                pass  # probably deleted their message
-
-        counting_data = await self.get_counting_data(message.guild.id)
+        counting_data = await self.__get_counting_data(message.guild.id)
         if counting_data is None:
             return await setup_counting(self.client.db, message.guild.id)
 
@@ -332,29 +296,7 @@ class Counting(commands.Cog):
             return
 
         if counting_data.auto_calculate and not message.content.isnumeric():
-
-            def check(reaction: discord.reaction.Reaction, user):
-                return (
-                    reaction.message.id == msg.id
-                    and reaction.emoji == "🗑️"
-                    and user.id == message.author.id
-                )
-
-            try:
-                msg = await message.reply(potential_number)
-                # wait 15 seconds to see if they react with a bin
-                # if so delete the message
-                # if not remove the reaction from the message
-                try:
-                    await msg.add_reaction("🗑️")
-                    await self.client.wait_for(
-                        "reaction_add", timeout=15.0, check=check
-                    )
-                    await msg.delete()
-                except asyncio.TimeoutError:
-                    await msg.remove_reaction("🗑️", member=self.client.user)
-            except discord.Forbidden:
-                pass  # message failed to send (probably due to perms)
+            self.client.loop.create_task(self.__delete_msg(potential_number, message))
 
         if (
             counting_data.counting_channel != message.channel.id
@@ -371,7 +313,7 @@ class Counting(commands.Cog):
                 ),
                 color=message.author.color,
             )
-            await self.reset_count(counting_data)
+            await self.__reset_count(counting_data)
             await message.add_reaction("❌")
             return await message.channel.send(embed=em)
 
@@ -385,12 +327,11 @@ class Counting(commands.Cog):
                 ),
                 color=message.author.color,
             )
-            await self.reset_count(counting_data)
+            await self.__reset_count(counting_data)
             await message.add_reaction("❌")
             return await message.channel.send(embed=em)
 
-        await self.update_count(counting_data, message.author.id)
-        await self.put_on_cooldown(message.guild.id)
+        await self.__update_count(counting_data, message.author.id)
         await message.add_reaction("✅")
 
         if counting_data.current_number == 69:
@@ -399,11 +340,11 @@ class Counting(commands.Cog):
             await message.add_reaction("🇨")
             await message.add_reaction("🇪")
 
-    async def reset_count(self, data: CountingData):
+    async def __reset_count(self, data: CountingData):
         data.last_counter = 0
         data.current_number = 0
 
-        await self.update_cache(data)
+        await self.__update_cache(data)
 
         self.client.loop.create_task(
             self.client.db.execute(
@@ -415,12 +356,12 @@ class Counting(commands.Cog):
             )
         )
 
-    async def update_count(self, data: CountingData, last_counter: int):
+    async def __update_count(self, data: CountingData, last_counter: int):
         # update count and last counter and highscore
         data.current_number = data.next_number
         data.last_counter = last_counter
 
-        await self.update_cache(data)
+        await self.__update_cache(data)
         self.client.loop.create_task(
             self.client.db.execute(
                 "UPDATE counting SET current_number=$1, last_counter=$2 WHERE"
@@ -430,9 +371,9 @@ class Counting(commands.Cog):
                 data.guild_id,
             )
         )
-        self.client.loop.create_task(self.update_high_score(data))
+        self.client.loop.create_task(self.__update_high_score(data))
 
-    async def update_high_score(self, data: CountingData):
+    async def __update_high_score(self, data: CountingData):
         if data.high_score is None or data.current_number > data.high_score:
             await self.client.db.execute(
                 "UPDATE counting SET high_score=$1 WHERE guild_id=$2",
@@ -440,10 +381,50 @@ class Counting(commands.Cog):
                 data.guild_id,
             )
 
-    async def update_cache(self, data: CountingData):
+    async def __update_cache(self, data: CountingData):
         await self.client.redis.set(
             f"{data.guild_id}_counting", json.dumps(list(data.__dict__.values()))
         )
+
+    async def __get_counting_data(
+        self, guild_id: int, skip_cache: bool = False
+    ) -> CountingData:
+        key = f"{guild_id}_counting"
+
+        if not skip_cache:
+            if await self.client.redis.exists(key):
+                data = json.loads(await self.client.redis.get(key))
+                return CountingData(*data)
+
+        data = await self.client.db.fetch(
+            "SELECT * FROM counting WHERE guild_id=$1", guild_id
+        )
+
+        if not data:
+            return None
+
+        await self.client.redis.set(key, json.dumps(list(data[0])))
+        return CountingData(*data[0])
+
+    async def __delete_msg(self, number: int, message: discord.Message):
+        try:
+            msg = await message.reply(number)
+        except discord.Forbidden:
+            return
+
+        def check(reaction: discord.reaction.Reaction, user: discord.User):
+            return (
+                reaction.message.id == msg.id
+                and reaction.emoji == "🗑️"
+                and user.id == message.author.id
+            )
+
+        try:
+            await msg.add_reaction("🗑️")
+            await self.client.wait_for("reaction_add", timeout=15.0, check=check)
+            await msg.delete()
+        except asyncio.TimeoutError:
+            await msg.remove_reaction("🗑️", member=self.client.user)
 
 
 def setup(client):
