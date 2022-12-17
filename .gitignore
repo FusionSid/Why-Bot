@@ -23,7 +23,7 @@ share/python-wheels/
 MANIFEST
 .cache
 .env
-*.yaml
+config.yaml
 *.log
 *.so
 *.mypy_cache
