@@ -1,0 +1,31 @@
+DEFAULT_PREFIX: "?"
+BOT_OWNER_ID: 0
+BOT_TOKEN: "Token for the bot"
+LOGGING: True
+
+# Guild Details
+MAIN_GUILD: 0 # the bots main guild for emojis
+DEBUG_GUILDS: [] # for debug purposes, slash commands work instantly but only in selected guilds
+DEBUG_GUILD_MODE: False
+
+# Channels
+join_alert_channel: 0
+leave_alert_channel: 0
+online_alert_channel: 0
+bug_report_channel: 0
+suggestion_channel: 0
+dm_reply_channel: 0
+
+# Database & Cache Auth Details
+DATABASE_URL: "postgresql://<url>/<dbname>?user=<username>&password=<password>"
+REDIS_URI: "redis://127.0.0.1"
+REDIS_PASSWORD: "Password for redis auth"
+
+# API Keys
+GITHUB_ACCESS_TOKEN: "This api key is for bug reports"
+HYPIXEL_API_KEY: "This api key for hypixel related commands"
+PRAW_CLIENT_SECRET: "This key is for reddit commands"
+PRAW_CLIENT_ID: ""This key is for reddit commands""
+GOOGLE_IMAGE_API: "This key is for google image search commands"
+NASA_API_KEY: "This key is for nasa commands"
+WEATHER_API_KEY: "This key is for weather commands"
