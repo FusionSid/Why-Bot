@@ -331,14 +331,20 @@ class Counting(commands.Cog):
             await message.add_reaction("❌")
             return await message.channel.send(embed=em)
 
-        await self.__update_count(counting_data, message.author.id)
+        await self.__update_count(counting_data, message)
         await message.add_reaction("✅")
 
-        if counting_data.current_number == 69:
-            await message.add_reaction("🇳")
-            await message.add_reaction("🇮")
-            await message.add_reaction("🇨")
-            await message.add_reaction("🇪")
+        match counting_data.current_number:
+            case 42:
+                await message.reply("You have reached the meaning of life")
+            case 69:
+                await message.reply("Nice")
+            case 100:
+                await message.add_reaction("💯")
+            case 420:
+                await message.add_reaction(self.client.get_emoji(1053461527161741373))
+            case 9001:
+                await message.reply("You're over 9000")
 
     async def __reset_count(self, data: CountingData):
         data.last_counter = 0
@@ -356,10 +362,10 @@ class Counting(commands.Cog):
             )
         )
 
-    async def __update_count(self, data: CountingData, last_counter: int):
+    async def __update_count(self, data: CountingData, message: discord.Message):
         # update count and last counter and highscore
         data.current_number = data.next_number
-        data.last_counter = last_counter
+        data.last_counter = message.author.id
 
         await self.__update_cache(data)
         self.client.loop.create_task(
@@ -371,15 +377,17 @@ class Counting(commands.Cog):
                 data.guild_id,
             )
         )
-        self.client.loop.create_task(self.__update_high_score(data))
+        self.client.loop.create_task(self.__update_high_score(data, message))
 
-    async def __update_high_score(self, data: CountingData):
+    async def __update_high_score(self, data: CountingData, message: discord.Message):
         if data.high_score is None or data.current_number > data.high_score:
             await self.client.db.execute(
                 "UPDATE counting SET high_score=$1 WHERE guild_id=$2",
                 data.current_number,
                 data.guild_id,
             )
+            await message.add_reaction("🎉")
+            await message.reply("Yay! The high score has been beaten!")
 
     async def __update_cache(self, data: CountingData):
         await self.client.redis.set(
