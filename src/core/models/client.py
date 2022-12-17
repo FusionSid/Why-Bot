@@ -57,10 +57,10 @@ class WhyBot(commands.Bot):
             intents=intents,
             help_command=None,
             case_insensitive=True,
-            command_prefix="?",
+            command_prefix=config.get("DEFAULT_PREFIX"),
             owner_id=config["BOT_OWNER_ID"],
-            debug_guilds=[938913935774605442, 763348615233667082]
-            if config["DEBUG_GUILD_MODE"]
+            debug_guilds=config.get("DEBUG_GUILDS")
+            if config.get("DEBUG_GUILD_MODE")
             else None,
             allowed_mentions=allowed_mentions,
         )
@@ -90,8 +90,7 @@ class WhyBot(commands.Bot):
         """
         emojis_dict = {}
 
-        # 763348615233667082 = the id for WhyBot guild
-        for emoji in self.get_guild(763348615233667082).emojis:
+        for emoji in self.get_guild(self.config.get("MAIN_GUILD")).emojis:
             emojis_dict[emoji.name] = str(emoji)
 
         return emojis_dict
