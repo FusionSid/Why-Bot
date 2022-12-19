@@ -4,7 +4,7 @@ BOT_TOKEN: "Token for the bot"
 LOGGING: True
 
 # Guild Details
-MAIN_GUILD: 0 # the bots main guild for emojis
+MAIN_GUILD: 0 # the bots main guild for emojis and owner commands
 DEBUG_GUILDS: [] # for debug purposes, slash commands work instantly but only in selected guilds
 DEBUG_GUILD_MODE: False
 
