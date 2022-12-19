@@ -87,3 +87,8 @@ async def create_redis_connection() -> aioredis.Redis:
     )
 
     return redis
+
+
+GUILD_IDS = [
+    get_why_config()["MAIN_GUILD"]
+]  # owner commands only work in the guilds in this array
