@@ -1,7 +1,7 @@
 import asyncpg
 import discord
-from simpcalc import simpcalc
 from core.utils.formatters import number_suffix
+from core.utils.calc import slow_safe_calculate
 
 
 class RickRollView(discord.ui.View):
@@ -120,7 +120,6 @@ class CalculatorView(discord.ui.View):
         self.expr = ""
         self.ctx = ctx
         super().__init__(timeout=100)
-        self.calc = simpcalc.Calculate()
 
     @discord.ui.button(style=discord.ButtonStyle.blurple, label="1", row=0)
     async def one(self, button: discord.ui.Button, interaction: discord.Interaction):
@@ -196,12 +195,7 @@ class CalculatorView(discord.ui.View):
 
     @discord.ui.button(style=discord.ButtonStyle.green, label="=", row=3)
     async def equal(self, button: discord.ui.Button, interaction: discord.Interaction):
-        try:
-            self.expr = await self.calc.calculate(self.expr)
-        except simpcalc.BadArgument:  # if you are function only, change this to BadArgument
-            return await interaction.response.send_message(
-                "Um, looks like you provided a wrong expression...."
-            )
+        self.expr = await slow_safe_calculate(self.expr)
         await interaction.response.edit_message(content=f"```\n{self.expr}\n```")
 
     @discord.ui.button(style=discord.ButtonStyle.green, label="-", row=3)
