@@ -7,6 +7,7 @@ from core.models.client import WhyBot
 from core.helpers.checks import run_bot_checks
 from core.helpers.views import InputModalView
 from core.utils.formatters import discord_timestamp
+from core.utils.client_functions import GUILD_IDS
 
 
 class Alerts(commands.Cog):
@@ -14,7 +15,7 @@ class Alerts(commands.Cog):
         self.client = client
         self.cog_check = run_bot_checks
 
-    async def setup_settings(self, member_id: int):
+    async def __setup_settings(self, member_id: int):
         return await self.client.db.execute(
             "INSERT INTO alerts_users (user_id) VALUES ($1)", member_id
         )
@@ -25,7 +26,7 @@ class Alerts(commands.Cog):
             "SELECT * FROM alerts_users WHERE user_id=$1", ctx.author.id
         )
         if not data:
-            await self.setup_settings(ctx.author.id)
+            await self.__setup_settings(ctx.author.id)
             data = [[ctx.author.id, False, False]]
         data = data[0]
 
@@ -36,7 +37,8 @@ class Alerts(commands.Cog):
 
         em = discord.Embed(
             title="New Alert",
-            description="You have a new alert from the devs\nUse </alert:0> to check it out\nUse </togglealerts:0> to not show these types of messages",
+            description="You have a new alert from the devs\nUse </alert:0> to check it out\n\
+                Use </togglealerts:0> to not show these types of messages",
             color=discord.Color.random(),
         )
 
@@ -45,7 +47,7 @@ class Alerts(commands.Cog):
         except discord.HTTPException:  # frik it failed, probably perms or smth like that
             return
 
-    @commands.slash_command()
+    @commands.slash_command(description="Shows the latest update from the why bot devs")
     async def alert(self, ctx: discord.ApplicationContext):
         data = await self.client.db.fetch("SELECT * FROM alerts ORDER BY id")
         data = data[::-1][0]
@@ -69,13 +71,15 @@ class Alerts(commands.Cog):
             "UPDATE alerts SET viewed=$1 WHERE id=$2", (data[4] + 1), data[0]
         )
 
-    @commands.slash_command()
+    @commands.slash_command(
+        description="Disables the new alert message that shows when theres a new update"
+    )
     async def togglealerts(self, ctx: discord.ApplicationContext):
         data = await self.client.db.fetch(
             "SELECT * FROM alerts_users WHERE user_id=$1", ctx.author.id
         )
         if not data:
-            await self.setup_settings(ctx.author.id)
+            await self.__setup_settings(ctx.author.id)
             data = [[ctx.author.id, False, False]]
         data = data[0]
 
@@ -99,7 +103,7 @@ class Alerts(commands.Cog):
             )
         )
 
-    @commands.slash_command()
+    @commands.slash_command(description="Creates a new alert", guild_ids=GUILD_IDS)
     @commands.is_owner()
     async def newalert(self, ctx, name):
         input = InputModalView(

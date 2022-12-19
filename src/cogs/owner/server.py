@@ -6,13 +6,14 @@ from discord.ext import commands
 
 from core.models import WhyBot
 from core.utils.other import chunkify
+from core.utils.client_functions import GUILD_IDS
 
 
 class Server(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
 
-    @commands.slash_command(guild_ids=[763348615233667082, 938913935774605442])
+    @commands.slash_command(guild_ids=GUILD_IDS)
     @commands.is_owner()
     async def server_list(self, ctx: discord.ApplicationContext):
         """
@@ -63,7 +64,7 @@ class Server(commands.Cog):
                 )
             await ctx.respond(embed=em)
 
-    @commands.slash_command(guild_ids=[763348615233667082, 938913935774605442])
+    @commands.slash_command(guild_ids=GUILD_IDS)
     @commands.is_owner()
     async def fetch_server_info(self, ctx: discord.ApplicationContext, server_id: int):
         """This command is used to get info on a server that the bot is in"""
@@ -92,7 +93,7 @@ class Server(commands.Cog):
 
     @commands.slash_command(
         description="fetch user info",
-        guild_ids=[763348615233667082, 938913935774605442],
+        guild_ids=GUILD_IDS,
     )
     @commands.is_owner()
     async def fetch_user_info(self, ctx: discord.ApplicationContext, user: str):

@@ -3,6 +3,7 @@ from discord.ext import commands
 from discord.commands import SlashCommandGroup
 
 from core.models.client import WhyBot
+from core.utils.client_functions import GUILD_IDS
 
 
 class CogTools(commands.Cog):
@@ -13,7 +14,7 @@ class CogTools(commands.Cog):
         "cogtools", "Commands for why bot cogs management. OWNER ONLY"
     )
 
-    @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
+    @cogtools.command(guild_ids=GUILD_IDS)
     @commands.is_owner()
     async def reload(self, ctx: discord.ApplicationContext, extension):
         """This command is used to reload a cog"""
@@ -36,7 +37,7 @@ class CogTools(commands.Cog):
         )
         await ctx.respond(embed=embed, ephemeral=True)
 
-    @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
+    @cogtools.command(guild_ids=GUILD_IDS)
     @commands.is_owner()
     async def load(self, ctx: discord.ApplicationContext, extension, name):
         """This command is used to load a cog"""
@@ -61,7 +62,7 @@ class CogTools(commands.Cog):
         )
         await ctx.respond(embed=embed, ephemeral=True)
 
-    @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
+    @cogtools.command(guild_ids=GUILD_IDS)
     @commands.is_owner()
     async def unload(self, ctx: discord.ApplicationContext, extension):
         """This command is used to unload a cog"""
@@ -86,7 +87,7 @@ class CogTools(commands.Cog):
         )
         await ctx.respond(embed=embed, ephemeral=True)
 
-    @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
+    @cogtools.command(guild_ids=GUILD_IDS)
     @commands.is_owner()
     async def listcogs(self, ctx: discord.ApplicationContext):
         """This command lists the cogs that the bot has"""
@@ -99,7 +100,7 @@ class CogTools(commands.Cog):
             ephemeral=True,
         )
 
-    @cogtools.command(guild_ids=[763348615233667082, 938913935774605442])
+    @cogtools.command(guild_ids=GUILD_IDS)
     @commands.is_owner()
     async def reloadall(self, ctx: discord.ApplicationContext):
         """This command is used to reload all the cogs"""

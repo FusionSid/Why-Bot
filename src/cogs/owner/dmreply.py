@@ -8,6 +8,7 @@ from discord.ext import commands
 from core.models import WhyBot
 from core.helpers.checks import blacklist_check
 from core.utils.formatters import format_seconds
+from core.utils.client_functions import GUILD_IDS
 
 
 class DMReply(commands.Cog):
@@ -162,21 +163,21 @@ class DMReply(commands.Cog):
             for attachment in message.attachments:
                 await thread.send(attachment.url)
 
-    @commands.slash_command(guild_ids=[763348615233667082, 938913935774605442])
+    @commands.slash_command(guild_ids=GUILD_IDS)
     @commands.is_owner()
     async def dm_ban(self, ctx: discord.ApplicationContext, _id: int):
         """TODO"""
 
         raise NotImplementedError
 
-    @commands.slash_command(guild_ids=[763348615233667082, 938913935774605442])
+    @commands.slash_command(guild_ids=GUILD_IDS)
     @commands.is_owner()
     async def dm_unban(self, ctx: discord.ApplicationContext, _id: int):
         """TODO"""
 
         raise NotImplementedError
 
-    @commands.slash_command(guild_ids=[763348615233667082, 938913935774605442])
+    @commands.slash_command(guild_ids=GUILD_IDS)
     @commands.is_owner()
     async def close_thread(
         self, ctx: discord.ApplicationContext, author_id: str, archive: bool = False

@@ -3,6 +3,7 @@ from discord.ext import commands
 from discord.commands import SlashCommandGroup
 
 from core.models.client import WhyBot
+from core.utils.client_functions import GUILD_IDS
 from core.helpers.exception import UserAlreadyBlacklisted, UserAlreadyWhitelisted
 
 
@@ -17,7 +18,7 @@ class Blacklist(commands.Cog):
     @blacklisted.command(
         name="blacklist",
         description="ban a user from using whybot",
-        guild_ids=[763348615233667082, 938913935774605442],
+        guild_ids=GUILD_IDS,
     )
     @commands.is_owner()
     async def blacklist(
@@ -89,7 +90,7 @@ class Blacklist(commands.Cog):
     @blacklisted.command(
         name="whitelist",
         description="unban a user from using whybot",
-        guild_ids=[763348615233667082, 938913935774605442],
+        guild_ids=GUILD_IDS,
     )
     @commands.is_owner()
     async def whitelist(
@@ -158,7 +159,7 @@ class Blacklist(commands.Cog):
             ephemeral=True,
         )
 
-    @blacklisted.command(guild_ids=[763348615233667082, 938913935774605442])
+    @blacklisted.command(guild_ids=GUILD_IDS)
     @commands.is_owner()
     async def isblacklisted(
         self,
