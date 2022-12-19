@@ -13,7 +13,9 @@ class Server(commands.Cog):
     def __init__(self, client: WhyBot):
         self.client = client
 
-    @commands.slash_command(guild_ids=GUILD_IDS)
+    @commands.slash_command(
+        guild_ids=GUILD_IDS, description="List the servers that the bot is in"
+    )
     @commands.is_owner()
     async def server_list(self, ctx: discord.ApplicationContext):
         """
@@ -64,7 +66,7 @@ class Server(commands.Cog):
                 )
             await ctx.respond(embed=em)
 
-    @commands.slash_command(guild_ids=GUILD_IDS)
+    @commands.slash_command(guild_ids=GUILD_IDS, description="Fetch info for a server")
     @commands.is_owner()
     async def fetch_server_info(self, ctx: discord.ApplicationContext, server_id: int):
         """This command is used to get info on a server that the bot is in"""

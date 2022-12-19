@@ -22,20 +22,22 @@ class ErrorLog(commands.Cog):
         "errors", "Commands for why bot error management. OWNER ONLY"
     )
 
-    @error.command(guild_ids=GUILD_IDS)
+    @error.command(guild_ids=GUILD_IDS, description="Send the whole logs file")
     @commands.is_owner()
     async def logs_file(self, ctx: discord.ApplicationContext):
         file = discord.File(LOGFILE_PATH, "main.log")
         await ctx.respond(file=file, ephemeral=True)
 
-    @error.command(guild_ids=GUILD_IDS)
+    @error.command(guild_ids=GUILD_IDS, description="Clear the logs file")
     @commands.is_owner()
     async def clear_logs_file(self, ctx: discord.ApplicationContext):
         async with aiofiles.open(LOGFILE_PATH, "r+") as f:
             await f.truncate(0)
         await ctx.respond("Logfile Cleared", ephemeral=True)
 
-    @error.command(guild_ids=GUILD_IDS)
+    @error.command(
+        guild_ids=GUILD_IDS, description="Get the last error from the log file"
+    )
     @commands.is_owner()
     async def get_last_error(self, ctx: discord.ApplicationContext, limit: int = 1):
         """This command is used to get the most recent errors/error that the bot logged to the log file"""

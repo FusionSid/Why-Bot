@@ -12,7 +12,9 @@ class RockPaperScissors(commands.Cog):
         self.client = client
         self.cog_check = run_bot_checks
 
-    @commands.slash_command(name="rps")
+    @commands.slash_command(
+        name="rps", description="Challenge someone to a game of rock paper scissors"
+    )
     async def rock_paper_scissors_command(
         self, ctx: discord.ApplicationContext, opponent: discord.Member
     ):

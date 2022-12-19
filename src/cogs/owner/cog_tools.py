@@ -14,7 +14,7 @@ class CogTools(commands.Cog):
         "cogtools", "Commands for why bot cogs management. OWNER ONLY"
     )
 
-    @cogtools.command(guild_ids=GUILD_IDS)
+    @cogtools.command(guild_ids=GUILD_IDS, description="Reload a cog")
     @commands.is_owner()
     async def reload(self, ctx: discord.ApplicationContext, extension):
         """This command is used to reload a cog"""
@@ -37,7 +37,7 @@ class CogTools(commands.Cog):
         )
         await ctx.respond(embed=embed, ephemeral=True)
 
-    @cogtools.command(guild_ids=GUILD_IDS)
+    @cogtools.command(guild_ids=GUILD_IDS, description="Load a cog")
     @commands.is_owner()
     async def load(self, ctx: discord.ApplicationContext, extension, name):
         """This command is used to load a cog"""
@@ -62,7 +62,7 @@ class CogTools(commands.Cog):
         )
         await ctx.respond(embed=embed, ephemeral=True)
 
-    @cogtools.command(guild_ids=GUILD_IDS)
+    @cogtools.command(guild_ids=GUILD_IDS, description="Unload a cog")
     @commands.is_owner()
     async def unload(self, ctx: discord.ApplicationContext, extension):
         """This command is used to unload a cog"""
@@ -87,7 +87,7 @@ class CogTools(commands.Cog):
         )
         await ctx.respond(embed=embed, ephemeral=True)
 
-    @cogtools.command(guild_ids=GUILD_IDS)
+    @cogtools.command(guild_ids=GUILD_IDS, description="List all the cogs")
     @commands.is_owner()
     async def listcogs(self, ctx: discord.ApplicationContext):
         """This command lists the cogs that the bot has"""
@@ -100,7 +100,7 @@ class CogTools(commands.Cog):
             ephemeral=True,
         )
 
-    @cogtools.command(guild_ids=GUILD_IDS)
+    @cogtools.command(guild_ids=GUILD_IDS, description="Reload all the cogs")
     @commands.is_owner()
     async def reloadall(self, ctx: discord.ApplicationContext):
         """This command is used to reload all the cogs"""

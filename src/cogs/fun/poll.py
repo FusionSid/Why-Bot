@@ -27,7 +27,7 @@ class Poll(commands.Cog):
         await msg.add_reaction("👍")
         await msg.add_reaction("👎")
 
-    @commands.slash_command()
+    @commands.slash_command(description="Create a poll")
     @commands.guild_only()
     async def poll(
         self,

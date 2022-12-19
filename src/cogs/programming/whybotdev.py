@@ -77,7 +77,7 @@ class WhyBotDev(commands.Cog):
             ephemeral=True,
         )
 
-    @why_dev.command()
+    @why_dev.command(description="Show the bots uptime")
     async def uptime(self, ctx: discord.ApplicationContext):
         """This command is used to get the uptime for the bot"""
 
@@ -96,7 +96,9 @@ class WhyBotDev(commands.Cog):
 
         await ctx.respond(f"Pong!\n{round(self.client.latency * 1000)}ms")
 
-    @why_dev.command()
+    @why_dev.command(
+        description="Suggest something that you would like why bot to have"
+    )
     @commands.cooldown(1, 15, commands.BucketType.user)
     async def suggest(self, ctx: discord.ApplicationContext, suggestion):
         """
@@ -134,7 +136,7 @@ class WhyBotDev(commands.Cog):
 
         await ctx.respond("Thank you for the suggestion :)")
 
-    @why_dev.command()
+    @why_dev.command(description="Report a bug with the bot to the devs")
     @commands.cooldown(3, 300, commands.BucketType.user)
     async def bug(self, ctx: discord.ApplicationContext, *, bug):
         em = discord.Embed(
@@ -228,7 +230,7 @@ class WhyBotDev(commands.Cog):
             "https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands"
         )
 
-    @why_dev.command()
+    @why_dev.command(description="Show the most recent commit to the why bot repo")
     async def recent_commit(self, ctx: discord.ApplicationContext):
         # "https://api.github.com/repos/FusionSid/Why-Bot/commits/master"
         URL = (

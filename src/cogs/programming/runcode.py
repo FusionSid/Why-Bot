@@ -78,7 +78,7 @@ class RunCode(commands.Cog):
 
         await ctx.respond(embed=em)
 
-    @commands.slash_command()
+    @commands.slash_command(description="Run code in the rickroll programming language")
     @commands.cooldown(1, 15, commands.BucketType.user)
     async def ricklang(self, ctx: discord.ApplicationContext):
         modal = CodeInput(title="Code Input")

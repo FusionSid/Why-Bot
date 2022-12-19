@@ -159,7 +159,9 @@ class Blacklist(commands.Cog):
             ephemeral=True,
         )
 
-    @blacklisted.command(guild_ids=GUILD_IDS)
+    @blacklisted.command(
+        guild_ids=GUILD_IDS, description="Check if a user is blacklisted"
+    )
     @commands.is_owner()
     async def isblacklisted(
         self,

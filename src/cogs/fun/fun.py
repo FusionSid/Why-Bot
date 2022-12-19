@@ -49,20 +49,22 @@ class Fun(commands.Cog):
         await ctx.respond(file=discord.File(file.name, "crab.mp4"))
         file.close()
 
-    @commands.slash_command()
+    @commands.slash_command(description="Generate a crab rave meme video")
     @commands.cooldown(1, 15, commands.BucketType.user)
     async def crab(self, ctx: discord.ApplicationContext, text1: str, text2: str):
         await ctx.defer()
         asyncio.create_task(self.gen_crab(text1, text2, ctx))
 
-    @commands.slash_command()
+    @commands.slash_command(description="Claim your why coins")
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def claim(self, ctx: discord.ApplicationContext):
         em = discord.Embed(title="Claim 100k Why Coins", color=discord.Color.blue())
         await ctx.respond(embed=em, view=RickRollView(self.client.db))
 
-    @commands.slash_command()
+    @commands.slash_command(description="Generate a spongebob timecard")
     async def spongebob(self, ctx: discord.ApplicationContext, time: int, unit: str):
+        "TODO"
+        raise NotImplementedError
         path = os.path.join(
             os.path.dirname(__main__.__file__), "assets/images/spongebob"
         )
@@ -71,7 +73,9 @@ class Fun(commands.Cog):
             key = image[:-4]
             images[key] = image
 
-    @commands.slash_command(name="8ball")
+    @commands.slash_command(
+        name="8ball", description="Ask the magical 8ball a question"
+    )
     async def _8ball(self, ctx: discord.ApplicationContext, question: str):
         responses = [
             "As I see it, yes",
@@ -138,7 +142,7 @@ class Fun(commands.Cog):
         )
         await ctx.respond(embed=em)
 
-    @commands.slash_command()
+    @commands.slash_command(description="Do a 100% legit hack on another member")
     async def hack(self, ctx: discord.ApplicationContext, member: discord.Member):
         await ctx.defer()
         email_ext = [
@@ -279,7 +283,9 @@ class Fun(commands.Cog):
 
         await ctx.respond("The *totally* real and dangerous hack is complete!")
 
-    @commands.slash_command()
+    @commands.slash_command(
+        description="Display a screenshot of the page at the given link"
+    )
     async def screenshot(self, ctx: discord.ApplicationContext, url: str):
         if not validators.url(url):
             return await ctx.respond("Not a url", ephemeral=True)

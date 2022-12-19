@@ -61,70 +61,70 @@ class Animals(commands.Cog):
 
     animal = SlashCommandGroup("animal", "Get images and facts about animals")
 
-    @animal.command()
+    @animal.command(description="Show a picture of a dog")
     async def dog(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.dog.value
         response = await get_request(url)
 
         await ctx.respond(embed=animal_embed_randomapi(response, "Dog!"))
 
-    @animal.command()
+    @animal.command(description="Show a picture of a cat")
     async def cat(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.cat.value
         response = await get_request(url)
 
         await ctx.respond(embed=animal_embed_randomapi(response, "Cat!"))
 
-    @animal.command()
+    @animal.command(description="Show a picture of a fox")
     async def fox(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.fox.value
         response = await get_request(url)
 
         await ctx.respond(embed=animal_embed_randomapi(response, "Fox!"))
 
-    @animal.command()
+    @animal.command(description="Show a picture of a panda")
     async def panda(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.panda.value
         response = await get_request(url)
 
         await ctx.respond(embed=animal_embed_randomapi(response, "Panda!"))
 
-    @animal.command()
+    @animal.command(description="Show a picture of a bird")
     async def bird(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.bird.value
         response = await get_request(url)
 
         await ctx.respond(embed=animal_embed_randomapi(response, "Bird!"))
 
-    @animal.command()
+    @animal.command(description="Show a picture of a kangaroo")
     async def kangaroo(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.kangaroo.value
         response = await get_request(url)
 
         await ctx.respond(embed=animal_embed_randomapi(response, "Kangaroo!"))
 
-    @animal.command()
+    @animal.command(description="Show a picture of a koala")
     async def koala(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.koala.value
         response = await get_request(url)
 
         await ctx.respond(embed=animal_embed_randomapi(response, "Koala!"))
 
-    @animal.command()
+    @animal.command(description="Show a picture of a racoon")
     async def raccon(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.raccoon.value
         response = await get_request(url)
 
         await ctx.respond(embed=animal_embed_randomapi(response, "Racoon!"))
 
-    @animal.command()
+    @animal.command(description="Show a picture of a red panda")
     async def redpanda(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.red_panda.value
         response = await get_request(url)
 
         await ctx.respond(embed=animal_embed_randomapi(response, "Red Panda!"))
 
-    @animal.command()
+    @animal.command(description="Show a picture of a capybara")
     async def capybara(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.capybara.value
         image = await get_request(url)
@@ -143,7 +143,7 @@ class Animals(commands.Cog):
         }
         await ctx.respond(embed=animal_embed(response))
 
-    @animal.command()
+    @animal.command(description="Show a picture of a duck")
     async def duck(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.duck.value
         image = await get_request(url)
@@ -158,7 +158,7 @@ class Animals(commands.Cog):
         }
         await ctx.respond(embed=animal_embed(response))
 
-    @animal.command()
+    @animal.command(description="Show a picture of a shiba inu")
     async def shibe(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.shibe.value
         image = await get_request(url)
@@ -173,7 +173,7 @@ class Animals(commands.Cog):
         }
         await ctx.respond(embed=animal_embed(response))
 
-    @animal.command()
+    @animal.command(description="Show a picture of a whale")
     async def whale(self, ctx: discord.ApplicationContext):
         url = AnimalURLS.whale.value
         image = await get_request(url)

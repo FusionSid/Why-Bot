@@ -163,21 +163,25 @@ class DMReply(commands.Cog):
             for attachment in message.attachments:
                 await thread.send(attachment.url)
 
-    @commands.slash_command(guild_ids=GUILD_IDS)
+    @commands.slash_command(
+        guild_ids=GUILD_IDS, description="Ban someone from DMing the bot"
+    )
     @commands.is_owner()
     async def dm_ban(self, ctx: discord.ApplicationContext, _id: int):
         """TODO"""
 
         raise NotImplementedError
 
-    @commands.slash_command(guild_ids=GUILD_IDS)
+    @commands.slash_command(
+        guild_ids=GUILD_IDS, description="Unban someone from DMing the bot"
+    )
     @commands.is_owner()
     async def dm_unban(self, ctx: discord.ApplicationContext, _id: int):
         """TODO"""
 
         raise NotImplementedError
 
-    @commands.slash_command(guild_ids=GUILD_IDS)
+    @commands.slash_command(guild_ids=GUILD_IDS, description="Close a thread of dms")
     @commands.is_owner()
     async def close_thread(
         self, ctx: discord.ApplicationContext, author_id: str, archive: bool = False

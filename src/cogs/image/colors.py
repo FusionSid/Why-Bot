@@ -10,7 +10,7 @@ class Colors(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.slash_command()
+    @commands.slash_command(description="Get the colors in an image")
     async def get_colors(
         self, ctx: discord.ApplicationContext, file: discord.Attachment
     ):
@@ -43,11 +43,6 @@ class Colors(commands.Cog):
             color=discord.Color.random(),
         )
 
-        dcolor_img = Image.new("RGB", (150, 150), response["dominant_color"])
-        dcolor_file = io.BytesIO()
-        dcolor_img.save(dcolor_file, "PNG")
-        dcolor_file.seek(0)
-
         palette_img = Image.new("RGB", (300, 200))
         x, y = 0, 0
         for i in response["palette"]:
@@ -63,6 +58,20 @@ class Colors(commands.Cog):
         palette_file = io.BytesIO()
         palette_img.save(palette_file, "PNG")
         palette_file.seek(0)
+
+        try:
+            dcolor_img = Image.new("RGB", (150, 150), response["dominant_color"])
+        except ValueError:
+            return await ctx.respond(
+                embed=em,
+                files=[
+                    discord.File(palette_file, "palette.png"),
+                ],
+            )
+
+        dcolor_file = io.BytesIO()
+        dcolor_img.save(dcolor_file, "PNG")
+        dcolor_file.seek(0)
 
         await ctx.respond(
             embed=em,

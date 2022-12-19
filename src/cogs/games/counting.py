@@ -19,7 +19,7 @@ class Counting(commands.Cog):
 
     counting = SlashCommandGroup("counting", "Commmands related to the counting game")
 
-    @counting.command()
+    @counting.command(description="Set the channel for the counting game")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     async def setchannel(
@@ -49,7 +49,7 @@ class Counting(commands.Cog):
         counting_data.counting_channel = channel.id
         await self.__update_cache(counting_data)
 
-    @counting.command()
+    @counting.command(description="Enable the counting game for this server")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     async def enable(
@@ -109,7 +109,7 @@ class Counting(commands.Cog):
         counting_data.plugin_enabled = True
         await self.__update_cache(counting_data)
 
-    @counting.command()
+    @counting.command(description="Toggle the bot auto evaluating math expressions")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     async def toggle_auto_calc(
@@ -143,7 +143,7 @@ class Counting(commands.Cog):
         counting_data.auto_calculate = on_or_off
         await self.__update_cache(counting_data)
 
-    @counting.command()
+    @counting.command(description="Disable counting")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     async def disable(
@@ -173,7 +173,7 @@ class Counting(commands.Cog):
         counting_data.plugin_enabled = False
         await self.__update_cache(counting_data)
 
-    @counting.command()
+    @counting.command(description="Show the current number")
     @commands.guild_only()
     async def current_number(self, ctx: discord.ApplicationContext):
         counting_data = await self.__get_counting_data(ctx.guild.id, skip_cache=True)
@@ -208,7 +208,7 @@ class Counting(commands.Cog):
 
         await self.__update_cache(counting_data)
 
-    @counting.command()
+    @counting.command(description="Show the highest number this server has reached")
     @commands.guild_only()
     async def high_score(self, ctx: discord.ApplicationContext):
         counting_data = await self.__get_counting_data(ctx.guild.id, skip_cache=True)
@@ -243,7 +243,7 @@ class Counting(commands.Cog):
 
         await self.__update_cache(counting_data)
 
-    @counting.command()
+    @counting.command(description="Show the global leaderboard for counting")
     @commands.guild_only()
     async def leaderboard(self, ctx: discord.ApplicationContext):
         await ctx.defer()

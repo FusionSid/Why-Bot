@@ -30,7 +30,7 @@ class Tags(commands.Cog):
 
         return Tag(*tag[0][1:])
 
-    @tags.command()
+    @tags.command(description="Create a new tag")
     @commands.has_permissions(administrator=True)
     async def create(
         self,
@@ -81,7 +81,7 @@ class Tags(commands.Cog):
             ),
         )
 
-    @tags.command()
+    @tags.command(description="Delete an existing tag")
     @commands.has_permissions(administrator=True)
     async def delete(self, ctx: discord.ApplicationContext, name: str):
         name = name.lower()
@@ -106,7 +106,7 @@ class Tags(commands.Cog):
             )
         )
 
-    @tags.command()
+    @tags.command(description="List the tags on this server")
     async def list(self, ctx: discord.ApplicationContext):
         tags = await self.client.db.fetch(
             "SELECT * FROM tags WHERE guild_id=$1", ctx.guild.id
@@ -130,7 +130,7 @@ class Tags(commands.Cog):
             )
         )
 
-    @tags.command()
+    @tags.command(description="Edit the value of an existing tag")
     @commands.has_permissions(administrator=True)
     async def edit(self, ctx: discord.ApplicationContext, name: str):
         tag_name = name.lower()
@@ -172,7 +172,7 @@ class Tags(commands.Cog):
             ),
         )
 
-    @commands.slash_command()
+    @commands.slash_command(description="Show the value of a tag")
     async def tag(self, ctx: discord.ApplicationContext, name: str):
         name = name.lower()
         tag = await self.__get_tag_by_name(name, ctx.guild.id)

@@ -12,7 +12,7 @@ class Banning(commands.Cog):
         self.client = client
         self.cog_check = run_bot_checks
 
-    @commands.slash_command()
+    @commands.slash_command(description="Ban a member from the server")
     @default_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
@@ -41,7 +41,7 @@ class Banning(commands.Cog):
                 " both you and the bot have higher perms then the target member"
             )
 
-    @commands.slash_command()
+    @commands.slash_command(description="Mass ban users from the server")
     @default_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
@@ -94,7 +94,7 @@ class Banning(commands.Cog):
         )
         await ctx.respond(embed=em)
 
-    @commands.slash_command()
+    @commands.slash_command(description="Kick a specific member from the server")
     @default_permissions(kick_members=True)
     @commands.has_permissions(kick_members=True)
     @commands.bot_has_permissions(kick_members=True)
@@ -123,7 +123,7 @@ class Banning(commands.Cog):
                 " both you and the bot have higher perms then the target member"
             )
 
-    @commands.slash_command()
+    @commands.slash_command(description="Mass kick members")
     @default_permissions(kick_members=True)
     @commands.bot_has_permissions(kick_members=True)
     @commands.has_permissions(kick_members=True)

@@ -56,7 +56,7 @@ class OtherImage(commands.Cog):
         self.client = client
         self.cog_check = run_bot_checks
 
-    @commands.slash_command()
+    @commands.slash_command(description="Get a random image from unsplash")
     async def unsplash(self, ctx: discord.ApplicationContext, search_terms: str = None):
         url = ImageURLS.unsplash.value
         if search_terms is not None:

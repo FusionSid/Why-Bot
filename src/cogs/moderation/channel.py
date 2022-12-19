@@ -13,7 +13,7 @@ class Channels(commands.Cog):
         self.client = client
         self.cog_check = run_bot_checks
 
-    @commands.slash_command()
+    @commands.slash_command(description="Create a text channel")
     @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
@@ -40,7 +40,7 @@ class Channels(commands.Cog):
             )
         )
 
-    @commands.slash_command()
+    @commands.slash_command(description="Delete a text channel")
     @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
@@ -60,7 +60,7 @@ class Channels(commands.Cog):
             )
         )
 
-    @commands.slash_command()
+    @commands.slash_command(description="Create a voice channel")
     @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
@@ -87,7 +87,7 @@ class Channels(commands.Cog):
             )
         )
 
-    @commands.slash_command()
+    @commands.slash_command(description="Delete a voice channel")
     @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
@@ -107,7 +107,7 @@ class Channels(commands.Cog):
             )
         )
 
-    @commands.slash_command()
+    @commands.slash_command(description="Put a channel into lockdown")
     @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
@@ -125,7 +125,7 @@ class Channels(commands.Cog):
         )
         return await ctx.respond(embed=em)
 
-    @commands.slash_command()
+    @commands.slash_command(description="Unlock a channel that was in lockdown")
     @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
@@ -143,7 +143,7 @@ class Channels(commands.Cog):
         )
         return await ctx.respond(embed=em)
 
-    @commands.slash_command()
+    @commands.slash_command(description="Add slow mode to a channel")
     @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
@@ -184,7 +184,7 @@ class Channels(commands.Cog):
         )
         return await ctx.respond(embed=em)
 
-    @commands.slash_command()
+    @commands.slash_command(description="Remove slowmode from a channel")
     @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
@@ -202,7 +202,9 @@ class Channels(commands.Cog):
         )
         return await ctx.respond(embed=em)
 
-    @commands.slash_command()
+    @commands.slash_command(
+        description="Clear a certain amount of messages in a channel"
+    )
     @default_permissions(manage_channels=True)
     @commands.has_permissions(manage_messages=True)
     @commands.bot_has_permissions(manage_messages=True)
@@ -224,7 +226,9 @@ class Channels(commands.Cog):
         )
         await ctx.respond(embed=em, ephemeral=True)
 
-    @commands.slash_command()
+    @commands.slash_command(
+        description="Purge all the messages sent by a specific member"
+    )
     @default_permissions(manage_channels=True)
     @commands.has_guild_permissions(manage_messages=True)
     @commands.has_guild_permissions(manage_messages=True)

@@ -24,7 +24,7 @@ class TextConvert(commands.Cog):
 
     textconvert = SlashCommandGroup("text", "Convert text to something else")
 
-    @textconvert.command()
+    @textconvert.command(description="Convert text to stickycaps")
     async def stickycaps(
         self,
         ctx: discord.ApplicationContext,
@@ -36,7 +36,7 @@ class TextConvert(commands.Cog):
             return await ctx.respond(result)
         await ctx.respond("Too long to send :(")
 
-    @textconvert.command()
+    @textconvert.command(description="Expand some text")
     async def expand(
         self,
         ctx: discord.ApplicationContext,
@@ -49,7 +49,7 @@ class TextConvert(commands.Cog):
             return await ctx.respond(result)
         await ctx.respond("Too long to send :(")
 
-    @textconvert.command()
+    @textconvert.command(description="Reverse some text")
     async def reverse(
         self,
         ctx: discord.ApplicationContext,
@@ -60,7 +60,7 @@ class TextConvert(commands.Cog):
             return await ctx.respond(result)
         await ctx.respond("Too long to send :(")
 
-    @textconvert.command()
+    @textconvert.command(description="Convert text to hex")
     async def texttohex(
         self,
         ctx: discord.ApplicationContext,
@@ -76,7 +76,7 @@ class TextConvert(commands.Cog):
             return await ctx.respond(f"```fix\n{hex_output}```")
         await ctx.respond("Too long to send :(")
 
-    @textconvert.command()
+    @textconvert.command(description="Convert hex to text")
     async def hextotext(
         self,
         ctx: discord.ApplicationContext,
@@ -92,7 +92,7 @@ class TextConvert(commands.Cog):
             return await ctx.respond(f"```fix\n{text_output}```")
         await ctx.respond("Too long to send :(")
 
-    @textconvert.command()
+    @textconvert.command(description="Convert text to binary")
     async def texttobinary(
         self,
         ctx: discord.ApplicationContext,
@@ -108,7 +108,7 @@ class TextConvert(commands.Cog):
             return await ctx.respond(f"```fix\n{binary_output}```")
         await ctx.respond("Too long to send :(")
 
-    @textconvert.command()
+    @textconvert.command(description="Convert binary to text")
     async def binarytotext(
         self,
         ctx: discord.ApplicationContext,
@@ -124,7 +124,7 @@ class TextConvert(commands.Cog):
             return await ctx.respond(f"```fix\n{text_output}```")
         await ctx.respond("Too long to send :(")
 
-    @textconvert.command()
+    @textconvert.command(description="Emojify some text")
     async def emojify(
         self,
         ctx: discord.ApplicationContext,
@@ -161,7 +161,7 @@ class TextConvert(commands.Cog):
 
         await ctx.respond(" ".join(emojis))
 
-    @textconvert.command()
+    @textconvert.command(description="Create ascii art from the given text")
     async def ascii(
         self,
         ctx: discord.ApplicationContext,
@@ -194,7 +194,7 @@ class TextConvert(commands.Cog):
             embed=discord.Embed(title="Ascii Art Output:", description=message)
         )
 
-    @textconvert.command()
+    @textconvert.command(description="Convert text to a font and show it as an image")
     async def fontconvert(
         self,
         ctx: discord.ApplicationContext,

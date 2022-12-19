@@ -239,7 +239,7 @@ class Info(commands.Cog):
         )
         await ctx.respond(embed=em, view=BotInfoView())
 
-    @commands.slash_command()
+    @commands.slash_command(description="Show a users avatar")
     async def avatar(
         self, ctx: discord.ApplicationContext, member: discord.Member = None
     ):

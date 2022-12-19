@@ -17,16 +17,18 @@ class Utilities(commands.Cog):
 
     utilities = SlashCommandGroup("utilities", "Utility Commands")
 
-    @utilities.command(name="calculator", description="Interactive button calculator")
+    @utilities.command(
+        name="calculator", description="Open an interactive button calculator"
+    )
     async def calculator(self, ctx: discord.ApplicationContext):
         """This command is used to show an interactive button calculator"""
 
         await ctx.defer()
 
         view = CalculatorView(ctx)
-        await ctx.respond("```\n```", view=view)
+        await ctx.respond("``` ```", view=view)
 
-    @utilities.command()
+    @utilities.command(description="Calculate an expression and give the result")
     async def calculate(self, ctx: discord.ApplicationContext, expression: str):
         em = discord.Embed(
             title="Calculation Result",
@@ -56,7 +58,7 @@ class Utilities(commands.Cog):
         link = await ctx.channel.create_invite(max_age=expire_in, max_uses=max_uses)
         await ctx.respond(link)
 
-    @utilities.command()
+    @utilities.command(description="Creates a qrcode for a given URL")
     async def qrcode(
         self,
         ctx: discord.ApplicationContext,

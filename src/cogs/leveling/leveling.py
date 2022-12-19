@@ -130,7 +130,7 @@ class Leveling(commands.Cog):
             except (discord.Forbidden, discord.HTTPException):
                 pass  # message failed to send (probably due to perms)
 
-    @leveling.command()
+    @leveling.command(description="Toggle the leveling system")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     async def toggle_leveling(
@@ -161,7 +161,9 @@ class Leveling(commands.Cog):
             )
         )
 
-    @leveling.command()
+    @leveling.command(
+        description="Calculate the amount of xp you need to reach a certain level"
+    )
     @commands.guild_only()
     async def xp_needed(self, ctx: discord.ApplicationContext, level: int = None):
         member_data = await get_member_data(self.client.db, ctx.author, ctx.guild.id)
@@ -187,7 +189,7 @@ class Leveling(commands.Cog):
             )
         )
 
-    @leveling.command()
+    @leveling.command(description="Toggle the level up message from being sent")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     async def toggle_level_up(
@@ -218,7 +220,7 @@ class Leveling(commands.Cog):
             )
         )
 
-    @leveling.command()
+    @leveling.command(description="Set the amount of xp given for leveling")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     async def set_xp(
@@ -267,7 +269,7 @@ class Leveling(commands.Cog):
             )
         return await ctx.respond("Invalid Input!")
 
-    @leveling.command()
+    @leveling.command(description="Set the text displayed when a user levels up")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     async def set_level_text(
@@ -318,7 +320,7 @@ class Leveling(commands.Cog):
             )
         )
 
-    @leveling.command()
+    @leveling.command(description="Show your rank for leveling")
     @commands.guild_only()
     async def rank(self, ctx: discord.ApplicationContext):
         await ctx.defer()
@@ -347,7 +349,7 @@ class Leveling(commands.Cog):
             )
         )
 
-    @leveling.command()
+    @leveling.command(description="Show the leveling leaderboard for the server")
     @commands.guild_only()
     async def leaderboard(self, ctx: discord.ApplicationContext):
         await ctx.defer()
