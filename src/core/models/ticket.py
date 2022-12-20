@@ -270,7 +270,7 @@ class NewTicketView(discord.ui.View):
             title=f"New ticket from {interaction.user.name}!",
             description=f"**Please wait, support will be with you shortly!**\
                 \n\nTicket Created: {await discord_timestamp(ticket.time_created, 'ts')}",
-            color=discord.Color.random,
+            color=discord.Color.random(),
         )
         embed.add_field(name="Reason Provided:", value=str(modal.value))
         embed.set_footer(text="To close this ticket click the close button")
