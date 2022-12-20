@@ -180,5 +180,6 @@ class WhyBot(commands.Bot):
         # Reset cache
         await self.reset_redis_blacklisted_cache()
 
-    async def on_ipc_error(self, endpoint, error):
+    @staticmethod
+    async def on_ipc_error(endpoint, error):
         print(endpoint, "raised", error)
