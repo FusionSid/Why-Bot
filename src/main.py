@@ -75,6 +75,7 @@ def start_bot(client: WhyBot) -> None:
     time.sleep(1)
 
     client.event(on_error)  # set event handler
+    client.ipc.start()
     client.run(client.config.get("BOT_TOKEN"))
 
 

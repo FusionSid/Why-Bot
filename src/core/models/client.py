@@ -13,6 +13,7 @@ from typing import Optional
 import discord
 import aioredis
 import asyncpg
+from pycord.ext import ipc
 from rich.console import Console
 from discord.ext import commands
 
@@ -64,6 +65,7 @@ class WhyBot(commands.Bot):
             else None,
             allowed_mentions=allowed_mentions,
         )
+        self.ipc = ipc.Server(self, secret_key=config["IPC_KEY"], host="0.0.0.0")
 
     @property
     async def uptime(self) -> str:
@@ -177,3 +179,6 @@ class WhyBot(commands.Bot):
 
         # Reset cache
         await self.reset_redis_blacklisted_cache()
+
+    async def on_ipc_error(self, endpoint, error):
+        print(endpoint, "raised", error)
