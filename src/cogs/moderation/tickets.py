@@ -9,7 +9,7 @@ from core.helpers.views import ConfirmView
 from core.db.setup_guild import setup_tickets
 from core.utils.formatters import discord_timestamp
 from core.helpers.checks import run_bot_checks
-from core.models.ticket import TicketGuild, Ticket, TicketView
+from core.models.ticket import TicketGuild, Ticket, TicketView, NewTicketView
 
 
 class Tickets(commands.Cog):
@@ -92,6 +92,7 @@ class Tickets(commands.Cog):
             title=f"New ticket from {ctx.author.name}!",
             description=f"**Please wait, support will be with you shortly!**\
                 \n\nTicket Created: {await discord_timestamp(ticket.time_created, 'ts')}",
+            color=discord.Color.random,
         )
         embed.add_field(name="Reason Provided:", value=str(reason))
         embed.set_footer(text="To close this ticket click the close button")
@@ -141,11 +142,23 @@ class Tickets(commands.Cog):
     # async def transcript(self, ctx: discord.ApplicationContext):
     #     tickets = await self.__get_tickets(ctx.guild.id)
 
-    # @ticket.command()
-    # @default_permissions(administrator=True)
-    # @commands.has_permissions(administrator=True)
-    # async def button(self, ctx: discord.ApplicationContext):
-    #     ticket_config = await self.__get_ticket_config(ctx.guild.id)
+    @ticket.command()
+    @default_permissions(administrator=True)
+    @commands.has_permissions(administrator=True)
+    async def button(self, ctx: discord.ApplicationContext):
+        view = NewTicketView(ctx.guild.id, self.client)
+        await ctx.respond("Created button view!", ephemeral=True)
+        await ctx.send(
+            embed=discord.Embed(
+                title="New Ticket",
+                description="Press the New Ticket button to create a new ticket!",
+                color=discord.Color.random,
+            ),
+            view=view,
+        )
+        await self.client.db.execute(
+            "UPDATE ticket_guild SET create_button=true WHERE guild_id=$1", ctx.guild.id
+        )
 
     # @ticket.command()
     # @default_permissions(administrator=True)

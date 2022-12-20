@@ -5,6 +5,7 @@ from discord.ext import commands
 
 from core.models import WhyBot
 from core.helpers.log import log_normal
+from core.models.ticket import NewTicketView
 from core.helpers.exception import InvalidDatabaseUrl
 from core.utils.client_functions import (
     update_activity,
@@ -68,6 +69,8 @@ class OnEvent(commands.Cog):
         except discord.errors.NotFound:
             return
 
+        await self.__setup_ticket_buttons()
+
         await channel.send(
             embed=discord.Embed(
                 title="Bot is online",
@@ -81,6 +84,13 @@ class OnEvent(commands.Cog):
 
         # print to console that its ready
         self.client.console.print("\n[bold green]Bot is ready")
+
+    async def __setup_ticket_buttons(self):
+        guilds = await self.client.db.fetch(
+            "SELECT guild_id FROM ticket_guild WHERE create_button=true"
+        )
+        for guild_id in map(lambda x: x[0], guilds):
+            self.client.add_view(NewTicketView(guild_id, self.client))
 
 
 def setup(client: WhyBot):
