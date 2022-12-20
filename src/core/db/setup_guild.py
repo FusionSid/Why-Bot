@@ -68,7 +68,7 @@ async def setup_tickets(db: asyncpg.Pool, guild_id: int):
     try:
         await db.execute(
             """INSERT INTO ticket_guild (
-                guild_id, users_allowed, ping_roles, create_button, category, banned_users
+                guild_id, roles_allowed, ping_roles, create_button, category, banned_users
             ) VALUES ($1, $2, $3, $4, $5, $6)""",
             *default_data,
         )
