@@ -83,7 +83,7 @@ class Tickets(commands.Cog):
         }
         await channel.set_permissions(ctx.author, **perms)
         for role in ticket_config.roles_allowed:
-            if role := ctx.guild.get_role(role) is not None:
+            if (role := ctx.guild.get_role(role)) is not None:
                 await channel.set_permissions(role, **perms)
 
         ticket_data = [ctx.guild.id, channel.id, ctx.author.id, int(time.time())]
@@ -103,7 +103,7 @@ class Tickets(commands.Cog):
             color=discord.Color.random(),
         )
         embed.add_field(name="Reason Provided:", value=str(reason))
-        embed.add_field("Ticket ID:", value=ticket.ticket_id)
+        embed.add_field(name="Ticket ID:", value=ticket.ticket_id)
         embed.set_footer(text="To close this ticket click the close button")
         view = TicketView(ticket, ctx.author, self.client)
 

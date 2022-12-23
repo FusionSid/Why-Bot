@@ -248,7 +248,7 @@ class NewTicketView(discord.ui.View):
         }
         await channel.set_permissions(interaction.user, **perms)
         for role in ticket_config.roles_allowed:
-            if role := interaction.guild.get_role(role) is not None:
+            if (role := interaction.guild.get_role(role)) is not None:
                 await channel.set_permissions(role, **perms)
 
         ticket_data = [
