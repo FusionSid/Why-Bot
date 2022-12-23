@@ -65,7 +65,9 @@ class WhyBot(commands.Bot):
             else None,
             allowed_mentions=allowed_mentions,
         )
-        self.ipc = ipc.Server(self, secret_key=config["IPC_KEY"])
+        self.ipc = ipc.Server(
+            self, secret_key=config["IPC_KEY"], host=config["IPC_HOST"]
+        )
 
     @property
     async def uptime(self) -> str:
