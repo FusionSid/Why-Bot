@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS counting; CREATE TABLE counting
     current_number integer,
     counting_channel bigint,
     high_score integer,
-    plugin_enabled boolean
+    plugin_enabled boolean,
     auto_calculate boolean,
     banned_users bigint[]
 );
