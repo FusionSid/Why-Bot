@@ -18,9 +18,7 @@ class CountingData:
     high_score: Optional[int]
     plugin_enabled: Optional[bool]
     auto_calculate: Optional[bool]
-
-    # TODO later:
-    # banned_counters: Optional[list[int]] = None
+    banned_counters: Optional[list[int]]
 
     @property
     def next_number(self) -> int:
