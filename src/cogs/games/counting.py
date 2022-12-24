@@ -336,15 +336,19 @@ class Counting(commands.Cog):
 
         match counting_data.current_number:
             case 42:
-                await message.reply("You have reached the meaning of life")
+                self.client.loop.create_task(
+                    self.__delete_msg("You have reached the meaning of life", message)
+                )
             case 69:
-                await message.reply("Nice")
+                self.client.loop.create_task(self.__delete_msg("Nice", message))
             case 100:
                 await message.add_reaction("💯")
             case 420:
                 await message.add_reaction(self.client.get_emoji(1053461527161741373))
             case 9001:
-                await message.reply("You're over 9000")
+                self.client.loop.create_task(
+                    self.__delete_msg("You're over 9000", message)
+                )
 
     async def __reset_count(self, data: CountingData):
         data.last_counter = 0
@@ -387,7 +391,9 @@ class Counting(commands.Cog):
                 data.guild_id,
             )
             await message.add_reaction("🎉")
-            await message.reply("Yay! The high score has been beaten!")
+            self.client.loop.create_task(
+                self.__delete_msg("Yay! The high score has been beaten!", message)
+            )
 
     async def __update_cache(self, data: CountingData):
         await self.client.redis.set(
@@ -414,9 +420,9 @@ class Counting(commands.Cog):
         await self.client.redis.set(key, json.dumps(list(data[0])))
         return CountingData(*data[0])
 
-    async def __delete_msg(self, number: int, message: discord.Message):
+    async def __delete_msg(self, message_content: int | str, message: discord.Message):
         try:
-            msg = await message.reply(number)
+            msg = await message.reply(message_content)
         except discord.Forbidden:
             return
 
