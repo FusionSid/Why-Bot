@@ -437,7 +437,6 @@ class Counting(commands.Cog):
                 data.current_number,
                 data.guild_id,
             )
-            await message.add_reaction("🎉")
 
     async def __update_cache(self, data: CountingData):
         await self.client.redis.set(
