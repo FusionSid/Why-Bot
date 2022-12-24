@@ -13,7 +13,9 @@ async def setup_counting(db: asyncpg.Pool, guild_id: int):
     """
     try:
         await db.execute(
-            "INSERT INTO counting (guild_id, high_score) VALUES ($1, 0)", guild_id
+            "INSERT INTO counting (guild_id, high_score, banned_users) VALUES ($1, 0, $2)",
+            guild_id,
+            [],
         )
     except asyncpg.UniqueViolationError:
         return
