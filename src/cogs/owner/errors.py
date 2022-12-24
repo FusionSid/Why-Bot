@@ -8,6 +8,7 @@ from discord.ext import commands
 
 import __main__
 from core.models import WhyBot
+from core.helpers.views import ErrorView
 from core.helpers.log import get_last_errors
 from core.utils.client_functions import GUILD_IDS
 
@@ -63,8 +64,12 @@ class ErrorLog(commands.Cog):
             timestamp=datetime.datetime.utcnow(),
         )
         if limit == 1:
-            em.description = f"**{list(errors.keys())[0][:220]}**```py\n{list(errors.values())[0][:1900]}```"
-            return await ctx.respond(embed=em, ephemeral=True)
+            title = list(errors.keys())[0]
+            err = list(errors.values())[0]
+            em.description = f"**{title[:220]}**```py\n{err[:1900]}```"
+
+            view = ErrorView(self.client.owner_id, f"{title}{err}")
+            return await ctx.respond(embed=em, ephemeral=True, view=view)
 
         for key, value in errors.items():
             em.add_field(

@@ -1,5 +1,8 @@
+import io
+
 import asyncpg
 import discord
+
 from core.utils.formatters import number_suffix
 from core.utils.calc import slow_safe_calculate
 
@@ -307,3 +310,39 @@ class InputModalView(discord.ui.Modal):
     async def callback(self, interaction: discord.Interaction):
         self.value = self.children[0].value
         await interaction.response.send_message("Processing input...", ephemeral=True)
+
+
+class ErrorView(discord.ui.View):
+    def __init__(self, owner_id: int, data: str):
+        self.owner_id = owner_id
+        self.data = data
+        super().__init__(timeout=120)
+
+    @discord.ui.button(label="Send as File", style=discord.ButtonStyle.green)
+    async def confirm_callback(self, button, interaction: discord.Interaction):
+        for button in self.children:
+            button.disabled = True
+
+        await interaction.message.edit(view=self)
+
+        file = io.BytesIO(self.data.encode())
+        await interaction.response.send_message(file=discord.File(file, "error.txt"))
+        self.stop()
+
+    async def interaction_check(self, interaction) -> bool:
+        if interaction.user.id != self.owner_id:
+            await interaction.response.send_message(
+                "This button is not for you!",
+                ephemeral=True,
+            )
+            return False
+        return True
+
+    async def on_timeout(self) -> None:
+        for button in self.children:
+            button.disabled = True
+
+        await self.message.edit(view=self)
+        await super().on_timeout()
+
+        self.stop()
