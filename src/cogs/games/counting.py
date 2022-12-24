@@ -3,7 +3,7 @@ import asyncio
 
 import discord
 from discord.ext import commands
-from discord.commands import SlashCommandGroup
+from discord.commands import SlashCommandGroup, default_permissions
 
 from core.models import WhyBot
 from core.models.counting import CountingData
@@ -275,6 +275,50 @@ class Counting(commands.Cog):
 
         await ctx.respond(embed=embed)
 
+    @counting.command()
+    @default_permissions(administrator=True)
+    @commands.has_permissions(administrator=True)
+    async def ban_user(self, ctx: discord.ApplicationContext, member: discord.Member):
+        counting_data = await self.__get_counting_data(ctx.guild.id, skip_cache=True)
+        if member.id in counting_data.banned_counters:
+            return await ctx.respond("User is already banned from counting")
+        await self.client.db.execute(
+            "UPDATE counting SET banned_users = array_append(banned_users, $1) WHERE guild_id=$2",
+            member.id,
+            ctx.guild.id,
+        )
+        await ctx.respond(
+            embed=discord.Embed(
+                title="User Banned",
+                description=f"{member.mention} is banned from counting",
+                color=discord.Color.random(),
+            )
+        )
+        counting_data.banned_counters.append(member.id)
+        await self.__update_cache(counting_data)
+
+    @counting.command()
+    @default_permissions(administrator=True)
+    @commands.has_permissions(administrator=True)
+    async def unban_user(self, ctx: discord.ApplicationContext, member: discord.Member):
+        counting_data = await self.__get_counting_data(ctx.guild.id, skip_cache=True)
+        if member.id not in counting_data.banned_counters:
+            return await ctx.respond("User is already unbanned from counting")
+        await self.client.db.execute(
+            "UPDATE counting SET banned_users = array_remove(banned_users, $1) WHERE guild_id=$2",
+            member.id,
+            ctx.guild.id,
+        )
+        await ctx.respond(
+            embed=discord.Embed(
+                title="User Unbanned",
+                description=f"{member.mention} is no longer banned from counting",
+                color=discord.Color.random(),
+            )
+        )
+        counting_data.banned_counters.remove(member.id)
+        await self.__update_cache(counting_data)
+
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
         if message.guild is None or message.author.bot:
@@ -302,6 +346,9 @@ class Counting(commands.Cog):
             counting_data.counting_channel != message.channel.id
             or counting_data.plugin_enabled is False
         ):
+            return
+
+        if message.author.id in counting_data.banned_counters:
             return
 
         if potential_number != counting_data.next_number:
@@ -391,9 +438,6 @@ class Counting(commands.Cog):
                 data.guild_id,
             )
             await message.add_reaction("🎉")
-            self.client.loop.create_task(
-                self.__delete_msg("Yay! The high score has been beaten!", message)
-            )
 
     async def __update_cache(self, data: CountingData):
         await self.client.redis.set(
