@@ -117,7 +117,7 @@ async def format_seconds(seconds: int, short: Optional[bool] = False) -> str:
     return ""
 
 
-async def number_suffix(number: int) -> str:
+def number_suffix(number: int) -> str:
     """
     This function adds the suffix / ordinal after a number provided
 
@@ -135,7 +135,7 @@ async def number_suffix(number: int) -> str:
     return str(number) + suffix
 
 
-async def discord_timestamp(
+def discord_timestamp(
     time: int,
     format_type: Literal["mdy", "md_yt", "t", "md_y", "w_md_yt", "ts", "h_m_s"],
 ) -> Optional[str]:

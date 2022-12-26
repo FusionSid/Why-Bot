@@ -45,10 +45,10 @@ async def setup_leveling_guild(db: asyncpg.Pool, guild_id: int):
     ]
     query = """
     INSERT INTO leveling_guild (
-        guild_id, plugin_enabled, 
+        guild_id, plugin_enabled,
         text_font, text_color,
-        background_image, background_color, progress_bar_color, 
-        no_xp_roles, no_xp_channels, 
+        background_image, background_color, progress_bar_color,
+        no_xp_roles, no_xp_channels,
         level_up_text, level_up_enabled, per_minute
     ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
     """
