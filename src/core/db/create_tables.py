@@ -149,7 +149,7 @@ DROP TABLE IF EXISTS tickets; CREATE TABLE tickets
 
 # If you wish not to create one of these tables in the setup process
 # Simply just remove/comment that item from this list:
-tables_to_create = [
+TABLES_TO_CREATE: Final = [
     blacklist_query,
     command_stats_query,
     counting_query,

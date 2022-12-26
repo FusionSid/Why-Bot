@@ -1,4 +1,4 @@
-from .create_tables import create_tables
+from .create_tables import create_tables, TABLES_TO_CREATE
 from .setup_guild import (
     setup_counting,
     setup_leveling_guild,
@@ -7,6 +7,7 @@ from .setup_guild import (
 )
 
 __all__ = [
+    "TABLES_TO_CREATE",
     "create_tables",
     "setup_counting",
     "setup_leveling_guild",
