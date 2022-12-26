@@ -53,7 +53,7 @@ class Alerts(commands.Cog):
         data = data[::-1][0]
 
         description = data[2]
-        date = await discord_timestamp(data[3], format_type="ts")
+        date = discord_timestamp(data[3], format_type="ts")
         description += f"\n\nThis alert was made {date}"
 
         em = discord.Embed(

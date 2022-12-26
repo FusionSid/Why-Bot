@@ -130,7 +130,7 @@ class Info(commands.Cog):
         created_at = int(time.mktime(GUILD.created_at.timetuple()))
         created_text = (
             "**Server"
-            f' Created:**\n{await discord_timestamp(created_at, "md_yt")} ({await discord_timestamp(created_at, "ts")})'
+            f' Created:**\n{discord_timestamp(created_at, "md_yt")} ({discord_timestamp(created_at, "ts")})'
         )
 
         server_id_text = f"**Server ID:** {GUILD.id}"

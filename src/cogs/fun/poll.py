@@ -113,7 +113,7 @@ class Poll(commands.Cog):
 
             em.add_field(
                 name="Voting ends in:",
-                value=await discord_timestamp(int(timern + time), "ts"),
+                value=discord_timestamp(int(timern + time), "ts"),
             )
 
         message = await ctx.send(embed=em)

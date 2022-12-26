@@ -186,7 +186,7 @@ class Tags(commands.Cog):
                 ephemeral=True,
             )
 
-        timestamp = await discord_timestamp(tag.time_created, "ts")
+        timestamp = discord_timestamp(tag.time_created, "ts")
         em = discord.Embed(
             title=tag.tag_name,
             description=f"{tag.tag_value}\n\nTag created: {timestamp}",

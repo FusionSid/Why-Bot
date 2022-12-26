@@ -267,7 +267,7 @@ class WhyBotDev(commands.Cog):
 
             em.add_field(
                 name="When:",
-                value=f"{await discord_timestamp(date, 'ts')} {await discord_timestamp(date, 'md_yt')}",
+                value=f"{discord_timestamp(date, 'ts')} {discord_timestamp(date, 'md_yt')}",
                 inline=False,
             )
 
