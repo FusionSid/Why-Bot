@@ -6,7 +6,7 @@ import asyncpg
 from core.models.level import LevelingDataGuild, LevelingDataMember
 
 
-async def xp_needed(level: int) -> int:
+def xp_needed(level: int) -> int:
     """
     Calculate the xp needed for any level
 

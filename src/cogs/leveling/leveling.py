@@ -75,11 +75,11 @@ class Leveling(commands.Cog):
         give_xp_amount = leveling_data.get_per_minute_xp()
         member_data.member_total_xp += give_xp_amount
 
-        next_level_xp = await xp_needed(member_data.member_level + 1)
+        next_level_xp = xp_needed(member_data.member_level + 1)
         add_level, current_xp = divmod(member_data.member_total_xp, next_level_xp)
 
         if not add_level:
-            current_xp -= await xp_needed(member_data.member_level)
+            current_xp -= xp_needed(member_data.member_level)
 
         member_data.member_level += add_level
         member_data.member_xp = current_xp
@@ -169,7 +169,7 @@ class Leveling(commands.Cog):
         member_data = await get_member_data(self.client.db, ctx.author, ctx.guild.id)
         if level is None:
             next_level = member_data.member_level + 1
-            next_level_xp = await xp_needed(next_level)
+            next_level_xp = xp_needed(next_level)
             return await ctx.respond(
                 embed=discord.Embed(
                     title="XP Calculator",
@@ -179,7 +179,7 @@ class Leveling(commands.Cog):
                 )
             )
 
-        level_xp = await xp_needed(level)
+        level_xp = xp_needed(level)
         return await ctx.respond(
             embed=discord.Embed(
                 title="XP Calculator",
@@ -336,8 +336,8 @@ class Leveling(commands.Cog):
                 " if counting is enabled"
             )
 
-        current_level_xp = await xp_needed(member[4])
-        next_level_xp = await xp_needed(member[4] + 1)
+        current_level_xp = xp_needed(member[4])
+        next_level_xp = xp_needed(member[4] + 1)
 
         await ctx.respond(
             embed=discord.Embed(
@@ -359,8 +359,8 @@ class Leveling(commands.Cog):
             description="**This embed is a placeholder for an image lb coming soon**",
         )
         for rank, member in enumerate(data[:10]):
-            current_level_xp = await xp_needed(member[4])
-            next_level_xp = await xp_needed(member[4] + 1)
+            current_level_xp = xp_needed(member[4])
+            next_level_xp = xp_needed(member[4] + 1)
 
             embed.add_field(
                 name=f"{member[2]} - Rank #{rank+1}",
