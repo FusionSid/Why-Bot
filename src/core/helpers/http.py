@@ -10,7 +10,6 @@ async def get_request(
     data: Optional[dict] = None,
     headers: Optional[dict] = None,
     timeout: Optional[int] = None,
-    return_resp: Optional[bool] = False,
 ) -> Optional[aiohttp.ClientResponse | str | dict]:
     """Makes a get request and returns the json or text result"""
 
@@ -26,9 +25,6 @@ async def get_request(
 
     async with aiohttp.ClientSession(**kwargs) as session:
         async with session.get(url) as resp:
-            if return_resp:
-                return resp
-
             if resp.ok is False:
                 return None
 
@@ -48,7 +44,6 @@ async def post_request(
     json: Optional[bool] = True,
     headers: Optional[dict] = None,
     timeout: Optional[int] = None,
-    return_resp: Optional[bool] = False,
 ) -> Optional[aiohttp.ClientResponse | str | dict]:
     """Makes a post request and returns the json or text result"""
 
@@ -65,9 +60,6 @@ async def post_request(
         # decide if to do json=body or data=body in session.post()
         json_or_data = "json" if json is True else "data"
         async with session.post(url, **{json_or_data: body}) as resp:
-            if return_resp:
-                return resp
-
             if resp.ok is False:
                 return None
 
@@ -85,7 +77,6 @@ async def get_request_bytes(
     data: Optional[dict] = None,
     headers: Optional[dict] = None,
     timeout: Optional[int] = None,
-    return_resp: Optional[bool] = False,
     bytes_io: Optional[bool] = False,
 ) -> Optional[aiohttp.ClientResponse | bytes | BytesIO]:
     """Makes a get request and returns the byte result. This is useful for something like a file/image"""
@@ -102,9 +93,6 @@ async def get_request_bytes(
 
     async with aiohttp.ClientSession(**kwargs) as session:
         async with session.get(url) as resp:
-            if return_resp:
-                return resp
-
             if resp.ok is False:
                 return None
 
@@ -123,7 +111,6 @@ async def post_request_bytes(
     json: Optional[bool] = True,
     headers: Optional[dict] = None,
     timeout: Optional[int] = None,
-    return_resp: Optional[bool] = False,
     bytes_io: Optional[bool] = False,
 ) -> Optional[aiohttp.ClientResponse | bytes | BytesIO]:
     """Makes a post request and returns the byte result. This is useful for something like a file/image"""
@@ -142,9 +129,6 @@ async def post_request_bytes(
         # decide if to do json=body or data=body in session.post()
         json_or_data = "json" if json is True else "data"
         async with session.post(url, **{json_or_data: body}) as resp:
-            if return_resp:
-                return resp
-
             if resp.ok is False:
                 return None
 
