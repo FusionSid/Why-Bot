@@ -2,8 +2,8 @@ import discord
 from discord.ext import commands
 from discord.commands import SlashCommandGroup
 
-from core.models.client import WhyBot
-from core.utils.client_functions import GUILD_IDS
+from core import WhyBot
+from core.helpers import GUILD_IDS
 
 
 class CogTools(commands.Cog):

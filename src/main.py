@@ -17,9 +17,8 @@ import time
 from rich.progress import Progress
 from rich.traceback import install
 
-from core.models import WhyBot
-from core.helpers.log import log_errors, on_error
-from core.utils.client_functions import get_why_config
+from core import WhyBot
+from core.helpers import get_why_config, log_errors, on_error
 
 
 def start_bot(client: WhyBot) -> None:

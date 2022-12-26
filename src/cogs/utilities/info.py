@@ -6,18 +6,13 @@ import discord
 import platform
 from discord.ext import commands
 
-from core.models import WhyBot
+from core import WhyBot, BaseCog
 from core.helpers.views import BotInfoView
 from core.utils.count_lines import get_lines
-from core.helpers.checks import run_bot_checks
 from core.utils.formatters import discord_timestamp
 
 
-class Info(commands.Cog):
-    def __init__(self, client: WhyBot):
-        self.client = client
-        self.cog_check = run_bot_checks
-
+class Info(BaseCog):
     async def get_info(
         self, ctx: discord.ApplicationContext, member: discord.Member = None
     ):

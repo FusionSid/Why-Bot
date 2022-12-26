@@ -9,15 +9,11 @@ from discord.ext import commands
 from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
 
 import __main__
-from core.helpers.checks import run_bot_checks
-from core.helpers.views import RickRollView
+from core import BaseCog
+from core.helpers import RickRollView
 
 
-class Fun(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-        self.cog_check = run_bot_checks
-
+class Fun(BaseCog):
     @staticmethod
     async def gen_crab(t1: str, t2: str, ctx: discord.ApplicationContext):
         path = os.path.join(

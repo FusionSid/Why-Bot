@@ -5,16 +5,11 @@ import discord
 from discord.utils import get
 from discord.ext import commands
 
-from core.models import WhyBot
-from core.helpers.checks import run_bot_checks
+from core import BaseCog
 from core.utils.formatters import discord_timestamp
 
 
-class Poll(commands.Cog):
-    def __init__(self, client: WhyBot):
-        self.client = client
-        self.cog_check = run_bot_checks
-
+class Poll(BaseCog):
     @commands.slash_command(description="Makes a Yah or Nah poll")
     @commands.guild_only()
     async def yesorno(self, ctx: discord.ApplicationContext, message: str):

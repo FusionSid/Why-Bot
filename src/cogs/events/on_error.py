@@ -1,10 +1,9 @@
 import discord
 from discord.ext import commands
 
-from core.models import WhyBot
-from core.helpers.log import log_errors
-from core.helpers.exception import ImageAPIFail
-from core.utils.formatters import format_seconds
+from core import WhyBot
+from core.utils import format_seconds
+from core.helpers import log_errors, ImageAPIFail
 
 
 class OnError(commands.Cog):

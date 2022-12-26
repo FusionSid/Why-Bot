@@ -2,8 +2,8 @@ import aiohttp
 import discord
 from discord.ext import commands
 
-from core.helpers.http import post_request
-from core.helpers.checks import run_bot_checks
+from core import BaseCog
+from core.helpers import post_request
 
 
 class CodeInput(discord.ui.Modal):
@@ -24,11 +24,7 @@ class CodeInput(discord.ui.Modal):
         )
 
 
-class RunCode(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-        self.cog_check = run_bot_checks
-
+class RunCode(BaseCog):
     @commands.slash_command()
     @commands.cooldown(1, 15, commands.BucketType.user)
     async def zprol(self, ctx: discord.ApplicationContext):

@@ -9,8 +9,8 @@ import aioredis
 from discord.ext import commands
 from discord import ApplicationContext  # for the autocomplete
 
-from core.utils.asyncpg_context import asyncpg_connect
-from core.utils.client_functions import get_why_config
+from .client_functions import get_why_config
+from core.utils import asyncpg_connect
 
 
 async def blacklist_check(user_id: int) -> bool:

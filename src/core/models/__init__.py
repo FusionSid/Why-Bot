@@ -2,7 +2,10 @@ from discord.ext import commands
 
 from .client import WhyBot
 from .counting import CountingData
-from .level import LevelingDataGuild, LevelingDataMember
+from .level import (
+    LevelingDataGuild,
+    LevelingDataMember,
+)
 from .rps import RockPaperScissorsView
 from .tag import Tag
 from .ticket import TicketGuild, Ticket, TicketView, NewTicketView, ClosedTicketView

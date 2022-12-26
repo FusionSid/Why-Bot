@@ -4,9 +4,9 @@ import datetime
 import discord
 from discord.ext import commands
 
-from core.models import WhyBot
-from core.utils.other import chunkify
-from core.utils.client_functions import GUILD_IDS
+from core import WhyBot
+from core.utils import chunkify
+from core.helpers import GUILD_IDS
 
 
 class Server(commands.Cog):

@@ -5,6 +5,7 @@ This module contains formatting functions
 from enum import Enum
 from typing import Literal, Optional, Final
 
+
 # Enum for amount of seconds per time period
 class SecondIntervals(Enum):
     second = 1

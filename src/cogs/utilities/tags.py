@@ -5,18 +5,13 @@ import discord
 from discord.ext import commands
 from discord.commands import SlashCommandGroup
 
-from core.models import WhyBot
-from core.models.tag import Tag
-from core.helpers.views import InputModalView
-from core.helpers.checks import run_bot_checks
-from core.utils.formatters import discord_timestamp
+from core import BaseCog
+from core.models import Tag
+from core.helpers import InputModalView
+from core.utils import discord_timestamp
 
 
-class Tags(commands.Cog):
-    def __init__(self, client):
-        self.client: WhyBot = client
-        self.cog_check = run_bot_checks
-
+class Tags(BaseCog):
     tags = SlashCommandGroup("tags", "Command related to the tags plugin")
 
     async def __get_tag_by_name(self, tag_name: str, guild_id: int) -> Optional[Tag]:

@@ -8,20 +8,15 @@ import discord
 import aiofiles
 from PIL import Image
 import discord_colorize
-from discord.ext import commands
 from discord.commands import SlashCommandGroup
 
 import __main__
-from core.helpers.exception import ImageAPIFail
-from core.helpers.checks import run_bot_checks
+from core import BaseCog
+from core.helpers import ImageAPIFail
 from core.helpers.http import get_request_bytes
 
 
-class Random(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-        self.cog_check = run_bot_checks
-
+class Random(BaseCog):
     @staticmethod
     async def open_json_fun():
         path = os.path.join(

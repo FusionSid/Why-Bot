@@ -3,18 +3,12 @@ import time
 import discord
 from discord.ext import commands
 
-from core.models.client import WhyBot
-from core.helpers.checks import run_bot_checks
-from core.helpers.views import InputModalView
-from core.utils.formatters import discord_timestamp
-from core.utils.client_functions import GUILD_IDS
+from core import BaseCog
+from core.helpers import InputModalView, GUILD_IDS
+from core.utils import discord_timestamp
 
 
-class Alerts(commands.Cog):
-    def __init__(self, client: WhyBot):
-        self.client = client
-        self.cog_check = run_bot_checks
-
+class Alerts(BaseCog):
     async def __setup_settings(self, member_id: int):
         return await self.client.db.execute(
             "INSERT INTO alerts_users (user_id) VALUES ($1)", member_id

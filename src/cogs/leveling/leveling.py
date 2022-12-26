@@ -5,27 +5,25 @@ import discord
 from discord.ext import commands
 from discord.commands import SlashCommandGroup
 
-from core.helpers.why_leveling import (
+from core import WhyBot, BaseCog
+from core.helpers import (
     get_level_data,
     get_member_data,
     xp_needed,
     update_member_data,
     get_all_member_data,
 )
-from core.models import WhyBot
-from core.helpers.checks import run_bot_checks
-from core.db.setup_guild import setup_leveling_guild
+from core.db import setup_leveling_guild
 
 
 RATE = 1
 PER = 60
 
 
-class Leveling(commands.Cog):
+class Leveling(BaseCog):
     def __init__(self, client: WhyBot):
-        self.client = client
         self.guild_cooldowns: dict[int, commands.CooldownMapping] = {}
-        self.cog_check = run_bot_checks
+        super().__init__(client)
 
     leveling = SlashCommandGroup("leveling", "Leveling system related commands")
 

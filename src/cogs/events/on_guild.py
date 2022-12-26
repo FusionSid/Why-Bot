@@ -4,9 +4,8 @@ import discord
 from discord.ext import commands
 
 from core.models import WhyBot
-from core.helpers.log import log_normal
-from core.db.setup_guild import create_db_tables
-from core.utils.client_functions import update_activity
+from core.helpers import log_normal, update_activity
+from core.db import create_db_tables
 
 
 class OnGuild(commands.Cog):

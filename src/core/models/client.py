@@ -17,8 +17,8 @@ from pycord.ext import ipc
 from rich.console import Console
 from discord.ext import commands
 
-from core.utils.formatters import format_seconds
-from core.helpers.exception import UserAlreadyBlacklisted, UserAlreadyWhitelisted
+from core.utils import format_seconds
+from core.helpers import UserAlreadyBlacklisted, UserAlreadyWhitelisted
 
 
 class WhyBot(commands.Bot):

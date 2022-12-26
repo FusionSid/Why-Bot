@@ -5,17 +5,13 @@ import discord
 from discord.ext import commands
 from discord.commands import SlashCommandGroup, default_permissions
 
-from core.models import WhyBot
-from core.models.counting import CountingData
-from core.db.setup_guild import setup_counting
-from core.helpers.checks import run_bot_checks
-from core.utils.calc import slow_safe_calculate
+from core import BaseCog
+from core.models import CountingData
+from core.db import setup_counting
+from core.utils import slow_safe_calculate
 
 
-class Counting(commands.Cog):
-    def __init__(self, client: WhyBot):
-        self.client = client
-        self.cog_check = run_bot_checks
+class Counting(BaseCog):
 
     counting = SlashCommandGroup("counting", "Commmands related to the counting game")
 

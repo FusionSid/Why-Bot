@@ -5,11 +5,10 @@ import aiohttp
 from PIL import Image
 from discord.ext import commands
 
+from core import BaseCog
 
-class Colors(commands.Cog):
-    def __init__(self, client):
-        self.client = client
 
+class Colors(BaseCog):
     @commands.slash_command(description="Get the colors in an image")
     async def get_colors(
         self, ctx: discord.ApplicationContext, file: discord.Attachment

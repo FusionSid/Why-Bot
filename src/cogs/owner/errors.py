@@ -7,10 +7,8 @@ from discord.commands import SlashCommandGroup
 from discord.ext import commands
 
 import __main__
-from core.models import WhyBot
-from core.helpers.views import ErrorView
-from core.helpers.log import get_last_errors
-from core.utils.client_functions import GUILD_IDS
+from core import WhyBot
+from core.helpers import ErrorView, get_last_errors, GUILD_IDS
 
 LOGFILE_PATH = os.path.join(os.path.dirname(__main__.__file__), "logfiles/main.log")
 

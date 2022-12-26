@@ -1,11 +1,10 @@
 from enum import Enum
 
 import discord
-from discord.ext import commands
 from discord.commands import SlashCommandGroup
 
-from core.helpers.http import get_request
-from core.helpers.exception import ImageAPIFail
+from core import BaseCog
+from core.helpers import get_request, ImageAPIFail
 
 
 def animal_embed(response: dict = None):
@@ -55,9 +54,7 @@ class AnimalURLS(Enum):
     whale = "https://some-random-api.ml/img/whale"
 
 
-class Animals(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+class Animals(BaseCog):
 
     animal = SlashCommandGroup("animal", "Get images and facts about animals")
 

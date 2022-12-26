@@ -5,10 +5,10 @@ from dataclasses import dataclass
 import discord
 import chat_exporter
 
-from core.models.client import WhyBot
-from core.utils.formatters import discord_timestamp
-from core.db.setup_guild import setup_tickets
-from core.helpers.views import ConfirmView, InputModalView
+from core.models import WhyBot
+from core.utils import discord_timestamp
+from core.db import setup_tickets
+from core.helpers import ConfirmView, InputModalView
 
 
 @dataclass

@@ -5,10 +5,9 @@ import discord
 import pyfiglet
 import discord_colorize
 from discord.commands import SlashCommandGroup
-from discord.ext import commands
 
-from core.helpers.checks import run_bot_checks
-from core.helpers.http import get_request_bytes
+from core import BaseCog
+from core.helpers import get_request_bytes
 
 colors = discord_colorize.Colors()
 fonts = pyfiglet.FigletFont.getFonts()
@@ -17,10 +16,7 @@ for idx, font in enumerate(fonts):
 fonts = dict(zip(fonts, pyfiglet.FigletFont.getFonts()))
 
 
-class TextConvert(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-        self.cog_check = run_bot_checks
+class TextConvert(BaseCog):
 
     textconvert = SlashCommandGroup("text", "Convert text to something else")
 

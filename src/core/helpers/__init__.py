@@ -1,4 +1,11 @@
 from .checks import blacklist_check, plugin_enabled, update_stats, run_bot_checks
+from .client_functions import (
+    update_activity,
+    get_why_config,
+    create_connection_pool,
+    create_redis_connection,
+    GUILD_IDS,
+)
 from .exception import (
     BaseException,
     RichBaseException,
@@ -40,6 +47,11 @@ __all__ = [
     "plugin_enabled",
     "update_stats",
     "run_bot_checks",
+    "update_activity",
+    "get_why_config",
+    "create_connection_pool",
+    "create_redis_connection",
+    "GUILD_IDS",
     "BaseException",
     "RichBaseException",
     "ConfigNotFound",

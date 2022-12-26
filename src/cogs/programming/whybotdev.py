@@ -9,17 +9,13 @@ import discord
 from discord.commands import SlashCommandGroup
 from discord.ext import commands
 
-from core.models import WhyBot
-from core.helpers.views import LinkView
-from core.helpers.checks import run_bot_checks
-from core.utils.formatters import discord_timestamp
-from core.helpers.http import get_request, post_request
+from core import BaseCog
+from core.helpers import LinkView
+from core.utils import discord_timestamp
+from core.helpers import get_request, post_request
 
 
-class WhyBotDev(commands.Cog):
-    def __init__(self, client: WhyBot):
-        self.client = client
-        self.cog_check = run_bot_checks
+class WhyBotDev(BaseCog):
 
     why_dev = SlashCommandGroup(
         "why", "Why bot development info and programming commands"

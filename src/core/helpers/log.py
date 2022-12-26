@@ -14,7 +14,7 @@ from rich.panel import Panel
 from rich.console import Console
 
 import __main__
-from core.utils.client_functions import get_why_config
+from .client_functions import get_why_config
 
 rich_console = Console()
 

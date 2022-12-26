@@ -6,12 +6,11 @@ import chat_exporter
 from discord.ext import commands
 from discord.commands import SlashCommandGroup, default_permissions
 
-from core.models import WhyBot
-from core.helpers.views import ConfirmView
-from core.db.setup_guild import setup_tickets
-from core.utils.formatters import discord_timestamp
-from core.helpers.checks import run_bot_checks
-from core.models.ticket import (
+from core import BaseCog
+from core.helpers import ConfirmView
+from core.db import setup_tickets
+from core.utils import discord_timestamp
+from core.models import (
     TicketGuild,
     Ticket,
     TicketView,
@@ -20,11 +19,7 @@ from core.models.ticket import (
 )
 
 
-class Tickets(commands.Cog):
-    def __init__(self, client: WhyBot):
-        self.client = client
-        self.cog_check = run_bot_checks
-
+class Tickets(BaseCog):
     ticket = SlashCommandGroup("ticket", "Ticket related commands")
 
     async def __get_ticket_config(self, guild_id: int):

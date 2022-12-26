@@ -12,7 +12,7 @@ import aioredis
 from discord.ext import commands
 
 import __main__
-from core.helpers.exception import ConfigNotFound
+from .exception import ConfigNotFound
 
 
 async def update_activity(client: commands.Bot):

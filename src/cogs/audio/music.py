@@ -3,15 +3,15 @@ from discord.ext import commands
 import pycord.wavelink as wavelink
 from discord import ApplicationContext
 
-from core.models import WhyBot
-from core.helpers.music import Player
+from core import BaseCog, WhyBot
 
 
-class Music(commands.Cog):
+class Music(BaseCog):
     def __init__(self, client: WhyBot):
-        self.client = client
         self.pool = wavelink.NodePool()
+
         client.loop.create_task(self.connect_nodes())
+        super().__init__(client)
 
     async def connect_nodes(self):
         """Connect to our Lavalink nodes."""
@@ -41,7 +41,8 @@ class Music(commands.Cog):
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
         if not member.bot and after.channel is None:
-            members = [i for i in before.channel.members if not i.bot]
+            pass
+        # members = [i for i in before.channel.members if not i.bot]
 
     @commands.slash_command()
     async def play(self, ctx: ApplicationContext, search: str):

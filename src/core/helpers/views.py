@@ -3,8 +3,7 @@ import io
 import asyncpg
 import discord
 
-from core.utils.formatters import number_suffix
-from core.utils.calc import slow_safe_calculate
+from core.utils import number_suffix, slow_safe_calculate
 
 
 class RickRollView(discord.ui.View):

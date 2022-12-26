@@ -5,10 +5,9 @@ import datetime
 import discord
 from discord.ext import commands
 
-from core.models import WhyBot
-from core.helpers.checks import blacklist_check
-from core.utils.formatters import format_seconds
-from core.utils.client_functions import GUILD_IDS
+from core import WhyBot
+from core.helpers import blacklist_check, GUILD_IDS
+from core.utils import format_seconds
 
 
 class DMReply(commands.Cog):

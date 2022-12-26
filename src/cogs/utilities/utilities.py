@@ -5,16 +5,12 @@ import discord
 from discord.ext import commands
 from discord.commands import SlashCommandGroup
 
-from core.helpers.views import CalculatorView
-from core.utils.calc import slow_safe_calculate
-from core.helpers.checks import run_bot_checks
+from core import BaseCog
+from core.helpers import CalculatorView
+from core.utils import slow_safe_calculate
 
 
-class Utilities(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-        self.cog_check = run_bot_checks
-
+class Utilities(BaseCog):
     utilities = SlashCommandGroup("utilities", "Utility Commands")
 
     @utilities.command(

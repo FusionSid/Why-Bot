@@ -4,17 +4,15 @@ import discord
 from discord.ext import commands
 from discord.commands import default_permissions
 
-from core.models import WhyBot
-from core.helpers.checks import run_bot_checks
+from core import WhyBot, BaseCog
 
 
-class Roles(commands.Cog):
+class Roles(BaseCog):
     def __init__(self, client: WhyBot):
-        self.client = client
-        self.cog_check = run_bot_checks
         self.edit_role_mentions = discord.AllowedMentions(
             users=False, everyone=False, roles=False, replied_user=False
         )
+        super().__init__(client)
 
     @commands.slash_command(
         name="addrole", description="gives role / roles to a member"

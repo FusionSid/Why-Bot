@@ -1,7 +1,7 @@
 from typing import Final
 import asyncio
 
-from core.utils.client_functions import create_connection_pool
+from core.helpers import create_connection_pool
 
 
 blacklist_query: Final = """

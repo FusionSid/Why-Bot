@@ -3,11 +3,10 @@ import datetime
 import discord
 from discord.ext import commands
 
-from core.models import WhyBot
-from core.helpers.log import log_normal
-from core.models.ticket import NewTicketView
-from core.helpers.exception import InvalidDatabaseUrl
-from core.utils.client_functions import (
+from core.models import NewTicketView, WhyBot
+from core.helpers import (
+    InvalidDatabaseUrl,
+    log_normal,
     update_activity,
     create_connection_pool,
     create_redis_connection,

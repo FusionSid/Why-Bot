@@ -3,15 +3,10 @@ import discord
 from discord.ext import commands
 from discord.commands import default_permissions
 
-from core.models import WhyBot
-from core.helpers.checks import run_bot_checks
+from core import BaseCog
 
 
-class Banning(commands.Cog):
-    def __init__(self, client: WhyBot):
-        self.client = client
-        self.cog_check = run_bot_checks
-
+class Banning(BaseCog):
     @commands.slash_command(description="Ban a member from the server")
     @default_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True)

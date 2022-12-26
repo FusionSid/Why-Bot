@@ -1,17 +1,12 @@
 import discord
-from discord.ext import commands
 from discord.commands import SlashCommandGroup
 
-from core.models import WhyBot
-from core.helpers.views import ConfirmView
-from core.helpers.checks import run_bot_checks
-from core.models.ttt import TicTacToeAIView, TicTacToe2PlayerView
+from core import BaseCog
+from core.helpers import ConfirmView
+from core.models import TicTacToeAIView, TicTacToe2PlayerView
 
 
-class TicTacToeCog(commands.Cog):
-    def __init__(self, client: WhyBot):
-        self.client = client
-        self.cog_check = run_bot_checks
+class TicTacToeCog(BaseCog):
 
     tictactoe_cmd = SlashCommandGroup("tictactoe", "Tic tac toe commands")
 

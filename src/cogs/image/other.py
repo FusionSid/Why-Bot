@@ -3,10 +3,9 @@ from enum import Enum
 import discord
 from discord.ext import commands
 
-from core.models import WhyBot
-from core.helpers.checks import run_bot_checks
-from core.helpers.http import get_request_bytes
-from core.helpers.exception import ImageAPIFail
+from core import BaseCog
+from core.helpers import ImageAPIFail
+from core.helpers import run_bot_checks, get_request_bytes
 
 
 class ImageURLS(Enum):
@@ -51,11 +50,7 @@ class ImageURLS(Enum):
     unsplash = "https://source.unsplash.com/random"
 
 
-class OtherImage(commands.Cog):
-    def __init__(self, client: WhyBot):
-        self.client = client
-        self.cog_check = run_bot_checks
-
+class OtherImage(BaseCog):
     @commands.slash_command(description="Get a random image from unsplash")
     async def unsplash(self, ctx: discord.ApplicationContext, search_terms: str = None):
         url = ImageURLS.unsplash.value

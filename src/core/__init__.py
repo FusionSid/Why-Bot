@@ -1,1 +1,3 @@
-from .models import WhyBot
+from .models import WhyBot, BaseCog
+
+__all__ = ["WhyBot", "BaseCog"]
