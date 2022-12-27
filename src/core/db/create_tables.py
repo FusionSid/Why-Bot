@@ -172,5 +172,5 @@ async def create_tables():
     To choose which tables to create add / remove the queries from the tables_to_create list
     """
     pool = await create_connection_pool()
-    tasks = [pool.execute(table) for table in tables_to_create]
+    tasks = [pool.execute(table) for table in TABLES_TO_CREATE]
     await asyncio.gather(*tasks)
