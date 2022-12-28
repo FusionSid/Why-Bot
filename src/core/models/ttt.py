@@ -106,7 +106,8 @@ class TicTacToeGame:
                 2. ["draw"]: This means the game has ended in a draw
                 3. ["win", letter: str]: This means that a player has won so it will return the player who won as well
                     eg if X wins it will return ["win", "X"]
-                4. ["continue"]: This means that the move was played successfuly and nothing else happened so the game can continue
+                4. ["continue"]: This means that the move was played successfuly
+                    and nothing else happened so the game can continue
         """
         if not self.space_free(pos):
             return ["invalid"]

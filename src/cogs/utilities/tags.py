@@ -39,7 +39,8 @@ class Tags(BaseCog):
             return await ctx.respond(
                 embed=discord.Embed(
                     title="Name Conflict!",
-                    description="Tag with this name already exists!\nIf you want you can edit the tag with the </tags edit:0> command",
+                    description="Tag with this name already exists!\n\
+                        If you want you can edit the tag with the </tags edit:0> command",
                     color=discord.Color.red(),
                 ),
                 ephemeral=True,
@@ -84,7 +85,8 @@ class Tags(BaseCog):
             return await ctx.respond(
                 embed=discord.Embed(
                     title="Tag doesn't exist!",
-                    description="Tag with this name does not exist!\nYou can check tags on this server with the </tags list:0> command or create one with </tags create:0>",
+                    description="Tag with this name does not exist!\nYou can check tags on\
+                         this server with the </tags list:0> command or create one with </tags create:0>",
                     color=discord.Color.red(),
                 ),
                 ephemeral=True,
@@ -134,7 +136,8 @@ class Tags(BaseCog):
             return await ctx.respond(
                 embed=discord.Embed(
                     title="Tag doesnt exist!",
-                    description="Tag with this name does not exist!\nIf you want you can create the tag with the </tags create:0> command",
+                    description="Tag with this name does not exist!\n\
+                        If you want you can create the tag with the </tags create:0> command",
                     color=discord.Color.red(),
                 ),
                 ephemeral=True,
@@ -175,7 +178,8 @@ class Tags(BaseCog):
             return await ctx.respond(
                 embed=discord.Embed(
                     title="Tag doesn't exist!",
-                    description="Tag with this name does not exist!\nYou can check tags on this server with the </tags list:0> command or create one with </tags create:0>",
+                    description="Tag with this name does not exist!\nYou can check tags on this\
+                         server with the </tags list:0> command or create one with </tags create:0>",
                     color=discord.Color.red(),
                 ),
                 ephemeral=True,

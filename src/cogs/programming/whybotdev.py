@@ -47,9 +47,13 @@ class WhyBotDev(BaseCog):
 
                 last_line = function_length + first_line - 1
 
+                src_link = (
+                    "https://github.com/FusionSid/Why-Bot/blob/rewrite-the-rewrite/src"
+                )
+                code_link = f"<{src_link}{filename}#L{first_line}-L{last_line}>"
+
                 if len(function_code) > 1750:
                     file = io.BytesIO(function_code.encode())
-                    code_link = f"<https://github.com/FusionSid/Why-Bot/blob/rewrite-the-rewrite/src{filename}#L{first_line}-L{last_line}>"
                     return await ctx.respond(
                         embed=discord.Embed(
                             title="Code to large to fit in a message",
@@ -61,7 +65,7 @@ class WhyBotDev(BaseCog):
                     )
 
                 return await ctx.respond(
-                    f"""```py\n\t# Code for the: {func.__name__} function/command\n\n{function_code}\n```\n<https://github.com/FusionSid/Why-Bot/blob/rewrite/src{filename}#L{first_line}-L{last_line}>""",
+                    f"```py\n\t# Code for the: {func.__name__} function/command\n\n{function_code}\n```\n{code_link}",
                     view=LinkView(["Code on Github", code_link]),
                 )
         await ctx.respond(
@@ -185,7 +189,9 @@ class WhyBotDev(BaseCog):
             await ctx.followup.send(
                 embed=discord.Embed(
                     title="Github Issue URL",
-                    description="A github issue has been automatically made for this bug report.\nIf you would like you can discuss the issue there.\nAlternativly you can make a thread on the Why Bot discord server",
+                    description="A github issue has been automatically made for this bug report.\n\
+                        If you would like you can discuss the issue there.\n\
+                            Alternatively you can make a thread on the Why Bot discord server",
                     color=discord.Color.random(),
                 ),
                 view=view,
@@ -196,19 +202,19 @@ class WhyBotDev(BaseCog):
     )
     async def botinvite(self, ctx: discord.ApplicationContext):
         """This command is used to get the invite link for the bot"""
-
         view = LinkView(
             [
                 "Invite Link",
-                "https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands",
+                "https://discord.com/api/oauth2/authorize?\
+                    client_id=896932646846885898&permissions=8&scope=bot%20applications.commands",
             ],
         )
         interaction = await ctx.respond(
             embed=discord.Embed(
                 title="Invite **Why?** to your server:",
                 description=(
-                    "[Why Invite"
-                    " Link](https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands)"
+                    "[Why Invite Link](https://discord.com/api/oauth2/authorize?\
+                        client_id=896932646846885898&permissions=8&scope=bot%20applications.commands)"
                 ),
                 color=ctx.author.color,
             ),

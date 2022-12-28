@@ -120,7 +120,8 @@ class Roles(BaseCog):
             title="Role Removed" if len(fetched_roles) == 1 else "Roles Removed",
             description=f"Member: {member.mention} has had these role removed: {fetched_roles[0].mention}"
             if len(fetched_roles) == 1
-            else f"Member: {member.mention} has had these roles removed: {''.join([role.mention for role in fetched_roles])}",
+            else f"Member: {member.mention} has had these roles removed: \
+                {''.join([role.mention for role in fetched_roles])}",
             color=discord.Color.random(),
         )
         em.set_footer(
