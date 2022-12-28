@@ -16,6 +16,10 @@ console = Console()
 PATH = os.path.dirname(__file__)
 
 
+def clear():
+    subprocess.call("clear" if os.name == "posix" else "cls")
+
+
 def install_requirements() -> None:
     """Install the required libraries from requirements.txt"""
 
@@ -37,7 +41,7 @@ def install_requirements() -> None:
         except (subprocess.CalledProcessError, FileNotFoundError):
             console.print("[red bold]Failed to install requirements D:[/]")
 
-    os.system("cls||clear")
+    clear()
 
 
 def create_db_tables() -> None:
@@ -60,7 +64,7 @@ def create_db_tables() -> None:
     ):
         asyncio.run(create_tables())
 
-    os.system("cls||clear")
+    clear()
 
 
 def create_config_file() -> None:
@@ -82,8 +86,7 @@ def create_config_file() -> None:
         "[bold blue]\nWould you like to create the config.yaml file?"
     )
     if not create_file:
-        os.system("cls||clear")
-        return
+        return clear()
 
     config_path = os.path.join(PATH, "config.example.yaml")
 
@@ -130,12 +133,12 @@ def create_config_file() -> None:
         if value is not None:
             new_config_file_data[key] = value
 
-        os.system("cls||clear")
+        clear()
 
     with open(os.path.join(PATH, "config.aml"), "w") as f:
         yaml.dump(new_config_file_data, f)
 
-    os.system("cls||clear")
+    clear()
 
 
 def is_first_time() -> bool:
@@ -154,7 +157,7 @@ def is_first_time() -> bool:
     is_first_time = Confirm.ask(
         "[bold red]\nIs this your first time running this script?"
     )
-    os.system("cls||clear")
+    clear()
     return is_first_time
 
 
@@ -180,7 +183,7 @@ def main() -> None:
             console.print(f"[b green]{key}:[/] [green]{value[0]}")
         option = options.get(Prompt.ask("[b green]What would you like to do?"), None)
         if option is None:
-            os.system("cls||clear")
+            clear()
             continue
         if len(option) == 1:
             break
@@ -189,5 +192,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    os.system("cls||clear")
+    clear()
     main()
