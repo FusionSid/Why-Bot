@@ -41,6 +41,7 @@ logger.addHandler(handler)
 
 LOGFILE_PATH: Final = os.path.join(path, "main.log")
 
+
 # Custom exeption handler
 def log_errors(etype, value, tb) -> None:
     """Logs errors to the file instead of terminal"""

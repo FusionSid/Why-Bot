@@ -5,7 +5,7 @@ from discord.ext import commands
 
 from core import BaseCog
 from core.helpers import ImageAPIFail
-from core.helpers import run_bot_checks, get_request_bytes
+from core.helpers import get_request_bytes
 
 
 class ImageURLS(Enum):
