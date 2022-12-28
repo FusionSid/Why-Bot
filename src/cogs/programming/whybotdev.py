@@ -117,7 +117,7 @@ class WhyBotDev(BaseCog):
             return await ctx.respond(embed=error_embed)
 
         em = discord.Embed(
-            title=f"Suggestion",
+            title="Suggestion",
             description=suggestion,
             color=ctx.author.color,
             timestamp=datetime.datetime.now(),

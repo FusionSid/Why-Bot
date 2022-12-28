@@ -251,7 +251,7 @@ class TicTacToe2PlayerButton(discord.ui.Button):
         result = self.view.game.update_postion(letter, self.pos)
 
         if result[0] == "invalid":
-            return await interaction.followup.send(f"Invalid move", ephemeral=True)
+            return await interaction.followup.send("Invalid move", ephemeral=True)
 
         elif result[0] == "win":
             await interaction.followup.send(
@@ -267,7 +267,7 @@ class TicTacToe2PlayerButton(discord.ui.Button):
             await interaction.followup.send(
                 embed=discord.Embed(
                     title="Game Over!",
-                    description=f"Its a draw gg",
+                    description="Its a draw gg",
                     color=discord.Color.random(),
                 )
             )
@@ -391,7 +391,7 @@ class TicTacToeAIButton(TicTacToe2PlayerButton):
             result = self.view.game.update_postion("X", self.pos)
 
         if result[0] == "invalid":
-            return await interaction.followup.send(f"Invalid move", ephemeral=True)
+            return await interaction.followup.send("Invalid move", ephemeral=True)
 
         elif result[0] == "continue":
             if self.view.current_player == "bot":
@@ -414,7 +414,7 @@ class TicTacToeAIButton(TicTacToe2PlayerButton):
             await interaction.followup.send(
                 embed=discord.Embed(
                     title="Game Over!",
-                    description=f"Its a draw gg",
+                    description="Its a draw gg",
                     color=discord.Color.random(),
                 )
             )

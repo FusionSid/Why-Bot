@@ -23,7 +23,7 @@ class CogTools(commands.Cog):
             return await ctx.respond(
                 embed=discord.Embed(
                     title="Cog doesn't exist or was not loaded",
-                    description=f"Use listcogs command to check cogs",
+                    description="Use listcogs command to check cogs",
                     color=ctx.author.color,
                 ),
                 ephemeral=True,
@@ -48,7 +48,7 @@ class CogTools(commands.Cog):
             await ctx.respond(
                 embed=discord.Embed(
                     title="Cog doesn't exist",
-                    description=f"Please provied path properly",
+                    description="Please provied path properly",
                     color=ctx.author.color,
                 ),
                 ephemeral=True,
@@ -71,7 +71,7 @@ class CogTools(commands.Cog):
             await ctx.respond(
                 embed=discord.Embed(
                     title="Cog doesn't exist or was not loaded",
-                    description=f"Use listcogs command to check cogs",
+                    description="Use listcogs command to check cogs",
                     color=ctx.author.color,
                 ),
                 ephemeral=True,

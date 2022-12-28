@@ -16,14 +16,14 @@ class RockPaperScissorsView(discord.ui.View):
         style=discord.ButtonStyle.green, label="Rock", emoji="🗿", custom_id="rock"
     )
     async def rock(self, button: discord.ui.Button, interaction: discord.Interaction):
-        await interaction.response.send_message(f"You chose rock", ephemeral=True)
+        await interaction.response.send_message("You chose rock", ephemeral=True)
         await self.handle_input(interaction.user, button.custom_id)
 
     @discord.ui.button(
         style=discord.ButtonStyle.green, emoji="📄", label="Paper", custom_id="paper"
     )
     async def paper(self, button: discord.ui.Button, interaction: discord.Interaction):
-        await interaction.response.send_message(f"You chose paper", ephemeral=True)
+        await interaction.response.send_message("You chose paper", ephemeral=True)
         await self.handle_input(interaction.user, button.custom_id)
 
     @discord.ui.button(
@@ -35,7 +35,7 @@ class RockPaperScissorsView(discord.ui.View):
     async def scissor(
         self, button: discord.ui.Button, interaction: discord.Interaction
     ):
-        await interaction.response.send_message(f"You chose scissors", ephemeral=True)
+        await interaction.response.send_message("You chose scissors", ephemeral=True)
         await self.handle_input(interaction.user, button.custom_id)
 
     async def handle_input(
@@ -58,7 +58,7 @@ class RockPaperScissorsView(discord.ui.View):
             await self.message.channel.send(
                 embed=discord.Embed(
                     title="Rock Paper Scissors",
-                    description=f"It is a Draw!",
+                    description="It is a Draw!",
                     color=discord.Color.random(),
                 )
             )

@@ -146,7 +146,7 @@ class Server(commands.Cog):
         else:
             emb.add_field(
                 name="Why Bot Usage",
-                value=f"This user has not used any why bot commands",
+                value="This user has not used any why bot commands",
                 inline=False,
             )
 
