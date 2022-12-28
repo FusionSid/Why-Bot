@@ -229,7 +229,8 @@ class WhyBotDev(BaseCog):
         )
         await self.client.wait_for("reaction_add", check=react_check, timeout=30.0)
         await ctx.respond(
-            "https://discord.com/api/oauth2/authorize?client_id=896932646846885898&permissions=8&scope=bot%20applications.commands"
+            "https://discord.com/api/oauth2/authorize?\
+                client_id=896932646846885898&permissions=8&scope=bot%20applications.commands"
         )
 
     @why_dev.command(description="Show the most recent commit to the why bot repo")
@@ -243,7 +244,8 @@ class WhyBotDev(BaseCog):
             em = discord.Embed(
                 title="An error occured while trying to get the commit",
                 description=(
-                    "API basically had a skill issue.\nIf this persists and you are able to, report this as a bug with </bug:0> :)"
+                    "API basically had a skill issue.\n\
+                        If this persists and you are able to, report this as a bug with </bug:0> :)"
                 ),
                 color=discord.Colour.red(),
             )
