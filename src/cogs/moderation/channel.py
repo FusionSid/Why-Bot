@@ -228,9 +228,8 @@ class Channels(BaseCog):
     @commands.has_guild_permissions(manage_messages=True)
     @commands.has_guild_permissions(manage_messages=True)
     async def purgeuser(self, ctx: discord.ApplicationContext, member: discord.Member):
-        check_func = lambda message: member == message.author
         tasks = [
-            channel.purge(limit=1000, check=check_func)
+            channel.purge(limit=1000, check=lambda message: member == message.author)
             for channel in ctx.guild.text_channels
         ]
 
