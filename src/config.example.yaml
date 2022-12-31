@@ -1,3 +1,7 @@
+# PLEASE DO NOT MODIFY THIS FILE
+# This file is not only an example but a template that will be used by setup.py
+
+# General
 DEFAULT_PREFIX: "?"
 BOT_OWNER_ID: 0
 BOT_TOKEN: "Token for the bot"
