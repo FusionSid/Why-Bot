@@ -89,20 +89,21 @@ class Poll(BaseCog):
                 seconds_per_unit = {"m": 60, "h": 3600, "d": 86400, "w": 604800}
                 try:
                     time = int(end_poll_in[:-1]) * seconds_per_unit[end_poll_in[-1]]
-                    if time > 604800:
-                        return await ctx.respond(
-                            "Poll failed to be created"
-                            f" {self.client.get_why_emojies['redcross']}\nTime can not"
-                            " be longer than a week",
-                            ephemeral=True,
-                        )
                 except ValueError:
                     return await ctx.respond(
                         "Poll failed to be created"
-                        f" {self.client.get_why_emojies['redcross']}\nThe format code"
+                        f" {self.client.get_why_emojies.get('redcross', '❌')}\nThe format code"
                         " was not found",
                         ephemeral=True,
                     )
+
+            if time > 604800:
+                return await ctx.respond(
+                    "Poll failed to be created"
+                    f" {self.client.get_why_emojies.get('redcross', '❌')}\nTime can not"
+                    " be longer than a week",
+                    ephemeral=True,
+                )
 
             timern = pytime.time()
 
@@ -113,7 +114,7 @@ class Poll(BaseCog):
 
         message = await ctx.send(embed=em)
         await ctx.respond(
-            f"Poll created successfuly {self.client.get_why_emojies['checkmark']}",
+            f"Poll created successfuly {self.client.get_why_emojies.get('checkmark', '✅')}",
             ephemeral=True,
         )
         for reaction in reactions_todo:

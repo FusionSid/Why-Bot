@@ -27,17 +27,17 @@ class Info(BaseCog):
         )
         emojis = self.client.get_why_emojies
         if str(member.status) == "online":
-            status = f"{emojis['online']} Online"
+            status = f"{emojis.get('online', '🟢')} Online"
         elif str(member.status) == "offline":
-            status = f"{emojis['offline']} Offline"
+            status = f"{emojis.get('offline', '⚪')} Offline"
         elif str(member.status) == "dnd":
-            status = f"{emojis['dnd']} Do not disturb"
+            status = f"{emojis.get('dnd', '⛔')} Do not disturb"
         elif str(member.status) == "invisible":
-            status = f"{emojis['offline']} Invisible"
+            status = f"{emojis.get('offline', '⚪')} Invisible"
         elif str(member.status) == "idle":
-            status = f"{emojis['idle']} Idle"
+            status = f"{emojis.get('idle', '🟡')} Idle"
         else:
-            status = f"{emojis['online']} Online"
+            status = f"{emojis.get('online', '🟢')} Online"
 
         em.add_field(name="Status:", value=status, inline=False)
         em.add_field(name="ID:", value=member.id, inline=False)
