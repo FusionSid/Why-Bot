@@ -1,44 +1,30 @@
+import io
+from contextlib import redirect_stdout
+
 import aiohttp
 import discord
+from aioconsole import aexec
 from discord.ext import commands
 
 from core import BaseCog
-from core.helpers import post_request
-
-
-class CodeInput(discord.ui.Modal):
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-        self.code = None
-
-        self.add_item(
-            discord.ui.InputText(
-                label="Please enter the code", style=discord.InputTextStyle.long
-            )
-        )
-
-    async def callback(self, interaction: discord.Interaction):
-        self.code = self.children[0].value
-        return await interaction.response.send_message(
-            "Running code now...", ephemeral=True
-        )
+from core.helpers import GUILD_IDS, post_request, InputModalView
 
 
 class RunCode(BaseCog):
     @commands.slash_command()
     @commands.cooldown(1, 15, commands.BucketType.user)
     async def zprol(self, ctx: discord.ApplicationContext):
-        modal = CodeInput(title="Code Input")
+        modal = InputModalView(label="Please enter the code:", title="Code Input")
         await ctx.send_modal(modal)
         await modal.wait()
 
-        if modal.code is None:
+        if modal.value is None:
             return await ctx.respond("Invalid Input", ephemeral=True)
 
         async with aiohttp.ClientSession() as session:
             async with session.post(
                 "https://zprol.epicpix.ga/api/v1/run",
-                json={"code": modal.code},
+                json={"code": modal.value},
             ) as resp:
                 try:
                     response = await resp.json()
@@ -77,16 +63,16 @@ class RunCode(BaseCog):
     @commands.slash_command(description="Run code in the rickroll programming language")
     @commands.cooldown(1, 15, commands.BucketType.user)
     async def ricklang(self, ctx: discord.ApplicationContext):
-        modal = CodeInput(title="Code Input")
+        modal = InputModalView(label="Please enter the code:", title="Code Input")
         await ctx.send_modal(modal)
         await modal.wait()
 
-        if modal.code is None:
+        if modal.value is None:
             return await ctx.respond("Invalid Input", ephemeral=True)
 
         response = await post_request(
             "https://api.fusionsid.xyz/api/runcode",
-            body={"code": modal.code, "language": "rickroll_lang"},
+            body={"code": modal.value, "language": "rickroll_lang"},
         )
         if response is None:
             em = discord.Embed(
@@ -101,6 +87,51 @@ class RunCode(BaseCog):
             color=discord.Color.blue(),
             description=f"""```\n{response['stdout']}\n```""",
         )
+
+        await ctx.respond(embed=em)
+
+    @commands.slash_command(
+        guild_ids=GUILD_IDS, description="Run code in the rickroll programming language"
+    )
+    @commands.is_owner()
+    @commands.cooldown(1, 15, commands.BucketType.user)
+    async def exec_code(self, ctx: discord.ApplicationContext):
+        # this command dangerous af so second check just to make sure:
+        if ctx.author.id != self.client.owner_id:
+            raise commands.NotOwner
+
+        modal = InputModalView(label="Please enter the code:", title="Code Input")
+        await ctx.send_modal(modal)
+        await modal.wait()
+
+        if modal.value is None:
+            return await ctx.respond("Invalid Input", ephemeral=True)
+
+        locals = {
+            "ctx": ctx,
+            "client": self.client,
+        }
+
+        # Run the code
+        stdout = io.StringIO()
+        stderr = None
+        with redirect_stdout(stdout):
+            try:
+                await aexec(modal.value, locals)
+            except Exception as err:
+                stderr = err
+        output = stdout.getvalue()
+
+        em = discord.Embed(
+            title="Code Output:",
+            description=f"```bash\n{output if output else 'No Stdout'}\n```",
+            color=discord.Color.random(),
+        )
+        if stderr is not None:
+            em.add_field(
+                name="Stderr:",
+                value="```bash\n{}: {}\n```".format(type(stderr).__name__, stderr),
+            )
 
         await ctx.respond(embed=em)
 
