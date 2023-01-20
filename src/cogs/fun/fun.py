@@ -72,7 +72,7 @@ class Fun(BaseCog):
     ):
         path = os.path.join(self.spongebob_path, background)
         font_path = os.path.join(
-            os.path.dirname(__file__), "..", "assets/fonts/Some_Time_Later.otf"
+            os.path.dirname(__main__.__file__), "../assets/fonts/Some_Time_Later.otf"
         )
         font = ImageFont.truetype(font_path, 100)
         image = Image.open(path)
@@ -86,6 +86,7 @@ class Fun(BaseCog):
             try:
                 draw.text(((width - w) / 2, current_h), line, font=font, fill=color)
             except ValueError:
+                draw.text(((width - w) / 2, current_h), line, font=font, fill=color)
                 color = "white"
             current_h += h + pad
         file = io.BytesIO()
