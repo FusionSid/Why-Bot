@@ -19,4 +19,5 @@ PyYAML
 validators
 pycord.wavelink
 python-dateutil
-chat_exporter
+chat_exporter\
+aioconsole
