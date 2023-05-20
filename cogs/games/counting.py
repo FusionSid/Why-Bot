@@ -10,7 +10,7 @@ import numexpr as ne
 async def get_counting_channel(guild):
     with open("./database/db.json") as f:
         data = json.load(f)
-    if data[str(guild.id)]['counting_channel'] == None:
+    if data[str(guild.id)]['counting_channel'] is None:
         return None
     return int(data[str(guild.id)]["counting_channel"])
 
@@ -58,7 +58,7 @@ async def counting(msg, guild, channel, m):
         with open('./database/db.json') as f:
             data2 = json.load(f)
 
-        if data2[str(guild.id)]['lastcounter'] == None:
+        if data2[str(guild.id)]['lastcounter'] is None:
             data2[str(guild.id)]['lastcounter'] = m.author.id
         elif data2[str(guild.id)]['lastcounter'] == m.author.id:
             data[f"{guild.id}"] = 0
@@ -77,11 +77,6 @@ async def counting(msg, guild, channel, m):
 
         if (data[f"{guild.id}"] + 1) == msg:
             data[f"{guild.id}"] += 1
-            if calcm == True:
-                # await m.reply(msg)
-                pass
-            else:
-                pass
             await m.add_reaction("✅")
         else:
             await m.add_reaction("❌")

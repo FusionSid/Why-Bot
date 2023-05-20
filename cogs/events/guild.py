@@ -48,20 +48,18 @@ async def startguildsetup(client, id):
         }
     }
     data = await client.get_db()
-    
-    if str(id) in data:
-        pass
-    else:
+
+    if str(id) not in data:
         data[str(id)] = file
         await client.update_db(data)
 
     newtickettemplate = {"ticket-counter": 0, "valid-roles": [],"pinged-roles": [], "ticket-channel-ids": [], "verified-roles": []}
     with open(f"./database/tickets/ticket{id}.json", 'w') as f:
         json.dump(newtickettemplate, f, indent=4)
-    with open(f"./database/counting.json") as f:
+    with open("./database/counting.json") as f:
         dataa = json.load(f)
     dataa[f"{id}"] = 0
-    with open(f"./database/counting.json", 'w') as f:
+    with open("./database/counting.json", 'w') as f:
         json.dump(dataa, f, indent=4)
 
 
@@ -146,21 +144,19 @@ class Events(commands.Cog):
                 }
             }
             data = await self.client.get_db()
-            
-            
-            if str(id) in data:
-                pass
-            else:
+
+
+            if str(id) not in data:
                 data[str(id)] = file
                 await self.client.update_db(data)
-            
+
             newtickettemplate = {"ticket-counter": 0, "valid-roles": [],"pinged-roles": [], "ticket-channel-ids": [], "verified-roles": []}
             with open(f"./database/tickets/ticket{id}.json", 'w') as f:
                 json.dump(newtickettemplate, f, indent=4)
-            with open(f"./database/counting.json") as f:
+            with open("./database/counting.json") as f:
                 dataa = json.load(f)
             dataa[f"{id}"] = 0
-            with open(f"./database/counting.json", 'w') as f:
+            with open("./database/counting.json", 'w') as f:
                 json.dump(dataa, f, indent=4)
 
 def setup(client):

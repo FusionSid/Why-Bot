@@ -250,11 +250,11 @@ async def playy(ctx, video=None):
     pool.close()  # closing pool
     pool.join()
 
+    video_title = information["title"]
+
     # if it's not a playlist, playing the song as usual
     if "_type" not in information:
         src_video_url = information["formats"][0]["url"]  # source url
-        video_title = information["title"]
-
         # filling queues
         if ctx.guild.id in queues:
             queues[ctx.guild.id].append(
@@ -270,8 +270,6 @@ async def playy(ctx, video=None):
 
     else:  # else queueing playlist
         src_video_url = information["entries"][0]["url"]
-        video_title = information["title"]
-
         # queuing first song
         if ctx.guild.id in queues:
             queues[ctx.guild.id].append(
@@ -373,11 +371,11 @@ class Music(commands.Cog):
         pool.close()  # closing pool
         pool.join()
 
+        video_title = information["title"]
+
         # if it's not a playlist, playing the song as usual
         if "_type" not in information:
             src_video_url = information["formats"][0]["url"]  # source url
-            video_title = information["title"]
-
             # filling queues
             if ctx.guild.id in queues:
                 queues[ctx.guild.id].append(
@@ -393,8 +391,6 @@ class Music(commands.Cog):
 
         else:  # else queueing playlist
             src_video_url = information["entries"][0]["url"]
-            video_title = information["title"]
-
             # queuing first song
             if ctx.guild.id in queues:
                 queues[ctx.guild.id].append(
@@ -435,7 +431,6 @@ class Music(commands.Cog):
                 description=f"🔎 Searching for `{video_search}`\n\n" +
                 f"""✅ [{video_title}]({video_url}) - successfully added to queue.""",
                 color=0x515596)
-            embed.timestamp = datetime.datetime.utcnow()
         else:
             embed = discord.Embed(
                 title="Now playing",
@@ -443,8 +438,7 @@ class Music(commands.Cog):
                 f"🔎 Searching for `{video_search}`\n\n" +
                 f"""▶️ Now playing - [{video_title}]({video_url})""",
                 color=0x515596)
-            embed.timestamp = datetime.datetime.utcnow()
-
+        embed.timestamp = datetime.datetime.utcnow()
         await ctx.send(embed=embed)
 
     # skip command
@@ -551,9 +545,7 @@ class Music(commands.Cog):
                     color=0x515596)
                 )
             print(all_queues_info)
-            content = []
-            for _ in queue_info:
-                content.append("")
+            content = ["" for _ in queue_info]
             page = 0
 
             # filling content with songs
@@ -628,7 +620,7 @@ class Music(commands.Cog):
     @commands.command(aliases=['cp'], help="This command is used to create playlists", extras={"category":"Music"}, usage="createplaylist [playlist name]", description="Create a playlist")
     @commands.check(plugin_enabled)
     async def createplaylist(self, ctx, pname: str = None):
-        if pname == None:
+        if pname is None:
             return await ctx.send("You need to name the playlist")
 
         name = f"{ctx.author.id}"
@@ -650,21 +642,15 @@ class Music(commands.Cog):
     async def plist(self, ctx, pname: str):
         with open('./database/playlists.json') as f:
             data = json.load(f)
-        if f"{ctx.author.id}" in data:
-            pass
-        else:
+        if f"{ctx.author.id}" not in data:
             return await ctx.send(embed=discord.Embed(title="You dont have any playlists!", description=f'Use {ctx.prefix}createplaylist [name] to create one', color=ctx.author.color))
-        if pname in data[f"{ctx.author.id}"]:
-            pass
-        else:
+        if pname not in data[f"{ctx.author.id}"]:
             return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description=f'Use {ctx.prefix}createplaylist [name] to create one', color=ctx.author.color))
         em = discord.Embed(title=f"Playlist: {pname}", description="Songs:")
         em.timestamp = datetime.datetime.utcnow()
         if len(data[f"{ctx.author.id}"][pname]):
-            c = 1
-            for song in data[f"{ctx.author.id}"][pname]:
+            for c, song in enumerate(data[f"{ctx.author.id}"][pname], start=1):
                 em.add_field(name=f"{c}. {song}", value="** **", inline=False)
-                c += 1
             await ctx.send(embed=em)
         else:
             await ctx.send(f"List is empty use {ctx.prefix}padd {pname} [songname/url]")
@@ -674,13 +660,9 @@ class Music(commands.Cog):
     async def padd(self, ctx, pname: str, *,  song: str):
         with open('./database/playlists.json') as f:
             data = json.load(f)
-        if f"{ctx.author.id}" in data:
-            pass
-        else:
+        if f"{ctx.author.id}" not in data:
             return await ctx.send(embed=discord.Embed(title="You dont have any playlists!", description=f'Use {ctx.prefix}createplaylist [name] to create one', color=ctx.author.color))
-        if pname in data[f"{ctx.author.id}"]:
-            pass
-        else:
+        if pname not in data[f"{ctx.author.id}"]:
             return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description=f'Use {ctx.prefix}createplaylist [name] to create one', color=ctx.author.color))
         data[f"{ctx.author.id}"][pname].append(song)
         await ctx.send(f"{song} Added to {pname}")
@@ -692,15 +674,16 @@ class Music(commands.Cog):
     async def playlist(self, ctx, pname: str):
         with open('./database/playlists.json') as f:
             data = json.load(f)
-        if f"{ctx.author.id}" in data:
-            pass
-        else:
+        if f"{ctx.author.id}" not in data:
             return await ctx.send(embed=discord.Embed(title="You dont have any playlists!", description=f'Use {ctx.prefix}createplaylist [name] to create one', color=ctx.author.color))
-        if pname in data[f"{ctx.author.id}"]:
-            pass
-        else:
+        if pname not in data[f"{ctx.author.id}"]:
             return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description=f'Use {ctx.prefix}createplaylist [name] to create one', color=ctx.author.color))
-        await ctx.send(embed=discord.Embed(title=f"Playing playlist: {pname}", description=f"Songs are being added to queue"))
+        await ctx.send(
+            embed=discord.Embed(
+                title=f"Playing playlist: {pname}",
+                description="Songs are being added to queue",
+            )
+        )
         if len(data[f"{ctx.author.id}"][pname]):
             for song in data[f"{ctx.author.id}"][pname]:
                 try:
@@ -716,15 +699,16 @@ class Music(commands.Cog):
     async def shuffleplaylist(self, ctx, pname: str):
         with open('./database/playlists.json') as f:
             data = json.load(f)
-        if f"{ctx.author.id}" in data:
-            pass
-        else:
+        if f"{ctx.author.id}" not in data:
             return await ctx.send(embed=discord.Embed(title="You dont have any playlists!", description=f'Use {ctx.prefix}createplaylist [name] to create one', color=ctx.author.color))
-        if pname in data[f"{ctx.author.id}"]:
-            pass
-        else:
+        if pname not in data[f"{ctx.author.id}"]:
             return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description=f'Use {ctx.prefix}createplaylist [name] to create one', color=ctx.author.color))
-        await ctx.send(embed=discord.Embed(title="Playing Playlist", description=f"Songs are being added to queue in random order"))
+        await ctx.send(
+            embed=discord.Embed(
+                title="Playing Playlist",
+                description="Songs are being added to queue in random order",
+            )
+        )
         if len(data[f"{ctx.author.id}"][pname]):
             slist = data[f"{ctx.author.id}"][pname]
             def myfunction():
@@ -745,13 +729,9 @@ class Music(commands.Cog):
     async def pdel(self, ctx, pname: str):
         with open('./database/playlists.json') as f:
             data = json.load(f)
-        if f"{ctx.author.id}" in data:
-            pass
-        else:
+        if f"{ctx.author.id}" not in data:
             return await ctx.send(embed=discord.Embed(title="You dont have any playlists!", description=f'Use {ctx.prefix}createplaylist [name] to create one', color=ctx.author.color))
-        if pname in data[f"{ctx.author.id}"]:
-            pass
-        else:
+        if pname not in data[f"{ctx.author.id}"]:
             return await ctx.send(embed=discord.Embed(title="This playlist doesnt exist!", description=f'Use {ctx.prefix}createplaylist [name] to create one', color=ctx.author.color))
         if len(data[f"{ctx.author.id}"][pname]):
             n = 1
@@ -763,12 +743,13 @@ class Music(commands.Cog):
 
         def wfcheck(m):
             return m.channel == ctx.channel and m.author == ctx.author
+
         await ctx.send("Enter the number of the song you want to delete")
         index = await self.client.wait_for("message", check=wfcheck, timeout=300)
         index = index.content
         try:
             index = int(index)
-            index = index-1
+            index -= 1
         except Exception:
             await ctx.send("Index must be a number")
         try:
@@ -825,7 +806,7 @@ class Music(commands.Cog):
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
 
-        if not member.id == self.client.user.id:
+        if member.id != self.client.user.id:
             return
 
         elif before.channel is None:
@@ -862,9 +843,7 @@ class Music(commands.Cog):
         if len(ctx.message.attachments) == 0:
             return await ctx.send("You must provide an mp3 file for this to work")
         attachment_url = ctx.message.attachments[0].url
-        if attachment_url.endswith(".mp3"):
-            pass
-        else:
+        if not attachment_url.endswith(".mp3"):
             return await ctx.send("Must be an mp3 file")
         r = requests.get(attachment_url, stream=True)
         filename=f"./tempstorage/{ctx.author.id}.mp3"

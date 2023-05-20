@@ -9,9 +9,7 @@ async def decode(url):
     b64_string = url[1]
     b64_string = b64_string.replace("%3D", "=")
     base_decode = base64.b64decode(b64_string)
-    json_data = json.loads(unquote(base_decode))
-
-    return json_data
+    return json.loads(unquote(base_decode))
 
 
 class CustomEmbed(commands.Cog):
@@ -23,7 +21,7 @@ class CustomEmbed(commands.Cog):
         await ctx.message.delete()
         if "/account/embed?data=" not in url:
             return await ctx.send(embed=discord.Embed(title="Link Invalid", description="Go to [why dashboard](https://why.fusionsid.repl.co/account/embed) to create embed then copy the link"))
-        
+
         json_data = await decode(url)
 
         em = discord.Embed()
@@ -50,34 +48,18 @@ class CustomEmbed(commands.Cog):
                 em.url = embed["url"]
 
             if "author" in embed:
-                if "name" in embed["author"]:
-                    author_name = embed["author"]["name"]
-                else:
-                    author_name = None
-                    
-                if "url" in embed["author"]:
-                    author_url = embed["author"]["url"]
-                else:
-                    author_url = None
-
+                author_name = embed["author"]["name"] if "name" in embed["author"] else None
+                author_url = embed["author"]["url"] if "url" in embed["author"] else None
                 if "icon_url" in embed["author"]:
                     author_icon_url = embed["author"]["icon_url"]
                 else:
                     author_icon_url = None
-                
+
                 em.set_author(author_name, author_url, author_icon_url)
-            
+
             if "footer" in embed:
-                if "name" in embed["footer"]:
-                    footer_text = embed["footer"]["text"]
-                else:
-                    footer_text = None
-                    
-                if "url" in embed["footer"]:
-                    footer_icon = embed["footer"]["url"]
-                else:
-                    footer_icon = None
-                
+                footer_text = embed["footer"]["text"] if "name" in embed["footer"] else None
+                footer_icon = embed["footer"]["url"] if "url" in embed["footer"] else None
                 if footer_icon is None:
                     em.set_footer(text=footer_text)
                 else:

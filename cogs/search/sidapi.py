@@ -15,14 +15,13 @@ class SidAPI(commands.Cog):
         if ctx.message.attachments is None:
             return await ctx.send("You must attach a file to upload it")
 
-        else:
-            file = ctx.message.attachments[0].url
-            file = await return_url_image(file)
-        
+        file = ctx.message.attachments[0].url
+        file = await return_url_image(file)
+
         async with aiohttp.ClientSession() as session:
             async with session.post(f"{self.filehost_url}upload", data={'file': file}) as resp:
                 data = await resp.json()
-        
+
         em = discord.Embed(title="File Uploaded!", description=f"[Link:]({data['url']}) {data['url']}", color=ctx.author.color)
         em.add_field(name="Code:", value=data["code"])
         em.set_image(url=data["url"])

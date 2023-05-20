@@ -16,9 +16,7 @@ class Voice(commands.Cog):
         guildID = member.guild.id
         c.execute("SELECT voiceChannelID FROM guild WHERE guildID = ?", (guildID,))
         voice=c.fetchone()
-        if voice is None:
-            pass
-        else:
+        if voice is not None:
             voiceID = voice[0]
             try:
                 if after.channel.id == voiceID:
@@ -39,10 +37,7 @@ class Voice(commands.Cog):
                     guildSetting=c.fetchone()
                     if setting is None:
                         name = f"{member.name}'s channel"
-                        if guildSetting is None:
-                            limit = 0
-                        else:
-                            limit = guildSetting[0]
+                        limit = 0 if guildSetting is None else guildSetting[0]
                     else:
                         if guildSetting is None:
                             name = setting[0]
@@ -65,6 +60,7 @@ class Voice(commands.Cog):
                     conn.commit()
                     def check(a,b,c):
                         return len(channel2.members) == 0
+
                     await self.bot.wait_for('voice_state_update', check=check)
                     await channel2.delete()
                     await asyncio.sleep(3)
@@ -78,9 +74,7 @@ class Voice(commands.Cog):
     @commands.check(plugin_enabled)
     @commands.has_permissions(administrator  = True)
     async def voice(self, ctx):
-        if ctx.invoked_subcommand is not None:
-            pass
-        else:
+        if ctx.invoked_subcommand is None:
             await ctx.send(f"`{ctx.prefix}voice set` To set the channel\n`{ctx.prefix}voice setlimit` To set the limit")
 
     @voice.command(extras={"category":"Voice"}, usage="voice setup", help="This command is used to set up the Custom Vc for your server.\nThis channel, upon joining will create a temporary vc with your name on it and once everyone leave that channel, it will be deleted", description="Sets the custom vc for the channel")
@@ -93,8 +87,11 @@ class Voice(commands.Cog):
         id = ctx.author.id
         def check(m):
             return m.author.id == ctx.author.id
+
         await ctx.channel.send("**You have 60 seconds to answer each question!**")
-        await ctx.channel.send(f"**Enter the name of the category you wish to create the channels in:(e.g Voice Channels)**")
+        await ctx.channel.send(
+            "**Enter the name of the category you wish to create the channels in:(e.g Voice Channels)**"
+        )
         try:
             category = await self.bot.wait_for('message', check=check, timeout = 60.0)
         except asyncio.TimeoutError:

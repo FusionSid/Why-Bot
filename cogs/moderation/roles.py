@@ -71,8 +71,6 @@ class Roles(commands.Cog):
                 guild = await self.client.fetch_guild(payload.guild_id)
                 role = guild.get_role(x['role_id'])
                 await payload.member.add_roles(role)
-            else:
-                pass
     
     @commands.Cog.listener()
     @commands.check(plugin_enabled)
@@ -87,8 +85,6 @@ class Roles(commands.Cog):
                 role = guild.get_role(x['role_id'])
                 member = await guild.fetch_member(payload.user_id)
                 await member.remove_roles(role)
-            else:
-                pass
     
     @commands.command(aliases=['sar'],help="This command is used to set the autorole for your server. It has 2 types: all and bot\nThe all type sets the autorole for all members who join the server and the bot type sets the autorole for all bots that join the server.", extras={"category":"Moderation"}, usage="autorole [all/bot] [@role]", description="Sets the autorole role for the server")
     @commands.check(plugin_enabled)
@@ -122,8 +118,6 @@ class Roles(commands.Cog):
         data = await self.client.get_db()
 
         return
-
-        await self.client.update_db(data)
 
 
     @commands.Cog.listener()

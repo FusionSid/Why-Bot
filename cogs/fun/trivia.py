@@ -43,11 +43,10 @@ class TriviaView(discord.ui.View):
 
 
     async def interaction_check(self, interaction) -> bool:
-      if interaction.user != self.ctx.author:
-          await interaction.response.send_message("This isnt for you",ephemeral=True)
-          return False
-      else:
-          return True
+        if interaction.user == self.ctx.author:
+            return True
+        await interaction.response.send_message("This isnt for you",ephemeral=True)
+        return False
 
 class Trivia(commands.Cog):
     def __init__(self, client):
@@ -58,12 +57,12 @@ class Trivia(commands.Cog):
     @commands.check(plugin_enabled)
     async def trivia(self, ctx, mode : str = None):
 
-        if mode is not None and mode in ["easy", "medium", "hard"]:
+        if mode is not None and mode in {"easy", "medium", "hard"}:
 
-            url = self.url + f"&difficulty={mode}" +"&type=multiple"
+            url = f"{self.url}&difficulty={mode}&type=multiple"
         else:
-            url = self.url +"&type=multiple"
-            
+            url = f"{self.url}&type=multiple"
+
         url += "&encode=url3986"
         data = await get_url_json(url)
         data = data["results"][0]

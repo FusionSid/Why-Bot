@@ -11,10 +11,7 @@ async def enabled_cogs(client, ctx):
         title="Plugins:", description="These are all the plugins that have been enabled on your server", color=ctx.author.color)
     em.timestamp = datetime.datetime.utcnow()
     for key, value in plugins.items():
-        if value == True:
-            emoji = "Enabled ✅"
-        else:
-            emoji = "Disabled ❌"
+        emoji = "Enabled ✅" if value == True else "Disabled ❌"
         em.add_field(name=key, value=emoji)
     em.set_footer(text=f"Use {ctx.prefix}plugins to toggle plugins")
     return em
@@ -25,17 +22,17 @@ async def get_channels(self, ctx):
     em = discord.Embed(title="Channels", color=ctx.author.color)
     em.timestamp = datetime.datetime.utcnow()
     em.set_footer(text="Use /set to set these")
-    if data[str(ctx.guild.id)]['counting_channel'] == None:
+    if data[str(ctx.guild.id)]['counting_channel'] is None:
         counting = "Not Set"
     else:
         channel = await self.client.fetch_channel(data[str(ctx.guild.id)]['counting_channel'])
         counting = channel
-    if data[str(ctx.guild.id)]['welcome_channel'] == None:
+    if data[str(ctx.guild.id)]['welcome_channel'] is None:
         welcome = "Not Set"
     else:
         channel = await self.client.fetch_channel(data[str(ctx.guild.id)]['welcome_channel'])
         welcome = channel
-    if data[str(ctx.guild.id)]['log_channel'] == None:
+    if data[str(ctx.guild.id)]['log_channel'] is None:
         log = "Not Set"
     else:
         channel = await self.client.fetch_channel(data[str(ctx.guild.id)]['log_channel'])
@@ -86,11 +83,11 @@ async def autocalc(self, ctx):
     data = await self.client.get_db()
 
     autocalc = data[str(ctx.guild.id)]['settings']['autocalc']
-    if autocalc == True:
-        status = "Enabled ✅"
     if autocalc == False:
         status = "Disabled ❌"
 
+    elif autocalc == True:
+        status = "Enabled ✅"
     em = discord.Embed(title='Auto Calculator',description=status, color=ctx.author.color)
     em.timestamp = datetime.datetime.utcnow()
 

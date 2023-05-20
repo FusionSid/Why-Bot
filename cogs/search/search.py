@@ -47,9 +47,7 @@ class Search(commands.Cog):
             async with aiohttp.ClientSession() as session:
                 async with session.get(url) as resp:
                     response = await resp.json()
-                    if response['image'] == "none":
-                        pass
-                    else:
+                    if response['image'] != "none":
                         break
         em = discord.Embed(title=response['name'], description=response['desc'], color=ctx.author.color)
         em.timestamp = datetime.datetime.utcnow()

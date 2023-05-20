@@ -19,16 +19,14 @@ class Dropdown(discord.ui.Select):
 
         for cmd in client.commands:
             try:
-                if cmd.extras is None:
-                    pass
-                else:
+                if cmd.extras is not None:
                     for category in categories:
                         if cmd.extras['category'].lower() == category.title.lower():
                             index = categories.index(category)
                             categories[index].add_field(name=cmd.name, value=cmd.description, inline=False)
             except:
                 pass
-        
+
         options = []
         emojis = ["🔢","😂","🏆","📝","🎮","🛠️","🎵","⚠️","🔎","⚙️","🔀","🎫","📱","🎤","👋","💵", "🕹️"]
         for i in categories:
@@ -54,45 +52,57 @@ class Dropdown(discord.ui.Select):
 
         for cmd in self.client.commands:
             try:
-                if cmd.extras is None:
-                    pass
-                else:
+                if cmd.extras is not None:
                     for category in categories:
                         if cmd.extras['category'].lower() == category.title.lower():
                             index = categories.index(category)
                             categories[index].add_field(name=cmd.name, value=cmd.description, inline=False)
             except:
                 pass
-    
+
         for category in categories:
-                if cat.lower() == "logs":
-                    em = discord.Embed(title="Logs", description=f"`help [command]` for more info on command", color=discord.Color.blue())
-                    em.timestamp = datetime.datetime.utcnow()
-                    em.add_field(name="Use the /set command to set the mod/log channel", value="This category doesn't have any commands because it works on events.\nIf you use the `/set Mod/Log Channel #channel` command properly and set the right channel the bot will log things like Bans, Unbans, Messages being deleted/edited, Nick changes and more")
-                    await interaction.response.edit_message(embed=em)
+            if cat.lower() == "logs":
+                em = discord.Embed(
+                    title="Logs",
+                    description="`help [command]` for more info on command",
+                    color=discord.Color.blue(),
+                )
+                em.timestamp = datetime.datetime.utcnow()
+                em.add_field(name="Use the /set command to set the mod/log channel", value="This category doesn't have any commands because it works on events.\nIf you use the `/set Mod/Log Channel #channel` command properly and set the right channel the bot will log things like Bans, Unbans, Messages being deleted/edited, Nick changes and more")
+                await interaction.response.edit_message(embed=em)
 
-                elif cat.lower() == "welcome":
-                    em = discord.Embed(title="Welcome", description=f"`help [command]` for more info on command", color=discord.Color.blue())
-                    em.timestamp = datetime.datetime.utcnow()
-                    em.add_field(name="This system is used to send welcome messages to a user/into a channel when a member joins", value="Use the `/set Welcome Channel #channel` to set the welcome channel")
-                    em.add_field(name=f"Using `welcome` without a subcommand will display the welcome image",value=f"Configure your welcome message:\n`welcome textcolor`\n`welcome image`\n`welcome bgcolor`\n`welcome text`")
-                    await interaction.response.edit_message(embed=em)
+            elif cat.lower() == "welcome":
+                em = discord.Embed(
+                    title="Welcome",
+                    description="`help [command]` for more info on command",
+                    color=discord.Color.blue(),
+                )
+                em.timestamp = datetime.datetime.utcnow()
+                em.add_field(name="This system is used to send welcome messages to a user/into a channel when a member joins", value="Use the `/set Welcome Channel #channel` to set the welcome channel")
+                em.add_field(
+                    name="Using `welcome` without a subcommand will display the welcome image",
+                    value=f"Configure your welcome message:\n`welcome textcolor`\n`welcome image`\n`welcome bgcolor`\n`welcome text`",
+                )
+                await interaction.response.edit_message(embed=em)
 
-                elif cat.lower() == "economy":
-                    em = discord.Embed(title="Economy", description=f"`help [command]` for more info on command", color=discord.Color.blue())
-                    em.timestamp = datetime.datetime.utcnow()
-                    em.add_field(name="This plugin/category is still under construction", value="** **")
-                    await interaction.response.edit_message(embed=em)
+            elif cat.lower() == "economy":
+                em = discord.Embed(
+                    title="Economy",
+                    description="`help [command]` for more info on command",
+                    color=discord.Color.blue(),
+                )
+                em.timestamp = datetime.datetime.utcnow()
+                em.add_field(name="This plugin/category is still under construction", value="** **")
+                await interaction.response.edit_message(embed=em)
 
-                if cat.lower() == category.title.lower():
-                    await interaction.response.edit_message(embed=category)
+            if cat.lower() == category.title.lower():
+                await interaction.response.edit_message(embed=category)
                     
     async def interaction_check(self, interaction) -> bool:
-      if interaction.user != self.ctx.author:
-          await interaction.response.send_message("This isnt for you",ephemeral=True)
-          return False
-      else:
-          return True
+        if interaction.user == self.ctx.author:
+            return True
+        await interaction.response.send_message("This isnt for you",ephemeral=True)
+        return False
 
 class HelpView(View):
     def __init__(self, client, embed, ctx):
@@ -123,11 +133,10 @@ class HelpView(View):
         await interaction.message.delete()
 
     async def interaction_check(self, interaction) -> bool:
-      if interaction.user != self.ctx.author:
-          await interaction.response.send_message("This isnt for you",ephemeral=True)
-          return False
-      else:
-          return True
+        if interaction.user == self.ctx.author:
+            return True
+        await interaction.response.send_message("This isnt for you",ephemeral=True)
+        return False
 
 
 
@@ -140,7 +149,7 @@ class Help(commands.Cog):
         
         if cat is None:
             pass
-        
+
         elif cat.lower() == "logs":
             em = discord.Embed(title="Logs", description=f"`{ctx.prefix}help [command]` for more info on command", color=ctx.author.color)
             em.timestamp = datetime.datetime.utcnow()
@@ -173,7 +182,7 @@ class Help(commands.Cog):
             em.add_field(inline=False, name="Dm Bot",value=f"""```diff\n- You can always just dm the bot for help, suggestions, bugreports or if you just want to talk.Why bot will always reply (unless its spam)```""")
             em.add_field(inline=False, name="Categories", value=f"""```diff\n- {", ".join(categories)}```""")
             em.add_field(inline=False, name="Links",value="[Why Bot Support Server](https://discord.gg/ryEmgnpKND) • [Contribute/Source Code](https://github.com/FusionSid/Why-Bot)")
-            
+
             view= HelpView(self.client, em, ctx)
             message = await ctx.send(embed=em, view=view)
             res = await view.wait()
@@ -191,16 +200,14 @@ class Help(commands.Cog):
 
         for cmd in self.client.commands:
             try:
-                if cmd.extras is None:
-                    pass
-                else:
+                if cmd.extras is not None:
                     for category in categories:
                         if cmd.extras['category'].lower() == category.title.lower():
                             index = categories.index(category)
                             categories[index].add_field(name=cmd.name, value=cmd.description, inline=False)
             except:
                 pass
-    
+
         for category in categories:
             if cat.lower() == category.title.lower():
                 return await ctx.send(embed=category)
@@ -209,7 +216,7 @@ class Help(commands.Cog):
             if cmd.name.lower() == cat.lower():
                 em = discord.Embed(title="Why Help", description=f"""```diff\n- {ctx.prefix}help [command] for more info on command```""", color=ctx.author.color)
                 em.timestamp = datetime.datetime.utcnow()
-                em.add_field(name=f"Name", value=f"""```diff\n- {cmd.name}```""", inline=False)
+                em.add_field(name="Name", value=f"""```diff\n- {cmd.name}```""", inline=False)
                 if len(cmd.aliases) == 0:
                     em.add_field(name="Aliases:", value=f"""```diff\n- None"```""", inline=False)
                 else:

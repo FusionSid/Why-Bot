@@ -45,7 +45,7 @@ class Errors(commands.Cog):
                     if minutes > 60:
                         hoursglad = minutes - (minutes % 60)
                         hours = int(hoursglad / 60)
-                        minutes = minutes - (hours*60)
+                        minutes -= hours*60
                         time = f"{hours}h {minutes}min {seconds}s"
                 return time
 
@@ -60,9 +60,9 @@ class Errors(commands.Cog):
             )
             em.timestamp = datetime.datetime.utcnow()
             error_msg = await ctx.send(embed=em)
-            
+
             await ctx.message.add_reaction("⚠️")
-        
+
         elif isinstance(error, InteractionResponded):
             pass
 
@@ -75,11 +75,10 @@ class Errors(commands.Cog):
                 description=f"```fix\nYou haven't passed in all the required values for this command ```",
                 color=discord.Color.red()
             )
-            em.add_field(name=f"You have not passed in:",
-                         value=f"`{error.param}`")
+            em.add_field(name="You have not passed in:", value=f"`{error.param}`")
             em.timestamp = datetime.datetime.utcnow()
             error_msg = await ctx.send(embed=em)
-            
+
             await ctx.message.add_reaction("⚠️")
 
         elif isinstance(error, commands.MissingPermissions):
@@ -92,7 +91,7 @@ class Errors(commands.Cog):
                          value=f"`{', '.join(error.missing_permissions)}`")
             em.timestamp = datetime.datetime.utcnow()
             error_msg = await ctx.send(embed=em)
-            
+
             await ctx.message.add_reaction("⚠️")
 
         elif isinstance(error, commands.MessageNotFound):
@@ -101,10 +100,10 @@ class Errors(commands.Cog):
                 description="```fix\nThe bot failed to find the message ```",
                 color=discord.Color.red()
             )
-            
+
             em.timestamp = datetime.datetime.utcnow()
             error_msg = await ctx.send(embed=em)
-            
+
             await ctx.message.add_reaction("⚠️")
 
         elif isinstance(error, commands.MemberNotFound):
@@ -113,10 +112,10 @@ class Errors(commands.Cog):
                 description="```fix\nThe bot failed to find the member ```",
                 color=discord.Color.red()
             )
-            
+
             em.timestamp = datetime.datetime.utcnow()
             error_msg = await ctx.send(embed=em)
-            
+
             await ctx.message.add_reaction("⚠️")
 
         elif isinstance(error, commands.GuildNotFound):
@@ -125,10 +124,10 @@ class Errors(commands.Cog):
                 description="```fix\nThe bot faield to find the guild ```",
                 color=discord.Color.red()
             )
-            
+
             em.timestamp = datetime.datetime.utcnow()
             error_msg = await ctx.send(embed=em)
-            
+
             await ctx.message.add_reaction("⚠️")
 
         elif isinstance(error, commands.UserNotFound):
@@ -137,10 +136,10 @@ class Errors(commands.Cog):
                 description="```fix\nThe bot failed to find the user ```",
                 color=discord.Color.red()
             )
-            
+
             em.timestamp = datetime.datetime.utcnow()
             error_msg = await ctx.send(embed=em)
-            
+
             await ctx.message.add_reaction("⚠️")
 
         elif isinstance(error, commands.ChannelNotFound):
@@ -149,10 +148,10 @@ class Errors(commands.Cog):
                 description="```fix\nThe bot failed to find the channel``` ```",
                 color=discord.Color.red()
             )
-            
+
             em.timestamp = datetime.datetime.utcnow()
             error_msg = await ctx.send(embed=em)
-            
+
             await ctx.message.add_reaction("⚠️")
 
         elif isinstance(error, commands.ChannelNotReadable):
@@ -161,10 +160,10 @@ class Errors(commands.Cog):
                 description="```fix\nThe bot is unable to read this channel ```",
                 color=discord.Color.red()
             )
-            
+
             em.timestamp = datetime.datetime.utcnow()
             error_msg = await ctx.send(embed=em)
-            
+
             await ctx.message.add_reaction("⚠️")
 
         elif isinstance(error, commands.RoleNotFound):
@@ -173,10 +172,10 @@ class Errors(commands.Cog):
                 description="```fix\nThe bot was unable to find the role ```",
                 color=discord.Color.red()
             )
-            
+
             em.timestamp = datetime.datetime.utcnow()
             error_msg = await ctx.send(embed=em)
-            
+
             await ctx.message.add_reaction("⚠️")
 
         elif isinstance(error, commands.ThreadNotFound):
@@ -185,10 +184,10 @@ class Errors(commands.Cog):
                 description="```fix\nThe bot was unable to fund the thread ```",
                 color=discord.Color.red()
             )
-            
+
             em.timestamp = datetime.datetime.utcnow()
             error_msg = await ctx.send(embed=em)
-            
+
             await ctx.message.add_reaction("⚠️")
 
         elif isinstance(error, commands.BotMissingPermissions):
@@ -197,10 +196,10 @@ class Errors(commands.Cog):
                 description="```fix\nWhy bot does not have the permissions do execute this command. Please gimme them perms ```",
                 color=discord.Color.red()
             )
-            
+
             em.timestamp = datetime.datetime.utcnow()
             error_msg = await ctx.send(embed=em)
-            
+
             await ctx.message.add_reaction("⚠️")
 
         elif isinstance(error, commands.MissingRole):
@@ -209,10 +208,10 @@ class Errors(commands.Cog):
                 description="```fix\nUser does not have the role to run this command ```",
                 color=discord.Color.red()
             )
-            
+
             em.timestamp = datetime.datetime.utcnow()
             error_msg = await ctx.send(embed=em)
-            
+
             await ctx.message.add_reaction("⚠️")
 
         elif isinstance(error, commands.BotMissingRole):
@@ -221,10 +220,10 @@ class Errors(commands.Cog):
                 description="```fix\nWhy bot does not have the role to run this command, Gimme them roles ```",
                 color=discord.Color.red()
             )
-            
+
             em.timestamp = datetime.datetime.utcnow()
             error_msg = await ctx.send(embed=em)
-            
+
             await ctx.message.add_reaction("⚠️")
 
         elif isinstance(error, commands.NSFWChannelRequired):
@@ -233,10 +232,10 @@ class Errors(commands.Cog):
                 description="```fix\nThis command can only be used in an nsfw channel ```",
                 color=discord.Color.red()
             )
-            
+
             em.timestamp = datetime.datetime.utcnow()
             error_msg = await ctx.send(embed=em)
-            
+
             await ctx.message.add_reaction("⚠️")
 
         elif isinstance(error, commands.DisabledCommand):
@@ -245,10 +244,10 @@ class Errors(commands.Cog):
                 description="```fix\nThis command has been disabled ```",
                 color=discord.Color.red()
             )
-            
+
             em.timestamp = datetime.datetime.utcnow()
             error_msg = await ctx.send(embed=em)
-            
+
             await ctx.message.add_reaction("⚠️")
 
         elif isinstance(error, commands.CommandInvokeError):
@@ -257,10 +256,10 @@ class Errors(commands.Cog):
                 description=f"```fix\nThis is not good, please use `{ctx.prefix}bug <bug>` to report this if you think its a bug ```",
                 color=discord.Color.red()
             )
-            
+
             em.timestamp = datetime.datetime.utcnow()
             error_msg = await ctx.send(embed=em)
-            
+
             await ctx.message.add_reaction("⚠️")
 
         elif isinstance(error, discord.HTTPException):
@@ -269,10 +268,10 @@ class Errors(commands.Cog):
                 description=f"```fix\n{error.code} {error.text} ```",
                 color=discord.Color.red()
             )
-            
+
             em.timestamp = datetime.datetime.utcnow()
             error_msg = await ctx.send(embed=em)
-            
+
             await ctx.message.add_reaction("⚠️")
 
 

@@ -40,9 +40,9 @@ class WhoPlay(commands.Cog):
         else:
             msg = playing_game
             if count_playing > 15:
-                showing = "(Showing 15/{})".format(count_playing)
+                showing = f"(Showing 15/{count_playing})"
             else:
-                showing = "({})".format(count_playing)
+                showing = f"({count_playing})"
 
             em = discord.Embed(
                 description=msg, colour=discord.Colour(value=0x36393e))

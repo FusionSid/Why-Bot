@@ -132,13 +132,13 @@ class WhyBot(commands.Bot):
         time = f"{seconds}s"
         if seconds > 60:
             minutes = seconds - (seconds % 60)
-            seconds = seconds - minutes
+            seconds -= minutes
             minutes = int(minutes / 60)
             time = f"{minutes}min {seconds}s"
             if minutes > 60:
                 hoursglad = minutes - (minutes % 60)
                 hours = int(hoursglad / 60)
-                minutes = minutes - (hours*60)
+                minutes -= hours*60
                 time = f"{hours}h {minutes}min {seconds}s"
         return time
 
@@ -217,10 +217,7 @@ class WhyBot(commands.Bot):
         with open('database/blacklisted.json') as f:
             data = json.load(f)
 
-        if user_id in data:
-            return True
-        
-        return False
+        return user_id in data
 
 
 client = WhyBot()
@@ -353,21 +350,16 @@ def start_bot(client):
 
     all_categories = list(os.listdir("cogs"))
     for category in all_categories:
-        for filename in os.listdir(f"cogs/{category}"):
-            if filename.endswith(".py"):
-                cogs.append(f"cogs.{category}.{filename[:-3]}")
-            else:
-                continue 
-    
+        cogs.extend(
+            f"cogs.{category}.{filename[:-3]}"
+            for filename in os.listdir(f"cogs/{category}")
+            if filename.endswith(".py")
+        )
     try:
-        # Loading all cogs with a progress Bar
-        i = 0
-        for cog in cogs:
+        for i, cog in enumerate(cogs):
             client.cogs_list = cogs
             client.load_extension(cog)
             print_percent_done(i, len(cogs))
-            i+=1
-
         time.sleep(1)
         print("\n")
 

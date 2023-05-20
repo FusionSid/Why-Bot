@@ -78,36 +78,33 @@ class TicTacToe(discord.ui.View):
     def check_board_winner(self):
         for across in self.board:
             value = sum(across)
-            if value == 3:
-                return self.O
-            elif value == -3:
+            if value == -3:
                 return self.X
 
 
+            elif value == 3:
+                return self.O
         for line in range(3):
             value = self.board[0][line] + self.board[1][line] + self.board[2][line]
-            if value == 3:
-                return self.O
-            elif value == -3:
+            if value == -3:
                 return self.X
 
 
+            elif value == 3:
+                return self.O
         diag = self.board[0][2] + self.board[1][1] + self.board[2][0]
-        if diag == 3:
-            return self.O
-        elif diag == -3:
+        if diag == -3:
             return self.X
 
+        elif diag == 3:
+            return self.O
         diag = self.board[0][0] + self.board[1][1] + self.board[2][2]
-        if diag == 3:
-            return self.O
-        elif diag == -3:
+        if diag == -3:
             return self.X
 
-        if all(i != 0 for row in self.board for i in row):
-            return self.Tie
-
-        return None
+        elif diag == 3:
+            return self.O
+        return self.Tie if all(i != 0 for row in self.board for i in row) else None
 
 class Games(commands.Cog):
     def __init__(self, client):

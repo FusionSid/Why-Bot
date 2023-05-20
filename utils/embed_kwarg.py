@@ -45,7 +45,7 @@ async def kwarg_to_embed(client, ctx, kwargs):
         colorlist = []
         for c in colors:
             colorlist.append(c)
-            
+
         def wait_for_check(m):
             return m.author == ctx.author and m.channel == ctx.message.channel
 
@@ -67,60 +67,60 @@ async def kwarg_to_embed(client, ctx, kwargs):
                 }
 
         for key, value in args.items():
-            if key.lower() == "title":
-                em.title = value
-            elif key.lower() == "description" or key.lower() == "desc":
-                em.description = value
-            elif key.lower() == "channel":
-                channel = await client.fetch_channel(int(value))
-            elif key.lower() == "img" or key.lower() == "image":
-                em.set_image(url=value)
-            elif key.lower() == "color" or key.lower() == "colour":
-                if value.lower() == "list" or value.lower() == "help":
-                    return await ctx.send(", ".join(colorlist))
-                if value.lower() not in colorlist:
-                    await ctx.send("Color not found", delete_after=2)
-                    em.color = ctx.author.color
-                else:
-                    em.color = colors[value.lower()]
-            elif key.lower() == "fields":
-                vint = False
-                try:
-                    int(value) 
-                    vint= True
-                except:
-                    vint = False
-                
-                if vint is True:
-                    for i in range(int(value)):
-                        entername = await ctx.send("Enter Name:")
-                        name = await client.wait_for("message", check=wait_for_check, timeout=300)
-                        await name.delete()
+                if key.lower() == "title":
+                        em.title = value
+                elif key.lower() in ["description", "desc"]:
+                        em.description = value
+                elif key.lower() == "channel":
+                    channel = await client.fetch_channel(int(value))
+                elif key.lower() in ["img", "image"]:
+                        em.set_image(url=value)
+                elif key.lower() in ["color", "colour"]:
+                        if value.lower() in ["list", "help"]:
+                                return await ctx.send(", ".join(colorlist))
+                        if value.lower() not in colorlist:
+                            await ctx.send("Color not found", delete_after=2)
+                            em.color = ctx.author.color
+                        else:
+                            em.color = colors[value.lower()]
+                elif key.lower() == "fields":
+                        vint = False
+                        try:
+                            int(value) 
+                            vint= True
+                        except:
+                            vint = False
 
-                        entervalue = await ctx.send("Enter Value:")
-                        value = await client.wait_for("message", check=wait_for_check, timeout=300)
-                        await entername.delete()
-                        await entervalue.delete()
-                        await value.delete()
+                        if vint:
+                                for i in range(int(value)):
+                                    entername = await ctx.send("Enter Name:")
+                                    name = await client.wait_for("message", check=wait_for_check, timeout=300)
+                                    await name.delete()
 
-                        em.add_field(name=name.content, value=value.content, inline=False)
-                        
-            elif key.lower() in ["timestamp", "time"] and value.lower() in ["true", "yes"]:
-                em.timestamp = datetime.datetime.now()
+                                    entervalue = await ctx.send("Enter Value:")
+                                    value = await client.wait_for("message", check=wait_for_check, timeout=300)
+                                    await entername.delete()
+                                    await entervalue.delete()
+                                    await value.delete()
 
-            elif key.lower() == "webhook_name":
-                webhook_dict['name'] = value
-            
-            elif key.lower() == "webhook_avatar":
-                webhook_dict['avatar'] = value
+                                    em.add_field(name=name.content, value=value.content, inline=False)
+
+                elif key.lower() in ["timestamp", "time"] and value.lower() in ["true", "yes"]:
+                    em.timestamp = datetime.datetime.now()
+
+                elif key.lower() == "webhook_name":
+                    webhook_dict['name'] = value
+
+                elif key.lower() == "webhook_avatar":
+                    webhook_dict['avatar'] = value
 
         if ctx.author.id != client.owner_id:
             em.set_footer(text=f"Message sent by {ctx.author.name}")
-        
+
         name, avatar = None, None
         if webhook_dict["name"] is not None:
             name = webhook_dict["name"]
-            
+
             if webhook_dict["avatar"] is not None:
                 async with aiohttp.ClientSession() as session:
                     async with session.get(webhook_dict["avatar"]) as resp:
@@ -130,5 +130,5 @@ async def kwarg_to_embed(client, ctx, kwargs):
             await webhook.send(embed=em)
             await webhook.delete()
             return None
-        
+
         return [em, channel]

@@ -35,7 +35,7 @@ class Fusion(commands.Cog):
     @commands.check(is_it_me)
     async def serverlist(self, ctx):
         servers = list(self.client.guilds)
-        await ctx.send(f"Connected on {str(len(servers))} servers:")
+        await ctx.send(f"Connected on {len(servers)} servers:")
         await ctx.send('\n'.join(guild.name for guild in servers))
 
 
@@ -60,17 +60,14 @@ class Fusion(commands.Cog):
 
         data = await self.client.get_db()
         for guild in self.client.guilds:
-            if data[str(guild.id)]["announcement_channel"] is None:
-                try:
+            try:
+                if data[str(guild.id)]["announcement_channel"] is None:
                     await guild.system_channel.send(embed=em)
-                except Exception:
-                    continue
-            else:
-                try:
+                else:
                     channel = await self.client.fetch_channel(int(data[str(guild.id)]["announcement_channel"]))
                     await channel.send(embed=em)
-                except Exception:
-                    continue
+            except Exception:
+                continue
     
 
     @commands.command()
@@ -111,10 +108,9 @@ class Fusion(commands.Cog):
         em.add_field(name="ID:", value=user.id, inline=False)
         em.set_thumbnail(url=user.avatar.url)
         em.add_field(name="Created Account:",value=f"<t:{int(time.mktime(user.created_at.timetuple()))}>", inline=False)
-        shared_guilds = []
-        for guild in self.client.guilds:
-            if user in guild.members:
-                shared_guilds.append(guild.name)
+        shared_guilds = [
+            guild.name for guild in self.client.guilds if user in guild.members
+        ]
         em.add_field(name=f"Shared Guilds: ({len(shared_guilds)})", value=", ".join(shared_guilds))
 
         with open('./database/userdb.json') as f:
@@ -122,7 +118,7 @@ class Fusion(commands.Cog):
         cuse = data[str(user.id)]["command_count"]
 
         em.add_field(name="Command Use:", value=f"User has used Why Bot: {cuse} times")
-        
+
         em.timestamp = datetime.datetime.now()
         await ctx.send(embed=em)
 
@@ -130,10 +126,11 @@ class Fusion(commands.Cog):
     @commands.command()
     @commands.check(is_it_me)
     async def needhelp(self, ctx):
-        needhelp = []
-        for i in self.client.commands:
-            if i.help is None:
-                needhelp.append(f"{i.name} | {i.cog_name}")
+        needhelp = [
+            f"{i.name} | {i.cog_name}"
+            for i in self.client.commands
+            if i.help is None
+        ]
         await ctx.send("\n".join(needhelp))
 
 
@@ -143,13 +140,8 @@ class Fusion(commands.Cog):
         commandlist = []
         for i in self.client.commands:
             print(i)
-            if i.usage is None:
-                pass
-            else:
-                if len(i.aliases) == 0:
-                    aliases = None
-                else:
-                    aliases = i.aliases
+            if i.usage is not None:
+                aliases = None if len(i.aliases) == 0 else i.aliases
                 data = {
                     "name" : i.name,
                     "aliases" : aliases,

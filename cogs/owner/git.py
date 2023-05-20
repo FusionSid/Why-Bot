@@ -14,7 +14,13 @@ class Git(commands.Cog):
         if ctx.invoked_subcommand is not None:
             return
         else:
-            return await ctx.send(embed=discord.Embed(title=f"Git Commands", description="?git pull\n?git status\n?git add\n?git commit\n?git push", color=ctx.author.color))
+            return await ctx.send(
+                embed=discord.Embed(
+                    title="Git Commands",
+                    description="?git pull\n?git status\n?git add\n?git commit\n?git push",
+                    color=ctx.author.color,
+                )
+            )
 
     @git.command()
     @commands.check(is_it_me)

@@ -31,7 +31,7 @@ class Ticket(commands.Cog):
 
         await self.client.wait_until_ready()
 
-        if args == None:
+        if args is None:
             message_content = f"Please wait, we will be with you shortly!\nUse {ctx.prefix}closeticket to close the ticket"
 
         else:
@@ -41,10 +41,10 @@ class Ticket(commands.Cog):
         with open(f"./database/tickets/ticket{ctx.guild.id}.json") as f:
             data = json.load(f)
 
-        ticket_number = int(data["ticket-counter"])
-        ticket_number += 1
-
-        ticket_channel = await ctx.guild.create_text_channel("{}'s Ticket'".format(ctx.author.name))
+        ticket_number = int(data["ticket-counter"]) + 1
+        ticket_channel = await ctx.guild.create_text_channel(
+            f"{ctx.author.name}'s Ticket'"
+        )
         await ticket_channel.set_permissions(ctx.guild.get_role(ctx.guild.id), send_messages=False, read_messages=False)
 
         for role_id in data["valid-roles"]:
@@ -54,26 +54,27 @@ class Ticket(commands.Cog):
 
         await ticket_channel.set_permissions(ctx.author, send_messages=True, read_messages=True, add_reactions=True, embed_links=True, attach_files=True, read_message_history=True, external_emojis=True)
 
-        em = discord.Embed(title="New ticket from {}#{}".format(
-            ctx.author.name, ctx.author.discriminator), description="{}".format(message_content), color=0x00a8ff)
+        em = discord.Embed(
+            title=f"New ticket from {ctx.author.name}#{ctx.author.discriminator}",
+            description=f"{message_content}",
+            color=0x00A8FF,
+        )
         em.timestamp = datetime.datetime.utcnow()
-        
+
         await ticket_channel.send(embed=em)
 
-        pinged_msg_content = ""
         non_mentionable_roles = []
 
         if data["pinged-roles"] != []:
 
+            pinged_msg_content = ""
             for role_id in data["pinged-roles"]:
                 role = ctx.guild.get_role(role_id)
 
                 pinged_msg_content += role.mention
                 pinged_msg_content += " "
 
-                if role.mentionable:
-                    pass
-                else:
+                if not role.mentionable:
                     await role.edit(mentionable=True)
                     non_mentionable_roles.append(role)
 
@@ -88,8 +89,11 @@ class Ticket(commands.Cog):
         with open(f"./database/tickets/ticket{ctx.guild.id}.json", 'w') as f:
             json.dump(data, f, indent=4)
 
-        created_em = discord.Embed(title="Why Tickets", description="Your ticket has been created at {}".format(
-            ticket_channel.mention), color=0x00a8ff)
+        created_em = discord.Embed(
+            title="Why Tickets",
+            description=f"Your ticket has been created at {ticket_channel.mention}",
+            color=0x00A8FF,
+        )
         created_em.timestamp = datetime.datetime.utcnow()
 
         await ctx.send(embed=created_em)
@@ -161,8 +165,11 @@ class Ticket(commands.Cog):
                     with open(f'./database/tickets/ticket{ctx.guild.id}.json', 'w') as f:
                         json.dump(data, f, indent=4)
 
-                    em = discord.Embed(title="Why Tickets", description="You have successfully added `{}` to the list of roles with access to tickets.".format(
-                        role.name), color=0x00a8ff)
+                    em = discord.Embed(
+                        title="Why Tickets",
+                        description=f"You have successfully added `{role.name}` to the list of roles with access to tickets.",
+                        color=0x00A8FF,
+                    )
                     em.timestamp = datetime.datetime.utcnow()
 
                     await ctx.send(embed=em)
@@ -220,18 +227,18 @@ class Ticket(commands.Cog):
                     with open(f'./database/tickets/ticket{ctx.guild.id}.json', 'w') as f:
                         json.dump(data, f, indent=4)
 
-                    em = discord.Embed(title="Why Tickets", description="You have successfully removed `{}` from the list of roles with access to tickets.".format(
-                        role.name), color=0x00a8ff)
-                    em.timestamp = datetime.datetime.utcnow()
-
-                    await ctx.send(embed=em)
-
+                    em = discord.Embed(
+                        title="Why Tickets",
+                        description=f"You have successfully removed `{role.name}` from the list of roles with access to tickets.",
+                        color=0x00A8FF,
+                    )
                 else:
 
                     em = discord.Embed(
                         title="Why Tickets", description="That role already doesn't have access to tickets!", color=0x00a8ff)
-                    em.timestamp = datetime.datetime.utcnow()
-                    await ctx.send(embed=em)
+                em.timestamp = datetime.datetime.utcnow()
+
+                await ctx.send(embed=em)
 
             except:
                 em = discord.Embed(
@@ -262,7 +269,10 @@ class Ticket(commands.Cog):
                 json.dump(data, f, indent=4)
 
             em = discord.Embed(
-                title="Why Tickets", description="You have successfully added `{}` to the list of roles that can run admin-level commands!".format(role.name), color=0x00a8ff)
+                title="Why Tickets",
+                description=f"You have successfully added `{role.name}` to the list of roles that can run admin-level commands!",
+                color=0x00A8FF,
+            )
             em.timestamp = datetime.datetime.utcnow()
             await ctx.send(embed=em)
 
@@ -294,17 +304,17 @@ class Ticket(commands.Cog):
                 with open(f'./database/tickets/ticket{ctx.guild.id}.json', 'w') as f:
                     json.dump(data, f, indent=4)
 
-                em = discord.Embed(title="Why Tickets", description="You have successfully removed `{}` from the list of roles that get pinged when new tickets are created.".format(
-                    role.name), color=0x00a8ff)
-                em.timestamp = datetime.datetime.utcnow()
-
-                await ctx.send(embed=em)
-
+                em = discord.Embed(
+                    title="Why Tickets",
+                    description=f"You have successfully removed `{role.name}` from the list of roles that get pinged when new tickets are created.",
+                    color=0x00A8FF,
+                )
             else:
                 em = discord.Embed(
                     title="Why Tickets", description="That role isn't getting pinged when new tickets are created!", color=0x00a8ff)
-                em.timestamp = datetime.datetime.utcnow()
-                await ctx.send(embed=em)
+            em.timestamp = datetime.datetime.utcnow()
+
+            await ctx.send(embed=em)
 
         except:
             em = discord.Embed(

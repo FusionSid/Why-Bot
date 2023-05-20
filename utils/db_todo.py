@@ -16,11 +16,9 @@ async def insert_into_db(id, time, name, desc = None, image = None):
             sqlite_insert_query = """INSERT INTO "123" (id, time, name, image) VALUES (?, ?, ?, ?)"""
         elif image is None:
             sqlite_insert_query = """INSERT INTO "123" (id, time, name, desc) VALUES (?, ?, ?, ?)"""
-        elif image is None and desc is None:
-            sqlite_insert_query = """INSERT INTO "123" (id, time, name) VALUES (?, ?, ?)"""
         else:
             sqlite_insert_query = """INSERT INTO "123" (id, time, name, desc, image) VALUES (?, ?, ?, ?, ?)"""
-        
+
         photo = await convertToBinaryData(photo)
         data_tuple = (id, time, name, desc, image)
         await db.execute(sqlite_insert_query, data_tuple)

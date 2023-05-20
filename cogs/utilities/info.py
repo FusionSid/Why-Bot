@@ -10,12 +10,9 @@ import psutil
 
 async def get_lines():
     lines = 0
-    files = []
-    for i in os.listdir():
-        if i.endswith(".py"):
-            files.append(i)
+    files = [i for i in os.listdir() if i.endswith(".py")]
     for i in os.listdir("cogs/"):
-        for file in os.listdir('cogs/'+i):
+        for file in os.listdir(f'cogs/{i}'):
             if file.endswith(".py"):
                 files.append(f"cogs/{i}/{file}")
     for i in os.listdir("utils/"):
@@ -24,7 +21,7 @@ async def get_lines():
     for i in files:
         count = 0
         with open(i, 'r') as f:
-            for line in f:
+            for _ in f:
                 count += 1
         lines += count
     return lines
@@ -36,9 +33,9 @@ class Info(commands.Cog):
     @commands.command(extras={"category": "Utilities"}, usage="info [@user]", help="This command shows a message with info on a user.", description="Returns info on a user")
     @commands.check(plugin_enabled)
     async def info(self, ctx, member: discord.Member = None):
-        if member == None:
+        if member is None:
             return await ctx.send(f"{ctx.prefix}info person <@person>\nYou didnt @ the member")
-        roles = [role for role in member.roles]
+        roles = list(member.roles)
         em = discord.Embed(title="Person Info",
                            description=f"For: {member.name}", color=ctx.author.color)
         em.timestamp = datetime.datetime.utcnow()
@@ -121,9 +118,7 @@ class Info(commands.Cog):
         em.timestamp = datetime.datetime.utcnow()
         em.add_field(inline=True, name="Server Count",
                      value=f"{len(self.client.guilds)}")
-        mlist = []
-        for i in list(self.client.get_all_members()):
-            mlist.append(i.name)
+        mlist = [i.name for i in list(self.client.get_all_members())]
         em.add_field(inline=True, name="User Count", value=len(mlist))
         em.add_field(inline=True, name="Command Count",
                      value=f"{len(self.client.commands)} commands")

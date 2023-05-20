@@ -140,24 +140,24 @@ class Moderation(commands.Cog):
     @commands.check(plugin_enabled)
     @commands.has_permissions(manage_channels=True)
     async def lockdown(self, ctx, channel: discord.TextChannel = None):
-        if channel == None:
+        if channel is None:
             channel = ctx.channel
         await channel.send("Channel is now in lockdown")
         await channel.set_permissions(ctx.guild.default_role, send_messages=False)
         cha = await get_log_channel(self, ctx)
-        if cha == None:
+        if cha is None:
             return await cha.send(embed=discord.Embed(title="Lockdown", description=f"***{channel.mention}*** is now in lockdown"))
 
     @commands.command(help="This command is the unlocks a discord text channel from lockdown", extras={"category":"Moderation"}, usage="unlock [#channel]", description="Unlock a channel")
     @commands.check(plugin_enabled)
     @commands.has_permissions(manage_channels=True)
     async def unlock(self, ctx, channel: discord.TextChannel = None):
-        if channel == None:
+        if channel is None:
             channel = ctx.channel
         await channel.send("Channel is no longer in lockdown")
         await channel.set_permissions(ctx.guild.default_role, send_messages=True)
         cha = await get_log_channel(self, ctx)
-        if cha == None:
+        if cha is None:
             return await cha.send(embed=discord.Embed(title="Unlock", description=f"***{channel.mention}*** is no longer in lockdown", color=ctx.author.color))
 
     @commands.command(help="This command deletes a certain amount of message from a channel. Limit it 50 messages", extras={"category":"Moderation"}, usage="clear [amount]", description="Delete messages")
@@ -165,11 +165,8 @@ class Moderation(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(manage_channels=True)
     async def clear(self, ctx, amount: int = 10):
-        if amount > 50:
-            amount = 50
-            await ctx.channel.purge(limit=amount+1)
-        else:
-            await ctx.channel.purge(limit=amount+1)
+        amount = min(amount, 50)
+        await ctx.channel.purge(limit=amount+1)
         channel = await get_log_channel(self.client, ctx.guild)
         if channel != None:
             return await channel.send(embed=discord.Embed(title="Message Clear", description=f"***{amount}*** messages have been cleared from ***{ctx.channel.name}***"))

@@ -120,11 +120,10 @@ class InteractiveView(discord.ui.View):
         await interaction.message.edit(content=f"```\n{self.expr}\n```")
 
     async def interaction_check(self, interaction) -> bool:
-        if interaction.user != self.ctx.author:
-            await interaction.response.send_message("This isnt for you", ephemeral=True)
-            return False
-        else:
+        if interaction.user == self.ctx.author:
             return True
+        await interaction.response.send_message("This isnt for you", ephemeral=True)
+        return False
 
 class Utilities(commands.Cog):
     def __init__(self, client):

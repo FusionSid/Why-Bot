@@ -18,7 +18,7 @@ class Warnings(commands.Cog):
         now = datetime.datetime.utcnow()
 
         time = now.strftime("%Y-%m-%d %H:%M:%S")
-        if reason == None:
+        if reason is None:
             reason = "None"
 
         data = await self.client.get_db()
@@ -27,9 +27,7 @@ class Warnings(commands.Cog):
         try:
             data[str(ctx.guild.id)]['warnings'][f"{member.id}"].append(warn)
         except Exception:
-            data[str(ctx.guild.id)]['warnings'][f"{member.id}"] = []
-            data[str(ctx.guild.id)]['warnings'][f"{member.id}"].append(warn)
-
+            data[str(ctx.guild.id)]['warnings'][f"{member.id}"] = [warn]
         await self.client.update_db(data)
         channel = await get_log_channel(self, ctx.guild)
         if channel != None:

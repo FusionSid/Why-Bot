@@ -27,10 +27,8 @@ class TextConvert(commands.Cog):
     @commands.command(aliases=['exp'], help="This command e x p a n d s text", extras={"category":"Text"}, usage="expand [num] [text]", description="Expands Text")
     @commands.check(plugin_enabled)
     async def expand(self, ctx,  num: int, *, s: clean_content):
-        spacing = ""
         if num > 0 and num <= 10:
-            for _ in range(num):
-                spacing += " "
+            spacing = "".join(" " for _ in range(num))
             result = spacing.join(s)
             if len(result) <= 200:
                 await ctx.send(result)

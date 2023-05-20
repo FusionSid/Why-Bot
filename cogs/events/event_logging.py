@@ -9,10 +9,8 @@ async def plugin_enabled(guild):
         data = json.load(f)
 
     data = data[str(guild.id)]
-    
-    if data["settings"]['plugins']["Logging"]:
-        return True
-    return False
+
+    return bool(data["settings"]['plugins']["Logging"])
 
 
 class Log(commands.Cog):
@@ -31,10 +29,10 @@ class Log(commands.Cog):
         em.add_field(name="After", value=after.content)
 
         channel = await get_log_channel(self.client, before.guild)
-        if channel == None:
+        if channel is None:
             return
         else:
-            
+
             await channel.send(embed=em)
 
     @commands.Cog.listener()
@@ -49,10 +47,10 @@ class Log(commands.Cog):
         em.add_field(name="Content:", value=f"{message.content}")
 
         channel = await get_log_channel(self.client, message.guild)
-        if channel == None:
+        if channel is None:
             return
         else:
-            
+
             await channel.send(embed=em)
 
     @commands.Cog.listener()
@@ -62,10 +60,10 @@ class Log(commands.Cog):
         em = discord.Embed(color=discord.Color.blue(), 
             title="Member Banned!", description=f"{user.name} Has been banned from the server", timestamp = datetime.datetime.utcnow())
         channel = await get_log_channel(self.client, guild)
-        if channel == None:
+        if channel is None:
             return
         else:
-            
+
             await channel.send(embed=em)
 
     @commands.Cog.listener()
@@ -75,8 +73,8 @@ class Log(commands.Cog):
         em = discord.Embed(color=discord.Color.blue(), 
             title="Member Unbanned!", description=f"{user.name} Has been unbanned from the server", timestamp = datetime.datetime.utcnow())
         channel = await get_log_channel(self.client, guild)
-        
-        if channel == None:
+
+        if channel is None:
             return
         else:
             await channel.send(embed=em)
@@ -104,10 +102,10 @@ class Log(commands.Cog):
             em.add_field(name="After:", value=after.nick)
 
         channel = await get_log_channel(self.client, after.guild)
-        if channel == None:
+        if channel is None:
             return
         else:
-            
+
             await channel.send(embed=em)
 
     @commands.Cog.listener()
@@ -117,10 +115,10 @@ class Log(commands.Cog):
         em = discord.Embed(color=discord.Color.blue(), title="Channel Created",
                             description=f"`{channel.name}` Has been created", timestamp = datetime.datetime.utcnow())
         channel = await get_log_channel(self.client, channel.guild)
-        if channel == None:
+        if channel is None:
             return
         else:
-            
+
             await channel.send(embed=em)
 
     @commands.Cog.listener()
@@ -130,10 +128,10 @@ class Log(commands.Cog):
         em = discord.Embed(color=discord.Color.blue(), title="Channel Delete",
                             description=f"`{channel.name}` Has been deleted", timestamp = datetime.datetime.utcnow())
         channel = await get_log_channel(self.client, channel.guild)
-        if channel == None:
+        if channel is None:
             return
         else:
-            
+
             await channel.send(embed=em)
 
 

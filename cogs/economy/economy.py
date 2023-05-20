@@ -23,18 +23,14 @@ async def open_account(user):
     if str(user.id) in users:
         return False
     else:
-        users[str(user.id)] = {}
-        users[str(user.id)]["wallet"] = 0
-        users[str(user.id)]["bank"] = 0
+        users[str(user.id)] = {"wallet": 0, "bank": 0}
     with open('./database/economy.json', 'w') as f:
         json.dump(users, f, indent=4)
     return True
 
 
 def conv2num(amount):
-    lenght = 0
-    for i in amount:
-        lenght += 1
+    lenght = sum(1 for _ in amount)
     lenght -= 1
 
     last_letter = amount[lenght]
@@ -62,8 +58,7 @@ async def update_bank(user, change=0, mode='wallet'):
 
     with open('./database/economy.json', 'w') as f:
         json.dump(users, f, indent=4)
-    bal = users[str(user.id)]['wallet'], users[str(user.id)]['bank']
-    return bal
+    return users[str(user.id)]['wallet'], users[str(user.id)]['bank']
 
 
 async def sell_this(user, item_name, amount, price=None):
@@ -73,13 +68,13 @@ async def sell_this(user, item_name, amount, price=None):
         name = item["name"].lower()
         if name == item_name:
             name_ = name
-            if price == None:
+            if price is None:
                 price = 0.7 * item["price"]
             if item['sell'] == False:
                 return
             break
 
-    if name_ == None:
+    if name_ is None:
         return [False, 1]
 
     cost = price*amount
@@ -102,7 +97,7 @@ async def sell_this(user, item_name, amount, price=None):
                 t = 1
                 break
             index += 1
-        if t == None:
+        if t is None:
             return [False, 3]
     except:
         return [False, 3]
@@ -126,7 +121,7 @@ async def buy_this(user, amount, item_name):
             price = item["price"]
             break
 
-    if name_ == None:
+    if name_ is None:
         return [False, 1]
 
     cost = price*amount
@@ -150,7 +145,7 @@ async def buy_this(user, amount, item_name):
                 t = 1
                 break
             index += 1
-        if t == None:
+        if t is None:
             obj = {"item": item_name, "amount": amount}
             users[str(user.id)]["bag"].append(obj)
     except:
@@ -171,7 +166,7 @@ class Economy(commands.Cog):
     @commands.command(aliases=['bal'])
     async def balance(self, ctx, person: discord.Member = None):
         print(person)
-        if person == None:
+        if person is None:
             print(ctx.author)
             await open_account(ctx.author)
             user = ctx.author
@@ -181,18 +176,8 @@ class Economy(commands.Cog):
             wallet_amt = users[str(user.id)]["wallet"]
             bank_amt = users[str(user.id)]["bank"]
 
-            # round
-            wallet_amt = round(wallet_amt, 2)
-            bank_amt = round(bank_amt, 2)
-
-            wallet_amt = "{:,}".format(wallet_amt)
-            bank_amt = "{:,}".format(bank_amt)
-
             em = discord.Embed(
                 title=f'{ctx.author.name} Balance', color=discord.Color.red())
-            em.add_field(name="Wallet Balance", value=wallet_amt)
-            em.add_field(name='Bank Balance', value=bank_amt)
-            await ctx.send(embed=em)
         else:
             await open_account(person)
             user = person
@@ -202,18 +187,19 @@ class Economy(commands.Cog):
             wallet_amt = users[str(user.id)]["wallet"]
             bank_amt = users[str(user.id)]["bank"]
 
-            # round
-            wallet_amt = round(wallet_amt, 2)
-            bank_amt = round(bank_amt, 2)
-
-            wallet_amt = "{:,}".format(wallet_amt)
-            bank_amt = "{:,}".format(bank_amt)
-
             em = discord.Embed(
                 title=f'{person.name} Balance', color=discord.Color.red())
-            em.add_field(name="Wallet Balance", value=wallet_amt)
-            em.add_field(name='Bank Balance', value=bank_amt)
-            await ctx.send(embed=em)
+
+        # round
+        wallet_amt = round(wallet_amt, 2)
+        wallet_amt = "{:,}".format(wallet_amt)
+        em.add_field(name="Wallet Balance", value=wallet_amt)
+        bank_amt = round(bank_amt, 2)
+
+        bank_amt = "{:,}".format(bank_amt)
+
+        em.add_field(name='Bank Balance', value=bank_amt)
+        await ctx.send(embed=em)
 
     @commands.command()
     @commands.cooldown(1, 30, commands.BucketType.user)
@@ -251,7 +237,7 @@ class Economy(commands.Cog):
     @commands.command(aliases=['with'])
     async def withdraw(self, ctx, amount=None):
         await open_account(ctx.author)
-        if amount == None:
+        if amount is None:
             await ctx.send("Please enter the amount")
             return
 
@@ -293,7 +279,7 @@ class Economy(commands.Cog):
     @commands.command(aliases=['dep'])
     async def deposit(self, ctx, amount=None):
         await open_account(ctx.author)
-        if amount == None:
+        if amount is None:
             await ctx.send("Please enter the amount")
             return
 
@@ -336,7 +322,7 @@ class Economy(commands.Cog):
     async def send(self, ctx, member: discord.Member, amount=None):
         await open_account(ctx.author)
         await open_account(member)
-        if amount == None:
+        if amount is None:
             await ctx.send("Please enter the amount i havent got all day")
             return
         try:
@@ -382,7 +368,7 @@ class Economy(commands.Cog):
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def gamble(self, ctx, amount=None):
         await open_account(ctx.author)
-        if amount == None:
+        if amount is None:
             await ctx.send("Please enter the amount")
             return
         bal = await update_bank(ctx.author)
@@ -414,12 +400,9 @@ class Economy(commands.Cog):
             await ctx.send('Amount must be positive!')
             return
 
-        win = False
         num = random.randint(1, 3)
-        if num == 2:
-            win = True
-
-        if win == True:
+        win = num == 2
+        if win:
             await update_bank(ctx.author, 2*amount)
             await ctx.send(f'{ctx.author.mention} You won :) `{2*amount}`')
         else:
@@ -429,7 +412,7 @@ class Economy(commands.Cog):
     @commands.command()
     async def shop(self, ctx, *, item_=None):
         img = None
-        if item_ == None:
+        if item_ is None:
             em = discord.Embed(title="Shop")
 
             for item in mainshop:
@@ -454,7 +437,7 @@ class Economy(commands.Cog):
                     buy = item['buy']
                     em.add_field(
                         name=f"**Item Name/Id: {name}**", value=f"Buy: $`{price}`\nSell: $`{sell}`\n{desc}")
-                    if item["icon_path"] == None:
+                    if item["icon_path"] is None:
                         img = None
                     else:
                         img = True
@@ -464,9 +447,9 @@ class Economy(commands.Cog):
                     break
             if inshop == False:
                 em.add_field(name=item_, value="Item not in shop")
-        if img == None:
+        if img is None:
             await ctx.send(embed=em)
-        if img == True:
+        elif img == True:
             await ctx.send(file=file, embed=em)
 
     @commands.command(aliases=['purchase'])

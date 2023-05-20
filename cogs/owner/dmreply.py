@@ -80,15 +80,12 @@ class DMReply(commands.Cog):
             if message.channel.id == self.dm_channel and message.author.id == self.client.owner_id:
                 if message.reference is None:
                     return
-                else:
-                    id = message.reference.message_id
-                    id = await message.channel.fetch_message(id)
-                    id = int(id.content)
+                id = message.reference.message_id
+                id = await message.channel.fetch_message(id)
+                id = int(id.content)
                 person = await self.client.fetch_user(id)
 
-                if message.content is None:
-                    pass
-                else:
+                if message.content is not None:
                     sent_message = await person.send(message.content)
                     try:
                         await message.add_reaction("✅")
@@ -97,14 +94,13 @@ class DMReply(commands.Cog):
 
                 if message.attachments is None:
                     return
-                else:
-                    for i in message.attachments:
-                        if "image/" not in str(i.content_type):
-                            return await person.send(i.url)
-                        em = discord.Embed(color=message.author.color)
-                        em.timestamp = datetime.datetime.utcnow()
-                        em.set_image(url=i.url)
-                        await person.send(embed=em)
+                for i in message.attachments:
+                    if "image/" not in str(i.content_type):
+                        return await person.send(i.url)
+                    em = discord.Embed(color=message.author.color)
+                    em.timestamp = datetime.datetime.utcnow()
+                    em.set_image(url=i.url)
+                    await person.send(embed=em)
 
         except Exception:
             return

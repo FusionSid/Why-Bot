@@ -12,33 +12,31 @@ class Onping(commands.Cog):
     @commands.group(aliases=["on_pinged", 'pinged', 'onping'], help="This command is used to set the Onping message when you get pinged\nYou can use: onpinged set - to set your onpinged message\nYou can use: onpinged clear to clear your onping message\nYou can use this command without a subcommand and it will display the message", extras={"category": "Onping"}, usage="onpinged [set/clear(optional)]", description="Sets your Onpinged message")
     @commands.check(plugin_enabled)
     async def onpinged(self, ctx):
-        if ctx.invoked_subcommand is None:
-            user = await self.client.get_user_db()
-            user = user[str(ctx.author.id)]
+        if ctx.invoked_subcommand is not None:
+            return
+        user = await self.client.get_user_db()
+        user = user[str(ctx.author.id)]
 
-            on_pinged_message = user['on_pinged']
-            em = discord.Embed()
-            em.timestamp = datetime.datetime.utcnow()
+        on_pinged_message = user['on_pinged']
+        em = discord.Embed()
+        em.timestamp = datetime.datetime.utcnow()
 
-            if on_pinged_message["title"] == None and on_pinged_message["description"] == None:
-                return await ctx.send(embed=discord.Embed(title="You have no on pinged message set.", description=f"Use `{ctx.prefix}onpinged set` to set one"))
+        if (
+            on_pinged_message["title"] is None
+            and on_pinged_message["description"] is None
+        ):
+            return await ctx.send(embed=discord.Embed(title="You have no on pinged message set.", description=f"Use `{ctx.prefix}onpinged set` to set one"))
 
-            if on_pinged_message["title"] == None:
-                pass
-            else:
-                em.title = on_pinged_message["title"]
+        if on_pinged_message["title"] != None:
+            em.title = on_pinged_message["title"]
 
-            if on_pinged_message["description"] == None:
-                pass
-            else:
-                em.description = on_pinged_message["description"]
+        if on_pinged_message["description"] != None:
+            em.description = on_pinged_message["description"]
 
-            if on_pinged_message["color"] == None:
-                pass
-            else:
-                em.color = on_pinged_message["color"]
+        if on_pinged_message["color"] != None:
+            em.color = on_pinged_message["color"]
 
-            await ctx.send(embed=em)
+        await ctx.send(embed=em)
 
 
     @onpinged.command()
@@ -102,11 +100,7 @@ class Onping(commands.Cog):
         color = color.content
         color = color.lower()
 
-        if color.lower() in colors.keys():
-            color = colors[color]
-        else:
-            color = None
-
+        color = colors[color] if color.lower() in colors else None
         data = await self.client.get_user_db()
 
         data[str(ctx.author.id)]['on_pinged']['title'] = title
@@ -166,11 +160,9 @@ class Onping(commands.Cog):
 
             if em.title and em.description is None:
                     return
-            if value["on_pinged"]["color"] == None:
-                pass
-            else:
+            if value["on_pinged"]["color"] != None:
                 em.color = value["on_pinged"]["color"]
-                
+
             if f"<@!{value['user_id']}>" in message.content or f"<@{value['user_id']}>" in message.content:
                 if value['user_id'] == message.author.id:
                     return

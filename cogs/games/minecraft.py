@@ -30,8 +30,7 @@ async def get_user_uuid(ctx):
 
         for user in users:
             if user["id"] == ctx.author.id:
-                uuid = user["uuid"]
-                return uuid
+                return user["uuid"]
     await ctx.send("You havent set your ign yet. Use setign to set it")
 
 
@@ -50,7 +49,7 @@ class Minecraft(commands.Cog):
     @commands.command(aliases=['uuid'], extras={"category":"Minecraft"}, usage="getuuid [ign(optional)]", help="This command will return your minecraft ign.\nIf you have used setign before then you wont have to specify the user.", description="Returns your minecraft ign")
     @commands.check(plugin_enabled)
     async def getuuid(self, ctx, player=None):
-        if player == None:
+        if player is None:
             uuid = await get_user_uuid(ctx)
         else:
             uuid = await get_uuid(str(player))
@@ -102,13 +101,12 @@ class Minecraft(commands.Cog):
     @commands.command(aliases=['hypixel'], extras={"category":"Minecraft"}, usage="hystats [ign(optional)]", help="This command shows the hypixel stats for a Hypixel user.\nYou can specify an ign or if youve used setign befre you wont have to", description="Shows a nice pic of your hypixel stats")
     @commands.check(plugin_enabled)
     async def hystats(self, ctx, player=None):
-        if player == None:
+        if player is None:
             uuid = await get_user_uuid(ctx)
         else:
             uuid = await get_uuid(str(player))
 
-        url = "https://hypixel.paniek.de/signature/{}/general-tooltip".format(
-            uuid)
+        url = f"https://hypixel.paniek.de/signature/{uuid}/general-tooltip"
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as resp:
                 if resp.status == 200:
@@ -122,7 +120,7 @@ class Minecraft(commands.Cog):
     @commands.command(aliases=['bw', 'bedwars'], extras={"category":"Minecraft"}, usage="bwstats [ign(optional)", help="This command shows the hypixel bedwars stats for a Hypixel user.\nYou can specify an ign or if youve used setign befre you wont have to", description="Shows your bedwars stats")
     @commands.check(plugin_enabled)
     async def bwstats(self, ctx, player=None):
-        if player == None:
+        if player is None:
             uuid = await get_user_uuid(ctx)
         else:
             uuid = await get_uuid(str(player))
@@ -153,18 +151,21 @@ class Minecraft(commands.Cog):
 
         if "monthlyPackageRank" in player:
             rank = "MVP++"
-            full_ign = "{} {}".format(rank, player_name)
+            full_ign = f"{rank} {player_name}"
         elif "newPackageRank" in player:
             rank = player["newPackageRank"]
             if "_PLUS" in rank:
                 rank = rank.replace("_PLUS", '+')
-            full_ign = "{} {}".format(rank, player_name)
+            full_ign = f"{rank} {player_name}"
         else:
             rank = None
             full_ign = player_name
 
-        em = discord.Embed(title="Bedwars Stats:",
-                           description="For {}".format(full_ign), color=ctx.author.color)
+        em = discord.Embed(
+            title="Bedwars Stats:",
+            description=f"For {full_ign}",
+            color=ctx.author.color,
+        )
         em.timestamp = datetime.datetime.utcnow()
         stats_values = [bw_level, bw_wins, bw_losses, bw_winstreak, bw_coins, bw_gold,
                         bw_iron, bw_dias, bw_ems, bw_resources, bw_kills, bw_deaths, bw_beds, bw_finals]

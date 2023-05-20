@@ -44,12 +44,10 @@ class DropdownView(discord.ui.View):
 async def get_weather_data(city):
     BASE_URL = "https://api.openweathermap.org/data/2.5/weather?"
     API_KEY = os.environ['WEATHER']
-    
+
     url = f"{BASE_URL}q={city}&appid={API_KEY}&units=metric"
 
-    data = await get_url_json(url)
-
-    return data
+    return await get_url_json(url)
 
 async def format_weather_data(data):
     weather = data['weather'][0]

@@ -23,7 +23,7 @@ async def lb(self, ctx):
     bg_img = Editor(bg).rotate(90.0)
     leaderboard_image.rectangle((0, 0), width=680, height=800, fill="#23272A")
     leaderboard_image.paste(bg_img, (-600, 0))
-    
+
     n = 0
     yp = 5
 
@@ -35,15 +35,13 @@ async def lb(self, ctx):
 
             if member.avatar is None:
                 profile_image = await load_image_async("https://cdn.logojoy.com/wp-content/uploads/20210422095037/discord-mascot.png")
-                person_avatar = Editor(profile_image).resize((60, 60)).circle_image()
             else:
                 profile_image = await load_image_async(str(member.avatar.url))
-                person_avatar = Editor(profile_image).resize((60, 60)).circle_image()
-
+            person_avatar = Editor(profile_image).resize((60, 60)).circle_image()
             person.paste(person_avatar, (7, 7))
-            
+
             poppins_medium = Font.poppins(variant="bold", size=25)
-            
+
             person.text((100, 20), f"#{n+1}  ●  {member.display_name}  ●  LVL: {i.level}", font=poppins_medium, color="white", align="left")
 
 
@@ -55,7 +53,7 @@ async def lb(self, ctx):
             print(e)
         if n == 10:
             break 
-    
+
     leaderboard_image.save(f"./tempstorage/leveling{ctx.author.id}.png")
 
     await ctx.send(file=discord.File(f"./tempstorage/leveling{ctx.author.id}.png"))
@@ -67,10 +65,10 @@ class Leveling(commands.Cog):
     @commands.command(aliases=['lvl'], extras={"category":"Leveling"}, usage="rank [@user(optional)]", help="This command shows your rank for the leveling system.", description="Shows your rank image")
     @commands.check(plugin_enabled)
     async def rank(self, ctx, member:discord.Member=None):
-        if member == None:
+        if member is None:
             data = await lvl.get_data_for(ctx.author)
         else:
-             data = await lvl.get_data_for(member)
+            data = await lvl.get_data_for(member)
 
         LEVELS_AND_XP = {
             '0': 0,'1': 100,'2': 255,'3': 475,
@@ -88,10 +86,8 @@ class Leveling(commands.Cog):
             '93': 1542250,'94': 1590245,'95': 1639225,'96': 1689200,'97': 1740180,'98': 1792175,'99': 1845195,'100': 1899250
         }
 
-        if member == None:
+        if member is None:
             member = ctx.author
-        else:
-            pass
         arank = data.xp
         brank = LEVELS_AND_XP[f"{data.level+1}"]
         frac = arank/brank
@@ -125,7 +121,7 @@ class Leveling(commands.Cog):
             fill="#00fa81",
             radius=20,
         )
-        
+
         background.text((270, 120), user_data["name"], font=poppins, color="#00fa81")
         background.text(
             (870, 125),

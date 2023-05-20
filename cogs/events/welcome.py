@@ -13,8 +13,6 @@ async def generate_welcome_message(client, member, guild):
     welcome_text_color = data['welcome']["text_color"]
     welcome_text_footer = data['welcome']["text_footer"]
 
-    welcome_profile_url = "https://cdn.logojoy.com/wp-content/uploads/20210422095037/discord-mascot.png"
-
     welcome_image = Editor(Canvas((900, 270)))
 
     if welcome_bg_color is None:
@@ -46,7 +44,9 @@ async def generate_welcome_message(client, member, guild):
     if member.avatar is not None:
         profile_image = await load_image_async(str(member.avatar.url))
     else:
-        profile_image = await load_image_async(str(welcome_profile_url))
+        welcome_profile_url = "https://cdn.logojoy.com/wp-content/uploads/20210422095037/discord-mascot.png"
+
+        profile_image = await load_image_async(welcome_profile_url)
     profile = Editor(profile_image).resize((200, 200)).circle_image()
     welcome_image.paste(profile, (40, 35))
 

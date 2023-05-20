@@ -50,8 +50,7 @@ class Log():
     def file(self):
         data = []
         with open(self.path, 'r') as f:
-            for i in f:
-                data.append(i)
+            data.extend(iter(f))
         return data
 
 
@@ -62,10 +61,7 @@ class Log():
         todays_date = datetime.now().strftime("%d/%m/%Y")
 
         with open(self.path, 'r') as f:
-            for line in f:
-                if todays_date in line:
-                    data.append(line)
-        
+            data.extend(line for line in f if todays_date in line)
         return data
     
 
@@ -73,8 +69,5 @@ class Log():
         data = []
 
         with open(self.path, 'r') as f:
-            for line in f:
-                if date in line:
-                    data.append(line)
-        
+            data.extend(line for line in f if date in line)
         return data

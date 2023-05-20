@@ -10,12 +10,11 @@ import random
 load_dotenv()
 
 def reddit_client():
-    client = asyncpraw.Reddit(
+    return asyncpraw.Reddit(
         client_id=os.environ['CLIENT_ID'],
         client_secret=os.environ['CLIENT_SECRET'],
-        user_agent="memes-fastapi"
+        user_agent="memes-fastapi",
     )
-    return client
 
 
 def is_image(post):
